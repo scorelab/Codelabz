@@ -5,11 +5,11 @@ import { UserIsAuthenticated, UserIsNotAuthenticated } from "./auth";
 import { useSelector } from "react-redux";
 import { isLoaded } from "react-redux-firebase";
 import Home from "./components/Home";
-import Login from "./components/Login";
+import AuthPage from "./components/AuthPage";
 import Spinner from "./helpers/spinner";
 
 const AuthIsLoaded = ({ children }) => {
-  const auth = useSelector(state => state.firebase.auth);
+  const auth = useSelector((state) => state.firebase.auth);
   if (!isLoaded(auth)) return <Spinner />;
   return children;
 };
@@ -23,7 +23,7 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            component={UserIsNotAuthenticated(Login)}
+            component={UserIsNotAuthenticated(AuthPage)}
           />
           <Route
             exact
