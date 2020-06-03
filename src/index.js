@@ -6,7 +6,6 @@ import * as serviceWorker from "./serviceWorker";
 import store, { rrfProps } from "./store";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { Provider } from "react-redux";
-import "antd/dist/antd.css";
 
 ReactDOM.render(
   <Provider store={store}>
