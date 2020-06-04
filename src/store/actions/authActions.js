@@ -6,6 +6,7 @@ export const signIn = credentials => async (firebase, history) => {
     history.push("/dashboard");
   } catch (e) {
     console.log(e.message);
+    throw e.message;
   }
 };
 

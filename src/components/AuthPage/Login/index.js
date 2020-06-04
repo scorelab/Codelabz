@@ -13,16 +13,9 @@ import {
   Card,
   Checkbox,
   Divider,
-  Space
 } from "antd";
-import {
-  MailOutlined,
-  LockOutlined,
-  GoogleOutlined,
-  FacebookOutlined,
-  TwitterOutlined,
-  GithubOutlined
-} from "@ant-design/icons";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import SmButtons from "../smButtons";
 const { Title } = Typography;
 
 const Login = () => {
@@ -31,7 +24,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const onSubmit = async values => {
+  const onSubmit = async (values) => {
     setError("");
     setLoading(true);
     try {
@@ -42,6 +35,7 @@ const Login = () => {
     } catch (err) {
       setError(err);
     }
+    setLoading(false);
   };
 
   return (
@@ -49,7 +43,6 @@ const Login = () => {
       <Title level={2} style={{ textAlign: "center", marginBottom: "40px" }}>
         Welcome back!
       </Title>
-      <p />
 
       {error && (
         <Alert
@@ -57,7 +50,7 @@ const Login = () => {
           description={error}
           type="error"
           closable
-          className="login-error"
+          className="mb-16"
         />
       )}
 
@@ -67,12 +60,12 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your email address"
+              message: "Please input your email address",
             },
             {
               type: "email",
-              message: "Please enter a valid email address"
-            }
+              message: "Please enter a valid email address",
+            },
           ]}
         >
           <Input
@@ -105,35 +98,11 @@ const Login = () => {
         </Form.Item>
       </Form>
       <Divider>or</Divider>
-      <Row justify="center" align="center">
-        <Col sm={16} className="center">
-          <Space>
-            <Button
-              shape="circle"
-              size="large"
-              icon={<GoogleOutlined style={{ color: "#db3236" }} />}
-            />
-            <Button
-              shape="circle"
-              size="large"
-              icon={<FacebookOutlined style={{ color: "#4267B2" }} />}
-            />
-            <Button
-              shape="circle"
-              size="large"
-              icon={<TwitterOutlined style={{ color: "#1DA1F2" }} />}
-            />
-            <Button
-              shape="circle"
-              size="large"
-              icon={<GithubOutlined style={{ color: "#211F1F" }} />}
-            />
-          </Space>
-        </Col>
-      </Row>
+      <SmButtons />
       <Row justify="center" align="center" className="mt-24">
         <Col sm={24} className="center">
-          New to CodeLabz? <Link to={"/signup"}>Create an account</Link>
+          New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
+          <Link to={"/signup"}>Create an account</Link>
         </Col>
       </Row>
     </Card>
