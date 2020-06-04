@@ -12,7 +12,7 @@ import {
   Alert,
   Card,
   Checkbox,
-  Divider,
+  Divider
 } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import SmButtons from "../smButtons";
@@ -24,7 +24,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const onSubmit = async (values) => {
+  const onSubmit = async values => {
     setError("");
     setLoading(true);
     try {
@@ -60,12 +60,12 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your email address",
+              message: "Please input your email address"
             },
             {
               type: "email",
-              message: "Please enter a valid email address",
-            },
+              message: "Please enter a valid email address"
+            }
           ]}
         >
           <Input
