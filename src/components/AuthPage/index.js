@@ -1,9 +1,16 @@
 import React from "react";
 import { Button, Row, Col, PageHeader } from "antd";
-import Login from "../Login";
 import authImage from "../../assets/images/auth-image.svg";
+import { Link } from "react-router-dom";
 
-const AuthPage = () => {
+/**
+ *AuthPage HigherOrderComponent
+ * @param {function} Component - ReactJSX Component
+ * @param {string} type - Auth type (login | signup)
+ * @returns {function(): *}
+ * @constructor
+ */
+const AuthPage = (Component, type) => () => {
   return (
     <>
       <Row>
@@ -13,12 +20,12 @@ const AuthPage = () => {
             title={<h2 style={{ color: "#3AAFA9" }}>CodeLabz</h2>}
             backIcon={false}
             extra={[
-              <Button key="2" type="link">
-                Sign In
+              <Button key="2" type={type === "login" ? "primary" : "link"}>
+                <Link to={"/login"}>Sign In</Link>
               </Button>,
-              <Button key="1" type="primary">
-                Sign Up
-              </Button>,
+              <Button key="1" type={type === "signup" ? "primary" : "link"}>
+                <Link to={"/signup"}>Sign Up</Link>
+              </Button>
             ]}
           />
         </Col>
@@ -37,7 +44,7 @@ const AuthPage = () => {
           />
         </Col>
         <Col xs={24} sm={8} className="auth-form-col">
-          <Login />
+          {Component}
         </Col>
       </Row>
     </>
