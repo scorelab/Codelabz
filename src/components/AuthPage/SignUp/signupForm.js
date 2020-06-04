@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import { Alert, Button, Form, Input, Checkbox } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { signUp } from "../../../store/actions";
+import { useFirebase } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
 
-  const onSubmit = async (values) => {
+  const onSubmit = async ({ accepted, email, password }) => {
     setError("");
     setLoading(true);
     try {
-      console.log(values);
+      if (accepted) {
+        await signUp({ email, password })(firebase, dispatch);
+        setLoading(false);
+      } else {
+        setLoading(false);
+        return setError("Please accept the terms and conditions to proceed.");
+      }
     } catch (err) {
+      setLoading(false);
       setError(err);
     }
   };
@@ -29,16 +41,16 @@ const SignupForm = () => {
       )}
       <Form onFinish={onSubmit}>
         <Form.Item
-          name={"us_email"}
+          name={"email"}
           rules={[
             {
               required: true,
-              message: "Please enter your email address",
+              message: "Please enter your email address"
             },
             {
               type: "email",
-              message: "Please enter a valid email address",
-            },
+              message: "Please enter a valid email address"
+            }
           ]}
         >
           <Input
@@ -47,12 +59,12 @@ const SignupForm = () => {
           />
         </Form.Item>
         <Form.Item
-          name="us_password"
+          name="password"
           rules={[
             {
               required: true,
-              message: "Please enter a password",
-            },
+              message: "Please enter a password"
+            }
           ]}
           hasFeedback
         >
@@ -63,23 +75,23 @@ const SignupForm = () => {
         </Form.Item>
         <Form.Item
           name="confirm"
-          dependencies={["us_password"]}
+          dependencies={["password"]}
           hasFeedback
           rules={[
             {
               required: true,
-              message: "Please re-type the password",
+              message: "Please re-type the password"
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
-                if (!value || getFieldValue("us_password") === value) {
+                if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
                   "The two passwords that you entered does not match"
                 );
-              },
-            }),
+              }
+            })
           ]}
         >
           <Input.Password
@@ -89,7 +101,7 @@ const SignupForm = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Form.Item name="accepted" valuePropName="checked" noStyle>
             <Checkbox>I accept the terms and conditions</Checkbox>
           </Form.Item>
         </Form.Item>

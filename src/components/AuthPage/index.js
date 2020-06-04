@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Row, Col, PageHeader } from "antd";
 import signinImage from "../../assets/images/signin-image.svg";
 import signupImage from "../../assets/images/signup-image.svg";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import BrandName from "../brandName";
 import Login from "./Login";
@@ -18,7 +18,9 @@ const AuthPage = ({ type }) => {
             className="site-page-header"
             title={
               <h3 style={{ color: "#3AAFA9" }} className="brand-font">
-                <BrandName />
+                <Link to={"/"}>
+                  <BrandName />
+                </Link>
               </h3>
             }
             backIcon={false}
@@ -67,4 +69,4 @@ const AuthPage = ({ type }) => {
   );
 };
 
-export default withRouter(UserIsNotAuthenticated(AuthPage));
+export default UserIsNotAuthenticated(AuthPage);

@@ -22,7 +22,7 @@ export const signOut = () => async (firebase, history) => {
 export const signUp = userData => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SIGN_UP_START });
-    const { us_email: email, us_password: password } = userData;
+    const { email, password } = userData;
     await firebase.createUser({ email, password }, { email });
     await firebase.logout();
     dispatch({ type: actions.SIGN_UP_SUCCESS });
