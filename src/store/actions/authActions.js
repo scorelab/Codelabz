@@ -1,9 +1,10 @@
-export const signIn = credentials => async (firebase, history) => {
+export const signIn = (credentials) => async (firebase, history) => {
   try {
     await firebase.login(credentials);
     history.push("/dashboard");
   } catch (e) {
     console.log(e.message);
+    throw e.message;
   }
 };
 
