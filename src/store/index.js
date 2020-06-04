@@ -14,7 +14,8 @@ const rrfConfig = {
   presence: "cl_user_presence",
   sessions: "cl_user_sessions",
   profileFactory: ({ user }) => ({
-    email: user.email
+    email: user.email,
+    uid: user.uid
   }),
   useFirestoreForProfile: true, // Firestore for Profile instead of Realtime
   attachAuthIsReady: true
