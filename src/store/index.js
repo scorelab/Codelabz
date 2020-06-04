@@ -10,7 +10,12 @@ import firebase from "../config";
 
 // react-redux-firebase config
 const rrfConfig = {
-  userProfile: null,
+  userProfile: "cl_user", // Profile data stored in Firestore/cl_user/user_id
+  presence: "cl_user_presence",
+  sessions: "cl_user_sessions",
+  profileFactory: ({ user }) => ({
+    email: user.email
+  }),
   useFirestoreForProfile: true, // Firestore for Profile instead of Realtime
   attachAuthIsReady: true
 };

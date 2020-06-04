@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFirebase } from "react-redux-firebase";
 import { Link, useHistory } from "react-router-dom";
-import { signIn } from "../../store/actions";
+import { signIn } from "../../../store/actions";
 import {
   Form,
   Input,
@@ -13,16 +13,15 @@ import {
   Card,
   Checkbox,
   Divider,
-  Space,
+  Space
 } from "antd";
 import {
   MailOutlined,
   LockOutlined,
-  SearchOutlined,
   GoogleOutlined,
   FacebookOutlined,
   TwitterOutlined,
-  GithubOutlined,
+  GithubOutlined
 } from "@ant-design/icons";
 const { Title } = Typography;
 
@@ -32,7 +31,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const onSubmit = async (values) => {
+  const onSubmit = async values => {
     setError("");
     setLoading(true);
     try {
@@ -50,7 +49,7 @@ const Login = () => {
       <Title level={2} style={{ textAlign: "center", marginBottom: "40px" }}>
         Welcome back!
       </Title>
-      <p></p>
+      <p />
 
       {error && (
         <Alert
@@ -68,12 +67,12 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your email address",
+              message: "Please input your email address"
             },
             {
               type: "email",
-              message: "Please enter a valid email address",
-            },
+              message: "Please enter a valid email address"
+            }
           ]}
         >
           <Input
@@ -95,9 +94,9 @@ const Login = () => {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-          <a href="./" className="login-form-forgot" style={{ float: "right" }}>
+          <Link to="/" className="login-form-forgot" style={{ float: "right" }}>
             Forgot password
-          </a>
+          </Link>
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
@@ -134,7 +133,7 @@ const Login = () => {
       </Row>
       <Row justify="center" align="center" className="mt-24">
         <Col sm={24} className="center">
-          New to CodeLabz? <a href="./">Create an account</a>
+          New to CodeLabz? <Link to={"/signup"}>Create an account</Link>
         </Col>
       </Row>
     </Card>
