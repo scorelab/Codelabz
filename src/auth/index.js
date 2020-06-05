@@ -15,7 +15,7 @@ export const UserIsAuthenticated = connectedRouterRedirect({
   authenticatingSelector: ({ firebase: { auth, profile, isInitializing } }) =>
     !auth.isLoaded || isInitializing === true,
   authenticatedSelector: ({ firebase: { auth } }) =>
-    auth.isLoaded && !auth.isEmpty,
+    auth.isLoaded && !auth.isEmpty && auth.emailVerified,
   redirectAction: newLoc => dispatch => {
     browserHistory.replace(newLoc); // or routerActions.replace
     dispatch({ type: "UNAUTHED_REDIRECT" });
@@ -31,7 +31,7 @@ export const UserIsNotAuthenticated = connectedRouterRedirect({
   authenticatingSelector: ({ firebase: { auth, isInitializing } }) =>
     !auth.isLoaded || isInitializing === true,
   authenticatedSelector: ({ firebase: { auth } }) =>
-    auth.isLoaded && auth.isEmpty,
+    (auth.isLoaded && auth.isEmpty) || !auth.emailVerified,
   redirectAction: newLoc => dispatch => {
     browserHistory.replace(newLoc); // or routerActions.replace
     dispatch({ type: "UNAUTHED_REDIRECT" });

@@ -30,7 +30,7 @@ const AuthPage = ({ type }) => {
               </Button>,
               <Button key="1" type={type === "signup" ? "primary" : "link"}>
                 <Link to={"/signup"}>Sign Up</Link>
-              </Button>,
+              </Button>
             ]}
           />
         </Col>
