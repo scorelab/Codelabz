@@ -43,7 +43,9 @@ const AuthPage = ({ type }) => {
       >
         <Col
           xs={0}
-          sm={14}
+          sm={0}
+          md={12}
+          lg={14}
           order={type === "login" ? 1 : 2}
           className="auth-image-col"
         >
@@ -58,7 +60,9 @@ const AuthPage = ({ type }) => {
         </Col>
         <Col
           xs={24}
-          sm={8}
+          sm={24}
+          md={10}
+          lg={8}
           order={type === "login" ? 2 : 1}
           className="auth-form-col"
         >

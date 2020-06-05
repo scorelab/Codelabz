@@ -7,6 +7,7 @@ import { isLoaded } from "react-redux-firebase";
 import Home from "./components/Home";
 import AuthPage from "./components/AuthPage";
 import Spinner from "./helpers/spinner";
+import Navbar from "./components/NavBar";
 
 const AuthIsLoaded = ({ children }) => {
   const auth = useSelector(({ firebase }) => firebase.auth);
@@ -18,6 +19,7 @@ const Routes = () => {
   return (
     <Router>
       <AuthIsLoaded>
+        <Navbar />
         <Switch>
           <Route exact path={"/"} component={Home} />
           <Route
@@ -31,6 +33,7 @@ const Routes = () => {
             path={"/signup"}
             render={(props) => <AuthPage {...props} type={"signup"} />}
           />
+          <Route exact path={"/dash"} component={Dashboard} />
           <Route
             exact
             path={"/dashboard"}
