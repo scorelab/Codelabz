@@ -3,7 +3,10 @@ export {
   signOut,
   signUp,
   clearAuthError,
-  recoverPassword,
-  resetPassword,
-  verifyEmail
+  sendPasswordResetEmail,
+  confirmPasswordReset,
+  verifyEmail,
+  verifyPasswordResetCode,
+  checkActionCode,
+  resendVerifyEmail
 } from "./authActions";
