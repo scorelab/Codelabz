@@ -12,7 +12,7 @@ import {
   Alert,
   Card,
   Checkbox,
-  Divider
+  Divider,
 } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import SmButtons from "../smButtons";
@@ -36,14 +36,17 @@ const Login = () => {
     [dispatch]
   );
 
-  const onSubmit = async values => {
+  const onSubmit = async (values) => {
     setError("");
     setLoading(true);
-    await signIn({ email: values.email, password: values.password })(
-      firebase,
-      history
-    );
-    setLoading(false);
+    try {
+      await signIn({ email: values.email, password: values.password })(
+        firebase,
+        history
+      );
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (
@@ -68,12 +71,12 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your email address"
+              message: "Please input your email address",
             },
             {
               type: "email",
-              message: "Please enter a valid email address"
-            }
+              message: "Please enter a valid email address",
+            },
           ]}
         >
           <Input

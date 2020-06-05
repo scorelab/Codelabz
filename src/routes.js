@@ -33,7 +33,6 @@ const Routes = () => {
             path={"/signup"}
             render={(props) => <AuthPage {...props} type={"signup"} />}
           />
-          <Route exact path={"/dash"} component={Dashboard} />
           <Route
             exact
             path={"/dashboard"}

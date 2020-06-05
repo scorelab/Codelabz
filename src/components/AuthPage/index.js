@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Row, Col, PageHeader } from "antd";
 import signinImage from "../../assets/images/signin-image.svg";
 import signupImage from "../../assets/images/signup-image.svg";
@@ -10,6 +10,17 @@ import SignUp from "./SignUp";
 import { UserIsNotAuthenticated } from "../../auth";
 
 const AuthPage = ({ type }) => {
+  const [show, setShow] = useState(false);
+  const [showType, setShowType] = useState(type);
+
+  useEffect(() => {
+    setShow(false);
+    setTimeout(() => {
+      setShowType(type);
+      setShow(true);
+    }, 200);
+  }, [type]);
+
   return (
     <>
       <Row>
@@ -30,7 +41,7 @@ const AuthPage = ({ type }) => {
               </Button>,
               <Button key="1" type={type === "signup" ? "primary" : "link"}>
                 <Link to={"/signup"}>Sign Up</Link>
-              </Button>
+              </Button>,
             ]}
           />
         </Col>
@@ -38,7 +49,7 @@ const AuthPage = ({ type }) => {
 
       <Row
         align="middle"
-        style={{ height: "calc(100vh - 87px)" }}
+        style={{ height: "calc(100vh - 87px)", overflowX: "hidden" }}
         justify="center"
       >
         <Col
@@ -46,15 +57,19 @@ const AuthPage = ({ type }) => {
           sm={0}
           md={12}
           lg={14}
-          order={type === "login" ? 1 : 2}
+          order={showType === "login" ? 1 : 2}
           className="auth-image-col"
         >
-          <Fade left opposite when={true}>
+          <Fade
+            left={showType === "login"}
+            right={showType === "signup"}
+            when={show}
+          >
             <img
-              src={type === "login" ? signinImage : signupImage}
+              src={showType === "login" ? signinImage : signupImage}
               alt="Background for auth"
               width="100%"
-              className={type === "login" ? "signin-image" : "signup-image"}
+              className={showType === "login" ? "signin-image" : "signup-image"}
             />
           </Fade>
         </Col>
@@ -63,10 +78,16 @@ const AuthPage = ({ type }) => {
           sm={24}
           md={10}
           lg={8}
-          order={type === "login" ? 2 : 1}
+          order={showType === "login" ? 2 : 1}
           className="auth-form-col"
         >
-          {type === "login" ? <Login /> : <SignUp />}
+          <Fade
+            left={showType === "login"}
+            right={showType === "signup"}
+            when={show}
+          >
+            {showType === "login" ? <Login /> : <SignUp />}
+          </Fade>
         </Col>
       </Row>
     </>
