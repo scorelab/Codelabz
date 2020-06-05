@@ -1,16 +1,17 @@
 import * as actions from "./actionTypes";
 import { actionTypes as reactReduxActionTypes } from "react-redux-firebase";
 
-export const signIn = credentials => async (firebase, history) => {
+export const signIn = (credentials) => async (firebase, history) => {
   try {
     await firebase.login(credentials);
     history.push("/dashboard");
   } catch (e) {
     console.log(e.message);
+    throw e.message;
   }
 };
 
-export const signOut = () => async firebase => {
+export const signOut = () => async (firebase) => {
   try {
     await firebase.logout();
   } catch (e) {
@@ -18,7 +19,7 @@ export const signOut = () => async firebase => {
   }
 };
 
-export const signUp = userData => async (firebase, dispatch) => {
+export const signUp = (userData) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SIGN_UP_START });
     const { email, password } = userData;
@@ -30,12 +31,12 @@ export const signUp = userData => async (firebase, dispatch) => {
   }
 };
 
-export const clearAuthError = () => async dispatch => {
+export const clearAuthError = () => async (dispatch) => {
   dispatch({ type: reactReduxActionTypes.LOGIN_ERROR, authError: null });
   dispatch({ type: actions.CLEAR_STATE });
 };
 
-export const recoverPassword = email => async (firebase, dispatch) => {
+export const recoverPassword = (email) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.RECOVERY_START });
     await firebase.auth().sendPasswordResetEmail(email);
@@ -56,7 +57,7 @@ export const resetPassword = ({ actionCode, password }) => async (
   }
 };
 
-export const verifyEmail = actionCode => async (firebase, dispatch) => {
+export const verifyEmail = (actionCode) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.RECOVERY_START });
     await firebase.auth().applyActionCode(actionCode);
