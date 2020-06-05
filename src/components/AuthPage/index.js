@@ -5,14 +5,11 @@ import signupImage from "../../assets/images/signup-image.svg";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import BrandName from "../brandName";
-/**
- *AuthPage HigherOrderComponent
- * @param {function} Component - ReactJSX Component
- * @param {string} type - Auth type (login | signup)
- * @returns {function(): *}
- * @constructor
- */
-const AuthPage = (Component, type) => () => {
+import Login from "./Login";
+import SignUp from "./SignUp";
+import { UserIsNotAuthenticated } from "../../auth";
+
+const AuthPage = ({ type }) => {
   return (
     <>
       <Row>
@@ -21,7 +18,9 @@ const AuthPage = (Component, type) => () => {
             className="site-page-header"
             title={
               <h3 style={{ color: "#3AAFA9" }} className="brand-font">
-                <BrandName />
+                <Link to={"/"}>
+                  <BrandName />
+                </Link>
               </h3>
             }
             backIcon={false}
@@ -31,7 +30,7 @@ const AuthPage = (Component, type) => () => {
               </Button>,
               <Button key="1" type={type === "signup" ? "primary" : "link"}>
                 <Link to={"/signup"}>Sign Up</Link>
-              </Button>,
+              </Button>
             ]}
           />
         </Col>
@@ -63,11 +62,11 @@ const AuthPage = (Component, type) => () => {
           order={type === "login" ? 2 : 1}
           className="auth-form-col"
         >
-          {Component}
+          {type === "login" ? <Login /> : <SignUp />}
         </Col>
       </Row>
     </>
   );
 };
 
-export default AuthPage;
+export default UserIsNotAuthenticated(AuthPage);
