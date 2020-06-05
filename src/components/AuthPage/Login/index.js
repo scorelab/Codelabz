@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFirebase } from "react-redux-firebase";
 import { Link, useHistory } from "react-router-dom";
-import { signIn } from "../../../store/actions";
+import { clearAuthError, signIn } from "../../../store/actions";
 import {
   Form,
   Input,
@@ -16,6 +16,7 @@ import {
 } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import SmButtons from "../smButtons";
+import { useSelector, useDispatch } from "react-redux";
 const { Title } = Typography;
 
 const Login = () => {
@@ -23,18 +24,25 @@ const Login = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const authError = useSelector(({ firebase }) => firebase.authError);
+  const dispatch = useDispatch();
+
+  useEffect(() => setError(authError && authError.message), [authError]);
+
+  useEffect(
+    () => () => {
+      clearAuthError()(dispatch);
+    },
+    [dispatch]
+  );
 
   const onSubmit = async values => {
     setError("");
     setLoading(true);
-    try {
-      await signIn({ email: values.email, password: values.password })(
-        firebase,
-        history
-      );
-    } catch (err) {
-      setError(err);
-    }
+    await signIn({ email: values.email, password: values.password })(
+      firebase,
+      history
+    );
     setLoading(false);
   };
 

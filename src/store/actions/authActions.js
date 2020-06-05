@@ -1,4 +1,5 @@
 import * as actions from "./actionTypes";
+import { actionTypes as reactReduxActionTypes } from "react-redux-firebase";
 
 export const signIn = credentials => async (firebase, history) => {
   try {
@@ -6,14 +7,12 @@ export const signIn = credentials => async (firebase, history) => {
     history.push("/dashboard");
   } catch (e) {
     console.log(e.message);
-    throw e.message;
   }
 };
 
-export const signOut = () => async (firebase, history) => {
+export const signOut = () => async firebase => {
   try {
     await firebase.logout();
-    history.push("/login");
   } catch (e) {
     console.log(e.message);
   }
@@ -27,7 +26,10 @@ export const signUp = userData => async (firebase, dispatch) => {
     await firebase.logout();
     dispatch({ type: actions.SIGN_UP_SUCCESS });
   } catch (e) {
-    dispatch({ type: actions.SIGN_UP_FAIL, payload: e.message });
-    console.log(e.message);
+    dispatch({ type: actions.SIGN_UP_FAIL });
   }
+};
+
+export const clearAuthError = () => async dispatch => {
+  dispatch({ type: reactReduxActionTypes.LOGIN_ERROR, authError: null });
 };

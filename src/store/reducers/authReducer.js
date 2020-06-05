@@ -9,7 +9,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case actions.SIGN_IN_START:
+    case actions.SIGN_UP_START:
       return {
         ...state,
         profile: {
@@ -18,7 +18,7 @@ export default (state = initialState, { type, payload }) => {
         }
       };
 
-    case actions.SIGN_IN_SUCCESS:
+    case actions.SIGN_UP_SUCCESS:
       return {
         ...state,
         profile: {
@@ -28,13 +28,12 @@ export default (state = initialState, { type, payload }) => {
         }
       };
 
-    case actions.SIGN_IN_FAIL:
+    case actions.SIGN_UP_FAIL:
       return {
         ...state,
         profile: {
           ...state.profile,
-          loading: false,
-          error: payload
+          loading: false
         }
       };
 

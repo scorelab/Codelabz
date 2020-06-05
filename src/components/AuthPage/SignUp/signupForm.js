@@ -1,31 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, Form, Input, Checkbox } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { signUp } from "../../../store/actions";
+import { clearAuthError, signUp } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const authError = useSelector(({ firebase }) => firebase.authError);
+
+  useEffect(() => setError(authError && authError.message), [authError]);
+
+  useEffect(
+    () => () => {
+      clearAuthError()(dispatch);
+    },
+    [dispatch]
+  );
 
   const onSubmit = async ({ accepted, email, password }) => {
     setError("");
     setLoading(true);
-    try {
-      if (accepted) {
-        await signUp({ email, password })(firebase, dispatch);
-        setLoading(false);
-      } else {
-        setLoading(false);
-        return setError("Please accept the terms and conditions to proceed.");
-      }
-    } catch (err) {
-      setLoading(false);
-      setError(err);
+    if (accepted) {
+      await signUp({ email, password })(firebase, dispatch);
+    } else {
+      return setError("Please accept the terms and conditions to proceed.");
     }
+    setLoading(false);
   };
 
   return (
@@ -39,6 +43,7 @@ const SignupForm = () => {
           className="login-error"
         />
       )}
+      <br />
       <Form onFinish={onSubmit}>
         <Form.Item
           name={"email"}
