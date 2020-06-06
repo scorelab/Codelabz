@@ -14,11 +14,7 @@ import { MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearAuthError,
-  sendPasswordResetEmail,
-  clearRecoverPasswordError
-} from "../../../store/actions";
+import { clearAuthError, sendPasswordResetEmail } from "../../../store/actions";
 const { Title } = Typography;
 
 const ForgotPassword = () => {
@@ -26,8 +22,8 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const errorProps = useSelector(({ auth }) => auth.recoverPassword.error);
-  const loadingProps = useSelector(({ auth }) => auth.recoverPassword.loading);
+  const errorProps = useSelector(({ auth }) => auth.profile.error);
+  const loadingProps = useSelector(({ auth }) => auth.profile.loading);
   const dispatch = useDispatch();
 
   useEffect(() => setError(errorProps), [errorProps]);
@@ -44,7 +40,6 @@ const ForgotPassword = () => {
   useEffect(
     () => () => {
       clearAuthError()(dispatch);
-      clearRecoverPasswordError()(dispatch);
     },
     [dispatch]
   );

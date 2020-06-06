@@ -59,11 +59,11 @@ export const clearRecoverPasswordError = () => async dispatch => {
 
 export const sendPasswordResetEmail = email => async (firebase, dispatch) => {
   try {
-    dispatch({ type: actions.PASSWORD_RECOVERY_START });
+    dispatch({ type: actions.SEND_RESET_EMAIL_START });
     await firebase.resetPassword(email);
-    dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
+    dispatch({ type: actions.SEND_RESET_EMAIL_SUCCESS });
   } catch (e) {
-    dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
+    dispatch({ type: actions.SEND_RESET_EMAIL_FAIL, payload: e.message });
   }
 };
 
@@ -90,22 +90,6 @@ export const confirmPasswordReset = ({ actionCode, password }) => async (
     dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
   } catch (e) {
     dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
-  }
-};
-
-/**
- *Workflow to verify an email
- * 1. call checkActionCode with actionCode
- * 2. call verifyEmail with actionCode
- */
-
-export const checkActionCode = actionCode => async (firebase, dispatch) => {
-  try {
-    dispatch({ type: actions.EMAIL_VERIFY_START });
-    const response = await firebase.auth().checkActionCode(actionCode);
-    dispatch({ type: actions.EMAIL_VERIFY_SUCCESS, payload: response });
-  } catch (e) {
-    dispatch({ type: actions.EMAIL_VERIFY_FAIL, payload: e.message });
   }
 };
 

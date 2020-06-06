@@ -12,9 +12,11 @@ const PasswordResetForm = ({ actionCode }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const errorProp = useSelector(({ auth }) => auth.recoverPassword.error);
-  const loadingProp = useSelector(({ auth }) => auth.recoverPassword.loading);
-  const email = useSelector(({ auth }) => auth.profile.user);
+  const errorProp = useSelector(({ auth }) => auth.recoverPassword.resetError);
+  const loadingProp = useSelector(
+    ({ auth }) => auth.recoverPassword.resetLoading
+  );
+  const email = useSelector(({ auth }) => auth.recoverPassword.user);
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);

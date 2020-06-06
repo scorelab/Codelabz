@@ -7,7 +7,6 @@ export {
   confirmPasswordReset,
   verifyEmail,
   verifyPasswordResetCode,
-  checkActionCode,
   resendVerifyEmail,
   clearRecoverPasswordError
 } from "./authActions";

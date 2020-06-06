@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  clearAuthError,
+  clearRecoverPasswordError,
   verifyPasswordResetCode
 } from "../../../store/actions";
 import { Alert, Card, Col, Row, Typography } from "antd";
@@ -17,8 +17,8 @@ const ResetPassword = ({ queryParams }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const errorProps = useSelector(({ auth }) => auth.profile.error);
-  const loadingProps = useSelector(({ auth }) => auth.profile.loading);
+  const errorProps = useSelector(({ auth }) => auth.recoverPassword.error);
+  const loadingProps = useSelector(({ auth }) => auth.recoverPassword.loading);
 
   useEffect(() => {
     verifyPasswordResetCode(actionCode)(firebase, dispatch);
@@ -42,7 +42,7 @@ const ResetPassword = ({ queryParams }) => {
 
   useEffect(
     () => () => {
-      clearAuthError()(dispatch);
+      clearRecoverPasswordError()(dispatch);
     },
     [dispatch]
   );

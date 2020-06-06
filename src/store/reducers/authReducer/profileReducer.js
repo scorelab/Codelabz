@@ -2,8 +2,7 @@ import * as actions from "../../actions/actionTypes";
 
 const initialState = {
   loading: false,
-  error: null,
-  user: null
+  error: null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -13,7 +12,7 @@ export default (state = initialState, { type, payload }) => {
 
     case actions.SIGN_UP_START:
     case actions.SIGN_IN_START:
-    case actions.VERIFY_RESET_CODE_START:
+    case actions.SEND_RESET_EMAIL_START:
       return {
         ...state,
         loading: true,
@@ -22,17 +21,16 @@ export default (state = initialState, { type, payload }) => {
 
     case actions.SIGN_UP_SUCCESS:
     case actions.SIGN_IN_SUCCESS:
-    case actions.VERIFY_RESET_CODE_SUCCESS:
+    case actions.SEND_RESET_EMAIL_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false,
-        user: payload
+        error: false
       };
 
     case actions.SIGN_UP_FAIL:
     case actions.SIGN_IN_FAIL:
-    case actions.VERIFY_RESET_CODE_FAIL:
+    case actions.SEND_RESET_EMAIL_FAIL:
       return {
         ...state,
         loading: false,
