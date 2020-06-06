@@ -40,22 +40,21 @@ const SignupForm = () => {
           description={error}
           type="error"
           closable
-          className="login-error"
+          className="login-error mb-16"
         />
       )}
-      <br />
       <Form onFinish={onSubmit}>
         <Form.Item
           name={"email"}
           rules={[
             {
               required: true,
-              message: "Please enter your email address"
+              message: "Please enter your email address",
             },
             {
               type: "email",
-              message: "Please enter a valid email address"
-            }
+              message: "Please enter a valid email address",
+            },
           ]}
         >
           <Input
@@ -68,8 +67,8 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: "Please enter a password"
-            }
+              message: "Please enter a password",
+            },
           ]}
           hasFeedback
         >
@@ -85,7 +84,7 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: "Please re-type the password"
+              message: "Please re-type the password",
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
@@ -95,8 +94,8 @@ const SignupForm = () => {
                 return Promise.reject(
                   "The two passwords that you entered does not match"
                 );
-              }
-            })
+              },
+            }),
           ]}
         >
           <Input.Password

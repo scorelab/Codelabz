@@ -32,6 +32,40 @@
   justify-self: center;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  background: transparent;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 50px;
+  background-clip: padding-box;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+  width: 8px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-corner {
+  border-radius: 50%;
+}
+
 /* Margins */
 .mt-0 {
   margin-top: 0 !important;
@@ -166,4 +200,130 @@
   height: 50px;
   border-radius: 4px;
   background: #1890ff;
+}
+
+// Navbar
+
+.navbar {
+  padding-bottom: 1px;
+  border-bottom: solid 1px #e8e8e8;
+  background-color: white;
+  box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.12),
+    0 6px 16px -11px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  margin-bottom: 20px;
+  z-index: 99990;
+}
+
+.nav-header {
+  background-color: white;
+  border-bottom: 0;
+  padding: 0 0 0 20px;
+}
+
+.logo {
+  width: 200px;
+  float: left;
+}
+
+.logo a {
+  display: inline-block;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.navbar-menu {
+  width: calc(100% - 200px);
+  float: left;
+}
+.navbar-menu .ant-layout-header {
+  padding: 0 20px;
+}
+
+.navbar-menu .ant-menu-horizontal {
+  border-bottom: 0;
+}
+
+.navbar-menu .ant-menu-item {
+  padding-bottom: 0px;
+}
+
+.navbar-menu .leftMenu {
+  float: left;
+}
+
+.navbar-menu .rightMenu {
+  float: right;
+}
+
+.barsMenu {
+  float: right;
+  height: 32px;
+  padding: 6px;
+  margin-top: 10px;
+  display: none;
+  background: none;
+}
+
+.barsBtn {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: grey;
+  position: relative;
+}
+
+.barsBtn:after,
+.barsBtn:before {
+  content: attr(x);
+  width: 20px;
+  position: absolute;
+  top: -6px;
+  left: 0;
+  height: 2px;
+  background: grey;
+}
+
+.barsBtn:after {
+  top: auto;
+  bottom: -6px;
+}
+
+.ant-drawer-body {
+  padding: 0;
+}
+
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-item,
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-submenu {
+  display: inline-block;
+  width: 100%;
+}
+
+.ant-drawer-body .ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.ant-drawer-body .ant-menu-horizontal > .ant-menu-item:hover {
+  border-bottom-color: transparent;
+}
+
+@media (max-width: 767px) {
+  .barsMenu {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .leftMenu,
+  .rightMenu {
+    display: none;
+  }
+
+  .logo a {
+    margin-left: -10px;
+  }
+
+  .ant-drawer-title > .brand-font {
+    margin-bottom: 0;
+  }
 }
