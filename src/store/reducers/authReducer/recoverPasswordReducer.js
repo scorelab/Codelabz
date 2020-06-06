@@ -11,6 +11,7 @@ export default (state = initialState, { type, payload }) => {
       return initialState;
 
     case actions.RESEND_VERIFY_EMAIL_START:
+    case actions.PASSWORD_RECOVERY_START:
       return {
         ...state,
         loading: true,
@@ -18,6 +19,7 @@ export default (state = initialState, { type, payload }) => {
       };
 
     case actions.RESEND_VERIFY_EMAIL_SUCCESS:
+    case actions.PASSWORD_RECOVERY_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -25,6 +27,7 @@ export default (state = initialState, { type, payload }) => {
       };
 
     case actions.RESEND_VERIFY_EMAIL_FAIL:
+    case actions.PASSWORD_RECOVERY_FAIL:
       return {
         ...state,
         loading: false,

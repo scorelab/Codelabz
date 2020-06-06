@@ -8,5 +8,6 @@ export {
   verifyEmail,
   verifyPasswordResetCode,
   checkActionCode,
-  resendVerifyEmail
+  resendVerifyEmail,
+  clearRecoverPasswordError
 } from "./authActions";

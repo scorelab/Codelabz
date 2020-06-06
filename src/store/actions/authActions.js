@@ -46,6 +46,10 @@ export const clearAuthError = () => async dispatch => {
   dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
 };
 
+export const clearRecoverPasswordError = () => async dispatch => {
+  dispatch({ type: actions.CLEAR_AUTH_RECOVER_PASSWORD_STATE });
+};
+
 /**
  *Workflow to password reset
  * 1. call sendPasswordResetEmail with email
@@ -55,11 +59,11 @@ export const clearAuthError = () => async dispatch => {
 
 export const sendPasswordResetEmail = email => async (firebase, dispatch) => {
   try {
-    dispatch({ type: actions.RECOVERY_START });
+    dispatch({ type: actions.PASSWORD_RECOVERY_START });
     await firebase.resetPassword(email);
-    dispatch({ type: actions.RECOVERY_SUCCESS });
+    dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
   } catch (e) {
-    dispatch({ type: actions.RECOVERY_FAIL, payload: e.message });
+    dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
   }
 };
 
@@ -68,11 +72,11 @@ export const verifyPasswordResetCode = actionCode => async (
   dispatch
 ) => {
   try {
-    dispatch({ type: actions.RECOVERY_START });
-    const response = await firebase.verifyPasswordResetCode(actionCode);
-    dispatch({ type: actions.RECOVERY_SUCCESS, payload: response });
+    dispatch({ type: actions.VERIFY_RESET_CODE_START });
+    const email = await firebase.verifyPasswordResetCode(actionCode);
+    dispatch({ type: actions.VERIFY_RESET_CODE_SUCCESS, payload: email });
   } catch (e) {
-    dispatch({ type: actions.RECOVERY_FAIL, payload: e.message });
+    dispatch({ type: actions.VERIFY_RESET_CODE_FAIL, payload: e.message });
   }
 };
 
@@ -81,9 +85,11 @@ export const confirmPasswordReset = ({ actionCode, password }) => async (
   dispatch
 ) => {
   try {
+    dispatch({ type: actions.PASSWORD_RECOVERY_START });
     await firebase.confirmPasswordReset(actionCode, password);
+    dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
   } catch (e) {
-    dispatch({ type: actions.RECOVERY_FAIL, payload: e.message });
+    dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
   }
 };
 
