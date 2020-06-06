@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useFirebase } from "react-redux-firebase";
 import { Link } from "react-router-dom";
-import {
-  clearAuthError,
-  signIn,
-  resendVerifyEmail
-} from "../../../store/actions";
+import { clearAuthError, signIn } from "../../../store/actions";
 import {
   Form,
   Input,
@@ -13,7 +9,6 @@ import {
   Typography,
   Row,
   Col,
-  Alert,
   Card,
   Checkbox,
   Divider

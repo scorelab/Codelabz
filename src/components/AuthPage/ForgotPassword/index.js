@@ -22,20 +22,20 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const errorProp = useSelector(({ auth }) => auth.profile.error);
-  const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+  const errorProps = useSelector(({ auth }) => auth.profile.error);
+  const loadingProps = useSelector(({ auth }) => auth.profile.loading);
   const dispatch = useDispatch();
 
-  useEffect(() => setError(errorProp), [errorProp]);
-  useEffect(() => setLoading(loadingProp), [loadingProp]);
+  useEffect(() => setError(errorProps), [errorProps]);
+  useEffect(() => setLoading(loadingProps), [loadingProps]);
 
   useEffect(() => {
-    if (errorProp === false && loadingProp === false) {
+    if (errorProps === false && loadingProps === false) {
       setSuccess(true);
     } else {
       setSuccess(false);
     }
-  }, [errorProp, loadingProp]);
+  }, [errorProps, loadingProps]);
 
   useEffect(
     () => () => {
