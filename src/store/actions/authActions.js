@@ -1,14 +1,23 @@
 import * as actions from "./actionTypes";
-import { actionTypes as reactReduxActionTypes } from "react-redux-firebase";
+import _ from "lodash";
 import { functions } from "../../config";
 
-export const signIn = credentials => async (firebase, history) => {
+export const signIn = credentials => async (firebase, dispatch) => {
   try {
-    await firebase.login(credentials);
-    history.push("/dashboard");
+    dispatch({ type: actions.SIGN_IN_START });
+    dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
+    const userData = await firebase.login(credentials);
+    if (_.get(userData, "user.user.emailVerified", false)) {
+      dispatch({ type: actions.SIGN_IN_SUCCESS });
+    } else {
+      await firebase.logout();
+      dispatch({
+        type: actions.SIGN_IN_FAIL,
+        payload: "email-unverified"
+      });
+    }
   } catch (e) {
-    console.log(e.message);
-    throw e.message;
+    dispatch({ type: actions.SIGN_IN_FAIL, payload: e.message });
   }
 };
 
@@ -28,13 +37,13 @@ export const signUp = userData => async (firebase, dispatch) => {
     await firebase.logout();
     dispatch({ type: actions.SIGN_UP_SUCCESS });
   } catch (e) {
-    dispatch({ type: actions.SIGN_UP_FAIL, payload: e });
+    dispatch({ type: actions.SIGN_UP_FAIL, payload: e.message });
   }
 };
 
 export const clearAuthError = () => async dispatch => {
-  dispatch({ type: reactReduxActionTypes.LOGIN_ERROR, authError: null });
-  dispatch({ type: actions.CLEAR_STATE });
+  dispatch({ type: actions.CLEAR_AUTH_PROFILE_STATE });
+  dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
 };
 
 /**
@@ -106,15 +115,16 @@ export const verifyEmail = actionCode => async (firebase, dispatch) => {
 
 export const resendVerifyEmail = email => async dispatch => {
   try {
-    dispatch({ type: actions.EMAIL_VERIFY_START });
+    dispatch({ type: actions.RESEND_VERIFY_EMAIL_START });
+    dispatch({ type: actions.CLEAR_AUTH_PROFILE_STATE });
     const resendVerificationEmail = functions.httpsCallable(
       "resendVerificationEmail"
     );
     await resendVerificationEmail({
       email
     });
-    dispatch({ type: actions.EMAIL_VERIFY_SUCCESS });
+    dispatch({ type: actions.RESEND_VERIFY_EMAIL_SUCCESS });
   } catch (e) {
-    dispatch({ type: actions.EMAIL_VERIFY_FAIL, payload: e.message });
+    dispatch({ type: actions.RESEND_VERIFY_EMAIL_FAIL, payload: e.message });
   }
 };

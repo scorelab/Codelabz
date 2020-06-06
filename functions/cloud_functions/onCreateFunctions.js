@@ -7,7 +7,7 @@ exports.sendVerificationEmailHandler = async user => {
     const verificationLink = await admin
       .auth()
       .generateEmailVerificationLink(email);
-    await db.collection("cl_email").add({
+    await db.collection("cl_mail").add({
       to: email,
       template: {
         name: "verificationEmailTemplate",

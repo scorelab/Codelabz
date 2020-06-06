@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import { UserIsAuthenticated } from "./auth";
+import { UserIsAuthenticated, UserIsNotAuthenticated } from "./auth";
 import { useSelector } from "react-redux";
 import { isLoaded } from "react-redux-firebase";
 import Home from "./components/Home";
 import AuthPage from "./components/AuthPage";
 import Spinner from "./helpers/spinner";
 import Navbar from "./components/NavBar";
+import ManageUsers from "./components/ManageUsers/VerifyEmail";
 
 const AuthIsLoaded = ({ children }) => {
   const auth = useSelector(({ firebase }) => firebase.auth);
@@ -26,12 +27,22 @@ const Routes = () => {
             exact
             path={"/login"}
             authType={"login"}
-            render={(props) => <AuthPage {...props} type={"login"} />}
+            render={props => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={(props) => <AuthPage {...props} type={"signup"} />}
+            render={props => <AuthPage {...props} type={"signup"} />}
+          />
+          <Route
+            exact
+            path={"/forgotpassword"}
+            render={props => <AuthPage {...props} type={"forgotpassword"} />}
+          />
+          <Route
+            exact
+            path={"/manageusers"}
+            component={UserIsNotAuthenticated(ManageUsers)}
           />
           <Route
             exact

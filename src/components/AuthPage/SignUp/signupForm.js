@@ -8,11 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const firebase = useFirebase();
   const dispatch = useDispatch();
-  const authError = useSelector(({ firebase }) => firebase.authError);
+  const errorProp = useSelector(({ auth }) => auth.profile.error);
+  const loadingProp = useSelector(({ auth }) => auth.profile.loading);
 
-  useEffect(() => setError(authError && authError.message), [authError]);
+  useEffect(() => setError(errorProp), [errorProp]);
+  useEffect(() => setLoading(loadingProp), [loadingProp]);
 
   useEffect(
     () => () => {
@@ -21,15 +24,21 @@ const SignupForm = () => {
     [dispatch]
   );
 
+  useEffect(() => {
+    if (errorProp === false && loadingProp === false) {
+      setSuccess(true);
+    } else {
+      setSuccess(false);
+    }
+  }, [errorProp, loadingProp]);
+
   const onSubmit = async ({ accepted, email, password }) => {
     setError("");
-    setLoading(true);
     if (accepted) {
       await signUp({ email, password })(firebase, dispatch);
     } else {
       return setError("Please accept the terms and conditions to proceed.");
     }
-    setLoading(false);
   };
 
   return (
@@ -43,18 +52,31 @@ const SignupForm = () => {
           className="login-error mb-16"
         />
       )}
+
+      {success && (
+        <Alert
+          message={""}
+          description={
+            "Successfully registered. Please check your email for the verification link."
+          }
+          type="success"
+          closable
+          className="mb-16"
+        />
+      )}
+
       <Form onFinish={onSubmit}>
         <Form.Item
           name={"email"}
           rules={[
             {
               required: true,
-              message: "Please enter your email address",
+              message: "Please enter your email address"
             },
             {
               type: "email",
-              message: "Please enter a valid email address",
-            },
+              message: "Please enter a valid email address"
+            }
           ]}
         >
           <Input
@@ -67,8 +89,8 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: "Please enter a password",
-            },
+              message: "Please enter a password"
+            }
           ]}
           hasFeedback
         >
@@ -84,7 +106,7 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: "Please re-type the password",
+              message: "Please re-type the password"
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
@@ -94,8 +116,8 @@ const SignupForm = () => {
                 return Promise.reject(
                   "The two passwords that you entered does not match"
                 );
-              },
-            }),
+              }
+            })
           ]}
         >
           <Input.Password

@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { useFirebase } from "react-redux-firebase";
-import { Link } from "react-router-dom";
 import {
-  clearAuthError,
-  signIn,
-  resendVerifyEmail
-} from "../../../store/actions";
-import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  Divider,
   Form,
   Input,
-  Button,
-  Typography,
   Row,
-  Col,
-  Alert,
-  Card,
-  Checkbox,
-  Divider
+  Typography
 } from "antd";
-import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import SmButtons from "../smButtons";
-import { useSelector, useDispatch } from "react-redux";
-import ViewAlerts from "./ViewAlerts";
+import { MailOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { useFirebase } from "react-redux-firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { clearAuthError, sendPasswordResetEmail } from "../../../store/actions";
 const { Title } = Typography;
 
-const Login = () => {
+const ForgotPassword = () => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
+  const [success, setSuccess] = useState(false);
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
   const dispatch = useDispatch();
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
+
+  useEffect(() => {
+    if (errorProp === false && loadingProp === false) {
+      setSuccess(true);
+    } else {
+      setSuccess(false);
+    }
+  }, [errorProp, loadingProp]);
 
   useEffect(
     () => () => {
@@ -45,20 +46,40 @@ const Login = () => {
 
   const onSubmit = async values => {
     setError("");
-    setEmail(values.email);
-    await signIn({ email: values.email, password: values.password })(
-      firebase,
-      dispatch
-    );
+    await sendPasswordResetEmail(values.email)(firebase, dispatch);
   };
 
   return (
     <Card bordered={false}>
       <Title level={2} style={{ textAlign: "center", marginBottom: "40px" }}>
-        Welcome back!
+        Trouble logging in?
+      </Title>
+      <Title level={4} style={{ textAlign: "left", marginBottom: "40px" }}>
+        Enter the email address registered with us and we will send you a link
+        to reset your password.
       </Title>
 
-      <ViewAlerts error={error} email={email} />
+      {error && (
+        <Alert
+          message={""}
+          description={error}
+          type="error"
+          closable
+          className="mb-16"
+        />
+      )}
+
+      {success && (
+        <Alert
+          message={""}
+          description={
+            "We have sent you an email containing the link to reset your password. Please check your inbox including spams."
+          }
+          type="success"
+          closable
+          className="mb-16"
+        />
+      )}
 
       <Form onFinish={onSubmit}>
         <Form.Item
@@ -79,36 +100,19 @@ const Login = () => {
             placeholder="Email"
           />
         </Form.Item>
-        <Form.Item
-          name={"password"}
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password
-            prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-          <Link
-            to="/forgotpassword"
-            className="login-form-forgot"
-            style={{ float: "right" }}
-          >
-            Forgot password
-          </Link>
-        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? "Now sending..." : "Send me the link"}
           </Button>
         </Form.Item>
       </Form>
       <Divider>or</Divider>
-      <SmButtons />
+      <Row justify="center" align="center" className="mt-24">
+        <Col sm={24} className="center">
+          <Link to={"/login"}>Back to Sign in</Link>
+        </Col>
+      </Row>
+      <Divider />
       <Row justify="center" align="center" className="mt-24">
         <Col sm={24} className="center">
           New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
@@ -119,4 +123,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

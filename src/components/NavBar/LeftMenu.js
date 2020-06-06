@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
+import { NavLink } from "react-router-dom";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -7,7 +8,7 @@ const LeftMenu = ({ mode }) => {
   return (
     <Menu mode={mode}>
       <Menu.Item key="home">
-        <a href="/home">Home</a>
+        <NavLink to="/dashboard">Home</NavLink>
       </Menu.Item>
       <SubMenu title={<span>Tutorials</span>}>
         <MenuItemGroup title="Item 1">
@@ -20,7 +21,7 @@ const LeftMenu = ({ mode }) => {
         </MenuItemGroup>
       </SubMenu>
       <Menu.Item key="contact">
-        <a href="/contact">Contact Us</a>
+        <NavLink to="/dashboard">Contact Us</NavLink>
       </Menu.Item>
     </Menu>
   );
