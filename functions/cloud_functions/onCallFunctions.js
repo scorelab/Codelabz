@@ -1,7 +1,6 @@
 const admin = require("firebase-admin");
 const functions = require("firebase-functions");
 const { db } = require("../auth");
-const validators = require("../validators");
 
 exports.resendVerificationEmailHandler = async data => {
   try {
@@ -55,5 +54,53 @@ exports.resendVerificationEmailHandler = async data => {
       error.message,
       error
     );
+  }
+};
+
+exports.sendPasswordUpdateEmailHandler = async (data, context) => {
+  try {
+    const { email } = data;
+
+    if (!context.auth) {
+      console.log("The request must be authenticated.");
+      throw new functions.https.HttpsError(
+        "unauthenticated",
+        "The request does not have valid authentication credentials for the operation."
+      );
+    }
+    if (!email) {
+      console.log("Email is not provided");
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "Email is required for this operation"
+      );
+    }
+
+    const uid = context.auth.uid;
+    const userRecord = await admin.auth().getUser(uid);
+    const { email: userRecordEmail } = userRecord;
+
+    if (email !== userRecordEmail) {
+      console.log(
+        `The given email: ${email} does not match with auth records: ${userRecordEmail}`
+      );
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "The provided email does not match with the authentication records."
+      );
+    }
+
+    await db.collection("cl_mail").add({
+      to: email,
+      template: {
+        name: "passwordUpdateEmailTemplate",
+        data: {}
+      }
+    });
+
+    return console.log("Password update email sent");
+  } catch (error) {
+    console.log(error.message);
+    throw new functions.https.HttpsError("aborted", error.message, error);
   }
 };

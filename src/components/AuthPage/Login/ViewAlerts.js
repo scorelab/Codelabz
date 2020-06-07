@@ -3,13 +3,14 @@ import { Alert } from "antd";
 import { resendVerifyEmail } from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 
-const ViewAlerts = ({ error, email }) => {
+const ViewAlerts = ({ error }) => {
   const [resendLoading, setResendLoading] = useState(false);
   const [resendError, setResendError] = useState("");
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.verifyEmail.error);
   const loadingProp = useSelector(({ auth }) => auth.verifyEmail.loading);
+  const email = useSelector(({ auth }) => auth.verifyEmail.email);
 
   useEffect(() => setResendError(errorProp), [errorProp]);
   useEffect(() => setResendLoading(loadingProp), [loadingProp]);

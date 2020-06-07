@@ -8,5 +8,7 @@ export {
   verifyEmail,
   verifyPasswordResetCode,
   resendVerifyEmail,
-  clearRecoverPasswordError
+  clearRecoverPasswordError,
+  signInWithGoogle,
+  signInWithProviderID
 } from "./authActions";

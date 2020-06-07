@@ -12,12 +12,70 @@ export const signIn = credentials => async (firebase, dispatch) => {
     } else {
       await firebase.logout();
       dispatch({
+        type: actions.SET_VERIFY_EMAIL_FAIL,
+        payload: credentials.email
+      });
+      dispatch({
         type: actions.SIGN_IN_FAIL,
         payload: "email-unverified"
       });
     }
   } catch (e) {
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e.message });
+  }
+};
+
+export const signInWithGoogle = () => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.SIGN_IN_START });
+    await firebase.login({
+      provider: "google",
+      type: "popup"
+    });
+    dispatch({ type: actions.SIGN_IN_SUCCESS });
+  } catch (e) {
+    dispatch({ type: actions.SIGN_IN_FAIL, payload: e.message });
+  }
+};
+
+export const signInWithProviderID = providerID => async (
+  firebase,
+  dispatch
+) => {
+  try {
+    if (!["github", "twitter"].includes(providerID)) {
+      return;
+    }
+    dispatch({ type: actions.SIGN_IN_START });
+    const userData = await firebase.login({
+      provider: providerID,
+      type: "popup"
+    });
+    if (_.get(userData, "user.emailVerified", false)) {
+      dispatch({ type: actions.SIGN_IN_SUCCESS });
+    } else {
+      await firebase.logout();
+      dispatch({
+        type: actions.SET_VERIFY_EMAIL_FAIL,
+        payload: _.get(userData, "user.email", "")
+      });
+      dispatch({
+        type: actions.SIGN_IN_FAIL,
+        payload: "email-unverified"
+      });
+    }
+  } catch (e) {
+    if (e.code === "auth/account-exists-with-different-credential") {
+      const methods = await firebase.auth().fetchSignInMethodsForEmail(e.email);
+      dispatch({
+        type: actions.SIGN_IN_FAIL,
+        payload: `An account already exists with the same email address with provider(s) ${methods.join(
+          ", "
+        )}. Sign in using a provider associated with this email address.`
+      });
+    } else {
+      dispatch({ type: actions.SIGN_IN_FAIL, payload: e.message });
+    }
   }
 };
 

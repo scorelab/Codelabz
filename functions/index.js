@@ -14,6 +14,10 @@ exports.resendVerificationEmail = functions.https.onCall(
   onCallFunctions.resendVerificationEmailHandler
 );
 
+exports.sendPasswordUpdateEmail = functions.https.onCall(
+  onCallFunctions.sendPasswordUpdateEmailHandler
+);
+
 //+++++++++++++++++++++onCreate Functions+++++++++++++++++++++++++++++++
 exports.sendVerificationEmail = functions.auth
   .user()
