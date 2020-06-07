@@ -10,6 +10,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { UserIsNotAuthenticated } from "../../auth";
 import ForgotPassword from "./ForgotPassword";
+import MiniNavbar from "../MiniNavbar";
 
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
@@ -25,36 +26,7 @@ const AuthPage = ({ type }) => {
 
   return (
     <>
-      <Row>
-        <Col xs={24}>
-          <PageHeader
-            className="site-page-header"
-            title={
-              <h3 style={{ color: "#3AAFA9" }} className="brand-font">
-                <Link to={"/"}>
-                  <BrandName />
-                </Link>
-              </h3>
-            }
-            backIcon={false}
-            extra={[
-              <Button
-                key="2"
-                type={type && type === "login" ? "primary" : "link"}
-              >
-                <Link to={"/login"}>Log In</Link>
-              </Button>,
-              <Button
-                key="1"
-                type={type && type === "signup" ? "primary" : "link"}
-              >
-                <Link to={"/signup"}>Sign Up</Link>
-              </Button>,
-            ]}
-          />
-        </Col>
-      </Row>
-
+      <MiniNavbar type={type} />
       <Row
         align="middle"
         style={{ height: "calc(100vh - 87px)", overflowX: "hidden" }}

@@ -37,7 +37,13 @@ const MiniNavbar = ({ authed, signout, type }) => {
                   </Button>,
                   <Button
                     key="1"
-                    type={type && type === "signup" ? "primary" : "dashed"}
+                    type={
+                      type && type === "signup"
+                        ? "primary"
+                        : type && type === "login"
+                        ? "link"
+                        : "dashed"
+                    }
                   >
                     <Link to={"/signup"}>Sign Up</Link>
                   </Button>,

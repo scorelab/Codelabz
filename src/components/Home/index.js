@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
-import { Row, Col, PageHeader, Button } from "antd";
 import BrandName from "../brandName";
 import { useAuthStatus } from "../../helpers/customHooks";
 import MiniNavbar from "../MiniNavbar";
