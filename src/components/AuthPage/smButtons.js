@@ -4,9 +4,15 @@ import {
   GoogleOutlined,
   FacebookOutlined,
   TwitterOutlined,
-  GithubOutlined,
+  GithubOutlined
 } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { useFirebase } from "react-redux-firebase";
+import { signInWithGoogle, signInWithProviderID } from "../../store/actions";
 const SmButtons = () => {
+  const dispatch = useDispatch();
+  const firebase = useFirebase();
+
   return (
     <Row justify="center" align="center">
       <Col sm={16} className="center">
@@ -14,7 +20,12 @@ const SmButtons = () => {
           <Button
             shape="circle"
             size="large"
-            icon={<GoogleOutlined style={{ color: "#db3236" }} />}
+            icon={
+              <GoogleOutlined
+                onClick={() => signInWithGoogle()(firebase, dispatch)}
+                style={{ color: "#db3236" }}
+              />
+            }
           />
           <Button
             shape="circle"
@@ -24,12 +35,26 @@ const SmButtons = () => {
           <Button
             shape="circle"
             size="large"
-            icon={<TwitterOutlined style={{ color: "#1DA1F2" }} />}
+            icon={
+              <TwitterOutlined
+                onClick={() =>
+                  signInWithProviderID("twitter")(firebase, dispatch)
+                }
+                style={{ color: "#1DA1F2" }}
+              />
+            }
           />
           <Button
             shape="circle"
             size="large"
-            icon={<GithubOutlined style={{ color: "#211F1F" }} />}
+            icon={
+              <GithubOutlined
+                onClick={() =>
+                  signInWithProviderID("github")(firebase, dispatch)
+                }
+                style={{ color: "#211F1F" }}
+              />
+            }
           />
         </Space>
       </Col>

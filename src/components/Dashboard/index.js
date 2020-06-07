@@ -1,9 +1,12 @@
 import React from "react";
+import BrandName from "../brandName";
 
 const Dashboard = () => {
   return (
     <div>
-      <h2>Dashboard</h2>
+      <h2>
+        <BrandName /> Dashboard
+      </h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia porro
         tempore blanditiis excepturi amet quo doloremque eaque distinctio,

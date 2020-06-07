@@ -8,6 +8,7 @@ import BrandName from "../brandName";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { UserIsNotAuthenticated } from "../../auth";
+import ForgotPassword from "./ForgotPassword";
 
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
@@ -41,7 +42,7 @@ const AuthPage = ({ type }) => {
               </Button>,
               <Button key="1" type={type === "signup" ? "primary" : "link"}>
                 <Link to={"/signup"}>Sign Up</Link>
-              </Button>,
+              </Button>
             ]}
           />
         </Col>
@@ -86,7 +87,13 @@ const AuthPage = ({ type }) => {
             right={showType === "signup"}
             when={show}
           >
-            {showType === "login" ? <Login /> : <SignUp />}
+            {showType === "login" ? (
+              <Login />
+            ) : showType === "signup" ? (
+              <SignUp />
+            ) : (
+              <ForgotPassword />
+            )}
           </Fade>
         </Col>
       </Row>

@@ -6,8 +6,14 @@ import { Link, useLocation } from "react-router-dom";
 import BrandName from "../brandName";
 
 const Navbar = () => {
-  let noNavbarPaths = ["/", "/login", "/signup"];
-  let location = useLocation().pathname;
+  let noNavbarPaths = [
+    "/",
+    "/login",
+    "/signup",
+    "/forgotpassword",
+    "/manageusers"
+  ];
+  let { pathname: location } = useLocation();
   const [render, setRender] = useState(true);
   const [visible, setVisible] = useState(false);
 

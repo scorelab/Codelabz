@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFirebase } from "react-redux-firebase";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { clearAuthError, signIn } from "../../../store/actions";
 import {
   Form,
@@ -9,25 +9,27 @@ import {
   Typography,
   Row,
   Col,
-  Alert,
   Card,
   Checkbox,
-  Divider,
+  Divider
 } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import SmButtons from "../smButtons";
 import { useSelector, useDispatch } from "react-redux";
+import ViewAlerts from "./ViewAlerts";
 const { Title } = Typography;
 
 const Login = () => {
   const firebase = useFirebase();
-  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const authError = useSelector(({ firebase }) => firebase.authError);
+  const [email, setEmail] = useState("");
+  const errorProp = useSelector(({ auth }) => auth.profile.error);
+  const loadingProp = useSelector(({ auth }) => auth.profile.loading);
   const dispatch = useDispatch();
 
-  useEffect(() => setError(authError && authError.message), [authError]);
+  useEffect(() => setError(errorProp), [errorProp]);
+  useEffect(() => setLoading(loadingProp), [loadingProp]);
 
   useEffect(
     () => () => {
@@ -36,17 +38,13 @@ const Login = () => {
     [dispatch]
   );
 
-  const onSubmit = async (values) => {
+  const onSubmit = async values => {
     setError("");
-    setLoading(true);
-    try {
-      await signIn({ email: values.email, password: values.password })(
-        firebase,
-        history
-      );
-    } catch (error) {
-      setLoading(false);
-    }
+    setEmail(values.email);
+    await signIn({ email: values.email, password: values.password })(
+      firebase,
+      dispatch
+    );
   };
 
   return (
@@ -55,15 +53,7 @@ const Login = () => {
         Welcome back!
       </Title>
 
-      {error && (
-        <Alert
-          message={""}
-          description={error}
-          type="error"
-          closable
-          className="mb-16"
-        />
-      )}
+      <ViewAlerts error={error} email={email} />
 
       <Form onFinish={onSubmit}>
         <Form.Item
@@ -71,12 +61,12 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your email address",
+              message: "Please input your email address"
             },
             {
               type: "email",
-              message: "Please enter a valid email address",
-            },
+              message: "Please enter a valid email address"
+            }
           ]}
         >
           <Input
@@ -98,7 +88,11 @@ const Login = () => {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-          <Link to="/" className="login-form-forgot" style={{ float: "right" }}>
+          <Link
+            to="/forgotpassword"
+            className="login-form-forgot"
+            style={{ float: "right" }}
+          >
             Forgot password
           </Link>
         </Form.Item>

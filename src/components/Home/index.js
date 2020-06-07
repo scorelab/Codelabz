@@ -4,9 +4,11 @@ import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
 import { Row, Col, PageHeader, Button } from "antd";
 import BrandName from "../brandName";
+import { useAuthStatus } from "../../helpers/customHooks";
 
 const Home = () => {
   const firebase = useFirebase();
+  const authed = useAuthStatus();
 
   return (
     <div>
@@ -22,24 +24,35 @@ const Home = () => {
               </h3>
             }
             backIcon={false}
-            extra={[
-              <Button key="2" type="link">
-                <Link to={"/login"}>Log In</Link>
-              </Button>,
-              <Button key="1" type="dashed">
-                <Link to={"/signup"}>Sign Up</Link>
-              </Button>,
-            ]}
+            extra={
+              authed
+                ? [
+                    <Button key="2" type="link">
+                      <Link to={"/dashboard"}>Dashboard</Link>
+                    </Button>,
+                    <Button
+                      onClick={() => signOut()(firebase)}
+                      key="1"
+                      type="dashed"
+                    >
+                      Log out
+                    </Button>
+                  ]
+                : [
+                    <Button key="2" type="link">
+                      <Link to={"/login"}>Log In</Link>
+                    </Button>,
+                    <Button key="1" type="dashed">
+                      <Link to={"/signup"}>Sign Up</Link>
+                    </Button>
+                  ]
+            }
           />
         </Col>
       </Row>
-      <p>This is home</p>
-      <br />
-      <Link to={"/login"}>Login</Link>
-      <br />
-      <Link to={"/signup"}>Sign Up</Link>
-      <br />
-      <button onClick={() => signOut()(firebase)}>Log out</button>
+      <h2>
+        Welcome to <BrandName />
+      </h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia porro
         tempore blanditiis excepturi amet quo doloremque eaque distinctio,

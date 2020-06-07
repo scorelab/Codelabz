@@ -13,9 +13,12 @@ const rrfConfig = {
   userProfile: "cl_user", // Profile data stored in Firestore/cl_user/user_id
   presence: "cl_user_presence",
   sessions: "cl_user_sessions",
-  profileFactory: ({ user }) => ({
-    email: user.email,
-    uid: user.uid
+  profileFactory: userData => ({
+    email: userData.email || userData.providerData[0].email,
+    uid: userData.uid,
+    displayName:
+      userData.displayName || userData.providerData[0].displayName || "",
+    photoURL: userData.photoURL || userData.providerData[0].photoURL || ""
   }),
   useFirestoreForProfile: true, // Firestore for Profile instead of Realtime
   attachAuthIsReady: true

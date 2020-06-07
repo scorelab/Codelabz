@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Form, Input, Checkbox } from "antd";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { clearAuthError, signUp } from "../../../store/actions";
+import { Alert, Button, Form, Input, Typography } from "antd";
+import { LockOutlined } from "@ant-design/icons";
+import { confirmPasswordReset } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
+const { Title } = Typography;
 
-const SignupForm = () => {
+const PasswordResetForm = ({ actionCode }) => {
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const firebase = useFirebase();
-  const dispatch = useDispatch();
-  const errorProp = useSelector(({ auth }) => auth.profile.error);
-  const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+  const errorProp = useSelector(({ auth }) => auth.recoverPassword.resetError);
+  const loadingProp = useSelector(
+    ({ auth }) => auth.recoverPassword.resetLoading
+  );
+  const email = useSelector(({ auth }) => auth.recoverPassword.user);
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
 
-  useEffect(
-    () => () => {
-      clearAuthError()(dispatch);
-    },
-    [dispatch]
-  );
+  const onSubmit = async ({ password }) => {
+    setError("");
+    await confirmPasswordReset({ actionCode, password })(firebase, dispatch);
+  };
 
   useEffect(() => {
     if (errorProp === false && loadingProp === false) {
@@ -32,17 +34,12 @@ const SignupForm = () => {
     }
   }, [errorProp, loadingProp]);
 
-  const onSubmit = async ({ accepted, email, password }) => {
-    setError("");
-    if (accepted) {
-      await signUp({ email, password })(firebase, dispatch);
-    } else {
-      return setError("Please accept the terms and conditions to proceed.");
-    }
-  };
-
   return (
     <>
+      <Title level={4} style={{ textAlign: "center", marginBottom: "40px" }}>
+        Reset password for {email}
+      </Title>
+
       {error && (
         <Alert
           message={""}
@@ -56,9 +53,7 @@ const SignupForm = () => {
       {success && (
         <Alert
           message={""}
-          description={
-            "Successfully registered. Please check your email for the verification link."
-          }
+          description={"Successfully password changed!"}
           type="success"
           closable
           className="mb-16"
@@ -66,24 +61,6 @@ const SignupForm = () => {
       )}
 
       <Form onFinish={onSubmit}>
-        <Form.Item
-          name={"email"}
-          rules={[
-            {
-              required: true,
-              message: "Please enter your email address"
-            },
-            {
-              type: "email",
-              message: "Please enter a valid email address"
-            }
-          ]}
-        >
-          <Input
-            prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Email"
-          />
-        </Form.Item>
         <Form.Item
           name="password"
           rules={[
@@ -127,13 +104,8 @@ const SignupForm = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Form.Item name="accepted" valuePropName="checked" noStyle>
-            <Checkbox>I accept the terms and conditions</Checkbox>
-          </Form.Item>
-        </Form.Item>
-        <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
-            {loading ? "Creating your account..." : "Create an account"}
+            {loading ? "Changing your password..." : "Change password"}
           </Button>
         </Form.Item>
       </Form>
@@ -141,4 +113,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default PasswordResetForm;
