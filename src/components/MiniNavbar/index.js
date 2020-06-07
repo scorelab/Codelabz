@@ -2,9 +2,16 @@ import React from "react";
 import { Row, Col, PageHeader, Button } from "antd";
 import { Link } from "react-router-dom";
 import BrandName from "../brandName";
+import { useFirebase } from "react-redux-firebase";
+import { signOut } from "../../store/actions";
+import { useAuthStatus } from "../../helpers/customHooks";
+import { useHistory } from "react-router-dom";
 
-const MiniNavbar = ({ authed, signout, type }) => {
-  console.log("mini");
+const MiniNavbar = ({ type }) => {
+  const firebase = useFirebase();
+  const authed = useAuthStatus();
+  const history = useHistory();
+
   return (
     <Row>
       <Col xs={24}>
@@ -24,7 +31,11 @@ const MiniNavbar = ({ authed, signout, type }) => {
                   <Button key="2" type="link">
                     <Link to={"/dashboard"}>Dashboard</Link>
                   </Button>,
-                  <Button onClick={signout} key="1" type="dashed">
+                  <Button
+                    onClick={() => signOut()(firebase, history)}
+                    key="1"
+                    type="dashed"
+                  >
                     Log out
                   </Button>,
                 ]

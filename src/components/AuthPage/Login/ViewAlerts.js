@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Alert } from "antd";
+import { Alert, Button } from "antd";
 import { resendVerifyEmail } from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
+
+const AlertComp = ({ description, type }) => {
+  return (
+    <Alert
+      message={""}
+      description={description}
+      type={type ? type : "error"}
+      closable
+      className="mb-16"
+    />
+  );
+};
 
 const ViewAlerts = ({ error }) => {
   const [resendLoading, setResendLoading] = useState(false);
@@ -26,63 +38,37 @@ const ViewAlerts = ({ error }) => {
   return (
     <>
       {error && error !== "email-unverified" && !resendError && (
-        <Alert
-          message={""}
-          description={error}
-          type="error"
-          closable
-          className="mb-16"
-        />
+        <Alert description={error} />
       )}
 
       {error && error === "email-unverified" && !resendError && (
-        <Alert
-          message={""}
+        <AlertComp
           description={
             <>
               Please verify your email. Click{" "}
-              <button
-                style={{ cursor: "pointer" }}
+              <Button
+                type="link"
                 onClick={() => resendVerifyEmail(email)(dispatch)}
+                className="pl-0 pr-0"
               >
                 here
-              </button>{" "}
+              </Button>{" "}
               to resend the verification email.
             </>
           }
-          type="error"
-          closable
-          className="mb-16"
         />
       )}
 
-      {resendError && (
-        <Alert
-          message={""}
-          description={resendError}
-          type="error"
-          closable
-          className="mb-16"
-        />
-      )}
+      {resendError && <AlertComp description={resendError} />}
 
       {resendLoading && (
-        <Alert
-          message={""}
-          description={"Resending the verification email..."}
-          type="info"
-          closable
-          className="mb-16"
-        />
+        <AlertComp description={"Resending the verification email..."} />
       )}
 
       {success && (
-        <Alert
-          message={""}
+        <AlertComp
           description={"Please check your email and verify your email."}
           type="success"
-          closable
-          className="mb-16"
         />
       )}
     </>

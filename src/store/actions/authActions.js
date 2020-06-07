@@ -2,7 +2,7 @@ import * as actions from "./actionTypes";
 import _ from "lodash";
 import { functions } from "../../config";
 
-export const signIn = credentials => async (firebase, dispatch) => {
+export const signIn = (credentials) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SIGN_IN_START });
     dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
@@ -13,11 +13,11 @@ export const signIn = credentials => async (firebase, dispatch) => {
       await firebase.logout();
       dispatch({
         type: actions.SET_VERIFY_EMAIL_FAIL,
-        payload: credentials.email
+        payload: credentials.email,
       });
       dispatch({
         type: actions.SIGN_IN_FAIL,
-        payload: "email-unverified"
+        payload: "email-unverified",
       });
     }
   } catch (e) {
@@ -30,7 +30,7 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
     dispatch({ type: actions.SIGN_IN_START });
     await firebase.login({
       provider: "google",
-      type: "popup"
+      type: "popup",
     });
     dispatch({ type: actions.SIGN_IN_SUCCESS });
   } catch (e) {
@@ -38,18 +38,18 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
   }
 };
 
-export const signInWithProviderID = providerID => async (
+export const signInWithProviderID = (providerID) => async (
   firebase,
   dispatch
 ) => {
   try {
-    if (!["github", "twitter"].includes(providerID)) {
+    if (!["github", "twitter", "facebook"].includes(providerID)) {
       return;
     }
     dispatch({ type: actions.SIGN_IN_START });
     const userData = await firebase.login({
       provider: providerID,
-      type: "popup"
+      type: "popup",
     });
     if (_.get(userData, "user.emailVerified", false)) {
       dispatch({ type: actions.SIGN_IN_SUCCESS });
@@ -57,11 +57,11 @@ export const signInWithProviderID = providerID => async (
       await firebase.logout();
       dispatch({
         type: actions.SET_VERIFY_EMAIL_FAIL,
-        payload: _.get(userData, "user.email", "")
+        payload: _.get(userData, "user.email", ""),
       });
       dispatch({
         type: actions.SIGN_IN_FAIL,
-        payload: "email-unverified"
+        payload: "email-unverified",
       });
     }
   } catch (e) {
@@ -69,25 +69,26 @@ export const signInWithProviderID = providerID => async (
       const methods = await firebase.auth().fetchSignInMethodsForEmail(e.email);
       dispatch({
         type: actions.SIGN_IN_FAIL,
-        payload: `An account already exists with the same email address with provider(s) ${methods.join(
+        payload: `You have already have an account created using ${methods.join(
           ", "
-        )}. Sign in using a provider associated with this email address.`
+        )}. Log in with ${methods.join(", ")} to continue.`,
       });
     } else {
-      dispatch({ type: actions.SIGN_IN_FAIL, payload: e.message });
+      dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
     }
   }
 };
 
-export const signOut = () => async firebase => {
+export const signOut = () => async (firebase, history) => {
   try {
     await firebase.logout();
+    history.push("/login");
   } catch (e) {
     console.log(e.message);
   }
 };
 
-export const signUp = userData => async (firebase, dispatch) => {
+export const signUp = (userData) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SIGN_UP_START });
     const { email, password } = userData;
@@ -99,12 +100,12 @@ export const signUp = userData => async (firebase, dispatch) => {
   }
 };
 
-export const clearAuthError = () => async dispatch => {
+export const clearAuthError = () => async (dispatch) => {
   dispatch({ type: actions.CLEAR_AUTH_PROFILE_STATE });
   dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
 };
 
-export const clearRecoverPasswordError = () => async dispatch => {
+export const clearRecoverPasswordError = () => async (dispatch) => {
   dispatch({ type: actions.CLEAR_AUTH_RECOVER_PASSWORD_STATE });
 };
 
@@ -115,7 +116,7 @@ export const clearRecoverPasswordError = () => async dispatch => {
  * 3. call confirmPasswordReset with actionCode and new password
  */
 
-export const sendPasswordResetEmail = email => async (firebase, dispatch) => {
+export const sendPasswordResetEmail = (email) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SEND_RESET_EMAIL_START });
     await firebase.resetPassword(email);
@@ -125,7 +126,7 @@ export const sendPasswordResetEmail = email => async (firebase, dispatch) => {
   }
 };
 
-export const verifyPasswordResetCode = actionCode => async (
+export const verifyPasswordResetCode = (actionCode) => async (
   firebase,
   dispatch
 ) => {
@@ -151,7 +152,7 @@ export const confirmPasswordReset = ({ actionCode, password }) => async (
   }
 };
 
-export const verifyEmail = actionCode => async (firebase, dispatch) => {
+export const verifyEmail = (actionCode) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.EMAIL_VERIFY_START });
     await firebase.auth().applyActionCode(actionCode);
@@ -161,7 +162,7 @@ export const verifyEmail = actionCode => async (firebase, dispatch) => {
   }
 };
 
-export const resendVerifyEmail = email => async dispatch => {
+export const resendVerifyEmail = (email) => async (dispatch) => {
   try {
     dispatch({ type: actions.RESEND_VERIFY_EMAIL_START });
     dispatch({ type: actions.CLEAR_AUTH_PROFILE_STATE });
@@ -169,7 +170,7 @@ export const resendVerifyEmail = email => async dispatch => {
       "resendVerificationEmail"
     );
     await resendVerificationEmail({
-      email
+      email,
     });
     dispatch({ type: actions.RESEND_VERIFY_EMAIL_SUCCESS });
   } catch (e) {

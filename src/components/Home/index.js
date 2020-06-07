@@ -1,17 +1,11 @@
 import React from "react";
-import { useFirebase } from "react-redux-firebase";
-import { signOut } from "../../store/actions";
 import BrandName from "../brandName";
-import { useAuthStatus } from "../../helpers/customHooks";
 import MiniNavbar from "../MiniNavbar";
 
 const Home = () => {
-  const firebase = useFirebase();
-  const authed = useAuthStatus();
-
   return (
     <div>
-      <MiniNavbar authed={authed} signout={() => signOut()(firebase)} />
+      <MiniNavbar />
       <h2>
         Welcome to <BrandName />
       </h2>

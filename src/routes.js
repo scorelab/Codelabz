@@ -10,12 +10,16 @@ import AuthPage from "./components/AuthPage";
 import Spinner from "./helpers/spinner";
 import Navbar from "./components/NavBar";
 import ManageUsers from "./components/ManageUsers";
+import NotFound from "./components/ErrorPages/404";
 
 const AuthIsLoaded = ({ children }) => {
   const auth = useSelector(({ firebase }) => firebase.auth);
   if (!isLoaded(auth)) return <Spinner />;
   return children;
 };
+
+// Remember to add the paths that the main navbar should
+// be shown in components/NavBar/noNavbarPaths.js
 
 const Routes = () => {
   return (
@@ -28,17 +32,17 @@ const Routes = () => {
             exact
             path={"/login"}
             authType={"login"}
-            render={props => <AuthPage {...props} type={"login"} />}
+            render={(props) => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={props => <AuthPage {...props} type={"signup"} />}
+            render={(props) => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={props => <AuthPage {...props} type={"forgotpassword"} />}
+            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
@@ -50,6 +54,7 @@ const Routes = () => {
             path={"/dashboard"}
             component={UserIsAuthenticated(Dashboard)}
           />
+          <Route exact path={"*"} component={NotFound} />
         </Switch>
       </AuthIsLoaded>
     </Router>

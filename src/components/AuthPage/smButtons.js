@@ -4,7 +4,7 @@ import {
   GoogleOutlined,
   FacebookOutlined,
   TwitterOutlined,
-  GithubOutlined
+  GithubOutlined,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
@@ -20,41 +20,26 @@ const SmButtons = () => {
           <Button
             shape="circle"
             size="large"
-            icon={
-              <GoogleOutlined
-                onClick={() => signInWithGoogle()(firebase, dispatch)}
-                style={{ color: "#db3236" }}
-              />
-            }
+            icon={<GoogleOutlined style={{ color: "#db3236" }} />}
+            onClick={() => signInWithGoogle()(firebase, dispatch)}
           />
           <Button
             shape="circle"
             size="large"
             icon={<FacebookOutlined style={{ color: "#4267B2" }} />}
+            onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
           />
           <Button
             shape="circle"
             size="large"
-            icon={
-              <TwitterOutlined
-                onClick={() =>
-                  signInWithProviderID("twitter")(firebase, dispatch)
-                }
-                style={{ color: "#1DA1F2" }}
-              />
-            }
+            icon={<TwitterOutlined style={{ color: "#1DA1F2" }} />}
+            onClick={() => signInWithProviderID("twitter")(firebase, dispatch)}
           />
           <Button
             shape="circle"
             size="large"
-            icon={
-              <GithubOutlined
-                onClick={() =>
-                  signInWithProviderID("github")(firebase, dispatch)
-                }
-                style={{ color: "#211F1F" }}
-              />
-            }
+            icon={<GithubOutlined style={{ color: "#211F1F" }} />}
+            onClick={() => signInWithProviderID("github")(firebase, dispatch)}
           />
         </Space>
       </Col>
