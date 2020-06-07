@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Card, Col, Row, Typography, PageHeader, Button } from "antd";
+import { Alert, Card, Col, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyEmail, clearAuthError } from "../../../store/actions";
-import BrandName from "../../brandName";
 import MiniNavbar from "../../MiniNavbar";
 
 const { Title } = Typography;
