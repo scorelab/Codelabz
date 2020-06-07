@@ -5,6 +5,7 @@ import { signOut } from "../../store/actions";
 import { Row, Col, PageHeader, Button } from "antd";
 import BrandName from "../brandName";
 import { useAuthStatus } from "../../helpers/customHooks";
+import MiniNavbar from "../MiniNavbar";
 
 const Home = () => {
   const firebase = useFirebase();
@@ -12,44 +13,7 @@ const Home = () => {
 
   return (
     <div>
-      <Row>
-        <Col xs={24}>
-          <PageHeader
-            className="site-page-header"
-            title={
-              <h3 style={{ color: "#3AAFA9" }} className="brand-font">
-                <Link to={"/"}>
-                  <BrandName />
-                </Link>
-              </h3>
-            }
-            backIcon={false}
-            extra={
-              authed
-                ? [
-                    <Button key="2" type="link">
-                      <Link to={"/dashboard"}>Dashboard</Link>
-                    </Button>,
-                    <Button
-                      onClick={() => signOut()(firebase)}
-                      key="1"
-                      type="dashed"
-                    >
-                      Log out
-                    </Button>
-                  ]
-                : [
-                    <Button key="2" type="link">
-                      <Link to={"/login"}>Log In</Link>
-                    </Button>,
-                    <Button key="1" type="dashed">
-                      <Link to={"/signup"}>Sign Up</Link>
-                    </Button>
-                  ]
-            }
-          />
-        </Col>
-      </Row>
+      <MiniNavbar authed={authed} signout={() => signOut()(firebase)} />
       <h2>
         Welcome to <BrandName />
       </h2>

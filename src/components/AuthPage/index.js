@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Row, Col, PageHeader } from "antd";
 import signinImage from "../../assets/images/signin-image.svg";
 import signupImage from "../../assets/images/signup-image.svg";
+import forgotPassImage from "../../assets/images/forgot-pass.svg";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import BrandName from "../brandName";
@@ -37,12 +38,18 @@ const AuthPage = ({ type }) => {
             }
             backIcon={false}
             extra={[
-              <Button key="2" type={type === "login" ? "primary" : "link"}>
+              <Button
+                key="2"
+                type={type && type === "login" ? "primary" : "link"}
+              >
                 <Link to={"/login"}>Log In</Link>
               </Button>,
-              <Button key="1" type={type === "signup" ? "primary" : "link"}>
+              <Button
+                key="1"
+                type={type && type === "signup" ? "primary" : "link"}
+              >
                 <Link to={"/signup"}>Sign Up</Link>
-              </Button>
+              </Button>,
             ]}
           />
         </Col>
@@ -58,19 +65,29 @@ const AuthPage = ({ type }) => {
           sm={0}
           md={12}
           lg={14}
-          order={showType === "login" ? 1 : 2}
+          order={showType === "login" || showType === "forgotpassword" ? 1 : 2}
           className="auth-image-col"
         >
           <Fade
             left={showType === "login"}
-            right={showType === "signup"}
+            right={showType === "signup" || showType === "forgotpassword"}
             when={show}
           >
             <img
-              src={showType === "login" ? signinImage : signupImage}
+              src={
+                showType === "login"
+                  ? signinImage
+                  : showType === "signup"
+                  ? signupImage
+                  : forgotPassImage
+              }
               alt="Background for auth"
               width="100%"
-              className={showType === "login" ? "signin-image" : "signup-image"}
+              className={
+                showType === "login" || showType === "forgotpassword"
+                  ? "signin-image"
+                  : "signup-image"
+              }
             />
           </Fade>
         </Col>
@@ -79,12 +96,12 @@ const AuthPage = ({ type }) => {
           sm={24}
           md={10}
           lg={8}
-          order={showType === "login" ? 2 : 1}
+          order={showType === "login" || showType === "forgotpassword" ? 2 : 1}
           className="auth-form-col"
         >
           <Fade
             left={showType === "login"}
-            right={showType === "signup"}
+            right={showType === "signup" || showType === "forgotpassword"}
             when={show}
           >
             {showType === "login" ? (

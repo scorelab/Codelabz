@@ -34,11 +34,7 @@ const SignupForm = () => {
 
   const onSubmit = async ({ accepted, email, password }) => {
     setError("");
-    if (accepted) {
-      await signUp({ email, password })(firebase, dispatch);
-    } else {
-      return setError("Please accept the terms and conditions to proceed.");
-    }
+    await signUp({ email, password })(firebase, dispatch);
   };
 
   return (
@@ -71,12 +67,12 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: "Please enter your email address"
+              message: "Please enter your email address",
             },
             {
               type: "email",
-              message: "Please enter a valid email address"
-            }
+              message: "Please enter a valid email address",
+            },
           ]}
         >
           <Input
@@ -89,8 +85,8 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: "Please enter a password"
-            }
+              message: "Please enter a password",
+            },
           ]}
           hasFeedback
         >
@@ -106,7 +102,7 @@ const SignupForm = () => {
           rules={[
             {
               required: true,
-              message: "Please re-type the password"
+              message: "Please re-type the password",
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
@@ -116,8 +112,8 @@ const SignupForm = () => {
                 return Promise.reject(
                   "The two passwords that you entered does not match"
                 );
-              }
-            })
+              },
+            }),
           ]}
         >
           <Input.Password
@@ -128,7 +124,9 @@ const SignupForm = () => {
         </Form.Item>
         <Form.Item>
           <Form.Item name="accepted" valuePropName="checked" noStyle>
-            <Checkbox>I accept the terms and conditions</Checkbox>
+            <p className="text-center mb-0">
+              By creating an account, you agree to our terms and conditions.
+            </p>
           </Form.Item>
         </Form.Item>
         <Form.Item>
