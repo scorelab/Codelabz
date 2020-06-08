@@ -47,23 +47,11 @@ export const signInWithProviderID = (providerID) => async (
       return;
     }
     dispatch({ type: actions.SIGN_IN_START });
-    const userData = await firebase.login({
+    await firebase.login({
       provider: providerID,
       type: "popup",
     });
-    if (_.get(userData, "user.emailVerified", false)) {
-      dispatch({ type: actions.SIGN_IN_SUCCESS });
-    } else {
-      await firebase.logout();
-      dispatch({
-        type: actions.SET_VERIFY_EMAIL_FAIL,
-        payload: _.get(userData, "user.email", ""),
-      });
-      dispatch({
-        type: actions.SIGN_IN_FAIL,
-        payload: "email-unverified",
-      });
-    }
+    dispatch({ type: actions.SIGN_IN_SUCCESS });
   } catch (e) {
     if (e.code === "auth/account-exists-with-different-credential") {
       const methods = await firebase.auth().fetchSignInMethodsForEmail(e.email);
