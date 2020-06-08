@@ -11,7 +11,7 @@ import {
   Col,
   Card,
   Checkbox,
-  Divider
+  Divider,
 } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import SmButtons from "../smButtons";
@@ -38,7 +38,7 @@ const Login = () => {
     [dispatch]
   );
 
-  const onSubmit = async values => {
+  const onSubmit = async (values) => {
     setError("");
     setEmail(values.email);
     await signIn({ email: values.email, password: values.password })(
@@ -61,12 +61,12 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: "Please input your email address"
+              message: "Please input your email address",
             },
             {
               type: "email",
-              message: "Please enter a valid email address"
-            }
+              message: "Please enter a valid email address",
+            },
           ]}
         >
           <Input
@@ -98,7 +98,7 @@ const Login = () => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? "Logging in..." : "Log in"}
           </Button>
         </Form.Item>
       </Form>
