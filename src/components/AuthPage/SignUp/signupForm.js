@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Form, Input, Checkbox } from "antd";
+import { Alert, Button, Form, Input } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { clearAuthError, signUp } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";

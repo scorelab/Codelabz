@@ -69,7 +69,7 @@ export const signInWithProviderID = (providerID) => async (
       const methods = await firebase.auth().fetchSignInMethodsForEmail(e.email);
       dispatch({
         type: actions.SIGN_IN_FAIL,
-        payload: `You have already have an account created using ${methods.join(
+        payload: `You already have an account created using ${methods.join(
           ", "
         )}. Log in with ${methods.join(", ")} to continue.`,
       });

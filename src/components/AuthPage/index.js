@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col, PageHeader } from "antd";
+import { Row, Col } from "antd";
 import signinImage from "../../assets/images/signin-image.svg";
 import signupImage from "../../assets/images/signup-image.svg";
 import forgotPassImage from "../../assets/images/forgot-pass.svg";
-import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
-import BrandName from "../brandName";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { UserIsNotAuthenticated } from "../../auth";

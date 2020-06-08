@@ -38,7 +38,7 @@ const ViewAlerts = ({ error }) => {
   return (
     <>
       {error && error !== "email-unverified" && !resendError && (
-        <Alert description={error} />
+        <AlertComp description={error} />
       )}
 
       {error && error === "email-unverified" && !resendError && (

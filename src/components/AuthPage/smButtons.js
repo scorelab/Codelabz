@@ -1,46 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Space, Button } from "antd";
 import {
   GoogleOutlined,
-  FacebookOutlined,
   TwitterOutlined,
   GithubOutlined,
+  FacebookFilled,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import { signInWithGoogle, signInWithProviderID } from "../../store/actions";
+
 const SmButtons = () => {
   const dispatch = useDispatch();
   const firebase = useFirebase();
+  const [expand, setExpand] = useState(null);
 
   return (
     <Row justify="center" align="center">
       <Col sm={16} className="center">
         <Space>
           <Button
-            shape="circle"
+            shape={expand === "google" ? null : "circle"}
             size="large"
-            icon={<GoogleOutlined style={{ color: "#db3236" }} />}
+            icon={<GoogleOutlined />}
+            className="google"
+            onMouseEnter={() => setExpand("google")}
+            onMouseLeave={() => setExpand(null)}
             onClick={() => signInWithGoogle()(firebase, dispatch)}
-          />
+          >
+            {expand === "google" ? "Google" : null}
+          </Button>
           <Button
-            shape="circle"
+            shape={expand === "facebook" ? null : "circle"}
             size="large"
-            icon={<FacebookOutlined style={{ color: "#4267B2" }} />}
+            icon={<FacebookFilled />}
+            className="facebook"
+            onMouseEnter={() => setExpand("facebook")}
+            onMouseLeave={() => setExpand(null)}
             onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
-          />
+          >
+            {expand === "facebook" ? "Facebook" : null}
+          </Button>
           <Button
-            shape="circle"
+            shape={expand === "twitter" ? null : "circle"}
             size="large"
-            icon={<TwitterOutlined style={{ color: "#1DA1F2" }} />}
+            icon={<TwitterOutlined />}
+            className="twitter"
+            onMouseEnter={() => setExpand("twitter")}
+            onMouseLeave={() => setExpand(null)}
             onClick={() => signInWithProviderID("twitter")(firebase, dispatch)}
-          />
+          >
+            {expand === "twitter" ? "Twitter" : null}
+          </Button>
           <Button
-            shape="circle"
+            shape={expand === "github" ? null : "circle"}
             size="large"
-            icon={<GithubOutlined style={{ color: "#211F1F" }} />}
+            icon={<GithubOutlined />}
+            className="github"
+            onMouseEnter={() => setExpand("github")}
+            onMouseLeave={() => setExpand(null)}
             onClick={() => signInWithProviderID("github")(firebase, dispatch)}
-          />
+          >
+            {expand === "github" ? "GitHub" : null}
+          </Button>
         </Space>
       </Col>
     </Row>
