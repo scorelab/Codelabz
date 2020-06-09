@@ -3,11 +3,12 @@ import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearRecoverPasswordError,
-  verifyPasswordResetCode
+  verifyPasswordResetCode,
 } from "../../../store/actions";
 import { Alert, Card, Col, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 import PasswordResetForm from "./PasswordResetForm";
+import MiniNavbar from "../../MiniNavbar";
 const { Title } = Typography;
 
 const ResetPassword = ({ queryParams }) => {
@@ -48,30 +49,42 @@ const ResetPassword = ({ queryParams }) => {
   );
 
   return (
-    <Card bordered={false}>
-      <Title level={4} style={{ textAlign: "center", marginBottom: "40px" }}>
-        {loading && "Add a loading icon here"}
-      </Title>
+    <>
+      <MiniNavbar />
+      <Row justify="center">
+        <Col xs={24} sm={24} md={12} lg={10}>
+          <Card bordered={false}>
+            {loading && (
+              <Title
+                level={4}
+                style={{ textAlign: "center", marginBottom: "40px" }}
+              >
+                Please wait...
+              </Title>
+            )}
+            {error && (
+              <>
+                <Alert
+                  message={"Password reset link verification failed"}
+                  description={error}
+                  type="error"
+                  closable
+                  className="mb-16"
+                  showIcon
+                />
+                <Row justify="center" align="center" className="mt-24">
+                  <Col sm={24} className="center">
+                    Back to <Link to={"/login"}>CodeLabz</Link>
+                  </Col>
+                </Row>
+              </>
+            )}
 
-      {error && (
-        <Alert
-          message={"Password reset link verification failed"}
-          description={error}
-          type="error"
-          closable
-          className="mb-16"
-          showIcon
-        />
-      )}
-
-      {success && <PasswordResetForm actionCode={actionCode} />}
-
-      <Row justify="center" align="center" className="mt-24">
-        <Col sm={24} className="center">
-          <Link to={"/login"}>Sign in</Link>
+            {success && <PasswordResetForm actionCode={actionCode} />}
+          </Card>
         </Col>
       </Row>
-    </Card>
+    </>
   );
 };
 

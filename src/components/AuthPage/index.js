@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col, PageHeader } from "antd";
+import { Row, Col } from "antd";
 import signinImage from "../../assets/images/signin-image.svg";
 import signupImage from "../../assets/images/signup-image.svg";
-import { Link } from "react-router-dom";
+import forgotPassImage from "../../assets/images/forgot-pass.svg";
 import Fade from "react-reveal/Fade";
-import BrandName from "../brandName";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { UserIsNotAuthenticated } from "../../auth";
 import ForgotPassword from "./ForgotPassword";
+import MiniNavbar from "../MiniNavbar";
 
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
@@ -24,30 +24,7 @@ const AuthPage = ({ type }) => {
 
   return (
     <>
-      <Row>
-        <Col xs={24}>
-          <PageHeader
-            className="site-page-header"
-            title={
-              <h3 style={{ color: "#3AAFA9" }} className="brand-font">
-                <Link to={"/"}>
-                  <BrandName />
-                </Link>
-              </h3>
-            }
-            backIcon={false}
-            extra={[
-              <Button key="2" type={type === "login" ? "primary" : "link"}>
-                <Link to={"/login"}>Log In</Link>
-              </Button>,
-              <Button key="1" type={type === "signup" ? "primary" : "link"}>
-                <Link to={"/signup"}>Sign Up</Link>
-              </Button>
-            ]}
-          />
-        </Col>
-      </Row>
-
+      <MiniNavbar type={type} />
       <Row
         align="middle"
         style={{ height: "calc(100vh - 87px)", overflowX: "hidden" }}
@@ -58,19 +35,29 @@ const AuthPage = ({ type }) => {
           sm={0}
           md={12}
           lg={14}
-          order={showType === "login" ? 1 : 2}
+          order={showType === "login" || showType === "forgotpassword" ? 1 : 2}
           className="auth-image-col"
         >
           <Fade
             left={showType === "login"}
-            right={showType === "signup"}
+            right={showType === "signup" || showType === "forgotpassword"}
             when={show}
           >
             <img
-              src={showType === "login" ? signinImage : signupImage}
+              src={
+                showType === "login"
+                  ? signinImage
+                  : showType === "signup"
+                  ? signupImage
+                  : forgotPassImage
+              }
               alt="Background for auth"
               width="100%"
-              className={showType === "login" ? "signin-image" : "signup-image"}
+              className={
+                showType === "login" || showType === "forgotpassword"
+                  ? "signin-image"
+                  : "signup-image"
+              }
             />
           </Fade>
         </Col>
@@ -79,12 +66,12 @@ const AuthPage = ({ type }) => {
           sm={24}
           md={10}
           lg={8}
-          order={showType === "login" ? 2 : 1}
+          order={showType === "login" || showType === "forgotpassword" ? 2 : 1}
           className="auth-form-col"
         >
           <Fade
             left={showType === "login"}
-            right={showType === "signup"}
+            right={showType === "signup" || showType === "forgotpassword"}
             when={show}
           >
             {showType === "login" ? (

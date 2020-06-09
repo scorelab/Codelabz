@@ -4,26 +4,20 @@ import RightMenu from "./RightMenu";
 import { Drawer, Button, Layout } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import BrandName from "../brandName";
+import navbarPaths from "./navbarPaths";
 
 const Navbar = () => {
-  let noNavbarPaths = [
-    "/",
-    "/login",
-    "/signup",
-    "/forgotpassword",
-    "/manageusers"
-  ];
   let { pathname: location } = useLocation();
   const [render, setRender] = useState(true);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (noNavbarPaths.includes(location)) {
+    if (!navbarPaths.includes(location)) {
       setRender(false);
     } else {
       setRender(true);
     }
-  }, [location, noNavbarPaths]);
+  }, [location]);
 
   const showDrawer = () => {
     setVisible(true);
