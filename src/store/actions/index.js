@@ -10,5 +10,10 @@ export {
   resendVerifyEmail,
   clearRecoverPasswordError,
   signInWithGoogle,
-  signInWithProviderID
+  signInWithProviderID,
+  checkOrgHandleExists,
+  checkUserHandleExists,
+  setUpInitialData
 } from "./authActions";
+
+export { clearProfileEditError } from "./profileActions";

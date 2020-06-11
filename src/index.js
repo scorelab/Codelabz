@@ -7,6 +7,14 @@ import store, { rrfProps } from "./store";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { Provider } from "react-redux";
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("./firebase-messaging-sw.js")
+    .catch(function(err) {
+      console.log("Service worker registration failed, error:", err);
+    });
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>

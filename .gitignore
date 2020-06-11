@@ -27,3 +27,5 @@ yarn-error.log*
 package-lock.json
 INTERNAL.md
 firebase-debug.log
+
+firebase-sw-private.js
