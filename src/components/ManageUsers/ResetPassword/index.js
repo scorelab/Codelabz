@@ -50,7 +50,6 @@ const ResetPassword = ({ queryParams }) => {
 
   return (
     <>
-      <MiniNavbar />
       <Row justify="center">
         <Col xs={24} sm={24} md={12} lg={10}>
           <Card bordered={false}>
