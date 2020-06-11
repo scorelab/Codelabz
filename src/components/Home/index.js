@@ -1,11 +1,9 @@
 import React from "react";
 import BrandName from "../brandName";
-import MiniNavbar from "../MiniNavbar";
 
 const Home = () => {
   return (
     <div>
-      <MiniNavbar />
       <h2>
         Welcome to <BrandName />
       </h2>

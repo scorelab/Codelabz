@@ -8,7 +8,6 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { UserIsNotAuthenticated } from "../../auth";
 import ForgotPassword from "./ForgotPassword";
-import MiniNavbar from "../MiniNavbar";
 
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
@@ -24,7 +23,6 @@ const AuthPage = ({ type }) => {
 
   return (
     <>
-      <MiniNavbar type={type} />
       <Row
         align="middle"
         style={{ height: "calc(100vh - 87px)", overflowX: "hidden" }}

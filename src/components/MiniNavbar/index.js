@@ -42,16 +42,16 @@ const MiniNavbar = ({ type }) => {
               : [
                   <Button
                     key="2"
-                    type={type && type === "login" ? "primary" : "link"}
+                    type={type && type === "/login" ? "primary" : "link"}
                   >
                     <Link to={"/login"}>Log In</Link>
                   </Button>,
                   <Button
                     key="1"
                     type={
-                      type && type === "signup"
+                      type && type === "/signup"
                         ? "primary"
-                        : type && type === "login"
+                        : type && type === "/login"
                         ? "link"
                         : "dashed"
                     }
