@@ -9,12 +9,9 @@ function MainNavbar() {
   const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
-    setVisible(true);
+    setVisible(!visible);
   };
 
-  const onClose = () => {
-    setVisible(false);
-  };
   return (
     <nav className="navbar">
       <Layout>
@@ -30,12 +27,13 @@ function MainNavbar() {
             <div className="leftMenu">
               <LeftMenu mode={"horizontal"} />
             </div>
-            <div className="rightMenu">
-              <RightMenu mode={"horizontal"} />
-            </div>
             <Button className="barsMenu" type="link" onClick={showDrawer}>
               <span className="barsBtn"></span>
             </Button>
+            <div className="rightMenu">
+              <RightMenu mode={"horizontal"} />
+            </div>
+
             <Drawer
               title={
                 <h3 style={{ color: "#3AAFA9" }} className="brand-font">
@@ -46,7 +44,7 @@ function MainNavbar() {
               }
               placement="right"
               closable={false}
-              onClose={onClose}
+              onClose={showDrawer}
               visible={visible}
               style={{ zIndex: 99999 }}
             >

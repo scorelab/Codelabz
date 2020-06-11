@@ -33,40 +33,41 @@
   justify-self: center;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-  background: transparent;
-  background-color: rgba(0, 0, 0, 0);
-  border-radius: 50px;
-}
+@media (min-width: 767px) {
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    background: transparent;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50px;
+  }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-color: transparent;
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 50px;
-  background-clip: padding-box;
-  background-color: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    border-color: transparent;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50px;
+    background-clip: padding-box;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
-  width: 8px;
-  cursor: pointer;
-}
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+    width: 8px;
+    cursor: pointer;
+  }
 
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-}
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
 
-::-webkit-scrollbar-corner {
-  border-radius: 50%;
+  ::-webkit-scrollbar-corner {
+    border-radius: 50%;
+  }
 }
-
 /* Margins */
 .mt-0 {
   margin-top: 0 !important;
@@ -403,4 +404,27 @@
 .facebook:hover > span {
   color: #4267b2;
   transition: color 0.2s;
+}
+
+// spinner
+.pulse {
+  animation: pulse 2s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 1;
+  font-size: 2rem;
+  color: #3aafa9;
+  font-family: "Aldrich", sans-serif;
+  text-emphasis: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

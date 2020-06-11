@@ -8,7 +8,7 @@ import {
 import { Alert, Card, Col, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 import PasswordResetForm from "./PasswordResetForm";
-import MiniNavbar from "../../MiniNavbar";
+
 const { Title } = Typography;
 
 const ResetPassword = ({ queryParams }) => {

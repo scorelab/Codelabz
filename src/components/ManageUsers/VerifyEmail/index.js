@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyEmail, clearAuthError } from "../../../store/actions";
-import MiniNavbar from "../../MiniNavbar";
 
 const { Title } = Typography;
 

@@ -10,14 +10,14 @@ const Home = () => {
         Notification.permission !== "granted" &&
         Notification.permission !== "denied"
       ) {
-        Notification.requestPermission().then(permission => {
+        Notification.requestPermission().then((permission) => {
           if (permission === "granted") {
             messaging
               .getToken()
-              .then(refreshedToken => {
+              .then((refreshedToken) => {
                 console.log(refreshedToken);
               })
-              .catch(e => console.log(e));
+              .catch((e) => console.log(e));
           }
         });
       }
@@ -27,10 +27,10 @@ const Home = () => {
   useEffect(() => {
     if (messaging) {
       const unsubscribe = messaging.onMessage(
-        payload => {
+        (payload) => {
           console.log(payload);
         },
-        error => console.log(error)
+        (error) => console.log(error)
       );
 
       return () => {
@@ -45,14 +45,14 @@ const Home = () => {
         () => {
           messaging
             .getToken()
-            .then(refreshedToken => {
+            .then((refreshedToken) => {
               console.log(refreshedToken);
             })
-            .catch(e => {
+            .catch((e) => {
               console.log(e);
             });
         },
-        error => console.log(error)
+        (error) => console.log(error)
       );
 
       return () => {
@@ -62,20 +62,20 @@ const Home = () => {
   }, []);
 
   return (
-    <>     
+    <>
       <Card bordered={false}>
         <Row justify="center">
-          <Col span={8} />
-          <Col span={8}>
+          <Col xs={24} md={8} />
+          <Col xs={24} md={8}>
             <h2 style={{ textAlign: "center" }}>
               Welcome to <BrandName />
             </h2>
           </Col>
-          <Col span={8} />
+          <Col xs={24} md={8} />
         </Row>
 
         <Row gutter={[16, 16]}>
-          <Col span={6}>
+          <Col size={6}>
             <Card>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -86,7 +86,7 @@ const Home = () => {
               </p>
             </Card>
           </Col>
-          <Col span={6}>
+          <Col xs={24} md={6}>
             <Card>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -97,7 +97,7 @@ const Home = () => {
               </p>
             </Card>
           </Col>
-          <Col span={6}>
+          <Col xs={24} md={6}>
             <Card>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -108,7 +108,7 @@ const Home = () => {
               </p>
             </Card>
           </Col>
-          <Col span={6}>
+          <Col xs={24} md={6}>
             <Card>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -122,7 +122,7 @@ const Home = () => {
         </Row>
 
         <Row gutter={16}>
-          <Col span={8}>
+          <Col xs={24} md={8}>
             <Card>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -133,7 +133,7 @@ const Home = () => {
               </p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} md={8}>
             <Card>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -144,7 +144,7 @@ const Home = () => {
               </p>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col xs={24} md={8}>
             <Card>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.

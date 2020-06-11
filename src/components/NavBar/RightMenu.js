@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Button } from "antd";
+import { Menu } from "antd";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
 import { useHistory } from "react-router-dom";
@@ -34,7 +34,7 @@ const RightMenu = ({ mode }) => {
                   ? "#fffff"
                   : "#3AAFA9",
             }}
-            size="large"
+            size={mode === "inline" ? "default" : "large"}
             src={profile.photoURL}
           >
             {acronym}

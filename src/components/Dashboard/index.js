@@ -6,14 +6,14 @@ import {
   checkOrgHandleExists,
   checkUserHandleExists,
   clearProfileEditError,
-  setUpInitialData
+  setUpInitialData,
 } from "../../store/actions";
 import {
   GlobalOutlined,
   UserAddOutlined,
   AppstoreAddOutlined,
   AppstoreOutlined,
-  IeOutlined
+  IeOutlined,
 } from "@ant-design/icons";
 
 const Dashboard = () => {
@@ -44,7 +44,7 @@ const Dashboard = () => {
     org_handle,
     org_name,
     org_website,
-    org_country
+    org_country,
   }) => {
     setError("");
     await setUpInitialData({
@@ -55,7 +55,7 @@ const Dashboard = () => {
       org_handle,
       org_name,
       org_website,
-      org_country
+      org_country,
     })(firebase, firestore, dispatch);
   };
 
@@ -70,8 +70,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "handle",
-          errors: [`The handle [${handle}] is already taken!`]
-        }
+          errors: [`The handle [${handle}] is already taken!`],
+        },
       ]);
     }
   };
@@ -88,8 +88,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken!`]
-        }
+          errors: [`The handle [${orgHandle}] is already taken!`],
+        },
       ]);
     }
   };
@@ -129,12 +129,12 @@ const Dashboard = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please enter your name"
+                      message: "Please enter your name",
                     },
                     {
                       type: "string",
-                      message: "Please enter a valid name"
-                    }
+                      message: "Please enter a valid name",
+                    },
                   ]}
                 >
                   <Input
@@ -149,17 +149,17 @@ const Dashboard = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please enter your user handle"
+                      message: "Please enter your user handle",
                     },
                     {
                       pattern: new RegExp(/^[a-z0-9]{6,}$/),
                       message:
-                        "User handle can only contain lowercase alphanumeric characters"
+                        "User handle can only contain lowercase alphanumeric characters",
                     },
                     {
                       min: 6,
-                      message: "User handle cannot be less than 6 characters"
-                    }
+                      message: "User handle cannot be less than 6 characters",
+                    },
                   ]}
                 >
                   <Input
@@ -175,8 +175,8 @@ const Dashboard = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please enter your country"
-                    }
+                      message: "Please enter your country",
+                    },
                   ]}
                   hasFeedback
                 >
@@ -208,12 +208,12 @@ const Dashboard = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter the organization name"
+                          message: "Please enter the organization name",
                         },
                         {
                           type: "string",
-                          message: "Please provide a valid organization name"
-                        }
+                          message: "Please provide a valid organization name",
+                        },
                       ]}
                     >
                       <Input
@@ -230,18 +230,18 @@ const Dashboard = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter your organization handle"
+                          message: "Please enter your organization handle",
                         },
                         {
                           pattern: new RegExp(/^[a-z0-9]{6,}$/),
                           message:
-                            "Organization handle can only contain lowercase alphanumeric characters"
+                            "Organization handle can only contain lowercase alphanumeric characters",
                         },
                         {
                           min: 6,
                           message:
-                            "Organization handle cannot be less than 6 characters"
-                        }
+                            "Organization handle cannot be less than 6 characters",
+                        },
                       ]}
                     >
                       <Input
@@ -260,8 +260,8 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please enter the country of the organization"
-                        }
+                            "Please enter the country of the organization",
+                        },
                       ]}
                       hasFeedback
                     >
@@ -280,12 +280,12 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please enter the website of the organization"
+                            "Please enter the website of the organization",
                         },
                         {
                           type: "url",
-                          message: "Please provide a valid url"
-                        }
+                          message: "Please provide a valid url",
+                        },
                       ]}
                       hasFeedback
                     >
