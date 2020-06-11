@@ -16,6 +16,7 @@
     "query-string": "^6.13.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-headroom": "^3.0.0",
     "react-loader-spinner": "^3.1.14",
     "react-redux": "^7.2.0",
     "react-redux-firebase": "^3.4.0",

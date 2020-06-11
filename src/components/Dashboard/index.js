@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Card, Col, Row, Button, Form, Input } from "antd";
+import { Alert, Card, Col, Row, Button, Form, Input, Select } from "antd";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,6 +15,9 @@ import {
   AppstoreOutlined,
   IeOutlined,
 } from "@ant-design/icons";
+import countryList from "../../helpers/countryList";
+
+const { Option } = Select;
 
 const Dashboard = () => {
   const [form] = Form.useForm();
@@ -26,6 +29,16 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+  const profile = useSelector(({ firebase }) => firebase.profile);
+  const children = [];
+
+  for (let i = 0; i < countryList.length; i++) {
+    children.push(
+      <Option key={countryList[i].code} value={countryList[i].name}>
+        {countryList[i].name}
+      </Option>
+    );
+  }
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
@@ -126,6 +139,7 @@ const Dashboard = () => {
               <Form form={form} onFinish={onSubmit}>
                 <Form.Item
                   name={"name"}
+                  initialValue={profile.displayName}
                   rules={[
                     {
                       required: true,
@@ -152,7 +166,7 @@ const Dashboard = () => {
                       message: "Please enter your user handle",
                     },
                     {
-                      pattern: new RegExp(/^[a-z0-9]{6,}$/),
+                      pattern: new RegExp(/^[a-z0-9]{1,}$/),
                       message:
                         "User handle can only contain lowercase alphanumeric characters",
                     },
@@ -170,6 +184,7 @@ const Dashboard = () => {
                     placeholder="User Handle"
                   />
                 </Form.Item>
+
                 <Form.Item
                   name="country"
                   rules={[
@@ -178,15 +193,21 @@ const Dashboard = () => {
                       message: "Please enter your country",
                     },
                   ]}
-                  hasFeedback
                 >
-                  <Input
-                    prefix={
-                      <GlobalOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                  <Select
+                    style={{ width: "100%" }}
+                    placeholder={
+                      <>
+                        <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} />{" "}
+                        Country
+                      </>
                     }
-                    placeholder="Country"
-                  />
+                    showSearch={true}
+                  >
+                    {children}
+                  </Select>
                 </Form.Item>
+
                 <Form.Item>
                   <Button
                     type="ghost"
@@ -265,14 +286,20 @@ const Dashboard = () => {
                       ]}
                       hasFeedback
                     >
-                      <Input
-                        prefix={
-                          <GlobalOutlined
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
+                      <Select
+                        style={{ width: "100%" }}
+                        placeholder={
+                          <>
+                            <GlobalOutlined
+                              style={{ color: "rgba(0,0,0,.4)" }}
+                            />{" "}
+                            Country of the organization
+                          </>
                         }
-                        placeholder="Country of the Organization"
-                      />
+                        showSearch={true}
+                      >
+                        {children}
+                      </Select>
                     </Form.Item>
                     <Form.Item
                       name="org_website"

@@ -11,8 +11,10 @@ import {
   SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import { useAllowDashboard } from "../../helpers/customHooks";
 
 const RightMenu = ({ mode }) => {
+  const allowDashboard = useAllowDashboard();
   const firebase = useFirebase();
   const history = useHistory();
   const profile = useSelector(({ firebase }) => firebase.profile);
@@ -41,12 +43,17 @@ const RightMenu = ({ mode }) => {
           </Avatar>
         }
       >
-        <Menu.Item key="setting:1">
-          <UserOutlined /> My Profile
-        </Menu.Item>
-        <Menu.Item key="setting:2">
-          <CodeOutlined /> My Tutorials
-        </Menu.Item>
+        {allowDashboard && (
+          <Menu.Item key="setting:1">
+            <UserOutlined /> My Profile
+          </Menu.Item>
+        )}
+        {allowDashboard && (
+          <Menu.Item key="setting:2">
+            <CodeOutlined /> My Tutorials
+          </Menu.Item>
+        )}
+
         <Menu.Item key="setting:3">
           <SettingOutlined /> Settings
         </Menu.Item>
