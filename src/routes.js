@@ -1,7 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import { UserIsAuthenticated } from "./auth";
+import {
+  UserIsAllowedUserDashboard,
+  UserIsNotAllowedUserDashboard
+} from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import { useSelector } from "react-redux";
 import { isLoaded } from "react-redux-firebase";
@@ -11,15 +14,16 @@ import Spinner from "./helpers/spinner";
 import Navbar from "./components/NavBar";
 import ManageUsers from "./components/ManageUsers";
 import NotFound from "./components/ErrorPages/404";
+import MyFeed from "./components/MyFeed";
 
 const AuthIsLoaded = ({ children }) => {
-  const auth = useSelector(({ firebase }) => firebase.auth);
-  if (!isLoaded(auth)) return <Spinner />;
+  const profile = useSelector(({ firebase: { profile } }) => profile);
+  if (!isLoaded(profile)) return <Spinner />;
   return children;
 };
 
 // Remember to add the paths that the main navbar should
-// be shown in components/NavBar/noNavbarPaths.js
+// be shown in components/NavBar/navbarPaths.js
 
 const Routes = () => {
   return (
@@ -31,18 +35,17 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            authType={"login"}
-            render={(props) => <AuthPage {...props} type={"login"} />}
+            render={props => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={(props) => <AuthPage {...props} type={"signup"} />}
+            render={props => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
+            render={props => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
@@ -52,7 +55,12 @@ const Routes = () => {
           <Route
             exact
             path={"/dashboard"}
-            component={UserIsAuthenticated(Dashboard)}
+            component={UserIsNotAllowedUserDashboard(Dashboard)}
+          />
+          <Route
+            exact
+            path={"/dashboard/my_feed"}
+            component={UserIsAllowedUserDashboard(MyFeed)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>
