@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import {
   UserIsAllowedUserDashboard,
-  UserIsNotAllowedUserDashboard
+  UserIsNotAllowedUserDashboard,
 } from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import { useSelector } from "react-redux";
@@ -22,7 +22,7 @@ const AuthIsLoaded = ({ children }) => {
   return children;
 };
 
-// Remember to add the paths that the main navbar should
+// Remember to add the paths that the MINI navbar should
 // be shown in components/NavBar/navbarPaths.js
 
 const Routes = () => {
@@ -35,17 +35,17 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            render={props => <AuthPage {...props} type={"login"} />}
+            render={(props) => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={props => <AuthPage {...props} type={"signup"} />}
+            render={(props) => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={props => <AuthPage {...props} type={"forgotpassword"} />}
+            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
