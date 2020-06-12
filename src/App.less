@@ -1,5 +1,6 @@
 @import "~antd/dist/antd.less";
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
 
 .brand-font {
   font-family: "Aldrich", sans-serif;
@@ -8,6 +9,17 @@
 .signin-image {
   padding-right: 50px;
   max-height: 80vh;
+}
+
+.homepage-image {
+  padding-bottom: 20px;
+  max-height: calc(100vh - 72px);
+}
+
+.homepage-interface {
+  padding: 20px 0px;
+  width: 100%;
+  max-width: calc(100vw - 48px);
 }
 
 .signup-image {
@@ -20,6 +32,49 @@
 
 .auth-form-col {
   max-width: 500px;
+}
+
+.home-row {
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.home-left-col {
+  padding: 0 24px;
+}
+
+.home-right-col {
+  padding: 0 24px;
+}
+
+.home-description {
+  font-weight: normal;
+}
+
+@media (min-width: 767px) {
+  .home-row {
+    min-height: calc(100vh - 72px);
+    text-align: left;
+  }
+
+  .home-title {
+    font-size: 3rem;
+  }
+
+  .home-description {
+    font-size: 1.8rem;
+  }
+
+  .homepage-interface {
+    padding: 20px 20px;
+    width: 80%;
+  }
+}
+@media (max-width: 767px) {
+  .mobile-top-padding {
+    padding-top: 40px;
+  }
 }
 
 .center {
@@ -151,6 +206,10 @@
   padding-left: 16px !important;
 }
 
+.pl-24 {
+  padding-left: 24px !important;
+}
+
 .pr-0 {
   padding-right: 0 !important;
 }
@@ -161,6 +220,10 @@
 
 .pr-16 {
   padding-right: 16px !important;
+}
+
+.pr-24 {
+  padding-right: 24px !important;
 }
 
 .pt-0 {
@@ -179,6 +242,18 @@
   padding-top: 16px !important;
 }
 
+.pt-24 {
+  padding-top: 24px !important;
+}
+
+.pt-32 {
+  padding-top: 32px !important;
+}
+
+.pt-40 {
+  padding-top: 40px !important;
+}
+
 .pb-0 {
   padding-bottom: 0 !important;
 }
@@ -189,6 +264,18 @@
 
 .pb-16 {
   padding-bottom: 16px !important;
+}
+
+.pb-24 {
+  padding-bottom: 24px !important;
+}
+
+.pb-32 {
+  padding-bottom: 32px !important;
+}
+
+.pb-40 {
+  padding-bottom: 40px !important;
 }
 
 .text-center {
@@ -223,6 +310,11 @@
   position: sticky;
   top: 0;
   margin-bottom: 20px;
+  z-index: 99990;
+}
+
+.navbar-mini {
+  background-color: white;
   z-index: 99990;
 }
 
@@ -432,4 +524,21 @@
 .ant-form-item-explain {
   padding-top: 8px;
   padding-bottom: 16px;
+}
+
+.call-to-action-btn {
+  height: 50px;
+  padding: 6px 25px;
+  font-size: 20px;
+  border-radius: 2px;
+}
+
+.flip-image {
+  transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+}
+
+.light-green-bg {
+  background-color: #f7fcfb;
+  // background-image: linear-gradient(#ffffff, #ebfcfc, #ffffff);
 }

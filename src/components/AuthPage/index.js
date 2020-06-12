@@ -8,10 +8,14 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { UserIsNotAuthenticated } from "../../auth";
 import ForgotPassword from "./ForgotPassword";
+import { useMediaQuery } from "react-responsive";
 
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
   const [showType, setShowType] = useState(type);
+  const isDesktop = useMediaQuery({
+    query: "(min-device-width: 767px)",
+  });
 
   useEffect(() => {
     setShow(false);
@@ -37,8 +41,12 @@ const AuthPage = ({ type }) => {
           className="auth-image-col"
         >
           <Fade
-            left={showType === "login"}
-            right={showType === "signup" || showType === "forgotpassword"}
+            left={isDesktop ? showType === "login" : false}
+            right={
+              isDesktop
+                ? showType === "signup" || showType === "forgotpassword"
+                : false
+            }
             when={show}
           >
             <img
@@ -68,8 +76,12 @@ const AuthPage = ({ type }) => {
           className="auth-form-col"
         >
           <Fade
-            left={showType === "login"}
-            right={showType === "signup" || showType === "forgotpassword"}
+            left={isDesktop ? showType === "login" : false}
+            right={
+              isDesktop
+                ? showType === "signup" || showType === "forgotpassword"
+                : false
+            }
             when={show}
           >
             {showType === "login" ? (
