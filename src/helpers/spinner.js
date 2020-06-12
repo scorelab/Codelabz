@@ -4,7 +4,7 @@ import { Row, Col } from "antd";
 
 export default ({ top, design, designSize }) => {
   return (
-    <Row>
+    <Row justify={"center"}>
       <Col />
       <Col>
         <div style={{ minHeight: "100vh" }}>
@@ -16,8 +16,8 @@ export default ({ top, design, designSize }) => {
             }
           >
             <Loader
-              type={design ? design : "MutatingDots"}
-              color="#000000"
+              type={design ? design : "BallTriangle"}
+              color="#3AAFA9"
               height={designSize ? designSize : 100}
               width={designSize ? designSize : 100}
             />
@@ -28,3 +28,5 @@ export default ({ top, design, designSize }) => {
     </Row>
   );
 };
+
+//["Audio","BallTriangle","Bars","Circles","Grid","Hearts","Oval","Puff","Rings","TailSpin","ThreeDots","Watch","RevolvingDot","Triangle","Plane","MutatingDots","CradleLoader"]

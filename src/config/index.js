@@ -6,6 +6,7 @@ import "firebase/storage";
 import "firebase/functions";
 import "firebase/analytics";
 import "firebase/performance";
+import "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -26,5 +27,16 @@ firebase.firestore(); // <- needed if using firestore
 
 export const firebaseAuth = firebase.auth();
 export const functions = firebase.functions();
+
+// Retrieve Firebase Messaging object.
+let firebase_messaging;
+if (firebase.messaging.isSupported()) {
+  firebase_messaging = firebase.messaging();
+  firebase_messaging.usePublicVapidKey(
+    process.env.REACT_APP_FIREBASE_FCM_VAPID_KEY
+  );
+}
+
+export const messaging = firebase_messaging;
 
 export default firebase;

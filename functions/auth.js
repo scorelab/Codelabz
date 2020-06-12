@@ -7,7 +7,9 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+const rtdb = admin.database();
 
 module.exports = {
-  db
+  db,
+  rtdb
 };
