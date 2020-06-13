@@ -19,7 +19,7 @@ const Footer = () => {
   return (
     <footer className="light-green-bg pt-16 pb-16">
       <Row>
-        <Col sm={24} md={6} className="col-pad-24">
+        <Col sm={24} xs={24} md={6} className="col-pad-24">
           <h2 style={{ color: "#3AAFA9" }} className="brand-font mb-0">
             <Link to={"/"}>
               <BrandName />
@@ -28,7 +28,7 @@ const Footer = () => {
           Live to learn, learn to live.
         </Col>
 
-        <Col sm={24} md={6} className="col-pad-24">
+        <Col xs={24} sm={24} md={6} className="col-pad-24">
           <h3 className="mb-24">About</h3>
           <div className="mt-8 mb-8">
             <a
@@ -62,7 +62,7 @@ const Footer = () => {
           </div>
         </Col>
 
-        <Col sm={24} md={6} className="col-pad-24">
+        <Col xs={24} md={6} className="col-pad-24">
           <h3 className="mb-24">Help</h3>
           <div className="mt-8 mb-8">
             <a
@@ -96,7 +96,7 @@ const Footer = () => {
           </div>
         </Col>
 
-        <Col sm={24} md={6} className="col-pad-24">
+        <Col xs={24} sm={24} md={6} className="col-pad-24">
           <h3 className="mb-24">Contact</h3>
           <div className="mt-8 mb-8">
             <a href="tel: +94712345678" className="mb-8 mt-8 footer-link">

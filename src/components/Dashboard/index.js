@@ -16,6 +16,9 @@ import {
   IeOutlined,
 } from "@ant-design/icons";
 import countryList from "../../helpers/countryList";
+import orgUser from "../../assets/images/org-user.svg";
+import profileUser from "../../assets/images/profile-user.svg";
+import Fade from "react-reveal/Fade";
 
 const { Option } = Select;
 
@@ -24,6 +27,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOrgForm, setShowOrgForm] = useState(null);
+  const [focusLeft, setFocusLeft] = useState(true);
+  const [showImage, setShowImage] = useState(false);
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -39,6 +44,13 @@ const Dashboard = () => {
       </Option>
     );
   }
+
+  useEffect(() => {
+    setShowImage(false);
+    setTimeout(() => {
+      setShowImage(focusLeft ? "user" : "org");
+    }, 200);
+  }, [focusLeft]);
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
@@ -108,25 +120,18 @@ const Dashboard = () => {
   };
 
   return (
-    <Card bordered={false}>
-      <Row justify="center">
-        <Col span={8} />
-        <Col span={8}>
-          <h2 style={{ textAlign: "center" }}>
-            One thing before we go all the way in,
-            <br />
-            We need you to provide this info.
-          </h2>
+    <div className="home-row">
+      <Row align="middle" justify="space-between">
+        <Col xs={24} className="col-pad-24 pt-32">
+          <h2 className="mb-0 center">Welcome to CodeLabz!</h2>
+          <h3 className="mb-0 center">
+            Let's complete your profile before we dive in.
+          </h3>
         </Col>
-        <Col span={8} />
-      </Row>
-
-      <Row gutter={[16, 16]}>
-        <Col span={6} />
-        <Col span={12}>
-          <Card>
-            <>
-              {error && (
+        <Col xs={24} sm={24} md={showOrgForm ? 16 : 12}>
+          {error && (
+            <Row>
+              <Col xs={24} className="col-pad-24 pr-12 pb-0">
                 <Alert
                   message={""}
                   description={error}
@@ -134,96 +139,119 @@ const Dashboard = () => {
                   closable
                   className="login-error mb-16"
                 />
-              )}
+              </Col>
+            </Row>
+          )}
 
-              <Form form={form} onFinish={onSubmit}>
-                <Form.Item
-                  name={"name"}
-                  initialValue={profile.displayName}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your name",
-                    },
-                    {
-                      type: "string",
-                      message: "Please enter a valid name",
-                    },
-                  ]}
+          <Form form={form} onFinish={onSubmit}>
+            <Row>
+              <Col
+                xs={24}
+                sm={24}
+                md={showOrgForm ? 12 : 24}
+                className="col-pad-24 pr-12 pt-8 pb-24"
+                onFocus={() => setFocusLeft(true)}
+              >
+                <Card
+                  title="Your Details"
+                  className="auth-form-col"
+                  style={{ margin: "0 auto" }}
                 >
-                  <Input
-                    prefix={
-                      <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="Name"
-                  />
-                </Form.Item>
-                <Form.Item
-                  name={"handle"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your user handle",
-                    },
-                    {
-                      pattern: new RegExp(/^[a-z0-9]{1,}$/),
-                      message:
-                        "User handle can only contain lowercase alphanumeric characters",
-                    },
-                    {
-                      min: 6,
-                      message: "User handle cannot be less than 6 characters",
-                    },
-                  ]}
-                >
-                  <Input
-                    onBlur={onHandleChange}
-                    prefix={
-                      <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="User Handle"
-                  />
-                </Form.Item>
-
-                <Form.Item
-                  name="country"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your country",
-                    },
-                  ]}
-                >
-                  <Select
-                    style={{ width: "100%" }}
-                    placeholder={
-                      <>
-                        <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} />{" "}
-                        Country
-                      </>
-                    }
-                    showSearch={true}
+                  <Form.Item
+                    name={"name"}
+                    initialValue={profile.displayName}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your name",
+                      },
+                      {
+                        type: "string",
+                        message: "Please enter a valid name",
+                      },
+                    ]}
                   >
-                    {children}
-                  </Select>
-                </Form.Item>
-
-                <Form.Item>
-                  <Button
-                    type="ghost"
-                    onClick={() => setShowOrgForm(!showOrgForm)}
-                    block
-                    loading={loading}
+                    <Input
+                      prefix={
+                        <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="Name"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name={"handle"}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your user handle",
+                      },
+                      {
+                        pattern: new RegExp(/^[a-z0-9]{1,}$/),
+                        message:
+                          "User handle can only contain lowercase alphanumeric characters",
+                      },
+                      {
+                        min: 6,
+                        message: "User handle cannot be less than 6 characters",
+                      },
+                    ]}
                   >
-                    {showOrgForm === false
-                      ? "I want to create an organization"
-                      : showOrgForm === true
-                      ? "I don't want to create an organization"
-                      : "I want to create an organization"}
-                  </Button>
-                </Form.Item>
+                    <Input
+                      onBlur={onHandleChange}
+                      prefix={
+                        <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="User Handle"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select your country",
+                      },
+                    ]}
+                  >
+                    <Select
+                      style={{ width: "100%" }}
+                      placeholder={
+                        <div style={{ textAlign: "left" }}>
+                          <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} />{" "}
+                          Country
+                        </div>
+                      }
+                      showSearch={true}
+                    >
+                      {children}
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item className="mb-0">
+                    <Button
+                      type="dashed"
+                      onClick={() => setShowOrgForm(!showOrgForm)}
+                      block
+                      loading={loading}
+                    >
+                      {showOrgForm === false
+                        ? "I want to create an organization"
+                        : showOrgForm === true
+                        ? "I don't want to create an organization"
+                        : "I want to create an organization"}
+                    </Button>
+                  </Form.Item>
+                </Card>
+              </Col>
+              <Col
+                xs={showOrgForm ? 24 : 0}
+                md={showOrgForm ? 12 : 0}
+                className="col-pad-24 pl-12 pr-12 pt-8"
+                onFocus={() => setFocusLeft(false)}
+              >
                 {showOrgForm && (
-                  <>
+                  <Card title="Organization Details">
                     <Form.Item
                       name={"org_name"}
                       rules={[
@@ -254,12 +282,12 @@ const Dashboard = () => {
                           message: "Please enter your organization handle",
                         },
                         {
-                          pattern: new RegExp(/^[a-z0-9]{6,}$/),
+                          pattern: new RegExp(/^[a-z0-9]{1,}$/),
                           message:
                             "Organization handle can only contain lowercase alphanumeric characters",
                         },
                         {
-                          min: 6,
+                          pattern: new RegExp(/^[a-z0-9]{6,}$/),
                           message:
                             "Organization handle cannot be less than 6 characters",
                         },
@@ -281,20 +309,19 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please enter the country of the organization",
+                            "Please select the country of the organization",
                         },
                       ]}
-                      hasFeedback
                     >
                       <Select
                         style={{ width: "100%" }}
                         placeholder={
-                          <>
+                          <div style={{ textAlign: "left" }}>
                             <GlobalOutlined
                               style={{ color: "rgba(0,0,0,.4)" }}
                             />{" "}
                             Country of the organization
-                          </>
+                          </div>
                         }
                         showSearch={true}
                       >
@@ -303,6 +330,7 @@ const Dashboard = () => {
                     </Form.Item>
                     <Form.Item
                       name="org_website"
+                      className="mb-0"
                       rules={[
                         {
                           required: true,
@@ -323,25 +351,42 @@ const Dashboard = () => {
                         placeholder="Website"
                       />
                     </Form.Item>
-                  </>
+                  </Card>
                 )}
-                <Form.Item>
+              </Col>
+              <Col xs={24} className="center pl-24 pr-12 pb-32 pt-8">
+                <Form.Item className="mb-0">
                   <Button
                     type="primary"
                     htmlType="submit"
                     block
                     loading={loading}
+                    className="auth-form-col"
                   >
-                    {loading ? "Submitting..." : "Submit"}
+                    {loading ? "Saving..." : "Save"}
                   </Button>
                 </Form.Item>
-              </Form>
-            </>
-          </Card>
+              </Col>
+            </Row>
+          </Form>
         </Col>
-        <Col span={6} />
+        <Col
+          xs={0}
+          sm={0}
+          md={showOrgForm ? 8 : 12}
+          className="col-pad-24 pl-12 pt-8"
+        >
+          <Fade right={true} when={showImage}>
+            <img
+              src={showImage === "user" ? profileUser : orgUser}
+              alt="Background for auth"
+              width="100%"
+              className="dash-image"
+            />
+          </Fade>
+        </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 

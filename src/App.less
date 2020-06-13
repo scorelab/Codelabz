@@ -202,6 +202,10 @@
   padding-left: 8px !important;
 }
 
+.pl-12 {
+  padding-left: 12px !important;
+}
+
 .pl-16 {
   padding-left: 16px !important;
 }
@@ -216,6 +220,10 @@
 
 .pr-8 {
   padding-right: 8px !important;
+}
+
+.pr-12 {
+  padding-right: 12px !important;
 }
 
 .pr-16 {
@@ -236,6 +244,10 @@
 
 .pt-8 {
   padding-top: 8px !important;
+}
+
+.pt-12 {
+  padding-top: 12px !important;
 }
 
 .pt-16 {
@@ -262,6 +274,10 @@
   padding-bottom: 8px !important;
 }
 
+.pb-12 {
+  padding-bottom: 12px !important;
+}
+
 .pb-16 {
   padding-bottom: 16px !important;
 }
@@ -279,28 +295,36 @@
 }
 
 .col-pad-8 {
-  padding: 8px !important;
+  padding: 8px;
 }
 
 .col-pad-16 {
-  padding: 16px !important;
+  padding: 16px;
 }
 
 .col-pad-24 {
-  padding: 24px !important;
+  padding: 24px;
 }
 
 @media (max-width: 767px) {
   .col-pad-8 {
-    padding: 4px 8px !important;
+    padding: 4px 8px;
   }
 
   .col-pad-16 {
-    padding: 8px 16px !important;
+    padding: 8px 16px;
   }
 
   .col-pad-24 {
-    padding: 12px 24px !important;
+    padding: 12px 24px;
+  }
+
+  .pr-12 {
+    padding-right: 24px !important;
+  }
+
+  .pl-12 {
+    padding-left: 24px !important;
   }
 }
 
@@ -347,7 +371,7 @@
 .nav-header {
   background-color: white;
   border-bottom: 0;
-  padding: 0 0 0 20px;
+  padding: 0 4px 0 24px;
 }
 
 .logo {
@@ -573,4 +597,8 @@
   transition: all 0.2s;
   color: rgba(0, 0, 0, 0.9);
   text-decoration: none;
+}
+
+.dash-image {
+  max-height: calc(100vh - 250px);
 }
