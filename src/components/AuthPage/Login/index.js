@@ -9,7 +9,6 @@ import {
   Typography,
   Row,
   Col,
-  Card,
   Checkbox,
   Divider,
 } from "antd";
@@ -48,13 +47,11 @@ const Login = () => {
   };
 
   return (
-    <Card bordered={false}>
+    <div className="pr-24 pl-24">
       <Title level={2} style={{ textAlign: "center", marginBottom: "40px" }}>
         Welcome back!
       </Title>
-
       <ViewAlerts error={error} email={email} />
-
       <Form onFinish={onSubmit}>
         <Form.Item
           name={"email"}
@@ -76,7 +73,7 @@ const Login = () => {
         </Form.Item>
         <Form.Item
           name={"password"}
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: "Please input your password" }]}
         >
           <Input.Password
             prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -110,7 +107,7 @@ const Login = () => {
           <Link to={"/signup"}>Create an account</Link>
         </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 

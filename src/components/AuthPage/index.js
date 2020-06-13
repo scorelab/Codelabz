@@ -29,7 +29,7 @@ const AuthPage = ({ type }) => {
     <>
       <Row
         align="middle"
-        style={{ height: "calc(100vh - 87px)", overflowX: "hidden" }}
+        style={{ height: "calc(100vh - 72px)", overflowX: "hidden" }}
         justify="center"
       >
         <Col

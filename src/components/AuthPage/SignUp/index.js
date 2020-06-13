@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Typography, Row, Col, Card, Divider } from "antd";
+import { Typography, Row, Col, Divider } from "antd";
 import SignupForm from "./signupForm";
 import SmButtons from "../smButtons";
 
@@ -8,9 +8,9 @@ const { Title } = Typography;
 
 const SignUp = () => {
   return (
-    <Card bordered={false}>
+    <div className="pr-24 pl-24">
       <Title level={2} style={{ textAlign: "center", marginBottom: "40px" }}>
-        Create an Account
+        Create an account
       </Title>
       <SignupForm />
       <Divider>or</Divider>
@@ -21,7 +21,7 @@ const SignUp = () => {
           account? <Link to="/login">Log In</Link>
         </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 

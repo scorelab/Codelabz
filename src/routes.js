@@ -15,6 +15,7 @@ import Navbar from "./components/NavBar";
 import ManageUsers from "./components/ManageUsers";
 import NotFound from "./components/ErrorPages/404";
 import MyFeed from "./components/MyFeed";
+import Footer from "./components/Footer";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -64,6 +65,7 @@ const Routes = () => {
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>
+        <Footer />
       </AuthIsLoaded>
     </Router>
   );
