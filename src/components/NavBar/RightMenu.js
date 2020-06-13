@@ -38,6 +38,13 @@ const RightMenu = ({ mode }) => {
             }}
             size={mode === "inline" ? "default" : "large"}
             src={profile.photoURL}
+            icon={
+              acronym ? null : (
+                <UserOutlined
+                  style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
+                />
+              )
+            }
           >
             {acronym}
           </Avatar>

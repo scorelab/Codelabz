@@ -149,7 +149,7 @@ const Dashboard = () => {
                 xs={24}
                 sm={24}
                 md={showOrgForm ? 12 : 24}
-                className="col-pad-24 pr-12 pt-8 pb-24"
+                className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
                 onFocus={() => setFocusLeft(true)}
               >
                 <Card
