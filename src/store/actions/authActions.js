@@ -212,9 +212,31 @@ export const setUpInitialData = data => async (
       org_country
     } = data;
 
+    const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
+
+    if (isUserHandleExists) {
+      dispatch({
+        type: actions.INITIAL_SETUP_FAIL,
+        payload: `Handle [${handle}] is already taken`
+      });
+      return;
+    }
+
     let promises;
 
     if (Boolean(orgData)) {
+      const isOrgHandleExists = await checkOrgHandleExists(org_handle)(
+        firebase
+      );
+
+      if (isOrgHandleExists) {
+        dispatch({
+          type: actions.INITIAL_SETUP_FAIL,
+          payload: `Handle [${org_handle}] is already taken`
+        });
+        return;
+      }
+
       promises = [
         firebase.updateProfile(
           { displayName, handle, country, organizations: [org_handle] },
