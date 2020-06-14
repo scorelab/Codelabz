@@ -9,13 +9,13 @@ const ManageUsers = () => {
   const values = queryString.parse(location.search);
 
   return (
-    <>
+    <div className="row-fullheight">
       {values.mode === "resetPassword" ? (
         <ResetPassword queryParams={values} />
       ) : values.mode === "verifyEmail" ? (
         <VerifyEmail queryParams={values} />
       ) : null}
-    </>
+    </div>
   );
 };
 

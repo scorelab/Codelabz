@@ -1,6 +1,7 @@
 @import "~antd/dist/antd.less";
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+@import "helpers/spacing.css";
 
 .brand-font {
   font-family: "Aldrich", sans-serif;
@@ -52,6 +53,12 @@
   font-weight: normal;
 }
 
+.row-fullheight {
+  min-height: calc(
+    100vh - 72px - 295px
+  ); /* 72px is the height of the navbar, 285px is the height of the footer */
+}
+
 @media (min-width: 767px) {
   .home-row {
     min-height: calc(100vh - 72px);
@@ -86,246 +93,6 @@
   justify-content: center;
   justify-items: center;
   justify-self: center;
-}
-
-@media (min-width: 767px) {
-  /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 12px;
-    background: transparent;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 50px;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    border-color: transparent;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 50px;
-    background-clip: padding-box;
-    background-color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.5);
-    width: 8px;
-    cursor: pointer;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-  }
-
-  ::-webkit-scrollbar-corner {
-    border-radius: 50%;
-  }
-}
-/* Margins */
-.mt-0 {
-  margin-top: 0 !important;
-}
-
-.mt-3 {
-  margin-top: 3px !important;
-}
-
-.mt-8 {
-  margin-top: 8px !important;
-}
-
-.mt-12 {
-  margin-top: 12px !important;
-}
-
-.mt-16 {
-  margin-top: 16px !important;
-}
-
-.mt-24 {
-  margin-top: 24px !important;
-}
-
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-
-.mb-8 {
-  margin-bottom: 8px !important;
-}
-
-.mb-16 {
-  margin-bottom: 16px !important;
-}
-
-.mb-24 {
-  margin-bottom: 24px !important;
-}
-
-.mb-32 {
-  margin-bottom: 32px !important;
-}
-
-.mr-0 {
-  margin-right: 0 !important;
-}
-
-.mr-8 {
-  margin-right: 8px !important;
-}
-
-.mr-16 {
-  margin-right: 16px !important;
-}
-
-.ml-0 {
-  margin-left: 0 !important;
-}
-
-.ml-8 {
-  margin-left: 8px !important;
-}
-
-.ml-16 {
-  margin-left: 16px !important;
-}
-
-/* Paddings */
-
-.pl-0 {
-  padding-left: 0 !important;
-}
-
-.pl-8 {
-  padding-left: 8px !important;
-}
-
-.pl-12 {
-  padding-left: 12px !important;
-}
-
-.pl-16 {
-  padding-left: 16px !important;
-}
-
-.pl-24 {
-  padding-left: 24px !important;
-}
-
-.pr-0 {
-  padding-right: 0 !important;
-}
-
-.pr-8 {
-  padding-right: 8px !important;
-}
-
-.pr-12 {
-  padding-right: 12px !important;
-}
-
-.pr-16 {
-  padding-right: 16px !important;
-}
-
-.pr-24 {
-  padding-right: 24px !important;
-}
-
-.pt-0 {
-  padding-top: 0 !important;
-}
-
-.pt-5 {
-  padding-top: 5px !important;
-}
-
-.pt-8 {
-  padding-top: 8px !important;
-}
-
-.pt-12 {
-  padding-top: 12px !important;
-}
-
-.pt-16 {
-  padding-top: 16px !important;
-}
-
-.pt-24 {
-  padding-top: 24px !important;
-}
-
-.pt-32 {
-  padding-top: 32px !important;
-}
-
-.pt-40 {
-  padding-top: 40px !important;
-}
-
-.pb-0 {
-  padding-bottom: 0 !important;
-}
-
-.pb-8 {
-  padding-bottom: 8px !important;
-}
-
-.pb-12 {
-  padding-bottom: 12px !important;
-}
-
-.pb-16 {
-  padding-bottom: 16px !important;
-}
-
-.pb-24 {
-  padding-bottom: 24px !important;
-}
-
-.pb-32 {
-  padding-bottom: 32px !important;
-}
-
-.pb-40 {
-  padding-bottom: 40px !important;
-}
-
-.col-pad-8 {
-  padding: 8px;
-}
-
-.col-pad-16 {
-  padding: 16px;
-}
-
-.col-pad-24 {
-  padding: 24px;
-}
-
-@media (max-width: 767px) {
-  .col-pad-8 {
-    padding: 4px 8px;
-  }
-
-  .col-pad-16 {
-    padding: 8px 16px;
-  }
-
-  .col-pad-24 {
-    padding: 12px 24px;
-  }
-
-  .pr-12 {
-    padding-right: 24px !important;
-  }
-
-  .pl-12 {
-    padding-left: 24px !important;
-  }
 }
 
 .text-center {
@@ -605,4 +372,8 @@
 
 .div-transition {
   transition: flex 0.2s;
+}
+
+footer {
+  margin-top: 50px;
 }

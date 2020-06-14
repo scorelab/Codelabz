@@ -25,11 +25,11 @@ const Footer = () => {
               <BrandName />
             </Link>
           </h2>
-          Live to learn, learn to live.
+          <p className="mb-">Live to learn, learn to live.</p>
         </Col>
 
         <Col xs={24} sm={24} md={6} className="col-pad-24">
-          <h3 className="mb-24">About</h3>
+          <h3 className="mb-16">About</h3>
           <div className="mt-8 mb-8">
             <a
               href="https://github.com/scorelab/Codelabz"
@@ -63,7 +63,7 @@ const Footer = () => {
         </Col>
 
         <Col xs={24} md={6} className="col-pad-24">
-          <h3 className="mb-24">Help</h3>
+          <h3 className="mb-16">Help</h3>
           <div className="mt-8 mb-8">
             <a
               href="https://github.com/scorelab/Codelabz"
@@ -97,7 +97,7 @@ const Footer = () => {
         </Col>
 
         <Col xs={24} sm={24} md={6} className="col-pad-24">
-          <h3 className="mb-24">Contact</h3>
+          <h3 className="mb-16">Contact</h3>
           <div className="mt-8 mb-8">
             <a href="tel: +94712345678" className="mb-8 mt-8 footer-link">
               <PhoneOutlined className="mr-8" /> +94 712 345 678
@@ -118,7 +118,7 @@ const Footer = () => {
               rel="noreferrer noopener"
               className="mb-8 mt-8 footer-link"
             >
-              <HomeOutlined className="mr-8" /> 64, Singh Labs, Kings Canyon.
+              <HomeOutlined className="mr-8" /> 64, Singh Labs, Kings Canyon
             </a>
           </div>
         </Col>
