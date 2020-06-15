@@ -62,7 +62,7 @@ export const signInWithProviderID = providerID => async (
         )}. Log in with ${methods.join(", ")} to continue.`
       });
     } else {
-      dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
+      dispatch({ type: actions.SIGN_IN_FAIL, payload: e.message });
     }
   }
 };
