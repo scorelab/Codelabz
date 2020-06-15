@@ -9,9 +9,8 @@ import {
   Typography,
   Row,
   Col,
-  Card,
   Checkbox,
-  Divider
+  Divider,
 } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import SmButtons from "../smButtons";
@@ -38,7 +37,7 @@ const Login = () => {
     [dispatch]
   );
 
-  const onSubmit = async values => {
+  const onSubmit = async (values) => {
     setError("");
     setEmail(values.email);
     await signIn({ email: values.email, password: values.password })(
@@ -48,25 +47,23 @@ const Login = () => {
   };
 
   return (
-    <Card bordered={false}>
+    <div className="pr-24 pl-24">
       <Title level={2} style={{ textAlign: "center", marginBottom: "40px" }}>
         Welcome back!
       </Title>
-
       <ViewAlerts error={error} email={email} />
-
       <Form onFinish={onSubmit}>
         <Form.Item
           name={"email"}
           rules={[
             {
               required: true,
-              message: "Please input your email address"
+              message: "Please input your email address",
             },
             {
               type: "email",
-              message: "Please enter a valid email address"
-            }
+              message: "Please enter a valid email address",
+            },
           ]}
         >
           <Input
@@ -76,7 +73,7 @@ const Login = () => {
         </Form.Item>
         <Form.Item
           name={"password"}
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: "Please input your password" }]}
         >
           <Input.Password
             prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -98,7 +95,7 @@ const Login = () => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? "Logging in..." : "Log in"}
           </Button>
         </Form.Item>
       </Form>
@@ -110,7 +107,7 @@ const Login = () => {
           <Link to={"/signup"}>Create an account</Link>
         </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 

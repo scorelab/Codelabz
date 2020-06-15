@@ -1,31 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Card, Col, Row, Button, Form, Input } from "antd";
+import { Alert, Card, Col, Row, Button, Form, Input, Select } from "antd";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkOrgHandleExists,
   checkUserHandleExists,
   clearProfileEditError,
-  setUpInitialData
+  setUpInitialData,
 } from "../../store/actions";
 import {
   GlobalOutlined,
   UserAddOutlined,
   AppstoreAddOutlined,
   AppstoreOutlined,
-  IeOutlined
+  IeOutlined,
 } from "@ant-design/icons";
+import countryList from "../../helpers/countryList";
+import orgUser from "../../assets/images/org-user.svg";
+import profileUser from "../../assets/images/profile-user.svg";
+import Fade from "react-reveal/Fade";
+
+const { Option } = Select;
 
 const Dashboard = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOrgForm, setShowOrgForm] = useState(null);
+  const [focusLeft, setFocusLeft] = useState(true);
+  const [showImage, setShowImage] = useState(false);
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+  const profile = useSelector(({ firebase }) => firebase.profile);
+  const children = [];
+
+  for (let i = 0; i < countryList.length; i++) {
+    children.push(
+      <Option key={countryList[i].code} value={countryList[i].name}>
+        {countryList[i].name}
+      </Option>
+    );
+  }
+
+  useEffect(() => {
+    setShowImage(false);
+    setTimeout(() => {
+      setShowImage(focusLeft ? "user" : "org");
+    }, 200);
+  }, [focusLeft]);
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
@@ -44,7 +69,7 @@ const Dashboard = () => {
     org_handle,
     org_name,
     org_website,
-    org_country
+    org_country,
   }) => {
     setError("");
     await setUpInitialData({
@@ -55,7 +80,7 @@ const Dashboard = () => {
       org_handle,
       org_name,
       org_website,
-      org_country
+      org_country,
     })(firebase, firestore, dispatch);
   };
 
@@ -70,8 +95,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "handle",
-          errors: [`The handle [${handle}] is already taken!`]
-        }
+          errors: [`The handle [${handle}] is already taken!`],
+        },
       ]);
     }
   };
@@ -88,32 +113,25 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken!`]
-        }
+          errors: [`The handle [${orgHandle}] is already taken!`],
+        },
       ]);
     }
   };
 
   return (
-    <Card bordered={false}>
-      <Row justify="center">
-        <Col span={8} />
-        <Col span={8}>
-          <h2 style={{ textAlign: "center" }}>
-            One thing before we go all the way in,
-            <br />
-            We need you to provide this info.
-          </h2>
+    <div className="home-row">
+      <Row align="middle" justify="space-between">
+        <Col xs={24} className="col-pad-24 pt-32">
+          <h2 className="mb-0 center">Welcome to CodeLabz!</h2>
+          <h3 className="mb-0 center">
+            Let's complete your profile before we dive in.
+          </h3>
         </Col>
-        <Col span={8} />
-      </Row>
-
-      <Row gutter={[16, 16]}>
-        <Col span={6} />
-        <Col span={12}>
-          <Card>
-            <>
-              {error && (
+        <Col xs={24} sm={24} md={showOrgForm ? 16 : 12}>
+          {error && (
+            <Row>
+              <Col xs={24} className="col-pad-24 pr-12 pb-0">
                 <Alert
                   message={""}
                   description={error}
@@ -121,99 +139,130 @@ const Dashboard = () => {
                   closable
                   className="login-error mb-16"
                 />
-              )}
+              </Col>
+            </Row>
+          )}
 
-              <Form form={form} onFinish={onSubmit}>
-                <Form.Item
-                  name={"name"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your name"
-                    },
-                    {
-                      type: "string",
-                      message: "Please enter a valid name"
-                    }
-                  ]}
+          <Form form={form} onFinish={onSubmit}>
+            <Row>
+              <Col
+                xs={24}
+                sm={24}
+                md={showOrgForm ? 12 : 24}
+                className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
+                onFocus={() => setFocusLeft(true)}
+              >
+                <Card
+                  title="Your Details"
+                  className="auth-form-col"
+                  style={{ margin: "0 auto" }}
                 >
-                  <Input
-                    prefix={
-                      <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="Name"
-                  />
-                </Form.Item>
-                <Form.Item
-                  name={"handle"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your user handle"
-                    },
-                    {
-                      pattern: new RegExp(/^[a-z0-9]{6,}$/),
-                      message:
-                        "User handle can only contain lowercase alphanumeric characters"
-                    },
-                    {
-                      min: 6,
-                      message: "User handle cannot be less than 6 characters"
-                    }
-                  ]}
-                >
-                  <Input
-                    onBlur={onHandleChange}
-                    prefix={
-                      <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="User Handle"
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="country"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter your country"
-                    }
-                  ]}
-                  hasFeedback
-                >
-                  <Input
-                    prefix={
-                      <GlobalOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="Country"
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Button
-                    type="ghost"
-                    onClick={() => setShowOrgForm(!showOrgForm)}
-                    block
-                    loading={loading}
+                  <Form.Item
+                    name={"name"}
+                    initialValue={profile.displayName}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your name",
+                      },
+                      {
+                        type: "string",
+                        message: "Please enter a valid name",
+                      },
+                    ]}
                   >
-                    {showOrgForm === false
-                      ? "I want to create an organization"
-                      : showOrgForm === true
-                      ? "I don't want to create an organization"
-                      : "I want to create an organization"}
-                  </Button>
-                </Form.Item>
+                    <Input
+                      prefix={
+                        <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="Name"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name={"handle"}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter your user handle",
+                      },
+                      {
+                        pattern: new RegExp(/^[a-z0-9]{1,}$/),
+                        message:
+                          "User handle can only contain lowercase alphanumeric characters",
+                      },
+                      {
+                        min: 6,
+                        message: "User handle cannot be less than 6 characters",
+                      },
+                    ]}
+                  >
+                    <Input
+                      onBlur={onHandleChange}
+                      prefix={
+                        <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="User Handle"
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select your country",
+                      },
+                    ]}
+                  >
+                    <Select
+                      style={{ width: "100%" }}
+                      placeholder={
+                        <div style={{ textAlign: "left" }}>
+                          <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} />{" "}
+                          Country
+                        </div>
+                      }
+                      showSearch={true}
+                    >
+                      {children}
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item className="mb-0">
+                    <Button
+                      type="dashed"
+                      onClick={() => setShowOrgForm(!showOrgForm)}
+                      block
+                      loading={loading}
+                    >
+                      {showOrgForm === false
+                        ? "I want to create an organization"
+                        : showOrgForm === true
+                        ? "I don't want to create an organization"
+                        : "I want to create an organization"}
+                    </Button>
+                  </Form.Item>
+                </Card>
+              </Col>
+              <Col
+                xs={showOrgForm ? 24 : 0}
+                md={showOrgForm ? 12 : 0}
+                className="col-pad-24 pl-12 pr-12 pt-8"
+                onFocus={() => setFocusLeft(false)}
+              >
                 {showOrgForm && (
-                  <>
+                  <Card title="Organization Details">
                     <Form.Item
                       name={"org_name"}
                       rules={[
                         {
                           required: true,
-                          message: "Please enter the organization name"
+                          message: "Please enter the organization name",
                         },
                         {
                           type: "string",
-                          message: "Please provide a valid organization name"
-                        }
+                          message: "Please provide a valid organization name",
+                        },
                       ]}
                     >
                       <Input
@@ -230,18 +279,18 @@ const Dashboard = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter your organization handle"
+                          message: "Please enter your organization handle",
+                        },
+                        {
+                          pattern: new RegExp(/^[a-z0-9]{1,}$/),
+                          message:
+                            "Organization handle can only contain lowercase alphanumeric characters",
                         },
                         {
                           pattern: new RegExp(/^[a-z0-9]{6,}$/),
                           message:
-                            "Organization handle can only contain lowercase alphanumeric characters"
+                            "Organization handle cannot be less than 6 characters",
                         },
-                        {
-                          min: 6,
-                          message:
-                            "Organization handle cannot be less than 6 characters"
-                        }
                       ]}
                     >
                       <Input
@@ -260,32 +309,38 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please enter the country of the organization"
-                        }
+                            "Please select the country of the organization",
+                        },
                       ]}
-                      hasFeedback
                     >
-                      <Input
-                        prefix={
-                          <GlobalOutlined
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
+                      <Select
+                        style={{ width: "100%" }}
+                        placeholder={
+                          <div style={{ textAlign: "left" }}>
+                            <GlobalOutlined
+                              style={{ color: "rgba(0,0,0,.4)" }}
+                            />{" "}
+                            Country of the organization
+                          </div>
                         }
-                        placeholder="Country of the Organization"
-                      />
+                        showSearch={true}
+                      >
+                        {children}
+                      </Select>
                     </Form.Item>
                     <Form.Item
                       name="org_website"
+                      className="mb-0"
                       rules={[
                         {
                           required: true,
                           message:
-                            "Please enter the website of the organization"
+                            "Please enter the website of the organization",
                         },
                         {
                           type: "url",
-                          message: "Please provide a valid url"
-                        }
+                          message: "Please provide a valid url",
+                        },
                       ]}
                       hasFeedback
                     >
@@ -296,25 +351,42 @@ const Dashboard = () => {
                         placeholder="Website"
                       />
                     </Form.Item>
-                  </>
+                  </Card>
                 )}
-                <Form.Item>
+              </Col>
+              <Col xs={24} className="center pl-24 pr-12 pb-32 pt-8">
+                <Form.Item className="mb-0">
                   <Button
                     type="primary"
                     htmlType="submit"
                     block
                     loading={loading}
+                    className="auth-form-col"
                   >
-                    {loading ? "Submitting..." : "Submit"}
+                    {loading ? "Saving..." : "Save"}
                   </Button>
                 </Form.Item>
-              </Form>
-            </>
-          </Card>
+              </Col>
+            </Row>
+          </Form>
         </Col>
-        <Col span={6} />
+        <Col
+          xs={0}
+          sm={0}
+          md={showOrgForm ? 8 : 12}
+          className="col-pad-24 pl-12 pt-8"
+        >
+          <Fade right={true} when={showImage}>
+            <img
+              src={showImage === "user" ? profileUser : orgUser}
+              alt="Background for auth"
+              width="100%"
+              className="dash-image"
+            />
+          </Fade>
+        </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 

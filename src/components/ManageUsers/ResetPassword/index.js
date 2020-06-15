@@ -8,7 +8,7 @@ import {
 import { Alert, Card, Col, Row, Typography } from "antd";
 import { Link } from "react-router-dom";
 import PasswordResetForm from "./PasswordResetForm";
-import MiniNavbar from "../../MiniNavbar";
+
 const { Title } = Typography;
 
 const ResetPassword = ({ queryParams }) => {
@@ -50,7 +50,6 @@ const ResetPassword = ({ queryParams }) => {
 
   return (
     <>
-      <MiniNavbar />
       <Row justify="center">
         <Col xs={24} sm={24} md={12} lg={10}>
           <Card bordered={false}>

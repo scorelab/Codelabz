@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import {
   UserIsAllowedUserDashboard,
-  UserIsNotAllowedUserDashboard
+  UserIsNotAllowedUserDashboard,
 } from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import { useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import Navbar from "./components/NavBar";
 import ManageUsers from "./components/ManageUsers";
 import NotFound from "./components/ErrorPages/404";
 import MyFeed from "./components/MyFeed";
+import Footer from "./components/Footer";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -22,7 +23,7 @@ const AuthIsLoaded = ({ children }) => {
   return children;
 };
 
-// Remember to add the paths that the main navbar should
+// Remember to add the paths that the MINI navbar should
 // be shown in components/NavBar/navbarPaths.js
 
 const Routes = () => {
@@ -35,17 +36,17 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            render={props => <AuthPage {...props} type={"login"} />}
+            render={(props) => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={props => <AuthPage {...props} type={"signup"} />}
+            render={(props) => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={props => <AuthPage {...props} type={"forgotpassword"} />}
+            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
@@ -64,6 +65,7 @@ const Routes = () => {
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>
+        <Footer />
       </AuthIsLoaded>
     </Router>
   );
