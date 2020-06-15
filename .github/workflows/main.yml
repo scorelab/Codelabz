@@ -25,6 +25,7 @@ jobs:
           REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
           REACT_APP_FIREBASE_MEASUREMENTID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENTID }}
           REACT_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.REACT_APP_FIREBASE_FCM_VAPID_KEY }}
+          REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
