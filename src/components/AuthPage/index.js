@@ -26,75 +26,74 @@ const AuthPage = ({ type }) => {
   }, [type]);
 
   return (
-    <>
-      <Row
-        align="middle"
-        style={{ height: "calc(100vh - 72px)", overflowX: "hidden" }}
-        justify="center"
+    <Row
+      align="middle"
+      style={{ overflowX: "hidden" }}
+      justify="center"
+      className="row-fullheight mt-24 mb-24"
+    >
+      <Col
+        xs={0}
+        sm={0}
+        md={12}
+        lg={14}
+        order={showType === "login" || showType === "forgotpassword" ? 1 : 2}
+        className="auth-image-col"
       >
-        <Col
-          xs={0}
-          sm={0}
-          md={12}
-          lg={14}
-          order={showType === "login" || showType === "forgotpassword" ? 1 : 2}
-          className="auth-image-col"
+        <Fade
+          left={isDesktop ? showType === "login" : false}
+          right={
+            isDesktop
+              ? showType === "signup" || showType === "forgotpassword"
+              : false
+          }
+          when={show}
         >
-          <Fade
-            left={isDesktop ? showType === "login" : false}
-            right={
-              isDesktop
-                ? showType === "signup" || showType === "forgotpassword"
-                : false
+          <img
+            src={
+              showType === "login"
+                ? signinImage
+                : showType === "signup"
+                ? signupImage
+                : forgotPassImage
             }
-            when={show}
-          >
-            <img
-              src={
-                showType === "login"
-                  ? signinImage
-                  : showType === "signup"
-                  ? signupImage
-                  : forgotPassImage
-              }
-              alt="Background for auth"
-              width="100%"
-              className={
-                showType === "login" || showType === "forgotpassword"
-                  ? "signin-image"
-                  : "signup-image"
-              }
-            />
-          </Fade>
-        </Col>
-        <Col
-          xs={24}
-          sm={24}
-          md={10}
-          lg={8}
-          order={showType === "login" || showType === "forgotpassword" ? 2 : 1}
-          className="auth-form-col"
+            alt="Background for auth"
+            width="100%"
+            className={
+              showType === "login" || showType === "forgotpassword"
+                ? "signin-image"
+                : "signup-image"
+            }
+          />
+        </Fade>
+      </Col>
+      <Col
+        xs={24}
+        sm={24}
+        md={10}
+        lg={8}
+        order={showType === "login" || showType === "forgotpassword" ? 2 : 1}
+        className="auth-form-col"
+      >
+        <Fade
+          left={isDesktop ? showType === "login" : false}
+          right={
+            isDesktop
+              ? showType === "signup" || showType === "forgotpassword"
+              : false
+          }
+          when={show}
         >
-          <Fade
-            left={isDesktop ? showType === "login" : false}
-            right={
-              isDesktop
-                ? showType === "signup" || showType === "forgotpassword"
-                : false
-            }
-            when={show}
-          >
-            {showType === "login" ? (
-              <Login />
-            ) : showType === "signup" ? (
-              <SignUp />
-            ) : (
-              <ForgotPassword />
-            )}
-          </Fade>
-        </Col>
-      </Row>
-    </>
+          {showType === "login" ? (
+            <Login />
+          ) : showType === "signup" ? (
+            <SignUp />
+          ) : (
+            <ForgotPassword />
+          )}
+        </Fade>
+      </Col>
+    </Row>
   );
 };
 
