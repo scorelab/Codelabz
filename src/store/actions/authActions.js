@@ -239,7 +239,13 @@ export const setUpInitialData = data => async (
 
       promises = [
         firebase.updateProfile(
-          { displayName, handle, country, organizations: [org_handle] },
+          {
+            displayName,
+            handle,
+            country,
+            organizations: [org_handle],
+            updatedAt: firestore.FieldValue.serverTimestamp()
+          },
           { useSet: false, merge: true }
         ),
         firestore.set(
@@ -250,14 +256,22 @@ export const setUpInitialData = data => async (
             org_website,
             org_country,
             org_email: userData.email,
-            org_created_date: firestore.FieldValue.serverTimestamp()
+            org_created_date: firestore.FieldValue.serverTimestamp(),
+            createdAt: firestore.FieldValue.serverTimestamp(),
+            updatedAt: firestore.FieldValue.serverTimestamp()
           }
         )
       ];
     } else {
       promises = [
         firebase.updateProfile(
-          { displayName, handle, country },
+          {
+            displayName,
+            handle,
+            country,
+            organizations: [],
+            updatedAt: firestore.FieldValue.serverTimestamp()
+          },
           { useSet: false, merge: true }
         )
       ];

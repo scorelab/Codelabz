@@ -1,5 +1,4 @@
-const admin = require("firebase-admin");
-const { db, rtdb } = require("../auth");
+const { db, rtdb, admin } = require("../auth");
 
 exports.sendVerificationEmailHandler = async user => {
   try {
@@ -42,12 +41,10 @@ exports.createOrganizationHandler = async (snapshot, context) => {
       .where("email", "==", org_email)
       .get();
 
-    const us_handle =
-      querySnapshot.docs.length > 0
-        ? querySnapshot.docs[0].get("handle")
-        : null;
+    const user_uid =
+      querySnapshot.docs.length > 0 ? querySnapshot.docs[0].id : null;
 
-    if (!us_handle) {
+    if (!user_uid) {
       return console.log(
         `Error occurred. User with ${org_email} email not found.`
       );
@@ -62,19 +59,33 @@ exports.createOrganizationHandler = async (snapshot, context) => {
       .doc(org_handle)
       .collection("groups")
       .doc("admin")
-      .set({ org_grp_users: [us_handle], org_grp_permissions: [1, 2, 3] });
+      .set({
+        org_grp_users: [user_uid],
+        org_grp_permissions: [1, 2, 3],
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+      });
 
     const setStandardGroup = db
       .collection("cl_org_group")
       .doc(org_handle)
       .collection("groups")
       .doc("standard")
-      .set({ org_grp_users: [us_handle], org_grp_permissions: [1, 0, 0] });
+      .set({
+        org_grp_users: [user_uid],
+        org_grp_permissions: [1, 0, 0],
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+      });
 
     const setOrgUsers = db
       .collection("cl_org_users")
       .doc(org_handle)
-      .set({ users: [us_handle] });
+      .set({
+        users: [user_uid],
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+      });
 
     await Promise.all([
       registerOrgHandle,
@@ -83,7 +94,7 @@ exports.createOrganizationHandler = async (snapshot, context) => {
       setOrgUsers
     ]);
     return console.log(
-      `The data of organization: ${org_handle} of user: ${us_handle} is successfully added.`
+      `The data of organization: ${org_handle} of user: ${user_uid} is successfully added.`
     );
   } catch (e) {
     return console.log(e);

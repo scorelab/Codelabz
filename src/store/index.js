@@ -14,7 +14,7 @@ const rrfConfig = {
   userProfile: "cl_user", // Profile data stored in Firestore/cl_user/user_id
   presence: "cl_user_presence",
   sessions: "cl_user_sessions",
-  profileFactory: (userData) => {
+  profileFactory: (userData, profileData, firebase) => {
     const emailFromPasswordSignUp = _.get(userData, "user.email", false);
     const uidFromPasswordSignUp = _.get(userData, "user.uid", false);
     const emailFromProviderSignUp = _.get(userData, "email", false);
@@ -36,10 +36,12 @@ const rrfConfig = {
         photoURLFromProviderSignUp ||
         (providerData && providerData[0].photoURL) ||
         "",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
   },
   useFirestoreForProfile: true, // Firestore for Profile instead of Realtime
-  attachAuthIsReady: true,
+  attachAuthIsReady: true
 };
 
 // Create store with reducers and initial state
@@ -58,7 +60,7 @@ export const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance, // <- needed if using firestore
+  createFirestoreInstance // <- needed if using firestore
 };
 
 export default store;

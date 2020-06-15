@@ -1,6 +1,5 @@
-const admin = require("firebase-admin");
 const functions = require("firebase-functions");
-const { db } = require("../auth");
+const { db, admin } = require("../auth");
 
 exports.resendVerificationEmailHandler = async data => {
   try {

@@ -11,5 +11,6 @@ const rtdb = admin.database();
 
 module.exports = {
   db,
-  rtdb
+  rtdb,
+  admin
 };
