@@ -12,7 +12,7 @@ import {
   CheckOutlined,
   LockOutlined,
   QuestionOutlined,
-  CopyrightCircleOutlined,
+  CopyrightCircleOutlined
 } from "@ant-design/icons";
 
 const Footer = () => {
@@ -108,7 +108,7 @@ const Footer = () => {
               href="mailto: contact@codelabz.com"
               className="mb-8 mt-8 footer-link"
             >
-              <MailOutlined className="mr-8" /> contact@codelabz.com
+              <MailOutlined className="mr-8" /> contact@codelabz.io
             </a>
           </div>
           <div className="mt-8 mb-8">

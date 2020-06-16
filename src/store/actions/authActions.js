@@ -62,7 +62,7 @@ export const signInWithProviderID = providerID => async (
         )}. Log in with ${methods.join(", ")} to continue.`
       });
     } else {
-      dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
+      dispatch({ type: actions.SIGN_IN_FAIL, payload: e.message });
     }
   }
 };
@@ -212,12 +212,40 @@ export const setUpInitialData = data => async (
       org_country
     } = data;
 
+    const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
+
+    if (isUserHandleExists) {
+      dispatch({
+        type: actions.INITIAL_SETUP_FAIL,
+        payload: `Handle [${handle}] is already taken`
+      });
+      return;
+    }
+
     let promises;
 
     if (Boolean(orgData)) {
+      const isOrgHandleExists = await checkOrgHandleExists(org_handle)(
+        firebase
+      );
+
+      if (isOrgHandleExists) {
+        dispatch({
+          type: actions.INITIAL_SETUP_FAIL,
+          payload: `Handle [${org_handle}] is already taken`
+        });
+        return;
+      }
+
       promises = [
         firebase.updateProfile(
-          { displayName, handle, country, organizations: [org_handle] },
+          {
+            displayName,
+            handle,
+            country,
+            organizations: [org_handle],
+            updatedAt: firestore.FieldValue.serverTimestamp()
+          },
           { useSet: false, merge: true }
         ),
         firestore.set(
@@ -228,14 +256,22 @@ export const setUpInitialData = data => async (
             org_website,
             org_country,
             org_email: userData.email,
-            org_created_date: firestore.FieldValue.serverTimestamp()
+            org_created_date: firestore.FieldValue.serverTimestamp(),
+            createdAt: firestore.FieldValue.serverTimestamp(),
+            updatedAt: firestore.FieldValue.serverTimestamp()
           }
         )
       ];
     } else {
       promises = [
         firebase.updateProfile(
-          { displayName, handle, country },
+          {
+            displayName,
+            handle,
+            country,
+            organizations: [],
+            updatedAt: firestore.FieldValue.serverTimestamp()
+          },
           { useSet: false, merge: true }
         )
       ];
