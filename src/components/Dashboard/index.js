@@ -176,6 +176,7 @@ const Dashboard = () => {
                         <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                       }
                       placeholder="Name"
+                      autoComplete="email"
                     />
                   </Form.Item>
                   <Form.Item
@@ -202,6 +203,7 @@ const Dashboard = () => {
                         <UserAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                       }
                       placeholder="User Handle"
+                      autoComplete="off"
                     />
                   </Form.Item>
 
@@ -272,6 +274,7 @@ const Dashboard = () => {
                           />
                         }
                         placeholder="Organization Name"
+                        autoComplete="organization"
                       />
                     </Form.Item>
                     <Form.Item
@@ -301,6 +304,7 @@ const Dashboard = () => {
                           />
                         }
                         placeholder="Organization Handle"
+                        autoComplete="off"
                       />
                     </Form.Item>
                     <Form.Item
@@ -338,8 +342,15 @@ const Dashboard = () => {
                             "Please enter the website of the organization",
                         },
                         {
-                          type: "url",
-                          message: "Please provide a valid url",
+                          pattern: new RegExp(
+                            /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+                          ),
+                          message: "Please provide a valid URL",
+                        },
+                        {
+                          pattern: new RegExp(/^(http:\/\/|https:\/\/)/),
+                          message:
+                            "URL must contain the protocol (https:// or http://)",
                         },
                       ]}
                       hasFeedback
@@ -349,6 +360,7 @@ const Dashboard = () => {
                           <IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                         }
                         placeholder="Website"
+                        autoComplete="url"
                       />
                     </Form.Item>
                   </Card>

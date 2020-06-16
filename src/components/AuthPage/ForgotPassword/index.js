@@ -99,6 +99,7 @@ const ForgotPassword = () => {
           <Input
             prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Email"
+            autoComplete="email"
           />
         </Form.Item>
         <Form.Item>

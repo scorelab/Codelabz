@@ -69,6 +69,7 @@ const Login = () => {
           <Input
             prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Email"
+            autoComplete="email"
           />
         </Form.Item>
         <Form.Item
@@ -79,6 +80,7 @@ const Login = () => {
             prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             type="password"
             placeholder="Password"
+            autoComplete="current-password"
           />
         </Form.Item>
         <Form.Item>

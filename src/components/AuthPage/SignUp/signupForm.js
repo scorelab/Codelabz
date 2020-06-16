@@ -78,6 +78,7 @@ const SignupForm = () => {
           <Input
             prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Email"
+            autoComplete="email"
           />
         </Form.Item>
         <Form.Item
@@ -92,7 +93,8 @@ const SignupForm = () => {
         >
           <Input.Password
             prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Password"
+            placeholder="New password"
+            autoComplete="new-password"
           />
         </Form.Item>
         <Form.Item
@@ -120,6 +122,7 @@ const SignupForm = () => {
             prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             required
             placeholder="Confirm password"
+            autoComplete="new-password"
           />
         </Form.Item>
         <Form.Item>
