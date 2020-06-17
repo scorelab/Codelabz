@@ -1,17 +1,12 @@
 import React from "react";
 import { Menu } from "antd";
 import { useFirebase } from "react-redux-firebase";
-import { signOut } from "../../store/actions";
+import { signOut } from "../../../store/actions";
 import { useHistory } from "react-router-dom";
 import { Avatar } from "antd";
 import { useSelector } from "react-redux";
-import {
-  UserOutlined,
-  CodeOutlined,
-  SettingOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
-import { useAllowDashboard } from "../../helpers/customHooks";
+import { UserOutlined, CodeOutlined, LogoutOutlined } from "@ant-design/icons";
+import { useAllowDashboard } from "../../../helpers/customHooks";
 
 const RightMenu = ({ mode }) => {
   const allowDashboard = useAllowDashboard();
@@ -51,20 +46,23 @@ const RightMenu = ({ mode }) => {
         }
       >
         {allowDashboard && (
-          <Menu.Item key="setting:1">
-            <UserOutlined /> My Profile
-          </Menu.Item>
-        )}
-        {allowDashboard && (
           <Menu.Item key="setting:2">
             <CodeOutlined /> My Tutorials
           </Menu.Item>
         )}
 
-        <Menu.Item key="setting:3">
-          <SettingOutlined /> Settings
-        </Menu.Item>
-        <Menu.Divider />
+        {profile.displayName && profile.displayName.length > 0 && (
+          <>
+            <Menu.Divider />
+            <Menu.ItemGroup title={profile.displayName} />
+          </>
+        )}
+
+        {allowDashboard && (
+          <Menu.Item key="setting:1">
+            <UserOutlined /> My Profile
+          </Menu.Item>
+        )}
         <Menu.Item key="setting:4" onClick={() => signOut()(firebase, history)}>
           <LogoutOutlined /> Log Out
         </Menu.Item>

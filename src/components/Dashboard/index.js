@@ -95,7 +95,7 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "handle",
-          errors: [`The handle [${handle}] is already taken!`],
+          errors: [`The handle [${handle}] is already taken`],
         },
       ]);
     }
@@ -113,7 +113,7 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken!`],
+          errors: [`The handle [${orgHandle}] is already taken`],
         },
       ]);
     }
@@ -137,7 +137,10 @@ const Dashboard = () => {
                   description={error}
                   type="error"
                   closable
-                  className="login-error mb-16"
+                  className={
+                    "login-error mb-16 center " +
+                    (!showOrgForm && "auth-form-col")
+                  }
                 />
               </Col>
             </Row>
@@ -236,6 +239,7 @@ const Dashboard = () => {
                       onClick={() => setShowOrgForm(!showOrgForm)}
                       block
                       loading={loading}
+                      danger={showOrgForm ? true : false}
                     >
                       {showOrgForm === false
                         ? "I want to create an organization"
@@ -343,7 +347,7 @@ const Dashboard = () => {
                         },
                         {
                           pattern: new RegExp(
-                            /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+                            /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
                           ),
                           message: "Please provide a valid URL",
                         },
