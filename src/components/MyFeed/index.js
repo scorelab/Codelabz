@@ -1,5 +1,5 @@
 import React from "react";
-import BrandName from "../brandName";
+import BrandName from "../../helpers/brandName";
 import { Card, Col, Row } from "antd";
 
 const MyFeed = () => {

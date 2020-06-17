@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Button, Drawer } from "antd";
 import { Link } from "react-router-dom";
-import BrandName from "../../brandName";
+import BrandName from "../../../helpers/brandName";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import Headroom from "react-headroom";

@@ -59,6 +59,12 @@
   ); /* 72px is the height of the navbar, 285px is the height of the footer */
 }
 
+.row-footer-below {
+  min-height: calc(
+    100vh - 72px
+  ); /* 72px is the height of the navbar, 285px is the height of the footer */
+}
+
 @media (min-width: 767px) {
   .home-row {
     min-height: calc(100vh - 72px);
@@ -116,7 +122,7 @@
   background: #1890ff;
 }
 
-// Navbar
+/* Navbar */
 
 .navbar {
   padding-bottom: 1px;
@@ -315,7 +321,7 @@
   transition: color 0.2s;
 }
 
-// spinner
+/* spinner */
 .pulse {
   animation: pulse 2s ease-out;
   animation-iteration-count: infinite;
@@ -357,7 +363,6 @@
 
 .light-green-bg {
   background-color: #f7fcfb;
-  // background-image: linear-gradient(#ffffff, #ebfcfc, #ffffff);
 }
 
 .footer-link {

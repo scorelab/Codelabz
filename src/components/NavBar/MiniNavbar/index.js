@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, PageHeader, Button } from "antd";
 import { Link } from "react-router-dom";
-import BrandName from "../../brandName";
+import BrandName from "../../../helpers/brandName";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
 import { useAuthStatus } from "../../../helpers/customHooks";
