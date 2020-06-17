@@ -1,10 +1,9 @@
 import * as actions from "../../actions/actionTypes";
 
 const initialState = {
-  data: null,
-  loading: false,
-  error: null,
-  isLoading: true
+  isLoaded: true,
+  isEmpty: true,
+  error: null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -15,24 +14,33 @@ export default (state = initialState, { type, payload }) => {
     case actions.GET_PROFILE_DATA_START:
       return {
         ...state,
-        loading: true,
+        isLoaded: false,
+        isEmpty: true,
         error: null
       };
 
     case actions.GET_PROFILE_DATA_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: false,
-        data: payload,
-        isLoading: false
+        ...payload,
+        isLoaded: true,
+        isEmpty: false,
+        error: false
       };
 
     case actions.GET_PROFILE_DATA_FAIL:
       return {
         ...state,
-        loading: false,
+        isLoaded: true,
+        isEmpty: true,
         error: payload
+      };
+
+    case actions.GET_PROFILE_DATA_END:
+      return {
+        ...state,
+        isLoaded: true,
+        isEmpty: true
       };
 
     default:

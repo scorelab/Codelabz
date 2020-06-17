@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("./firebase-messaging-sw.js")
+    .register("/firebase-messaging-sw.js")
     .catch(function(err) {
       console.log("Service worker registration failed, error:", err);
     });
