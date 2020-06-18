@@ -5,8 +5,14 @@ import { signOut } from "../../../store/actions";
 import { Avatar } from "antd";
 import { useAllowDashboard } from "../../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
-import { UserOutlined, CodeOutlined, LogoutOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  CodeOutlined,
+  LogoutOutlined,
+  BlockOutlined,
+} from "@ant-design/icons";
 import { avatarName } from "../../../helpers/avatarName";
+import { useLocation } from "react-router-dom";
 
 const RightMenu = ({ mode }) => {
   const allowDashboard = useAllowDashboard();
@@ -14,6 +20,7 @@ const RightMenu = ({ mode }) => {
   const dispatch = useDispatch();
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym = avatarName(profile.displayName);
+  let { pathname: location } = useLocation();
 
   const organizations = useSelector(
     ({
@@ -37,7 +44,7 @@ const RightMenu = ({ mode }) => {
       : null;
 
   return (
-    <Menu mode={mode}>
+    <Menu mode={mode} selectedKeys={location}>
       <Menu.SubMenu
         title={
           <Avatar
@@ -68,7 +75,15 @@ const RightMenu = ({ mode }) => {
         )}
 
         {allowDashboard && allowOrgs && (
-          <Menu.SubMenu title={"My Organizations"}>{orgList}</Menu.SubMenu>
+          <Menu.SubMenu
+            title={
+              <>
+                <BlockOutlined /> My Organizations
+              </>
+            }
+          >
+            {orgList}
+          </Menu.SubMenu>
         )}
 
         {allowDashboard && <Menu.Divider />}

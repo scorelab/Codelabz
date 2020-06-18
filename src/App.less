@@ -2,6 +2,7 @@
 @import "./css/spacing.css";
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+@primary-color: #3aafa9;
 
 .brand-font {
   font-family: "Aldrich", sans-serif;
@@ -327,7 +328,7 @@
   animation-iteration-count: infinite;
   opacity: 1;
   font-size: 2rem;
-  color: #3aafa9;
+  color: @primary-color;
   font-family: "Aldrich", sans-serif;
   text-emphasis: none;
 }
@@ -381,4 +382,57 @@
 
 footer {
   margin-top: 50px;
+}
+
+.mini-sidebar-column {
+  position: relative;
+  left: 0;
+  width: 66px;
+  min-height: calc(100vh - 64px);
+  border-right: 1px solid #e8e8e8;
+  overflow-y: hidden;
+  background-color: white;
+  // box-shadow: 6px 0px 6px -6px rgba(0, 0, 0, 0.1);
+  padding-bottom: 16px;
+  margin-bottom: -50px; //height of footer margin
+}
+
+.mini-sidebar-column:hover {
+  overflow-y: overlay;
+}
+
+.minisidebar-item {
+  margin-top: 16px;
+  border: #ffffff 1px solid;
+  border-radius: 50%;
+  padding: 3px;
+  transition: all 0.2s;
+  cursor: pointer;
+  filter: opacity(0.7);
+}
+
+.minisidebar-item-no-border {
+  border: #ffffff 1px solid !important;
+}
+
+.minisidebar-item:hover:not(.minisidebar-active) {
+  border: @primary-color 1px solid !important;
+  cursor: pointer;
+  transition: all 0.2s;
+  filter: opacity(1);
+}
+
+.minisidebar-item:active:not(.minisidebar-active) {
+  border: #e6f7ff 1px solid !important;
+  transition: all 0s;
+}
+
+.minisidebar-item-border {
+  border: #b4b4b4 1px solid;
+}
+
+.minisidebar-active {
+  border: @primary-color 1px solid !important;
+  box-shadow: 0 0 0 2px rgba(58, 175, 169, 0.2);
+  filter: opacity(1);
 }

@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.2.5",
+    "color-thief-react": "^1.0.2",
     "craco-less": "^1.17.0",
     "firebase": "^7.14.5",
     "history": "^4.10.1",
