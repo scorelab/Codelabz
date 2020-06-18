@@ -3,7 +3,7 @@ import { connectedRouterRedirect } from "redux-auth-wrapper/history4/redirect";
 import { createBrowserHistory as createHistory } from "history";
 import Spinner from "../helpers/spinner";
 import _ from "lodash";
-import { isLoaded } from "react-redux-firebase";
+import { isLoaded, isEmpty } from "react-redux-firebase";
 import { compose } from "redux";
 
 const locationHelper = locationHelperBuilder({});
@@ -26,7 +26,7 @@ const UserIsAuthenticated = connectedRouterRedirect({
   redirectPath: (state, ownProps) =>
     locationHelper.getRedirectQueryParam(ownProps) || "/login",
   authenticatingSelector: ({ firebase: { auth, profile, isInitializing } }) => {
-    return !auth.isLoaded || isInitializing === true;
+    return !isLoaded(auth) || isInitializing === true;
   },
   authenticatedSelector: ({ firebase: { auth } }) =>
     authenticatedSelectorForAuthenticated(auth),
@@ -48,7 +48,7 @@ export const UserIsNotAuthenticated = connectedRouterRedirect({
   redirectPath: (state, ownProps) =>
     locationHelper.getRedirectQueryParam(ownProps) || "/dashboard",
   authenticatingSelector: ({ firebase: { auth, profile, isInitializing } }) =>
-    (!auth.isLoaded || isInitializing === true) && isLoaded(profile),
+    (!isLoaded(auth) || isInitializing === true) && isLoaded(profile),
   authenticatedSelector: ({ firebase: { auth } }) =>
     authenticatedSelectorForNotAuthenticated(auth),
   redirectAction: newLoc => dispatch => {
@@ -107,8 +107,41 @@ const UserIsNotAllowedDashboard = connectedRouterRedirect({
   }
 });
 
+const AllowOrgManager = connectedRouterRedirect({
+  wrapperDisplayName: "AllowOrgManager",
+  AuthenticatingComponent: Spinner,
+  allowRedirectBack: false,
+  redirectPath: (state, ownProps) =>
+    locationHelper.getRedirectQueryParam(ownProps) || "/",
+  authenticatingSelector: ({
+    firebase: { profile },
+    profile: { data },
+    org: { general }
+  }) => {
+    return !(
+      isLoaded(data) &&
+      !isEmpty(data) &&
+      isLoaded(general) &&
+      !isEmpty(general) &&
+      isLoaded(profile) &&
+      !isEmpty(profile)
+    );
+  },
+  authenticatedSelector: ({
+    org: {
+      general: { permissions }
+    }
+  }) => {
+    return permissions.includes(3);
+  },
+  redirectAction: newLoc => dispatch => {
+    browserHistory.replace(newLoc); // or routerActions.replace
+    dispatch({ type: "UNAUTHED_REDIRECT" });
+  }
+});
+
 const authenticatedSelectorForNotAuthenticated = auth =>
-  auth.isLoaded && !auth.isEmpty
+  isLoaded(auth) && !isEmpty(auth)
     ? !(
         (!auth.emailVerified &&
           unverifiedProviders.includes(
@@ -123,8 +156,8 @@ const authenticatedSelectorForNotAuthenticated = auth =>
     : true;
 
 const authenticatedSelectorForAuthenticated = auth =>
-  auth.isLoaded &&
-  !auth.isEmpty &&
+  isLoaded(auth) &&
+  !isEmpty(auth) &&
   (auth.emailVerified ||
     unverifiedProviders.includes(
       _.get(auth, "providerData[0].providerId", "")
@@ -156,6 +189,11 @@ export const UserIsAllowedUserDashboard = compose(
 export const UserIsNotAllowedUserDashboard = compose(
   UserIsAuthenticated,
   UserIsNotAllowedDashboard
+);
+
+export const UserIsAllowOrgManager = compose(
+  UserIsAllowedUserDashboard,
+  AllowOrgManager
 );
 
 /**

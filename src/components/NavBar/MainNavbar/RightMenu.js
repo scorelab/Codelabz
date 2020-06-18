@@ -4,14 +4,19 @@ import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
 import { useHistory } from "react-router-dom";
 import { Avatar } from "antd";
-import { useSelector } from "react-redux";
-import { UserOutlined, CodeOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useAllowDashboard } from "../../../helpers/customHooks";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  UserOutlined,
+  CodeOutlined,
+  SettingOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 
 const RightMenu = ({ mode }) => {
   const allowDashboard = useAllowDashboard();
   const firebase = useFirebase();
-  const history = useHistory();
+  const dispatch = useDispatch();
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym =
     (profile.displayName &&
@@ -19,6 +24,26 @@ const RightMenu = ({ mode }) => {
         .split(/\s/)
         .reduce((response, word) => (response += word.slice(0, 1)), "")) ||
     null;
+  const organizations = useSelector(
+    ({
+      profile: {
+        data: { organizations },
+      },
+    }) => organizations
+  );
+
+  const allowOrgs = organizations && organizations.length > 0;
+
+  const orgList =
+    allowOrgs > 0
+      ? organizations.map((org, i) => {
+          return (
+            <Menu.Item key={`org:${i}`}>
+              <CodeOutlined /> {org.org_name}
+            </Menu.Item>
+          );
+        })
+      : null;
 
   return (
     <Menu mode={mode}>
@@ -63,7 +88,26 @@ const RightMenu = ({ mode }) => {
             <UserOutlined /> My Profile
           </Menu.Item>
         )}
-        <Menu.Item key="setting:4" onClick={() => signOut()(firebase, history)}>
+        {allowDashboard && (
+          <Menu.Item key="setting:1">
+            <UserOutlined /> My Profile
+          </Menu.Item>
+        )}
+
+        {allowDashboard && allowOrgs && (
+          <Menu.SubMenu title={"My Organizations"}>{orgList}</Menu.SubMenu>
+        )}
+
+        {allowDashboard && (
+          <Menu.Item key="setting:3">
+            <SettingOutlined /> Settings
+          </Menu.Item>
+        )}
+        <Menu.Divider />
+        <Menu.Item
+          key="setting:4"
+          onClick={() => signOut()(firebase, dispatch)}
+        >
           <LogoutOutlined /> Log Out
         </Menu.Item>
       </Menu.SubMenu>

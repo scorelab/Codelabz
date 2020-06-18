@@ -3,49 +3,43 @@ import * as actions from "../../actions/actionTypes";
 const initialState = {
   current: null,
   permissions: [],
-  loading: false,
+  isLoaded: true,
+  isEmpty: true,
   error: null,
   data: null
 };
 
+//notes on reducer
+//initial state isLoaded: true isEmpty: true
+//start state isLoaded: false isEmpty:true
+//success state isLoaded: true isEmpty:false
+//fail state isLoaded: true isEmpty:true
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_ORG_GENERAL_STATE:
       return initialState;
 
-    case actions.SET_CURRENT_ORG:
+    case actions.SET_CURRENT_ORG_PERMISSIONS_START:
       return {
         ...state,
-        current: payload
+        isLoaded: false,
+        isEmpty: true
       };
 
-    case actions.SET_CURRENT_ORG_PERMISSIONS:
+    case actions.SET_CURRENT_ORG_PERMISSIONS_SUCCESS:
       return {
         ...state,
-        permissions: payload
-      };
-
-    case actions.GET_ORG_GENERAL_DATA_START:
-      return {
-        ...state,
-        loading: true,
-        error: null
-      };
-
-    case actions.GET_ORG_GENERAL_DATA_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: false,
+        permissions: payload.permissions,
         current: payload.org_handle,
-        data: payload
+        isLoaded: true,
+        isEmpty: false
       };
 
-    case actions.GET_ORG_GENERAL_DATA_FAIL:
+    case actions.SET_CURRENT_ORG_PERMISSIONS_FAIL:
       return {
         ...state,
-        loading: false,
-        error: payload
+        isLoaded: true,
+        isEmpty: true
       };
 
     default:

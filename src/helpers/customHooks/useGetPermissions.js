@@ -1,31 +1,19 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import _ from "lodash";
 
 const useGetPermissions = () => {
-  const organizations = useSelector(
-    ({
-      profile: {
-        data: { data }
-      }
-    }) => data && data.organizations
-  );
-  const current = useSelector(
+  const permission = useSelector(
     ({
       org: {
-        general: { current }
+        general: { permissions }
       }
-    }) => current
+    }) => permissions
   );
   const [permissions, setPermissions] = useState([]);
 
   useEffect(() => {
-    const organization = _.find(
-      organizations,
-      org => org.org_handle === current
-    );
-    setPermissions(_.get(organization, "permissions", []));
-  }, [current, organizations]);
+    setPermissions(permission);
+  }, [permission]);
 
   return permissions;
 };

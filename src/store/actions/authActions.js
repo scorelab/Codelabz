@@ -67,10 +67,11 @@ export const signInWithProviderID = (providerID) => async (
   }
 };
 
-export const signOut = () => async (firebase, history) => {
+export const signOut = () => async (firebase, dispatch) => {
   try {
+    dispatch({ type: actions.CLEAR_PROFILE_DATA_STATE });
+    dispatch({ type: actions.CLEAR_ORG_GENERAL_STATE });
     await firebase.logout();
-    history.push("/login");
   } catch (e) {
     console.log(e.message);
   }
