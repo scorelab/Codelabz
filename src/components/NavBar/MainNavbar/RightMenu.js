@@ -1,33 +1,25 @@
 import React from "react";
 import { Menu } from "antd";
 import { useFirebase } from "react-redux-firebase";
-import { signOut } from "../../store/actions";
+import { signOut } from "../../../store/actions";
 import { Avatar } from "antd";
+import { useAllowDashboard } from "../../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  UserOutlined,
-  CodeOutlined,
-  SettingOutlined,
-  LogoutOutlined
-} from "@ant-design/icons";
-import { useAllowDashboard } from "../../helpers/customHooks";
+import { UserOutlined, CodeOutlined, LogoutOutlined } from "@ant-design/icons";
+import { avatarName } from "../../../helpers/avatarName";
 
 const RightMenu = ({ mode }) => {
   const allowDashboard = useAllowDashboard();
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const profile = useSelector(({ firebase }) => firebase.profile);
-  const acronym =
-    (profile.displayName &&
-      profile.displayName
-        .split(/\s/)
-        .reduce((response, word) => (response += word.slice(0, 1)), "")) ||
-    null;
+  const acronym = avatarName(profile.displayName);
+
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
@@ -53,7 +45,7 @@ const RightMenu = ({ mode }) => {
               backgroundColor:
                 profile.photoURL && profile.photoURL.length > 0
                   ? "#fffff"
-                  : "#3AAFA9"
+                  : "#3AAFA9",
             }}
             size={mode === "inline" ? "default" : "large"}
             src={profile.photoURL}
@@ -70,20 +62,27 @@ const RightMenu = ({ mode }) => {
         }
       >
         {allowDashboard && (
-          <Menu.Item key="setting:1">
-            <UserOutlined /> My Profile
+          <Menu.Item key="setting:2">
+            <CodeOutlined /> My Tutorials
           </Menu.Item>
         )}
+
         {allowDashboard && allowOrgs && (
           <Menu.SubMenu title={"My Organizations"}>{orgList}</Menu.SubMenu>
         )}
 
+        {allowDashboard && <Menu.Divider />}
+
+        {profile.displayName && profile.displayName.length > 0 && (
+          <Menu.ItemGroup title={profile.displayName} />
+        )}
+
         {allowDashboard && (
-          <Menu.Item key="setting:3">
-            <SettingOutlined /> Settings
+          <Menu.Item key="setting:1">
+            <UserOutlined /> My Profile
           </Menu.Item>
         )}
-        <Menu.Divider />
+
         <Menu.Item
           key="setting:4"
           onClick={() => signOut()(firebase, dispatch)}

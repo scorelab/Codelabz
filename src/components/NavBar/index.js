@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import navbarPaths from "./navbarPaths";
-import MiniNavbar from "../MiniNavbar";
+import MiniNavbar from "./MiniNavbar";
 import MainNavbar from "./MainNavbar";
 import { useAuthStatus } from "../../helpers/customHooks";
 

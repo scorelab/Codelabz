@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "antd";
-import BrandName from "../components/brandName";
+import BrandName from "./brandName";
 
 export default () => {
   return (

@@ -1,10 +1,10 @@
 import React from "react";
 import { Row, Col, PageHeader, Button } from "antd";
 import { Link } from "react-router-dom";
-import BrandName from "../brandName";
+import BrandName from "../../../helpers/brandName";
 import { useFirebase } from "react-redux-firebase";
-import { signOut } from "../../store/actions";
-import { useAuthStatus } from "../../helpers/customHooks";
+import { signOut } from "../../../store/actions";
+import { useAuthStatus } from "../../../helpers/customHooks";
 import Headroom from "react-headroom";
 import { useDispatch } from "react-redux";
 
@@ -39,7 +39,7 @@ const MiniNavbar = ({ type }) => {
                       type="dashed"
                     >
                       Log out
-                    </Button>
+                    </Button>,
                   ]
                 : [
                     <Button
@@ -59,7 +59,7 @@ const MiniNavbar = ({ type }) => {
                       }
                     >
                       <Link to={"/signup"}>Sign Up</Link>
-                    </Button>
+                    </Button>,
                   ]
             }
           />

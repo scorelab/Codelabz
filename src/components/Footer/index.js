@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Divider } from "antd";
 import { Link } from "react-router-dom";
-import BrandName from "../brandName";
+import BrandName from "../../helpers/brandName";
 import {
   GithubOutlined,
   UnorderedListOutlined,
@@ -12,7 +12,7 @@ import {
   CheckOutlined,
   LockOutlined,
   QuestionOutlined,
-  CopyrightCircleOutlined
+  CopyrightCircleOutlined,
 } from "@ant-design/icons";
 
 const Footer = () => {
