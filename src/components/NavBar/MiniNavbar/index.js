@@ -5,7 +5,6 @@ import BrandName from "../../../helpers/brandName";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
 import { useAuthStatus } from "../../../helpers/customHooks";
-import { useHistory } from "react-router-dom";
 import Headroom from "react-headroom";
 import { useDispatch } from "react-redux";
 

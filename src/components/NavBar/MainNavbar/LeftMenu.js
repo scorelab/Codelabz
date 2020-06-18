@@ -1,8 +1,8 @@
 import React from "react";
 import { Menu } from "antd";
 import { NavLink } from "react-router-dom";
-import useGetPermissions from "../../helpers/customHooks/useGetPermissions";
-import { useAllowDashboard } from "../../helpers/customHooks";
+import useGetPermissions from "../../../helpers/customHooks/useGetPermissions";
+import { useAllowDashboard } from "../../../helpers/customHooks";
 
 const LeftMenu = ({ mode }) => {
   const permissions = useGetPermissions();
@@ -15,7 +15,7 @@ const LeftMenu = ({ mode }) => {
    * @return {null|React.Component}
    */
   const allowViewOrgSubComponents = (levels, Component) => {
-    if (levels.some(e => permissions.includes(e))) return Component;
+    if (levels.some((e) => permissions.includes(e))) return Component;
     return null;
   };
 
