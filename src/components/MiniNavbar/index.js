@@ -5,13 +5,13 @@ import BrandName from "../brandName";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
 import { useAuthStatus } from "../../helpers/customHooks";
-import { useHistory } from "react-router-dom";
 import Headroom from "react-headroom";
+import { useDispatch } from "react-redux";
 
 const MiniNavbar = ({ type }) => {
   const firebase = useFirebase();
   const authed = useAuthStatus();
-  const history = useHistory();
+  const dispatch = useDispatch();
 
   return (
     <Headroom>
@@ -34,12 +34,12 @@ const MiniNavbar = ({ type }) => {
                       <Link to={"/dashboard"}>Dashboard</Link>
                     </Button>,
                     <Button
-                      onClick={() => signOut()(firebase, history)}
+                      onClick={() => signOut()(firebase, dispatch)}
                       key="1"
                       type="dashed"
                     >
                       Log out
-                    </Button>,
+                    </Button>
                   ]
                 : [
                     <Button
@@ -59,7 +59,7 @@ const MiniNavbar = ({ type }) => {
                       }
                     >
                       <Link to={"/signup"}>Sign Up</Link>
-                    </Button>,
+                    </Button>
                   ]
             }
           />
