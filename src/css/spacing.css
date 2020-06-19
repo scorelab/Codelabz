@@ -193,6 +193,10 @@
   padding: 24px;
 }
 
+.p-0 {
+  padding: 0px !important;
+}
+
 @media (max-width: 767px) {
   .col-pad-8 {
     padding: 4px 8px;
