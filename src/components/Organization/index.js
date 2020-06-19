@@ -1,9 +1,10 @@
 import React from "react";
 import OrgSidebar from "./orgSidebar";
 import { useMediaQuery } from "react-responsive";
-import { Row, Col } from "antd";
+import { Row, Col, Layout } from "antd";
 import OrgInfoCard from "./orgInfoCard";
 import OrgUsersCard from "./orgUsersCard";
+const { Content, Sider } = Layout;
 
 const Organizations = () => {
   const isDesktop = useMediaQuery({
@@ -11,24 +12,26 @@ const Organizations = () => {
   });
 
   return (
-    <Row className="row-footer-below" style={{ marginBottom: "-42px" }}>
-      {isDesktop && (
-        <Col flex="66px">
-          <OrgSidebar />
-        </Col>
-      )}
+    <Layout className="row-footer-below">
+      <Layout>
+        {isDesktop && (
+          <Sider width={"66px"} theme="light">
+            <OrgSidebar />
+          </Sider>
+        )}
 
-      <Col flex="auto" xs={24}>
-        <Row>
-          <Col xs={24} md={14} className="col-pad-24-s">
-            <OrgInfoCard />`
-          </Col>
-          <Col xs={24} md={10} className="col-pad-24-s">
-            <OrgUsersCard />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+        <Content style={{ backgroundColor: "white" }}>
+          <Row>
+            <Col sm={24} md={14} className="col-pad-24-s">
+              <OrgInfoCard />
+            </Col>
+            <Col sm={24} md={10} className="col-pad-24-s">
+              <OrgUsersCard />
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
+    </Layout>
   );
 };
 

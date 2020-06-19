@@ -8,7 +8,11 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 
-const userLevel = [<EditOutlined />, <EyeOutlined />, <SafetyOutlined />];
+const permissionLevelIcons = [
+  <EditOutlined />,
+  <EyeOutlined />,
+  <SafetyOutlined />,
+];
 
 const data = [
   {
@@ -23,12 +27,32 @@ const data = [
     handle: "@seniya23",
     image:
       "https://avatars1.githubusercontent.com/u/27486721?s=460&u=4d2d014a63e308fd973f54b675069580f8e007f3&v=4",
-    permission_level: 2,
+    permission_level: 1,
   },
 ];
 
+const permissionLevelsButton = (item) => {
+  return (
+    <Menu onClick={(e) => handlePermissionChange({ ...e, ...item })}>
+      <Menu.Item key={"perm_0"}>
+        <EditOutlined /> Editor
+      </Menu.Item>
+      <Menu.Item key={"perm_1"}>
+        <EyeOutlined /> Reviewer
+      </Menu.Item>
+      <Menu.Item key={"perm_2"}>
+        <SafetyOutlined /> Admin
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item style={{ color: "red" }} key={"perm_3"}>
+        <DeleteOutlined /> Remove User
+      </Menu.Item>
+    </Menu>
+  );
+};
+
 const handlePermissionChange = (data) => {
-  console.log(data.handle);
+  console.log(data);
 };
 
 const OrgUsersCard = () => {
@@ -42,29 +66,9 @@ const OrgUsersCard = () => {
         renderItem={(item) => (
           <List.Item
             actions={[
-              <Dropdown
-                overlay={
-                  <Menu
-                    onClick={(e) => handlePermissionChange({ ...e, ...item })}
-                  >
-                    <Menu.Item key={"perm_0"}>
-                      <EditOutlined /> Editor
-                    </Menu.Item>
-                    <Menu.Item key={"perm_1"}>
-                      <EyeOutlined /> Reviewer
-                    </Menu.Item>
-                    <Menu.Item key={"perm_2"}>
-                      <SafetyOutlined /> Admin
-                    </Menu.Item>
-                    <Menu.Divider />
-                    <Menu.Item style={{ color: "red" }} key={"perm_3"}>
-                      <DeleteOutlined /> Remove User
-                    </Menu.Item>
-                  </Menu>
-                }
-              >
+              <Dropdown overlay={permissionLevelsButton(item)}>
                 <Button style={{ marginRight: "-8px" }}>
-                  {userLevel[item.permission_level]} <DownOutlined />
+                  {permissionLevelIcons[item.permission_level]} <DownOutlined />
                 </Button>
               </Dropdown>,
             ]}

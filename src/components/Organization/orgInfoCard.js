@@ -3,17 +3,19 @@ import { Menu, Dropdown, Button, PageHeader, Tag } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
-const menu = (
-  <Menu>
-    <Menu.Item>1st menu item</Menu.Item>
-    <Menu.Item>2nd menu item</Menu.Item>
-    <Menu.Item>3rd menu item</Menu.Item>
-  </Menu>
-);
-
-const DropdownMenu = () => {
+const OrgMenu = () => {
   return (
-    <Dropdown key="more" overlay={menu}>
+    <Menu>
+      <Menu.Item>1st menu item</Menu.Item>
+      <Menu.Item>2nd menu item</Menu.Item>
+      <Menu.Item>3rd menu item</Menu.Item>
+    </Menu>
+  );
+};
+
+const DropdownMenu = (props) => {
+  return (
+    <Dropdown key="more" overlay={OrgMenu}>
       <Button
         style={{
           border: "none",
