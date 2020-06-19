@@ -30,7 +30,7 @@ const AuthPage = ({ type }) => {
       align="middle"
       style={{ overflowX: "hidden" }}
       justify="center"
-      className="row-footer-below"
+      className="row-footer-below auth-margin"
     >
       <Col
         xs={0}

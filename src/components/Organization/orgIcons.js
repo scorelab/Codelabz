@@ -53,8 +53,8 @@ export const OrgIcons = ({
               icon={icon ? icon : null}
               src={image ? image : null}
               style={{
-                ...style,
                 backgroundColor: image ? "#fffff" : "#3AAFA9",
+                ...style,
               }}
             >
               {text ? avatarName(text) : ""}
