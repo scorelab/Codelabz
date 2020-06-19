@@ -1,14 +1,17 @@
 import React from "react";
 import OrgSidebar from "./orgSidebar";
+import { Row, Col } from "antd";
 
 const Organizations = () => {
   return (
-    <div className="row-footer-below">
-      <div className="org-list-panel">
+    <Row className="row-footer-below org-row">
+      <Col flex="66px">
         <OrgSidebar />
-      </div>
-      <div className="org-data-panel"></div>
-    </div>
+      </Col>
+      <Col flex="auto" xs={24} className="col-pad-24-s">
+        here comes the content
+      </Col>
+    </Row>
   );
 };
 

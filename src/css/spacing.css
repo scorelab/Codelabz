@@ -181,6 +181,18 @@
   padding: 24px;
 }
 
+.col-pad-8-s {
+  padding: 8px;
+}
+
+.col-pad-16-s {
+  padding: 16px;
+}
+
+.col-pad-24-s {
+  padding: 24px;
+}
+
 @media (max-width: 767px) {
   .col-pad-8 {
     padding: 4px 8px;
