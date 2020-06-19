@@ -6,7 +6,6 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { usePalette } from "react-palette";
 
 const OrgMenu = (item) => {
   return (

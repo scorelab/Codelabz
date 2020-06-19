@@ -7,6 +7,7 @@ import gl from "../../assets/orgs/google.png";
 import fb from "../../assets/orgs/facebook.webp";
 import ap from "../../assets/orgs/apple.png";
 import { PlusOutlined } from "@ant-design/icons";
+import CreateOrgModal from "./createOrgModal";
 
 const OrgSidebar = () => {
   const orgs = useSelector(
@@ -18,6 +19,7 @@ const OrgSidebar = () => {
   );
 
   const [activeOrg, setActiveOrg] = useState(orgs[0]); // set the current active org here
+  const [showModal, setShowModal] = useState(false); // set the current active org here
 
   const handleClickEvent = (data) => {
     let orgDetails = orgs.find((element) => {
@@ -27,7 +29,11 @@ const OrgSidebar = () => {
   };
 
   const createOrg = () => {
-    alert("Organization created... lol");
+    setShowModal(true);
+  };
+
+  const createOrgClose = () => {
+    setShowModal(false);
   };
 
   return (
@@ -166,6 +172,7 @@ const OrgSidebar = () => {
           }
         }}
       </Color>
+      <CreateOrgModal show={showModal} closeCallback={createOrgClose} />
     </div>
   );
 };

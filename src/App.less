@@ -66,6 +66,10 @@
   ); /* 72px is the height of the navbar, 285px is the height of the footer */
 }
 
+.auth-margin {
+  margin-bottom: 50px;
+}
+
 @media (min-width: 767px) {
   .home-row {
     min-height: calc(100vh - 72px);
@@ -85,6 +89,7 @@
     width: 80%;
   }
 }
+
 @media (max-width: 767px) {
   .mobile-top-padding {
     padding-top: 40px;
@@ -100,6 +105,7 @@
 
   .auth-margin {
     margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   .max-height-mobile > .ant-card-body {
@@ -398,7 +404,7 @@
 }
 
 footer {
-  margin-top: 50px;
+  margin-top: 0px;
 }
 
 .mini-sidebar-column {
@@ -412,6 +418,7 @@ footer {
   // box-shadow: 6px 0px 6px -6px rgba(0, 0, 0, 0.1);
   padding-bottom: 16px;
   margin-bottom: -50px; //height of footer margin
+  height: 100%;
 }
 
 .mini-sidebar-column:hover {
