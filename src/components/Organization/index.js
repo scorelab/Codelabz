@@ -3,6 +3,7 @@ import OrgSidebar from "./orgSidebar";
 import { useMediaQuery } from "react-responsive";
 import { Row, Col } from "antd";
 import OrgInfoCard from "./orgInfoCard";
+import OrgUsersCard from "./orgUsersCard";
 
 const Organizations = () => {
   const isDesktop = useMediaQuery({
@@ -19,11 +20,11 @@ const Organizations = () => {
 
       <Col flex="auto" xs={24}>
         <Row>
-          <Col xs={24} md={16} className="col-pad-24-s">
+          <Col xs={24} md={14} className="col-pad-24-s">
             <OrgInfoCard />`
           </Col>
-          <Col xs={24} md={8} className="col-pad-24-s">
-            users
+          <Col xs={24} md={10} className="col-pad-24-s">
+            <OrgUsersCard />
           </Col>
         </Row>
       </Col>

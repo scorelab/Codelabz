@@ -39,15 +39,17 @@ const OrgInfoCard = () => {
       },
     }) => organizations
   );
+
+  const activeOrg = orgs[0]; //Insert logic here to change the active or the displayed organization
+
   return (
     <PageHeader
-      title={orgs[0].org_name}
+      title={activeOrg.org_name}
       className="p-0"
       tags={<Tag color="green">Public</Tag>}
       extra={[<DropdownMenu key="more" />]}
-    >
-      Body content here
-    </PageHeader>
+      subTitle={"@" + activeOrg.org_handle}
+    ></PageHeader>
   );
 };
 
