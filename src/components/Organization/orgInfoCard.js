@@ -1,14 +1,23 @@
 import React from "react";
-import { Menu, Dropdown, Button, PageHeader, Tag } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
+import { Menu, Dropdown, Button, Tag, Card } from "antd";
+import {
+  EllipsisOutlined,
+  EyeInvisibleOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import { usePalette } from "react-palette";
 
-const OrgMenu = () => {
+const OrgMenu = (item) => {
   return (
-    <Menu>
-      <Menu.Item>1st menu item</Menu.Item>
-      <Menu.Item>2nd menu item</Menu.Item>
-      <Menu.Item>3rd menu item</Menu.Item>
+    <Menu onClick={(e) => console.log({ ...e, ...item })}>
+      <Menu.Item key={"setting_edit_org"}>
+        <EditOutlined /> Edit Details
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item style={{ color: "red" }} key={"setting_unpublish_org"}>
+        <EyeInvisibleOutlined /> Unpublish Organization
+      </Menu.Item>
     </Menu>
   );
 };
@@ -45,13 +54,20 @@ const OrgInfoCard = () => {
   const activeOrg = orgs[0]; //Insert logic here to change the active or the displayed organization
 
   return (
-    <PageHeader
-      title={activeOrg.org_name}
+    <Card
+      title={
+        <>
+          {activeOrg.org_name} <Tag color="green">Public</Tag>
+        </>
+      }
+      extra={<DropdownMenu key="more" />}
+      style={{ width: "100%" }}
       className="p-0"
-      tags={<Tag color="green">Public</Tag>}
-      extra={[<DropdownMenu key="more" />]}
-      subTitle={"@" + activeOrg.org_handle}
-    ></PageHeader>
+    >
+      <p>Card content</p>
+      <p>Card content</p>
+      <p>Card content</p>
+    </Card>
   );
 };
 

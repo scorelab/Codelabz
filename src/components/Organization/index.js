@@ -22,10 +22,10 @@ const Organizations = () => {
 
         <Content style={{ backgroundColor: "white" }}>
           <Row>
-            <Col sm={24} md={14} className="col-pad-24-s">
+            <Col xs={24} sm={24} md={14} className="col-pad-24-s pr-12">
               <OrgInfoCard />
             </Col>
-            <Col sm={24} md={10} className="col-pad-24-s">
+            <Col xs={24} sm={24} md={10} className="col-pad-24-s pl-12">
               <OrgUsersCard />
             </Col>
           </Row>
