@@ -1,5 +1,4 @@
 import * as actions from "./actionTypes";
-import _ from "lodash";
 
 export const clearProfileEditError = () => async dispatch => {
   dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
@@ -30,11 +29,7 @@ const getOrgBasicData = org_handle => async firebase => {
 
     if (!orgPermissionDoc.exists) return null;
 
-    const users = orgPermissionDoc.get("users");
-
-    if (!users || users.length <= 0) return null;
-
-    const user_permissions = _.find(users, user => user[uid] && user[uid]);
+    const user_permissions = orgPermissionDoc.get(uid);
 
     if (!user_permissions) return null;
 
@@ -42,7 +37,7 @@ const getOrgBasicData = org_handle => async firebase => {
       org_handle,
       org_name,
       org_image: org_image ? org_image : "",
-      permissions: user_permissions[uid]
+      permissions: user_permissions
     };
   } catch (e) {
     throw e;

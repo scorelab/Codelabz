@@ -132,7 +132,7 @@ const AllowOrgManager = connectedRouterRedirect({
       general: { permissions }
     }
   }) => {
-    return permissions.includes(3);
+    return permissions.includes(2) || permissions.includes(3);
   },
   redirectAction: newLoc => dispatch => {
     browserHistory.replace(newLoc); // or routerActions.replace
