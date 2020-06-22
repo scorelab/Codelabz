@@ -16,4 +16,8 @@ export {
   setUpInitialData
 } from "./authActions";
 
-export { clearProfileEditError, getProfileData } from "./profileActions";
+export {
+  clearProfileEditError,
+  getProfileData,
+  createOrganization
+} from "./profileActions";

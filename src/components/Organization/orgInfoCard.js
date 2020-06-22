@@ -1,15 +1,15 @@
-import React from "react";
-import { Menu, Dropdown, Button, Tag, Card } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Card, Dropdown, Menu, Tag } from "antd";
 import {
-  EllipsisOutlined,
-  EyeInvisibleOutlined,
   EditOutlined,
+  EllipsisOutlined,
+  EyeInvisibleOutlined
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
-const OrgMenu = (item) => {
+const OrgMenu = item => {
   return (
-    <Menu onClick={(e) => console.log({ ...e, ...item })}>
+    <Menu onClick={e => console.log({ ...e, ...item })}>
       <Menu.Item key={"setting_edit_org"}>
         <EditOutlined /> Edit Details
       </Menu.Item>
@@ -21,19 +21,19 @@ const OrgMenu = (item) => {
   );
 };
 
-const DropdownMenu = (props) => {
+const DropdownMenu = props => {
   return (
     <Dropdown key="more" overlay={OrgMenu}>
       <Button
         style={{
           border: "none",
-          padding: 0,
+          padding: 0
         }}
       >
         <EllipsisOutlined
           style={{
             fontSize: 20,
-            verticalAlign: "top",
+            verticalAlign: "top"
           }}
         />
       </Button>
@@ -42,21 +42,36 @@ const DropdownMenu = (props) => {
 };
 
 const OrgInfoCard = () => {
+  const [currentOrgData, setCurrentOrgData] = useState({});
+  const current = useSelector(
+    ({
+      org: {
+        general: { current }
+      }
+    }) => current
+  );
+
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations },
-      },
+        data: { organizations }
+      }
     }) => organizations
   );
 
-  const activeOrg = orgs[0]; //Insert logic here to change the active or the displayed organization
+  useEffect(() => {
+    let orgDetails = orgs.find(element => {
+      return element.org_handle === current;
+    });
+    setCurrentOrgData(orgDetails);
+  }, [current, orgs]);
 
+  //Insert logic here to change the active or the displayed organization
   return (
     <Card
       title={
         <>
-          {activeOrg.org_name} <Tag color="green">Public</Tag>
+          {currentOrgData.org_name} <Tag color="green">Public</Tag>
         </>
       }
       extra={<DropdownMenu key="more" />}
