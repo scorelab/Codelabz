@@ -1,30 +1,31 @@
 import React from "react";
 import { Menu } from "antd";
-import { NavLink } from "react-router-dom";
-import useGetPermissions from "../../../helpers/customHooks/useGetPermissions";
+import { NavLink, useLocation } from "react-router-dom";
+// import useGetPermissions from "../../../helpers/customHooks/useGetPermissions";
 import { useAllowDashboard } from "../../../helpers/customHooks";
 
 const LeftMenu = ({ mode }) => {
-  const permissions = useGetPermissions();
+  // const permissions = useGetPermissions();
   const allowDashboard = useAllowDashboard();
-  const allowViewOrgComponents = permissions.length > 0;
+  // const allowViewOrgComponents = permissions.length > 0;
+  let { pathname: location } = useLocation();
 
   /**
    * @param {array<number>} levels
    * @param {React.Component} Component
    * @return {null|React.Component}
    */
-  const allowViewOrgSubComponents = (levels, Component) => {
-    if (levels.some((e) => permissions.includes(e))) return Component;
-    return null;
-  };
+  // const allowViewOrgSubComponents = (levels, Component) => {
+  //   if (levels.some((e) => permissions.includes(e))) return Component;
+  //   return null;
+  // };
 
   return (
-    <Menu mode={mode}>
-      <Menu.Item key="codefeed">
+    <Menu mode={mode} selectedKeys={location}>
+      <Menu.Item key="/codefeed">
         <NavLink to="/">CodeFeed</NavLink>
       </Menu.Item>
-      <Menu.Item key="tutorials">
+      <Menu.Item key="/tutorials">
         <NavLink to="/">Tutorials</NavLink>
       </Menu.Item>
       {allowDashboard && (
@@ -34,7 +35,12 @@ const LeftMenu = ({ mode }) => {
           </Menu.Item>
         </Menu.SubMenu>
       )}
-      {allowViewOrgComponents && (
+      {allowDashboard && (
+        <Menu.Item key="/organization">
+          <NavLink to="/organization">Organizations</NavLink>
+        </Menu.Item>
+      )}
+      {/* {allowViewOrgComponents && (
         <Menu.SubMenu title={"Organizations"}>
           {allowViewOrgSubComponents(
             [1, 3],
@@ -53,7 +59,7 @@ const LeftMenu = ({ mode }) => {
             </Menu.SubMenu>
           )}
         </Menu.SubMenu>
-      )}
+      )} */}
     </Menu>
   );
 };
