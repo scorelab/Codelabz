@@ -21,3 +21,5 @@ export {
   getProfileData,
   createOrganization
 } from "./profileActions";
+
+export { getOrgUserData, addOrgUser, removeOrgUser } from "./orgActions";

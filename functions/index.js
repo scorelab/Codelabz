@@ -9,6 +9,7 @@ const functions = require("firebase-functions");
 const onCallFunctions = require("./cloud_functions/onCallFunctions");
 const onCreateFunctions = require("./cloud_functions/onCreateFunctions");
 const onWriteFunctions = require("./cloud_functions/onWriteFunctions");
+const onUpdateFunctions = require("./cloud_functions/onUpdateFunctions");
 
 //+++++++++++++++++++++onCall Functions+++++++++++++++++++++++++++++++++
 exports.resendVerificationEmail = functions.https.onCall(
@@ -32,3 +33,8 @@ exports.createOrganization = functions.firestore
 exports.registerUserHandle = functions.firestore
   .document("cl_user/{uid}")
   .onWrite(onWriteFunctions.registerUserHandleHandler);
+
+//++++++++++++++++++++onUpdate Functions++++++++++++++++++++++++++++++
+exports.updateOrgUser = functions.firestore
+  .document("cl_org_general/{org_handle}/cl_org_users/users")
+  .onUpdate(onUpdateFunctions.addOrgUserHandler);
