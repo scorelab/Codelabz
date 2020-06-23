@@ -11,6 +11,7 @@
     "antd": "^4.2.5",
     "color-thief-react": "^1.0.2",
     "craco-less": "^1.17.0",
+    "elasticlunr": "^0.9.5",
     "firebase": "^7.14.5",
     "history": "^4.10.1",
     "lodash": "^4.17.15",

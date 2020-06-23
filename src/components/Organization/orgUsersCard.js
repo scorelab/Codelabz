@@ -21,11 +21,17 @@ import {
   PlusOutlined
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { addOrgUser, getOrgUserData, removeOrgUser } from "../../store/actions";
+import {
+  addOrgUser,
+  getOrgUserData,
+  removeOrgUser,
+  searchFromIndex
+} from "../../store/actions";
 import { useFirestore } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 import { isLoaded, isEmpty } from "react-redux-firebase";
 import AddOrgUserModal from "./addOrgUserModal";
+import _ from "lodash";
 
 const permissionLevelIcons = [
   <EyeOutlined />,
@@ -73,6 +79,7 @@ const OrgUsersCard = () => {
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
   const [viewModal, setViewModal] = useState(false);
+  const [dataSource, setDataSource] = useState([]);
 
   const userProps = useSelector(({ org: { user } }) => user);
   const errorProps = useSelector(
@@ -109,6 +116,10 @@ const OrgUsersCard = () => {
       setViewModal(false);
     }
   }, [userProps, error]);
+
+  useEffect(() => {
+    setDataSource(data);
+  }, [data]);
 
   const permissionLevelsButton = ({ selected, item }) => {
     return (
@@ -148,6 +159,26 @@ const OrgUsersCard = () => {
     }
   };
 
+  const handleOnSearch = ({ target: { value } }) => {
+    if (value === "") {
+      return setDataSource(data);
+    }
+    const result = searchFromIndex(value);
+    if (result.length === 0) {
+      return setDataSource([]);
+    }
+    if (result.length > 0) {
+      let tempArray = [];
+      result.forEach(item => {
+        tempArray = [
+          ...tempArray,
+          ..._.filter(data, ref => ref.handle === item.ref)
+        ];
+      });
+      return setDataSource(tempArray);
+    }
+  };
+
   return (
     <Card
       title="Organization Users"
@@ -175,7 +206,7 @@ const OrgUsersCard = () => {
         split={false}
         itemLayout="horizontal"
         className="pt-0"
-        dataSource={data}
+        dataSource={dataSource}
         loading={loading}
         renderItem={item => (
           <List.Item
@@ -232,7 +263,7 @@ const OrgUsersCard = () => {
         header={
           <Input.Search
             placeholder="Search users by name or handle"
-            onSearch={value => console.log(value)}
+            onKeyUp={handleOnSearch}
             style={{ width: "100%", marginTop: "-12px" }}
           />
         }

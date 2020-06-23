@@ -1,5 +1,12 @@
 import * as actions from "./actionTypes";
 import _ from "lodash";
+import Elasticlunr from "../../helpers/elasticlunr";
+
+const elasticlunr = new Elasticlunr("handle", "handle", "name");
+
+export const searchFromIndex = query => {
+  return elasticlunr.searchFromIndex(query);
+};
 
 export const getOrgUserData = org_handle => async (firestore, dispatch) => {
   try {
@@ -28,6 +35,9 @@ export const getOrgUserData = org_handle => async (firestore, dispatch) => {
     dispatch({
       type: actions.GET_ORG_USER_DATA_SUCCESS,
       payload: _.orderBy(userData, ["permission_level"], ["desc"])
+    });
+    userData.forEach(doc => {
+      elasticlunr.addDocToIndex(doc);
     });
   } catch (e) {
     dispatch({ type: actions.GET_ORG_USER_DATA_FAIL, payload: e.message });

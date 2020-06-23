@@ -22,4 +22,9 @@ export {
   createOrganization
 } from "./profileActions";
 
-export { getOrgUserData, addOrgUser, removeOrgUser } from "./orgActions";
+export {
+  getOrgUserData,
+  addOrgUser,
+  removeOrgUser,
+  searchFromIndex
+} from "./orgActions";
