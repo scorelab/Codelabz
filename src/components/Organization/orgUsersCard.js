@@ -8,7 +8,8 @@ import {
   List,
   Input,
   Popover,
-  Modal
+  Modal,
+  message
 } from "antd";
 import {
   DownOutlined,
@@ -104,6 +105,7 @@ const OrgUsersCard = () => {
 
   useEffect(() => {
     if (isLoaded(userProps) && !isEmpty(userProps) && error === false) {
+      message.success("Changes saved!");
       setViewModal(false);
     }
   }, [userProps, error]);
