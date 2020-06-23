@@ -7,7 +7,6 @@ import {
   Avatar,
   List,
   Input,
-  message,
   Popover,
   Modal
 } from "antd";
