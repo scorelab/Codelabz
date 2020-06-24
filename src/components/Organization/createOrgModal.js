@@ -5,15 +5,49 @@ import {
   AppstoreAddOutlined,
   AppstoreOutlined,
   GlobalOutlined,
-  IeOutlined,
+  IeOutlined
 } from "@ant-design/icons";
+import { checkOrgHandleExists, createOrganization } from "../../store/actions";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useDispatch, useSelector } from "react-redux";
 
 const { Option } = Select;
 
-const CreateOrgModal = (props) => {
+const CreateOrgModal = props => {
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState(false);
+  const loadingProp = useSelector(
+    ({
+      profile: {
+        edit: { loading }
+      }
+    }) => loading
+  );
+  const errorProp = useSelector(
+    ({
+      profile: {
+        edit: { error }
+      }
+    }) => error
+  );
+
+  useEffect(() => {
+    setLoading(loadingProp);
+  }, [loadingProp]);
+
+  useEffect(() => {
+    setError(errorProp);
+  }, [errorProp]);
+
+  useEffect(() => {
+    if (loadingProp === false && errorProp === false) {
+      setVisible(false);
+    }
+  }, [loadingProp, errorProp]);
 
   /* This part is related to the country dropdown */
   const children = [];
@@ -46,21 +80,26 @@ const CreateOrgModal = (props) => {
     setVisible(false);
   };
 
-  const onSubmit = (formData) => {
-    console.log(formData);
-    setLoading(true);
-    setError(true);
+  const onSubmit = async formData => {
+    await createOrganization(formData)(firebase, firestore, dispatch);
+  };
 
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(false);
-      setError(false);
-    }, 3000);
+  const onOrgHandleChange = async () => {
+    const orgHandle = form.getFieldValue("org_handle");
+    const orgHandleExists = await checkOrgHandleExists(orgHandle)(
+      firebase,
+      dispatch
+    );
 
-    // If successful clear the form and set the newly created org as the currently active organization.
-    // From there the owner can add a photo and users.
-    // The form can be made reusable and use the same on the dashboard page.
-    // Mata nidi mathai.
+    if (orgHandleExists) {
+      form.resetFields(["org_handle"]);
+      form.setFields([
+        {
+          name: "org_handle",
+          errors: [`The handle [${orgHandle}] is already taken`]
+        }
+      ]);
+    }
   };
 
   return (
@@ -88,12 +127,12 @@ const CreateOrgModal = (props) => {
           rules={[
             {
               required: true,
-              message: "Please enter the organization name",
+              message: "Please enter the organization name"
             },
             {
               type: "string",
-              message: "Please provide a valid organization name",
-            },
+              message: "Please provide a valid organization name"
+            }
           ]}
         >
           <Input
@@ -109,21 +148,21 @@ const CreateOrgModal = (props) => {
           rules={[
             {
               required: true,
-              message: "Please enter your organization handle",
+              message: "Please enter your organization handle"
             },
             {
               pattern: new RegExp(/^[a-z0-9]{1,}$/),
               message:
-                "Organization handle can only contain lowercase alphanumeric characters",
+                "Organization handle can only contain lowercase alphanumeric characters"
             },
             {
               pattern: new RegExp(/^[a-z0-9]{6,}$/),
-              message: "Organization handle cannot be less than 6 characters",
-            },
+              message: "Organization handle cannot be less than 6 characters"
+            }
           ]}
         >
           <Input
-            onBlur={() => console.log("org handle check here")}
+            onBlur={onOrgHandleChange}
             prefix={<AppstoreOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Organization Handle"
             autoComplete="off"
@@ -134,8 +173,8 @@ const CreateOrgModal = (props) => {
           rules={[
             {
               required: true,
-              message: "Please select the country of the organization",
-            },
+              message: "Please select the country of the organization"
+            }
           ]}
         >
           <Select
@@ -156,18 +195,18 @@ const CreateOrgModal = (props) => {
           rules={[
             {
               required: true,
-              message: "Please enter the website of the organization",
+              message: "Please enter the website of the organization"
             },
             {
               pattern: new RegExp(
                 /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
               ),
-              message: "Please provide a valid URL",
+              message: "Please provide a valid URL"
             },
             {
               pattern: new RegExp(/^(http:\/\/|https:\/\/)/),
-              message: "URL must contain the protocol (https:// or http://)",
-            },
+              message: "URL must contain the protocol (https:// or http://)"
+            }
           ]}
           hasFeedback
         >

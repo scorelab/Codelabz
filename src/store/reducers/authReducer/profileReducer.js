@@ -3,7 +3,7 @@ import { modifyAuthErrorMsg } from "../../../helpers/errorMsgHandler";
 
 const initialState = {
   loading: false,
-  error: null,
+  error: null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -18,7 +18,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.SIGN_UP_SUCCESS:
@@ -28,7 +28,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: false,
+        error: false
       };
 
     case actions.SIGN_UP_FAIL:
@@ -38,7 +38,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: modifyAuthErrorMsg(payload),
+        error: modifyAuthErrorMsg(payload)
       };
 
     default:

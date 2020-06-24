@@ -16,4 +16,15 @@ export {
   setUpInitialData
 } from "./authActions";
 
-export { clearProfileEditError, getProfileData } from "./profileActions";
+export {
+  clearProfileEditError,
+  getProfileData,
+  createOrganization
+} from "./profileActions";
+
+export {
+  getOrgUserData,
+  addOrgUser,
+  removeOrgUser,
+  searchFromIndex
+} from "./orgActions";

@@ -1,5 +1,5 @@
 import * as actions from "./actionTypes";
-import _ from "lodash";
+import { checkOrgHandleExists } from "./authActions";
 
 export const clearProfileEditError = () => async dispatch => {
   dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
@@ -30,11 +30,7 @@ const getOrgBasicData = org_handle => async firebase => {
 
     if (!orgPermissionDoc.exists) return null;
 
-    const users = orgPermissionDoc.get("users");
-
-    if (!users || users.length <= 0) return null;
-
-    const user_permissions = _.find(users, user => user[uid] && user[uid]);
+    const user_permissions = orgPermissionDoc.get(uid);
 
     if (!user_permissions) return null;
 
@@ -42,7 +38,7 @@ const getOrgBasicData = org_handle => async firebase => {
       org_handle,
       org_name,
       org_image: org_image ? org_image : "",
-      permissions: user_permissions[uid]
+      permissions: user_permissions
     };
   } catch (e) {
     throw e;
@@ -73,9 +69,9 @@ export const getProfileData = organizations => async (firebase, dispatch) => {
     let orgs = [];
     if (organizations && organizations.length > 0) {
       dispatch({ type: actions.GET_PROFILE_DATA_START });
-      const promises = organizations.map(org_handle =>
-        getOrgBasicData(org_handle)(firebase)
-      );
+      const promises = organizations
+        .reverse()
+        .map(org_handle => getOrgBasicData(org_handle)(firebase));
       orgs = await Promise.all(promises);
       setCurrentOrgUserPermissions(orgs[0].org_handle, orgs[0].permissions)(
         dispatch
@@ -89,5 +85,53 @@ export const getProfileData = organizations => async (firebase, dispatch) => {
     }
   } catch (e) {
     dispatch({ type: actions.GET_PROFILE_DATA_FAIL, payload: e.message });
+  }
+};
+
+export const createOrganization = orgData => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.PROFILE_EDIT_START });
+    const userData = firebase.auth().currentUser;
+    const { org_name, org_handle, org_country, org_website } = orgData;
+    const isOrgHandleExists = await checkOrgHandleExists(org_handle)(firebase);
+
+    if (isOrgHandleExists) {
+      dispatch({
+        type: actions.PROFILE_EDIT_FAIL,
+        payload: { message: `Handle [${org_handle}] is already taken` }
+      });
+      return;
+    }
+
+    await firestore.set(
+      { collection: "cl_org_general", doc: org_handle },
+      {
+        org_name,
+        org_handle,
+        org_website,
+        org_country,
+        org_email: userData.email,
+        org_created_date: firestore.FieldValue.serverTimestamp(),
+        createdAt: firestore.FieldValue.serverTimestamp(),
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      }
+    );
+
+    const timeOutID = setTimeout(() => {
+      firestore
+        .collection("cl_user")
+        .doc(userData.uid)
+        .update({ organizations: firestore.FieldValue.arrayUnion(org_handle) })
+        .then(() => {
+          clearTimeout(timeOutID);
+          dispatch({ type: actions.PROFILE_EDIT_SUCCESS });
+        });
+    }, 7000);
+  } catch (e) {
+    dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
   }
 };

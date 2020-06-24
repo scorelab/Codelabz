@@ -6,14 +6,14 @@ import {
   checkOrgHandleExists,
   checkUserHandleExists,
   clearProfileEditError,
-  setUpInitialData,
+  setUpInitialData
 } from "../../store/actions";
 import {
   GlobalOutlined,
   UserAddOutlined,
   AppstoreAddOutlined,
   AppstoreOutlined,
-  IeOutlined,
+  IeOutlined
 } from "@ant-design/icons";
 import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
@@ -34,7 +34,13 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
-  const profile = useSelector(({ firebase }) => firebase.profile);
+  const displayName = useSelector(
+    ({
+      firebase: {
+        profile: { displayName }
+      }
+    }) => displayName
+  );
   const children = [];
 
   for (let i = 0; i < countryList.length; i++) {
@@ -69,7 +75,7 @@ const Dashboard = () => {
     org_handle,
     org_name,
     org_website,
-    org_country,
+    org_country
   }) => {
     setError("");
     await setUpInitialData({
@@ -80,7 +86,7 @@ const Dashboard = () => {
       org_handle,
       org_name,
       org_website,
-      org_country,
+      org_country
     })(firebase, firestore, dispatch);
   };
 
@@ -95,8 +101,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "handle",
-          errors: [`The handle [${handle}] is already taken`],
-        },
+          errors: [`The handle [${handle}] is already taken`]
+        }
       ]);
     }
   };
@@ -113,8 +119,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`],
-        },
+          errors: [`The handle [${orgHandle}] is already taken`]
+        }
       ]);
     }
   };
@@ -162,16 +168,16 @@ const Dashboard = () => {
                 >
                   <Form.Item
                     name={"name"}
-                    initialValue={profile.displayName}
+                    initialValue={displayName ? displayName : ""}
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your name",
+                        message: "Please enter your name"
                       },
                       {
                         type: "string",
-                        message: "Please enter a valid name",
-                      },
+                        message: "Please enter a valid name"
+                      }
                     ]}
                   >
                     <Input
@@ -187,17 +193,17 @@ const Dashboard = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your user handle",
+                        message: "Please enter your user handle"
                       },
                       {
                         pattern: new RegExp(/^[a-z0-9]{1,}$/),
                         message:
-                          "User handle can only contain lowercase alphanumeric characters",
+                          "User handle can only contain lowercase alphanumeric characters"
                       },
                       {
                         min: 6,
-                        message: "User handle cannot be less than 6 characters",
-                      },
+                        message: "User handle cannot be less than 6 characters"
+                      }
                     ]}
                   >
                     <Input
@@ -215,8 +221,8 @@ const Dashboard = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please select your country",
-                      },
+                        message: "Please select your country"
+                      }
                     ]}
                   >
                     <Select
@@ -263,12 +269,12 @@ const Dashboard = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter the organization name",
+                          message: "Please enter the organization name"
                         },
                         {
                           type: "string",
-                          message: "Please provide a valid organization name",
-                        },
+                          message: "Please provide a valid organization name"
+                        }
                       ]}
                     >
                       <Input
@@ -286,18 +292,18 @@ const Dashboard = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter your organization handle",
+                          message: "Please enter your organization handle"
                         },
                         {
                           pattern: new RegExp(/^[a-z0-9]{1,}$/),
                           message:
-                            "Organization handle can only contain lowercase alphanumeric characters",
+                            "Organization handle can only contain lowercase alphanumeric characters"
                         },
                         {
                           pattern: new RegExp(/^[a-z0-9]{6,}$/),
                           message:
-                            "Organization handle cannot be less than 6 characters",
-                        },
+                            "Organization handle cannot be less than 6 characters"
+                        }
                       ]}
                     >
                       <Input
@@ -317,8 +323,8 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please select the country of the organization",
-                        },
+                            "Please select the country of the organization"
+                        }
                       ]}
                     >
                       <Select
@@ -343,19 +349,19 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please enter the website of the organization",
+                            "Please enter the website of the organization"
                         },
                         {
                           pattern: new RegExp(
                             /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
                           ),
-                          message: "Please provide a valid URL",
+                          message: "Please provide a valid URL"
                         },
                         {
                           pattern: new RegExp(/^(http:\/\/|https:\/\/)/),
                           message:
-                            "URL must contain the protocol (https:// or http://)",
-                        },
+                            "URL must contain the protocol (https:// or http://)"
+                        }
                       ]}
                       hasFeedback
                     >

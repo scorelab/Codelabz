@@ -2,29 +2,31 @@ import React, { useState } from "react";
 import { Divider } from "antd";
 import { OrgIcons } from "./orgIcons";
 import Color from "color-thief-react";
-import { useSelector } from "react-redux";
-import gl from "../../assets/orgs/google.png";
-import fb from "../../assets/orgs/facebook.webp";
-import ap from "../../assets/orgs/apple.png";
+import { useDispatch, useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
 import CreateOrgModal from "./createOrgModal";
+import { setCurrentOrgUserPermissions } from "../../store/actions/profileActions";
 
 const OrgSidebar = () => {
+  const dispatch = useDispatch();
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations },
-      },
+        data: { organizations }
+      }
     }) => organizations
   );
 
   const [activeOrg, setActiveOrg] = useState(orgs[0]); // set the current active org here
   const [showModal, setShowModal] = useState(false); // set the current active org here
 
-  const handleClickEvent = (data) => {
-    let orgDetails = orgs.find((element) => {
+  const handleClickEvent = data => {
+    let orgDetails = orgs.find(element => {
       return element.org_handle === data.handle;
     });
+    setCurrentOrgUserPermissions(orgDetails.org_handle, orgDetails.permissions)(
+      dispatch
+    );
     setActiveOrg(orgDetails);
   };
 
@@ -64,7 +66,7 @@ const OrgSidebar = () => {
       />
 
       {orgs &&
-        orgs.map((org) => (
+        orgs.map(org => (
           <Color
             src={org.org_image}
             crossOrigin="Anonymous"
@@ -94,7 +96,7 @@ const OrgSidebar = () => {
                     data={{
                       name: org.org_name,
                       handle: org.org_handle,
-                      color: data,
+                      color: data
                     }}
                     active={false}
                   />
@@ -103,75 +105,6 @@ const OrgSidebar = () => {
             }}
           </Color>
         ))}
-      <Color src={fb} crossOrigin="Anonymous">
-        {({ data, loading }) => {
-          if (loading) {
-            return null;
-          } else {
-            return (
-              <OrgIcons
-                border={true}
-                borderColor={data}
-                text={"Facebook"}
-                image={fb}
-                onClick={handleClickEvent}
-                data={{
-                  name: "Facebook",
-                  handle: "facebook",
-                  color: data,
-                }}
-                active={false}
-              />
-            );
-          }
-        }}
-      </Color>
-      <Color src={gl} crossOrigin="Anonymous">
-        {({ data, loading }) => {
-          if (loading) {
-            return null;
-          } else {
-            return (
-              <OrgIcons
-                border={true}
-                borderColor={data}
-                text={"Google"}
-                image={gl}
-                onClick={handleClickEvent}
-                data={{
-                  name: "Google",
-                  handle: "google",
-                  color: data,
-                }}
-                active={false}
-              />
-            );
-          }
-        }}
-      </Color>
-      <Color src={ap} crossOrigin="Anonymous">
-        {({ data, loading }) => {
-          if (loading) {
-            return null;
-          } else {
-            return (
-              <OrgIcons
-                border={true}
-                borderColor={data}
-                text={"Apple"}
-                image={ap}
-                onClick={handleClickEvent}
-                data={{
-                  name: "Apple",
-                  handle: "apple",
-                  color: data,
-                }}
-                active={false}
-              />
-            );
-          }
-        }}
-      </Color>
       <CreateOrgModal show={showModal} closeCallback={createOrgClose} />
     </div>
   );

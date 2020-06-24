@@ -59,38 +59,6 @@ exports.createOrganizationHandler = async (snapshot, context) => {
       .update({ [org_handle]: true });
 
     /**
-     * create groups sub-collection => create admin group document
-     * @type {Promise<FirebaseFirestore.WriteResult>}
-     */
-    const setAdminGroup = db
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .collection("cl_org_group")
-      .doc("admin")
-      .set({
-        org_grp_users: [user_uid],
-        org_grp_permissions: [1, 2, 3],
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      });
-
-    /**
-     * create groups sub-collection => create standard group document
-     * @type {Promise<FirebaseFirestore.WriteResult>}
-     */
-    const setStandardGroup = db
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .collection("cl_org_group")
-      .doc("standard")
-      .set({
-        org_grp_users: [user_uid],
-        org_grp_permissions: [1, 0, 0],
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      });
-
-    /**
      * create org_metrics sub-collection
      * @type {Promise<FirebaseFirestore.WriteResult>}
      */
@@ -117,18 +85,12 @@ exports.createOrganizationHandler = async (snapshot, context) => {
       .collection("cl_org_users")
       .doc("users")
       .set({
-        users: [{ [user_uid]: [1, 2, 3] }],
+        [user_uid]: [3],
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         updatedAt: admin.firestore.FieldValue.serverTimestamp()
       });
 
-    await Promise.all([
-      registerOrgHandle,
-      setAdminGroup,
-      setStandardGroup,
-      setOrgMetrics,
-      setOrgUsers
-    ]);
+    await Promise.all([registerOrgHandle, setOrgMetrics, setOrgUsers]);
     return console.log(
       `The data of organization: ${org_handle} of user: ${user_uid} is successfully added.`
     );
