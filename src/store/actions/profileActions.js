@@ -91,6 +91,7 @@ export const createOrganization = orgData => async (
         .then(() => {
           clearTimeout(timeOutID);
           dispatch({ type: actions.PROFILE_EDIT_SUCCESS });
+          window.location.reload();
         });
     }, 7000);
   } catch (e) {
