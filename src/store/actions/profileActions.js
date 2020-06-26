@@ -1,6 +1,7 @@
 import * as actions from "./actionTypes";
 import { checkOrgHandleExists } from "./authActions";
 import { getOrgBasicData } from "./orgActions";
+import _ from "lodash";
 
 export const clearProfileEditError = () => async dispatch => {
   dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
@@ -30,16 +31,16 @@ export const getProfileData = organizations => async (firebase, dispatch) => {
     let orgs = [];
     if (organizations && organizations.length > 0) {
       dispatch({ type: actions.GET_PROFILE_DATA_START });
-      const promises = organizations
-        .reverse()
-        .map(org_handle => getOrgBasicData(org_handle)(firebase));
+      const promises = organizations.map(org_handle =>
+        getOrgBasicData(org_handle)(firebase)
+      );
       orgs = await Promise.all(promises);
       setCurrentOrgUserPermissions(orgs[0].org_handle, orgs[0].permissions)(
         dispatch
       );
       dispatch({
         type: actions.GET_PROFILE_DATA_SUCCESS,
-        payload: { organizations: orgs }
+        payload: { organizations: _.orderBy(orgs, ["org_handle"], ["asc"]) }
       });
     } else {
       dispatch({ type: actions.GET_PROFILE_DATA_END });

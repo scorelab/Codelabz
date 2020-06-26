@@ -40,6 +40,13 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
       }
     }) => error
   );
+  const profileOrganizations = useSelector(
+    ({
+      profile: {
+        data: { organizations }
+      }
+    }) => organizations
+  );
 
   useEffect(() => {
     setLoading(loadingProps);
@@ -75,11 +82,14 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
   }, [form, currentOrgData]);
 
   const onSubmit = formData => {
-    editGeneralData({ org_handle: currentOrgData.org_handle, ...formData })(
-      firebase,
-      firestore,
-      dispatch
-    );
+    editGeneralData(
+      {
+        org_handle: currentOrgData.org_handle,
+        org_image: currentOrgData.org_image,
+        ...formData
+      },
+      profileOrganizations
+    )(firebase, firestore, dispatch);
   };
 
   return (

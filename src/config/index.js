@@ -25,7 +25,6 @@ firebase.initializeApp(firebaseConfig);
 // Initialize other services on firebase instance
 firebase.firestore(); // <- needed if using firestore
 
-export const firebaseAuth = firebase.auth();
 export const functions = firebase.functions();
 
 // Retrieve Firebase Messaging object.

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Divider } from "antd";
 import { OrgIcons } from "./orgIcons";
 import { Palette } from "color-thief-react";
@@ -17,6 +17,14 @@ const OrgSidebar = () => {
     }) => organizations
   );
 
+  const current = useSelector(
+    ({
+      org: {
+        general: { current }
+      }
+    }) => current
+  );
+
   const [activeOrg, setActiveOrg] = useState(orgs[0]); // set the current active org here
   const [showModal, setShowModal] = useState(false); // set the current active org here
 
@@ -27,8 +35,14 @@ const OrgSidebar = () => {
     setCurrentOrgUserPermissions(orgDetails.org_handle, orgDetails.permissions)(
       dispatch
     );
-    setActiveOrg(orgDetails);
   };
+
+  useEffect(() => {
+    let orgDetails = orgs.find(element => {
+      return element.org_handle === current;
+    });
+    setActiveOrg(orgDetails);
+  }, [current, orgs]);
 
   const createOrg = () => {
     setShowModal(true);

@@ -129,46 +129,6 @@ export const getOrgBasicData = org_handle => async firebase => {
 
     const org_name = orgDoc.get("org_name");
     const org_image = orgDoc.get("org_image");
-
-    const orgPermissionDoc = await firestore
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .collection("cl_org_users")
-      .doc("users")
-      .get();
-
-    if (!orgPermissionDoc.exists) return null;
-
-    const user_permissions = orgPermissionDoc.get(uid);
-
-    if (!user_permissions) return null;
-
-    return {
-      org_handle,
-      org_name,
-      org_image: org_image ? org_image : "",
-      permissions: user_permissions
-    };
-  } catch (e) {
-    throw e;
-  }
-};
-
-const getOrgGeneralData = org_handle => async firebase => {
-  try {
-    const firestore = firebase.firestore();
-    const {
-      currentUser: { uid }
-    } = firebase.auth();
-    const orgDoc = await firestore
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .get();
-
-    if (!orgDoc.exists) return null;
-
-    const org_name = orgDoc.get("org_name");
-    const org_image = orgDoc.get("org_image");
     const org_link_facebook = orgDoc.get("org_link_facebook");
     const org_link_github = orgDoc.get("org_link_github");
     const org_link_linkedin = orgDoc.get("org_link_linkedin");
@@ -210,17 +170,7 @@ const getOrgGeneralData = org_handle => async firebase => {
   }
 };
 
-export const getGeneralData = org_handle => async (firebase, dispatch) => {
-  try {
-    dispatch({ type: actions.GET_ORG_GENERAL_START });
-    const response = await getOrgGeneralData(org_handle)(firebase);
-    dispatch({ type: actions.GET_ORG_GENERAL_SUCCESS, payload: response });
-  } catch (e) {
-    dispatch({ type: actions.GET_ORG_GENERAL_FAIL, payload: e.message });
-  }
-};
-
-export const editGeneralData = orgData => async (
+export const editGeneralData = (orgData, currentOrgData) => async (
   firebase,
   firestore,
   dispatch
@@ -240,9 +190,14 @@ export const editGeneralData = orgData => async (
         updatedAt: firestore.FieldValue.serverTimestamp()
       });
 
-    const response = await getOrgGeneralData(org_handle)(firebase);
+    const newData = await getOrgBasicData(org_handle)(firebase);
+    const update = _.unionBy([newData], currentOrgData, "org_handle");
+    dispatch({
+      type: actions.GET_PROFILE_DATA_SUCCESS,
+      payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) }
+    });
 
-    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS, payload: response });
+    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
   } catch (e) {
     dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
   }
@@ -252,11 +207,11 @@ export const clearEditGeneral = () => dispatch => {
   dispatch({ type: actions.CLEAR_EDIT_ORG_GENERAL });
 };
 
-export const unPublishOrganization = (org_handle, published) => async (
-  firebase,
-  firestore,
-  dispatch
-) => {
+export const unPublishOrganization = (
+  org_handle,
+  published,
+  currentOrgData
+) => async (firebase, firestore, dispatch) => {
   try {
     dispatch({ type: actions.EDIT_ORG_GENERAL_START });
     await firestore
@@ -266,8 +221,43 @@ export const unPublishOrganization = (org_handle, published) => async (
         org_published: !published,
         updatedAt: firestore.FieldValue.serverTimestamp()
       });
-    const response = await getOrgGeneralData(org_handle)(firebase);
-    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS, payload: response });
+
+    const newData = await getOrgBasicData(org_handle)(firebase);
+    const update = _.unionBy([newData], currentOrgData, "org_handle");
+    dispatch({
+      type: actions.GET_PROFILE_DATA_SUCCESS,
+      payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) }
+    });
+
+    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
+  } catch (e) {
+    dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
+  }
+};
+
+export const uploadOrgProfileImage = (
+  file,
+  org_handle,
+  currentOrgData
+) => async (firebase, dispatch) => {
+  try {
+    const storagePath = `organizations/${org_handle}/images`;
+    const dbPath = "cl_org_general";
+    await firebase.uploadFile(storagePath, file, dbPath, {
+      metadataFactory: (uploadRes, firebase, metadata, downloadURL) => {
+        return { org_image: downloadURL };
+      },
+      documentId: org_handle
+    });
+
+    const newData = await getOrgBasicData(org_handle)(firebase);
+    const update = _.unionBy([newData], currentOrgData, "org_handle");
+    dispatch({
+      type: actions.GET_PROFILE_DATA_SUCCESS,
+      payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) }
+    });
+
+    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
   } catch (e) {
     dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
   }

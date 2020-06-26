@@ -6,8 +6,7 @@ const initialState = {
   isLoaded: true,
   isEmpty: true,
   loading: false,
-  error: null,
-  data: null
+  error: null
 };
 
 //notes on reducer
@@ -60,16 +59,14 @@ export default (state = initialState, { type, payload }) => {
     case actions.GET_ORG_GENERAL_SUCCESS:
       return {
         ...state,
-        loading: false,
-        data: payload
+        loading: false
       };
 
     case actions.EDIT_ORG_GENERAL_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false,
-        data: payload
+        error: false
       };
 
     case actions.GET_ORG_GENERAL_FAIL:

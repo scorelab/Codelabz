@@ -27,7 +27,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
 import EditOrgDetailsModal from "./editOrgDetailsModal";
-import { getGeneralData, unPublishOrganization } from "../../../store/actions";
+import {
+  clearEditGeneral,
+  unPublishOrganization,
+  uploadOrgProfileImage
+} from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 
 const { Dragger } = Upload;
@@ -105,33 +109,31 @@ const OrgInfoCard = () => {
   );
 
   useEffect(() => {
-    getGeneralData(current)(firebase, dispatch);
-  }, [current, firebase, dispatch]);
-
-  useEffect(() => {
     setLoading(loadingProps);
   }, [loadingProps]);
 
-  const orgGeneral = useSelector(
+  const orgs = useSelector(
     ({
-      org: {
-        general: { data }
+      profile: {
+        data: { organizations }
       }
-    }) => data
+    }) => organizations
   );
 
   useEffect(() => {
-    setCurrentOrgData(orgGeneral);
-  }, [orgGeneral]);
+    let orgDetails = orgs.find(element => {
+      return element.org_handle === current;
+    });
+    setCurrentOrgData(orgDetails);
+  }, [current, orgs]);
 
-  const uploadImage = data => {
+  const uploadImage = file => {
     setImageUploading(true);
-    console.log(data); // blob
-
-    setTimeout(() => {
+    uploadOrgProfileImage(file, current, orgs)(firebase, dispatch).then(() => {
       setImageUploading(false);
-    }, 2000);
-    return false; //always remember to return false to stop ant from trying to upload as well
+      clearEditGeneral()(dispatch);
+    });
+    return false;
   };
 
   const checkAvailable = data => {
@@ -139,7 +141,7 @@ const OrgInfoCard = () => {
   };
 
   const unpublishOrganization = () => {
-    unPublishOrganization(current, currentOrgData.org_published)(
+    unPublishOrganization(current, currentOrgData.org_published, orgs)(
       firebase,
       firestore,
       dispatch
