@@ -7,6 +7,10 @@
   margin-top: 3px !important;
 }
 
+.mt-4 {
+  margin-top: 4px !important;
+}
+
 .mt-8 {
   margin-top: 8px !important;
 }
@@ -27,6 +31,10 @@
   margin-bottom: 0 !important;
 }
 
+.mb-4 {
+  margin-bottom: 4px !important;
+}
+
 .mb-8 {
   margin-bottom: 8px !important;
 }
@@ -45,6 +53,10 @@
 
 .mr-0 {
   margin-right: 0 !important;
+}
+
+.mr-4 {
+  margin-right: 4px !important;
 }
 
 .mr-8 {
@@ -86,6 +98,10 @@
 }
 
 .pl-24 {
+  padding-left: 24px !important;
+}
+
+.pl-24-d {
   padding-left: 24px !important;
 }
 
@@ -216,5 +232,13 @@
 
   .pl-12 {
     padding-left: 24px !important;
+  }
+
+  .pl-24-d {
+    padding-left: 0px !important;
+  }
+
+  .pt-24-m {
+    padding-top: 24px !important;
   }
 }

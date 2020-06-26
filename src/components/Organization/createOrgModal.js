@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Select, Form, Input, Alert, Space } from "antd";
-import countryList from "../../helpers/countryList";
+import { Modal, Button, Form, Input, Alert, Space } from "antd";
 import {
   AppstoreAddOutlined,
   AppstoreOutlined,
-  GlobalOutlined,
-  IeOutlined
+  IeOutlined,
 } from "@ant-design/icons";
 import { checkOrgHandleExists, createOrganization } from "../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
+import CountryDropdown from "../../helpers/countryDropdown";
+import {
+  orgWebsiteValidation,
+  orgHandleValidation,
+  orgNameValidation,
+} from "../../helpers/validationRules";
 
-const { Option } = Select;
-
-const CreateOrgModal = props => {
+const CreateOrgModal = (props) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -23,15 +25,15 @@ const CreateOrgModal = props => {
   const loadingProp = useSelector(
     ({
       profile: {
-        edit: { loading }
-      }
+        edit: { loading },
+      },
     }) => loading
   );
   const errorProp = useSelector(
     ({
       profile: {
-        edit: { error }
-      }
+        edit: { error },
+      },
     }) => error
   );
 
@@ -49,18 +51,7 @@ const CreateOrgModal = props => {
     }
   }, [loadingProp, errorProp]);
 
-  /* This part is related to the country dropdown */
-  const children = [];
   const [form] = Form.useForm();
-
-  for (let i = 0; i < countryList.length; i++) {
-    children.push(
-      <Option key={countryList[i].code} value={countryList[i].name}>
-        {countryList[i].name}
-      </Option>
-    );
-  }
-  /* upto here */
 
   useEffect(() => {
     if (props.show === true) {
@@ -80,7 +71,7 @@ const CreateOrgModal = props => {
     setVisible(false);
   };
 
-  const onSubmit = async formData => {
+  const onSubmit = async (formData) => {
     await createOrganization(formData)(firebase, firestore, dispatch);
   };
 
@@ -96,8 +87,8 @@ const CreateOrgModal = props => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`]
-        }
+          errors: [`The handle [${orgHandle}] is already taken`],
+        },
       ]);
     }
   };
@@ -122,19 +113,7 @@ const CreateOrgModal = props => {
       )}
 
       <Form form={form} onFinish={onSubmit}>
-        <Form.Item
-          name={"org_name"}
-          rules={[
-            {
-              required: true,
-              message: "Please enter the organization name"
-            },
-            {
-              type: "string",
-              message: "Please provide a valid organization name"
-            }
-          ]}
-        >
+        <Form.Item name={"org_name"} rules={orgNameValidation}>
           <Input
             prefix={
               <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
@@ -143,24 +122,7 @@ const CreateOrgModal = props => {
             autoComplete="organization"
           />
         </Form.Item>
-        <Form.Item
-          name={"org_handle"}
-          rules={[
-            {
-              required: true,
-              message: "Please enter your organization handle"
-            },
-            {
-              pattern: new RegExp(/^[a-z0-9]{1,}$/),
-              message:
-                "Organization handle can only contain lowercase alphanumeric characters"
-            },
-            {
-              pattern: new RegExp(/^[a-z0-9]{6,}$/),
-              message: "Organization handle cannot be less than 6 characters"
-            }
-          ]}
-        >
+        <Form.Item name={"org_handle"} rules={orgHandleValidation}>
           <Input
             onBlur={onOrgHandleChange}
             prefix={<AppstoreOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -168,48 +130,8 @@ const CreateOrgModal = props => {
             autoComplete="off"
           />
         </Form.Item>
-        <Form.Item
-          name="org_country"
-          rules={[
-            {
-              required: true,
-              message: "Please select the country of the organization"
-            }
-          ]}
-        >
-          <Select
-            style={{ width: "100%" }}
-            placeholder={
-              <div style={{ textAlign: "left" }}>
-                <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} /> Country
-                of the organization
-              </div>
-            }
-            showSearch={true}
-          >
-            {children}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="org_website"
-          rules={[
-            {
-              required: true,
-              message: "Please enter the website of the organization"
-            },
-            {
-              pattern: new RegExp(
-                /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
-              ),
-              message: "Please provide a valid URL"
-            },
-            {
-              pattern: new RegExp(/^(http:\/\/|https:\/\/)/),
-              message: "URL must contain the protocol (https:// or http://)"
-            }
-          ]}
-          hasFeedback
-        >
+        <CountryDropdown />
+        <Form.Item name="org_website" rules={orgWebsiteValidation} hasFeedback>
           <Input
             prefix={<IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Website"
