@@ -53,7 +53,7 @@ export const OrgIcons = ({
               icon={icon ? icon : null}
               src={image ? image : null}
               style={{
-                backgroundColor: image ? "#fffff" : "#3AAFA9",
+                backgroundColor: image ? "#ffffff" : "#3AAFA9",
                 ...style,
               }}
             >
