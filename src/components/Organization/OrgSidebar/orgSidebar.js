@@ -5,29 +5,28 @@ import { Palette } from "color-thief-react";
 import { useDispatch, useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
 import CreateOrgModal from "./createOrgModal";
-import { setCurrentOrgUserPermissions } from "../../store/actions/profileActions";
+import { setCurrentOrgUserPermissions } from "../../../store/actions/profileActions";
 
 const OrgSidebar = () => {
   const dispatch = useDispatch();
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations },
-      },
+        data: { organizations }
+      }
     }) => organizations
   );
 
   const [activeOrg, setActiveOrg] = useState(orgs[0]); // set the current active org here
   const [showModal, setShowModal] = useState(false); // set the current active org here
 
-  const handleClickEvent = (data) => {
-    let orgDetails = orgs.find((element) => {
+  const handleClickEvent = data => {
+    let orgDetails = orgs.find(element => {
       return element.org_handle === data.handle;
     });
-    setCurrentOrgUserPermissions(
-      orgDetails.org_handle,
-      orgDetails.permissions
-    )(dispatch);
+    setCurrentOrgUserPermissions(orgDetails.org_handle, orgDetails.permissions)(
+      dispatch
+    );
     setActiveOrg(orgDetails);
   };
 
@@ -67,7 +66,7 @@ const OrgSidebar = () => {
       />
 
       {orgs &&
-        orgs.map((org) => (
+        orgs.map(org => (
           <Palette
             src={org.org_image}
             crossOrigin="Anonymous"
@@ -96,7 +95,7 @@ const OrgSidebar = () => {
                     onClick={handleClickEvent}
                     data={{
                       name: org.org_name,
-                      handle: org.org_handle,
+                      handle: org.org_handle
                     }}
                     active={false}
                   />

@@ -5,6 +5,7 @@ const initialState = {
   permissions: [],
   isLoaded: true,
   isEmpty: true,
+  loading: false,
   error: null,
   data: null
 };
@@ -40,6 +41,43 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: true,
         isEmpty: true
+      };
+
+    case actions.GET_ORG_GENERAL_START:
+    case actions.EDIT_ORG_GENERAL_START:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case actions.CLEAR_EDIT_ORG_GENERAL:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      };
+
+    case actions.GET_ORG_GENERAL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: payload
+      };
+
+    case actions.EDIT_ORG_GENERAL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        data: payload
+      };
+
+    case actions.GET_ORG_GENERAL_FAIL:
+    case actions.EDIT_ORG_GENERAL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload
       };
 
     default:

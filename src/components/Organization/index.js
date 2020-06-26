@@ -1,9 +1,9 @@
 import React from "react";
-import OrgSidebar from "./orgSidebar";
+import OrgSidebar from "./OrgSidebar/orgSidebar";
 import { useMediaQuery } from "react-responsive";
 import { Row, Col, Layout } from "antd";
-import OrgInfoCard from "./orgInfoCard";
-import OrgUsersCard from "./orgUsersCard";
+import OrgInfoCard from "./OrgInfoCard/orgInfoCard";
+import OrgUsersCard from "./OrgUsersCard/orgUsersCard";
 const { Content, Sider } = Layout;
 
 const Organizations = () => {

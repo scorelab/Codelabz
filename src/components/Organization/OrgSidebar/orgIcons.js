@@ -1,10 +1,10 @@
 import React from "react";
 import { Avatar, Row, Col, Tooltip } from "antd";
-import { avatarName } from "../../helpers/avatarName";
+import { avatarName } from "../../../helpers/avatarName";
 /**Sidebar Icons component
  *
  * @param {boolean} active // whether the icon is selected
- * @param {string} text // text to show in case no image or icon (1 to 2 letters preffered)
+ * @param {string} text // text to show in case no image or icon (1 to 2 letters preferred)
  * @param {string} icon // icon to show in case no image
  * @param {string} image // image of the icon
  * @param {function} onClick // callback function to get click event
@@ -19,7 +19,7 @@ export const OrgIcons = ({
   data,
   border,
   style,
-  borderColor,
+  borderColor
 }) => {
   return (
     <Row
@@ -44,7 +44,7 @@ export const OrgIcons = ({
             }
             onClick={onClick && data ? () => onClick(data) : null}
             style={{
-              borderColor: borderColor ? borderColor : null,
+              borderColor: borderColor ? borderColor : null
             }}
           >
             <Avatar
@@ -54,7 +54,7 @@ export const OrgIcons = ({
               src={image ? image : null}
               style={{
                 backgroundColor: image ? "#ffffff" : "#3AAFA9",
-                ...style,
+                ...style
               }}
             >
               {text ? avatarName(text) : ""}

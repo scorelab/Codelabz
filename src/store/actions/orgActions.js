@@ -113,3 +113,162 @@ export const removeOrgUser = ({ org_handle, handle }) => async (
     dispatch({ type: actions.ADD_ORG_USER_FAIL, payload: e.message });
   }
 };
+
+export const getOrgBasicData = org_handle => async firebase => {
+  try {
+    const firestore = firebase.firestore();
+    const {
+      currentUser: { uid }
+    } = firebase.auth();
+    const orgDoc = await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .get();
+
+    if (!orgDoc.exists) return null;
+
+    const org_name = orgDoc.get("org_name");
+    const org_image = orgDoc.get("org_image");
+
+    const orgPermissionDoc = await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("cl_org_users")
+      .doc("users")
+      .get();
+
+    if (!orgPermissionDoc.exists) return null;
+
+    const user_permissions = orgPermissionDoc.get(uid);
+
+    if (!user_permissions) return null;
+
+    return {
+      org_handle,
+      org_name,
+      org_image: org_image ? org_image : "",
+      permissions: user_permissions
+    };
+  } catch (e) {
+    throw e;
+  }
+};
+
+const getOrgGeneralData = org_handle => async firebase => {
+  try {
+    const firestore = firebase.firestore();
+    const {
+      currentUser: { uid }
+    } = firebase.auth();
+    const orgDoc = await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .get();
+
+    if (!orgDoc.exists) return null;
+
+    const org_name = orgDoc.get("org_name");
+    const org_image = orgDoc.get("org_image");
+    const org_link_facebook = orgDoc.get("org_link_facebook");
+    const org_link_github = orgDoc.get("org_link_github");
+    const org_link_linkedin = orgDoc.get("org_link_linkedin");
+    const org_link_twitter = orgDoc.get("org_link_twitter");
+    const org_website = orgDoc.get("org_website");
+    const org_published = orgDoc.get("org_published");
+    const org_description = orgDoc.get("org_description");
+    const org_country = orgDoc.get("org_country");
+
+    const orgPermissionDoc = await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("cl_org_users")
+      .doc("users")
+      .get();
+
+    if (!orgPermissionDoc.exists) return null;
+
+    const user_permissions = orgPermissionDoc.get(uid);
+
+    if (!user_permissions) return null;
+
+    return {
+      org_handle,
+      org_name,
+      org_link_facebook,
+      org_link_github,
+      org_link_linkedin,
+      org_link_twitter,
+      org_website,
+      org_published,
+      org_description,
+      org_country,
+      org_image: org_image ? org_image : "",
+      permissions: user_permissions
+    };
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const getGeneralData = org_handle => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.GET_ORG_GENERAL_START });
+    const response = await getOrgGeneralData(org_handle)(firebase);
+    dispatch({ type: actions.GET_ORG_GENERAL_SUCCESS, payload: response });
+  } catch (e) {
+    dispatch({ type: actions.GET_ORG_GENERAL_FAIL, payload: e.message });
+  }
+};
+
+export const editGeneralData = orgData => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.EDIT_ORG_GENERAL_START });
+
+    const { org_handle } = orgData;
+
+    const org_Data = _.pickBy(orgData, _.identity);
+
+    await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .update({
+        ...org_Data,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
+
+    const response = await getOrgGeneralData(org_handle)(firebase);
+
+    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS, payload: response });
+  } catch (e) {
+    dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
+  }
+};
+
+export const clearEditGeneral = () => dispatch => {
+  dispatch({ type: actions.CLEAR_EDIT_ORG_GENERAL });
+};
+
+export const unPublishOrganization = (org_handle, published) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.EDIT_ORG_GENERAL_START });
+    await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .update({
+        org_published: !published,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
+    const response = await getOrgGeneralData(org_handle)(firebase);
+    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS, payload: response });
+  } catch (e) {
+    dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
+  }
+};

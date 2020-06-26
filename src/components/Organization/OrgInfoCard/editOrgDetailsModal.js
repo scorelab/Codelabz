@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Input, Form, Space, Button, Alert, message } from "antd";
 import {
   IeOutlined,
@@ -6,19 +6,60 @@ import {
   FacebookFilled,
   TwitterSquareFilled,
   LinkedinFilled,
-  GithubFilled,
+  GithubFilled
 } from "@ant-design/icons";
-import CountryDropdown from "../../helpers/countryDropdown";
+import CountryDropdown from "../../../helpers/countryDropdown";
 import {
   orgNameValidation,
   orgWebsiteValidation,
-  orgSMValidation,
-} from "../../helpers/validationRules";
+  orgSMValidation
+} from "../../../helpers/validationRules";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { editGeneralData, clearEditGeneral } from "../../../store/actions";
 
 const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const loadingProps = useSelector(
+    ({
+      org: {
+        general: { loading }
+      }
+    }) => loading
+  );
+  const errorProps = useSelector(
+    ({
+      org: {
+        general: { error }
+      }
+    }) => error
+  );
+
+  useEffect(() => {
+    setLoading(loadingProps);
+  }, [loadingProps]);
+
+  useEffect(() => {
+    setError(errorProps);
+  }, [errorProps]);
+
+  const closeModal = useCallback(() => {
+    modelCloseCallback(false);
+    clearEditGeneral()(dispatch);
+  }, [modelCloseCallback, dispatch]);
+
+  useEffect(() => {
+    if (loading === false && error === false) {
+      message.success("Changes saved!");
+      closeModal();
+    }
+  }, [closeModal, loading, error]);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -29,23 +70,16 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
       org_link_linkedin: currentOrgData.org_link_linkedin,
       org_link_twitter: currentOrgData.org_link_twitter,
       org_description: currentOrgData.org_description,
-      org_country: currentOrgData.org_country,
+      org_country: currentOrgData.org_country
     });
   }, [form, currentOrgData]);
 
-  const closeModal = () => {
-    modelCloseCallback(false);
-  };
-
-  const onSubmit = (formData) => {
-    console.log(formData);
-    setError("error? what error?");
-    setLoading(true);
-    // edit org
-    setTimeout(() => {
-      message.success("Changes saved!");
-      closeModal();
-    }, 3000);
+  const onSubmit = formData => {
+    editGeneralData({ org_handle: currentOrgData.org_handle, ...formData })(
+      firebase,
+      firestore,
+      dispatch
+    );
   };
 
   return (
