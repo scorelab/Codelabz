@@ -26,5 +26,9 @@ export {
   getOrgUserData,
   addOrgUser,
   removeOrgUser,
-  searchFromIndex
+  searchFromIndex,
+  editGeneralData,
+  clearEditGeneral,
+  unPublishOrganization,
+  uploadOrgProfileImage
 } from "./orgActions";

@@ -3,19 +3,22 @@ import { Modal, Button, Form, Input, Alert, Space } from "antd";
 import {
   AppstoreAddOutlined,
   AppstoreOutlined,
-  IeOutlined,
+  IeOutlined
 } from "@ant-design/icons";
-import { checkOrgHandleExists, createOrganization } from "../../store/actions";
+import {
+  checkOrgHandleExists,
+  createOrganization
+} from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
-import CountryDropdown from "../../helpers/countryDropdown";
+import CountryDropdown from "../../../helpers/countryDropdown";
 import {
   orgWebsiteValidation,
   orgHandleValidation,
-  orgNameValidation,
-} from "../../helpers/validationRules";
+  orgNameValidation
+} from "../../../helpers/validationRules";
 
-const CreateOrgModal = (props) => {
+const CreateOrgModal = props => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -25,15 +28,15 @@ const CreateOrgModal = (props) => {
   const loadingProp = useSelector(
     ({
       profile: {
-        edit: { loading },
-      },
+        edit: { loading }
+      }
     }) => loading
   );
   const errorProp = useSelector(
     ({
       profile: {
-        edit: { error },
-      },
+        edit: { error }
+      }
     }) => error
   );
 
@@ -71,7 +74,7 @@ const CreateOrgModal = (props) => {
     setVisible(false);
   };
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async formData => {
     await createOrganization(formData)(firebase, firestore, dispatch);
   };
 
@@ -87,8 +90,8 @@ const CreateOrgModal = (props) => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`],
-        },
+          errors: [`The handle [${orgHandle}] is already taken`]
+        }
       ]);
     }
   };

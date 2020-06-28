@@ -4,7 +4,7 @@ import Dashboard from "./components/Dashboard";
 import {
   UserIsAllowedUserDashboard,
   UserIsNotAllowedUserDashboard,
-  UserIsAllowOrgManager,
+  UserIsAllowOrgManager
 } from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import { useSelector } from "react-redux";
@@ -17,7 +17,6 @@ import ManageUsers from "./components/ManageUsers";
 import NotFound from "./components/ErrorPages/404";
 import MyFeed from "./components/MyFeed";
 import Footer from "./components/Footer";
-import OrganizationInformation from "./components/Organization/Settings/Information";
 import Organization from "./components/Organization";
 
 const AuthIsLoaded = ({ children }) => {
@@ -85,17 +84,17 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            render={(props) => <AuthPage {...props} type={"login"} />}
+            render={props => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={(props) => <AuthPage {...props} type={"signup"} />}
+            render={props => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
+            render={props => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
@@ -111,11 +110,6 @@ const Routes = () => {
             exact
             path={"/dashboard/my_feed"}
             component={UserIsAllowedUserDashboard(MyFeed)}
-          />
-          <Route
-            exact
-            path={"/organization/information"}
-            component={UserIsAllowOrgManager(OrganizationInformation)}
           />
           <Route
             exact

@@ -41,7 +41,8 @@ const rrfConfig = {
     };
   },
   useFirestoreForProfile: true, // Firestore for Profile instead of Realtime
-  attachAuthIsReady: true
+  attachAuthIsReady: true,
+  useFirestoreForStorageMeta: true
 };
 
 // Create store with reducers and initial state
