@@ -9,10 +9,10 @@ import {
   UserOutlined,
   CodeOutlined,
   LogoutOutlined,
-  BlockOutlined,
+  BlockOutlined
 } from "@ant-design/icons";
 import { avatarName } from "../../../helpers/avatarName";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const RightMenu = ({ mode }) => {
   const allowDashboard = useAllowDashboard();
@@ -25,8 +25,8 @@ const RightMenu = ({ mode }) => {
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations },
-      },
+        data: { organizations }
+      }
     }) => organizations
   );
 
@@ -52,7 +52,7 @@ const RightMenu = ({ mode }) => {
               backgroundColor:
                 profile.photoURL && profile.photoURL.length > 0
                   ? "#fffff"
-                  : "#3AAFA9",
+                  : "#3AAFA9"
             }}
             size={mode === "inline" ? "default" : "large"}
             src={profile.photoURL}
@@ -94,7 +94,9 @@ const RightMenu = ({ mode }) => {
 
         {allowDashboard && (
           <Menu.Item key="setting:1">
-            <UserOutlined /> My Profile
+            <Link to={"/profile"}>
+              <UserOutlined /> My Profile
+            </Link>
           </Menu.Item>
         )}
 

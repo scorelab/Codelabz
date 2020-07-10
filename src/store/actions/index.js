@@ -19,7 +19,9 @@ export {
 export {
   clearProfileEditError,
   getProfileData,
-  createOrganization
+  createOrganization,
+  updateUserProfile,
+  uploadProfileImage
 } from "./profileActions";
 
 export {

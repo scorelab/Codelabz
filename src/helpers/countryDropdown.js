@@ -4,7 +4,7 @@ import { GlobalOutlined } from "@ant-design/icons";
 import countryList from "./countryList";
 const { Option } = Select;
 
-const CountryDropdown = (props) => {
+const CountryDropdown = props => {
   const children = [];
 
   for (let i = 0; i < countryList.length; i++) {
@@ -21,16 +21,15 @@ const CountryDropdown = (props) => {
       rules={[
         {
           required: true,
-          message: "Please select the country of the organization",
-        },
+          message: "Please select the country"
+        }
       ]}
     >
       <Select
         style={{ width: "100%" }}
         placeholder={
           <div style={{ textAlign: "left" }}>
-            <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} /> Country of
-            the organization
+            <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} /> Country
           </div>
         }
         showSearch={true}

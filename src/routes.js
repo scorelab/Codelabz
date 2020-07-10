@@ -18,6 +18,7 @@ import NotFound from "./components/ErrorPages/404";
 import MyFeed from "./components/MyFeed";
 import Footer from "./components/Footer";
 import Organization from "./components/Organization";
+import Profile from "./components/Profile";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -110,6 +111,11 @@ const Routes = () => {
             exact
             path={"/dashboard/my_feed"}
             component={UserIsAllowedUserDashboard(MyFeed)}
+          />
+          <Route
+            exact
+            path={"/profile"}
+            component={UserIsAllowedUserDashboard(Profile)}
           />
           <Route
             exact
