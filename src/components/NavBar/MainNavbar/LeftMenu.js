@@ -21,7 +21,7 @@ const LeftMenu = ({ mode }) => {
         <NavLink to="/">CodeFeed</NavLink>
       </Menu.Item>
       <Menu.Item key="/tutorials">
-        <NavLink to="/">Tutorials</NavLink>
+        <NavLink to="/tutorials">Tutorials</NavLink>
       </Menu.Item>
       {allowDashboard && (
         <Menu.SubMenu title={"User"}>

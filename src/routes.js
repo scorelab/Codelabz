@@ -4,7 +4,7 @@ import Dashboard from "./components/Dashboard";
 import {
   UserIsAllowedUserDashboard,
   UserIsNotAllowedUserDashboard,
-  UserIsAllowOrgManager
+  UserIsAllowOrgManager,
 } from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import { useSelector } from "react-redux";
@@ -19,6 +19,7 @@ import MyFeed from "./components/MyFeed";
 import Footer from "./components/Footer";
 import Organization from "./components/Organization";
 import Profile from "./components/Profile";
+import ViewTutorial from "./components/Tutorials/View";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -85,17 +86,17 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            render={props => <AuthPage {...props} type={"login"} />}
+            render={(props) => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={props => <AuthPage {...props} type={"signup"} />}
+            render={(props) => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={props => <AuthPage {...props} type={"forgotpassword"} />}
+            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
@@ -121,6 +122,11 @@ const Routes = () => {
             exact
             path={"/organization"}
             component={UserIsAllowOrgManager(Organization)}
+          />
+          <Route
+            exact
+            path={"/tutorials"}
+            component={UserIsAllowedUserDashboard(ViewTutorial)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>
