@@ -10,6 +10,7 @@ import {
   Upload,
   Modal,
   Empty,
+  Skeleton,
 } from "antd";
 import {
   EditOutlined,
@@ -43,6 +44,7 @@ const OrgInfoCard = () => {
   const firestore = useFirestore();
   const [currentOrgData, setCurrentOrgData] = useState({});
   const [imageUploading, setImageUploading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   const [orgEditModalVisible, setOrgEditModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -126,6 +128,7 @@ const OrgInfoCard = () => {
       return element.org_handle === current;
     });
     setCurrentOrgData(orgDetails);
+    setImageLoading(true);
   }, [current, orgs]);
 
   const uploadImage = (file) => {
@@ -176,11 +179,18 @@ const OrgInfoCard = () => {
                 cover={
                   currentOrgData.org_image &&
                   currentOrgData.org_image.length > 0 ? (
-                    <img
-                      src={currentOrgData.org_image}
-                      alt={currentOrgData.org_name}
-                      className="org-image"
-                    />
+                    <>
+                      {imageLoading && <Skeleton />}
+                      <img
+                        src={currentOrgData.org_image}
+                        alt={currentOrgData.org_name}
+                        className="org-image"
+                        onLoad={() => {
+                          setImageLoading(false);
+                        }}
+                        style={{ display: imageLoading ? "none" : "block" }}
+                      />
+                    </>
                   ) : (
                     <Empty
                       image={Empty.PRESENTED_IMAGE_SIMPLE}
