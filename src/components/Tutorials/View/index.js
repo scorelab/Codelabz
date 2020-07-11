@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, PageHeader, Button } from "antd";
+import { Layout, Row, Col } from "antd";
 import { useMediaQuery } from "react-responsive";
 import StepsPanel from "./StepsPanel";
 import { stepsData, tutorialData } from "../../../helpers/dummyData";
-import {
-  MenuUnfoldOutlined,
-  ClockCircleOutlined,
-  MenuFoldOutlined,
-} from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import CodeBlock from "../../../helpers/CodeBlock";
 import { TutorialTimeRemaining } from "../../../helpers/tutorialTime";
+import ControlButtons from "./ControlButtons";
+import TutorialTitle from "./TutorialTitle";
 
 const { Content, Sider } = Layout;
 
@@ -36,16 +33,12 @@ const ViewTutorial = () => {
     !isDesktop && setStepPanelVisible(false);
   };
 
-  console.log(document.documentElement.getAttribute("data-theme"));
   return (
-    <div className="row-footer-below">
+    <Layout className="row-footer-below">
       <Layout>
         <Sider
-          width={stepPanelVisible ? (isDesktop ? "25%" : "83%") : "0"}
-          className={
-            (stepPanelVisible ? "col-pad-24-s scrollfix " : "") +
-            "tutorial-steps-sider"
-          }
+          width={stepPanelVisible ? (isDesktop ? "25%" : "100%") : "0"}
+          className={stepPanelVisible ? "col-pad-24-s scrollfix " : ""}
           theme="light"
           style={{ backgroundColor: "white" }}
         >
@@ -53,36 +46,20 @@ const ViewTutorial = () => {
             currentStep={currentStep}
             onChange={onChange}
             stepsData={stepsData}
+            onClick={() => setStepPanelVisible(false)}
+            hideButton={isDesktop}
           />
         </Sider>
 
         <Content style={{ backgroundColor: "white" }}>
           <Row>
             <Col xs={24} sm={24} md={24}>
-              <PageHeader
-                className={
-                  (!stepPanelVisible && !isDesktop
-                    ? "ant-page-header-fix "
-                    : "ant-page-header-unfix ") + "tutorial-title-header"
-                }
-                onBack={(e) => {
-                  setStepPanelVisible(!stepPanelVisible);
-                }}
-                title={tutorialData.title}
-                backIcon={
-                  stepPanelVisible ? (
-                    <MenuFoldOutlined style={{ fontSize: "1.2rem" }} />
-                  ) : (
-                    <MenuUnfoldOutlined style={{ fontSize: "1.2rem" }} />
-                  )
-                }
-                extra={
-                  !isDesktop && stepPanelVisible ? null : (
-                    <Button type="text" className="p-0">
-                      <ClockCircleOutlined /> {timeRemaining} mins remaining
-                    </Button>
-                  )
-                }
+              <TutorialTitle
+                stepPanelVisible={stepPanelVisible}
+                isDesktop={isDesktop}
+                setStepPanelVisible={setStepPanelVisible}
+                tutorialData={tutorialData}
+                timeRemaining={timeRemaining}
               />
             </Col>
           </Row>
@@ -96,9 +73,19 @@ const ViewTutorial = () => {
               )}
             </Col>
           </Row>
+          <Row>
+            <Col xs={24} sm={24} md={24} className="col-pad-24-s">
+              <ControlButtons
+                currentStep={currentStep}
+                setCurrentStep={setCurrentStep}
+                stepsData={stepsData}
+                hide={!isDesktop && stepPanelVisible}
+              />
+            </Col>
+          </Row>
         </Content>
       </Layout>
-    </div>
+    </Layout>
   );
 };
 
