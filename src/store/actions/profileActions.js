@@ -98,3 +98,55 @@ export const createOrganization = orgData => async (
     dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
   }
 };
+
+export const updateUserProfile = ({
+  displayName,
+  website,
+  link_facebook,
+  link_github,
+  link_linkedin,
+  link_twitter,
+  description,
+  country
+}) => async (firebase, firestore, dispatch) => {
+  try {
+    dispatch({ type: actions.PROFILE_EDIT_START });
+    await firebase.updateProfile(
+      {
+        displayName,
+        website,
+        link_facebook,
+        link_github,
+        link_linkedin,
+        link_twitter,
+        description,
+        country,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      },
+      { useSet: false, merge: true }
+    );
+    dispatch({ type: actions.PROFILE_EDIT_SUCCESS });
+    dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
+  } catch (e) {
+    dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
+  }
+};
+
+export const uploadProfileImage = (file, user_handle) => async (
+  firebase,
+  dispatch
+) => {
+  try {
+    const userData = firebase.auth().currentUser;
+    const storagePath = `user/${user_handle}/images`;
+    const dbPath = "cl_user";
+    await firebase.uploadFile(storagePath, file, dbPath, {
+      metadataFactory: (uploadRes, firebase, metadata, downloadURL) => {
+        return { photoURL: downloadURL };
+      },
+      documentId: userData.uid
+    });
+  } catch (e) {
+    dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
+  }
+};

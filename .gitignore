@@ -26,6 +26,7 @@ yarn-error.log*
 .vscode/settings.json
 package-lock.json
 INTERNAL.md
+RULES.md
 firebase-debug.log
 
 firebase-sw-private.js
