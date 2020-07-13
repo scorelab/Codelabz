@@ -2,7 +2,10 @@
 @import "./css/spacing.css";
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
-@primary-color: #3aafa9;
+
+img {
+  max-width: 100%;
+}
 
 .brand-font {
   font-family: "Aldrich", sans-serif;
@@ -54,16 +57,16 @@
   font-weight: normal;
 }
 
+// footer is visible in the screen
 .row-fullheight {
   min-height: calc(
-    100vh - 72px - 295px
-  ); /* 72px is the height of the navbar, 285px is the height of the footer */
+    100vh - 64px - 245px
+  ); /* 64px is the height of the navbar, 245px is the height of the footer */
 }
 
+// footer is below the visible screen
 .row-footer-below {
-  min-height: calc(
-    100vh - 72px
-  ); /* 72px is the height of the navbar, 285px is the height of the footer */
+  min-height: calc(100vh - 72px); /* 72px is the height of the navbar */
 }
 
 .auth-margin {
@@ -435,7 +438,7 @@ footer {
   position: relative;
   left: 0;
   width: 66px;
-  min-height: calc(100vh - 64px);
+  // min-height: calc(100vh - 64px);
   border-right: 1px solid #e8e8e8;
   overflow-y: hidden;
   background-color: white;
@@ -522,4 +525,54 @@ footer {
   margin-bottom: 4px;
   display: inline-block;
   font-size: 0.8rem !important;
+}
+
+.text-justified {
+  text-align: justify;
+}
+
+.tutorial-steps-sider {
+  // min-height: calc(100vh - 64px);
+  // overflow-y: hidden;
+  height: 100%;
+}
+
+.tutorial-steps-sider:hover {
+  overflow-y: auto;
+}
+
+.tutorial-title-header {
+  width: 100%;
+  border-bottom: solid 1px #e8e8e8;
+}
+
+.scrollfix {
+  border-right: solid 1px #e8e8e8;
+  padding-right: 15px;
+}
+
+.ant-page-header-heading-title {
+  white-space: inherit !important;
+}
+
+.ant-page-header-fix {
+  white-space: break-spaces !important;
+  background-color: white;
+}
+
+.ant-page-header-unfix {
+  white-space: nowrap !important;
+  background-color: white;
+}
+
+.tutorial-content {
+  // height: calc(100vh - 75px - 64px);
+  // overflow-y: auto;
+  font-family: "Verdana", Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
+    monospace;
+  text-align: justify;
+}
+
+.ant-layout {
+  background-color: white !important;
 }

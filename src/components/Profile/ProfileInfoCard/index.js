@@ -9,7 +9,7 @@ import {
   Col,
   Upload,
   Modal,
-  Empty
+  Empty,
 } from "antd";
 import {
   EditOutlined,
@@ -20,7 +20,8 @@ import {
   GithubFilled,
   LinkOutlined,
   LinkedinFilled,
-  SettingOutlined
+  SettingOutlined,
+  FlagOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
@@ -41,8 +42,8 @@ const ProfileInfoCard = () => {
   const verified = useSelector(
     ({
       firebase: {
-        auth: { emailVerified }
-      }
+        auth: { emailVerified },
+      },
     }) => emailVerified
   );
 
@@ -65,7 +66,7 @@ const ProfileInfoCard = () => {
         <Button
           style={{
             border: "none",
-            padding: 0
+            padding: 0,
           }}
           type="link"
         >
@@ -75,7 +76,7 @@ const ProfileInfoCard = () => {
     );
   };
 
-  const uploadImage = file => {
+  const uploadImage = (file) => {
     setImageUploading(true);
     uploadProfileImage(file, profileData.handle)(firebase, dispatch).then(
       () => {
@@ -85,7 +86,7 @@ const ProfileInfoCard = () => {
     return false;
   };
 
-  const checkAvailable = data => {
+  const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
 
@@ -98,7 +99,7 @@ const ProfileInfoCard = () => {
         className="p-0"
       >
         <Row>
-          <Col xs={24} md={8} lg={8}>
+          <Col xs={24} md={6} lg={6}>
             <Card
               style={{ width: "100%" }}
               bordered={false}
@@ -137,18 +138,18 @@ const ProfileInfoCard = () => {
               </ImgCrop>
             </Card>
           </Col>
-          <Col xs={24} md={16} lg={16} className="pl-24-d pt-24-m">
+          <Col xs={24} md={18} lg={18} className="pl-24-d pt-24-m">
             <p>
               <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
                 {profileData.displayName}
               </span>
               {verified ? (
                 <Tag color="green" className="ml-16">
-                  Verified
+                  Email Verified
                 </Tag>
               ) : (
                 <Tag color="red" className="ml-16">
-                  Unverified
+                  Email not verified
                 </Tag>
               )}
             </p>
@@ -195,8 +196,7 @@ const ProfileInfoCard = () => {
               <p>
                 <a
                   href={
-                    "https://www.linkedin.com/company/" +
-                    profileData.link_linkedin
+                    "https://www.linkedin.com/in/" + profileData.link_linkedin
                   }
                   target="_blank"
                   rel="noopener noreferrer"
@@ -207,7 +207,7 @@ const ProfileInfoCard = () => {
               </p>
             )}
             {checkAvailable(profileData.website) && (
-              <p className="mb-0">
+              <p>
                 <a
                   href={profileData.website}
                   target="_blank"
@@ -215,6 +215,20 @@ const ProfileInfoCard = () => {
                 >
                   <LinkOutlined className="website-color" />{" "}
                   {profileData.website}
+                </a>
+              </p>
+            )}
+            {checkAvailable(profileData.country) && (
+              <p className="mb-0">
+                <a
+                  href={
+                    "https://www.google.com/search?q=" + profileData.country
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FlagOutlined className="website-color" />{" "}
+                  {profileData.country}
                 </a>
               </p>
             )}
@@ -233,7 +247,7 @@ const ProfileInfoCard = () => {
       >
         <EditProfileDetailsModal
           profileData={profileData}
-          modelCloseCallback={e => setProfileEditModalVisible(e)}
+          modelCloseCallback={(e) => setProfileEditModalVisible(e)}
         />
       </Modal>
     </>

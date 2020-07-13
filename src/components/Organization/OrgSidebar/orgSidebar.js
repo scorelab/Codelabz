@@ -12,33 +12,34 @@ const OrgSidebar = () => {
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   const current = useSelector(
     ({
       org: {
-        general: { current }
-      }
+        general: { current },
+      },
     }) => current
   );
 
   const [activeOrg, setActiveOrg] = useState(orgs[0]); // set the current active org here
   const [showModal, setShowModal] = useState(false); // set the current active org here
 
-  const handleClickEvent = data => {
-    let orgDetails = orgs.find(element => {
+  const handleClickEvent = (data) => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === data.handle;
     });
-    setCurrentOrgUserPermissions(orgDetails.org_handle, orgDetails.permissions)(
-      dispatch
-    );
+    setCurrentOrgUserPermissions(
+      orgDetails.org_handle,
+      orgDetails.permissions
+    )(dispatch);
   };
 
   useEffect(() => {
-    let orgDetails = orgs.find(element => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === current;
     });
     setActiveOrg(orgDetails);
@@ -80,7 +81,7 @@ const OrgSidebar = () => {
       />
 
       {orgs &&
-        orgs.map(org => (
+        orgs.map((org) => (
           <Palette
             src={org.org_image}
             crossOrigin="Anonymous"
@@ -103,13 +104,13 @@ const OrgSidebar = () => {
                 return (
                   <OrgIcons
                     border={true}
-                    borderColor={data[1]}
+                    borderColor={data[0]}
                     text={org.org_name}
                     image={org.org_image}
                     onClick={handleClickEvent}
                     data={{
                       name: org.org_name,
-                      handle: org.org_handle
+                      handle: org.org_handle,
                     }}
                     active={false}
                   />

@@ -9,7 +9,7 @@ const Profile = () => {
       <Layout>
         <Content style={{ backgroundColor: "white" }}>
           <Row>
-            <Col xs={24} sm={24} md={24} className="col-pad-24-s pr-12">
+            <Col xs={24} sm={24} md={24} className="col-pad-24-s">
               <ProfileInfoCard />
             </Col>
           </Row>

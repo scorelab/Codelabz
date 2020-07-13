@@ -9,7 +9,8 @@ import {
   Col,
   Upload,
   Modal,
-  Empty
+  Empty,
+  Skeleton,
 } from "antd";
 import {
   EditOutlined,
@@ -22,7 +23,8 @@ import {
   GithubFilled,
   LinkOutlined,
   LinkedinFilled,
-  SettingOutlined
+  SettingOutlined,
+  FlagOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
@@ -30,7 +32,7 @@ import EditOrgDetailsModal from "./editOrgDetailsModal";
 import {
   clearEditGeneral,
   unPublishOrganization,
-  uploadOrgProfileImage
+  uploadOrgProfileImage,
 } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 
@@ -42,6 +44,7 @@ const OrgInfoCard = () => {
   const firestore = useFirestore();
   const [currentOrgData, setCurrentOrgData] = useState({});
   const [imageUploading, setImageUploading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   const [orgEditModalVisible, setOrgEditModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -82,7 +85,7 @@ const OrgInfoCard = () => {
         <Button
           style={{
             border: "none",
-            padding: 0
+            padding: 0,
           }}
           type="link"
         >
@@ -95,16 +98,16 @@ const OrgInfoCard = () => {
   const loadingProps = useSelector(
     ({
       org: {
-        general: { loading }
-      }
+        general: { loading },
+      },
     }) => loading
   );
 
   const current = useSelector(
     ({
       org: {
-        general: { current }
-      }
+        general: { current },
+      },
     }) => current
   );
 
@@ -115,28 +118,33 @@ const OrgInfoCard = () => {
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   useEffect(() => {
-    let orgDetails = orgs.find(element => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === current;
     });
     setCurrentOrgData(orgDetails);
+    setImageLoading(true);
   }, [current, orgs]);
 
-  const uploadImage = file => {
+  const uploadImage = (file) => {
     setImageUploading(true);
-    uploadOrgProfileImage(file, current, orgs)(firebase, dispatch).then(() => {
+    uploadOrgProfileImage(
+      file,
+      current,
+      orgs
+    )(firebase, dispatch).then(() => {
       setImageUploading(false);
       clearEditGeneral()(dispatch);
     });
     return false;
   };
 
-  const checkAvailable = data => {
+  const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
 
@@ -156,7 +164,7 @@ const OrgInfoCard = () => {
           title={"Organization Details"}
           extra={
             currentOrgData.permissions &&
-            [2, 3].some(p => currentOrgData.permissions.includes(p)) ? (
+            [2, 3].some((p) => currentOrgData.permissions.includes(p)) ? (
               <DropdownMenu key="more" />
             ) : null
           }
@@ -171,11 +179,18 @@ const OrgInfoCard = () => {
                 cover={
                   currentOrgData.org_image &&
                   currentOrgData.org_image.length > 0 ? (
-                    <img
-                      src={currentOrgData.org_image}
-                      alt={currentOrgData.org_name}
-                      className="org-image"
-                    />
+                    <>
+                      {imageLoading && <Skeleton />}
+                      <img
+                        src={currentOrgData.org_image}
+                        alt={currentOrgData.org_name}
+                        className="org-image"
+                        onLoad={() => {
+                          setImageLoading(false);
+                        }}
+                        style={{ display: imageLoading ? "none" : "block" }}
+                      />
+                    </>
                   ) : (
                     <Empty
                       image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -288,7 +303,7 @@ const OrgInfoCard = () => {
                 </p>
               )}
               {checkAvailable(currentOrgData.org_website) && (
-                <p className="mb-0">
+                <p>
                   <a
                     href={currentOrgData.org_website}
                     target="_blank"
@@ -296,6 +311,21 @@ const OrgInfoCard = () => {
                   >
                     <LinkOutlined className="website-color" />{" "}
                     {currentOrgData.org_website}
+                  </a>
+                </p>
+              )}
+              {checkAvailable(currentOrgData.org_country) && (
+                <p className="mb-0">
+                  <a
+                    href={
+                      "https://www.google.com/search?q=" +
+                      currentOrgData.org_country
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FlagOutlined className="website-color" />{" "}
+                    {currentOrgData.org_country}
                   </a>
                 </p>
               )}
@@ -314,7 +344,7 @@ const OrgInfoCard = () => {
         >
           <EditOrgDetailsModal
             currentOrgData={currentOrgData}
-            modelCloseCallback={e => setOrgEditModalVisible(e)}
+            modelCloseCallback={(e) => setOrgEditModalVisible(e)}
           />
         </Modal>
       </>
