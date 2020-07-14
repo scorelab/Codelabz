@@ -1,6 +1,7 @@
 import * as actions from "./actionTypes";
 import _ from "lodash";
 import Elasticlunr from "../../helpers/elasticlunr";
+import { checkOrgHandleExists } from "./authActions";
 
 const elasticlunr = new Elasticlunr("handle", "handle", "name");
 
@@ -261,4 +262,36 @@ export const uploadOrgProfileImage = (
   } catch (e) {
     dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
   }
+};
+
+export const getOrgData = (org_handle, organizations) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.GET_ORG_DATA_START });
+    const isOrgExists = await checkOrgHandleExists(org_handle)(firebase);
+    if (isOrgExists) {
+      const doc = await firestore
+        .collection("cl_org_general")
+        .doc(org_handle)
+        .get();
+      const isPublished =
+        organizations.includes(org_handle) || doc.get("org_published");
+      if (isPublished) {
+        dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: doc.data() });
+      } else {
+        dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
+      }
+    } else {
+      dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
+    }
+  } catch (e) {
+    dispatch({ type: actions.GET_ORG_DATA_FAIL, payload: e.message });
+  }
+};
+
+export const clearOrgData = () => dispatch => {
+  dispatch({ type: actions.CLEAR_ORG_DATA_STATE });
 };

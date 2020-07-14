@@ -11,8 +11,8 @@ const App = () => {
   const organizations = useSelector(
     ({
       firebase: {
-        profile: { organizations },
-      },
+        profile: { organizations }
+      }
     }) => organizations
   );
 

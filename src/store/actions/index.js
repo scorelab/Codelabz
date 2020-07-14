@@ -21,7 +21,9 @@ export {
   getProfileData,
   createOrganization,
   updateUserProfile,
-  uploadProfileImage
+  uploadProfileImage,
+  getUserProfileData,
+  clearUserProfile
 } from "./profileActions";
 
 export {
@@ -32,5 +34,7 @@ export {
   editGeneralData,
   clearEditGeneral,
   unPublishOrganization,
-  uploadOrgProfileImage
+  uploadOrgProfileImage,
+  getOrgData,
+  clearOrgData
 } from "./orgActions";

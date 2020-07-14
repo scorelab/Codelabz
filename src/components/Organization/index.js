@@ -8,7 +8,7 @@ const { Content, Sider } = Layout;
 
 const Organizations = () => {
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
+    query: "(min-device-width: 767px)"
   });
 
   return (
