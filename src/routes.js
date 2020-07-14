@@ -4,7 +4,7 @@ import Dashboard from "./components/Dashboard";
 import {
   UserIsAllowedUserDashboard,
   UserIsNotAllowedUserDashboard,
-  UserIsAllowOrgManager,
+  UserIsAllowOrgManager
 } from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import { useSelector } from "react-redux";
@@ -20,6 +20,8 @@ import Footer from "./components/Footer";
 import Organization from "./components/Organization";
 import Profile from "./components/Profile";
 import ViewTutorial from "./components/Tutorials/View";
+import ProfileView from "./components/Profile/ViewProfile";
+import ViewOrganization from "./components/Organization/ViewOrganization";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -86,17 +88,17 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            render={(props) => <AuthPage {...props} type={"login"} />}
+            render={props => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={(props) => <AuthPage {...props} type={"signup"} />}
+            render={props => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
+            render={props => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
@@ -127,6 +129,16 @@ const Routes = () => {
             exact
             path={"/tutorials"}
             component={UserIsAllowedUserDashboard(ViewTutorial)}
+          />
+          <Route
+            exact
+            path={"/user/:handle"}
+            component={UserIsAllowedUserDashboard(ProfileView)}
+          />
+          <Route
+            exact
+            path={"/org/:handle"}
+            component={UserIsAllowedUserDashboard(ViewOrganization)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>
