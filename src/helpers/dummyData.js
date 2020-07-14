@@ -45,7 +45,7 @@ export const stepsData = [
     title: "Make America Great Again",
     time: 5,
     content:
-      "![trump](https://user-images.githubusercontent.com/27486721/87206212-e799a080-c326-11ea-948a-75ea7767ed20.jpg)",
+      '![trump](https://user-images.githubusercontent.com/27486721/87206212-e799a080-c326-11ea-948a-75ea7767ed20.jpg)\n# Hello World\n\n## This is the hello world \n\n### We are all under the sun\n\n#### What are we doing here\n\n##### Why we are here\n\n```js\nconst variable = "hello world"\nconsole.log(variable)\n```',
   },
 ];
 
