@@ -27,6 +27,10 @@
   margin-top: 24px !important;
 }
 
+.mt-24-od {
+  margin-top: 24px !important;
+}
+
 .mb-0 {
   margin-bottom: 0 !important;
 }
@@ -240,5 +244,9 @@
 
   .pt-24-m {
     padding-top: 24px !important;
+  }
+
+  .mt-24-od {
+    margin-top: 0px !important;
   }
 }

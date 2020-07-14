@@ -69,7 +69,7 @@ const ViewTutorial = () => {
               sm={24}
               md={20}
               lg={18}
-              className="col-pad-24-s mt-24 tutorial-paper"
+              className="col-pad-24-s mt-24-od tutorial-paper"
             >
               {!isDesktop && stepPanelVisible ? null : (
                 <ReactMarkdown
