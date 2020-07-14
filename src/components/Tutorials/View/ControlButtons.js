@@ -6,14 +6,22 @@ const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
     return (
       <>
         {currentStep > 0 && (
-          <Button onClick={() => setCurrentStep(currentStep - 1)}>
+          <Button
+            onClick={() => {
+              setCurrentStep(currentStep - 1);
+              window.scrollTo(0, 0);
+            }}
+          >
             Previous
           </Button>
         )}
         {currentStep < stepsData.length - 1 && (
           <Button
             type="primary"
-            onClick={() => setCurrentStep(currentStep + 1)}
+            onClick={() => {
+              setCurrentStep(currentStep + 1);
+              window.scrollTo(0, 0);
+            }}
             style={{ float: "right" }}
           >
             Next
