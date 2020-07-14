@@ -566,7 +566,7 @@ footer {
 }
 
 .tutorial-content {
-  min-height: calc(100vh - 300px);
+  min-height: calc(100vh);
   // overflow-y: auto;
   font-family: "Verdana", Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
     monospace;
@@ -575,10 +575,22 @@ footer {
 
 @media (max-width: 767px) {
   .tutorial-content {
-    min-height: calc(100vh - 400px);
+    min-height: calc(100vh);
   }
 }
 
 .ant-layout {
   background-color: white !important;
+}
+
+.tutorial-button-row {
+  position: fixed;
+  bottom: 54px;
+  width: 100%;
+}
+
+.tutorial-paper {
+  background-color: white;
+  box-shadow: 0 0 6px -2px rgba(0, 0, 0, 0.12),
+    0 0 16px -11px rgba(0, 0, 0, 0.08);
 }
