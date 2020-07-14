@@ -39,7 +39,10 @@ const RightMenu = ({ mode }) => {
           return (
             <Menu.Item key={`org:${i}`}>
               <Link to={`/org/${org.org_handle}`}>
-                <CodeOutlined /> {org.org_name}
+                <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
+                  {avatarName(org.org_name)}
+                </Avatar>{" "}
+                {org.org_name}
               </Link>
             </Menu.Item>
           );
