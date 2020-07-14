@@ -62,7 +62,7 @@ const ViewTutorial = () => {
           />
         </Sider>
 
-        <Content style={{ backgroundColor: "#f0f5f4" }}>
+        <Content style={{ backgroundColor: "#f0f0f0" }}>
           <Row className="tutorial-content" justify="center">
             <Col
               xs={24}
