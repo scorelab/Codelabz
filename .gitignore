@@ -30,3 +30,4 @@ RULES.md
 firebase-debug.log
 
 firebase-sw-private.js
+/.firebase
