@@ -30,7 +30,10 @@ const ViewTutorial = () => {
 
   const onChange = (current) => {
     setCurrentStep(current);
-    !isDesktop && setStepPanelVisible(false);
+    !isDesktop &&
+      setTimeout(() => {
+        setStepPanelVisible(false);
+      }, 300);
   };
 
   return (

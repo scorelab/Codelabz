@@ -548,7 +548,7 @@ footer {
 
 .scrollfix {
   border-right: solid 1px #e8e8e8;
-  padding-right: 15px;
+  // padding-right: 15px;
 }
 
 .ant-page-header-heading-title {
@@ -593,9 +593,54 @@ footer {
   background-color: white;
   box-shadow: 0 0 6px -2px rgba(0, 0, 0, 0.32),
     0 0 16px -11px rgba(0, 0, 0, 0.16);
+  max-width: 1080px;
 }
 
 .ant-steps-item-tail {
   height: 120% !important;
-  padding: 32px 0 6px !important;
+  padding: 32px 0 10px !important;
+  // display: none !important;
+}
+
+.ant-steps-item-container {
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 16px;
+}
+
+.ant-steps-vertical .ant-steps-item-content {
+  min-height: auto;
+}
+
+.ant-steps-item-active > .ant-steps-item-container {
+  background-color: #f5fbfb;
+  padding: 16px 10px 16px 10px;
+  border: 1px solid fade(@primary-color, 60%);
+  border-radius: 2px;
+  transition: padding 0.1s ease-out;
+  z-index: inherit;
+}
+
+.ant-steps-vertical
+  > .ant-steps-item
+  > .ant-steps-item-container
+  > .ant-steps-item-tail::after {
+  margin-left: 10px;
+  z-index: -1;
+}
+
+.ant-steps-item-active > .ant-steps-item-container > .ant-steps-item-tail {
+  margin-top: 34px !important;
+  height: 100% !important;
+  transition: all 0.1s ease-in;
+}
+
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail {
+  display: inline-block !important;
+  height: 120% !important;
+}
+.ant-steps-item-finish:last-of-type
+  > .ant-steps-item-container
+  > .ant-steps-item-tail {
+  display: inline-block !important;
+  height: 110% !important;
 }
