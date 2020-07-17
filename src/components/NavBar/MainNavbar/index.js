@@ -45,7 +45,7 @@ function MainNavbar() {
                   </h3>
                 }
                 placement="right"
-                closable={false}
+                closable={true}
                 onClose={showDrawer}
                 visible={visible}
                 style={{ zIndex: 99999 }}
