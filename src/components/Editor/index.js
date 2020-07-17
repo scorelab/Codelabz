@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import "./Editor.css";
+import "../../css/Editor.css";
+import "firepad/dist/firepad.css";
+import "codemirror/lib/codemirror.css";
 import { useFirebase } from "react-redux-firebase";
+import CodeMirror from "codemirror";
 
 const Editor = () => {
   const firebase = useFirebase();
@@ -14,13 +17,16 @@ const Editor = () => {
 
     const firepadRef = ref.child("secret_hash");
 
-    const codeMirror = window.CodeMirror(editorRef.current, {
+    const codeMirror = CodeMirror(editorRef.current, {
       lineWrapping: true,
       lineNumbers: true,
       mode: "javascript"
     });
 
-    const firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
+    window.CodeMirror = CodeMirror;
+    const Firepad = require("firepad");
+
+    const firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
       richTextToolbar: true,
       richTextShortcuts: true
     });
