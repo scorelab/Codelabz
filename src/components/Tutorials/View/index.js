@@ -12,6 +12,7 @@ import TutorialTitle from "./TutorialTitle";
 const { Content, Sider } = Layout;
 
 const ViewTutorial = () => {
+  window.scrollTo(0, 0);
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);

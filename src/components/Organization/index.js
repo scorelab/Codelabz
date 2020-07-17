@@ -7,8 +7,9 @@ import OrgUsersCard from "./OrgUsersCard/orgUsersCard";
 const { Content, Sider } = Layout;
 
 const Organizations = () => {
+  window.scrollTo(0, 0);
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)"
+    query: "(min-device-width: 767px)",
   });
 
   return (

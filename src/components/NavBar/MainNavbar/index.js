@@ -14,7 +14,7 @@ function MainNavbar() {
   };
 
   return (
-    <Headroom>
+    <Headroom style={{ height: "66px" }}>
       <nav className="navbar">
         <Layout>
           <Layout.Header className="nav-header">
