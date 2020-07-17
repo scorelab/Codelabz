@@ -22,6 +22,7 @@ import Profile from "./components/Profile";
 import ViewTutorial from "./components/Tutorials/View";
 import ProfileView from "./components/Profile/ViewProfile";
 import ViewOrganization from "./components/Organization/ViewOrganization";
+import Editor from "./components/Editor";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -139,6 +140,11 @@ const Routes = () => {
             exact
             path={"/org/:handle"}
             component={UserIsAllowedUserDashboard(ViewOrganization)}
+          />
+          <Route
+            exact
+            path={"/editor"}
+            component={UserIsAllowedUserDashboard(Editor)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>
