@@ -37,7 +37,9 @@ const RightMenu = ({ mode }) => {
       ? organizations.map((org, i) => {
           return (
             <Menu.Item key={`org:${i}`}>
-              <CodeOutlined /> {org.org_name}
+              <Link to={`/org/${org.org_handle}`}>
+                <CodeOutlined /> {org.org_name}
+              </Link>
             </Menu.Item>
           );
         })

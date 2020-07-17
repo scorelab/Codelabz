@@ -1,5 +1,5 @@
 import * as actions from "./actionTypes";
-import { checkOrgHandleExists } from "./authActions";
+import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
 import { getOrgBasicData } from "./orgActions";
 import _ from "lodash";
 
@@ -149,4 +149,31 @@ export const uploadProfileImage = (file, user_handle) => async (
   } catch (e) {
     dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
   }
+};
+
+export const getUserProfileData = handle => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.GET_USER_DATA_START });
+    const isUserExists = await checkUserHandleExists(handle)(firebase);
+    if (isUserExists) {
+      const docs = await firestore
+        .collection("cl_user")
+        .where("handle", "==", handle)
+        .get();
+      const doc = docs.docs[0].data();
+      dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: doc });
+    } else {
+      dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: false });
+    }
+  } catch (e) {
+    dispatch({ type: actions.GET_USER_DATA_FAIL, payload: e.message });
+  }
+};
+
+export const clearUserProfile = () => dispatch => {
+  dispatch({ type: actions.CLEAR_USER_PROFILE_DATA_STATE });
 };
