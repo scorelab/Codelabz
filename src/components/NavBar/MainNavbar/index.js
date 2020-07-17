@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Button, Drawer } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import BrandName from "../../../helpers/brandName";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
@@ -8,10 +8,15 @@ import Headroom from "react-headroom";
 
 function MainNavbar() {
   const [visible, setVisible] = useState(false);
+  let { pathname: location } = useLocation();
 
   const showDrawer = () => {
     setVisible(!visible);
   };
+
+  useEffect(() => {
+    setVisible(false);
+  }, [location]);
 
   return (
     <Headroom style={{ height: "66px" }}>
@@ -44,7 +49,7 @@ function MainNavbar() {
                     </Link>
                   </h3>
                 }
-                placement="right"
+                placement="left"
                 closable={true}
                 onClose={showDrawer}
                 visible={visible}
