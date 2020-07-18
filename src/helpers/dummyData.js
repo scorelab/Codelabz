@@ -42,10 +42,10 @@ export const stepsData = [
   },
   {
     id: 7,
-    title: "Make America Great Again",
+    title: "Images too",
     time: 5,
     content:
-      "![trump](https://user-images.githubusercontent.com/27486721/87206212-e799a080-c326-11ea-948a-75ea7767ed20.jpg)",
+      '![image](https://user-images.githubusercontent.com/27486721/83675557-db6b4680-a5f6-11ea-9808-1a11a8000ed9.png)\n# Hello World\n\n## This is the hello world \n\n### We are all under the sun\n\n#### What are we doing here\n\n##### Why we are here\n\n```js\nconst variable = "hello world"\nconsole.log(variable)\n```',
   },
 ];
 

@@ -163,6 +163,11 @@ img {
   z-index: 99990;
 }
 
+.headroom--pinned {
+  box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.12),
+    0 6px 16px -11px rgba(0, 0, 0, 0.08);
+}
+
 .navbar-mini {
   background-color: white;
   z-index: 99990;
@@ -437,6 +442,7 @@ footer {
 .mini-sidebar-column {
   position: relative;
   left: 0;
+  top: 0;
   width: 66px;
   // min-height: calc(100vh - 64px);
   border-right: 1px solid #e8e8e8;
@@ -450,6 +456,36 @@ footer {
 
 .mini-sidebar-column:hover {
   overflow-y: overlay;
+}
+
+/* width */
+.mini-sidebar-column::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50px;
+}
+
+/* Handle */
+.mini-sidebar-column::-webkit-scrollbar-thumb {
+  border-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 50px;
+  background-clip: padding-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Handle on hover */
+.mini-sidebar-column::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+  width: 8px;
+  cursor: pointer;
+}
+
+.mini-sidebar-column::-webkit-scrollbar-corner {
+  border-radius: 50%;
 }
 
 .minisidebar-item {
@@ -544,11 +580,12 @@ footer {
 .tutorial-title-header {
   width: 100%;
   border-bottom: solid 1px #e8e8e8;
+  background-color: @primary-color;
 }
 
 .scrollfix {
   border-right: solid 1px #e8e8e8;
-  padding-right: 15px;
+  // padding-right: 15px;
 }
 
 .ant-page-header-heading-title {
@@ -566,13 +603,83 @@ footer {
 }
 
 .tutorial-content {
-  // height: calc(100vh - 75px - 64px);
+  min-height: calc(100vh);
   // overflow-y: auto;
   font-family: "Verdana", Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
     monospace;
   text-align: justify;
 }
 
+@media (max-width: 767px) {
+  .tutorial-content {
+    min-height: calc(100vh);
+  }
+}
+
 .ant-layout {
   background-color: white !important;
+}
+
+.tutorial-button-row {
+  position: fixed;
+  bottom: 54px;
+  width: 100%;
+}
+
+.tutorial-paper {
+  background-color: white;
+  box-shadow: 0 0 6px -2px rgba(0, 0, 0, 0.32),
+    0 0 16px -11px rgba(0, 0, 0, 0.16);
+  max-width: 1080px;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.ant-steps-item-tail {
+  height: 120% !important;
+  padding: 32px 0 10px !important;
+  // display: none !important;
+}
+
+.ant-steps-item-container {
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 16px;
+}
+
+.ant-steps-vertical .ant-steps-item-content {
+  min-height: auto;
+}
+
+.ant-steps-item-active > .ant-steps-item-container {
+  background-color: #f5fbfb;
+  padding: 16px 10px 16px 10px;
+  border: 1px solid fade(@primary-color, 60%);
+  border-radius: 2px;
+  transition: padding 0.1s ease-out;
+  z-index: inherit;
+}
+
+.ant-steps-vertical
+  > .ant-steps-item
+  > .ant-steps-item-container
+  > .ant-steps-item-tail::after {
+  margin-left: 10px;
+  z-index: -1;
+}
+
+.ant-steps-item-active > .ant-steps-item-container > .ant-steps-item-tail {
+  margin-top: 34px !important;
+  height: 100% !important;
+  transition: all 0.1s ease-in;
+}
+
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail {
+  display: inline-block !important;
+  height: 120% !important;
+}
+.ant-steps-item-finish:last-of-type
+  > .ant-steps-item-container
+  > .ant-steps-item-tail {
+  display: inline-block !important;
+  height: 110% !important;
 }
