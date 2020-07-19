@@ -12,6 +12,7 @@ import TutorialTitle from "./TutorialTitle";
 const { Content, Sider } = Layout;
 
 const ViewTutorial = () => {
+  window.scrollTo(0, 0);
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
@@ -30,11 +31,25 @@ const ViewTutorial = () => {
 
   const onChange = (current) => {
     setCurrentStep(current);
-    !isDesktop && setStepPanelVisible(false);
+    !isDesktop &&
+      setTimeout(() => {
+        setStepPanelVisible(false);
+      }, 300);
   };
 
   return (
     <Layout className="row-footer-below">
+      <Row>
+        <Col xs={24} sm={24} md={24}>
+          <TutorialTitle
+            stepPanelVisible={stepPanelVisible}
+            isDesktop={isDesktop}
+            setStepPanelVisible={setStepPanelVisible}
+            tutorialData={tutorialData}
+            timeRemaining={timeRemaining}
+          />
+        </Col>
+      </Row>
       <Layout>
         <Sider
           width={stepPanelVisible ? (isDesktop ? "25%" : "100%") : "0"}
@@ -51,20 +66,15 @@ const ViewTutorial = () => {
           />
         </Sider>
 
-        <Content style={{ backgroundColor: "white" }}>
-          <Row>
-            <Col xs={24} sm={24} md={24}>
-              <TutorialTitle
-                stepPanelVisible={stepPanelVisible}
-                isDesktop={isDesktop}
-                setStepPanelVisible={setStepPanelVisible}
-                tutorialData={tutorialData}
-                timeRemaining={timeRemaining}
-              />
-            </Col>
-          </Row>
-          <Row className="tutorial-content">
-            <Col xs={24} sm={24} md={24} className="col-pad-24-s">
+        <Content style={{ backgroundColor: "#f0f0f0" }}>
+          <Row className="tutorial-content" justify="center">
+            <Col
+              xs={24}
+              sm={24}
+              md={20}
+              lg={18}
+              className="col-pad-24-s mt-24-od tutorial-paper"
+            >
               {!isDesktop && stepPanelVisible ? null : (
                 <ReactMarkdown
                   source={stepsData[currentStep].content}

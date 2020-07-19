@@ -6,39 +6,46 @@ import { useDispatch, useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
 import CreateOrgModal from "./createOrgModal";
 import { setCurrentOrgUserPermissions } from "../../../store/actions/profileActions";
+import { useMediaQuery } from "react-responsive";
 
-const OrgSidebar = () => {
+const OrgSidebar = ({ onOrgChange }) => {
+  const isDesktop = useMediaQuery({
+    query: "(min-device-width: 767px)",
+  });
+
   const dispatch = useDispatch();
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   const current = useSelector(
     ({
       org: {
-        general: { current }
-      }
+        general: { current },
+      },
     }) => current
   );
 
   const [activeOrg, setActiveOrg] = useState(orgs[0]); // set the current active org here
   const [showModal, setShowModal] = useState(false); // set the current active org here
 
-  const handleClickEvent = data => {
-    let orgDetails = orgs.find(element => {
+  const handleClickEvent = (data) => {
+    onOrgChange();
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === data.handle;
     });
-    setCurrentOrgUserPermissions(orgDetails.org_handle, orgDetails.permissions)(
-      dispatch
-    );
+    setCurrentOrgUserPermissions(
+      orgDetails.org_handle,
+      orgDetails.permissions
+    )(dispatch);
   };
 
   useEffect(() => {
-    let orgDetails = orgs.find(element => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === current;
     });
     setActiveOrg(orgDetails);
@@ -53,7 +60,7 @@ const OrgSidebar = () => {
   };
 
   return (
-    <div className="mini-sidebar-column">
+    <>
       {activeOrg && (
         <>
           <OrgIcons
@@ -64,6 +71,7 @@ const OrgSidebar = () => {
             onClick={null}
             data={{ name: activeOrg.org_name + " (selected)" }}
             active={true}
+            isDesktop={isDesktop}
           />
           <Divider className="mt-16 mb-0" />
         </>
@@ -77,10 +85,11 @@ const OrgSidebar = () => {
         onClick={createOrg}
         style={{ color: "#4F6EEE", backgroundColor: "#F2F7FF" }}
         data={{ name: "Create New Organization" }}
+        isDesktop={isDesktop}
       />
 
       {orgs &&
-        orgs.map(org => (
+        orgs.map((org) => (
           <Palette
             src={org.org_image}
             crossOrigin="Anonymous"
@@ -97,6 +106,7 @@ const OrgSidebar = () => {
                     onClick={handleClickEvent}
                     data={{ name: org.org_name, handle: org.org_handle }}
                     active={false}
+                    isDesktop={isDesktop}
                   />
                 );
               } else {
@@ -109,9 +119,10 @@ const OrgSidebar = () => {
                     onClick={handleClickEvent}
                     data={{
                       name: org.org_name,
-                      handle: org.org_handle
+                      handle: org.org_handle,
                     }}
                     active={false}
+                    isDesktop={isDesktop}
                   />
                 );
               }
@@ -119,7 +130,7 @@ const OrgSidebar = () => {
           </Palette>
         ))}
       <CreateOrgModal show={showModal} closeCallback={createOrgClose} />
-    </div>
+    </>
   );
 };
 

@@ -11,16 +11,17 @@ const StepsPanel = ({
 }) => {
   return (
     <div className="tutorial-steps-sider">
-      {!hideButton && (
-        <Button
-          type="link"
-          size="large"
-          style={{ float: "right", padding: 0, marginRight: "4px" }}
-          onClick={onClick}
-        >
-          Close
-        </Button>
-      )}
+      {!hideButton &&
+      false && ( //remove false to show
+          <Button
+            type="link"
+            size="large"
+            style={{ float: "right", padding: 0, marginRight: "4px" }}
+            onClick={onClick}
+          >
+            Close
+          </Button>
+        )}
 
       <Steps
         current={currentStep}

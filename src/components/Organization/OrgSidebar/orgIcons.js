@@ -19,47 +19,56 @@ export const OrgIcons = ({
   data,
   border,
   style,
-  borderColor
+  borderColor,
+  isDesktop,
 }) => {
   return (
-    <Row
-      type="flex"
-      align="middle"
-      justify="space-around"
-      style={{ width: 65 }}
-    >
-      <Col>
+    <Row type="flex" align="middle" justify="space-around">
+      <Col xs={24}>
         <Tooltip
           placement="right"
           title={data ? data.name : null}
           color={data ? data.color : null}
+          visible={isDesktop ? null : false}
         >
-          <div
-            className={
-              "minisidebar-item" +
-              (active === true ? " minisidebar-active" : "") +
-              (border === true
-                ? " minisidebar-item-border"
-                : " minisidebar-item-no-border")
-            }
+          <Row
+            align="middle"
+            justify={isDesktop ? "space-around" : null}
             onClick={onClick && data ? () => onClick(data) : null}
-            style={{
-              borderColor: borderColor ? borderColor : null
-            }}
           >
-            <Avatar
-              shape="circle"
-              size={35}
-              icon={icon ? icon : null}
-              src={image ? image : null}
-              style={{
-                backgroundColor: image ? "#ffffff" : "#3AAFA9",
-                ...style
-              }}
-            >
-              {text ? avatarName(text) : ""}
-            </Avatar>
-          </div>
+            <Col>
+              <div
+                className={
+                  "minisidebar-item" +
+                  (active === true ? " minisidebar-active" : "") +
+                  (border === true
+                    ? " minisidebar-item-border"
+                    : " minisidebar-item-no-border")
+                }
+                style={{
+                  borderColor: borderColor ? borderColor : null,
+                }}
+              >
+                <Avatar
+                  shape="circle"
+                  size={35}
+                  icon={icon ? icon : null}
+                  src={image ? image : null}
+                  style={{
+                    backgroundColor: image ? "#ffffff" : "#3AAFA9",
+                    ...style,
+                  }}
+                >
+                  {text ? avatarName(text) : ""}
+                </Avatar>
+              </div>
+            </Col>
+            {isDesktop === false && (
+              <Col className="ml-8" style={{ marginTop: "12px" }}>
+                {data ? data.name : null}
+              </Col>
+            )}
+          </Row>
         </Tooltip>
       </Col>
     </Row>

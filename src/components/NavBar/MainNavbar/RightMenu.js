@@ -9,7 +9,8 @@ import {
   UserOutlined,
   CodeOutlined,
   LogoutOutlined,
-  BlockOutlined
+  BlockOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { avatarName } from "../../../helpers/avatarName";
 import { Link, useLocation } from "react-router-dom";
@@ -25,8 +26,8 @@ const RightMenu = ({ mode }) => {
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
@@ -38,7 +39,10 @@ const RightMenu = ({ mode }) => {
           return (
             <Menu.Item key={`org:${i}`}>
               <Link to={`/org/${org.org_handle}`}>
-                <CodeOutlined /> {org.org_name}
+                <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
+                  {avatarName(org.org_name)}
+                </Avatar>{" "}
+                {org.org_name}
               </Link>
             </Menu.Item>
           );
@@ -54,7 +58,7 @@ const RightMenu = ({ mode }) => {
               backgroundColor:
                 profile.photoURL && profile.photoURL.length > 0
                   ? "#fffff"
-                  : "#3AAFA9"
+                  : "#3AAFA9",
             }}
             size={mode === "inline" ? "default" : "large"}
             src={profile.photoURL}
@@ -84,6 +88,12 @@ const RightMenu = ({ mode }) => {
               </>
             }
           >
+            <Menu.Item key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+              <Link to={`/organization`}>
+                <SettingOutlined /> Manage All
+              </Link>
+            </Menu.Item>
+            <Menu.Divider />
             {orgList}
           </Menu.SubMenu>
         )}
