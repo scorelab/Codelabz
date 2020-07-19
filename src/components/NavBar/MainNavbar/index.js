@@ -49,7 +49,7 @@ function MainNavbar() {
                     </Link>
                   </h3>
                 }
-                placement="left"
+                placement="right"
                 closable={true}
                 onClose={showDrawer}
                 visible={visible}

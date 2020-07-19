@@ -22,14 +22,21 @@ export const OrgIcons = ({
   borderColor,
   isDesktop,
 }) => {
+  let tooltipProps = {
+    placement: "right",
+    title: data ? data.name : null,
+    color: data ? data.color : null,
+  };
+  if (isDesktop === false) {
+    tooltipProps.visible = false;
+  }
+
   return (
     <Row type="flex" align="middle" justify="space-around">
       <Col xs={24}>
         <Tooltip
-          placement="right"
-          title={data ? data.name : null}
-          color={data ? data.color : null}
-          visible={isDesktop ? null : false}
+          {...tooltipProps}
+          //visible={isDesktop ? null : false}
         >
           <Row
             align="middle"

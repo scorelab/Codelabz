@@ -166,6 +166,11 @@ img {
 .headroom--pinned {
   box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.12),
     0 6px 16px -11px rgba(0, 0, 0, 0.08);
+  z-index: 800 !important;
+}
+
+.headroom-wrapper {
+  z-index: 800;
 }
 
 .navbar-mini {
@@ -682,4 +687,23 @@ footer {
   > .ant-steps-item-tail {
   display: inline-block !important;
   height: 110% !important;
+}
+
+.editor-icon {
+  border: 0;
+  border-radius: 50%;
+  padding: 3px;
+  transition: all 0.2s;
+  width: 35px;
+  display: inline-block;
+  background-color: white;
+  margin-right: 8px;
+}
+
+.editor-icon > .ant-badge > .ant-badge-dot {
+  right: 7px;
+  top: 28px;
+  width: 14px;
+  height: 14px;
+  box-shadow: 0 0 0 2px #fff;
 }

@@ -11,7 +11,7 @@ module.exports = {
             modifyVars: {
               "@primary-color": "#3AAFA9",
               "@font-family": "'Poppins', sans-serif",
-              "@font-size-base": "13.5px",
+              "@font-size-base": "14px",
             },
           },
         },
