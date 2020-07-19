@@ -9,12 +9,14 @@ import { Row, Col } from "antd";
 import { Prompt } from "react-router-dom";
 import UserList from "./UserList";
 
-const Editor = () => {
+const Editor = ({ id }) => {
   const [allSaved, setAllSaved] = useState(true);
+  const [synced, setSynced] = useState(false);
+
   const firebase = useFirebase();
   const editorRef = useRef(null);
   // const usersRef = useRef(null);
-  let noteID = "test_note";
+  let noteID = id || "test_note";
 
   const currentUserHandle = useSelector(
     ({
@@ -65,14 +67,6 @@ const Editor = () => {
         userId: currentUserHandle,
       });
 
-      // usersRef.current &&
-      //   window.Firepad.FirepadUserList.fromDiv(
-      //     firepadRef.child("users"),
-      //     usersRef.current,
-      //     currentUserHandle,
-      //     displayName
-      //   );
-
       firepad.on("ready", function () {
         if (firepad.isHistoryEmpty()) {
           firepad.setHtml(
@@ -82,7 +76,7 @@ const Editor = () => {
       });
 
       firepad.on("synced", function (isSynced) {
-        console.log("isSynced", isSynced);
+        setSynced(isSynced);
       });
     };
 
@@ -94,6 +88,7 @@ const Editor = () => {
   }, [firebase, currentUserHandle, displayName, noteID]);
 
   useEffect(() => {
+    setAllSaved(true);
     // const confirmBeforeExit = (e) => {
     //   e.preventDefault();
     //   e.returnValue = "";
@@ -103,7 +98,7 @@ const Editor = () => {
     return () => {
       // window.removeEventListener("beforeunload", confirmBeforeExit);
     };
-  }, [noteID, firebase, photoURL, displayName, currentUserHandle]);
+  }, [noteID]);
 
   return (
     <div>
@@ -113,7 +108,6 @@ const Editor = () => {
       />
       <Row>
         <Col xs={0} md={6} className="col-pad-24">
-          {/* <div id="firepad-userlist" ref={usersRef} /> */}
           <UserList
             currentUserHandle={currentUserHandle}
             displayName={displayName}
@@ -123,6 +117,7 @@ const Editor = () => {
           />
         </Col>
         <Col xs={24} md={18} className="col-pad-24">
+          {synced ? "Saved as a draft" : "Saving..."}
           <div id="firepad-container" ref={editorRef} />
         </Col>
       </Row>

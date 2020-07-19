@@ -5914,6 +5914,12 @@
           // show cursor
           var cursorCoords = this.cm.cursorCoords(cursorPos);
           var cursorEl = document.createElement("span");
+          cursorEl.innerHTML =
+            '<span class="other-client-name" style="background-color: ' +
+            color +
+            '">' +
+            clientId +
+            "</span>";
           cursorEl.className = "other-client";
           cursorEl.style.borderLeftWidth = "2px";
           cursorEl.style.borderLeftStyle = "solid";

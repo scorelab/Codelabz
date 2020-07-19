@@ -1,16 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { EditorUserIcons, EditorUserIconsExtra } from "./EditorUserIcons";
 import { rearrangeUser } from "../../helpers/userListModifiers";
+import { useSelector } from "react-redux";
+import { useFirebase } from "react-redux-firebase";
 
-const UserList = ({
-  firebase,
-  noteID,
-  currentUserHandle,
-  displayName,
-  photoURL,
-}) => {
+const UserList = ({ noteID }) => {
   const [mainUsers, setMainUsers] = useState(null);
   const [extraUsers, setExtraUsers] = useState(null);
+  const firebase = useFirebase();
+  const currentUserHandle = useSelector(
+    ({
+      firebase: {
+        profile: { handle },
+      },
+    }) => handle
+  );
+
+  const displayName = useSelector(
+    ({
+      firebase: {
+        profile: { displayName },
+      },
+    }) => displayName
+  );
+
+  const photoURL = useSelector(
+    ({
+      firebase: {
+        profile: { photoURL },
+      },
+    }) => photoURL
+  );
 
   useEffect(() => {
     const ref = firebase
@@ -53,7 +73,7 @@ const UserList = ({
               text={user.displayName}
               image={user.photoURL}
               data={{ name: user.displayName, color: user.color }}
-              key={user.handle + i}
+              key={`onlineUser_${i}`}
             />
           );
         })}

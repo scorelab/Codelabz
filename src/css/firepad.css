@@ -32,11 +32,10 @@
 
 .firepad-with-toolbar .CodeMirror {
   top: 83px;
-  /* padding-left: 10px; */
 }
 
 .firepad-with-toolbar .CodeMirror-lines {
-  padding: 16px 0px;
+  padding: 24px 0px;
 }
 
 .firepad-toolbar {
@@ -56,9 +55,22 @@
   user-select: none;
 }
 
+@media (max-width: 767px) {
+  .firepad-toolbar {
+    height: 118px;
+    line-height: 100px;
+  }
+
+  .firepad-with-toolbar .CodeMirror {
+    top: 119px;
+  }
+}
+
 .firepad-toolbar-wrapper {
   display: inline-block;
   line-height: 14px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .firepad-richtext .CodeMirror {
@@ -440,4 +452,14 @@ a.firepad-btn:active {
 }
 .firepad-tb-bubble:before {
   content: "\e00f";
+}
+
+.other-client-name {
+  position: absolute;
+  top: -20px;
+  background-color: red;
+  padding: 2px 5px;
+  font-size: 0.8em;
+  border-radius: 2px;
+  opacity: 1;
 }

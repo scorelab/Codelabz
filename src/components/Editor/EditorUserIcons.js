@@ -54,15 +54,7 @@ export const EditorUserIcons = ({
   );
 };
 
-export const EditorUserIconsExtra = ({ data, isDesktop }) => {
-  let tooltipProps = {
-    placement: "top",
-    title: data ? data.name : null,
-    color: data ? data.color : null,
-  };
-  if (isDesktop === false) {
-    tooltipProps.visible = false;
-  }
+export const EditorUserIconsExtra = ({ data }) => {
   const content = (
     <div>
       {data &&
