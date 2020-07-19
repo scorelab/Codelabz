@@ -33,3 +33,5 @@ firebase-sw-private.js
 /.firebase
 
 cypress.json
+cypress/screenshots
+cypress/videos

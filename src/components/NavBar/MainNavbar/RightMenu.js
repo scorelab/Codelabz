@@ -10,7 +10,7 @@ import {
   CodeOutlined,
   LogoutOutlined,
   BlockOutlined,
-  SettingOutlined,
+  SettingOutlined
 } from "@ant-design/icons";
 import { avatarName } from "../../../helpers/avatarName";
 import { Link, useLocation } from "react-router-dom";
@@ -26,8 +26,8 @@ const RightMenu = ({ mode }) => {
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations },
-      },
+        data: { organizations }
+      }
     }) => organizations
   );
 
@@ -58,7 +58,7 @@ const RightMenu = ({ mode }) => {
               backgroundColor:
                 profile.photoURL && profile.photoURL.length > 0
                   ? "#fffff"
-                  : "#3AAFA9",
+                  : "#3AAFA9"
             }}
             size={mode === "inline" ? "default" : "large"}
             src={profile.photoURL}
@@ -115,6 +115,7 @@ const RightMenu = ({ mode }) => {
         <Menu.Item
           key="setting:4"
           onClick={() => signOut()(firebase, dispatch)}
+          id={"log-out"}
         >
           <LogoutOutlined /> Log Out
         </Menu.Item>
