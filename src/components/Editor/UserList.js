@@ -63,6 +63,12 @@ const UserList = ({ noteID }) => {
       ref.child(currentUserHandle).remove();
     };
   }, [noteID, firebase, photoURL, displayName, currentUserHandle]);
+
+  // useEffect(() => {
+  //   let allCarets = document.getElementsByClassName("other-client");
+  //   allCarets && console.log(allCarets);
+  // }, [mainUsers]);
+
   return (
     <div>
       {mainUsers &&

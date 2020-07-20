@@ -1581,8 +1581,9 @@
         }
 
         if (this.userRef_) {
-          this.userRef_.child("cursor").remove();
-          this.userRef_.child("color").remove();
+          // this.userRef_.child("cursor").remove();
+          // this.userRef_.child("color").remove();
+          this.userRef_.remove();
         }
 
         this.ref_ = null;
@@ -2639,7 +2640,32 @@
           this.color,
           this.id
         );
+        setCursorNamePosition();
       };
+
+      function setCursorNamePosition() {
+        let x = document.getElementsByClassName("other-client");
+        if (x.length > 0) {
+          for (let i = 0; i < x.length; i++) {
+            let offset = document.getElementById(x[i].id).offsetTop;
+
+            let userHandle = x[i].attributes.getNamedItem("data-clientid")
+              .value;
+            let nameFlagID = "other-client-name-" + userHandle;
+            let boundry = document
+              .getElementById(nameFlagID)
+              .getBoundingClientRect();
+            document.getElementById(nameFlagID).style.top = offset - 22 + "px";
+            if (window.innerWidth - boundry.right < 70) {
+              document.getElementById(nameFlagID).style.marginLeft =
+                "-" + boundry.width + "px";
+            }
+            console.log(boundry.right, window.innerWidth);
+          }
+        }
+      }
+
+      window.onresize = setCursorNamePosition;
 
       OtherClient.prototype.removeCursor = function () {
         if (this.mark) {
@@ -5915,18 +5941,21 @@
           var cursorCoords = this.cm.cursorCoords(cursorPos);
           var cursorEl = document.createElement("span");
           cursorEl.innerHTML =
-            '<span class="other-client-name" style="background-color: ' +
+            '<span class="other-client-name noselect" id="other-client-name-' +
+            clientId +
+            '" style="background-color: ' +
             color +
             '">' +
             clientId +
             "</span>";
           cursorEl.className = "other-client";
+          cursorEl.id = "other-client-id-" + clientId;
           cursorEl.style.borderLeftWidth = "2px";
           cursorEl.style.borderLeftStyle = "solid";
           cursorEl.style.borderLeftColor = color;
           cursorEl.style.marginLeft = cursorEl.style.marginRight = "-1px";
           cursorEl.style.height =
-            (cursorCoords.bottom - cursorCoords.top) * 0.9 + "px";
+            (cursorCoords.bottom - cursorCoords.top) * 1 + "px";
           cursorEl.setAttribute("data-clientid", clientId);
           cursorEl.style.zIndex = 0;
 
@@ -5937,7 +5966,7 @@
         } else {
           // show selection
           var selectionClassName = "selection-" + color.replace("#", "");
-          var transparency = 0.4;
+          var transparency = 0.5;
           var rule =
             "." +
             selectionClassName +

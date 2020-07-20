@@ -45,14 +45,20 @@ const Editor = ({ id }) => {
   useEffect(() => {
     let firepad;
     window.CodeMirror = CodeMirror;
+    require("codemirror/mode/gfm/gfm");
     window.firebase = firebase;
 
     let ref = firebase.database().ref().child("notes");
 
     const codeMirror = CodeMirror(editorRef.current, {
-      lineWrapping: true,
+      mode: {
+        name: "gfm",
+        tokenTypeOverrides: {
+          emoji: "emoji",
+        },
+      },
       lineNumbers: true,
-      mode: { name: "javascript", json: true },
+      theme: "default",
     });
 
     const script = document.createElement("script");
@@ -62,7 +68,7 @@ const Editor = ({ id }) => {
       const firepadRef = ref.child(noteID);
 
       firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
-        richTextToolbar: true,
+        richTextToolbar: false,
         richTextShortcuts: true,
         userId: currentUserHandle,
       });
@@ -77,6 +83,7 @@ const Editor = ({ id }) => {
 
       firepad.on("synced", function (isSynced) {
         setSynced(isSynced);
+        console.log(firepad.getHtml());
       });
     };
 

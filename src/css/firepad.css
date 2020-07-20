@@ -152,7 +152,7 @@ pre.CodeMirror-line.firepad-lt-tc {
 
 .powered-by-firepad {
   position: absolute;
-  display: block;
+  display: none;
   z-index: 5;
   right: 20px;
   bottom: 20px;
@@ -456,10 +456,48 @@ a.firepad-btn:active {
 
 .other-client-name {
   position: absolute;
+  width: auto;
+  overflow-x: hidden;
+  text-align: center;
   top: -20px;
-  background-color: red;
   padding: 2px 5px;
   font-size: 0.8em;
   border-radius: 2px;
   opacity: 1;
+  display: inline-block;
+
+  animation: fade-name 0.5s 1;
+  -webkit-animation: fade-name 0.5s 1;
+  animation-fill-mode: forwards;
+
+  animation-delay: 3s;
+  -webkit-animation-delay: 3s; /* Safari and Chrome */
+  -webkit-animation-fill-mode: forwards;
+}
+
+.other-client {
+  cursor: pointer;
+}
+
+.other-client:hover .other-client-name {
+  opacity: 1;
+  transition: all 0.5s;
+}
+
+@keyframes fade-name {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fade-name {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
