@@ -3,7 +3,7 @@
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
-  height: 300px;
+  height: auto;
   color: black;
   direction: ltr;
 }
@@ -261,7 +261,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   /* See overflow: hidden in .CodeMirror */
   margin-bottom: -50px;
   margin-right: -50px;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
+  padding-top: 24px;
   height: 100%;
   outline: none; /* Prevent dragging from highlighting the element */
   position: relative;

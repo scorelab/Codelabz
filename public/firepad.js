@@ -11,11 +11,7 @@
  * With code from ot.js (Copyright 2012-2013 Tim Baumann)
  */
 
-<<<<<<< HEAD
 (function (name, definition, context) {
-=======
-(function(name, definition, context) {
->>>>>>> pr/41
   //try CommonJS, then AMD (require.js), then use global.
   if (typeof module != "undefined" && module.exports)
     module.exports = definition();
@@ -24,7 +20,6 @@
   else context[name] = definition();
 })(
   "Firepad",
-<<<<<<< HEAD
   function () {
     var firepad = firepad || {};
     firepad.utils = {};
@@ -33,34 +28,16 @@
       clazz.prototype.allowedEvents_ = opt_allowedEVents;
 
       clazz.prototype.on = function (eventType, callback, context) {
-=======
-  function() {
-    var firepad = firepad || {};
-    firepad.utils = {};
-
-    firepad.utils.makeEventEmitter = function(clazz, opt_allowedEVents) {
-      clazz.prototype.allowedEvents_ = opt_allowedEVents;
-
-      clazz.prototype.on = function(eventType, callback, context) {
->>>>>>> pr/41
         this.validateEventType_(eventType);
         this.eventListeners_ = this.eventListeners_ || {};
         this.eventListeners_[eventType] = this.eventListeners_[eventType] || [];
         this.eventListeners_[eventType].push({
           callback: callback,
-<<<<<<< HEAD
           context: context,
         });
       };
 
       clazz.prototype.off = function (eventType, callback) {
-=======
-          context: context
-        });
-      };
-
-      clazz.prototype.off = function(eventType, callback) {
->>>>>>> pr/41
         this.validateEventType_(eventType);
         this.eventListeners_ = this.eventListeners_ || {};
         var listeners = this.eventListeners_[eventType] || [];
@@ -72,11 +49,7 @@
         }
       };
 
-<<<<<<< HEAD
       clazz.prototype.trigger = function (eventType /*, args ... */) {
-=======
-      clazz.prototype.trigger = function(eventType /*, args ... */) {
->>>>>>> pr/41
         this.eventListeners_ = this.eventListeners_ || {};
         var listeners = this.eventListeners_[eventType] || [];
         for (var i = 0; i < listeners.length; i++) {
@@ -87,11 +60,7 @@
         }
       };
 
-<<<<<<< HEAD
       clazz.prototype.validateEventType_ = function (eventType) {
-=======
-      clazz.prototype.validateEventType_ = function(eventType) {
->>>>>>> pr/41
         if (this.allowedEvents_) {
           var allowed = false;
           for (var i = 0; i < this.allowedEvents_.length; i++) {
@@ -107,11 +76,7 @@
       };
     };
 
-<<<<<<< HEAD
     firepad.utils.elt = function (tag, content, attrs) {
-=======
-    firepad.utils.elt = function(tag, content, attrs) {
->>>>>>> pr/41
       var e = document.createElement(tag);
       if (typeof content === "string") {
         firepad.utils.setTextContent(e, content);
@@ -126,20 +91,12 @@
       return e;
     };
 
-<<<<<<< HEAD
     firepad.utils.setTextContent = function (e, str) {
-=======
-    firepad.utils.setTextContent = function(e, str) {
->>>>>>> pr/41
       e.innerHTML = "";
       e.appendChild(document.createTextNode(str));
     };
 
-<<<<<<< HEAD
     firepad.utils.on = function (emitter, type, f, capture) {
-=======
-    firepad.utils.on = function(emitter, type, f, capture) {
->>>>>>> pr/41
       if (emitter.addEventListener) {
         emitter.addEventListener(type, f, capture || false);
       } else if (emitter.attachEvent) {
@@ -147,11 +104,7 @@
       }
     };
 
-<<<<<<< HEAD
     firepad.utils.off = function (emitter, type, f, capture) {
-=======
-    firepad.utils.off = function(emitter, type, f, capture) {
->>>>>>> pr/41
       if (emitter.removeEventListener) {
         emitter.removeEventListener(type, f, capture || false);
       } else if (emitter.detachEvent) {
@@ -159,11 +112,7 @@
       }
     };
 
-<<<<<<< HEAD
     firepad.utils.preventDefault = function (e) {
-=======
-    firepad.utils.preventDefault = function(e) {
->>>>>>> pr/41
       if (e.preventDefault) {
         e.preventDefault();
       } else {
@@ -171,11 +120,7 @@
       }
     };
 
-<<<<<<< HEAD
     firepad.utils.stopPropagation = function (e) {
-=======
-    firepad.utils.stopPropagation = function(e) {
->>>>>>> pr/41
       if (e.stopPropagation) {
         e.stopPropagation();
       } else {
@@ -183,41 +128,24 @@
       }
     };
 
-<<<<<<< HEAD
     firepad.utils.stopEvent = function (e) {
-=======
-    firepad.utils.stopEvent = function(e) {
->>>>>>> pr/41
       firepad.utils.preventDefault(e);
       firepad.utils.stopPropagation(e);
     };
 
-<<<<<<< HEAD
     firepad.utils.stopEventAnd = function (fn) {
       return function (e) {
-=======
-    firepad.utils.stopEventAnd = function(fn) {
-      return function(e) {
->>>>>>> pr/41
         fn(e);
         firepad.utils.stopEvent(e);
         return false;
       };
     };
 
-<<<<<<< HEAD
     firepad.utils.trim = function (str) {
       return str.replace(/^\s+/g, "").replace(/\s+$/g, "");
     };
 
     firepad.utils.stringEndsWith = function (str, suffix) {
-=======
-    firepad.utils.trim = function(str) {
-      return str.replace(/^\s+/g, "").replace(/\s+$/g, "");
-    };
-
-    firepad.utils.stringEndsWith = function(str, suffix) {
->>>>>>> pr/41
       var list = typeof suffix == "string" ? [suffix] : suffix;
       for (var i = 0; i < list.length; i++) {
         var suffix = list[i];
@@ -232,11 +160,7 @@
       }
     };
 
-<<<<<<< HEAD
     firepad.utils.log = function () {
-=======
-    firepad.utils.log = function() {
->>>>>>> pr/41
       if (
         typeof console !== "undefined" &&
         typeof console.log !== "undefined"
@@ -250,21 +174,13 @@
     };
 
     var firepad = firepad || {};
-<<<<<<< HEAD
     firepad.Span = (function () {
-=======
-    firepad.Span = (function() {
->>>>>>> pr/41
       function Span(pos, length) {
         this.pos = pos;
         this.length = length;
       }
 
-<<<<<<< HEAD
       Span.prototype.end = function () {
-=======
-      Span.prototype.end = function() {
->>>>>>> pr/41
         return this.pos + this.length;
       };
 
@@ -273,11 +189,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.TextOp = (function () {
-=======
-    firepad.TextOp = (function() {
->>>>>>> pr/41
       var utils = firepad.utils;
 
       // Operation are essentially lists of ops. There are three types of ops:
@@ -309,7 +221,6 @@
         }
       }
 
-<<<<<<< HEAD
       TextOp.prototype.isInsert = function () {
         return this.type === "insert";
       };
@@ -321,19 +232,6 @@
       };
 
       TextOp.prototype.equals = function (other) {
-=======
-      TextOp.prototype.isInsert = function() {
-        return this.type === "insert";
-      };
-      TextOp.prototype.isDelete = function() {
-        return this.type === "delete";
-      };
-      TextOp.prototype.isRetain = function() {
-        return this.type === "retain";
-      };
-
-      TextOp.prototype.equals = function(other) {
->>>>>>> pr/41
         return (
           this.type === other.type &&
           this.text === other.text &&
@@ -342,11 +240,7 @@
         );
       };
 
-<<<<<<< HEAD
       TextOp.prototype.attributesEqual = function (otherAttributes) {
-=======
-      TextOp.prototype.attributesEqual = function(otherAttributes) {
->>>>>>> pr/41
         for (var attr in this.attributes) {
           if (this.attributes[attr] !== otherAttributes[attr]) {
             return false;
@@ -362,11 +256,7 @@
         return true;
       };
 
-<<<<<<< HEAD
       TextOp.prototype.hasEmptyAttributes = function () {
-=======
-      TextOp.prototype.hasEmptyAttributes = function() {
->>>>>>> pr/41
         var empty = true;
         for (var attr in this.attributes) {
           empty = false;
@@ -381,11 +271,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.TextOperation = (function () {
-=======
-    firepad.TextOperation = (function() {
->>>>>>> pr/41
       "use strict";
       var TextOp = firepad.TextOp;
       var utils = firepad.utils;
@@ -410,11 +296,7 @@
         this.targetLength = 0;
       }
 
-<<<<<<< HEAD
       TextOperation.prototype.equals = function (other) {
-=======
-      TextOperation.prototype.equals = function(other) {
->>>>>>> pr/41
         if (this.baseLength !== other.baseLength) {
           return false;
         }
@@ -437,11 +319,7 @@
       // methods. They all return the operation for convenient chaining.
 
       // Skip over a given number of characters.
-<<<<<<< HEAD
       TextOperation.prototype.retain = function (n, attributes) {
-=======
-      TextOperation.prototype.retain = function(n, attributes) {
->>>>>>> pr/41
         if (typeof n !== "number" || n < 0) {
           throw new Error("retain expects a positive integer.");
         }
@@ -463,11 +341,7 @@
       };
 
       // Insert a string at the current position.
-<<<<<<< HEAD
       TextOperation.prototype.insert = function (str, attributes) {
-=======
-      TextOperation.prototype.insert = function(str, attributes) {
->>>>>>> pr/41
         if (typeof str !== "string") {
           throw new Error("insert expects a string");
         }
@@ -509,11 +383,7 @@
       };
 
       // Delete a string at the current position.
-<<<<<<< HEAD
       TextOperation.prototype["delete"] = function (n) {
-=======
-      TextOperation.prototype["delete"] = function(n) {
->>>>>>> pr/41
         if (typeof n === "string") {
           n = n.length;
         }
@@ -534,7 +404,6 @@
       };
 
       // Tests whether this operation has no effect.
-<<<<<<< HEAD
       TextOperation.prototype.isNoop = function () {
         return (
           this.ops.length === 0 ||
@@ -545,17 +414,6 @@
       };
 
       TextOperation.prototype.clone = function () {
-=======
-      TextOperation.prototype.isNoop = function() {
-        return (
-          this.ops.length === 0 ||
-          (this.ops.length === 1 &&
-            (this.ops[0].isRetain() && this.ops[0].hasEmptyAttributes()))
-        );
-      };
-
-      TextOperation.prototype.clone = function() {
->>>>>>> pr/41
         var clone = new TextOperation();
         for (var i = 0; i < this.ops.length; i++) {
           if (this.ops[i].isRetain()) {
@@ -571,20 +429,12 @@
       };
 
       // Pretty printing.
-<<<<<<< HEAD
       TextOperation.prototype.toString = function () {
-=======
-      TextOperation.prototype.toString = function() {
->>>>>>> pr/41
         // map: build a new array by applying a function to every element in an old
         // array.
         var map =
           Array.prototype.map ||
-<<<<<<< HEAD
           function (fn) {
-=======
-          function(fn) {
->>>>>>> pr/41
             var arr = this;
             var newArr = [];
             for (var i = 0, l = arr.length; i < l; i++) {
@@ -593,11 +443,7 @@
             return newArr;
           };
         return map
-<<<<<<< HEAD
           .call(this.ops, function (op) {
-=======
-          .call(this.ops, function(op) {
->>>>>>> pr/41
             if (op.isRetain()) {
               return "retain " + op.chars;
             } else if (op.isInsert()) {
@@ -610,11 +456,7 @@
       };
 
       // Converts operation into a JSON value.
-<<<<<<< HEAD
       TextOperation.prototype.toJSON = function () {
-=======
-      TextOperation.prototype.toJSON = function() {
->>>>>>> pr/41
         var ops = [];
         for (var i = 0; i < this.ops.length; i++) {
           // We prefix ops with their attributes if non-empty.
@@ -637,11 +479,7 @@
       };
 
       // Converts a plain JS object into an operation and validates it.
-<<<<<<< HEAD
       TextOperation.fromJSON = function (ops) {
-=======
-      TextOperation.fromJSON = function(ops) {
->>>>>>> pr/41
         var o = new TextOperation();
         for (var i = 0, l = ops.length; i < l; i++) {
           var op = ops[i];
@@ -667,11 +505,7 @@
 
       // Apply an operation to a string, returning a new string. Throws an error if
       // there's a mismatch between the input string and the operation.
-<<<<<<< HEAD
       TextOperation.prototype.apply = function (
-=======
-      TextOperation.prototype.apply = function(
->>>>>>> pr/41
         str,
         oldAttributes,
         newAttributes
@@ -752,11 +586,7 @@
       // operation that reverts the effects of the operation, e.g. when you have an
       // operation 'insert("hello "); skip(6);' then the inverse is 'delete("hello ");
       // skip(6);'. The inverse should be used for implementing undo.
-<<<<<<< HEAD
       TextOperation.prototype.invert = function (str) {
-=======
-      TextOperation.prototype.invert = function(str) {
->>>>>>> pr/41
         var strIndex = 0;
         var inverse = new TextOperation();
         var ops = this.ops;
@@ -780,11 +610,7 @@
       // preserves the changes of both. Or, in other words, for each input string S
       // and a pair of consecutive operations A and B,
       // apply(apply(S, A), B) = apply(S, compose(A, B)) must hold.
-<<<<<<< HEAD
       TextOperation.prototype.compose = function (operation2) {
-=======
-      TextOperation.prototype.compose = function(operation2) {
->>>>>>> pr/41
         var operation1 = this;
         if (operation1.targetLength !== operation2.baseLength) {
           throw new Error(
@@ -950,11 +776,7 @@
       // returns true if the operations are consecutive insert operations or both
       // operations delete text at the same position. You may want to include other
       // factors like the time since the last change in your decision.
-<<<<<<< HEAD
       TextOperation.prototype.shouldBeComposedWith = function (other) {
-=======
-      TextOperation.prototype.shouldBeComposedWith = function(other) {
->>>>>>> pr/41
         if (this.isNoop() || other.isNoop()) {
           return true;
         }
@@ -983,11 +805,7 @@
       // Decides whether two operations should be composed with each other
       // if they were inverted, that is
       // `shouldBeComposedWith(a, b) = shouldBeComposedWithInverted(b^{-1}, a^{-1})`.
-<<<<<<< HEAD
       TextOperation.prototype.shouldBeComposedWithInverted = function (other) {
-=======
-      TextOperation.prototype.shouldBeComposedWithInverted = function(other) {
->>>>>>> pr/41
         if (this.isNoop() || other.isNoop()) {
           return true;
         }
@@ -1011,11 +829,7 @@
         return false;
       };
 
-<<<<<<< HEAD
       TextOperation.transformAttributes = function (attributes1, attributes2) {
-=======
-      TextOperation.transformAttributes = function(attributes1, attributes2) {
->>>>>>> pr/41
         var attributes1prime = {},
           attributes2prime = {};
         var attr,
@@ -1051,11 +865,7 @@
       // produces two operations A' and B' (in an array) such that
       // `apply(apply(S, A), B') = apply(apply(S, B), A')`. This function is the
       // heart of OT.
-<<<<<<< HEAD
       TextOperation.transform = function (operation1, operation2) {
-=======
-      TextOperation.transform = function(operation1, operation2) {
->>>>>>> pr/41
         if (operation1.baseLength !== operation2.baseLength) {
           throw new Error("Both operations have to have the same base length");
         }
@@ -1182,11 +992,7 @@
       };
 
       // convenience method to write transform(a, b) as a.transform(b)
-<<<<<<< HEAD
       TextOperation.prototype.transform = function (other) {
-=======
-      TextOperation.prototype.transform = function(other) {
->>>>>>> pr/41
         return TextOperation.transform(this, other);
       };
 
@@ -1197,11 +1003,7 @@
 
     // TODO: Rewrite this (probably using a splay tree) to be efficient.  Right now it's based on a linked list
     // so all operations are O(n), where n is the number of spans in the list.
-<<<<<<< HEAD
     firepad.AnnotationList = (function () {
-=======
-    firepad.AnnotationList = (function() {
->>>>>>> pr/41
       var Span = firepad.Span;
 
       function assert(bool, text) {
@@ -1219,11 +1021,7 @@
         this.attachedObject_ = node.attachedObject;
       }
 
-<<<<<<< HEAD
       OldAnnotatedSpan.prototype.getAttachedObject = function () {
-=======
-      OldAnnotatedSpan.prototype.getAttachedObject = function() {
->>>>>>> pr/41
         return this.attachedObject_;
       };
 
@@ -1234,24 +1032,14 @@
         this.node_ = node;
       }
 
-<<<<<<< HEAD
       NewAnnotatedSpan.prototype.attachObject = function (object) {
-=======
-      NewAnnotatedSpan.prototype.attachObject = function(object) {
->>>>>>> pr/41
         this.node_.attachedObject = object;
       };
 
       var NullAnnotation = {
-<<<<<<< HEAD
         equals: function () {
           return false;
         },
-=======
-        equals: function() {
-          return false;
-        }
->>>>>>> pr/41
       };
 
       function AnnotationList(changeHandler) {
@@ -1260,19 +1048,11 @@
         this.changeHandler_ = changeHandler;
       }
 
-<<<<<<< HEAD
       AnnotationList.prototype.insertAnnotatedSpan = function (
         span,
         annotation
       ) {
         this.wrapOperation_(new Span(span.pos, 0), function (oldPos, old) {
-=======
-      AnnotationList.prototype.insertAnnotatedSpan = function(
-        span,
-        annotation
-      ) {
-        this.wrapOperation_(new Span(span.pos, 0), function(oldPos, old) {
->>>>>>> pr/41
           assert(!old || old.next === null); // should be 0 or 1 nodes.
           var toInsert = new Node(span.length, annotation);
           if (!old) {
@@ -1294,20 +1074,12 @@
         });
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.removeSpan = function (removeSpan) {
-=======
-      AnnotationList.prototype.removeSpan = function(removeSpan) {
->>>>>>> pr/41
         if (removeSpan.length === 0) {
           return;
         }
 
-<<<<<<< HEAD
         this.wrapOperation_(removeSpan, function (oldPos, old) {
-=======
-        this.wrapOperation_(removeSpan, function(oldPos, old) {
->>>>>>> pr/41
           assert(old !== null);
           var newNodes = new Node(0, NullAnnotation),
             current = newNodes;
@@ -1333,20 +1105,12 @@
         });
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.updateSpan = function (span, updateFn) {
-=======
-      AnnotationList.prototype.updateSpan = function(span, updateFn) {
->>>>>>> pr/41
         if (span.length === 0) {
           return;
         }
 
-<<<<<<< HEAD
         this.wrapOperation_(span, function (oldPos, old) {
-=======
-        this.wrapOperation_(span, function(oldPos, old) {
->>>>>>> pr/41
           assert(old !== null);
           var newNodes = new Node(0, NullAnnotation),
             current = newNodes,
@@ -1393,11 +1157,7 @@
         });
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.wrapOperation_ = function (span, operationFn) {
-=======
-      AnnotationList.prototype.wrapOperation_ = function(span, operationFn) {
->>>>>>> pr/41
         if (span.pos < 0) {
           throw new Error("Span start cannot be negative.");
         }
@@ -1508,11 +1268,7 @@
         this.changeHandler_(oldNodes, newNodes);
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.getAffectedNodes_ = function (span) {
-=======
-      AnnotationList.prototype.getAffectedNodes_ = function(span) {
->>>>>>> pr/41
         // We want to find nodes 'start', 'end', 'beforeStart', 'pred', and 'succ' where:
         //  - 'start' contains the first character in span.
         //  - 'end' contains the last character in span.
@@ -1579,13 +1335,9 @@
         return result;
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.mergeNodesWithSameAnnotations_ = function (
         list
       ) {
-=======
-      AnnotationList.prototype.mergeNodesWithSameAnnotations_ = function(list) {
->>>>>>> pr/41
         if (!list) {
           return;
         }
@@ -1602,11 +1354,7 @@
         }
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.forEach = function (callback) {
-=======
-      AnnotationList.prototype.forEach = function(callback) {
->>>>>>> pr/41
         var current = this.head_.next;
         while (current !== null) {
           callback(current.length, current.annotation, current.attachedObject);
@@ -1614,11 +1362,7 @@
         }
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.getAnnotatedSpansForPos = function (pos) {
-=======
-      AnnotationList.prototype.getAnnotatedSpansForPos = function(pos) {
->>>>>>> pr/41
         var currentPos = 0;
         var current = this.head_.next,
           prev = null;
@@ -1641,11 +1385,7 @@
         return res;
       };
 
-<<<<<<< HEAD
       AnnotationList.prototype.getAnnotatedSpansForSpan = function (span) {
-=======
-      AnnotationList.prototype.getAnnotatedSpansForSpan = function(span) {
->>>>>>> pr/41
         if (span.length === 0) {
           return [];
         }
@@ -1667,11 +1407,7 @@
       };
 
       // For testing.
-<<<<<<< HEAD
       AnnotationList.prototype.count = function () {
-=======
-      AnnotationList.prototype.count = function() {
->>>>>>> pr/41
         var count = 0;
         var current = this.head_.next,
           prev = null;
@@ -1693,11 +1429,7 @@
         this.next = null;
       }
 
-<<<<<<< HEAD
       Node.prototype.clone = function () {
-=======
-      Node.prototype.clone = function() {
->>>>>>> pr/41
         var node = new Node(this.spanLength, this.annotation);
         node.next = this.next;
         return node;
@@ -1707,11 +1439,7 @@
     })();
 
     var firepad = firepad || {};
-<<<<<<< HEAD
     firepad.Cursor = (function () {
-=======
-    firepad.Cursor = (function() {
->>>>>>> pr/41
       "use strict";
 
       // A cursor has a `position` and a `selectionEnd`. Both are zero-based indexes
@@ -1723,19 +1451,11 @@
         this.selectionEnd = selectionEnd;
       }
 
-<<<<<<< HEAD
       Cursor.fromJSON = function (obj) {
         return new Cursor(obj.position, obj.selectionEnd);
       };
 
       Cursor.prototype.equals = function (other) {
-=======
-      Cursor.fromJSON = function(obj) {
-        return new Cursor(obj.position, obj.selectionEnd);
-      };
-
-      Cursor.prototype.equals = function(other) {
->>>>>>> pr/41
         return (
           this.position === other.position &&
           this.selectionEnd === other.selectionEnd
@@ -1743,20 +1463,12 @@
       };
 
       // Return the more current cursor information.
-<<<<<<< HEAD
       Cursor.prototype.compose = function (other) {
-=======
-      Cursor.prototype.compose = function(other) {
->>>>>>> pr/41
         return other;
       };
 
       // Update the cursor with respect to an operation.
-<<<<<<< HEAD
       Cursor.prototype.transform = function (other) {
-=======
-      Cursor.prototype.transform = function(other) {
->>>>>>> pr/41
         function transformIndex(index) {
           var newIndex = index;
           var ops = other.ops;
@@ -1788,11 +1500,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.FirebaseAdapter = (function (global) {
-=======
-    firepad.FirebaseAdapter = (function(global) {
->>>>>>> pr/41
       var TextOperation = firepad.TextOperation;
       var utils = firepad.utils;
 
@@ -1831,11 +1539,7 @@
           this.firebaseOn_(
             connectedRef,
             "value",
-<<<<<<< HEAD
             function (snapshot) {
-=======
-            function(snapshot) {
->>>>>>> pr/41
               if (snapshot.val() === true) {
                 self.initializeUserData_();
               }
@@ -1844,11 +1548,7 @@
           );
 
           // Once we're initialized, start tracking users' cursors.
-<<<<<<< HEAD
           this.on("ready", function () {
-=======
-          this.on("ready", function() {
->>>>>>> pr/41
             self.monitorCursors_();
           });
         } else {
@@ -1856,11 +1556,7 @@
         }
 
         // Avoid triggering any events until our callers have had a chance to attach their listeners.
-<<<<<<< HEAD
         setTimeout(function () {
-=======
-        setTimeout(function() {
->>>>>>> pr/41
           self.monitorHistory_();
         }, 0);
       }
@@ -1869,41 +1565,25 @@
         "cursor",
         "operation",
         "ack",
-<<<<<<< HEAD
         "retry",
       ]);
 
       FirebaseAdapter.prototype.dispose = function () {
-=======
-        "retry"
-      ]);
-
-      FirebaseAdapter.prototype.dispose = function() {
->>>>>>> pr/41
         var self = this;
         this.removeFirebaseCallbacks_();
         this.handleInitialRevisions_ = () => {};
 
         if (!this.ready_) {
-<<<<<<< HEAD
           this.on("ready", function () {
-=======
-          this.on("ready", function() {
->>>>>>> pr/41
             self.dispose();
           });
           return;
         }
 
         if (this.userRef_) {
-<<<<<<< HEAD
           // this.userRef_.child("cursor").remove();
           // this.userRef_.child("color").remove();
           this.userRef_.remove();
-=======
-          this.userRef_.child("cursor").remove();
-          this.userRef_.child("color").remove();
->>>>>>> pr/41
         }
 
         this.ref_ = null;
@@ -1911,30 +1591,14 @@
         this.zombie_ = true;
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.setUserId = function (userId) {
-=======
-      FirebaseAdapter.prototype.setUserId = function(userId) {
->>>>>>> pr/41
         if (this.userRef_) {
           // Clean up existing data.  Avoid nuking another user's data
           // (if a future user takes our old name).
           this.userRef_.child("cursor").remove();
-<<<<<<< HEAD
           this.userRef_.child("cursor").onDisconnect().cancel();
           this.userRef_.child("color").remove();
           this.userRef_.child("color").onDisconnect().cancel();
-=======
-          this.userRef_
-            .child("cursor")
-            .onDisconnect()
-            .cancel();
-          this.userRef_.child("color").remove();
-          this.userRef_
-            .child("color")
-            .onDisconnect()
-            .cancel();
->>>>>>> pr/41
         }
 
         this.userId_ = userId;
@@ -1943,11 +1607,7 @@
         this.initializeUserData_();
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.isHistoryEmpty = function () {
-=======
-      FirebaseAdapter.prototype.isHistoryEmpty = function() {
->>>>>>> pr/41
         assert(this.ready_, "Not ready yet.");
         return this.revision_ === 0;
       };
@@ -1958,20 +1618,12 @@
        * An exception will be thrown on transaction failure, which should only happen on
        * catastrophic failure like a security rule violation.
        */
-<<<<<<< HEAD
       FirebaseAdapter.prototype.sendOperation = function (operation, callback) {
-=======
-      FirebaseAdapter.prototype.sendOperation = function(operation, callback) {
->>>>>>> pr/41
         var self = this;
 
         // If we're not ready yet, do nothing right now, and trigger a retry when we're ready.
         if (!this.ready_) {
-<<<<<<< HEAD
           this.on("ready", function () {
-=======
-          this.on("ready", function() {
->>>>>>> pr/41
             self.trigger("retry");
           });
           return;
@@ -1991,29 +1643,17 @@
             .child("history")
             .child(revisionId)
             .transaction(
-<<<<<<< HEAD
               function (current) {
-=======
-              function(current) {
->>>>>>> pr/41
                 if (current === null) {
                   return revisionData;
                 }
               },
-<<<<<<< HEAD
               function (error, committed, snapshot) {
-=======
-              function(error, committed, snapshot) {
->>>>>>> pr/41
                 if (error) {
                   if (error.message === "disconnect") {
                     if (self.sent_ && self.sent_.id === revisionId) {
                       // We haven't seen our transaction succeed or fail.  Send it again.
-<<<<<<< HEAD
                       setTimeout(function () {
-=======
-                      setTimeout(function() {
->>>>>>> pr/41
                         doTransaction(revisionId, revisionData);
                       }, 0);
                     } else if (callback) {
@@ -2035,75 +1675,39 @@
         doTransaction(revisionId, {
           a: self.userId_,
           o: operation.toJSON(),
-<<<<<<< HEAD
           t: firebase.database.ServerValue.TIMESTAMP,
         });
       };
 
       FirebaseAdapter.prototype.sendCursor = function (obj) {
-=======
-          t: firebase.database.ServerValue.TIMESTAMP
-        });
-      };
-
-      FirebaseAdapter.prototype.sendCursor = function(obj) {
->>>>>>> pr/41
         this.userRef_.child("cursor").set(obj);
         this.cursor_ = obj;
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.setColor = function (color) {
-=======
-      FirebaseAdapter.prototype.setColor = function(color) {
->>>>>>> pr/41
         this.userRef_.child("color").set(color);
         this.color_ = color;
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.getDocument = function () {
         return this.document_;
       };
 
       FirebaseAdapter.prototype.registerCallbacks = function (callbacks) {
-=======
-      FirebaseAdapter.prototype.getDocument = function() {
-        return this.document_;
-      };
-
-      FirebaseAdapter.prototype.registerCallbacks = function(callbacks) {
->>>>>>> pr/41
         for (var eventType in callbacks) {
           this.on(eventType, callbacks[eventType]);
         }
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.initializeUserData_ = function () {
         this.userRef_.child("cursor").onDisconnect().remove();
         this.userRef_.child("color").onDisconnect().remove();
-=======
-      FirebaseAdapter.prototype.initializeUserData_ = function() {
-        this.userRef_
-          .child("cursor")
-          .onDisconnect()
-          .remove();
-        this.userRef_
-          .child("color")
-          .onDisconnect()
-          .remove();
->>>>>>> pr/41
 
         this.sendCursor(this.cursor_ || null);
         this.setColor(this.color_ || null);
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.monitorCursors_ = function () {
-=======
-      FirebaseAdapter.prototype.monitorCursors_ = function() {
->>>>>>> pr/41
         var usersRef = this.ref_.child("users"),
           self = this;
 
@@ -2116,27 +1720,16 @@
         this.firebaseOn_(usersRef, "child_added", childChanged);
         this.firebaseOn_(usersRef, "child_changed", childChanged);
 
-<<<<<<< HEAD
         this.firebaseOn_(usersRef, "child_removed", function (childSnap) {
-=======
-        this.firebaseOn_(usersRef, "child_removed", function(childSnap) {
->>>>>>> pr/41
           var userId = childSnap.key;
           self.trigger("cursor", userId, null);
         });
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.monitorHistory_ = function () {
         var self = this;
         // Get the latest checkpoint as a starting point so we don't have to re-play entire history.
         this.ref_.child("checkpoint").once("value", function (s) {
-=======
-      FirebaseAdapter.prototype.monitorHistory_ = function() {
-        var self = this;
-        // Get the latest checkpoint as a starting point so we don't have to re-play entire history.
-        this.ref_.child("checkpoint").once("value", function(s) {
->>>>>>> pr/41
           if (self.zombie_) {
             return;
           } // just in case we were cleaned up before we got the checkpoint data.
@@ -2154,25 +1747,16 @@
         });
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.monitorHistoryStartingAt_ = function (
         revision
       ) {
-=======
-      FirebaseAdapter.prototype.monitorHistoryStartingAt_ = function(revision) {
->>>>>>> pr/41
         var historyRef = this.ref_
           .child("history")
           .startAt(null, revisionToId(revision));
         var self = this;
 
-<<<<<<< HEAD
         setTimeout(function () {
           self.firebaseOn_(historyRef, "child_added", function (
-=======
-        setTimeout(function() {
-          self.firebaseOn_(historyRef, "child_added", function(
->>>>>>> pr/41
             revisionSnapshot
           ) {
             var revisionId = revisionSnapshot.key;
@@ -2182,21 +1766,13 @@
             }
           });
 
-<<<<<<< HEAD
           historyRef.once("value", function () {
-=======
-          historyRef.once("value", function() {
->>>>>>> pr/41
             self.handleInitialRevisions_();
           });
         }, 0);
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.handleInitialRevisions_ = function () {
-=======
-      FirebaseAdapter.prototype.handleInitialRevisions_ = function() {
->>>>>>> pr/41
         assert(!this.ready_, "Should not be called multiple times.");
 
         // Compose the checkpoint and all subsequent revisions into a single operation to apply at once.
@@ -2226,20 +1802,12 @@
 
         this.ready_ = true;
         var self = this;
-<<<<<<< HEAD
         setTimeout(function () {
-=======
-        setTimeout(function() {
->>>>>>> pr/41
           self.trigger("ready");
         }, 0);
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.handlePendingReceivedRevisions_ = function () {
-=======
-      FirebaseAdapter.prototype.handlePendingReceivedRevisions_ = function() {
->>>>>>> pr/41
         var pending = this.pendingReceivedRevisions_;
         var revisionId = revisionToId(this.revision_);
         var triggerRetry = false;
@@ -2289,11 +1857,7 @@
         }
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.parseRevision_ = function (data) {
-=======
-      FirebaseAdapter.prototype.parseRevision_ = function(data) {
->>>>>>> pr/41
         // We could do some of this validation via security rules.  But it's nice to be robust, just in case.
         if (typeof data !== "object") {
           return null;
@@ -2314,7 +1878,6 @@
         return { author: data.a, operation: op };
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.saveCheckpoint_ = function () {
         this.ref_.child("checkpoint").set({
           a: this.userId_,
@@ -2324,17 +1887,6 @@
       };
 
       FirebaseAdapter.prototype.firebaseOn_ = function (
-=======
-      FirebaseAdapter.prototype.saveCheckpoint_ = function() {
-        this.ref_.child("checkpoint").set({
-          a: this.userId_,
-          o: this.document_.toJSON(),
-          id: revisionToId(this.revision_ - 1) // use the id for the revision we just wrote.
-        });
-      };
-
-      FirebaseAdapter.prototype.firebaseOn_ = function(
->>>>>>> pr/41
         ref,
         eventType,
         callback,
@@ -2344,21 +1896,13 @@
           ref: ref,
           eventType: eventType,
           callback: callback,
-<<<<<<< HEAD
           context: context,
-=======
-          context: context
->>>>>>> pr/41
         });
         ref.on(eventType, callback, context);
         return callback;
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.firebaseOff_ = function (
-=======
-      FirebaseAdapter.prototype.firebaseOff_ = function(
->>>>>>> pr/41
         ref,
         eventType,
         callback,
@@ -2379,11 +1923,7 @@
         }
       };
 
-<<<<<<< HEAD
       FirebaseAdapter.prototype.removeFirebaseCallbacks_ = function () {
-=======
-      FirebaseAdapter.prototype.removeFirebaseCallbacks_ = function() {
->>>>>>> pr/41
         for (var i = 0; i < this.firebaseCallbacks_.length; i++) {
           var l = this.firebaseCallbacks_[i];
           l.ref.off(l.eventType, l.callback, l.context);
@@ -2437,11 +1977,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.RichTextToolbar = (function (global) {
-=======
-    firepad.RichTextToolbar = (function(global) {
->>>>>>> pr/41
       var utils = firepad.utils;
 
       function RichTextToolbar(imageInsertionUI) {
@@ -2467,7 +2003,6 @@
         "indent-decrease",
         "undo",
         "redo",
-<<<<<<< HEAD
         "insert-image",
       ]);
 
@@ -2476,16 +2011,6 @@
       };
 
       RichTextToolbar.prototype.makeButton_ = function (eventName, iconName) {
-=======
-        "insert-image"
-      ]);
-
-      RichTextToolbar.prototype.element = function() {
-        return this.element_;
-      };
-
-      RichTextToolbar.prototype.makeButton_ = function(eventName, iconName) {
->>>>>>> pr/41
         var self = this;
         iconName = iconName || eventName;
         var btn = utils.elt(
@@ -2496,22 +2021,14 @@
         utils.on(
           btn,
           "click",
-<<<<<<< HEAD
           utils.stopEventAnd(function () {
-=======
-          utils.stopEventAnd(function() {
->>>>>>> pr/41
             self.trigger(eventName);
           })
         );
         return btn;
       };
 
-<<<<<<< HEAD
       RichTextToolbar.prototype.makeElement_ = function () {
-=======
-      RichTextToolbar.prototype.makeElement_ = function() {
->>>>>>> pr/41
         var self = this;
 
         var font = this.makeFontDropdown_();
@@ -2528,11 +2045,7 @@
               self.makeButton_("bold"),
               self.makeButton_("italic"),
               self.makeButton_("underline"),
-<<<<<<< HEAD
               self.makeButton_("strike", "strikethrough"),
-=======
-              self.makeButton_("strike", "strikethrough")
->>>>>>> pr/41
             ],
             { class: "firepad-btn-group" }
           ),
@@ -2541,11 +2054,7 @@
             [
               self.makeButton_("unordered-list", "list-2"),
               self.makeButton_("ordered-list", "numbered-list"),
-<<<<<<< HEAD
               self.makeButton_("todo-list", "list"),
-=======
-              self.makeButton_("todo-list", "list")
->>>>>>> pr/41
             ],
             { class: "firepad-btn-group" }
           ),
@@ -2553,11 +2062,7 @@
             "div",
             [
               self.makeButton_("indent-decrease"),
-<<<<<<< HEAD
               self.makeButton_("indent-increase"),
-=======
-              self.makeButton_("indent-increase")
->>>>>>> pr/41
             ],
             { class: "firepad-btn-group" }
           ),
@@ -2566,11 +2071,7 @@
             [
               self.makeButton_("left", "paragraph-left"),
               self.makeButton_("center", "paragraph-center"),
-<<<<<<< HEAD
               self.makeButton_("right", "paragraph-right"),
-=======
-              self.makeButton_("right", "paragraph-right")
->>>>>>> pr/41
             ],
             { class: "firepad-btn-group" }
           ),
@@ -2578,31 +2079,19 @@
             "div",
             [self.makeButton_("undo"), self.makeButton_("redo")],
             { class: "firepad-btn-group" }
-<<<<<<< HEAD
           ),
-=======
-          )
->>>>>>> pr/41
         ];
 
         if (self.imageInsertionUI) {
           toolbarOptions.push(
             utils.elt("div", [self.makeButton_("insert-image")], {
-<<<<<<< HEAD
               class: "firepad-btn-group",
-=======
-              class: "firepad-btn-group"
->>>>>>> pr/41
             })
           );
         }
 
         var toolbarWrapper = utils.elt("div", toolbarOptions, {
-<<<<<<< HEAD
           class: "firepad-toolbar-wrapper",
-=======
-          class: "firepad-toolbar-wrapper"
->>>>>>> pr/41
         });
         var toolbar = utils.elt("div", null, { class: "firepad-toolbar" });
         toolbar.appendChild(toolbarWrapper);
@@ -2610,11 +2099,7 @@
         return toolbar;
       };
 
-<<<<<<< HEAD
       RichTextToolbar.prototype.makeFontDropdown_ = function () {
-=======
-      RichTextToolbar.prototype.makeFontDropdown_ = function() {
->>>>>>> pr/41
         // NOTE: There must be matching .css styles in firepad.css.
         var fonts = [
           "Arial",
@@ -2622,11 +2107,7 @@
           "Courier New",
           "Impact",
           "Times New Roman",
-<<<<<<< HEAD
           "Verdana",
-=======
-          "Verdana"
->>>>>>> pr/41
         ];
 
         var items = [];
@@ -2638,11 +2119,7 @@
         return this.makeDropdown_("Font", "font", items);
       };
 
-<<<<<<< HEAD
       RichTextToolbar.prototype.makeFontSizeDropdown_ = function () {
-=======
-      RichTextToolbar.prototype.makeFontSizeDropdown_ = function() {
->>>>>>> pr/41
         // NOTE: There must be matching .css styles in firepad.css.
         var sizes = [9, 10, 12, 14, 18, 24, 32, 42];
 
@@ -2662,11 +2139,7 @@
         return this.makeDropdown_("Size", "font-size", items, "px");
       };
 
-<<<<<<< HEAD
       RichTextToolbar.prototype.makeColorDropdown_ = function () {
-=======
-      RichTextToolbar.prototype.makeColorDropdown_ = function() {
->>>>>>> pr/41
         var colors = [
           "black",
           "red",
@@ -2675,11 +2148,7 @@
           "yellow",
           "cyan",
           "magenta",
-<<<<<<< HEAD
           "grey",
-=======
-          "grey"
->>>>>>> pr/41
         ];
 
         var items = [];
@@ -2692,11 +2161,7 @@
         return this.makeDropdown_("Color", "color", items);
       };
 
-<<<<<<< HEAD
       RichTextToolbar.prototype.makeDropdown_ = function (
-=======
-      RichTextToolbar.prototype.makeDropdown_ = function(
->>>>>>> pr/41
         title,
         eventName,
         items,
@@ -2705,11 +2170,7 @@
         value_suffix = value_suffix || "";
         var self = this;
         var button = utils.elt("a", title + " \u25be", {
-<<<<<<< HEAD
           class: "firepad-btn firepad-dropdown",
-=======
-          class: "firepad-btn firepad-dropdown"
->>>>>>> pr/41
         });
         var list = utils.elt("ul", [], { class: "firepad-dropdown-menu" });
         button.appendChild(list);
@@ -2732,11 +2193,7 @@
           }
           // HACK so we can avoid re-showing the dropdown if you click on the dropdown header to dismiss it.
           justDismissed = true;
-<<<<<<< HEAD
           setTimeout(function () {
-=======
-          setTimeout(function() {
->>>>>>> pr/41
             justDismissed = false;
           }, 0);
         }
@@ -2750,11 +2207,7 @@
           utils.on(
             element,
             "click",
-<<<<<<< HEAD
             utils.stopEventAnd(function () {
-=======
-            utils.stopEventAnd(function() {
->>>>>>> pr/41
               hideDropdown();
               self.trigger(eventName, value + value_suffix);
             })
@@ -2772,11 +2225,7 @@
         utils.on(
           button,
           "click",
-<<<<<<< HEAD
           utils.stopEventAnd(function () {
-=======
-          utils.stopEventAnd(function() {
->>>>>>> pr/41
             if (!justDismissed) {
               showDropdown();
             }
@@ -2790,11 +2239,7 @@
     })();
 
     var firepad = firepad || {};
-<<<<<<< HEAD
     firepad.WrappedOperation = (function (global) {
-=======
-    firepad.WrappedOperation = (function(global) {
->>>>>>> pr/41
       "use strict";
 
       // A WrappedOperation contains an operation and corresponing metadata.
@@ -2803,19 +2248,11 @@
         this.meta = meta;
       }
 
-<<<<<<< HEAD
       WrappedOperation.prototype.apply = function () {
         return this.wrapped.apply.apply(this.wrapped, arguments);
       };
 
       WrappedOperation.prototype.invert = function () {
-=======
-      WrappedOperation.prototype.apply = function() {
-        return this.wrapped.apply.apply(this.wrapped, arguments);
-      };
-
-      WrappedOperation.prototype.invert = function() {
->>>>>>> pr/41
         var meta = this.meta;
         return new WrappedOperation(
           this.wrapped.invert.apply(this.wrapped, arguments),
@@ -2847,11 +2284,7 @@
         return b;
       }
 
-<<<<<<< HEAD
       WrappedOperation.prototype.compose = function (other) {
-=======
-      WrappedOperation.prototype.compose = function(other) {
->>>>>>> pr/41
         return new WrappedOperation(
           this.wrapped.compose(other.wrapped),
           composeMeta(this.meta, other.meta)
@@ -2867,28 +2300,16 @@
         return meta;
       }
 
-<<<<<<< HEAD
       WrappedOperation.transform = function (a, b) {
         var pair = a.wrapped.transform(b.wrapped);
         return [
           new WrappedOperation(pair[0], transformMeta(a.meta, b.wrapped)),
           new WrappedOperation(pair[1], transformMeta(b.meta, a.wrapped)),
-=======
-      WrappedOperation.transform = function(a, b) {
-        var pair = a.wrapped.transform(b.wrapped);
-        return [
-          new WrappedOperation(pair[0], transformMeta(a.meta, b.wrapped)),
-          new WrappedOperation(pair[1], transformMeta(b.meta, a.wrapped))
->>>>>>> pr/41
         ];
       };
 
       // convenience method to write transform(a, b) as a.transform(b)
-<<<<<<< HEAD
       WrappedOperation.prototype.transform = function (other) {
-=======
-      WrappedOperation.prototype.transform = function(other) {
->>>>>>> pr/41
         return WrappedOperation.transform(this, other);
       };
 
@@ -2897,11 +2318,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.UndoManager = (function () {
-=======
-    firepad.UndoManager = (function() {
->>>>>>> pr/41
       "use strict";
 
       var NORMAL_STATE = "normal";
@@ -2922,11 +2339,7 @@
       // edit. When `compose` is true, compose the operation with the last operation
       // unless the last operation was alread pushed on the redo stack or was hidden
       // by a newer operation on the undo stack.
-<<<<<<< HEAD
       UndoManager.prototype.add = function (operation, compose) {
-=======
-      UndoManager.prototype.add = function(operation, compose) {
->>>>>>> pr/41
         if (this.state === UNDOING_STATE) {
           this.redoStack.push(operation);
           this.dontCompose = true;
@@ -2962,11 +2375,7 @@
       }
 
       // Transform the undo and redo stacks against a operation by another client.
-<<<<<<< HEAD
       UndoManager.prototype.transform = function (operation) {
-=======
-      UndoManager.prototype.transform = function(operation) {
->>>>>>> pr/41
         this.undoStack = transformStack(this.undoStack, operation);
         this.redoStack = transformStack(this.redoStack, operation);
       };
@@ -2974,11 +2383,7 @@
       // Perform an undo by calling a function with the latest operation on the undo
       // stack. The function is expected to call the `add` method with the inverse
       // of the operation, which pushes the inverse on the redo stack.
-<<<<<<< HEAD
       UndoManager.prototype.performUndo = function (fn) {
-=======
-      UndoManager.prototype.performUndo = function(fn) {
->>>>>>> pr/41
         this.state = UNDOING_STATE;
         if (this.undoStack.length === 0) {
           throw new Error("undo not possible");
@@ -2988,11 +2393,7 @@
       };
 
       // The inverse of `performUndo`.
-<<<<<<< HEAD
       UndoManager.prototype.performRedo = function (fn) {
-=======
-      UndoManager.prototype.performRedo = function(fn) {
->>>>>>> pr/41
         this.state = REDOING_STATE;
         if (this.redoStack.length === 0) {
           throw new Error("redo not possible");
@@ -3002,38 +2403,22 @@
       };
 
       // Is the undo stack not empty?
-<<<<<<< HEAD
       UndoManager.prototype.canUndo = function () {
-=======
-      UndoManager.prototype.canUndo = function() {
->>>>>>> pr/41
         return this.undoStack.length !== 0;
       };
 
       // Is the redo stack not empty?
-<<<<<<< HEAD
       UndoManager.prototype.canRedo = function () {
-=======
-      UndoManager.prototype.canRedo = function() {
->>>>>>> pr/41
         return this.redoStack.length !== 0;
       };
 
       // Whether the UndoManager is currently performing an undo.
-<<<<<<< HEAD
       UndoManager.prototype.isUndoing = function () {
-=======
-      UndoManager.prototype.isUndoing = function() {
->>>>>>> pr/41
         return this.state === UNDOING_STATE;
       };
 
       // Whether the UndoManager is currently performing a redo.
-<<<<<<< HEAD
       UndoManager.prototype.isRedoing = function () {
-=======
-      UndoManager.prototype.isRedoing = function() {
->>>>>>> pr/41
         return this.state === REDOING_STATE;
       };
 
@@ -3041,11 +2426,7 @@
     })();
 
     var firepad = firepad || {};
-<<<<<<< HEAD
     firepad.Client = (function () {
-=======
-    firepad.Client = (function() {
->>>>>>> pr/41
       "use strict";
 
       // Client constructor
@@ -3053,25 +2434,16 @@
         this.state = synchronized_; // start state
       }
 
-<<<<<<< HEAD
       Client.prototype.setState = function (state) {
-=======
-      Client.prototype.setState = function(state) {
->>>>>>> pr/41
         this.state = state;
       };
 
       // Call this method when the user changes the document.
-<<<<<<< HEAD
       Client.prototype.applyClient = function (operation) {
-=======
-      Client.prototype.applyClient = function(operation) {
->>>>>>> pr/41
         this.setState(this.state.applyClient(this, operation));
       };
 
       // Call this method with a new operation from the server
-<<<<<<< HEAD
       Client.prototype.applyServer = function (operation) {
         this.setState(this.state.applyServer(this, operation));
       };
@@ -3081,35 +2453,16 @@
       };
 
       Client.prototype.serverRetry = function () {
-=======
-      Client.prototype.applyServer = function(operation) {
-        this.setState(this.state.applyServer(this, operation));
-      };
-
-      Client.prototype.serverAck = function() {
-        this.setState(this.state.serverAck(this));
-      };
-
-      Client.prototype.serverRetry = function() {
->>>>>>> pr/41
         this.setState(this.state.serverRetry(this));
       };
 
       // Override this method.
-<<<<<<< HEAD
       Client.prototype.sendOperation = function (operation) {
-=======
-      Client.prototype.sendOperation = function(operation) {
->>>>>>> pr/41
         throw new Error("sendOperation must be defined in child class");
       };
 
       // Override this method.
-<<<<<<< HEAD
       Client.prototype.applyOperation = function (operation) {
-=======
-      Client.prototype.applyOperation = function(operation) {
->>>>>>> pr/41
         throw new Error("applyOperation must be defined in child class");
       };
 
@@ -3118,41 +2471,25 @@
       function Synchronized() {}
       Client.Synchronized = Synchronized;
 
-<<<<<<< HEAD
       Synchronized.prototype.applyClient = function (client, operation) {
-=======
-      Synchronized.prototype.applyClient = function(client, operation) {
->>>>>>> pr/41
         // When the user makes an edit, send the operation to the server and
         // switch to the 'AwaitingConfirm' state
         client.sendOperation(operation);
         return new AwaitingConfirm(operation);
       };
 
-<<<<<<< HEAD
       Synchronized.prototype.applyServer = function (client, operation) {
-=======
-      Synchronized.prototype.applyServer = function(client, operation) {
->>>>>>> pr/41
         // When we receive a new operation from the server, the operation can be
         // simply applied to the current document
         client.applyOperation(operation);
         return this;
       };
 
-<<<<<<< HEAD
       Synchronized.prototype.serverAck = function (client) {
         throw new Error("There is no pending operation.");
       };
 
       Synchronized.prototype.serverRetry = function (client) {
-=======
-      Synchronized.prototype.serverAck = function(client) {
-        throw new Error("There is no pending operation.");
-      };
-
-      Synchronized.prototype.serverRetry = function(client) {
->>>>>>> pr/41
         throw new Error("There is no pending operation.");
       };
 
@@ -3167,21 +2504,13 @@
       }
       Client.AwaitingConfirm = AwaitingConfirm;
 
-<<<<<<< HEAD
       AwaitingConfirm.prototype.applyClient = function (client, operation) {
-=======
-      AwaitingConfirm.prototype.applyClient = function(client, operation) {
->>>>>>> pr/41
         // When the user makes an edit, don't send the operation immediately,
         // instead switch to 'AwaitingWithBuffer' state
         return new AwaitingWithBuffer(this.outstanding, operation);
       };
 
-<<<<<<< HEAD
       AwaitingConfirm.prototype.applyServer = function (client, operation) {
-=======
-      AwaitingConfirm.prototype.applyServer = function(client, operation) {
->>>>>>> pr/41
         // This is another client's operation. Visualization:
         //
         //                   /\
@@ -3197,21 +2526,13 @@
         return new AwaitingConfirm(pair[0]);
       };
 
-<<<<<<< HEAD
       AwaitingConfirm.prototype.serverAck = function (client) {
-=======
-      AwaitingConfirm.prototype.serverAck = function(client) {
->>>>>>> pr/41
         // The client's operation has been acknowledged
         // => switch to synchronized state
         return synchronized_;
       };
 
-<<<<<<< HEAD
       AwaitingConfirm.prototype.serverRetry = function (client) {
-=======
-      AwaitingConfirm.prototype.serverRetry = function(client) {
->>>>>>> pr/41
         client.sendOperation(this.outstanding);
         return this;
       };
@@ -3225,21 +2546,13 @@
       }
       Client.AwaitingWithBuffer = AwaitingWithBuffer;
 
-<<<<<<< HEAD
       AwaitingWithBuffer.prototype.applyClient = function (client, operation) {
-=======
-      AwaitingWithBuffer.prototype.applyClient = function(client, operation) {
->>>>>>> pr/41
         // Compose the user's changes onto the buffer
         var newBuffer = this.buffer.compose(operation);
         return new AwaitingWithBuffer(this.outstanding, newBuffer);
       };
 
-<<<<<<< HEAD
       AwaitingWithBuffer.prototype.applyServer = function (client, operation) {
-=======
-      AwaitingWithBuffer.prototype.applyServer = function(client, operation) {
->>>>>>> pr/41
         // Operation comes from another client
         //
         //                       /\
@@ -3263,22 +2576,14 @@
         return new AwaitingWithBuffer(pair1[0], pair2[0]);
       };
 
-<<<<<<< HEAD
       AwaitingWithBuffer.prototype.serverRetry = function (client) {
-=======
-      AwaitingWithBuffer.prototype.serverRetry = function(client) {
->>>>>>> pr/41
         // Merge with our buffer and resend.
         var outstanding = this.outstanding.compose(this.buffer);
         client.sendOperation(outstanding);
         return new AwaitingConfirm(outstanding);
       };
 
-<<<<<<< HEAD
       AwaitingWithBuffer.prototype.serverAck = function (client) {
-=======
-      AwaitingWithBuffer.prototype.serverAck = function(client) {
->>>>>>> pr/41
         // The pending operation has been acknowledged
         // => send buffer
         client.sendOperation(this.buffer);
@@ -3290,11 +2595,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.EditorClient = (function () {
-=======
-    firepad.EditorClient = (function() {
->>>>>>> pr/41
       "use strict";
 
       var Client = firepad.Client;
@@ -3307,7 +2608,6 @@
         this.cursorAfter = cursorAfter;
       }
 
-<<<<<<< HEAD
       SelfMeta.prototype.invert = function () {
         return new SelfMeta(this.cursorAfter, this.cursorBefore);
       };
@@ -3317,17 +2617,6 @@
       };
 
       SelfMeta.prototype.transform = function (operation) {
-=======
-      SelfMeta.prototype.invert = function() {
-        return new SelfMeta(this.cursorAfter, this.cursorBefore);
-      };
-
-      SelfMeta.prototype.compose = function(other) {
-        return new SelfMeta(this.cursorBefore, other.cursorAfter);
-      };
-
-      SelfMeta.prototype.transform = function(operation) {
->>>>>>> pr/41
         return new SelfMeta(
           this.cursorBefore ? this.cursorBefore.transform(operation) : null,
           this.cursorAfter ? this.cursorAfter.transform(operation) : null
@@ -3339,19 +2628,11 @@
         this.editorAdapter = editorAdapter;
       }
 
-<<<<<<< HEAD
       OtherClient.prototype.setColor = function (color) {
         this.color = color;
       };
 
       OtherClient.prototype.updateCursor = function (cursor) {
-=======
-      OtherClient.prototype.setColor = function(color) {
-        this.color = color;
-      };
-
-      OtherClient.prototype.updateCursor = function(cursor) {
->>>>>>> pr/41
         this.removeCursor();
         this.cursor = cursor;
         this.mark = this.editorAdapter.setOtherCursor(
@@ -3359,7 +2640,6 @@
           this.color,
           this.id
         );
-<<<<<<< HEAD
         setCursorNamePosition();
       };
 
@@ -3388,11 +2668,6 @@
       window.onresize = setCursorNamePosition;
 
       OtherClient.prototype.removeCursor = function () {
-=======
-      };
-
-      OtherClient.prototype.removeCursor = function() {
->>>>>>> pr/41
         if (this.mark) {
           this.mark.clear();
         }
@@ -3409,7 +2684,6 @@
         var self = this;
 
         this.editorAdapter.registerCallbacks({
-<<<<<<< HEAD
           change: function (operation, inverse) {
             self.onChange(operation, inverse);
           },
@@ -3427,34 +2701,11 @@
           self.undo();
         });
         this.editorAdapter.registerRedo(function () {
-=======
-          change: function(operation, inverse) {
-            self.onChange(operation, inverse);
-          },
-          cursorActivity: function() {
-            self.onCursorActivity();
-          },
-          blur: function() {
-            self.onBlur();
-          },
-          focus: function() {
-            self.onFocus();
-          }
-        });
-        this.editorAdapter.registerUndo(function() {
-          self.undo();
-        });
-        this.editorAdapter.registerRedo(function() {
->>>>>>> pr/41
           self.redo();
         });
 
         this.serverAdapter.registerCallbacks({
-<<<<<<< HEAD
           ack: function () {
-=======
-          ack: function() {
->>>>>>> pr/41
             self.serverAck();
             if (self.focused && self.state instanceof Client.Synchronized) {
               self.updateCursor();
@@ -3462,7 +2713,6 @@
             }
             self.emitStatus();
           },
-<<<<<<< HEAD
           retry: function () {
             self.serverRetry();
           },
@@ -3470,15 +2720,6 @@
             self.applyServer(operation);
           },
           cursor: function (clientId, cursor, color) {
-=======
-          retry: function() {
-            self.serverRetry();
-          },
-          operation: function(operation) {
-            self.applyServer(operation);
-          },
-          cursor: function(clientId, cursor, color) {
->>>>>>> pr/41
             if (
               self.serverAdapter.userId_ === clientId ||
               !(self.state instanceof Client.Synchronized)
@@ -3492,21 +2733,13 @@
             } else {
               client.removeCursor();
             }
-<<<<<<< HEAD
           },
-=======
-          }
->>>>>>> pr/41
         });
       }
 
       inherit(EditorClient, Client);
 
-<<<<<<< HEAD
       EditorClient.prototype.getClientObject = function (clientId) {
-=======
-      EditorClient.prototype.getClientObject = function(clientId) {
->>>>>>> pr/41
         var client = this.clients[clientId];
         if (client) {
           return client;
@@ -3517,11 +2750,7 @@
         ));
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.applyUnredo = function (operation) {
-=======
-      EditorClient.prototype.applyUnredo = function(operation) {
->>>>>>> pr/41
         this.undoManager.add(this.editorAdapter.invertOperation(operation));
         this.editorAdapter.applyOperation(operation.wrapped);
         this.cursor = operation.meta.cursorAfter;
@@ -3529,47 +2758,27 @@
         this.applyClient(operation.wrapped);
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.undo = function () {
-=======
-      EditorClient.prototype.undo = function() {
->>>>>>> pr/41
         var self = this;
         if (!this.undoManager.canUndo()) {
           return;
         }
-<<<<<<< HEAD
         this.undoManager.performUndo(function (o) {
-=======
-        this.undoManager.performUndo(function(o) {
->>>>>>> pr/41
           self.applyUnredo(o);
         });
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.redo = function () {
-=======
-      EditorClient.prototype.redo = function() {
->>>>>>> pr/41
         var self = this;
         if (!this.undoManager.canRedo()) {
           return;
         }
-<<<<<<< HEAD
         this.undoManager.performRedo(function (o) {
-=======
-        this.undoManager.performRedo(function(o) {
->>>>>>> pr/41
           self.applyUnredo(o);
         });
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.onChange = function (textOperation, inverse) {
-=======
-      EditorClient.prototype.onChange = function(textOperation, inverse) {
->>>>>>> pr/41
         var cursorBefore = this.cursor;
         this.updateCursor();
 
@@ -3586,19 +2795,11 @@
         this.applyClient(textOperation);
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.updateCursor = function () {
         this.cursor = this.editorAdapter.getCursor();
       };
 
       EditorClient.prototype.onCursorActivity = function () {
-=======
-      EditorClient.prototype.updateCursor = function() {
-        this.cursor = this.editorAdapter.getCursor();
-      };
-
-      EditorClient.prototype.onCursorActivity = function() {
->>>>>>> pr/41
         var oldCursor = this.cursor;
         this.updateCursor();
         if (!this.focused || (oldCursor && this.cursor.equals(oldCursor))) {
@@ -3607,64 +2808,38 @@
         this.sendCursor(this.cursor);
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.onBlur = function () {
-=======
-      EditorClient.prototype.onBlur = function() {
->>>>>>> pr/41
         this.cursor = null;
         this.sendCursor(null);
         this.focused = false;
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.onFocus = function () {
-=======
-      EditorClient.prototype.onFocus = function() {
->>>>>>> pr/41
         this.focused = true;
         this.onCursorActivity();
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.sendCursor = function (cursor) {
-=======
-      EditorClient.prototype.sendCursor = function(cursor) {
->>>>>>> pr/41
         if (this.state instanceof Client.AwaitingWithBuffer) {
           return;
         }
         this.serverAdapter.sendCursor(cursor);
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.sendOperation = function (operation) {
-=======
-      EditorClient.prototype.sendOperation = function(operation) {
->>>>>>> pr/41
         this.serverAdapter.sendOperation(operation);
         this.emitStatus();
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.applyOperation = function (operation) {
-=======
-      EditorClient.prototype.applyOperation = function(operation) {
->>>>>>> pr/41
         this.editorAdapter.applyOperation(operation);
         this.updateCursor();
         this.undoManager.transform(new WrappedOperation(operation, null));
       };
 
-<<<<<<< HEAD
       EditorClient.prototype.emitStatus = function () {
         var self = this;
         setTimeout(function () {
-=======
-      EditorClient.prototype.emitStatus = function() {
-        var self = this;
-        setTimeout(function() {
->>>>>>> pr/41
           self.trigger("synced", self.state instanceof Client.Synchronized);
         }, 0);
       };
@@ -3761,13 +2936,8 @@
       firepad = {};
     }
 
-<<<<<<< HEAD
     firepad.ACEAdapter = function () {
       var ACEAdapter = /*#__PURE__*/ (function () {
-=======
-    firepad.ACEAdapter = function() {
-      var ACEAdapter = /*#__PURE__*/ (function() {
->>>>>>> pr/41
         function ACEAdapter(aceInstance) {
           _classCallCheck(this, ACEAdapter);
 
@@ -3799,11 +2969,7 @@
             value: function grabDocumentState() {
               this.lastDocLines = this.aceDoc.getAllLines();
               return (this.lastCursorRange = this.aceSession.selection.getRange());
-<<<<<<< HEAD
             }, // Removes all event listeners from the ACE editor instance
-=======
-            } // Removes all event listeners from the ACE editor instance
->>>>>>> pr/41
           },
           {
             key: "detach",
@@ -3815,11 +2981,7 @@
                 "changeCursor",
                 this.onCursorActivity
               );
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "onChange",
@@ -3834,11 +2996,7 @@
                 );
                 return this.grabDocumentState();
               }
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "onBlur",
@@ -3846,38 +3004,23 @@
               if (this.ace.selection.isEmpty()) {
                 return this.trigger("blur");
               }
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "onFocus",
             value: function onFocus() {
               return this.trigger("focus");
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "onCursorActivity",
             value: function onCursorActivity() {
               var _this = this;
 
-<<<<<<< HEAD
               return setTimeout(function () {
                 return _this.trigger("cursorActivity");
               }, 0);
             }, // Converts an ACE change object into a TextOperation and its inverse
-=======
-              return setTimeout(function() {
-                return _this.trigger("cursorActivity");
-              }, 0);
-            } // Converts an ACE change object into a TextOperation and its inverse
->>>>>>> pr/41
             // and returns them as a two-element array.
           },
           {
@@ -3937,11 +3080,7 @@
               } else {
                 return [insert_op, delete_op];
               }
-<<<<<<< HEAD
             }, // Apply an operation to an ACE instance.
-=======
-            } // Apply an operation to an ACE instance.
->>>>>>> pr/41
           },
           {
             key: "applyOperationToACE",
@@ -3967,11 +3106,7 @@
               }
 
               return this.grabDocumentState();
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "posFromIndex",
@@ -3991,15 +3126,9 @@
 
               return {
                 row: row,
-<<<<<<< HEAD
                 column: index,
               };
             },
-=======
-                column: index
-              };
-            }
->>>>>>> pr/41
           },
           {
             key: "indexFromPos",
@@ -4021,21 +3150,13 @@
               }
 
               return (index += pos.column);
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "getValue",
             value: function getValue() {
               return this.aceDoc.getValue();
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "getCursor",
@@ -4077,11 +3198,7 @@
               }
 
               return new firepad.Cursor(start, end);
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "setCursor",
@@ -4099,11 +3216,7 @@
               return this.aceSession.selection.setSelectionRange(
                 new this.aceRange(start.row, start.column, end.row, end.column)
               );
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "setOtherCursor",
@@ -4162,19 +3275,11 @@
 
               self = this;
 
-<<<<<<< HEAD
               cursorRange.clipRows = function () {
                 var range;
                 range = self.aceRange.prototype.clipRows.apply(this, arguments);
 
                 range.isEmpty = function () {
-=======
-              cursorRange.clipRows = function() {
-                var range;
-                range = self.aceRange.prototype.clipRows.apply(this, arguments);
-
-                range.isEmpty = function() {
->>>>>>> pr/41
                   return false;
                 };
 
@@ -4194,15 +3299,9 @@
                   cursorRange.start.detach();
                   cursorRange.end.detach();
                   return _this2.aceSession.removeMarker(cursorRange.id);
-<<<<<<< HEAD
                 },
               };
             },
-=======
-                }
-              };
-            }
->>>>>>> pr/41
           },
           {
             key: "addStyleRule",
@@ -4228,21 +3327,13 @@
 
               this.addedStyleRules[css] = true;
               return this.addedStyleSheet.insertRule(css, 0);
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "registerCallbacks",
             value: function registerCallbacks(callbacks) {
               this.callbacks = callbacks;
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "trigger",
@@ -4264,11 +3355,7 @@
                   ? ref1.apply(this, args)
                   : void 0
                 : void 0;
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "applyOperation",
@@ -4279,44 +3366,27 @@
 
               this.applyOperationToACE(operation);
               return (this.ignoreChanges = false);
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "registerUndo",
             value: function registerUndo(undoFn) {
               return (this.ace.undo = undoFn);
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "registerRedo",
             value: function registerRedo(redoFn) {
               return (this.ace.redo = redoFn);
-<<<<<<< HEAD
             },
-=======
-            }
->>>>>>> pr/41
           },
           {
             key: "invertOperation",
             value: function invertOperation(operation) {
               // TODO: Optimize to avoid copying entire text?
               return operation.invert(this.getValue());
-<<<<<<< HEAD
             },
           },
-=======
-            }
-          }
->>>>>>> pr/41
         ]);
 
         return ACEAdapter;
@@ -4374,11 +3444,7 @@
      * Monaco Adapter
      * Create Pipe between Firebase and Monaco Text Editor
      */
-<<<<<<< HEAD
     var MonacoAdapter = (function () {
-=======
-    var MonacoAdapter = (function() {
->>>>>>> pr/41
       /**
        * @constructor MonacoEditor
        * @param {MonacoEditor} monacoInstance - Editor Instance
@@ -4537,11 +3603,7 @@
         }
 
         /** Fetch Client Cursor Information */
-<<<<<<< HEAD
         var otherCursor = this.otherCursors.find(function (cursor) {
-=======
-        var otherCursor = this.otherCursors.find(function(cursor) {
->>>>>>> pr/41
           return cursor.clientID === clientID;
         });
 
@@ -4549,11 +3611,7 @@
         if (!otherCursor) {
           otherCursor = {
             clientID: clientID,
-<<<<<<< HEAD
             decoration: [],
-=======
-            decoration: []
->>>>>>> pr/41
           };
           this.otherCursors.push(otherCursor);
         }
@@ -4610,15 +3668,9 @@
                 end.column
               ),
               options: {
-<<<<<<< HEAD
                 className: clazz,
               },
             },
-=======
-                className: clazz
-              }
-            }
->>>>>>> pr/41
           ]
         );
 
@@ -4630,11 +3682,7 @@
               otherCursor.decoration,
               []
             );
-<<<<<<< HEAD
           },
-=======
-          }
->>>>>>> pr/41
         };
       };
 
@@ -4764,11 +3812,7 @@
           }
 
           /** Reverse iterate all changes */
-<<<<<<< HEAD
           event.changes.reverse().forEach(function (change) {
-=======
-          event.changes.reverse().forEach(function(change) {
->>>>>>> pr/41
             var pair = _this.operationFromMonacoChanges(
               change,
               content,
@@ -4833,11 +3877,7 @@
       MonacoAdapter.prototype.onCursorActivity = function onCursorActivity() {
         var _this = this;
 
-<<<<<<< HEAD
         setTimeout(function () {
-=======
-        setTimeout(function() {
->>>>>>> pr/41
           return _this.trigger("cursorActivity");
         }, 1);
       };
@@ -4858,11 +3898,7 @@
         var index = 0;
 
         var _this = this;
-<<<<<<< HEAD
         opsList.forEach(function (op) {
-=======
-        opsList.forEach(function(op) {
->>>>>>> pr/41
           /** Retain Operation */
           if (op.isRetain()) {
             index += op.chars;
@@ -4879,13 +3915,8 @@
                   pos.column
                 ),
                 text: op.text,
-<<<<<<< HEAD
                 forceMoveMarkers: true,
               },
-=======
-                forceMoveMarkers: true
-              }
->>>>>>> pr/41
             ]);
 
             index += op.text.length;
@@ -4903,13 +3934,8 @@
                   to.column
                 ),
                 text: "",
-<<<<<<< HEAD
                 forceMoveMarkers: true,
               },
-=======
-                forceMoveMarkers: true
-              }
->>>>>>> pr/41
             ]);
           }
         });
@@ -4951,11 +3977,7 @@
       LINE_SENTINEL: "l",
       LINE_INDENT: "li",
       LINE_ALIGN: "la",
-<<<<<<< HEAD
       LIST_TYPE: "lt",
-=======
-      LIST_TYPE: "lt"
->>>>>>> pr/41
     };
 
     firepad.sentinelConstants = {
@@ -4964,20 +3986,12 @@
       LINE_SENTINEL_CHARACTER: "\uE000",
 
       // A special character used to represent any "entity" inserted into the document (e.g. an image).
-<<<<<<< HEAD
       ENTITY_SENTINEL_CHARACTER: "\uE001",
-=======
-      ENTITY_SENTINEL_CHARACTER: "\uE001"
->>>>>>> pr/41
     };
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.EntityManager = (function () {
-=======
-    firepad.EntityManager = (function() {
->>>>>>> pr/41
       var utils = firepad.utils;
 
       function EntityManager() {
@@ -4985,11 +3999,7 @@
 
         var attrs = ["src", "alt", "width", "height", "style", "class"];
         this.register("img", {
-<<<<<<< HEAD
           render: function (info) {
-=======
-          render: function(info) {
->>>>>>> pr/41
             utils.assert(info.src, "image entity should have 'src'!");
             var attrs = ["src", "alt", "width", "height", "style", "class"];
             var html = "<img ";
@@ -5002,11 +4012,7 @@
             html += ">";
             return html;
           },
-<<<<<<< HEAD
           fromElement: function (element) {
-=======
-          fromElement: function(element) {
->>>>>>> pr/41
             var info = {};
             for (var i = 0; i < attrs.length; i++) {
               var attr = attrs[i];
@@ -5015,19 +4021,11 @@
               }
             }
             return info;
-<<<<<<< HEAD
           },
         });
       }
 
       EntityManager.prototype.register = function (type, options) {
-=======
-          }
-        });
-      }
-
-      EntityManager.prototype.register = function(type, options) {
->>>>>>> pr/41
         firepad.utils.assert(
           options.render,
           "Entity options should include a 'render' function!"
@@ -5039,7 +4037,6 @@
         this.entities_[type] = options;
       };
 
-<<<<<<< HEAD
       EntityManager.prototype.renderToElement = function (
         entity,
         entityHandle
@@ -5048,13 +4045,6 @@
       };
 
       EntityManager.prototype.exportToElement = function (entity) {
-=======
-      EntityManager.prototype.renderToElement = function(entity, entityHandle) {
-        return this.tryRenderToElement_(entity, "render", entityHandle);
-      };
-
-      EntityManager.prototype.exportToElement = function(entity) {
->>>>>>> pr/41
         // Turns out 'export' is a reserved keyword, so 'getHtml' is preferable.
         var elt =
           this.tryRenderToElement_(entity, "export") ||
@@ -5068,11 +4058,7 @@
      If the entity doesn't support the update method, it is fully
      re-rendered.
   */
-<<<<<<< HEAD
       EntityManager.prototype.updateElement = function (entity, element) {
-=======
-      EntityManager.prototype.updateElement = function(entity, element) {
->>>>>>> pr/41
         var type = entity.type;
         var info = entity.info;
         if (
@@ -5083,11 +4069,7 @@
         }
       };
 
-<<<<<<< HEAD
       EntityManager.prototype.fromElement = function (element) {
-=======
-      EntityManager.prototype.fromElement = function(element) {
->>>>>>> pr/41
         var type = element.getAttribute("data-firepad-entity");
 
         // HACK.  This should be configurable through entity registration.
@@ -5099,11 +4081,7 @@
         }
       };
 
-<<<<<<< HEAD
       EntityManager.prototype.tryRenderToElement_ = function (
-=======
-      EntityManager.prototype.tryRenderToElement_ = function(
->>>>>>> pr/41
         entity,
         renderFn,
         entityHandle
@@ -5136,11 +4114,7 @@
         }
       };
 
-<<<<<<< HEAD
       EntityManager.prototype.entitySupportsUpdate = function (entityType) {
-=======
-      EntityManager.prototype.entitySupportsUpdate = function(entityType) {
->>>>>>> pr/41
         return (
           this.entities_[entityType] && this.entities_[entityType]["update"]
         );
@@ -5154,11 +4128,7 @@
     /**
      * Object to represent an Entity.
      */
-<<<<<<< HEAD
     firepad.Entity = (function () {
-=======
-    firepad.Entity = (function() {
->>>>>>> pr/41
       var ATTR = firepad.AttributeConstants;
       var SENTINEL = ATTR.ENTITY_SENTINEL;
       var PREFIX = SENTINEL + "_";
@@ -5173,11 +4143,7 @@
         this.info = info || {};
       }
 
-<<<<<<< HEAD
       Entity.prototype.toAttributes = function () {
-=======
-      Entity.prototype.toAttributes = function() {
->>>>>>> pr/41
         var attrs = {};
         attrs[SENTINEL] = this.type;
 
@@ -5188,11 +4154,7 @@
         return attrs;
       };
 
-<<<<<<< HEAD
       Entity.fromAttributes = function (attributes) {
-=======
-      Entity.fromAttributes = function(attributes) {
->>>>>>> pr/41
         var type = attributes[SENTINEL];
         var info = {};
         for (var attr in attributes) {
@@ -5209,11 +4171,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.RichTextCodeMirror = (function () {
-=======
-    firepad.RichTextCodeMirror = (function() {
->>>>>>> pr/41
       var AnnotationList = firepad.AnnotationList;
       var Span = firepad.Span;
       var utils = firepad.utils;
@@ -5226,15 +4184,9 @@
         c: "color",
         bc: "background-color",
         fs: "font-size",
-<<<<<<< HEAD
         li: function (indent) {
           return "padding-left: " + indent * 40 + "px";
         },
-=======
-        li: function(indent) {
-          return "padding-left: " + indent * 40 + "px";
-        }
->>>>>>> pr/41
       };
 
       // A cache of dynamically-created styles so we can re-use them.
@@ -5247,14 +4199,10 @@
         this.currentAttributes_ = null;
 
         var self = this;
-<<<<<<< HEAD
         this.annotationList_ = new AnnotationList(function (
           oldNodes,
           newNodes
         ) {
-=======
-        this.annotationList_ = new AnnotationList(function(oldNodes, newNodes) {
->>>>>>> pr/41
           self.onAnnotationsChanged_(oldNodes, newNodes);
         });
 
@@ -5280,11 +4228,7 @@
       utils.makeEventEmitter(RichTextCodeMirror, [
         "change",
         "attributesChange",
-<<<<<<< HEAD
         "newLine",
-=======
-        "newLine"
->>>>>>> pr/41
       ]);
 
       var LineSentinelCharacter =
@@ -5292,11 +4236,7 @@
       var EntitySentinelCharacter =
         firepad.sentinelConstants.ENTITY_SENTINEL_CHARACTER;
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.detach = function () {
-=======
-      RichTextCodeMirror.prototype.detach = function() {
->>>>>>> pr/41
         this.codeMirror.off("beforeChange", this.onCodeMirrorBeforeChange_);
         this.codeMirror.off("change", this.onCodeMirrorChange_);
         this.codeMirror.off("changes", this.onCodeMirrorChange_);
@@ -5304,11 +4244,7 @@
         this.clearAnnotations_();
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.toggleAttribute = function (
-=======
-      RichTextCodeMirror.prototype.toggleAttribute = function(
->>>>>>> pr/41
         attribute,
         value
       ) {
@@ -5329,11 +4265,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.setAttribute = function (attribute, value) {
-=======
-      RichTextCodeMirror.prototype.setAttribute = function(attribute, value) {
->>>>>>> pr/41
         var cm = this.codeMirror;
         if (this.emptySelection_()) {
           var attrs = this.getCurrentAttributes_();
@@ -5347,11 +4279,7 @@
           this.updateTextAttributes(
             cm.indexFromPos(cm.getCursor("start")),
             cm.indexFromPos(cm.getCursor("end")),
-<<<<<<< HEAD
             function (attributes) {
-=======
-            function(attributes) {
->>>>>>> pr/41
               if (value === false) {
                 delete attributes[attribute];
               } else {
@@ -5364,11 +4292,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.updateTextAttributes = function (
-=======
-      RichTextCodeMirror.prototype.updateTextAttributes = function(
->>>>>>> pr/41
         start,
         end,
         updateFn,
@@ -5378,11 +4302,7 @@
         var newChanges = [];
         var pos = start,
           self = this;
-<<<<<<< HEAD
         this.annotationList_.updateSpan(new Span(start, end - start), function (
-=======
-        this.annotationList_.updateSpan(new Span(start, end - start), function(
->>>>>>> pr/41
           annotation,
           length
         ) {
@@ -5411,11 +4331,7 @@
               end: pos + length,
               attributes: changedAttributes,
               attributesInverse: changedAttributesInverse,
-<<<<<<< HEAD
               origin: origin,
-=======
-              origin: origin
->>>>>>> pr/41
             });
           }
 
@@ -5428,11 +4344,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.computeChangedAttributes_ = function (
-=======
-      RichTextCodeMirror.prototype.computeChangedAttributes_ = function(
->>>>>>> pr/41
         oldAttrs,
         newAttrs,
         changed,
@@ -5464,11 +4376,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.toggleLineAttribute = function (
-=======
-      RichTextCodeMirror.prototype.toggleLineAttribute = function(
->>>>>>> pr/41
         attribute,
         value
       ) {
@@ -5485,19 +4393,11 @@
         this.setLineAttribute(attribute, newValue);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.setLineAttribute = function (
         attribute,
         value
       ) {
         this.updateLineAttributesForSelection(function (attributes) {
-=======
-      RichTextCodeMirror.prototype.setLineAttribute = function(
-        attribute,
-        value
-      ) {
-        this.updateLineAttributesForSelection(function(attributes) {
->>>>>>> pr/41
           if (value === false) {
             delete attributes[attribute];
           } else {
@@ -5506,11 +4406,7 @@
         });
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.updateLineAttributesForSelection = function (
-=======
-      RichTextCodeMirror.prototype.updateLineAttributesForSelection = function(
->>>>>>> pr/41
         updateFn
       ) {
         var cm = this.codeMirror;
@@ -5530,11 +4426,7 @@
         this.updateLineAttributes(startLine, endLine, updateFn);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.updateLineAttributes = function (
-=======
-      RichTextCodeMirror.prototype.updateLineAttributes = function(
->>>>>>> pr/41
         startLine,
         endLine,
         updateFn
@@ -5544,11 +4436,7 @@
           var text = this.codeMirror.getLine(line);
           var lineStartIndex = this.codeMirror.indexFromPos({
             line: line,
-<<<<<<< HEAD
             ch: 0,
-=======
-            ch: 0
->>>>>>> pr/41
           });
           // Create line sentinel character if necessary.
           if (text[0] !== LineSentinelCharacter) {
@@ -5568,11 +4456,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.replaceText = function (
-=======
-      RichTextCodeMirror.prototype.replaceText = function(
->>>>>>> pr/41
         start,
         end,
         text,
@@ -5583,11 +4467,7 @@
         var newOrigin = RichTextOriginPrefix + this.changeId_;
         this.outstandingChanges_[newOrigin] = {
           origOrigin: origin,
-<<<<<<< HEAD
           attributes: attributes,
-=======
-          attributes: attributes
->>>>>>> pr/41
         };
 
         var cm = this.codeMirror;
@@ -5596,11 +4476,7 @@
         cm.replaceRange(text, from, to, newOrigin);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.insertText = function (
-=======
-      RichTextCodeMirror.prototype.insertText = function(
->>>>>>> pr/41
         index,
         text,
         attributes,
@@ -5616,11 +4492,7 @@
         if (resetCursor) cm.setCursor(cursor);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.removeText = function (start, end, origin) {
-=======
-      RichTextCodeMirror.prototype.removeText = function(start, end, origin) {
->>>>>>> pr/41
         var cm = this.codeMirror;
         cm.replaceRange(
           "",
@@ -5630,11 +4502,7 @@
         );
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.insertEntityAtCursor = function (
-=======
-      RichTextCodeMirror.prototype.insertEntityAtCursor = function(
->>>>>>> pr/41
         type,
         info,
         origin
@@ -5644,11 +4512,7 @@
         this.insertEntityAt(index, type, info, origin);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.insertEntityAt = function (
-=======
-      RichTextCodeMirror.prototype.insertEntityAt = function(
->>>>>>> pr/41
         index,
         type,
         info,
@@ -5658,11 +4522,7 @@
         this.insertEntity_(index, new firepad.Entity(type, info), origin);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.insertEntity_ = function (
-=======
-      RichTextCodeMirror.prototype.insertEntity_ = function(
->>>>>>> pr/41
         index,
         entity,
         origin
@@ -5676,11 +4536,7 @@
         );
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.getAttributeSpans = function (start, end) {
-=======
-      RichTextCodeMirror.prototype.getAttributeSpans = function(start, end) {
->>>>>>> pr/41
         var spans = [];
         var annotatedSpans = this.annotationList_.getAnnotatedSpansForSpan(
           new Span(start, end - start)
@@ -5688,18 +4544,13 @@
         for (var i = 0; i < annotatedSpans.length; i++) {
           spans.push({
             length: annotatedSpans[i].length,
-<<<<<<< HEAD
             attributes: annotatedSpans[i].annotation.attributes,
-=======
-            attributes: annotatedSpans[i].annotation.attributes
->>>>>>> pr/41
           });
         }
 
         return spans;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.end = function () {
         var lastLine = this.codeMirror.lineCount() - 1;
         return this.codeMirror.indexFromPos({
@@ -5709,27 +4560,12 @@
       };
 
       RichTextCodeMirror.prototype.getRange = function (start, end) {
-=======
-      RichTextCodeMirror.prototype.end = function() {
-        var lastLine = this.codeMirror.lineCount() - 1;
-        return this.codeMirror.indexFromPos({
-          line: lastLine,
-          ch: this.codeMirror.getLine(lastLine).length
-        });
-      };
-
-      RichTextCodeMirror.prototype.getRange = function(start, end) {
->>>>>>> pr/41
         var from = this.codeMirror.posFromIndex(start),
           to = this.codeMirror.posFromIndex(end);
         return this.codeMirror.getRange(from, to);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.initAnnotationList_ = function () {
-=======
-      RichTextCodeMirror.prototype.initAnnotationList_ = function() {
->>>>>>> pr/41
         // Insert empty annotation span for existing content.
         var end = this.end();
         if (end !== 0) {
@@ -5745,11 +4581,7 @@
        * @param {Array.<OldAnnotatedSpan>} oldNodes The list of nodes to replace.
        * @param {Array.<NewAnnotatedSpan>} newNodes The new list of nodes.
        */
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.onAnnotationsChanged_ = function (
-=======
-      RichTextCodeMirror.prototype.onAnnotationsChanged_ = function(
->>>>>>> pr/41
         oldNodes,
         newNodes
       ) {
@@ -5793,11 +4625,7 @@
                 newNodes[i].pos + newNodes[i].length
               );
               marker = this.codeMirror.markText(from, to, {
-<<<<<<< HEAD
                 className: className,
-=======
-                className: className
->>>>>>> pr/41
               });
               newNodes[i].attachObject(marker);
             }
@@ -5810,11 +4638,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.tryToUpdateEntitiesInPlace = function (
-=======
-      RichTextCodeMirror.prototype.tryToUpdateEntitiesInPlace = function(
->>>>>>> pr/41
         oldNodes,
         newNodes
       ) {
@@ -5846,19 +4670,11 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.queueLineMarking_ = function () {
         if (this.lineMarkTimeout_ != null) return;
         var self = this;
 
         this.lineMarkTimeout_ = setTimeout(function () {
-=======
-      RichTextCodeMirror.prototype.queueLineMarking_ = function() {
-        if (this.lineMarkTimeout_ != null) return;
-        var self = this;
-
-        this.lineMarkTimeout_ = setTimeout(function() {
->>>>>>> pr/41
           self.lineMarkTimeout_ = null;
           var dirtyLineNumbers = [];
           for (var i = 0; i < self.dirtyLines_.length; i++) {
@@ -5867,11 +4683,7 @@
           }
           self.dirtyLines_ = [];
 
-<<<<<<< HEAD
           dirtyLineNumbers.sort(function (a, b) {
-=======
-          dirtyLineNumbers.sort(function(a, b) {
->>>>>>> pr/41
             return a - b;
           });
           var lastLineMarked = -1;
@@ -5887,11 +4699,7 @@
         }, 0);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.addStyleWithCSS_ = function (css) {
-=======
-      RichTextCodeMirror.prototype.addStyleWithCSS_ = function(css) {
->>>>>>> pr/41
         var head = document.getElementsByTagName("head")[0],
           style = document.createElement("style");
 
@@ -5905,11 +4713,7 @@
         head.appendChild(style);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.getClassNameForAttributes_ = function (
-=======
-      RichTextCodeMirror.prototype.getClassNameForAttributes_ = function(
->>>>>>> pr/41
         attributes
       ) {
         var globalClassName = "";
@@ -5967,11 +4771,7 @@
         return globalClassName;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.markEntity_ = function (annotationNode) {
-=======
-      RichTextCodeMirror.prototype.markEntity_ = function(annotationNode) {
->>>>>>> pr/41
         var attributes = annotationNode.annotation.attributes;
         var entity = firepad.Entity.fromAttributes(attributes);
         var cm = this.codeMirror;
@@ -5986,11 +4786,7 @@
             collapsed: true,
             atomic: true,
             inclusiveLeft: false,
-<<<<<<< HEAD
             inclusiveRight: false,
-=======
-            inclusiveRight: false
->>>>>>> pr/41
           };
 
           var entityHandle = this.createEntityHandle_(
@@ -6011,11 +4807,7 @@
         }
 
         annotationNode.attachObject({
-<<<<<<< HEAD
           clear: function () {
-=======
-          clear: function() {
->>>>>>> pr/41
             for (var i = 0; i < markers.length; i++) {
               markers[i].clear();
             }
@@ -6026,11 +4818,7 @@
            * @param {Object.<string, string>} info The full list of new
            *     attributes to apply.
            */
-<<<<<<< HEAD
           update: function (info) {
-=======
-          update: function(info) {
->>>>>>> pr/41
             var entity = firepad.Entity.fromAttributes(info);
             for (var i = 0; i < markers.length; i++) {
               self.entityManager_.updateElement(
@@ -6038,39 +4826,24 @@
                 markers[i].replacedWith
               );
             }
-<<<<<<< HEAD
           },
-=======
-          }
->>>>>>> pr/41
         });
 
         // This probably shouldn't be necessary.  There must be a lurking CodeMirror bug.
         this.queueRefresh_();
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.queueRefresh_ = function () {
         var self = this;
         if (!this.refreshTimer_) {
           this.refreshTimer_ = setTimeout(function () {
-=======
-      RichTextCodeMirror.prototype.queueRefresh_ = function() {
-        var self = this;
-        if (!this.refreshTimer_) {
-          this.refreshTimer_ = setTimeout(function() {
->>>>>>> pr/41
             self.codeMirror.refresh();
             self.refreshTimer_ = null;
           }, 0);
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.createEntityHandle_ = function (
-=======
-      RichTextCodeMirror.prototype.createEntityHandle_ = function(
->>>>>>> pr/41
         entity,
         location
       ) {
@@ -6107,11 +4880,7 @@
 
           var at = find();
 
-<<<<<<< HEAD
           self.updateTextAttributes(at, at + 1, function (attrs) {
-=======
-          self.updateTextAttributes(at, at + 1, function(attrs) {
->>>>>>> pr/41
             for (var member in attrs) {
               delete attrs[member];
             }
@@ -6131,7 +4900,6 @@
           find: find,
           remove: remove,
           replace: replace,
-<<<<<<< HEAD
           setMarker: setMarker,
         };
       };
@@ -6148,34 +4916,12 @@
       };
 
       RichTextCodeMirror.prototype.emptySelection_ = function () {
-=======
-          setMarker: setMarker
-        };
-      };
-
-      RichTextCodeMirror.prototype.lineClassRemover_ = function(lineNum) {
-        var cm = this.codeMirror;
-        var lineHandle = cm.getLineHandle(lineNum);
-        return {
-          clear: function() {
-            // HACK to remove all classes (since CodeMirror treats this as a regex internally).
-            cm.removeLineClass(lineHandle, "text", ".*");
-          }
-        };
-      };
-
-      RichTextCodeMirror.prototype.emptySelection_ = function() {
->>>>>>> pr/41
         var start = this.codeMirror.getCursor("start"),
           end = this.codeMirror.getCursor("end");
         return start.line === end.line && start.ch === end.ch;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.onCodeMirrorBeforeChange_ = function (
-=======
-      RichTextCodeMirror.prototype.onCodeMirrorBeforeChange_ = function(
->>>>>>> pr/41
         cm,
         change
       ) {
@@ -6222,11 +4968,7 @@
         return sum + strArr.length - 1;
       }
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.onCodeMirrorChange_ = function (
-=======
-      RichTextCodeMirror.prototype.onCodeMirrorChange_ = function(
->>>>>>> pr/41
         cm,
         cmChanges
       ) {
@@ -6266,11 +5008,7 @@
                 removed: removed.substr(removedPos, span.length),
                 attributes: {},
                 text: "",
-<<<<<<< HEAD
                 origin: change.origin,
-=======
-                origin: change.origin
->>>>>>> pr/41
               });
               removedPos += span.length;
             }
@@ -6303,11 +5041,7 @@
               removed: "",
               text: text,
               attributes: attributes,
-<<<<<<< HEAD
               origin: origin,
-=======
-              origin: origin
->>>>>>> pr/41
             });
           }
         }
@@ -6319,11 +5053,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.convertCoordinateSystemForChanges_ = function (
-=======
-      RichTextCodeMirror.prototype.convertCoordinateSystemForChanges_ = function(
->>>>>>> pr/41
         changes
       ) {
         // We have to convert the positions in the pre-change coordinate system to indexes.
@@ -6335,20 +5065,12 @@
         // linked list of changes.
 
         var self = this;
-<<<<<<< HEAD
         var indexFromPos = function (pos) {
-=======
-        var indexFromPos = function(pos) {
->>>>>>> pr/41
           return self.codeMirror.indexFromPos(pos);
         };
 
         function updateIndexFromPos(indexFromPos, change) {
-<<<<<<< HEAD
           return function (pos) {
-=======
-          return function(pos) {
->>>>>>> pr/41
             if (posLe(pos, change.from)) {
               return indexFromPos(pos);
             }
@@ -6367,11 +5089,7 @@
                       ? pos.ch -
                         (change.to.ch - change.from.ch) +
                         sumLengths(change.text)
-<<<<<<< HEAD
                       : pos.ch - change.to.ch + last(change.text).length,
-=======
-                      : pos.ch - change.to.ch + last(change.text).length
->>>>>>> pr/41
                 }) +
                 sumLengths(change.removed) -
                 sumLengths(change.text)
@@ -6403,11 +5121,7 @@
             end: start + removedText.length,
             removed: removedText,
             text: text,
-<<<<<<< HEAD
             origin: change.origin,
-=======
-            origin: change.origin
->>>>>>> pr/41
           });
         }
         return newChanges;
@@ -6419,11 +5133,7 @@
        * @param changes
        * @private
        */
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.markLineSentinelCharactersForChanges_ = function (
-=======
-      RichTextCodeMirror.prototype.markLineSentinelCharactersForChanges_ = function(
->>>>>>> pr/41
         changes
       ) {
         // TODO: This doesn't handle multiple changes correctly (overlapping, out-of-oder, etc.).
@@ -6463,11 +5173,7 @@
         this.markLineSentinelCharactersForChangedLines_(startLine, endLine);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.markLineSentinelCharactersForChangedLines_ = function (
-=======
-      RichTextCodeMirror.prototype.markLineSentinelCharactersForChangedLines_ = function(
->>>>>>> pr/41
         startLine,
         endLine
       ) {
@@ -6539,11 +5245,7 @@
         return endLine;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.markLineSentinelCharacters_ = function (
-=======
-      RichTextCodeMirror.prototype.markLineSentinelCharacters_ = function(
->>>>>>> pr/41
         line,
         startIndex,
         endIndex,
@@ -6554,11 +5256,7 @@
         // the appropriate html element for the list heading.
         var element = null;
         var marker = null;
-<<<<<<< HEAD
         var getMarkerLine = function () {
-=======
-        var getMarkerLine = function() {
->>>>>>> pr/41
           var span = marker.find();
           return span ? span.from.line : null;
         };
@@ -6612,7 +5310,6 @@
         marker.isForLineSentinel = true;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.makeOrderedListElement_ = function (number) {
         return utils.elt("div", number + ".", {
           class: "firepad-list-left",
@@ -6626,21 +5323,6 @@
       };
 
       RichTextCodeMirror.prototype.toggleTodo = function (noRemove) {
-=======
-      RichTextCodeMirror.prototype.makeOrderedListElement_ = function(number) {
-        return utils.elt("div", number + ".", {
-          class: "firepad-list-left"
-        });
-      };
-
-      RichTextCodeMirror.prototype.makeUnorderedListElement_ = function() {
-        return utils.elt("div", "\u2022", {
-          class: "firepad-list-left"
-        });
-      };
-
-      RichTextCodeMirror.prototype.toggleTodo = function(noRemove) {
->>>>>>> pr/41
         var attribute = ATTR.LIST_TYPE;
         var currentAttributes = this.getCurrentLineAttributes_();
         var newValue;
@@ -6658,21 +5340,13 @@
         this.setLineAttribute(attribute, newValue);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.makeTodoListElement_ = function (
-=======
-      RichTextCodeMirror.prototype.makeTodoListElement_ = function(
->>>>>>> pr/41
         checked,
         getMarkerLine
       ) {
         var params = {
           type: "checkbox",
-<<<<<<< HEAD
           class: "firepad-todo-left",
-=======
-          class: "firepad-todo-left"
->>>>>>> pr/41
         };
         if (checked) params["checked"] = true;
         var el = utils.elt("input", false, params);
@@ -6680,11 +5354,7 @@
         utils.on(
           el,
           "click",
-<<<<<<< HEAD
           utils.stopEventAnd(function (e) {
-=======
-          utils.stopEventAnd(function(e) {
->>>>>>> pr/41
             self.codeMirror.setCursor({ line: getMarkerLine(), ch: 1 });
             self.toggleTodo(true);
           })
@@ -6692,11 +5362,7 @@
         return el;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.lineIsListItemOrIndented_ = function (
-=======
-      RichTextCodeMirror.prototype.lineIsListItemOrIndented_ = function(
->>>>>>> pr/41
         lineNum
       ) {
         var attrs = this.getLineAttributes_(lineNum);
@@ -6706,35 +5372,21 @@
         );
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.onCursorActivity_ = function () {
         var self = this;
         setTimeout(function () {
-=======
-      RichTextCodeMirror.prototype.onCursorActivity_ = function() {
-        var self = this;
-        setTimeout(function() {
->>>>>>> pr/41
           self.updateCurrentAttributes_();
         }, 1);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.getCurrentAttributes_ = function () {
-=======
-      RichTextCodeMirror.prototype.getCurrentAttributes_ = function() {
->>>>>>> pr/41
         if (!this.currentAttributes_) {
           this.updateCurrentAttributes_();
         }
         return this.currentAttributes_;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.updateCurrentAttributes_ = function () {
-=======
-      RichTextCodeMirror.prototype.updateCurrentAttributes_ = function() {
->>>>>>> pr/41
         var cm = this.codeMirror;
         var anchor = cm.indexFromPos(cm.getCursor("anchor")),
           head = cm.indexFromPos(cm.getCursor("head"));
@@ -6786,11 +5438,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.getCurrentLineAttributes_ = function () {
-=======
-      RichTextCodeMirror.prototype.getCurrentLineAttributes_ = function() {
->>>>>>> pr/41
         var cm = this.codeMirror;
         var anchor = cm.getCursor("anchor"),
           head = cm.getCursor("head");
@@ -6802,21 +5450,13 @@
         return this.getLineAttributes_(line);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.getLineAttributes_ = function (lineNum) {
-=======
-      RichTextCodeMirror.prototype.getLineAttributes_ = function(lineNum) {
->>>>>>> pr/41
         var attributes = {};
         var line = this.codeMirror.getLine(lineNum);
         if (line.length > 0 && line[0] === LineSentinelCharacter) {
           var lineStartIndex = this.codeMirror.indexFromPos({
             line: lineNum,
-<<<<<<< HEAD
             ch: 0,
-=======
-            ch: 0
->>>>>>> pr/41
           });
           var spans = this.annotationList_.getAnnotatedSpansForSpan(
             new Span(lineStartIndex, 1)
@@ -6829,13 +5469,8 @@
         return attributes;
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.clearAnnotations_ = function () {
         this.annotationList_.updateSpan(new Span(0, this.end()), function (
-=======
-      RichTextCodeMirror.prototype.clearAnnotations_ = function() {
-        this.annotationList_.updateSpan(new Span(0, this.end()), function(
->>>>>>> pr/41
           annotation,
           length
         ) {
@@ -6843,11 +5478,7 @@
         });
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.newline = function () {
-=======
-      RichTextCodeMirror.prototype.newline = function() {
->>>>>>> pr/41
         var cm = this.codeMirror;
         var self = this;
         if (!this.emptySelection_()) {
@@ -6859,11 +5490,7 @@
 
           if (listType && cm.getLine(cursorLine).length === 1) {
             // They hit enter on a line with just a list heading.  Just remove the list heading.
-<<<<<<< HEAD
             this.updateLineAttributes(cursorLine, cursorLine, function (
-=======
-            this.updateLineAttributes(cursorLine, cursorLine, function(
->>>>>>> pr/41
               attributes
             ) {
               delete attributes[ATTR.LIST_TYPE];
@@ -6873,11 +5500,7 @@
             cm.replaceSelection("\n", "end", "+input");
 
             // Copy line attributes forward.
-<<<<<<< HEAD
             this.updateLineAttributes(cursorLine + 1, cursorLine + 1, function (
-=======
-            this.updateLineAttributes(cursorLine + 1, cursorLine + 1, function(
->>>>>>> pr/41
               attributes
             ) {
               for (var attr in lineAttributes) {
@@ -6888,22 +5511,14 @@
               if (listType === "tc") attributes[ATTR.LIST_TYPE] = "t";
               self.trigger("newLine", {
                 line: cursorLine + 1,
-<<<<<<< HEAD
                 attr: attributes,
-=======
-                attr: attributes
->>>>>>> pr/41
               });
             });
           }
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.deleteLeft = function () {
-=======
-      RichTextCodeMirror.prototype.deleteLeft = function() {
->>>>>>> pr/41
         var cm = this.codeMirror;
         var cursorPos = cm.getCursor("head");
         var lineAttributes = this.getLineAttributes_(cursorPos.line);
@@ -6915,11 +5530,7 @@
 
         if (backspaceAtStartOfLine && listType) {
           // They hit backspace at the beginning of a line with a list heading.  Just remove the list heading.
-<<<<<<< HEAD
           this.updateLineAttributes(cursorPos.line, cursorPos.line, function (
-=======
-          this.updateLineAttributes(cursorPos.line, cursorPos.line, function(
->>>>>>> pr/41
             attributes
           ) {
             delete attributes[ATTR.LIST_TYPE];
@@ -6932,11 +5543,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.deleteRight = function () {
-=======
-      RichTextCodeMirror.prototype.deleteRight = function() {
->>>>>>> pr/41
         var cm = this.codeMirror;
         var cursorPos = cm.getCursor("head");
 
@@ -6971,13 +5578,8 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.indent = function () {
         this.updateLineAttributesForSelection(function (attributes) {
-=======
-      RichTextCodeMirror.prototype.indent = function() {
-        this.updateLineAttributesForSelection(function(attributes) {
->>>>>>> pr/41
           var indent = attributes[ATTR.LINE_INDENT];
           var listType = attributes[ATTR.LIST_TYPE];
 
@@ -6992,13 +5594,8 @@
         });
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.unindent = function () {
         this.updateLineAttributesForSelection(function (attributes) {
-=======
-      RichTextCodeMirror.prototype.unindent = function() {
-        this.updateLineAttributesForSelection(function(attributes) {
->>>>>>> pr/41
           var indent = attributes[ATTR.LINE_INDENT];
 
           if (indent && indent > 1) {
@@ -7010,23 +5607,15 @@
         });
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.getText = function () {
-=======
-      RichTextCodeMirror.prototype.getText = function() {
->>>>>>> pr/41
         return this.codeMirror
           .getValue()
           .replace(new RegExp(LineSentinelCharacter, "g"), "");
       };
 
-<<<<<<< HEAD
       RichTextCodeMirror.prototype.areLineSentinelCharacters_ = function (
         text
       ) {
-=======
-      RichTextCodeMirror.prototype.areLineSentinelCharacters_ = function(text) {
->>>>>>> pr/41
         for (var i = 0; i < text.length; i++) {
           if (text[i] !== LineSentinelCharacter) return false;
         }
@@ -7042,11 +5631,7 @@
         this.attributes = attributes || {};
       }
 
-<<<<<<< HEAD
       RichTextAnnotation.prototype.equals = function (other) {
-=======
-      RichTextAnnotation.prototype.equals = function(other) {
->>>>>>> pr/41
         if (!(other instanceof RichTextAnnotation)) {
           return false;
         }
@@ -7078,11 +5663,7 @@
       // function.
       function bind(obj, method) {
         var fn = obj[method];
-<<<<<<< HEAD
         obj[method] = function () {
-=======
-        obj[method] = function() {
->>>>>>> pr/41
           fn.apply(obj, arguments);
         };
       }
@@ -7093,11 +5674,7 @@
     var firepad = firepad || {};
 
     // TODO: Can this derive from CodeMirrorAdapter or similar?
-<<<<<<< HEAD
     firepad.RichTextCodeMirrorAdapter = (function () {
-=======
-    firepad.RichTextCodeMirrorAdapter = (function() {
->>>>>>> pr/41
       "use strict";
 
       var TextOperation = firepad.TextOperation;
@@ -7122,11 +5699,7 @@
       }
 
       // Removes all event listeners from the CodeMirror instance.
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.detach = function () {
-=======
-      RichTextCodeMirrorAdapter.prototype.detach = function() {
->>>>>>> pr/41
         this.rtcm.off("change", this.onChange);
         this.rtcm.off("attributesChange", this.onAttributesChange);
 
@@ -7161,21 +5734,13 @@
         var lastLine = cm.lineCount() - 1;
         return cm.indexFromPos({
           line: lastLine,
-<<<<<<< HEAD
           ch: cm.getLine(lastLine).length,
-=======
-          ch: cm.getLine(lastLine).length
->>>>>>> pr/41
         });
       }
 
       // Converts a CodeMirror change object into a TextOperation and its inverse
       // and returns them as a two-element array.
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.operationFromCodeMirrorChanges = function (
-=======
-      RichTextCodeMirrorAdapter.operationFromCodeMirrorChanges = function(
->>>>>>> pr/41
         changes,
         cm
       ) {
@@ -7221,11 +5786,7 @@
       };
 
       // Converts an attributes changed object to an operation and its inverse.
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.operationFromAttributesChanges = function (
-=======
-      RichTextCodeMirrorAdapter.operationFromAttributesChanges = function(
->>>>>>> pr/41
         changes,
         cm
       ) {
@@ -7254,19 +5815,11 @@
         return [operation, inverse];
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.registerCallbacks = function (cb) {
         this.callbacks = cb;
       };
 
       RichTextCodeMirrorAdapter.prototype.onChange = function (_, changes) {
-=======
-      RichTextCodeMirrorAdapter.prototype.registerCallbacks = function(cb) {
-        this.callbacks = cb;
-      };
-
-      RichTextCodeMirrorAdapter.prototype.onChange = function(_, changes) {
->>>>>>> pr/41
         if (changes[0].origin !== "RTCMADAPTER") {
           var pair = RichTextCodeMirrorAdapter.operationFromCodeMirrorChanges(
             changes,
@@ -7276,11 +5829,7 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.onAttributesChange = function (
-=======
-      RichTextCodeMirrorAdapter.prototype.onAttributesChange = function(
->>>>>>> pr/41
         _,
         changes
       ) {
@@ -7293,55 +5842,31 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.onCursorActivity = function () {
-=======
-      RichTextCodeMirrorAdapter.prototype.onCursorActivity = function() {
->>>>>>> pr/41
         // We want to push cursor changes to Firebase AFTER edits to the history,
         // because the cursor coordinates will already be in post-change units.
         // Sleeping for 1ms ensures that sendCursor happens after sendOperation.
         var self = this;
-<<<<<<< HEAD
         setTimeout(function () {
-=======
-        setTimeout(function() {
->>>>>>> pr/41
           self.trigger("cursorActivity");
         }, 1);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.onFocus = function () {
         this.trigger("focus");
       };
 
       RichTextCodeMirrorAdapter.prototype.onBlur = function () {
-=======
-      RichTextCodeMirrorAdapter.prototype.onFocus = function() {
-        this.trigger("focus");
-      };
-
-      RichTextCodeMirrorAdapter.prototype.onBlur = function() {
->>>>>>> pr/41
         if (!this.cm.somethingSelected()) {
           this.trigger("blur");
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.getValue = function () {
         return this.cm.getValue();
       };
 
       RichTextCodeMirrorAdapter.prototype.getCursor = function () {
-=======
-      RichTextCodeMirrorAdapter.prototype.getValue = function() {
-        return this.cm.getValue();
-      };
-
-      RichTextCodeMirrorAdapter.prototype.getCursor = function() {
->>>>>>> pr/41
         var cm = this.cm;
         var cursorPos = cm.getCursor();
         var position = cm.indexFromPos(cursorPos);
@@ -7359,22 +5884,14 @@
         return new Cursor(position, selectionEnd);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.setCursor = function (cursor) {
-=======
-      RichTextCodeMirrorAdapter.prototype.setCursor = function(cursor) {
->>>>>>> pr/41
         this.cm.setSelection(
           this.cm.posFromIndex(cursor.position),
           this.cm.posFromIndex(cursor.selectionEnd)
         );
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.addStyleRule = function (css) {
-=======
-      RichTextCodeMirrorAdapter.prototype.addStyleRule = function(css) {
->>>>>>> pr/41
         if (typeof document === "undefined" || document === null) {
           return;
         }
@@ -7393,11 +5910,7 @@
         return this.addedStyleSheet.insertRule(css, 0);
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.setOtherCursor = function (
-=======
-      RichTextCodeMirrorAdapter.prototype.setOtherCursor = function(
->>>>>>> pr/41
         cursor,
         color,
         clientId
@@ -7427,7 +5940,6 @@
           // show cursor
           var cursorCoords = this.cm.cursorCoords(cursorPos);
           var cursorEl = document.createElement("span");
-<<<<<<< HEAD
           cursorEl.innerHTML =
             '<span class="other-client-name noselect" id="other-client-name-' +
             clientId +
@@ -7438,38 +5950,23 @@
             "</span>";
           cursorEl.className = "other-client";
           cursorEl.id = "other-client-id-" + clientId;
-=======
-          cursorEl.className = "other-client";
->>>>>>> pr/41
           cursorEl.style.borderLeftWidth = "2px";
           cursorEl.style.borderLeftStyle = "solid";
           cursorEl.style.borderLeftColor = color;
           cursorEl.style.marginLeft = cursorEl.style.marginRight = "-1px";
           cursorEl.style.height =
-<<<<<<< HEAD
             (cursorCoords.bottom - cursorCoords.top) * 1 + "px";
-=======
-            (cursorCoords.bottom - cursorCoords.top) * 0.9 + "px";
->>>>>>> pr/41
           cursorEl.setAttribute("data-clientid", clientId);
           cursorEl.style.zIndex = 0;
 
           return this.cm.setBookmark(cursorPos, {
             widget: cursorEl,
-<<<<<<< HEAD
             insertLeft: true,
-=======
-            insertLeft: true
->>>>>>> pr/41
           });
         } else {
           // show selection
           var selectionClassName = "selection-" + color.replace("#", "");
-<<<<<<< HEAD
           var transparency = 0.5;
-=======
-          var transparency = 0.4;
->>>>>>> pr/41
           var rule =
             "." +
             selectionClassName +
@@ -7494,20 +5991,12 @@
             toPos = cursorPos;
           }
           return this.cm.markText(fromPos, toPos, {
-<<<<<<< HEAD
             className: selectionClassName,
-=======
-            className: selectionClassName
->>>>>>> pr/41
           });
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.trigger = function (event) {
-=======
-      RichTextCodeMirrorAdapter.prototype.trigger = function(event) {
->>>>>>> pr/41
         var args = Array.prototype.slice.call(arguments, 1);
         var action = this.callbacks && this.callbacks[event];
         if (action) {
@@ -7516,13 +6005,9 @@
       };
 
       // Apply an operation to a CodeMirror instance.
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.applyOperation = function (
         operation
       ) {
-=======
-      RichTextCodeMirrorAdapter.prototype.applyOperation = function(operation) {
->>>>>>> pr/41
         // HACK: If there are a lot of operations; hide CodeMirror so that it doesn't re-render constantly.
         if (operation.ops.length > 10)
           this.rtcm.codeMirror
@@ -7538,11 +6023,7 @@
               this.rtcm.updateTextAttributes(
                 index,
                 index + op.chars,
-<<<<<<< HEAD
                 function (attributes) {
-=======
-                function(attributes) {
->>>>>>> pr/41
                   for (var attr in op.attributes) {
                     if (op.attributes[attr] === false) {
                       delete attributes[attr];
@@ -7570,7 +6051,6 @@
         }
       };
 
-<<<<<<< HEAD
       RichTextCodeMirrorAdapter.prototype.registerUndo = function (undoFn) {
         this.cm.undo = undoFn;
       };
@@ -7580,17 +6060,6 @@
       };
 
       RichTextCodeMirrorAdapter.prototype.invertOperation = function (
-=======
-      RichTextCodeMirrorAdapter.prototype.registerUndo = function(undoFn) {
-        this.cm.undo = undoFn;
-      };
-
-      RichTextCodeMirrorAdapter.prototype.registerRedo = function(redoFn) {
-        this.cm.redo = redoFn;
-      };
-
-      RichTextCodeMirrorAdapter.prototype.invertOperation = function(
->>>>>>> pr/41
         operation
       ) {
         var pos = 0,
@@ -7666,11 +6135,7 @@
       // function.
       function bind(obj, method) {
         var fn = obj[method];
-<<<<<<< HEAD
         obj[method] = function () {
-=======
-        obj[method] = function() {
->>>>>>> pr/41
           fn.apply(obj, arguments);
         };
       }
@@ -7716,11 +6181,7 @@
      * @constructor
      * @type {Function}
      */
-<<<<<<< HEAD
     firepad.Formatting = (function () {
-=======
-    firepad.Formatting = (function() {
->>>>>>> pr/41
       var ATTR = firepad.AttributeConstants;
 
       function Formatting(attributes) {
@@ -7732,14 +6193,10 @@
         this.attributes = attributes || {};
       }
 
-<<<<<<< HEAD
       Formatting.prototype.cloneWithNewAttribute_ = function (
         attribute,
         value
       ) {
-=======
-      Formatting.prototype.cloneWithNewAttribute_ = function(attribute, value) {
->>>>>>> pr/41
         var attributes = {};
 
         // Copy existing.
@@ -7757,7 +6214,6 @@
         return new Formatting(attributes);
       };
 
-<<<<<<< HEAD
       Formatting.prototype.bold = function (val) {
         return this.cloneWithNewAttribute_(ATTR.BOLD, val);
       };
@@ -7787,37 +6243,6 @@
       };
 
       Formatting.prototype.backgroundColor = function (color) {
-=======
-      Formatting.prototype.bold = function(val) {
-        return this.cloneWithNewAttribute_(ATTR.BOLD, val);
-      };
-
-      Formatting.prototype.italic = function(val) {
-        return this.cloneWithNewAttribute_(ATTR.ITALIC, val);
-      };
-
-      Formatting.prototype.underline = function(val) {
-        return this.cloneWithNewAttribute_(ATTR.UNDERLINE, val);
-      };
-
-      Formatting.prototype.strike = function(val) {
-        return this.cloneWithNewAttribute_(ATTR.STRIKE, val);
-      };
-
-      Formatting.prototype.font = function(font) {
-        return this.cloneWithNewAttribute_(ATTR.FONT, font);
-      };
-
-      Formatting.prototype.fontSize = function(size) {
-        return this.cloneWithNewAttribute_(ATTR.FONT_SIZE, size);
-      };
-
-      Formatting.prototype.color = function(color) {
-        return this.cloneWithNewAttribute_(ATTR.COLOR, color);
-      };
-
-      Formatting.prototype.backgroundColor = function(color) {
->>>>>>> pr/41
         return this.cloneWithNewAttribute_(ATTR.BACKGROUND_COLOR, color);
       };
 
@@ -7831,11 +6256,7 @@
      *
      * @type {Function}
      */
-<<<<<<< HEAD
     firepad.Text = (function () {
-=======
-    firepad.Text = (function() {
->>>>>>> pr/41
       function Text(text, formatting) {
         // Allow calling without new.
         if (!(this instanceof Text)) {
@@ -7857,11 +6278,7 @@
      * @constructor
      * @type {Function}
      */
-<<<<<<< HEAD
     firepad.LineFormatting = (function () {
-=======
-    firepad.LineFormatting = (function() {
->>>>>>> pr/41
       var ATTR = firepad.AttributeConstants;
 
       function LineFormatting(attributes) {
@@ -7879,17 +6296,10 @@
         ORDERED: "o",
         UNORDERED: "u",
         TODO: "t",
-<<<<<<< HEAD
         TODOCHECKED: "tc",
       };
 
       LineFormatting.prototype.cloneWithNewAttribute_ = function (
-=======
-        TODOCHECKED: "tc"
-      };
-
-      LineFormatting.prototype.cloneWithNewAttribute_ = function(
->>>>>>> pr/41
         attribute,
         value
       ) {
@@ -7910,7 +6320,6 @@
         return new LineFormatting(attributes);
       };
 
-<<<<<<< HEAD
       LineFormatting.prototype.indent = function (indent) {
         return this.cloneWithNewAttribute_(ATTR.LINE_INDENT, indent);
       };
@@ -7920,17 +6329,6 @@
       };
 
       LineFormatting.prototype.listItem = function (val) {
-=======
-      LineFormatting.prototype.indent = function(indent) {
-        return this.cloneWithNewAttribute_(ATTR.LINE_INDENT, indent);
-      };
-
-      LineFormatting.prototype.align = function(align) {
-        return this.cloneWithNewAttribute_(ATTR.LINE_ALIGN, align);
-      };
-
-      LineFormatting.prototype.listItem = function(val) {
->>>>>>> pr/41
         firepad.utils.assert(
           val === false ||
             val === "u" ||
@@ -7941,7 +6339,6 @@
         return this.cloneWithNewAttribute_(ATTR.LIST_TYPE, val);
       };
 
-<<<<<<< HEAD
       LineFormatting.prototype.getIndent = function () {
         return this.attributes[ATTR.LINE_INDENT] || 0;
       };
@@ -7951,17 +6348,6 @@
       };
 
       LineFormatting.prototype.getListItem = function () {
-=======
-      LineFormatting.prototype.getIndent = function() {
-        return this.attributes[ATTR.LINE_INDENT] || 0;
-      };
-
-      LineFormatting.prototype.getAlign = function() {
-        return this.attributes[ATTR.LINE_ALIGN] || 0;
-      };
-
-      LineFormatting.prototype.getListItem = function() {
->>>>>>> pr/41
         return this.attributes[ATTR.LIST_TYPE] || false;
       };
 
@@ -7975,11 +6361,7 @@
      *
      * @type {Function}
      */
-<<<<<<< HEAD
     firepad.Line = (function () {
-=======
-    firepad.Line = (function() {
->>>>>>> pr/41
       function Line(textPieces, formatting) {
         // Allow calling without new.
         if (!(this instanceof Line)) {
@@ -8007,11 +6389,7 @@
      * Helper to parse html into Firepad-compatible lines / text.
      * @type {*}
      */
-<<<<<<< HEAD
     firepad.ParseHtml = (function () {
-=======
-    firepad.ParseHtml = (function() {
->>>>>>> pr/41
       var LIST_TYPE = firepad.LineFormatting.LIST_TYPE;
 
       /**
@@ -8033,11 +6411,7 @@
         this.textFormatting = opt_textFormatting || firepad.Formatting();
       }
 
-<<<<<<< HEAD
       ParseState.prototype.withTextFormatting = function (textFormatting) {
-=======
-      ParseState.prototype.withTextFormatting = function(textFormatting) {
->>>>>>> pr/41
         return new ParseState(
           this.listType,
           this.lineFormatting,
@@ -8045,11 +6419,7 @@
         );
       };
 
-<<<<<<< HEAD
       ParseState.prototype.withLineFormatting = function (lineFormatting) {
-=======
-      ParseState.prototype.withLineFormatting = function(lineFormatting) {
->>>>>>> pr/41
         return new ParseState(
           this.listType,
           lineFormatting,
@@ -8057,11 +6427,7 @@
         );
       };
 
-<<<<<<< HEAD
       ParseState.prototype.withListType = function (listType) {
-=======
-      ParseState.prototype.withListType = function(listType) {
->>>>>>> pr/41
         return new ParseState(
           listType,
           this.lineFormatting,
@@ -8069,11 +6435,7 @@
         );
       };
 
-<<<<<<< HEAD
       ParseState.prototype.withIncreasedIndent = function () {
-=======
-      ParseState.prototype.withIncreasedIndent = function() {
->>>>>>> pr/41
         var lineFormatting = this.lineFormatting.indent(
           this.lineFormatting.getIndent() + 1
         );
@@ -8084,11 +6446,7 @@
         );
       };
 
-<<<<<<< HEAD
       ParseState.prototype.withAlign = function (align) {
-=======
-      ParseState.prototype.withAlign = function(align) {
->>>>>>> pr/41
         var lineFormatting = this.lineFormatting.align(align);
         return new ParseState(
           this.listType,
@@ -8107,22 +6465,14 @@
         this.currentLineListItemType = null;
       }
 
-<<<<<<< HEAD
       ParseOutput.prototype.newlineIfNonEmpty = function (state) {
-=======
-      ParseOutput.prototype.newlineIfNonEmpty = function(state) {
->>>>>>> pr/41
         this.cleanLine_();
         if (this.currentLine.length > 0) {
           this.newline(state);
         }
       };
 
-<<<<<<< HEAD
       ParseOutput.prototype.newlineIfNonEmptyOrListItem = function (state) {
-=======
-      ParseOutput.prototype.newlineIfNonEmptyOrListItem = function(state) {
->>>>>>> pr/41
         this.cleanLine_();
         if (
           this.currentLine.length > 0 ||
@@ -8132,11 +6482,7 @@
         }
       };
 
-<<<<<<< HEAD
       ParseOutput.prototype.newline = function (state) {
-=======
-      ParseOutput.prototype.newline = function(state) {
->>>>>>> pr/41
         this.cleanLine_();
         var lineFormatting = state.lineFormatting;
         if (this.currentLineListItemType !== null) {
@@ -8150,19 +6496,11 @@
         this.currentLine = [];
       };
 
-<<<<<<< HEAD
       ParseOutput.prototype.makeListItem = function (type) {
         this.currentLineListItemType = type;
       };
 
       ParseOutput.prototype.cleanLine_ = function () {
-=======
-      ParseOutput.prototype.makeListItem = function(type) {
-        this.currentLineListItemType = type;
-      };
-
-      ParseOutput.prototype.cleanLine_ = function() {
->>>>>>> pr/41
         // Kinda' a hack, but we remove leading and trailing spaces (since these aren't significant in html) and
         // replaces nbsp's with normal spaces.
         if (this.currentLine.length > 0) {
@@ -8207,11 +6545,7 @@
       // Fix IE8.
       var Node = Node || {
         ELEMENT_NODE: 1,
-<<<<<<< HEAD
         TEXT_NODE: 3,
-=======
-        TEXT_NODE: 3
->>>>>>> pr/41
       };
 
       function parseNode(node, state, output) {
@@ -8426,11 +6760,7 @@
                 "x-large",
                 "xx-large",
                 "smaller",
-<<<<<<< HEAD
                 "larger",
-=======
-                "larger"
->>>>>>> pr/41
               ];
               if (firepad.utils.stringEndsWith(val, allowedValues)) {
                 size = val;
@@ -8444,11 +6774,7 @@
             case "font-family":
               var font = firepad.utils.trim(val.split(",")[0]); // get first font.
               font = font.replace(/['"]/g, ""); // remove quotes.
-<<<<<<< HEAD
               font = font.replace(/\w\S*/g, function (txt) {
-=======
-              font = font.replace(/\w\S*/g, function(txt) {
->>>>>>> pr/41
                 return (
                   txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
                 );
@@ -8471,11 +6797,7 @@
      * Helper to turn Firebase contents into HMTL.
      * Takes a doc and an entity manager
      */
-<<<<<<< HEAD
     firepad.SerializeHtml = (function () {
-=======
-    firepad.SerializeHtml = (function() {
->>>>>>> pr/41
       var utils = firepad.utils;
       var ATTR = firepad.AttributeConstants;
       var LIST_TYPE = firepad.LineFormatting.LIST_TYPE;
@@ -8677,11 +6999,7 @@
 
           // Replace leading, trailing, and consecutive spaces with nbsp's to make sure they're preserved.
           text = text
-<<<<<<< HEAD
             .replace(/  +/g, function (str) {
-=======
-            .replace(/  +/g, function(str) {
->>>>>>> pr/41
               return new Array(str.length + 1).join("\u00a0");
             })
             .replace(/^ /, "\u00a0")
@@ -8722,11 +7040,7 @@
     /**
      * Helper to turn pieces of text into insertable operations
      */
-<<<<<<< HEAD
     firepad.textPiecesToInserts = function (atNewLine, textPieces) {
-=======
-    firepad.textPiecesToInserts = function(atNewLine, textPieces) {
->>>>>>> pr/41
       var inserts = [];
 
       function insert(string, attributes) {
@@ -8773,11 +7087,7 @@
     /**
      * Instance of headless Firepad for use in NodeJS. Supports get/set on text/html.
      */
-<<<<<<< HEAD
     firepad.Headless = (function () {
-=======
-    firepad.Headless = (function() {
->>>>>>> pr/41
       var TextOperation = firepad.TextOperation;
       var FirebaseAdapter = firepad.FirebaseAdapter;
       var EntityManager = firepad.EntityManager;
@@ -8805,43 +7115,27 @@
         this.zombie_ = false;
       }
 
-<<<<<<< HEAD
       Headless.prototype.getDocument = function (callback) {
-=======
-      Headless.prototype.getDocument = function(callback) {
->>>>>>> pr/41
         var self = this;
 
         if (self.ready_) {
           return callback(self.firebaseAdapter_.getDocument());
         }
 
-<<<<<<< HEAD
         self.firebaseAdapter_.on("ready", function () {
-=======
-        self.firebaseAdapter_.on("ready", function() {
->>>>>>> pr/41
           self.ready_ = true;
           callback(self.firebaseAdapter_.getDocument());
         });
       };
 
-<<<<<<< HEAD
       Headless.prototype.getText = function (callback) {
-=======
-      Headless.prototype.getText = function(callback) {
->>>>>>> pr/41
         if (this.zombie_) {
           throw new Error(
             "You can't use a firepad.Headless after calling dispose()!"
           );
         }
 
-<<<<<<< HEAD
         this.getDocument(function (doc) {
-=======
-        this.getDocument(function(doc) {
->>>>>>> pr/41
           var text = doc.apply("");
 
           // Strip out any special characters from Rich Text formatting
@@ -8855,11 +7149,7 @@
         });
       };
 
-<<<<<<< HEAD
       Headless.prototype.setText = function (text, callback) {
-=======
-      Headless.prototype.setText = function(text, callback) {
->>>>>>> pr/41
         if (this.zombie_) {
           throw new Error(
             "You can't use a firepad.Headless after calling dispose()!"
@@ -8870,11 +7160,7 @@
         this.sendOperationWithRetry(op, callback);
       };
 
-<<<<<<< HEAD
       Headless.prototype.initializeFakeDom = function (callback) {
-=======
-      Headless.prototype.initializeFakeDom = function(callback) {
->>>>>>> pr/41
         if (
           typeof document === "object" ||
           typeof firepad.document === "object"
@@ -8896,11 +7182,7 @@
         }
       };
 
-<<<<<<< HEAD
       Headless.prototype.getHtml = function (callback) {
-=======
-      Headless.prototype.getHtml = function(callback) {
->>>>>>> pr/41
         var self = this;
 
         if (this.zombie_) {
@@ -8909,23 +7191,14 @@
           );
         }
 
-<<<<<<< HEAD
         self.initializeFakeDom(function () {
           self.getDocument(function (doc) {
-=======
-        self.initializeFakeDom(function() {
-          self.getDocument(function(doc) {
->>>>>>> pr/41
             callback(firepad.SerializeHtml(doc, self.entityManager_));
           });
         });
       };
 
-<<<<<<< HEAD
       Headless.prototype.setHtml = function (html, callback) {
-=======
-      Headless.prototype.setHtml = function(html, callback) {
->>>>>>> pr/41
         var self = this;
 
         if (this.zombie_) {
@@ -8934,11 +7207,7 @@
           );
         }
 
-<<<<<<< HEAD
         self.initializeFakeDom(function () {
-=======
-        self.initializeFakeDom(function() {
->>>>>>> pr/41
           var textPieces = ParseHtml(html, self.entityManager_);
           var inserts = firepad.textPiecesToInserts(true, textPieces);
           var op = new TextOperation();
@@ -8951,25 +7220,15 @@
         });
       };
 
-<<<<<<< HEAD
       Headless.prototype.sendOperationWithRetry = function (
-=======
-      Headless.prototype.sendOperationWithRetry = function(
->>>>>>> pr/41
         operation,
         callback
       ) {
         var self = this;
 
-<<<<<<< HEAD
         self.getDocument(function (doc) {
           var op = operation.clone()["delete"](doc.targetLength);
           self.firebaseAdapter_.sendOperation(op, function (err, committed) {
-=======
-        self.getDocument(function(doc) {
-          var op = operation.clone()["delete"](doc.targetLength);
-          self.firebaseAdapter_.sendOperation(op, function(err, committed) {
->>>>>>> pr/41
             if (committed) {
               if (typeof callback !== "undefined") {
                 callback(null, committed);
@@ -8981,11 +7240,7 @@
         });
       };
 
-<<<<<<< HEAD
       Headless.prototype.dispose = function () {
-=======
-      Headless.prototype.dispose = function() {
->>>>>>> pr/41
         this.zombie_ = true; // We've been disposed.  No longer valid to do anything.
 
         this.firebaseAdapter_.dispose();
@@ -8996,11 +7251,7 @@
 
     var firepad = firepad || {};
 
-<<<<<<< HEAD
     firepad.Firepad = (function (global) {
-=======
-    firepad.Firepad = (function(global) {
->>>>>>> pr/41
       if (!firepad.RichTextCodeMirrorAdapter) {
         throw new Error(
           "Oops! It looks like you're trying to include lib/firepad.js directly.  This is actually one of many source files that make up firepad.  You want dist/firepad.js instead."
@@ -9139,20 +7390,12 @@
         );
 
         var self = this;
-<<<<<<< HEAD
         this.firebaseAdapter_.on("cursor", function () {
-=======
-        this.firebaseAdapter_.on("cursor", function() {
->>>>>>> pr/41
           self.trigger.apply(self, ["cursor"].concat([].slice.call(arguments)));
         });
 
         if (this.codeMirror_) {
-<<<<<<< HEAD
           this.richTextCodeMirror_.on("newLine", function () {
-=======
-          this.richTextCodeMirror_.on("newLine", function() {
->>>>>>> pr/41
             self.trigger.apply(
               self,
               ["newLine"].concat([].slice.call(arguments))
@@ -9160,11 +7403,7 @@
           });
         }
 
-<<<<<<< HEAD
         this.firebaseAdapter_.on("ready", function () {
-=======
-        this.firebaseAdapter_.on("ready", function() {
->>>>>>> pr/41
           self.ready_ = true;
 
           if (this.ace_) {
@@ -9182,11 +7421,7 @@
           self.trigger("ready");
         });
 
-<<<<<<< HEAD
         this.client_.on("synced", function (isSynced) {
-=======
-        this.client_.on("synced", function(isSynced) {
->>>>>>> pr/41
           self.trigger("synced", isSynced);
         });
 
@@ -9196,22 +7431,14 @@
           navigator.appName == "Microsoft Internet Explorer" &&
           navigator.userAgent.match(/MSIE 8\./)
         ) {
-<<<<<<< HEAD
           window.onload = function () {
-=======
-          window.onload = function() {
->>>>>>> pr/41
             var head = document.getElementsByTagName("head")[0],
               style = document.createElement("style");
             style.type = "text/css";
             style.styleSheet.cssText =
               ":before,:after{content:none !important;}";
             head.appendChild(style);
-<<<<<<< HEAD
             setTimeout(function () {
-=======
-            setTimeout(function() {
->>>>>>> pr/41
               head.removeChild(style);
             }, 0);
           };
@@ -9224,11 +7451,7 @@
       Firepad.fromACE = Firepad;
       Firepad.fromMonaco = Firepad;
 
-<<<<<<< HEAD
       Firepad.prototype.dispose = function () {
-=======
-      Firepad.prototype.dispose = function() {
->>>>>>> pr/41
         this.zombie_ = true; // We've been disposed.  No longer valid to do anything.
 
         // Unwrap the editor.
@@ -9261,7 +7484,6 @@
         if (this.richTextCodeMirror_) this.richTextCodeMirror_.detach();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.setUserId = function (userId) {
         this.firebaseAdapter_.setUserId(userId);
       };
@@ -9279,40 +7501,11 @@
       };
 
       Firepad.prototype.setText = function (textPieces) {
-=======
-      Firepad.prototype.setUserId = function(userId) {
-        this.firebaseAdapter_.setUserId(userId);
-      };
-
-      Firepad.prototype.setUserColor = function(color) {
-        this.firebaseAdapter_.setColor(color);
-      };
-
-      Firepad.prototype.getText = function() {
-        this.assertReady_("getText");
-        if (this.codeMirror_) return this.richTextCodeMirror_.getText();
-        else if (this.ace_)
-          return this.ace_
-            .getSession()
-            .getDocument()
-            .getValue();
-        else return this.monaco_.getModel().getValue();
-      };
-
-      Firepad.prototype.setText = function(textPieces) {
->>>>>>> pr/41
         this.assertReady_("setText");
         if (this.monaco_) {
           return this.monaco_.getModel().setValue(textPieces);
         } else if (this.ace_) {
-<<<<<<< HEAD
           return this.ace_.getSession().getDocument().setValue(textPieces);
-=======
-          return this.ace_
-            .getSession()
-            .getDocument()
-            .setValue(textPieces);
->>>>>>> pr/41
         } else {
           // HACK: Hide CodeMirror during setText to prevent lots of extra renders.
           this.codeMirror_
@@ -9326,22 +7519,14 @@
         this.editorAdapter_.setCursor({ position: 0, selectionEnd: 0 });
       };
 
-<<<<<<< HEAD
       Firepad.prototype.insertTextAtCursor = function (textPieces) {
-=======
-      Firepad.prototype.insertTextAtCursor = function(textPieces) {
->>>>>>> pr/41
         this.insertText(
           this.codeMirror_.indexFromPos(this.codeMirror_.getCursor()),
           textPieces
         );
       };
 
-<<<<<<< HEAD
       Firepad.prototype.insertText = function (index, textPieces) {
-=======
-      Firepad.prototype.insertText = function(index, textPieces) {
->>>>>>> pr/41
         utils.assert(!this.ace_, "Not supported for ace yet.");
         utils.assert(!this.monaco_, "Not supported for monaco yet.");
         this.assertReady_("insertText");
@@ -9352,11 +7537,7 @@
         }
 
         var self = this;
-<<<<<<< HEAD
         self.codeMirror_.operation(function () {
-=======
-        self.codeMirror_.operation(function() {
->>>>>>> pr/41
           // HACK: We should check if we're actually at the beginning of a line; but checking for index == 0 is sufficient
           // for the setText() case.
           var atNewLine = index === 0;
@@ -9371,11 +7552,7 @@
         });
       };
 
-<<<<<<< HEAD
       Firepad.prototype.getOperationForSpan = function (start, end) {
-=======
-      Firepad.prototype.getOperationForSpan = function(start, end) {
->>>>>>> pr/41
         var text = this.richTextCodeMirror_.getRange(start, end);
         var spans = this.richTextCodeMirror_.getAttributeSpans(start, end);
         var pos = 0;
@@ -9387,19 +7564,11 @@
         return op;
       };
 
-<<<<<<< HEAD
       Firepad.prototype.getHtml = function () {
         return this.getHtmlFromRange(null, null);
       };
 
       Firepad.prototype.getHtmlFromSelection = function () {
-=======
-      Firepad.prototype.getHtml = function() {
-        return this.getHtmlFromRange(null, null);
-      };
-
-      Firepad.prototype.getHtmlFromSelection = function() {
->>>>>>> pr/41
         var startPos = this.codeMirror_.getCursor("start"),
           endPos = this.codeMirror_.getCursor("end");
         var startIndex = this.codeMirror_.indexFromPos(startPos),
@@ -9407,11 +7576,7 @@
         return this.getHtmlFromRange(startIndex, endIndex);
       };
 
-<<<<<<< HEAD
       Firepad.prototype.getHtmlFromRange = function (start, end) {
-=======
-      Firepad.prototype.getHtmlFromRange = function(start, end) {
->>>>>>> pr/41
         this.assertReady_("getHtmlFromRange");
         var doc =
           start != null && end != null
@@ -9420,112 +7585,64 @@
         return firepad.SerializeHtml(doc, this.entityManager_);
       };
 
-<<<<<<< HEAD
       Firepad.prototype.insertHtml = function (index, html) {
-=======
-      Firepad.prototype.insertHtml = function(index, html) {
->>>>>>> pr/41
         var lines = firepad.ParseHtml(html, this.entityManager_);
         this.insertText(index, lines);
       };
 
-<<<<<<< HEAD
       Firepad.prototype.insertHtmlAtCursor = function (html) {
-=======
-      Firepad.prototype.insertHtmlAtCursor = function(html) {
->>>>>>> pr/41
         this.insertHtml(
           this.codeMirror_.indexFromPos(this.codeMirror_.getCursor()),
           html
         );
       };
 
-<<<<<<< HEAD
       Firepad.prototype.setHtml = function (html) {
-=======
-      Firepad.prototype.setHtml = function(html) {
->>>>>>> pr/41
         var lines = firepad.ParseHtml(html, this.entityManager_);
         this.setText(lines);
       };
 
-<<<<<<< HEAD
       Firepad.prototype.isHistoryEmpty = function () {
-=======
-      Firepad.prototype.isHistoryEmpty = function() {
->>>>>>> pr/41
         this.assertReady_("isHistoryEmpty");
         return this.firebaseAdapter_.isHistoryEmpty();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.bold = function () {
-=======
-      Firepad.prototype.bold = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleAttribute(ATTR.BOLD);
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.italic = function () {
-=======
-      Firepad.prototype.italic = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleAttribute(ATTR.ITALIC);
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.underline = function () {
-=======
-      Firepad.prototype.underline = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleAttribute(ATTR.UNDERLINE);
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.strike = function () {
-=======
-      Firepad.prototype.strike = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleAttribute(ATTR.STRIKE);
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.fontSize = function (size) {
-=======
-      Firepad.prototype.fontSize = function(size) {
->>>>>>> pr/41
         this.richTextCodeMirror_.setAttribute(ATTR.FONT_SIZE, size);
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.font = function (font) {
-=======
-      Firepad.prototype.font = function(font) {
->>>>>>> pr/41
         this.richTextCodeMirror_.setAttribute(ATTR.FONT, font);
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.color = function (color) {
-=======
-      Firepad.prototype.color = function(color) {
->>>>>>> pr/41
         this.richTextCodeMirror_.setAttribute(ATTR.COLOR, color);
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.highlight = function () {
-=======
-      Firepad.prototype.highlight = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleAttribute(
           ATTR.BACKGROUND_COLOR,
           "rgba(255,255,0,.65)"
@@ -9533,11 +7650,7 @@
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.align = function (alignment) {
-=======
-      Firepad.prototype.align = function(alignment) {
->>>>>>> pr/41
         if (
           alignment !== "left" &&
           alignment !== "center" &&
@@ -9551,34 +7664,21 @@
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.orderedList = function () {
-=======
-      Firepad.prototype.orderedList = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleLineAttribute(ATTR.LIST_TYPE, "o");
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.unorderedList = function () {
-=======
-      Firepad.prototype.unorderedList = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleLineAttribute(ATTR.LIST_TYPE, "u");
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.todo = function () {
-=======
-      Firepad.prototype.todo = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.toggleTodo();
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.newline = function () {
         this.richTextCodeMirror_.newline();
       };
@@ -9592,35 +7692,15 @@
       };
 
       Firepad.prototype.indent = function () {
-=======
-      Firepad.prototype.newline = function() {
-        this.richTextCodeMirror_.newline();
-      };
-
-      Firepad.prototype.deleteLeft = function() {
-        this.richTextCodeMirror_.deleteLeft();
-      };
-
-      Firepad.prototype.deleteRight = function() {
-        this.richTextCodeMirror_.deleteRight();
-      };
-
-      Firepad.prototype.indent = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.indent();
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.unindent = function () {
-=======
-      Firepad.prototype.unindent = function() {
->>>>>>> pr/41
         this.richTextCodeMirror_.unindent();
         this.codeMirror_.focus();
       };
 
-<<<<<<< HEAD
       Firepad.prototype.undo = function () {
         this.codeMirror_.undo();
       };
@@ -9646,33 +7726,6 @@
       };
 
       Firepad.prototype.assertReady_ = function (funcName) {
-=======
-      Firepad.prototype.undo = function() {
-        this.codeMirror_.undo();
-      };
-
-      Firepad.prototype.redo = function() {
-        this.codeMirror_.redo();
-      };
-
-      Firepad.prototype.insertEntity = function(type, info, origin) {
-        this.richTextCodeMirror_.insertEntityAtCursor(type, info, origin);
-      };
-
-      Firepad.prototype.insertEntityAt = function(index, type, info, origin) {
-        this.richTextCodeMirror_.insertEntityAt(index, type, info, origin);
-      };
-
-      Firepad.prototype.registerEntity = function(type, options) {
-        this.entityManager_.register(type, options);
-      };
-
-      Firepad.prototype.getOption = function(option, def) {
-        return option in this.options_ ? this.options_[option] : def;
-      };
-
-      Firepad.prototype.assertReady_ = function(funcName) {
->>>>>>> pr/41
         if (!this.ready_) {
           throw new Error(
             'You must wait for the "ready" event before calling ' +
@@ -9689,7 +7742,6 @@
         }
       };
 
-<<<<<<< HEAD
       Firepad.prototype.makeImageDialog_ = function () {
         this.makeDialog_("img", "Insert image url");
       };
@@ -9698,26 +7750,12 @@
         var self = this;
 
         var hideDialog = function () {
-=======
-      Firepad.prototype.makeImageDialog_ = function() {
-        this.makeDialog_("img", "Insert image url");
-      };
-
-      Firepad.prototype.makeDialog_ = function(id, placeholder) {
-        var self = this;
-
-        var hideDialog = function() {
->>>>>>> pr/41
           var dialog = document.getElementById("overlay");
           dialog.style.visibility = "hidden";
           self.firepadWrapper_.removeChild(dialog);
         };
 
-<<<<<<< HEAD
         var cb = function () {
-=======
-        var cb = function() {
->>>>>>> pr/41
           var dialog = document.getElementById("overlay");
           dialog.style.visibility = "hidden";
           var src = document.getElementById(id).value;
@@ -9730,20 +7768,12 @@
           id: id,
           type: "text",
           placeholder: placeholder,
-<<<<<<< HEAD
           autofocus: "autofocus",
-=======
-          autofocus: "autofocus"
->>>>>>> pr/41
         });
 
         var submit = utils.elt("a", "Submit", {
           class: "firepad-btn",
-<<<<<<< HEAD
           id: "submitbtn",
-=======
-          id: "submitbtn"
->>>>>>> pr/41
         });
         utils.on(submit, "click", utils.stopEventAnd(cb));
 
@@ -9751,7 +7781,6 @@
         utils.on(cancel, "click", utils.stopEventAnd(hideDialog));
 
         var buttonsdiv = utils.elt("div", [submit, cancel], {
-<<<<<<< HEAD
           class: "firepad-btn-group",
         });
 
@@ -9761,27 +7790,12 @@
         var dialog = utils.elt("div", [div], {
           class: "firepad-dialog",
           id: "overlay",
-=======
-          class: "firepad-btn-group"
-        });
-
-        var div = utils.elt("div", [input, buttonsdiv], {
-          class: "firepad-dialog-div"
-        });
-        var dialog = utils.elt("div", [div], {
-          class: "firepad-dialog",
-          id: "overlay"
->>>>>>> pr/41
         });
 
         this.firepadWrapper_.appendChild(dialog);
       };
 
-<<<<<<< HEAD
       Firepad.prototype.addToolbar_ = function () {
-=======
-      Firepad.prototype.addToolbar_ = function() {
->>>>>>> pr/41
         this.toolbar = new RichTextToolbar(this.imageInsertionUI);
 
         this.toolbar.on("undo", this.undo, this);
@@ -9795,33 +7809,21 @@
         this.toolbar.on("color", this.color, this);
         this.toolbar.on(
           "left",
-<<<<<<< HEAD
           function () {
-=======
-          function() {
->>>>>>> pr/41
             this.align("left");
           },
           this
         );
         this.toolbar.on(
           "center",
-<<<<<<< HEAD
           function () {
-=======
-          function() {
->>>>>>> pr/41
             this.align("center");
           },
           this
         );
         this.toolbar.on(
           "right",
-<<<<<<< HEAD
           function () {
-=======
-          function() {
->>>>>>> pr/41
             this.align("right");
           },
           this
@@ -9839,18 +7841,13 @@
         );
       };
 
-<<<<<<< HEAD
       Firepad.prototype.addPoweredByLogo_ = function () {
-=======
-      Firepad.prototype.addPoweredByLogo_ = function() {
->>>>>>> pr/41
         var poweredBy = utils.elt("a", null, { class: "powered-by-firepad" });
         poweredBy.setAttribute("href", "http://www.firepad.io/");
         poweredBy.setAttribute("target", "_blank");
         this.firepadWrapper_.appendChild(poweredBy);
       };
 
-<<<<<<< HEAD
       Firepad.prototype.initializeKeyMap_ = function () {
         function binder(fn) {
           return function (cm) {
@@ -9858,15 +7855,6 @@
             // can mess us up (we rely on events being triggered synchronously when we make CodeMirror
             // edits).  So to escape any cm.operation(), we do a setTimeout.
             setTimeout(function () {
-=======
-      Firepad.prototype.initializeKeyMap_ = function() {
-        function binder(fn) {
-          return function(cm) {
-            // HACK: CodeMirror will often call our key handlers within a cm.operation(), and that
-            // can mess us up (we rely on events being triggered synchronously when we make CodeMirror
-            // edits).  So to escape any cm.operation(), we do a setTimeout.
-            setTimeout(function() {
->>>>>>> pr/41
               fn.call(cm.firepad);
             }, 0);
           };
@@ -9886,11 +7874,7 @@
           Backspace: binder(this.deleteLeft),
           Tab: binder(this.indent),
           "Shift-Tab": binder(this.unindent),
-<<<<<<< HEAD
           fallthrough: ["default"],
-=======
-          fallthrough: ["default"]
->>>>>>> pr/41
         };
       };
 
@@ -9918,11 +7902,7 @@
         }
         var var2 = l < 0.5 ? l * (1 + s) : l + s - s * l;
         var var1 = 2 * l - var2;
-<<<<<<< HEAD
         var hue2rgb = function (hue) {
-=======
-        var hue2rgb = function(hue) {
->>>>>>> pr/41
           if (hue < 0) {
             hue += 1;
           }
@@ -9946,11 +7926,7 @@
       return Firepad;
     })(this);
 
-<<<<<<< HEAD
     firepad.FirepadUserList = (function () {
-=======
-    firepad.FirepadUserList = (function() {
->>>>>>> pr/41
       function FirepadUserList(ref, place, userId, displayName) {
         if (!(this instanceof FirepadUserList)) {
           return new FirepadUserList(ref, place, userId, displayName);
@@ -9965,11 +7941,7 @@
         this.hasName_ = !!displayName;
         this.displayName_ =
           displayName || "Guest " + Math.floor(Math.random() * 1000);
-<<<<<<< HEAD
         this.firebaseOn_(ref.root.child(".info/connected"), "value", function (
-=======
-        this.firebaseOn_(ref.root.child(".info/connected"), "value", function(
->>>>>>> pr/41
           s
         ) {
           if (s.val() === true && self.displayName_) {
@@ -9986,27 +7958,14 @@
       // This is the primary "constructor" for symmetry with Firepad.
       FirepadUserList.fromDiv = FirepadUserList;
 
-<<<<<<< HEAD
       FirepadUserList.prototype.dispose = function () {
         this.removeFirebaseCallbacks_();
         this.ref_.child(this.userId_).child("name").remove();
-=======
-      FirepadUserList.prototype.dispose = function() {
-        this.removeFirebaseCallbacks_();
-        this.ref_
-          .child(this.userId_)
-          .child("name")
-          .remove();
->>>>>>> pr/41
 
         this.place_.removeChild(this.userList_);
       };
 
-<<<<<<< HEAD
       FirepadUserList.prototype.makeUserList_ = function () {
-=======
-      FirepadUserList.prototype.makeUserList_ = function() {
->>>>>>> pr/41
         return elt(
           "div",
           [
@@ -10015,25 +7974,15 @@
               "div",
               [this.makeUserEntryForSelf_(), this.makeUserEntriesForOthers_()],
               { class: "firepad-userlist-users" }
-<<<<<<< HEAD
             ),
-=======
-            )
->>>>>>> pr/41
           ],
           { class: "firepad-userlist" }
         );
       };
 
-<<<<<<< HEAD
       FirepadUserList.prototype.makeHeading_ = function () {
         var counterSpan = elt("span", "0");
         this.firebaseOn_(this.ref_, "value", function (usersSnapshot) {
-=======
-      FirepadUserList.prototype.makeHeading_ = function() {
-        var counterSpan = elt("span", "0");
-        this.firebaseOn_(this.ref_, "value", function(usersSnapshot) {
->>>>>>> pr/41
           setTextContent(counterSpan, "" + usersSnapshot.numChildren());
         });
 
@@ -10044,7 +7993,6 @@
         );
       };
 
-<<<<<<< HEAD
       FirepadUserList.prototype.makeUserEntryForSelf_ = function () {
         var myUserRef = this.ref_.child(this.userId_);
 
@@ -10052,15 +8000,6 @@
           class: "firepad-userlist-color-indicator",
         });
         this.firebaseOn_(myUserRef.child("color"), "value", function (
-=======
-      FirepadUserList.prototype.makeUserEntryForSelf_ = function() {
-        var myUserRef = this.ref_.child(this.userId_);
-
-        var colorDiv = elt("div", null, {
-          class: "firepad-userlist-color-indicator"
-        });
-        this.firebaseOn_(myUserRef.child("color"), "value", function(
->>>>>>> pr/41
           colorSnapshot
         ) {
           var color = colorSnapshot.val();
@@ -10071,39 +8010,21 @@
 
         var nameInput = elt("input", null, {
           type: "text",
-<<<<<<< HEAD
           class: "firepad-userlist-name-input",
-=======
-          class: "firepad-userlist-name-input"
->>>>>>> pr/41
         });
         nameInput.value = this.displayName_;
 
         var nameHint = elt("div", "ENTER YOUR NAME", {
-<<<<<<< HEAD
           class: "firepad-userlist-name-hint",
-=======
-          class: "firepad-userlist-name-hint"
->>>>>>> pr/41
         });
         if (this.hasName_) nameHint.style.display = "none";
 
         // Update Firebase when name changes.
         var self = this;
-<<<<<<< HEAD
         on(nameInput, "change", function (e) {
           var name =
             nameInput.value || "Guest " + Math.floor(Math.random() * 1000);
           myUserRef.child("name").onDisconnect().remove();
-=======
-        on(nameInput, "change", function(e) {
-          var name =
-            nameInput.value || "Guest " + Math.floor(Math.random() * 1000);
-          myUserRef
-            .child("name")
-            .onDisconnect()
-            .remove();
->>>>>>> pr/41
           myUserRef.child("name").set(name);
           nameHint.style.display = "none";
           nameInput.blur();
@@ -10114,19 +8035,11 @@
         var nameDiv = elt("div", [nameInput, nameHint]);
 
         return elt("div", [colorDiv, nameDiv], {
-<<<<<<< HEAD
           class: "firepad-userlist-user " + "firepad-user-" + this.userId_,
         });
       };
 
       FirepadUserList.prototype.makeUserEntriesForOthers_ = function () {
-=======
-          class: "firepad-userlist-user " + "firepad-user-" + this.userId_
-        });
-      };
-
-      FirepadUserList.prototype.makeUserEntriesForOthers_ = function() {
->>>>>>> pr/41
         var self = this;
         var userList = elt("div");
         var userId2Element = {};
@@ -10150,28 +8063,16 @@
           }
 
           var colorDiv = elt("div", null, {
-<<<<<<< HEAD
             class: "firepad-userlist-color-indicator",
-=======
-            class: "firepad-userlist-color-indicator"
->>>>>>> pr/41
           });
           colorDiv.style.backgroundColor = color;
 
           var nameDiv = elt("div", name || "Guest", {
-<<<<<<< HEAD
             class: "firepad-userlist-name",
           });
 
           var userDiv = elt("div", [colorDiv, nameDiv], {
             class: "firepad-userlist-user " + "firepad-user-" + userId,
-=======
-            class: "firepad-userlist-name"
-          });
-
-          var userDiv = elt("div", [colorDiv, nameDiv], {
-            class: "firepad-userlist-user " + "firepad-user-" + userId
->>>>>>> pr/41
           });
           userId2Element[userId] = userDiv;
 
@@ -10190,13 +8091,9 @@
         this.firebaseOn_(this.ref_, "child_added", updateChild);
         this.firebaseOn_(this.ref_, "child_changed", updateChild);
         this.firebaseOn_(this.ref_, "child_moved", updateChild);
-<<<<<<< HEAD
         this.firebaseOn_(this.ref_, "child_removed", function (
           removedSnapshot
         ) {
-=======
-        this.firebaseOn_(this.ref_, "child_removed", function(removedSnapshot) {
->>>>>>> pr/41
           var userId = removedSnapshot.key;
           var div = userId2Element[userId];
           if (div) {
@@ -10208,11 +8105,7 @@
         return userList;
       };
 
-<<<<<<< HEAD
       FirepadUserList.prototype.firebaseOn_ = function (
-=======
-      FirepadUserList.prototype.firebaseOn_ = function(
->>>>>>> pr/41
         ref,
         eventType,
         callback,
@@ -10222,21 +8115,13 @@
           ref: ref,
           eventType: eventType,
           callback: callback,
-<<<<<<< HEAD
           context: context,
-=======
-          context: context
->>>>>>> pr/41
         });
         ref.on(eventType, callback, context);
         return callback;
       };
 
-<<<<<<< HEAD
       FirepadUserList.prototype.firebaseOff_ = function (
-=======
-      FirepadUserList.prototype.firebaseOff_ = function(
->>>>>>> pr/41
         ref,
         eventType,
         callback,
@@ -10257,11 +8142,7 @@
         }
       };
 
-<<<<<<< HEAD
       FirepadUserList.prototype.removeFirebaseCallbacks_ = function () {
-=======
-      FirepadUserList.prototype.removeFirebaseCallbacks_ = function() {
->>>>>>> pr/41
         for (var i = 0; i < this.firebaseCallbacks_.length; i++) {
           var l = this.firebaseCallbacks_[i];
           l.ref.off(l.eventType, l.callback, l.context);

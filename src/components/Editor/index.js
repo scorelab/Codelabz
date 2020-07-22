@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../css/firepad.css";
 import "../../css/firepad-userlist.css";
-import "codemirror/lib/codemirror.css";
+import "../../css/codemirror.css";
 import { useFirebase } from "react-redux-firebase";
 import CodeMirror from "codemirror";
 import { useSelector } from "react-redux";
@@ -45,27 +45,21 @@ const Editor = ({ id }) => {
   useEffect(() => {
     let firepad;
     window.CodeMirror = CodeMirror;
-    require("codemirror/mode/gfm/gfm");
     window.firebase = firebase;
 
     let ref = firebase.database().ref().child("notes");
 
     const codeMirror = CodeMirror(editorRef.current, {
-      mode: {
-        name: "gfm",
-        tokenTypeOverrides: {
-          emoji: "emoji",
-        },
-      },
+      lineWrapping: true,
       lineNumbers: true,
-      theme: "default",
+      mode: { name: "javascript", json: true },
     });
 
     const script = document.createElement("script");
     script.src = "/firepad.js";
     script.async = true;
     script.onload = () => {
-      const firepadRef = ref.child(noteID);
+      const firepadRef = ref.child("test_note");
 
       firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
         richTextToolbar: false,
@@ -83,7 +77,6 @@ const Editor = ({ id }) => {
 
       firepad.on("synced", function (isSynced) {
         setSynced(isSynced);
-        console.log(firepad.getHtml());
       });
     };
 
@@ -92,7 +85,7 @@ const Editor = ({ id }) => {
       firepad && firepad.dispose();
       document.body.removeChild(script);
     };
-  }, [firebase, currentUserHandle, displayName, noteID]);
+  }, [firebase, currentUserHandle, displayName]);
 
   useEffect(() => {
     setAllSaved(true);

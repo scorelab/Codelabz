@@ -1,12 +1,11 @@
 #firepad-container {
   width: 100%;
   min-height: 300px;
-  height: calc(100vh - 150px);
+  /* height: calc(100vh - 150px); */
+  height: auto;
   margin: auto;
   margin-bottom: 50px;
-  border-bottom: 1px solid #c9c9c9;
-  border-left: 1px solid #c9c9c9;
-  border-right: 1px solid #c9c9c9;
+  border: 1px solid #c9c9c9;
 }
 
 .firepad {
@@ -471,17 +470,14 @@ a.firepad-btn:active {
   animation-fill-mode: forwards;
 
   animation-delay: 3s;
-  -webkit-animation-delay: 3s; /* Safari and Chrome */
+  -webkit-animation-delay: 3s;
   -webkit-animation-fill-mode: forwards;
 }
 
-.other-client {
-  cursor: pointer;
-}
-
-.other-client:hover .other-client-name {
+.other-client:hover > .other-client-name {
   opacity: 1;
-  transition: all 0.5s;
+  animation-fill-mode: none;
+  -webkit-animation-fill-mode: none;
 }
 
 @keyframes fade-name {

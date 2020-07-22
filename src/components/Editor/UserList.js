@@ -41,12 +41,14 @@ const UserList = ({ noteID }) => {
       .child("users");
 
     ref.on("value", (snap, _) => {
-      let { mainUsers, extraUsers } = rearrangeUser(
-        Object.values(snap.val()),
-        currentUserHandle
-      );
-      setMainUsers(mainUsers);
-      setExtraUsers(extraUsers);
+      if (snap.val()) {
+        let { mainUsers, extraUsers } = rearrangeUser(
+          Object.values(snap.val()),
+          currentUserHandle
+        );
+        setMainUsers(mainUsers);
+        setExtraUsers(extraUsers);
+      }
 
       // This is nested intentionally
       ref.child(currentUserHandle).update({
@@ -64,24 +66,22 @@ const UserList = ({ noteID }) => {
     };
   }, [noteID, firebase, photoURL, displayName, currentUserHandle]);
 
-  // useEffect(() => {
-  //   let allCarets = document.getElementsByClassName("other-client");
-  //   allCarets && console.log(allCarets);
-  // }, [mainUsers]);
-
   return (
     <div>
       {mainUsers &&
         mainUsers.map((user, i) => {
-          return (
-            <EditorUserIcons
-              borderColor={user.color}
-              text={user.displayName}
-              image={user.photoURL}
-              data={{ name: user.displayName, color: user.color }}
-              key={`onlineUser_${i}`}
-            />
-          );
+          if (user.color) {
+            return (
+              <EditorUserIcons
+                borderColor={user.color}
+                text={user.displayName}
+                image={user.photoURL}
+                data={{ name: user.displayName, color: user.color }}
+                key={`onlineUser_${i}`}
+              />
+            );
+          }
+          return null;
         })}
       {extraUsers && extraUsers.length > 0 && (
         <EditorUserIconsExtra data={extraUsers} />
