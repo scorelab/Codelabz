@@ -18,7 +18,7 @@ const ViewTutorial = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
-  const [mode, setMode] = useState("edit"); // modes = edit, view
+  const [mode, setMode] = useState("view"); // modes = edit, view
   const [allowEdit, setAllowEdit] = useState(true);
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)",
@@ -51,6 +51,8 @@ const ViewTutorial = () => {
               stepPanelVisible={stepPanelVisible}
               isDesktop={isDesktop}
               noteID={noteID}
+              setMode={(mode) => setMode(mode)}
+              mode={mode}
             />
           </Col>
         </Row>

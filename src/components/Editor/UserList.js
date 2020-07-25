@@ -67,7 +67,7 @@ const UserList = ({ noteID }) => {
   }, [noteID, firebase, photoURL, displayName, currentUserHandle]);
 
   return (
-    <div>
+    <>
       {mainUsers &&
         mainUsers.map((user, i) => {
           if (user.color) {
@@ -86,7 +86,7 @@ const UserList = ({ noteID }) => {
       {extraUsers && extraUsers.length > 0 && (
         <EditorUserIconsExtra data={extraUsers} />
       )}
-    </div>
+    </>
   );
 };
 

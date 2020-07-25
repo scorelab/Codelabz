@@ -1,20 +1,22 @@
 import React from "react";
-import { PageHeader, Button, Menu, Dropdown } from "antd";
+import { PageHeader, Button, Menu, Dropdown, Space } from "antd";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   SnippetsOutlined,
   EllipsisOutlined,
   DeleteOutlined,
   MessageOutlined,
+  EditOutlined,
+  EyeInvisibleOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 import UserList from "../../Editor/UserList";
 
 const EditControls = ({
   stepPanelVisible,
   isDesktop,
-  tutorialData,
+  setMode,
   noteID,
+  mode,
 }) => {
   const TutorialMenu = () => {
     return (
@@ -58,6 +60,30 @@ const EditControls = ({
           ? "ant-page-header-fix "
           : "ant-page-header-unfix ") + "tutorial-title-header low-padding"
       }
+      title={
+        <Space>
+          <Button type="primary">
+            <PlusOutlined /> Add New Step
+          </Button>
+          {mode === "edit" && (
+            <Button className="ml-24" onClick={() => setMode("view")}>
+              <SnippetsOutlined /> Preview
+            </Button>
+          )}
+          {mode === "view" && (
+            <Button className="ml-24" onClick={() => setMode("edit")}>
+              <EditOutlined /> Edit
+            </Button>
+          )}
+
+          <Button>
+            <EyeInvisibleOutlined /> Hide
+          </Button>
+          <Button danger>
+            <DeleteOutlined /> Remove
+          </Button>
+        </Space>
+      }
       extra={
         !isDesktop && stepPanelVisible ? null : (
           <>
@@ -67,6 +93,7 @@ const EditControls = ({
               shape="circle"
               icon={<MessageOutlined />}
               size="large"
+              className="ml-24"
             />
             <Button type="primary">
               <SnippetsOutlined /> Publish

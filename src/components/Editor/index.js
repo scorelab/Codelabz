@@ -7,7 +7,6 @@ import CodeMirror from "codemirror";
 import { useSelector } from "react-redux";
 import { Row, Col } from "antd";
 import { Prompt } from "react-router-dom";
-import UserList from "./UserList";
 
 const Editor = ({ id }) => {
   const [allSaved, setAllSaved] = useState(true);
@@ -24,22 +23,6 @@ const Editor = ({ id }) => {
         profile: { handle },
       },
     }) => handle
-  );
-
-  const displayName = useSelector(
-    ({
-      firebase: {
-        profile: { displayName },
-      },
-    }) => displayName
-  );
-
-  const photoURL = useSelector(
-    ({
-      firebase: {
-        profile: { photoURL },
-      },
-    }) => photoURL
   );
 
   useEffect(() => {
@@ -85,7 +68,7 @@ const Editor = ({ id }) => {
       firepad && firepad.dispose();
       document.body.removeChild(script);
     };
-  }, [firebase, currentUserHandle, displayName]);
+  }, [firebase, currentUserHandle]);
 
   useEffect(() => {
     setAllSaved(true);
@@ -107,7 +90,7 @@ const Editor = ({ id }) => {
         message="You have unsaved changes, are you sure you want to leave?"
       />
       <Row>
-        <Col xs={24} md={18} className="col-pad-24">
+        <Col xs={24} md={24}>
           {synced ? "Saved as a draft" : "Saving..."}
           <div id="firepad-container" ref={editorRef} />
         </Col>
