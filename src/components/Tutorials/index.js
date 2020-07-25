@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Row, Col } from "antd";
 import { useMediaQuery } from "react-responsive";
-import StepsPanel from "./StepsPanel";
-import { stepsData, tutorialData } from "../../../helpers/dummyData";
+import StepsPanel from "./subComps/StepsPanel";
+import { stepsData, tutorialData } from "../../helpers/dummyData";
 import ReactMarkdown from "react-markdown";
-import CodeBlock from "../../../helpers/CodeBlock";
-import { TutorialTimeRemaining } from "../../../helpers/tutorialTime";
-import ControlButtons from "./ControlButtons";
-import TutorialTitle from "./TutorialTitle";
+import CodeBlock from "../../helpers/CodeBlock";
+import { TutorialTimeRemaining } from "../../helpers/tutorialTime";
+import ControlButtons from "./subComps/ControlButtons";
+import TutorialTitle from "./subComps/TutorialTitle";
+import EditControls from "./subComps/EditControls";
+import Editor from "../Editor";
 
 const { Content, Sider } = Layout;
 
@@ -16,10 +18,13 @@ const ViewTutorial = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
-
+  const [mode, setMode] = useState("edit"); // modes = edit, view
+  const [allowEdit, setAllowEdit] = useState(true);
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)",
   });
+
+  let noteID = "test_note";
 
   useEffect(() => {
     setStepPanelVisible(isDesktop);
@@ -39,6 +44,18 @@ const ViewTutorial = () => {
 
   return (
     <Layout className="row-footer-below">
+      {allowEdit && (
+        <Row>
+          <Col xs={24} sm={24} md={24}>
+            <EditControls
+              stepPanelVisible={stepPanelVisible}
+              isDesktop={isDesktop}
+              noteID={noteID}
+            />
+          </Col>
+        </Row>
+      )}
+
       <Row>
         <Col xs={24} sm={24} md={24}>
           <TutorialTitle
@@ -76,10 +93,15 @@ const ViewTutorial = () => {
               className="col-pad-24-s mt-24-od tutorial-paper"
             >
               {!isDesktop && stepPanelVisible ? null : (
-                <ReactMarkdown
-                  source={stepsData[currentStep].content}
-                  renderers={{ code: CodeBlock }}
-                />
+                <>
+                  {mode === "view" && (
+                    <ReactMarkdown
+                      source={stepsData[currentStep].content}
+                      renderers={{ code: CodeBlock }}
+                    />
+                  )}
+                  {mode === "edit" && <Editor />}
+                </>
               )}
             </Col>
           </Row>

@@ -107,15 +107,6 @@ const Editor = ({ id }) => {
         message="You have unsaved changes, are you sure you want to leave?"
       />
       <Row>
-        <Col xs={0} md={6} className="col-pad-24">
-          <UserList
-            currentUserHandle={currentUserHandle}
-            displayName={displayName}
-            firebase={firebase}
-            noteID={noteID}
-            photoURL={photoURL}
-          />
-        </Col>
         <Col xs={24} md={18} className="col-pad-24">
           {synced ? "Saved as a draft" : "Saving..."}
           <div id="firepad-container" ref={editorRef} />
