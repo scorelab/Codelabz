@@ -4,22 +4,24 @@ import "../../css/firepad-userlist.css";
 import "../../css/codemirror.css";
 import { useFirebase } from "react-redux-firebase";
 import CodeMirror from "codemirror";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "antd";
 import { Prompt } from "react-router-dom";
+import { setCurrentStep } from "../../store/actions";
 
-const Editor = ({ id, data, dataCallback }) => {
+const Editor = ({ id, data }) => {
   const [allSaved, setAllSaved] = useState(true);
   // const [synced, setSynced] = useState(false);
   const firebase = useFirebase();
   const editorRef = useRef(null);
   let noteID = id || "test_note";
+  const dispatch = useDispatch();
 
   const currentUserHandle = useSelector(
     ({
       firebase: {
-        profile: { handle },
-      },
+        profile: { handle }
+      }
     }) => handle
   );
 
@@ -29,12 +31,15 @@ const Editor = ({ id, data, dataCallback }) => {
     window.CodeMirror = CodeMirror;
     window.firebase = firebase;
 
-    let ref = firebase.database().ref().child("notes");
+    let ref = firebase
+      .database()
+      .ref()
+      .child("notes");
 
     const codeMirror = CodeMirror(editorRef.current, {
       lineWrapping: true,
       lineNumbers: true,
-      mode: { name: "javascript", json: true },
+      mode: { name: "javascript", json: true }
     });
 
     const script = document.createElement("script");
@@ -46,17 +51,17 @@ const Editor = ({ id, data, dataCallback }) => {
       firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
         richTextToolbar: false,
         richTextShortcuts: true,
-        userId: currentUserHandle,
+        userId: currentUserHandle
       });
 
-      firepad.on("ready", function () {
+      firepad.on("ready", function() {
         if (firepad.isHistoryEmpty() && data) {
           firepad.setText(data);
         }
       });
 
-      firepad.on("synced", function (isSynced) {
-        dataCallback(firepad.getText());
+      firepad.on("synced", function(isSynced) {
+        setCurrentStep(firepad.getText())(dispatch);
       });
     };
 
@@ -65,7 +70,7 @@ const Editor = ({ id, data, dataCallback }) => {
       firepad && firepad.dispose();
       document.body.removeChild(script);
     };
-  }, [firebase, currentUserHandle, noteID, data]);
+  }, [firebase, currentUserHandle, noteID, data, dispatch]);
 
   useEffect(() => {
     setAllSaved(true);

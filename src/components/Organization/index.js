@@ -11,7 +11,7 @@ const Organizations = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
+    query: "(min-device-width: 767px)"
   });
 
   return (

@@ -38,3 +38,5 @@ export {
   getOrgData,
   clearOrgData
 } from "./orgActions";
+
+export { setCurrentStep } from "./editorActions";
