@@ -1,6 +1,6 @@
 #firepad-container {
   width: 100%;
-  min-height: 300px;
+  min-height: calc(100vh - 350px);
   /* height: calc(100vh - 150px); */
   height: auto;
   margin: auto;

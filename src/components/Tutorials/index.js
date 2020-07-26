@@ -10,16 +10,19 @@ import ControlButtons from "./subComps/ControlButtons";
 import TutorialTitle from "./subComps/TutorialTitle";
 import EditControls from "./subComps/EditControls";
 import Editor from "../Editor";
+import ImageDrawer from "./subComps/ImageDrawer";
+import StepsTitle from "./subComps/StepsTitle";
 
 const { Content, Sider } = Layout;
 
 const ViewTutorial = () => {
-  window.scrollTo(0, 0);
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [mode, setMode] = useState("view"); // modes = edit, view
   const [allowEdit, setAllowEdit] = useState(true);
+  const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
+  const [currentStepContent, setCurrentStepContent] = useState(null);
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)",
   });
@@ -27,11 +30,13 @@ const ViewTutorial = () => {
   let noteID = "test_note";
 
   useEffect(() => {
+    setAllowEdit(true); // remove this laterrrr
     setStepPanelVisible(isDesktop);
   }, [isDesktop]);
 
   useEffect(() => {
     setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
+    setCurrentStepContent(stepsData[currentStep].content);
   }, [currentStep]);
 
   const onChange = (current) => {
@@ -53,6 +58,9 @@ const ViewTutorial = () => {
               noteID={noteID}
               setMode={(mode) => setMode(mode)}
               mode={mode}
+              toggleImageDrawer={() =>
+                setImageDrawerVisible(!imageDrawerVisible)
+              }
             />
           </Col>
         </Row>
@@ -98,14 +106,40 @@ const ViewTutorial = () => {
                 <>
                   {mode === "view" && (
                     <ReactMarkdown
-                      source={stepsData[currentStep].content}
+                      source={currentStepContent}
                       renderers={{ code: CodeBlock }}
                     />
                   )}
-                  {mode === "edit" && <Editor />}
+                  {mode === "edit" && (
+                    <>
+                      <Editor
+                        data={stepsData[currentStep].content}
+                        id={
+                          stepsData[currentStep].title +
+                          stepsData[currentStep].id
+                        }
+                        key={
+                          stepsData[currentStep].title +
+                          stepsData[currentStep].id
+                        }
+                        mode={mode}
+                        dataCallback={(data) => {
+                          console.log(data);
+                          setCurrentStepContent(data);
+                        }}
+                      />
+                      <StepsTitle />
+                    </>
+                  )}
                 </>
               )}
             </Col>
+            {imageDrawerVisible && (
+              <ImageDrawer
+                visible={imageDrawerVisible}
+                onClose={() => setImageDrawerVisible(false)}
+              />
+            )}
           </Row>
           <Row>
             <Col xs={24} sm={24} md={24} className="col-pad-24-s">

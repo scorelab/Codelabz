@@ -38,7 +38,7 @@ export const EditorUserIcons = ({
         >
           <Avatar
             shape="circle"
-            size={35}
+            size={31}
             icon={icon ? icon : null}
             src={image ? image : null}
             style={{

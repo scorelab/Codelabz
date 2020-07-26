@@ -41,21 +41,23 @@ const UserList = ({ noteID }) => {
       .child("users");
 
     ref.on("value", (snap, _) => {
-      if (snap.val()) {
+      if (snap.val() && snap.val()[currentUserHandle].color) {
         let { mainUsers, extraUsers } = rearrangeUser(
           Object.values(snap.val()),
           currentUserHandle
         );
         setMainUsers(mainUsers);
         setExtraUsers(extraUsers);
+        ref.child(currentUserHandle).update({
+          displayName: displayName,
+          photoURL: photoURL,
+          handle: currentUserHandle,
+        });
+      } else {
+        setMainUsers(null);
+        setExtraUsers(null);
+        ref.child(currentUserHandle).remove();
       }
-
-      // This is nested intentionally
-      ref.child(currentUserHandle).update({
-        displayName: displayName,
-        photoURL: photoURL,
-        handle: currentUserHandle,
-      });
     });
 
     ref.child(currentUserHandle).onDisconnect().remove();

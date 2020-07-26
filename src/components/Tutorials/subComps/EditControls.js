@@ -8,6 +8,7 @@ import {
   EditOutlined,
   EyeInvisibleOutlined,
   PlusOutlined,
+  FileImageOutlined,
 } from "@ant-design/icons";
 import UserList from "../../Editor/UserList";
 
@@ -17,6 +18,7 @@ const EditControls = ({
   setMode,
   noteID,
   mode,
+  toggleImageDrawer,
 }) => {
   const TutorialMenu = () => {
     return (
@@ -65,22 +67,34 @@ const EditControls = ({
           <Button type="primary">
             <PlusOutlined /> Add New Step
           </Button>
+          <Button className="ml-24" onClick={() => toggleImageDrawer()}>
+            <FileImageOutlined /> Add images
+          </Button>
+
           {mode === "edit" && (
-            <Button className="ml-24" onClick={() => setMode("view")}>
-              <SnippetsOutlined /> Preview
+            <Button
+              type="primary"
+              className="ml-24"
+              onClick={() => setMode("view")}
+            >
+              <SnippetsOutlined /> Preview mode
             </Button>
           )}
           {mode === "view" && (
-            <Button className="ml-24" onClick={() => setMode("edit")}>
-              <EditOutlined /> Edit
+            <Button
+              type="primary"
+              className="ml-24"
+              onClick={() => setMode("edit")}
+            >
+              <EditOutlined /> Editor mode
             </Button>
           )}
 
           <Button>
-            <EyeInvisibleOutlined /> Hide
+            <EyeInvisibleOutlined /> Hide step
           </Button>
           <Button danger>
-            <DeleteOutlined /> Remove
+            <DeleteOutlined /> Remove step
           </Button>
         </Space>
       }

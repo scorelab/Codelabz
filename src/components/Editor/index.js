@@ -8,14 +8,13 @@ import { useSelector } from "react-redux";
 import { Row, Col } from "antd";
 import { Prompt } from "react-router-dom";
 
-const Editor = ({ id }) => {
+const Editor = ({ id, data, dataCallback }) => {
   const [allSaved, setAllSaved] = useState(true);
   const [synced, setSynced] = useState(false);
-
   const firebase = useFirebase();
   const editorRef = useRef(null);
-  // const usersRef = useRef(null);
   let noteID = id || "test_note";
+  const [firepadState, setFirepadState] = useState(null);
 
   const currentUserHandle = useSelector(
     ({
@@ -42,24 +41,28 @@ const Editor = ({ id }) => {
     script.src = "/firepad.js";
     script.async = true;
     script.onload = () => {
-      const firepadRef = ref.child("test_note");
+      const firepadRef = ref.child(noteID);
 
       firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
         richTextToolbar: false,
         richTextShortcuts: true,
         userId: currentUserHandle,
       });
+      setFirepadState(firepad);
 
       firepad.on("ready", function () {
-        if (firepad.isHistoryEmpty()) {
-          firepad.setHtml(
-            '<span style="font-size: 24px;">Rich-text editing with <span style="color: red">Firepad!</span></span><br/><br/>Collaborative-editing made easy.\n'
-          );
-        }
+        // if (firepad.isHistoryEmpty()) {
+        //   firepad.setHtml(
+        //     '<span style="font-size: 24px;">Rich-text editing with <span style="color: red">Firepad!</span></span><br/><br/>Collaborative-editing made easy.\n'
+        //   );
+        // }
+        // if (data) {
+        //   firepad.setText(data);
+        // }
       });
 
       firepad.on("synced", function (isSynced) {
-        setSynced(isSynced);
+        dataCallback(firepad.getText());
       });
     };
 
@@ -68,7 +71,7 @@ const Editor = ({ id }) => {
       firepad && firepad.dispose();
       document.body.removeChild(script);
     };
-  }, [firebase, currentUserHandle]);
+  }, [firebase, currentUserHandle, id]);
 
   useEffect(() => {
     setAllSaved(true);
@@ -81,7 +84,7 @@ const Editor = ({ id }) => {
     return () => {
       // window.removeEventListener("beforeunload", confirmBeforeExit);
     };
-  }, [noteID]);
+  }, [id]);
 
   return (
     <div>
@@ -91,7 +94,6 @@ const Editor = ({ id }) => {
       />
       <Row>
         <Col xs={24} md={24}>
-          {synced ? "Saved as a draft" : "Saving..."}
           <div id="firepad-container" ref={editorRef} />
         </Col>
       </Row>
