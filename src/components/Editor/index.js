@@ -10,11 +10,10 @@ import { Prompt } from "react-router-dom";
 
 const Editor = ({ id, data, dataCallback }) => {
   const [allSaved, setAllSaved] = useState(true);
-  const [synced, setSynced] = useState(false);
+  // const [synced, setSynced] = useState(false);
   const firebase = useFirebase();
   const editorRef = useRef(null);
   let noteID = id || "test_note";
-  const [firepadState, setFirepadState] = useState(null);
 
   const currentUserHandle = useSelector(
     ({
@@ -48,7 +47,6 @@ const Editor = ({ id, data, dataCallback }) => {
         richTextShortcuts: true,
         userId: currentUserHandle,
       });
-      setFirepadState(firepad);
 
       firepad.on("ready", function () {
         // if (firepad.isHistoryEmpty()) {
@@ -71,7 +69,7 @@ const Editor = ({ id, data, dataCallback }) => {
       firepad && firepad.dispose();
       document.body.removeChild(script);
     };
-  }, [firebase, currentUserHandle, id]);
+  }, [firebase, currentUserHandle, noteID, dataCallback]);
 
   useEffect(() => {
     setAllSaved(true);
