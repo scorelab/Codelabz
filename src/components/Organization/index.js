@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import OrgSidebar from "./OrgSidebar/orgSidebar";
 import { useMediaQuery } from "react-responsive";
-import { Row, Col, Layout, Drawer, Button, Affix } from "antd";
+import { Row, Col, Layout, Drawer, Button } from "antd";
 import OrgInfoCard from "./OrgInfoCard/orgInfoCard";
 import OrgUsersCard from "./OrgUsersCard/orgUsersCard";
-import Headroom from "react-headroom";
 const { Content, Sider } = Layout;
 
 const Organizations = () => {

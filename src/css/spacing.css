@@ -83,6 +83,10 @@
   margin-left: 16px !important;
 }
 
+.ml-24 {
+  margin-left: 24px !important;
+}
+
 /* Paddings */
 
 .pl-0 {
@@ -249,4 +253,13 @@
   .mt-24-od {
     margin-top: 0px !important;
   }
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
