@@ -41,7 +41,11 @@ const UserList = ({ noteID }) => {
       .child("users");
 
     ref.on("value", (snap, _) => {
-      if (snap.val() && snap.val()[currentUserHandle].color) {
+      if (
+        snap.val() &&
+        snap.val()[currentUserHandle] &&
+        snap.val()[currentUserHandle].color
+      ) {
         let { mainUsers, extraUsers } = rearrangeUser(
           Object.values(snap.val()),
           currentUserHandle

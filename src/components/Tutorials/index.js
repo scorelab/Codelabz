@@ -55,7 +55,7 @@ const ViewTutorial = () => {
             <EditControls
               stepPanelVisible={stepPanelVisible}
               isDesktop={isDesktop}
-              noteID={noteID}
+              noteID={stepsData[currentStep].title + stepsData[currentStep].id}
               setMode={(mode) => setMode(mode)}
               mode={mode}
               toggleImageDrawer={() =>
@@ -125,7 +125,6 @@ const ViewTutorial = () => {
                         }
                         mode={mode}
                         dataCallback={(data) => {
-                          console.log(data);
                           setCurrentStepContent(data);
                         }}
                       />

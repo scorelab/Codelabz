@@ -24,6 +24,7 @@ const Editor = ({ id, data, dataCallback }) => {
   );
 
   useEffect(() => {
+    console.log("running again", firebase, currentUserHandle, noteID);
     let firepad;
     window.CodeMirror = CodeMirror;
     window.firebase = firebase;
@@ -49,14 +50,9 @@ const Editor = ({ id, data, dataCallback }) => {
       });
 
       firepad.on("ready", function () {
-        // if (firepad.isHistoryEmpty()) {
-        //   firepad.setHtml(
-        //     '<span style="font-size: 24px;">Rich-text editing with <span style="color: red">Firepad!</span></span><br/><br/>Collaborative-editing made easy.\n'
-        //   );
-        // }
-        // if (data) {
-        //   firepad.setText(data);
-        // }
+        if (firepad.isHistoryEmpty() && data) {
+          firepad.setText(data);
+        }
       });
 
       firepad.on("synced", function (isSynced) {
@@ -69,7 +65,7 @@ const Editor = ({ id, data, dataCallback }) => {
       firepad && firepad.dispose();
       document.body.removeChild(script);
     };
-  }, [firebase, currentUserHandle, noteID, dataCallback]);
+  }, [firebase, currentUserHandle, noteID, data]);
 
   useEffect(() => {
     setAllSaved(true);
