@@ -112,6 +112,7 @@ const ViewTutorial = () => {
                   )}
                   {mode === "edit" && (
                     <>
+                      <StepsTitle />
                       <Editor
                         data={stepsData[currentStep].content}
                         id={
@@ -128,7 +129,6 @@ const ViewTutorial = () => {
                           setCurrentStepContent(data);
                         }}
                       />
-                      <StepsTitle />
                     </>
                   )}
                 </>
