@@ -12,6 +12,7 @@ import EditControls from "./subComps/EditControls";
 import Editor from "../Editor";
 import ImageDrawer from "./subComps/ImageDrawer";
 import StepsTitle from "./subComps/StepsTitle";
+import { useSelector } from "react-redux";
 
 const { Content, Sider } = Layout;
 
@@ -24,10 +25,19 @@ const ViewTutorial = () => {
   const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
   const [currentStepContent, setCurrentStepContent] = useState(null);
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
+    query: "(min-device-width: 767px)"
   });
+  const editorStepData = useSelector(
+    ({
+      editor: {
+        step: { current }
+      }
+    }) => current
+  );
 
-  let noteID = "test_note";
+  useEffect(() => {
+    setCurrentStepContent(editorStepData);
+  }, [editorStepData]);
 
   useEffect(() => {
     setAllowEdit(true); // remove this laterrrr
@@ -39,7 +49,7 @@ const ViewTutorial = () => {
     setCurrentStepContent(stepsData[currentStep].content);
   }, [currentStep]);
 
-  const onChange = (current) => {
+  const onChange = current => {
     setCurrentStep(current);
     !isDesktop &&
       setTimeout(() => {
@@ -56,7 +66,7 @@ const ViewTutorial = () => {
               stepPanelVisible={stepPanelVisible}
               isDesktop={isDesktop}
               noteID={stepsData[currentStep].title + stepsData[currentStep].id}
-              setMode={(mode) => setMode(mode)}
+              setMode={mode => setMode(mode)}
               mode={mode}
               toggleImageDrawer={() =>
                 setImageDrawerVisible(!imageDrawerVisible)
@@ -124,9 +134,6 @@ const ViewTutorial = () => {
                           stepsData[currentStep].id
                         }
                         mode={mode}
-                        dataCallback={(data) => {
-                          setCurrentStepContent(data);
-                        }}
                       />
                     </>
                   )}
