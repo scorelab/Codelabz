@@ -71,7 +71,7 @@ const Editor = ({ id, data, tutorial_id }) => {
       // firepad && firepad.dispose();
       document.body.removeChild(script);
     };
-  }, [firebase, currentUserHandle, noteID, data, dispatch]);
+  }, [tutorial_id, firebase, currentUserHandle, noteID, data, dispatch]);
 
   useEffect(() => {
     setAllSaved(true);

@@ -74,7 +74,7 @@ const UserList = ({ noteID, tutorial_id }) => {
       ref.off("value");
       ref.child(currentUserHandle).remove();
     };
-  }, [noteID, firebase, photoURL, displayName, currentUserHandle]);
+  }, [tutorial_id, noteID, firebase, photoURL, displayName, currentUserHandle]);
 
   return (
     <>
