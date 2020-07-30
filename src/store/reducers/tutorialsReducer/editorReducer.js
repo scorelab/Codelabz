@@ -1,7 +1,7 @@
 import * as actions from "../../actions/actionTypes";
 
 const initialState = {
-  current: ""
+  current_step: ""
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -12,7 +12,7 @@ export default (state = initialState, { type, payload }) => {
     case actions.SET_EDITOR_DATA:
       return {
         ...state,
-        current: payload
+        current_step: payload
       };
 
     default:

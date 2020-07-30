@@ -76,7 +76,9 @@ const RightMenu = ({ mode }) => {
       >
         {allowDashboard && (
           <Menu.Item key="setting:2">
-            <CodeOutlined /> My Tutorials
+            <Link to={"/tutorials"}>
+              <CodeOutlined /> My Tutorials
+            </Link>
           </Menu.Item>
         )}
 

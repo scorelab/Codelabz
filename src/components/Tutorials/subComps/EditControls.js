@@ -8,7 +8,7 @@ import {
   EditOutlined,
   EyeInvisibleOutlined,
   PlusOutlined,
-  FileImageOutlined,
+  FileImageOutlined
 } from "@ant-design/icons";
 import UserList from "../../Editor/UserList";
 
@@ -19,6 +19,7 @@ const EditControls = ({
   noteID,
   mode,
   toggleImageDrawer,
+  tutorial_id
 }) => {
   const TutorialMenu = () => {
     return (
@@ -40,14 +41,14 @@ const EditControls = ({
         <Button
           style={{
             border: "none",
-            padding: 0,
+            padding: 0
           }}
           type="link"
         >
           <EllipsisOutlined
             style={{
               fontSize: 20,
-              verticalAlign: "top",
+              verticalAlign: "top"
             }}
           />
         </Button>
@@ -101,7 +102,7 @@ const EditControls = ({
       extra={
         !isDesktop && stepPanelVisible ? null : (
           <>
-            <UserList noteID={noteID} />
+            <UserList tutorial_id={tutorial_id} noteID={noteID} />
             <Button
               type="text"
               shape="circle"
