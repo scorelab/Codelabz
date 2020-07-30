@@ -9,7 +9,7 @@ import {
   Col,
   Upload,
   Modal,
-  Empty,
+  Empty
 } from "antd";
 import {
   EditOutlined,
@@ -21,7 +21,7 @@ import {
   LinkOutlined,
   LinkedinFilled,
   SettingOutlined,
-  FlagOutlined,
+  FlagOutlined
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
@@ -42,8 +42,8 @@ const ProfileInfoCard = () => {
   const verified = useSelector(
     ({
       firebase: {
-        auth: { emailVerified },
-      },
+        auth: { emailVerified }
+      }
     }) => emailVerified
   );
 
@@ -66,7 +66,7 @@ const ProfileInfoCard = () => {
         <Button
           style={{
             border: "none",
-            padding: 0,
+            padding: 0
           }}
           type="link"
         >
@@ -76,7 +76,7 @@ const ProfileInfoCard = () => {
     );
   };
 
-  const uploadImage = (file) => {
+  const uploadImage = file => {
     setImageUploading(true);
     uploadProfileImage(file, profileData.handle)(firebase, dispatch).then(
       () => {
@@ -86,7 +86,7 @@ const ProfileInfoCard = () => {
     return false;
   };
 
-  const checkAvailable = (data) => {
+  const checkAvailable = data => {
     return !!(data && data.length > 0);
   };
 
@@ -247,7 +247,7 @@ const ProfileInfoCard = () => {
       >
         <EditProfileDetailsModal
           profileData={profileData}
-          modelCloseCallback={(e) => setProfileEditModalVisible(e)}
+          modelCloseCallback={e => setProfileEditModalVisible(e)}
         />
       </Modal>
     </>

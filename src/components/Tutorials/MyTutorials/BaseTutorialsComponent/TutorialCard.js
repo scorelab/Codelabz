@@ -23,6 +23,8 @@ const TutorialCard = ({
             loading
               ? "https://i0.wp.com/www.cssscript.com/wp-content/uploads/2015/11/ispinner.jpg"
               : featured_image
+              ? featured_image
+              : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
           }
         />
       }
@@ -33,7 +35,15 @@ const TutorialCard = ({
       ]}
     >
       <Meta
-        avatar={<Avatar src={icon} />}
+        avatar={
+          <Avatar
+            src={
+              icon
+                ? icon
+                : "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            }
+          />
+        }
         title={title}
         description={summary}
       />

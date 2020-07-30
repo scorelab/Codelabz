@@ -113,3 +113,57 @@ export const getOrgTutorialsBasicData = organizations => async (
 
 export const clearTutorialsBasicData = () => dispatch =>
   dispatch({ type: actions.CLEAR_TUTORIALS_BASIC_STATE });
+
+export const createTutorial = tutorialData => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.CREATE_TUTORIAL_START });
+    const { title, summary, owner, created_by, is_org } = tutorialData;
+
+    const setData = async type => {
+      const document = firestore
+        .collection("cl_codelabz")
+        .doc(type)
+        .collection(owner)
+        .doc();
+
+      const documentID = document.id;
+
+      await document.set({
+        created_by,
+        owner,
+        summary,
+        title,
+        featured_image: "",
+        icon: "",
+        url: "",
+        steps: {
+          [`${documentID}_step_1`]: {
+            step_content: "Sample tutorial step one",
+            step_time: 1,
+            step_title: "Step One Title"
+          }
+        }
+      });
+
+      await firebase.ref("notes/" + documentID).set({
+        [`${documentID}_step_1`]: {
+          text: "Sample tutorial step one"
+        }
+      });
+    };
+
+    if (is_org) {
+      await setData("organization");
+    } else {
+      await setData("user");
+    }
+
+    dispatch({ type: actions.CREATE_TUTORIAL_SUCCESS });
+  } catch (e) {
+    dispatch({ type: actions.CREATE_TUTORIAL_FAIL, payload: e.message });
+  }
+};
