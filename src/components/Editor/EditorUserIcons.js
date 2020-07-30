@@ -76,7 +76,7 @@ export const EditorUserIconsExtra = ({ data }) => {
       <div className="editor-icon noselect">
         <Avatar
           shape="circle"
-          size={35}
+          size={31}
           style={{
             backgroundColor: "#3AAFA9",
           }}

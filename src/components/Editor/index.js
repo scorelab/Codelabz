@@ -20,8 +20,8 @@ const Editor = ({ id, data }) => {
   const currentUserHandle = useSelector(
     ({
       firebase: {
-        profile: { handle }
-      }
+        profile: { handle },
+      },
     }) => handle
   );
 
@@ -31,15 +31,12 @@ const Editor = ({ id, data }) => {
     window.CodeMirror = CodeMirror;
     window.firebase = firebase;
 
-    let ref = firebase
-      .database()
-      .ref()
-      .child("notes");
+    let ref = firebase.database().ref().child("notes").child("");
 
     const codeMirror = CodeMirror(editorRef.current, {
       lineWrapping: true,
       lineNumbers: true,
-      mode: { name: "javascript", json: true }
+      mode: { name: "javascript", json: true },
     });
 
     const script = document.createElement("script");
@@ -51,16 +48,16 @@ const Editor = ({ id, data }) => {
       firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
         richTextToolbar: false,
         richTextShortcuts: true,
-        userId: currentUserHandle
+        userId: currentUserHandle,
       });
 
-      firepad.on("ready", function() {
+      firepad.on("ready", function () {
         if (firepad.isHistoryEmpty() && data) {
           firepad.setText(data);
         }
       });
 
-      firepad.on("synced", function(isSynced) {
+      firepad.on("synced", function (isSynced) {
         setCurrentStep(firepad.getText())(dispatch);
       });
     };
