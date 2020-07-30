@@ -29,10 +29,10 @@ const ViewTutorial = () => {
   });
   const editorStepData = useSelector(
     ({
-      editor: {
-        step: { current }
+      tutorials: {
+        editor: { current_step }
       }
-    }) => current
+    }) => current_step
   );
 
   useEffect(() => {
