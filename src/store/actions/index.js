@@ -40,3 +40,11 @@ export {
 } from "./orgActions";
 
 export { setCurrentStep } from "./editorActions";
+export {
+  getOrgTutorialsBasicData,
+  getUserTutorialsBasicData,
+  searchFromTutorialsIndex,
+  clearTutorialsBasicData,
+  createTutorial,
+  getCurrentTutorialData
+} from "./tutorialsActions";

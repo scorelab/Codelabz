@@ -77,6 +77,7 @@ export const signOut = () => async (firebase, dispatch) => {
     dispatch({ type: actions.CLEAR_ORG_GENERAL_STATE });
     dispatch({ type: actions.CLEAR_ORG_USER_STATE });
     await firebase.logout();
+    window.location.reload();
   } catch (e) {
     console.log(e.message);
   }

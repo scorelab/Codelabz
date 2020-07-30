@@ -6,19 +6,19 @@ import {
   FacebookFilled,
   TwitterSquareFilled,
   LinkedinFilled,
-  GithubFilled,
+  GithubFilled
 } from "@ant-design/icons";
 import CountryDropdown from "../../../helpers/countryDropdown";
 import {
   orgNameValidation,
   orgSMValidation,
-  userWebsiteValidation,
+  userWebsiteValidation
 } from "../../../helpers/validationRules";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
   updateUserProfile,
-  clearProfileEditError,
+  clearProfileEditError
 } from "../../../store/actions";
 
 const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
@@ -32,15 +32,15 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const loadingProps = useSelector(
     ({
       profile: {
-        edit: { loading },
-      },
+        edit: { loading }
+      }
     }) => loading
   );
   const errorProps = useSelector(
     ({
       profile: {
-        edit: { error },
-      },
+        edit: { error }
+      }
     }) => error
   );
 
@@ -64,7 +64,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
     }
   }, [closeModal, loading, error]);
 
-  const getData = (prop) => (Boolean(prop) ? prop : "");
+  const getData = prop => (Boolean(prop) ? prop : "");
 
   useEffect(() => {
     form.setFieldsValue({
@@ -75,11 +75,11 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       link_linkedin: getData(profileData.link_linkedin),
       link_twitter: getData(profileData.link_twitter),
       description: getData(profileData.description),
-      org_country: getData(profileData.country),
+      org_country: getData(profileData.country)
     });
   }, [form, profileData]);
 
-  const onSubmit = (formData) => {
+  const onSubmit = formData => {
     const {
       displayName,
       website,
@@ -88,7 +88,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       link_linkedin,
       link_twitter,
       description,
-      org_country: country,
+      org_country: country
     } = formData;
     updateUserProfile({
       displayName,
@@ -98,7 +98,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       link_linkedin,
       link_twitter,
       description,
-      country,
+      country
     })(firebase, firestore, dispatch);
   };
 

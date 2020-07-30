@@ -4,7 +4,7 @@ import { firestoreReducer } from "redux-firestore";
 import authReducer from "./authReducer";
 import profileReducer from "./profileReducer";
 import orgReducer from "./orgReducer";
-import editorReducer from "./editorReducer";
+import tutorialsReducer from "./tutorialsReducer";
 
 // Add firebase to reducers
 const rootReducer = combineReducers({
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
   org: orgReducer,
-  editor: editorReducer
+  tutorials: tutorialsReducer
 });
 
 export default rootReducer;

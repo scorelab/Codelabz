@@ -3,52 +3,52 @@
 export const orgWebsiteValidation = [
   {
     required: true,
-    message: "Please enter the website of the organization",
+    message: "Please enter the website of the organization"
   },
   {
     pattern: new RegExp(
       /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
     ),
-    message: "Please provide a valid URL",
+    message: "Please provide a valid URL"
   },
   {
     pattern: new RegExp(/^(http:\/\/|https:\/\/)/),
-    message: "URL must contain the protocol (https:// or http://)",
-  },
+    message: "URL must contain the protocol (https:// or http://)"
+  }
 ];
 
 export const orgSMValidation = [
   {
     required: false,
-    message: "Please enter the website of the organization",
-  },
+    message: "Please enter the website of the organization"
+  }
 ];
 
 export const orgHandleValidation = [
   {
     required: true,
-    message: "Please enter your organization handle",
+    message: "Please enter your organization handle"
   },
   {
     pattern: new RegExp(/^[a-z0-9]{1,}$/),
     message:
-      "Organization handle can only contain lowercase alphanumeric characters",
+      "Organization handle can only contain lowercase alphanumeric characters"
   },
   {
     pattern: new RegExp(/^[a-z0-9]{6,}$/),
-    message: "Organization handle cannot be less than 6 characters",
-  },
+    message: "Organization handle cannot be less than 6 characters"
+  }
 ];
 
 export const orgNameValidation = [
   {
     required: true,
-    message: "Please enter the organization name",
+    message: "Please enter the organization name"
   },
   {
     type: "string",
-    message: "Please provide a valid organization name",
-  },
+    message: "Please provide a valid organization name"
+  }
 ];
 
 // user validation
@@ -56,16 +56,16 @@ export const orgNameValidation = [
 export const userHandleValidation = [
   {
     required: true,
-    message: "Please enter your user handle",
+    message: "Please enter your user handle"
   },
   {
     pattern: new RegExp(/^[a-z0-9]{1,}$/),
-    message: "User handle can only contain lowercase alphanumeric characters",
+    message: "User handle can only contain lowercase alphanumeric characters"
   },
   {
     min: 6,
-    message: "User handle cannot be less than 6 characters",
-  },
+    message: "User handle cannot be less than 6 characters"
+  }
 ];
 
 export const userWebsiteValidation = [
@@ -73,10 +73,30 @@ export const userWebsiteValidation = [
     pattern: new RegExp(
       /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
     ),
-    message: "Please provide a valid URL",
+    message: "Please provide a valid URL"
   },
   {
     pattern: new RegExp(/^(http:\/\/|https:\/\/)/),
-    message: "URL must contain the protocol (https:// or http://)",
+    message: "URL must contain the protocol (https:// or http://)"
+  }
+];
+
+//tutorials validation
+
+export const tutorialTitleNameValidation = [
+  {
+    required: true,
+    message: "Please enter the tutorial title"
   },
+  {
+    type: "string",
+    message: "Please provide a valid tutorial title"
+  }
+];
+
+export const tutorialOwnerValidation = [
+  {
+    required: true,
+    message: "Please enter the owner of the tutorial"
+  }
 ];

@@ -6,14 +6,14 @@ import {
   checkOrgHandleExists,
   checkUserHandleExists,
   clearProfileEditError,
-  setUpInitialData,
+  setUpInitialData
 } from "../../store/actions";
 import {
   GlobalOutlined,
   UserAddOutlined,
   AppstoreAddOutlined,
   AppstoreOutlined,
-  IeOutlined,
+  IeOutlined
 } from "@ant-design/icons";
 import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
@@ -22,7 +22,7 @@ import Fade from "react-reveal/Fade";
 import {
   orgWebsiteValidation,
   orgHandleValidation,
-  userHandleValidation,
+  userHandleValidation
 } from "../../helpers/validationRules";
 
 const { Option } = Select;
@@ -42,8 +42,8 @@ const Dashboard = () => {
   const displayName = useSelector(
     ({
       firebase: {
-        profile: { displayName },
-      },
+        profile: { displayName }
+      }
     }) => displayName
   );
   const children = [];
@@ -80,7 +80,7 @@ const Dashboard = () => {
     org_handle,
     org_name,
     org_website,
-    org_country,
+    org_country
   }) => {
     setError("");
     await setUpInitialData({
@@ -91,7 +91,7 @@ const Dashboard = () => {
       org_handle,
       org_name,
       org_website,
-      org_country,
+      org_country
     })(firebase, firestore, dispatch);
   };
 
@@ -106,8 +106,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "handle",
-          errors: [`The handle [${handle}] is already taken`],
-        },
+          errors: [`The handle [${handle}] is already taken`]
+        }
       ]);
     }
   };
@@ -124,8 +124,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`],
-        },
+          errors: [`The handle [${orgHandle}] is already taken`]
+        }
       ]);
     }
   };
@@ -177,12 +177,12 @@ const Dashboard = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your name",
+                        message: "Please enter your name"
                       },
                       {
                         type: "string",
-                        message: "Please enter a valid name",
-                      },
+                        message: "Please enter a valid name"
+                      }
                     ]}
                   >
                     <Input
@@ -209,8 +209,8 @@ const Dashboard = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please select your country",
-                      },
+                        message: "Please select your country"
+                      }
                     ]}
                   >
                     <Select
@@ -257,12 +257,12 @@ const Dashboard = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter the organization name",
+                          message: "Please enter the organization name"
                         },
                         {
                           type: "string",
-                          message: "Please provide a valid organization name",
-                        },
+                          message: "Please provide a valid organization name"
+                        }
                       ]}
                     >
                       <Input
@@ -293,8 +293,8 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please select the country of the organization",
-                        },
+                            "Please select the country of the organization"
+                        }
                       ]}
                     >
                       <Select
