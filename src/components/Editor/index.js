@@ -9,7 +9,7 @@ import { Row, Col } from "antd";
 import { Prompt } from "react-router-dom";
 import { setCurrentStep } from "../../store/actions";
 
-const Editor = ({ id, data }) => {
+const Editor = ({ id, data, tutorial_id }) => {
   const [allSaved, setAllSaved] = useState(true);
   // const [synced, setSynced] = useState(false);
   const firebase = useFirebase();
@@ -34,7 +34,8 @@ const Editor = ({ id, data }) => {
     let ref = firebase
       .database()
       .ref()
-      .child("notes");
+      .child("notes")
+      .child(tutorial_id);
 
     const codeMirror = CodeMirror(editorRef.current, {
       lineWrapping: true,
@@ -67,7 +68,7 @@ const Editor = ({ id, data }) => {
 
     document.body.appendChild(script);
     return () => {
-      firepad && firepad.dispose();
+      // firepad && firepad.dispose();
       document.body.removeChild(script);
     };
   }, [firebase, currentUserHandle, noteID, data, dispatch]);

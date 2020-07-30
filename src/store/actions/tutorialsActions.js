@@ -1,5 +1,6 @@
 import * as actions from "./actionTypes";
 import Elasticlunr from "../../helpers/elasticlunr";
+import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
 
 const tutorials_index = new Elasticlunr(
   "tutorial_id",
@@ -117,7 +118,8 @@ export const clearTutorialsBasicData = () => dispatch =>
 export const createTutorial = tutorialData => async (
   firebase,
   firestore,
-  dispatch
+  dispatch,
+  history
 ) => {
   try {
     dispatch({ type: actions.CREATE_TUTORIAL_START });
@@ -142,11 +144,14 @@ export const createTutorial = tutorialData => async (
         url: "",
         steps: {
           [`${documentID}_step_1`]: {
-            step_content: "Sample tutorial step one",
-            step_time: 1,
-            step_title: "Step One Title"
+            id: `${documentID}_step_1`,
+            title: "Step One Title",
+            time: 1,
+            content: "Sample tutorial step one"
           }
-        }
+        },
+        createdAt: firestore.FieldValue.serverTimestamp(),
+        updatedAt: firestore.FieldValue.serverTimestamp()
       });
 
       await firebase.ref("notes/" + documentID).set({
@@ -154,16 +159,58 @@ export const createTutorial = tutorialData => async (
           text: "Sample tutorial step one"
         }
       });
+      return documentID;
     };
 
     if (is_org) {
-      await setData("organization");
+      const documentID = await setData("organization");
+      history.push(`/tutorials/${owner}/${documentID}`);
     } else {
-      await setData("user");
+      const documentID = await setData("user");
+      history.push(`/tutorials/${owner}/${documentID}`);
     }
-
     dispatch({ type: actions.CREATE_TUTORIAL_SUCCESS });
   } catch (e) {
     dispatch({ type: actions.CREATE_TUTORIAL_FAIL, payload: e.message });
+  }
+};
+
+const checkUserOrOrgHandle = handle => async firebase => {
+  const userHandleExists = await checkUserHandleExists(handle)(firebase);
+  const orgHandleExists = await checkOrgHandleExists(handle)(firebase);
+
+  if (userHandleExists && !orgHandleExists) {
+    return "user";
+  } else if (!userHandleExists && orgHandleExists) {
+    return "organization";
+  } else {
+    throw Error("Internal server error");
+  }
+};
+
+export const getCurrentTutorialData = (owner, tutorial_id) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.GET_CURRENT_TUTORIAL_START });
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+    const doc = await firestore
+      .collection("cl_codelabz")
+      .doc(type)
+      .collection(owner)
+      .doc(tutorial_id)
+      .get();
+
+    const steps_obj = doc.get("steps");
+    const steps = Object.keys(steps_obj).map(step => steps_obj[step]);
+    dispatch({
+      type: actions.GET_CURRENT_TUTORIAL_SUCCESS,
+      payload: { ...doc.data(), steps, tutorial_id }
+    });
+  } catch (e) {
+    window.location.href = "/";
+    dispatch({ type: actions.GET_CURRENT_TUTORIAL_FAIL, payload: e.message });
   }
 };

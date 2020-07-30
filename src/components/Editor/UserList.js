@@ -4,31 +4,31 @@ import { rearrangeUser } from "../../helpers/userListModifiers";
 import { useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 
-const UserList = ({ noteID }) => {
+const UserList = ({ noteID, tutorial_id }) => {
   const [mainUsers, setMainUsers] = useState(null);
   const [extraUsers, setExtraUsers] = useState(null);
   const firebase = useFirebase();
   const currentUserHandle = useSelector(
     ({
       firebase: {
-        profile: { handle },
-      },
+        profile: { handle }
+      }
     }) => handle
   );
 
   const displayName = useSelector(
     ({
       firebase: {
-        profile: { displayName },
-      },
+        profile: { displayName }
+      }
     }) => displayName
   );
 
   const photoURL = useSelector(
     ({
       firebase: {
-        profile: { photoURL },
-      },
+        profile: { photoURL }
+      }
     }) => photoURL
   );
 
@@ -37,6 +37,7 @@ const UserList = ({ noteID }) => {
       .database()
       .ref()
       .child("notes")
+      .child(tutorial_id)
       .child(noteID)
       .child("users");
 
@@ -55,7 +56,7 @@ const UserList = ({ noteID }) => {
         ref.child(currentUserHandle).update({
           displayName: displayName,
           photoURL: photoURL,
-          handle: currentUserHandle,
+          handle: currentUserHandle
         });
       } else {
         setMainUsers(null);
@@ -64,7 +65,10 @@ const UserList = ({ noteID }) => {
       }
     });
 
-    ref.child(currentUserHandle).onDisconnect().remove();
+    ref
+      .child(currentUserHandle)
+      .onDisconnect()
+      .remove();
 
     return () => {
       ref.off("value");

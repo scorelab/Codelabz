@@ -5,10 +5,11 @@ import {
   EllipsisOutlined,
   SettingOutlined
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 const { Meta } = Card;
 
 const TutorialCard = ({
-  tutorialData: { tutorial_id, title, summary, icon, featured_image },
+  tutorialData: { tutorial_id, title, summary, icon, featured_image, owner },
   loading
 }) => {
   return (
@@ -30,7 +31,9 @@ const TutorialCard = ({
       }
       actions={[
         <SettingOutlined key="setting" />,
-        <EditOutlined onClick={() => console.log(tutorial_id)} key="edit" />,
+        <Link to={`/tutorials/${owner}/${tutorial_id}`}>
+          <EditOutlined key="edit" />
+        </Link>,
         <EllipsisOutlined key="ellipsis" />
       ]}
     >

@@ -45,5 +45,6 @@ export {
   getUserTutorialsBasicData,
   searchFromTutorialsIndex,
   clearTutorialsBasicData,
-  createTutorial
+  createTutorial,
+  getCurrentTutorialData
 } from "./tutorialsActions";

@@ -38,7 +38,18 @@ const OrgTutorialsComponent = ({ organizations }) => {
       </>
     );
   } else {
-    return null;
+    return (
+      <>
+        {organizations.map((org, index) => (
+          <BaseTutorialsComponent
+            key={index}
+            owner={org.org_handle}
+            imageURL={org.org_image}
+            ownerName={org.org_name}
+          />
+        ))}
+      </>
+    );
   }
 };
 

@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { avatarName } from "../../../helpers/avatarName";
 import { createTutorial } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useHistory } from "react-router-dom";
 
 const NewTutorial = ({ viewModal, viewCallback }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
+  const history = useHistory();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -78,14 +80,18 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
   const orgList =
     allowOrgs > 0
       ? organizations.map((org, i) => {
-          return (
-            <Select.Option value={org.org_handle} key={i}>
-              <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
-                {avatarName(org.org_name)}
-              </Avatar>{" "}
-              {org.org_name}
-            </Select.Option>
-          );
+          if (org.permissions.includes(3) || org.permissions.includes(2)) {
+            return (
+              <Select.Option value={org.org_handle} key={i}>
+                <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
+                  {avatarName(org.org_name)}
+                </Avatar>{" "}
+                {org.org_name}
+              </Select.Option>
+            );
+          } else {
+            return null;
+          }
         })
       : null;
 
@@ -101,7 +107,7 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
       created_by: userHandle,
       is_org: userHandle !== formData.owner
     };
-    createTutorial(tutorialData)(firebase, firestore, dispatch);
+    createTutorial(tutorialData)(firebase, firestore, dispatch, history);
   };
 
   const handleCancel = () => {

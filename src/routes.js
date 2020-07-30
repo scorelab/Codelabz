@@ -19,7 +19,7 @@ import MyFeed from "./components/MyFeed";
 import Footer from "./components/Footer";
 import Organization from "./components/Organization";
 import Profile from "./components/Profile";
-// import ViewTutorial from "./components/Tutorials";
+import ViewTutorial from "./components/Tutorials";
 import ProfileView from "./components/Profile/ViewProfile";
 import ViewOrganization from "./components/Organization/ViewOrganization";
 import Editor from "./components/Editor";
@@ -131,6 +131,11 @@ const Routes = () => {
             exact
             path={"/tutorials"}
             component={UserIsAllowedUserDashboard(MyTutorials)}
+          />
+          <Route
+            exact
+            path={"/tutorials/:owner/:tutorial_id"}
+            component={UserIsAllowedUserDashboard(ViewTutorial)}
           />
           <Route
             exact
