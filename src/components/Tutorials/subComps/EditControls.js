@@ -19,7 +19,8 @@ const EditControls = ({
   noteID,
   mode,
   toggleImageDrawer,
-  tutorial_id
+  tutorial_id,
+  toggleAddNewStep
 }) => {
   const TutorialMenu = () => {
     return (
@@ -65,7 +66,7 @@ const EditControls = ({
       }
       title={
         <Space>
-          <Button type="primary">
+          <Button type="primary" onClick={() => toggleAddNewStep()}>
             <PlusOutlined /> Add New Step
           </Button>
           <Button className="ml-24" onClick={() => toggleImageDrawer()}>

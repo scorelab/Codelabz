@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import { getCurrentTutorialData } from "../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
+import AddNewStepModal from "./subComps/AddNewStep";
 
 const { Content, Sider } = Layout;
 
@@ -29,6 +30,7 @@ const ViewTutorial = () => {
   const [mode, setMode] = useState("view"); // modes = edit, view
   const [allowEdit, setAllowEdit] = useState(true);
   const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
+  const [addNewStepModalVisible, setAddNewStepModalVisible] = useState(false);
   const [currentStepContent, setCurrentStepContent] = useState(null);
   const [stepsData, setStepData] = useState(null);
   const [tutorialData, setTutorialData] = useState(null);
@@ -70,7 +72,7 @@ const ViewTutorial = () => {
   }, [editorStepData]);
 
   useEffect(() => {
-    setAllowEdit(true); // remove this laterrrr
+    setAllowEdit(true); // remove this later
     setStepPanelVisible(isDesktop);
   }, [isDesktop]);
 
@@ -105,6 +107,9 @@ const ViewTutorial = () => {
                   setImageDrawerVisible(!imageDrawerVisible)
                 }
                 tutorial_id={tutorialData.tutorial_id}
+                toggleAddNewStep={() =>
+                  setAddNewStepModalVisible(!addNewStepModalVisible)
+                }
               />
             </Col>
           </Row>
@@ -178,6 +183,15 @@ const ViewTutorial = () => {
                   onClose={() => setImageDrawerVisible(false)}
                 />
               )}
+              <AddNewStepModal
+                viewModal={addNewStepModalVisible}
+                viewCallback={() =>
+                  setAddNewStepModalVisible(!addNewStepModalVisible)
+                }
+                tutorial_id={tutorialData.tutorial_id}
+                steps_length={stepsData.length}
+                owner={tutorialData.owner}
+              />
             </Row>
             <Row>
               <Col xs={24} sm={24} md={24} className="col-pad-24-s">

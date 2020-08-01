@@ -1,6 +1,7 @@
 import * as actions from "./actionTypes";
 import Elasticlunr from "../../helpers/elasticlunr";
 import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
+import _ from "lodash";
 
 const tutorials_index = new Elasticlunr(
   "tutorial_id",
@@ -204,7 +205,11 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
       .get();
 
     const steps_obj = doc.get("steps");
-    const steps = Object.keys(steps_obj).map(step => steps_obj[step]);
+    const steps = _.orderBy(
+      Object.keys(steps_obj).map(step => steps_obj[step]),
+      ["id"],
+      ["asc"]
+    );
     dispatch({
       type: actions.GET_CURRENT_TUTORIAL_SUCCESS,
       payload: { ...doc.data(), steps, tutorial_id }
@@ -214,3 +219,52 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
     dispatch({ type: actions.GET_CURRENT_TUTORIAL_FAIL, payload: e.message });
   }
 };
+
+export const addNewTutorialStep = ({
+  owner,
+  tutorial_id,
+  title,
+  time,
+  id
+}) => async (firebase, firestore, dispatch) => {
+  try {
+    dispatch({ type: actions.CREATE_TUTORIAL_STEP_START });
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+    await firestore
+      .collection("cl_codelabz")
+      .doc(type)
+      .collection(owner)
+      .doc(tutorial_id)
+      .update({
+        [`steps.${id}`]: {
+          content: "",
+          id,
+          time,
+          title
+        },
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
+
+    await firebase
+      .ref()
+      .child("notes")
+      .child(tutorial_id)
+      .child(id)
+      .set({
+        text: ""
+      });
+
+    await getCurrentTutorialData(owner, tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+
+    dispatch({ type: actions.CREATE_TUTORIAL_STEP_SUCCESS });
+  } catch (e) {
+    dispatch({ type: actions.CREATE_TUTORIAL_STEP_FAIL, payload: e.message });
+  }
+};
+
+export const clearCreateTutorials = () => dispatch =>
+  dispatch({ type: actions.CLEAR_CREATE_TUTORIALS_STATE });
