@@ -48,5 +48,6 @@ export {
   createTutorial,
   getCurrentTutorialData,
   addNewTutorialStep,
-  clearCreateTutorials
+  clearCreateTutorials,
+  getCurrentStepContentFromRTDB
 } from "./tutorialsActions";

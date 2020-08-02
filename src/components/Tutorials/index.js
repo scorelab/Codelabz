@@ -13,7 +13,10 @@ import ImageDrawer from "./subComps/ImageDrawer";
 import StepsTitle from "./subComps/StepsTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCurrentTutorialData } from "../../store/actions";
+import {
+  getCurrentStepContentFromRTDB,
+  getCurrentTutorialData
+} from "../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
@@ -79,9 +82,12 @@ const ViewTutorial = () => {
   useEffect(() => {
     if (stepsData) {
       setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
-      setCurrentStepContent(stepsData[currentStep].content);
+      getCurrentStepContentFromRTDB(tutorial_id, stepsData[currentStep].id)(
+        firebase,
+        dispatch
+      );
     }
-  }, [stepsData, currentStep]);
+  }, [tutorial_id, firebase, stepsData, currentStep, dispatch]);
 
   const onChange = current => {
     setCurrentStep(current);

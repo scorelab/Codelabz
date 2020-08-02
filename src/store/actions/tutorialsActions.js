@@ -204,6 +204,17 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
       .doc(tutorial_id)
       .get();
 
+    const tutorial_data = await firebase
+      .ref(`/notes/${tutorial_id}`)
+      .once("value");
+    const tutorial_steps_from_rtdb = [];
+    tutorial_data.forEach(step => {
+      tutorial_steps_from_rtdb.push({
+        id: step.key,
+        content: step.child("text").val()
+      });
+    });
+
     const steps_obj = doc.get("steps");
     const steps = _.orderBy(
       Object.keys(steps_obj).map(step => steps_obj[step]),
@@ -212,7 +223,11 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
     );
     dispatch({
       type: actions.GET_CURRENT_TUTORIAL_SUCCESS,
-      payload: { ...doc.data(), steps, tutorial_id }
+      payload: {
+        ...doc.data(),
+        steps: _.merge(steps, tutorial_steps_from_rtdb),
+        tutorial_id
+      }
     });
   } catch (e) {
     window.location.href = "/";
@@ -268,3 +283,18 @@ export const addNewTutorialStep = ({
 
 export const clearCreateTutorials = () => dispatch =>
   dispatch({ type: actions.CLEAR_CREATE_TUTORIALS_STATE });
+
+export const getCurrentStepContentFromRTDB = (tutorial_id, step_id) => async (
+  firebase,
+  dispatch
+) => {
+  try {
+    const data = await firebase
+      .ref(`/notes/${tutorial_id}/${step_id}/text`)
+      .once("value");
+
+    dispatch({ type: actions.SET_EDITOR_DATA, payload: data.val() });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
