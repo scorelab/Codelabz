@@ -148,7 +148,8 @@ export const createTutorial = tutorialData => async (
             id: `${documentID}_step_1`,
             title: "Step One Title",
             time: 1,
-            content: "Sample tutorial step one"
+            content: "Sample tutorial step one",
+            visibility: true
           }
         },
         createdAt: firestore.FieldValue.serverTimestamp(),
@@ -255,7 +256,8 @@ export const addNewTutorialStep = ({
           content: "",
           id,
           time,
-          title
+          title,
+          visibility: true
         },
         updatedAt: firestore.FieldValue.serverTimestamp()
       });
@@ -294,6 +296,34 @@ export const getCurrentStepContentFromRTDB = (tutorial_id, step_id) => async (
       .once("value");
 
     dispatch({ type: actions.SET_EDITOR_DATA, payload: data.val() });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const hideUnHideStep = (
+  owner,
+  tutorial_id,
+  step_id,
+  visibility
+) => async (firebase, firestore, dispatch) => {
+  try {
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+    await firestore
+      .collection("cl_codelabz")
+      .doc(type)
+      .collection(owner)
+      .doc(tutorial_id)
+      .update({
+        [`steps.${step_id}.visibility`]: !visibility,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
+
+    await getCurrentTutorialData(owner, tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
   } catch (e) {
     console.log(e.message);
   }

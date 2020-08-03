@@ -8,9 +8,13 @@ import {
   EditOutlined,
   EyeInvisibleOutlined,
   PlusOutlined,
-  FileImageOutlined
+  FileImageOutlined,
+  EyeOutlined
 } from "@ant-design/icons";
 import UserList from "../../Editor/UserList";
+import { hideUnHideStep } from "../../../store/actions";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
 
 const EditControls = ({
   stepPanelVisible,
@@ -20,8 +24,14 @@ const EditControls = ({
   mode,
   toggleImageDrawer,
   tutorial_id,
-  toggleAddNewStep
+  toggleAddNewStep,
+  visibility,
+  owner
 }) => {
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
+
   const TutorialMenu = () => {
     return (
       <Menu>
@@ -92,8 +102,24 @@ const EditControls = ({
             </Button>
           )}
 
-          <Button>
-            <EyeInvisibleOutlined /> Hide step
+          <Button
+            onClick={() =>
+              hideUnHideStep(owner, tutorial_id, noteID, visibility)(
+                firebase,
+                firestore,
+                dispatch
+              )
+            }
+          >
+            {!visibility ? (
+              <>
+                <EyeOutlined /> Show step
+              </>
+            ) : (
+              <>
+                <EyeInvisibleOutlined /> Hide step
+              </>
+            )}
           </Button>
           <Button danger>
             <DeleteOutlined /> Remove step

@@ -116,6 +116,8 @@ const ViewTutorial = () => {
                 toggleAddNewStep={() =>
                   setAddNewStepModalVisible(!addNewStepModalVisible)
                 }
+                visibility={stepsData[currentStep].visibility}
+                owner={owner}
               />
             </Col>
           </Row>
