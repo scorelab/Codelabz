@@ -72,7 +72,7 @@ const AddNewStepModal = ({
   const onSubmit = formData => {
     const set_data = {
       ...formData,
-      id: `${tutorial_id}_step_${steps_length + 1}`,
+      id: `${tutorial_id}_${new Date().getTime()}`,
       tutorial_id,
       owner
     };

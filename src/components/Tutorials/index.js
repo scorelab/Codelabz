@@ -15,7 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   getCurrentStepContentFromRTDB,
-  getCurrentTutorialData
+  getCurrentTutorialData,
+  setCurrentStepNo
 } from "../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
@@ -45,6 +46,14 @@ const ViewTutorial = () => {
   useEffect(() => {
     getCurrentTutorialData(owner, tutorial_id)(firebase, firestore, dispatch);
   }, [owner, tutorial_id, firebase, firestore, dispatch]);
+
+  const currentStepNo = useSelector(
+    ({
+      tutorials: {
+        editor: { current_step_no }
+      }
+    }) => current_step_no
+  );
 
   const currentTutorialData = useSelector(
     ({
@@ -90,12 +99,16 @@ const ViewTutorial = () => {
   }, [tutorial_id, firebase, stepsData, currentStep, dispatch]);
 
   const onChange = current => {
-    setCurrentStep(current);
+    setCurrentStepNo(current)(dispatch);
     !isDesktop &&
       setTimeout(() => {
         setStepPanelVisible(false);
       }, 300);
   };
+
+  useEffect(() => {
+    setCurrentStep(currentStepNo);
+  }, [currentStepNo]);
 
   if (tutorialData) {
     return (
@@ -118,6 +131,7 @@ const ViewTutorial = () => {
                 }
                 visibility={stepsData[currentStep].visibility}
                 owner={owner}
+                currentStep={currentStep}
               />
             </Col>
           </Row>

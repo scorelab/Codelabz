@@ -2,6 +2,7 @@ import * as actions from "./actionTypes";
 import Elasticlunr from "../../helpers/elasticlunr";
 import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
 import _ from "lodash";
+import { setCurrentStepNo } from "./editorActions";
 
 const tutorials_index = new Elasticlunr(
   "tutorial_id",
@@ -134,6 +135,7 @@ export const createTutorial = tutorialData => async (
         .doc();
 
       const documentID = document.id;
+      const step_id = `${documentID}_${new Date().getTime()}`;
 
       await document.set({
         created_by,
@@ -144,12 +146,13 @@ export const createTutorial = tutorialData => async (
         icon: "",
         url: "",
         steps: {
-          [`${documentID}_step_1`]: {
-            id: `${documentID}_step_1`,
+          [step_id]: {
+            id: step_id,
             title: "Step One Title",
             time: 1,
             content: "Sample tutorial step one",
-            visibility: true
+            visibility: true,
+            deleted: false
           }
         },
         createdAt: firestore.FieldValue.serverTimestamp(),
@@ -157,8 +160,9 @@ export const createTutorial = tutorialData => async (
       });
 
       await firebase.ref("notes/" + documentID).set({
-        [`${documentID}_step_1`]: {
-          text: "Sample tutorial step one"
+        [step_id]: {
+          text: "Sample tutorial step one",
+          deleted: false
         }
       });
       return documentID;
@@ -212,7 +216,8 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
     tutorial_data.forEach(step => {
       tutorial_steps_from_rtdb.push({
         id: step.key,
-        content: step.child("text").val()
+        content: step.child("text").val(),
+        deleted: step.child("deleted").val()
       });
     });
 
@@ -226,7 +231,7 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
       type: actions.GET_CURRENT_TUTORIAL_SUCCESS,
       payload: {
         ...doc.data(),
-        steps: _.merge(steps, tutorial_steps_from_rtdb),
+        steps: _.merge(steps, tutorial_steps_from_rtdb).filter(x => !x.deleted),
         tutorial_id
       }
     });
@@ -257,7 +262,8 @@ export const addNewTutorialStep = ({
           id,
           time,
           title,
-          visibility: true
+          visibility: true,
+          deleted: false
         },
         updatedAt: firestore.FieldValue.serverTimestamp()
       });
@@ -268,7 +274,8 @@ export const addNewTutorialStep = ({
       .child(tutorial_id)
       .child(id)
       .set({
-        text: ""
+        text: "",
+        deleted: false
       });
 
     await getCurrentTutorialData(owner, tutorial_id)(
@@ -318,6 +325,46 @@ export const hideUnHideStep = (
         [`steps.${step_id}.visibility`]: !visibility,
         updatedAt: firestore.FieldValue.serverTimestamp()
       });
+
+    await getCurrentTutorialData(owner, tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const removeStep = (
+  owner,
+  tutorial_id,
+  step_id,
+  current_step_no
+) => async (firebase, firestore, dispatch) => {
+  try {
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+    await firestore
+      .collection("cl_codelabz")
+      .doc(type)
+      .collection(owner)
+      .doc(tutorial_id)
+      .update({
+        [`steps.${step_id}.deleted`]: true,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
+
+    await firebase
+      .ref()
+      .child("notes")
+      .child(tutorial_id)
+      .child(step_id)
+      .child("deleted")
+      .set(true);
+
+    await setCurrentStepNo(
+      current_step_no > 0 ? current_step_no - 1 : current_step_no
+    )(dispatch);
 
     await getCurrentTutorialData(owner, tutorial_id)(
       firebase,

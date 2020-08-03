@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageHeader, Button, Menu, Dropdown, Space } from "antd";
 import {
   SnippetsOutlined,
@@ -15,6 +15,7 @@ import UserList from "../../Editor/UserList";
 import { hideUnHideStep } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
+import RemoveStepModal from "./RemoveStepModal";
 
 const EditControls = ({
   stepPanelVisible,
@@ -26,11 +27,13 @@ const EditControls = ({
   tutorial_id,
   toggleAddNewStep,
   visibility,
-  owner
+  owner,
+  currentStep
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
+  const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
 
   const TutorialMenu = () => {
     return (
@@ -121,8 +124,21 @@ const EditControls = ({
               </>
             )}
           </Button>
-          <Button danger>
+          <Button
+            danger
+            onClick={() => {
+              setViewRemoveStepModal(!viewRemoveStepModal);
+            }}
+            disabled={currentStep === 0}
+          >
             <DeleteOutlined /> Remove step
+            <RemoveStepModal
+              owner={owner}
+              tutorial_id={tutorial_id}
+              step_id={noteID}
+              viewModal={viewRemoveStepModal}
+              currentStep={currentStep}
+            />
           </Button>
         </Space>
       }

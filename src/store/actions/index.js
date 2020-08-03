@@ -39,7 +39,7 @@ export {
   clearOrgData
 } from "./orgActions";
 
-export { setCurrentStep } from "./editorActions";
+export { setCurrentStep, setCurrentStepNo } from "./editorActions";
 
 export {
   getOrgTutorialsBasicData,
@@ -51,5 +51,6 @@ export {
   addNewTutorialStep,
   clearCreateTutorials,
   getCurrentStepContentFromRTDB,
-  hideUnHideStep
+  hideUnHideStep,
+  removeStep
 } from "./tutorialsActions";
