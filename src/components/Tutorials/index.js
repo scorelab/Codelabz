@@ -90,6 +90,7 @@ const ViewTutorial = () => {
   };
 
   if (tutorialData) {
+    window.scrollTo(0, 0);
     return (
       <Layout className="row-footer-below">
         {allowEdit && (
