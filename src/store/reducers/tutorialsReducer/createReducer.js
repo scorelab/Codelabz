@@ -11,6 +11,7 @@ export default (state = initialState, { type, payload }) => {
       return initialState;
 
     case actions.CREATE_TUTORIAL_START:
+    case actions.CREATE_TUTORIAL_STEP_START:
       return {
         ...state,
         loading: true,
@@ -18,6 +19,7 @@ export default (state = initialState, { type, payload }) => {
       };
 
     case actions.CREATE_TUTORIAL_SUCCESS:
+    case actions.CREATE_TUTORIAL_STEP_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -25,6 +27,7 @@ export default (state = initialState, { type, payload }) => {
       };
 
     case actions.CREATE_TUTORIAL_FAIL:
+    case actions.CREATE_TUTORIAL_STEP_FAIL:
       return {
         ...state,
         loading: false,
