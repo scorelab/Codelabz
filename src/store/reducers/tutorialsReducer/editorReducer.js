@@ -1,7 +1,8 @@
 import * as actions from "../../actions/actionTypes";
 
 const initialState = {
-  current_step: ""
+  current_step: "",
+  current_step_no: 0
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -13,6 +14,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         current_step: payload
+      };
+
+    case actions.SET_CURRENT_STEP_NO:
+      return {
+        ...state,
+        current_step_no: payload
       };
 
     default:

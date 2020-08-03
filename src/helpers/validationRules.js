@@ -100,3 +100,29 @@ export const tutorialOwnerValidation = [
     message: "Please enter the owner of the tutorial"
   }
 ];
+
+//add new step validation
+
+export const addNewStepNameValidation = [
+  {
+    required: true,
+    message: "Please enter the title of the step"
+  },
+  {
+    type: "string",
+    message: "Please provide a valid title of the step"
+  }
+];
+
+export const addNewStepTimeValidation = [
+  {
+    required: true,
+    message: "Please enter the step time"
+  },
+  {
+    type: "number",
+    min: 0,
+    max: 999,
+    message: "Please provide a valid time in minutes"
+  }
+];

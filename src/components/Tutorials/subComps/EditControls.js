@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageHeader, Button, Menu, Dropdown, Space } from "antd";
 import {
   SnippetsOutlined,
@@ -8,9 +8,14 @@ import {
   EditOutlined,
   EyeInvisibleOutlined,
   PlusOutlined,
-  FileImageOutlined
+  FileImageOutlined,
+  EyeOutlined
 } from "@ant-design/icons";
 import UserList from "../../Editor/UserList";
+import { hideUnHideStep } from "../../../store/actions";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
+import RemoveStepModal from "./RemoveStepModal";
 
 const EditControls = ({
   stepPanelVisible,
@@ -19,8 +24,17 @@ const EditControls = ({
   noteID,
   mode,
   toggleImageDrawer,
-  tutorial_id
+  tutorial_id,
+  toggleAddNewStep,
+  visibility,
+  owner,
+  currentStep
 }) => {
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
+  const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
+
   const TutorialMenu = () => {
     return (
       <Menu>
@@ -65,7 +79,7 @@ const EditControls = ({
       }
       title={
         <Space>
-          <Button type="primary">
+          <Button type="primary" onClick={() => toggleAddNewStep()}>
             <PlusOutlined /> Add New Step
           </Button>
           <Button className="ml-24" onClick={() => toggleImageDrawer()}>
@@ -91,11 +105,40 @@ const EditControls = ({
             </Button>
           )}
 
-          <Button>
-            <EyeInvisibleOutlined /> Hide step
+          <Button
+            onClick={() =>
+              hideUnHideStep(owner, tutorial_id, noteID, visibility)(
+                firebase,
+                firestore,
+                dispatch
+              )
+            }
+          >
+            {!visibility ? (
+              <>
+                <EyeOutlined /> Show step
+              </>
+            ) : (
+              <>
+                <EyeInvisibleOutlined /> Hide step
+              </>
+            )}
           </Button>
-          <Button danger>
+          <Button
+            danger
+            onClick={() => {
+              setViewRemoveStepModal(!viewRemoveStepModal);
+            }}
+            disabled={currentStep === 0}
+          >
             <DeleteOutlined /> Remove step
+            <RemoveStepModal
+              owner={owner}
+              tutorial_id={tutorial_id}
+              step_id={noteID}
+              viewModal={viewRemoveStepModal}
+              currentStep={currentStep}
+            />
           </Button>
         </Space>
       }

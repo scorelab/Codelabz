@@ -1,5 +1,6 @@
 import React from "react";
 import { Steps, Button } from "antd";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 const { Step } = Steps;
 
 const StepsPanel = ({
@@ -7,8 +8,14 @@ const StepsPanel = ({
   onChange,
   stepsData,
   onClick,
-  hideButton,
+  hideButton
 }) => {
+  const stepView = (title, visibility) => (
+    <>
+      {title} {visibility ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+    </>
+  );
+
   return (
     <div className="tutorial-steps-sider">
       {!hideButton &&
@@ -30,10 +37,10 @@ const StepsPanel = ({
         style={{ backgroundColor: "white" }}
       >
         {stepsData &&
-          stepsData.map((step) => {
+          stepsData.map(step => {
             return (
               <Step
-                title={step.title}
+                title={stepView(step.title, step.visibility)}
                 className="pb-8"
                 key={"step" + step.id}
               />

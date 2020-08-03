@@ -13,9 +13,14 @@ import ImageDrawer from "./subComps/ImageDrawer";
 import StepsTitle from "./subComps/StepsTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCurrentTutorialData } from "../../store/actions";
+import {
+  getCurrentStepContentFromRTDB,
+  getCurrentTutorialData,
+  setCurrentStepNo,
+} from "../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
+import AddNewStepModal from "./subComps/AddNewStep";
 
 const { Content, Sider } = Layout;
 
@@ -29,6 +34,7 @@ const ViewTutorial = () => {
   const [mode, setMode] = useState("view"); // modes = edit, view
   const [allowEdit, setAllowEdit] = useState(true);
   const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
+  const [addNewStepModalVisible, setAddNewStepModalVisible] = useState(false);
   const [currentStepContent, setCurrentStepContent] = useState(null);
   const [stepsData, setStepData] = useState(null);
   const [tutorialData, setTutorialData] = useState(null);
@@ -40,6 +46,14 @@ const ViewTutorial = () => {
   useEffect(() => {
     getCurrentTutorialData(owner, tutorial_id)(firebase, firestore, dispatch);
   }, [owner, tutorial_id, firebase, firestore, dispatch]);
+
+  const currentStepNo = useSelector(
+    ({
+      tutorials: {
+        editor: { current_step_no },
+      },
+    }) => current_step_no
+  );
 
   const currentTutorialData = useSelector(
     ({
@@ -70,24 +84,31 @@ const ViewTutorial = () => {
   }, [editorStepData]);
 
   useEffect(() => {
-    setAllowEdit(true); // remove this laterrrr
+    setAllowEdit(true); // remove this later
     setStepPanelVisible(isDesktop);
   }, [isDesktop]);
 
   useEffect(() => {
     if (stepsData) {
       setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
-      setCurrentStepContent(stepsData[currentStep].content);
+      getCurrentStepContentFromRTDB(tutorial_id, stepsData[currentStep].id)(
+        firebase,
+        dispatch
+      );
     }
-  }, [stepsData, currentStep]);
+  }, [tutorial_id, firebase, stepsData, currentStep, dispatch]);
 
   const onChange = (current) => {
-    setCurrentStep(current);
+    setCurrentStepNo(current)(dispatch);
     !isDesktop &&
       setTimeout(() => {
         setStepPanelVisible(false);
       }, 300);
   };
+
+  useEffect(() => {
+    setCurrentStep(currentStepNo);
+  }, [currentStepNo]);
 
   if (tutorialData) {
     window.scrollTo(0, 0);
@@ -106,6 +127,12 @@ const ViewTutorial = () => {
                   setImageDrawerVisible(!imageDrawerVisible)
                 }
                 tutorial_id={tutorialData.tutorial_id}
+                toggleAddNewStep={() =>
+                  setAddNewStepModalVisible(!addNewStepModalVisible)
+                }
+                visibility={stepsData[currentStep].visibility}
+                owner={owner}
+                currentStep={currentStep}
               />
             </Col>
           </Row>
@@ -179,6 +206,15 @@ const ViewTutorial = () => {
                   onClose={() => setImageDrawerVisible(false)}
                 />
               )}
+              <AddNewStepModal
+                viewModal={addNewStepModalVisible}
+                viewCallback={() =>
+                  setAddNewStepModalVisible(!addNewStepModalVisible)
+                }
+                tutorial_id={tutorialData.tutorial_id}
+                steps_length={stepsData.length}
+                owner={tutorialData.owner}
+              />
             </Row>
             <Row>
               <Col xs={24} sm={24} md={24} className="col-pad-24-s">
