@@ -2,7 +2,6 @@ import * as actions from "./actionTypes";
 import Elasticlunr from "../../helpers/elasticlunr";
 import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
 import _ from "lodash";
-import { setCurrentStepNo } from "./editorActions";
 
 const tutorials_index = new Elasticlunr(
   "tutorial_id",
@@ -362,9 +361,168 @@ export const removeStep = (
       .child("deleted")
       .set(true);
 
+    const delete_step_key = firebase
+      .ref()
+      .child("delete_steps")
+      .push().key;
+
+    await firebase
+      .ref()
+      .child("delete_steps")
+      .child(delete_step_key)
+      .set({
+        type,
+        owner,
+        tutorial_id,
+        step_id
+      });
+
     await setCurrentStepNo(
       current_step_no > 0 ? current_step_no - 1 : current_step_no
     )(dispatch);
+
+    await getCurrentTutorialData(owner, tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const setCurrentStep = data => async dispatch =>
+  dispatch({ type: actions.SET_EDITOR_DATA, payload: data });
+
+export const setCurrentStepNo = data => async dispatch =>
+  dispatch({ type: actions.SET_CURRENT_STEP_NO, payload: data });
+
+export const uploadTutorialImages = (owner, tutorial_id, files) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({ type: actions.TUTORIAL_IMAGE_UPLOAD_START });
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+
+    const storagePath = `tutorials/${type}/${owner}/${tutorial_id}`;
+    const dbPath = `cl_codelabz/${type}/${owner}`;
+    await firebase.uploadFiles(storagePath, files, dbPath, {
+      metadataFactory: (uploadRes, firebase, metadata, downloadURL) => {
+        return {
+          imageURLs: firebase.firestore.FieldValue.arrayUnion({
+            name: metadata.name,
+            url: downloadURL
+          })
+        };
+      },
+      documentId: tutorial_id
+    });
+
+    await getCurrentTutorialData(owner, tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+
+    dispatch({
+      type: actions.TUTORIAL_IMAGE_UPLOAD_SUCCESS
+    });
+  } catch (e) {
+    dispatch({ type: actions.TUTORIAL_IMAGE_UPLOAD_FAIL, payload: e.message });
+  }
+};
+
+export const clearTutorialImagesReducer = () => dispatch =>
+  dispatch({ type: actions.CLEAR_TUTORIAL_IMAGES_STATE });
+
+export const remoteTutorialImages = (owner, tutorial_id, name, url) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: actions.TUTORIAL_IMAGE_DELETE_START
+    });
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+
+    const storagePath = `tutorials/${type}/${owner}/${tutorial_id}/${name}`;
+    const dbPath = `cl_codelabz/${type}/${owner}`;
+    await firebase.deleteFile(storagePath);
+
+    await firestore
+      .collection(dbPath)
+      .doc(tutorial_id)
+      .update({
+        imageURLs: firebase.firestore.FieldValue.arrayRemove({
+          name,
+          url
+        })
+      });
+
+    await getCurrentTutorialData(owner, tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+
+    dispatch({
+      type: actions.TUTORIAL_IMAGE_DELETE_SUCCESS
+    });
+  } catch (e) {
+    dispatch({ type: actions.TUTORIAL_IMAGE_DELETE_FAIL, payload: e.message });
+  }
+};
+
+export const updateStepTitle = (
+  owner,
+  tutorial_id,
+  step_id,
+  step_title
+) => async (firebase, firestore, dispatch) => {
+  try {
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+
+    const dbPath = `cl_codelabz/${type}/${owner}`;
+
+    await firestore
+      .collection(dbPath)
+      .doc(tutorial_id)
+      .update({
+        [`steps.${step_id}.title`]: step_title,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
+
+    await getCurrentTutorialData(owner, tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const updateStepTime = (
+  owner,
+  tutorial_id,
+  step_id,
+  step_time
+) => async (firebase, firestore, dispatch) => {
+  try {
+    const type = await checkUserOrOrgHandle(owner)(firebase);
+
+    const dbPath = `cl_codelabz/${type}/${owner}`;
+
+    await firestore
+      .collection(dbPath)
+      .doc(tutorial_id)
+      .update({
+        [`steps.${step_id}.time`]: step_time,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
 
     await getCurrentTutorialData(owner, tutorial_id)(
       firebase,
