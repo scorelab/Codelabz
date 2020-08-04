@@ -1,14 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row, Input, InputNumber, Form, message } from "antd";
 import { useFirebase, useFirestore } from "react-redux-firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateStepTime, updateStepTitle } from "../../../store/actions";
 
-const StepsTitle = ({ owner, tutorial_id, step_id, step_title, step_time }) => {
+const StepsTitle = ({ owner, tutorial_id }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const [step_id, set_step_id] = useState(null);
+  const [step_title, set_step_title] = useState(null);
+  const [step_time, set_step_time] = useState(null);
+
+  const current_step_no = useSelector(
+    ({
+      tutorials: {
+        editor: { current_step_no }
+      }
+    }) => current_step_no
+  );
+  const current_data = useSelector(
+    ({
+      tutorials: {
+        current: { data }
+      }
+    }) => data
+  );
+
+  useEffect(() => {
+    if (current_data) {
+      const { steps } = current_data;
+      const current_step_data = steps[current_step_no];
+      set_step_id(current_step_data.id);
+      set_step_title(current_step_data.title);
+      set_step_time(current_step_data.time);
+      form.setFieldsValue({
+        step_title,
+        step_time
+      });
+    }
+  }, [
+    step_title,
+    step_time,
+    form,
+    current_data,
+    set_step_id,
+    set_step_title,
+    set_step_time,
+    current_step_no
+  ]);
 
   const setStepTitle = () => {
     const newStepTitle = form.getFieldValue("step_title");
@@ -39,7 +81,6 @@ const StepsTitle = ({ owner, tutorial_id, step_id, step_title, step_time }) => {
           <Row style={{ width: "100%" }}>
             <Col xs={24} md={18}>
               <Form.Item
-                initialValue={step_title}
                 name="step_title"
                 rules={[{ type: "string" }]}
                 style={{ width: "100%" }}
@@ -54,7 +95,6 @@ const StepsTitle = ({ owner, tutorial_id, step_id, step_title, step_time }) => {
             </Col>
             <Col xs={24} md={6}>
               <Form.Item
-                initialValue={step_time}
                 name="step_time"
                 rules={[{ type: "number", min: 0, max: 99 }]}
               >
