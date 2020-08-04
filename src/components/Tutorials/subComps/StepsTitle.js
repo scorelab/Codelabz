@@ -43,44 +43,36 @@ const StepsTitle = ({ owner, tutorial_id, step_id, step_title, step_time }) => {
       <Col xs={24}>
         <Form form={form}>
           <Row style={{ width: "100%" }}>
-            <Col xs={24} md={19}>
+            <Col xs={24} md={18}>
               <Form.Item
-                name="step-title"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter the title of the step",
-                  },
-                ]}
                 initialValue={step_title}
+                name="step_title"
+                rules={[{ type: "string" }]}
                 style={{ width: "100%" }}
                 className="pr-8"
               >
                 <Input
-                  prefix={currentStepNo + 1 + ". "}
-                  placeholder="Title of the step"
-                  size="large"
-                  className="tutorial-title-input"
                   onBlur={setStepTitle}
                   onPressEnter={setStepTitle}
+                  placeholder="Title of the step"
+                  className="tutorial-title-input"
+                  size="large"
                 />
               </Form.Item>
             </Col>
-            <Col xs={24} md={5}>
+            <Col xs={24} md={6}>
               <Form.Item
                 initialValue={step_time}
                 name="step_time"
                 rules={[{ type: "number", min: 0, max: 99 }]}
               >
-                <Input
+                <InputNumber
                   onBlur={setStepTime}
                   onPressEnter={setStepTime}
                   placeholder="Time (minutes)"
                   style={{ width: "100%" }}
                   className="tutorial-title-input"
                   size="large"
-                  suffix="minutes"
-                  type="number"
                 />
               </Form.Item>
             </Col>
