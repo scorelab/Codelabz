@@ -132,6 +132,7 @@ const ViewTutorial = () => {
                 visibility={stepsData[currentStep].visibility}
                 owner={owner}
                 currentStep={currentStep}
+                step_length={stepsData.length}
               />
             </Col>
           </Row>

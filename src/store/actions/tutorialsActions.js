@@ -362,6 +362,22 @@ export const removeStep = (
       .child("deleted")
       .set(true);
 
+    const delete_step_key = firebase
+      .ref()
+      .child("delete_steps")
+      .push().key;
+
+    await firebase
+      .ref()
+      .child("delete_steps")
+      .child(delete_step_key)
+      .set({
+        type,
+        owner,
+        tutorial_id,
+        step_id
+      });
+
     await setCurrentStepNo(
       current_step_no > 0 ? current_step_no - 1 : current_step_no
     )(dispatch);

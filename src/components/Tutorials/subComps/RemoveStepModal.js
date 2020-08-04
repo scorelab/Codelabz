@@ -9,7 +9,8 @@ const RemoveStepModal = ({
   tutorial_id,
   step_id,
   viewModal,
-  currentStep
+  currentStep,
+  step_length
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -23,7 +24,7 @@ const RemoveStepModal = ({
 
   const handleOnOk = () => {
     setLoading(true);
-    if (currentStep > 0) {
+    if (step_length > 1) {
       removeStep(owner, tutorial_id, step_id, currentStep)(
         firebase,
         firestore,

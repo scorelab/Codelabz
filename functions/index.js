@@ -10,6 +10,7 @@ const onCallFunctions = require("./cloud_functions/onCallFunctions");
 const onCreateFunctions = require("./cloud_functions/onCreateFunctions");
 const onWriteFunctions = require("./cloud_functions/onWriteFunctions");
 const onUpdateFunctions = require("./cloud_functions/onUpdateFunctions");
+const pubSubFunctions = require("./cloud_functions/pubSubFunctions");
 
 //+++++++++++++++++++++onCall Functions+++++++++++++++++++++++++++++++++
 exports.resendVerificationEmail = functions.https.onCall(
@@ -38,3 +39,8 @@ exports.registerUserHandle = functions.firestore
 exports.updateOrgUser = functions.firestore
   .document("cl_org_general/{org_handle}/cl_org_users/users")
   .onUpdate(onUpdateFunctions.addOrgUserHandler);
+
+//++++++++++++++++++++Pub/Sub Functions++++++++++++++++++++++++++++++
+exports.deleteTutorialSteps = functions.pubsub
+  .schedule("every 7 days")
+  .onRun(pubSubFunctions.deleteTutorialStepsHandler);

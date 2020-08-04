@@ -28,7 +28,8 @@ const EditControls = ({
   toggleAddNewStep,
   visibility,
   owner,
-  currentStep
+  currentStep,
+  step_length
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -129,7 +130,7 @@ const EditControls = ({
             onClick={() => {
               setViewRemoveStepModal(!viewRemoveStepModal);
             }}
-            disabled={currentStep === 0}
+            disabled={step_length === 1}
           >
             <DeleteOutlined /> Remove step
             <RemoveStepModal
@@ -138,6 +139,7 @@ const EditControls = ({
               step_id={noteID}
               viewModal={viewRemoveStepModal}
               currentStep={currentStep}
+              step_length={step_length}
             />
           </Button>
         </Space>
