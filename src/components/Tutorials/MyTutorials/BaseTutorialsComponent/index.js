@@ -1,8 +1,9 @@
 import React from "react";
-import { Layout, Row, Col, Avatar, Divider } from "antd";
-
+import { Layout, Row, Col } from "antd";
 import TutorialCard from "./TutorialCard";
 import { useSelector } from "react-redux";
+import EmptyTutorials from "../../../../helpers/emptyTutorials";
+import Spinner from "../../../../helpers/spinner";
 
 /**
  * @param {string} owner - Owner of the tutorials
@@ -11,39 +12,32 @@ import { useSelector } from "react-redux";
  * @returns {JSX.Element}
  * @constructor
  */
-const BaseTutorialsComponent = ({ owner, imageURL, ownerName }) => {
+const BaseTutorialsComponent = ({ owner, ownerName }) => {
   const user = useSelector(
     ({
       tutorials: {
-        data: { user }
-      }
+        data: { user },
+      },
     }) => user
   );
 
   const org = useSelector(
     ({
       tutorials: {
-        data: { org }
-      }
+        data: { org },
+      },
     }) => org
   );
 
   if (user) {
     const index = [...user, ...org];
 
-    const index_array = index.filter(e => e.owner === owner);
+    const index_array = index.filter((e) => e.owner === owner);
 
     return (
       <div>
         <Layout>
-          <Row justify="space-around" align="middle">
-            <Col span={2}>
-              <Avatar size={64} src={imageURL} />
-            </Col>
-            <Col span={22}>{ownerName}</Col>
-          </Row>
-          <Divider />
-          <Row justify="space-around" align="middle">
+          <Row justify="start" align="middle">
             {index_array.map((tutorial, index) => (
               <TutorialCard
                 key={index}
@@ -51,27 +45,20 @@ const BaseTutorialsComponent = ({ owner, imageURL, ownerName }) => {
                 loading={false}
               />
             ))}
-            {index_array.length === 0 && "No CodeLabz to display"}
+            {index_array.length === 0 && (
+              <EmptyTutorials org={ownerName} orgHandle={owner} />
+            )}
           </Row>
         </Layout>
       </div>
     );
   } else {
     return (
-      <div>
-        <Layout>
-          <Row justify="space-around" align="middle">
-            <Col span={2}>
-              <Avatar size={64} src={imageURL} />
-            </Col>
-            <Col span={22}>{ownerName}</Col>
-          </Row>
-          <Divider />
-          <Row justify="space-around" align="middle">
-            <TutorialCard tutorialData={{}} loading={true} />
-          </Row>
-        </Layout>
-      </div>
+      <Row justify="center" align="middle">
+        <Col xs={24} className="col-pad-24">
+          <Spinner half />
+        </Col>
+      </Row>
     );
   }
 };

@@ -723,11 +723,24 @@ footer {
   box-shadow: none;
 }
 
-.tutorial-title-input {
+.tutorial-title-input,
+.tutorial-title-input > .ant-input {
   border-top: 0 !important;
   border-left: 0 !important;
   border-right: 0 !important;
   border-radius: 0 !important;
   font-weight: bold;
   color: black;
+}
+
+.tutorial-title-input > .ant-input-suffix {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.custom-step
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title {
+  width: 100%;
 }

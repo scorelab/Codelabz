@@ -26,7 +26,6 @@ const Editor = ({ id, data, tutorial_id }) => {
   );
 
   useEffect(() => {
-    console.log("running again", firebase, currentUserHandle, noteID);
     let firepad;
     window.CodeMirror = CodeMirror;
     window.firebase = firebase;

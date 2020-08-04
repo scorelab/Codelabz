@@ -9,7 +9,7 @@ const RemoveStepModal = ({
   tutorial_id,
   step_id,
   viewModal,
-  currentStep
+  currentStep,
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -24,11 +24,12 @@ const RemoveStepModal = ({
   const handleOnOk = () => {
     setLoading(true);
     if (currentStep > 0) {
-      removeStep(owner, tutorial_id, step_id, currentStep)(
-        firebase,
-        firestore,
-        dispatch
-      ).then(() => {
+      removeStep(
+        owner,
+        tutorial_id,
+        step_id,
+        currentStep
+      )(firebase, firestore, dispatch).then(() => {
         setLoading(false);
         setVisible(false);
       });
@@ -46,9 +47,9 @@ const RemoveStepModal = ({
       destroyOnClose={true}
       maskClosable={true}
     >
+      This action is can not be undone!
       <Form onFinish={handleOnOk}>
-        This action is irreversible!
-        <Form.Item className="mb-0">
+        <Form.Item className="mb-0 mt-24">
           <Space style={{ float: "right" }}>
             <Button key="back" onClick={handleOnCancel}>
               Cancel

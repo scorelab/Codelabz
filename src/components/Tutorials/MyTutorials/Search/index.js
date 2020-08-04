@@ -16,16 +16,16 @@ const SearchComponent = () => {
   const user = useSelector(
     ({
       tutorials: {
-        data: { user }
-      }
+        data: { user },
+      },
     }) => user
   );
 
   const org = useSelector(
     ({
       tutorials: {
-        data: { org }
-      }
+        data: { org },
+      },
     }) => org
   );
 
@@ -46,10 +46,10 @@ const SearchComponent = () => {
     }
     if (result.length > 0) {
       let tempArray = [];
-      result.forEach(item => {
+      result.forEach((item) => {
         tempArray = [
           ...tempArray,
-          ..._.filter(indexData, ref => ref.tutorial_id === item.ref)
+          ..._.filter(indexData, (ref) => ref.tutorial_id === item.ref),
         ];
       });
       setViewResults(true);
@@ -59,23 +59,21 @@ const SearchComponent = () => {
 
   return (
     <Layout>
-      <Row className={"mt-24 mb-24"}>
-        <Col span={4} />
-        <Col span={8}>Search CodeLabz</Col>
-        <Col span={8}>
-          <Input.Search
-            placeholder="Search CodeLabz by title, summary, or owner"
-            onKeyUp={handleOnSearch}
-            style={{ width: "80%" }}
-          />
-        </Col>
-        <Col span={4}>
-          <Button onClick={() => setVisibleModal(true)}>
-            <PlusOutlined /> Add New Tutorial
+      <Row justify="space-between">
+        <Col xs={24} md={4} className="col-pad-24">
+          <Button onClick={() => setVisibleModal(true)} type="primary">
+            <PlusOutlined /> Add New CodeLabz
           </Button>
           <NewTutorial
             viewModal={visibleModal}
             viewCallback={() => setVisibleModal(false)}
+          />
+        </Col>
+        <Col xs={24} md={8} className="col-pad-24">
+          <Input.Search
+            placeholder="Search CodeLabz by title, summary, or owner"
+            onKeyUp={handleOnSearch}
+            style={{ width: "100%" }}
           />
         </Col>
       </Row>

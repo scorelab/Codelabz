@@ -8,12 +8,15 @@ const StepsPanel = ({
   onChange,
   stepsData,
   onClick,
-  hideButton
+  hideButton,
 }) => {
   const stepView = (title, visibility) => (
-    <>
-      {title} {visibility ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-    </>
+    <div style={{ width: "100%" }}>
+      <span>{title} </span>
+      <span style={{ float: "right", verticalAlign: "middle" }}>
+        {visibility ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+      </span>
+    </div>
   );
 
   return (
@@ -37,11 +40,11 @@ const StepsPanel = ({
         style={{ backgroundColor: "white" }}
       >
         {stepsData &&
-          stepsData.map(step => {
+          stepsData.map((step) => {
             return (
               <Step
                 title={stepView(step.title, step.visibility)}
-                className="pb-8"
+                className="pb-8 custom-step"
                 key={"step" + step.id}
               />
             );

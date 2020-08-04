@@ -184,7 +184,7 @@ const ViewTutorial = () => {
                     )}
                     {mode === "edit" && (
                       <>
-                        <StepsTitle />
+                        <StepsTitle currentStepNo={currentStepNo} />
                         <Editor
                           data={stepsData[currentStep].content}
                           tutorial_id={tutorialData.tutorial_id}
@@ -231,7 +231,7 @@ const ViewTutorial = () => {
       </Layout>
     );
   } else {
-    return <Spinner />;
+    return <Spinner half />;
   }
 };
 
