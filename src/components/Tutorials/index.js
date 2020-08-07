@@ -132,6 +132,7 @@ const ViewTutorial = () => {
                 visibility={stepsData[currentStep].visibility}
                 owner={owner}
                 currentStep={currentStep}
+                step_length={stepsData.length}
               />
             </Col>
           </Row>
@@ -183,7 +184,13 @@ const ViewTutorial = () => {
                     )}
                     {mode === "edit" && (
                       <>
-                        <StepsTitle />
+                        <StepsTitle
+                          owner={tutorialData.owner}
+                          tutorial_id={tutorialData.tutorial_id}
+                          step_id={stepsData[currentStep].id}
+                          step_title={stepsData[currentStep].title}
+                          step_time={stepsData[currentStep].time}
+                        />
                         <Editor
                           data={stepsData[currentStep].content}
                           tutorial_id={tutorialData.tutorial_id}
@@ -203,6 +210,9 @@ const ViewTutorial = () => {
                 <ImageDrawer
                   visible={imageDrawerVisible}
                   onClose={() => setImageDrawerVisible(false)}
+                  owner={tutorialData.owner}
+                  tutorial_id={tutorialData.tutorial_id}
+                  imageURLs={tutorialData.imageURLs}
                 />
               )}
               <AddNewStepModal
