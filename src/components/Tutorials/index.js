@@ -3,7 +3,7 @@ import { Layout, Row, Col } from "antd";
 import { useMediaQuery } from "react-responsive";
 import StepsPanel from "./subComps/StepsPanel";
 import ReactMarkdown from "react-markdown";
-import CodeBlock from "../../helpers/CodeBlock";
+import { CodeBlock, ImageRenderer } from "../../helpers/CustomRenderers";
 import { TutorialTimeRemaining } from "../../helpers/tutorialTime";
 import ControlButtons from "./subComps/ControlButtons";
 import TutorialTitle from "./subComps/TutorialTitle";
@@ -180,7 +180,7 @@ const ViewTutorial = () => {
                     {mode === "view" && (
                       <ReactMarkdown
                         source={currentStepContent}
-                        renderers={{ code: CodeBlock }}
+                        renderers={{ code: CodeBlock, image: ImageRenderer }}
                       />
                     )}
                     {mode === "edit" && (

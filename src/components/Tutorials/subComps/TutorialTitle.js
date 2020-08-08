@@ -1,9 +1,11 @@
-import React from "react";
-import { PageHeader, Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { PageHeader, Button, Tooltip } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ClockCircleOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined,
 } from "@ant-design/icons";
 
 const TutorialTitle = ({
@@ -13,6 +15,9 @@ const TutorialTitle = ({
   tutorialData,
   timeRemaining,
 }) => {
+  const toggleFullscreen = () => {
+    document.documentElement.requestFullscreen();
+  };
   return (
     <PageHeader
       className={
@@ -33,9 +38,16 @@ const TutorialTitle = ({
       }
       extra={
         !isDesktop && stepPanelVisible ? null : (
-          <Button type="text" className="p-0">
-            <ClockCircleOutlined /> {timeRemaining} mins remaining
-          </Button>
+          <>
+            <Button type="text" className="p-0">
+              <ClockCircleOutlined /> {timeRemaining} mins remaining
+            </Button>
+            <Tooltip placement="left" title={"Go Fullscreen"}>
+              <Button type="dashed" onClick={toggleFullscreen} className="bp-8">
+                <FullscreenOutlined />
+              </Button>
+            </Tooltip>
+          </>
         )
       }
     />

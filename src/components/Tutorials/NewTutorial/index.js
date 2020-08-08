@@ -140,7 +140,11 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
           className="mb-24"
         />
       )}
-      <Form form={form} onFinish={onSubmit} initialValues={{ owner: active }}>
+      <Form
+        form={form}
+        onFinish={onSubmit}
+        initialValues={{ owner: active || userHandle }}
+      >
         <Form.Item name={"title"} rules={tutorialTitleNameValidation}>
           <Input
             prefix={

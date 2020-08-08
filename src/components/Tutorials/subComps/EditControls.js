@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageHeader, Button, Menu, Dropdown, Space } from "antd";
+import { PageHeader, Button, Menu, Dropdown, Space, message } from "antd";
 import {
   SnippetsOutlined,
   EllipsisOutlined,
@@ -9,7 +9,7 @@ import {
   EyeInvisibleOutlined,
   PlusOutlined,
   FileImageOutlined,
-  EyeOutlined
+  EyeOutlined,
 } from "@ant-design/icons";
 import UserList from "../../Editor/UserList";
 import { hideUnHideStep } from "../../../store/actions";
@@ -29,7 +29,7 @@ const EditControls = ({
   visibility,
   owner,
   currentStep,
-  step_length
+  step_length,
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -56,14 +56,14 @@ const EditControls = ({
         <Button
           style={{
             border: "none",
-            padding: 0
+            padding: 0,
           }}
           type="link"
         >
           <EllipsisOutlined
             style={{
               fontSize: 20,
-              verticalAlign: "top"
+              verticalAlign: "top",
             }}
           />
         </Button>
@@ -87,33 +87,23 @@ const EditControls = ({
             <FileImageOutlined /> Add images
           </Button>
 
-          {mode === "edit" && (
-            <Button
-              type="primary"
-              className="ml-24"
-              onClick={() => setMode("view")}
-            >
-              <SnippetsOutlined /> Preview mode
-            </Button>
-          )}
-          {mode === "view" && (
-            <Button
-              type="primary"
-              className="ml-24"
-              onClick={() => setMode("edit")}
-            >
-              <EditOutlined /> Editor mode
-            </Button>
-          )}
-
           <Button
-            onClick={() =>
-              hideUnHideStep(owner, tutorial_id, noteID, visibility)(
-                firebase,
-                firestore,
-                dispatch
-              )
-            }
+            onClick={() => {
+              let key = Math.random();
+              message.loading({
+                content: "Updating step visibility...",
+                key,
+                duration: 10,
+              });
+              hideUnHideStep(
+                owner,
+                tutorial_id,
+                noteID,
+                visibility
+              )(firebase, firestore, dispatch).then(() => {
+                message.success({ content: "Updated!", key, duration: 2 });
+              });
+            }}
           >
             {!visibility ? (
               <>
@@ -147,7 +137,9 @@ const EditControls = ({
       extra={
         !isDesktop && stepPanelVisible ? null : (
           <>
-            <UserList tutorial_id={tutorial_id} noteID={noteID} />
+            {mode === "edit" && (
+              <UserList tutorial_id={tutorial_id} noteID={noteID} />
+            )}
             <Button
               type="text"
               shape="circle"
@@ -155,7 +147,25 @@ const EditControls = ({
               size="large"
               className="ml-24"
             />
-            <Button type="primary">
+            {mode === "view" && (
+              <Button
+                type="primary"
+                className="ml-24"
+                onClick={() => setMode("edit")}
+              >
+                <EditOutlined /> Editor mode
+              </Button>
+            )}
+            {mode === "edit" && (
+              <Button
+                type="primary"
+                className="ml-24"
+                onClick={() => setMode("view")}
+              >
+                <SnippetsOutlined /> Preview mode
+              </Button>
+            )}
+            <Button type="dashed">
               <SnippetsOutlined /> Publish
             </Button>
             <DropdownMenu key="more" />

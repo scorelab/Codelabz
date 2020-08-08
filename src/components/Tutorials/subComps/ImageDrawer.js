@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearTutorialImagesReducer,
   remoteTutorialImages,
-  uploadTutorialImages
+  uploadTutorialImages,
 } from "../../../store/actions";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -19,32 +19,32 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
   const uploading = useSelector(
     ({
       tutorials: {
-        images: { uploading }
-      }
+        images: { uploading },
+      },
     }) => uploading
   );
 
   const uploading_error = useSelector(
     ({
       tutorials: {
-        images: { uploading_error }
-      }
+        images: { uploading_error },
+      },
     }) => uploading_error
   );
 
   const deleting = useSelector(
     ({
       tutorials: {
-        images: { deleting }
-      }
+        images: { deleting },
+      },
     }) => deleting
   );
 
   const deleting_error = useSelector(
     ({
       tutorials: {
-        images: { deleting_error }
-      }
+        images: { deleting_error },
+      },
     }) => deleting_error
   );
 
@@ -81,15 +81,16 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
         dispatch
       );
       return false;
-    }
+    },
   };
 
   const deleteFile = (name, url) =>
-    remoteTutorialImages(owner, tutorial_id, name, url)(
-      firebase,
-      firestore,
-      dispatch
-    );
+    remoteTutorialImages(
+      owner,
+      tutorial_id,
+      name,
+      url
+    )(firebase, firestore, dispatch);
 
   return (
     <Drawer
@@ -135,7 +136,7 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
                 <h4 className="pb-8">{image.name}</h4>
                 <Space style={{ float: "right" }}>
                   <CopyToClipboard
-                    text={`![image](${image.url})`}
+                    text={`![alt=image; scale=1.0](${image.url})`}
                     onCopy={() =>
                       message.success(`Image URL copied to clipboard`)
                     }
