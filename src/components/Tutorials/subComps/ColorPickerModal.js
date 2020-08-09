@@ -50,7 +50,6 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id }) => {
             <div>
               <ColorPickerPanel
                 enableAlpha={false}
-                color={textColor}
                 onChange={updateTextColor}
                 mode="RGB"
               />
@@ -66,7 +65,6 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id }) => {
             <div>
               <ColorPickerPanel
                 enableAlpha={false}
-                color={bgColor}
                 onChange={updateBackgroundColor}
                 mode="RGB"
                 align="center"
