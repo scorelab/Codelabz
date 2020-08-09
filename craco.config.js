@@ -12,6 +12,7 @@ module.exports = {
               "@primary-color": "#3AAFA9",
               "@font-family": "'Poppins', sans-serif",
               "@font-size-base": "14px",
+              "@border-radius-base": "5px",
             },
           },
         },

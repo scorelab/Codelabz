@@ -11,11 +11,11 @@ const tutorials_index = new Elasticlunr(
   "summary"
 );
 
-export const searchFromTutorialsIndex = query => {
+export const searchFromTutorialsIndex = (query) => {
   return tutorials_index.searchFromIndex(query);
 };
 
-export const getUserTutorialsBasicData = user_handle => async (
+export const getUserTutorialsBasicData = (user_handle) => async (
   firestore,
   dispatch
 ) => {
@@ -31,14 +31,14 @@ export const getUserTutorialsBasicData = user_handle => async (
     if (querySnapshot.empty) {
       index = [];
     } else {
-      index = querySnapshot.docs.map(doc => {
+      index = querySnapshot.docs.map((doc) => {
         const new_doc = {
           owner: user_handle,
           tutorial_id: doc.id,
           title: doc.get("title") || "",
           summary: doc.get("summary") || "",
           featured_image: doc.get("featured_image") || "",
-          icon: doc.get("icon") || ""
+          icon: doc.get("icon") || "",
         };
 
         tutorials_index.addDocToIndex(new_doc);
@@ -47,17 +47,17 @@ export const getUserTutorialsBasicData = user_handle => async (
     }
     dispatch({
       type: actions.GET_USER_TUTORIALS_BASIC_SUCCESS,
-      payload: index
+      payload: index,
     });
   } catch (e) {
     dispatch({
       type: actions.GET_USER_TUTORIALS_BASIC_FAIL,
-      payload: e.message
+      payload: e.message,
     });
   }
 };
 
-export const getOrgTutorialsBasicData = organizations => async (
+export const getOrgTutorialsBasicData = (organizations) => async (
   firestore,
   dispatch
 ) => {
@@ -65,7 +65,7 @@ export const getOrgTutorialsBasicData = organizations => async (
     dispatch({ type: actions.GET_ORG_TUTORIALS_BASIC_START });
     let index = [];
 
-    const getFinalData = async handle => {
+    const getFinalData = async (handle) => {
       let temp_array;
       const querySnapshot = await firestore
         .collection("cl_codelabz")
@@ -76,14 +76,14 @@ export const getOrgTutorialsBasicData = organizations => async (
       if (querySnapshot.empty) {
         temp_array = [];
       } else {
-        temp_array = querySnapshot.docs.map(doc => {
+        temp_array = querySnapshot.docs.map((doc) => {
           const new_doc = {
             owner: handle,
             tutorial_id: doc.id,
             title: doc.get("title") || "",
             summary: doc.get("summary") || "",
             featured_image: doc.get("featured_image") || "",
-            icon: doc.get("icon") || ""
+            icon: doc.get("icon") || "",
           };
           tutorials_index.addDocToIndex(new_doc);
           return new_doc;
@@ -95,7 +95,7 @@ export const getOrgTutorialsBasicData = organizations => async (
 
     if (organizations.length > 0) {
       const promises = organizations.map(
-        async org_handle => await getFinalData(org_handle)
+        async (org_handle) => await getFinalData(org_handle)
       );
 
       index = await Promise.all(promises);
@@ -103,20 +103,20 @@ export const getOrgTutorialsBasicData = organizations => async (
 
     dispatch({
       type: actions.GET_ORG_TUTORIALS_BASIC_SUCCESS,
-      payload: index.flat()
+      payload: index.flat(),
     });
   } catch (e) {
     dispatch({
       type: actions.GET_ORG_TUTORIALS_BASIC_FAIL,
-      payload: e.message
+      payload: e.message,
     });
   }
 };
 
-export const clearTutorialsBasicData = () => dispatch =>
+export const clearTutorialsBasicData = () => (dispatch) =>
   dispatch({ type: actions.CLEAR_TUTORIALS_BASIC_STATE });
 
-export const createTutorial = tutorialData => async (
+export const createTutorial = (tutorialData) => async (
   firebase,
   firestore,
   dispatch,
@@ -126,7 +126,7 @@ export const createTutorial = tutorialData => async (
     dispatch({ type: actions.CREATE_TUTORIAL_START });
     const { title, summary, owner, created_by, is_org } = tutorialData;
 
-    const setData = async type => {
+    const setData = async (type) => {
       const document = firestore
         .collection("cl_codelabz")
         .doc(type)
@@ -151,18 +151,20 @@ export const createTutorial = tutorialData => async (
             time: 1,
             content: "Sample tutorial step one",
             visibility: true,
-            deleted: false
-          }
+            deleted: false,
+          },
         },
+        background_color: "#ffffff",
+        text_color: "#000000",
         createdAt: firestore.FieldValue.serverTimestamp(),
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
       await firebase.ref("notes/" + documentID).set({
         [step_id]: {
           text: "Sample tutorial step one",
-          deleted: false
-        }
+          deleted: false,
+        },
       });
       return documentID;
     };
@@ -180,7 +182,7 @@ export const createTutorial = tutorialData => async (
   }
 };
 
-const checkUserOrOrgHandle = handle => async firebase => {
+const checkUserOrOrgHandle = (handle) => async (firebase) => {
   const userHandleExists = await checkUserHandleExists(handle)(firebase);
   const orgHandleExists = await checkOrgHandleExists(handle)(firebase);
 
@@ -212,17 +214,17 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
       .ref(`/notes/${tutorial_id}`)
       .once("value");
     const tutorial_steps_from_rtdb = [];
-    tutorial_data.forEach(step => {
+    tutorial_data.forEach((step) => {
       tutorial_steps_from_rtdb.push({
         id: step.key,
         content: step.child("text").val(),
-        deleted: step.child("deleted").val()
+        deleted: step.child("deleted").val(),
       });
     });
 
     const steps_obj = doc.get("steps");
     const steps = _.orderBy(
-      Object.keys(steps_obj).map(step => steps_obj[step]),
+      Object.keys(steps_obj).map((step) => steps_obj[step]),
       ["id"],
       ["asc"]
     );
@@ -230,9 +232,11 @@ export const getCurrentTutorialData = (owner, tutorial_id) => async (
       type: actions.GET_CURRENT_TUTORIAL_SUCCESS,
       payload: {
         ...doc.data(),
-        steps: _.merge(steps, tutorial_steps_from_rtdb).filter(x => !x.deleted),
-        tutorial_id
-      }
+        steps: _.merge(steps, tutorial_steps_from_rtdb).filter(
+          (x) => !x.deleted
+        ),
+        tutorial_id,
+      },
     });
   } catch (e) {
     window.location.href = "/";
@@ -245,7 +249,7 @@ export const addNewTutorialStep = ({
   tutorial_id,
   title,
   time,
-  id
+  id,
 }) => async (firebase, firestore, dispatch) => {
   try {
     dispatch({ type: actions.CREATE_TUTORIAL_STEP_START });
@@ -262,20 +266,15 @@ export const addNewTutorialStep = ({
           time,
           title,
           visibility: true,
-          deleted: false
+          deleted: false,
         },
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
-    await firebase
-      .ref()
-      .child("notes")
-      .child(tutorial_id)
-      .child(id)
-      .set({
-        text: "",
-        deleted: false
-      });
+    await firebase.ref().child("notes").child(tutorial_id).child(id).set({
+      text: "",
+      deleted: false,
+    });
 
     await getCurrentTutorialData(owner, tutorial_id)(
       firebase,
@@ -289,7 +288,7 @@ export const addNewTutorialStep = ({
   }
 };
 
-export const clearCreateTutorials = () => dispatch =>
+export const clearCreateTutorials = () => (dispatch) =>
   dispatch({ type: actions.CLEAR_CREATE_TUTORIALS_STATE });
 
 export const getCurrentStepContentFromRTDB = (tutorial_id, step_id) => async (
@@ -322,7 +321,7 @@ export const hideUnHideStep = (
       .doc(tutorial_id)
       .update({
         [`steps.${step_id}.visibility`]: !visibility,
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
     await getCurrentTutorialData(owner, tutorial_id)(
@@ -350,7 +349,7 @@ export const removeStep = (
       .doc(tutorial_id)
       .update({
         [`steps.${step_id}.deleted`]: true,
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
     await firebase
@@ -361,21 +360,14 @@ export const removeStep = (
       .child("deleted")
       .set(true);
 
-    const delete_step_key = firebase
-      .ref()
-      .child("delete_steps")
-      .push().key;
+    const delete_step_key = firebase.ref().child("delete_steps").push().key;
 
-    await firebase
-      .ref()
-      .child("delete_steps")
-      .child(delete_step_key)
-      .set({
-        type,
-        owner,
-        tutorial_id,
-        step_id
-      });
+    await firebase.ref().child("delete_steps").child(delete_step_key).set({
+      type,
+      owner,
+      tutorial_id,
+      step_id,
+    });
 
     await setCurrentStepNo(
       current_step_no > 0 ? current_step_no - 1 : current_step_no
@@ -391,10 +383,10 @@ export const removeStep = (
   }
 };
 
-export const setCurrentStep = data => async dispatch =>
+export const setCurrentStep = (data) => async (dispatch) =>
   dispatch({ type: actions.SET_EDITOR_DATA, payload: data });
 
-export const setCurrentStepNo = data => async dispatch =>
+export const setCurrentStepNo = (data) => async (dispatch) =>
   dispatch({ type: actions.SET_CURRENT_STEP_NO, payload: data });
 
 export const uploadTutorialImages = (owner, tutorial_id, files) => async (
@@ -413,11 +405,11 @@ export const uploadTutorialImages = (owner, tutorial_id, files) => async (
         return {
           imageURLs: firebase.firestore.FieldValue.arrayUnion({
             name: metadata.name,
-            url: downloadURL
-          })
+            url: downloadURL,
+          }),
         };
       },
-      documentId: tutorial_id
+      documentId: tutorial_id,
     });
 
     await getCurrentTutorialData(owner, tutorial_id)(
@@ -427,14 +419,14 @@ export const uploadTutorialImages = (owner, tutorial_id, files) => async (
     );
 
     dispatch({
-      type: actions.TUTORIAL_IMAGE_UPLOAD_SUCCESS
+      type: actions.TUTORIAL_IMAGE_UPLOAD_SUCCESS,
     });
   } catch (e) {
     dispatch({ type: actions.TUTORIAL_IMAGE_UPLOAD_FAIL, payload: e.message });
   }
 };
 
-export const clearTutorialImagesReducer = () => dispatch =>
+export const clearTutorialImagesReducer = () => (dispatch) =>
   dispatch({ type: actions.CLEAR_TUTORIAL_IMAGES_STATE });
 
 export const remoteTutorialImages = (owner, tutorial_id, name, url) => async (
@@ -444,7 +436,7 @@ export const remoteTutorialImages = (owner, tutorial_id, name, url) => async (
 ) => {
   try {
     dispatch({
-      type: actions.TUTORIAL_IMAGE_DELETE_START
+      type: actions.TUTORIAL_IMAGE_DELETE_START,
     });
     const type = await checkUserOrOrgHandle(owner)(firebase);
 
@@ -458,8 +450,8 @@ export const remoteTutorialImages = (owner, tutorial_id, name, url) => async (
       .update({
         imageURLs: firebase.firestore.FieldValue.arrayRemove({
           name,
-          url
-        })
+          url,
+        }),
       });
 
     await getCurrentTutorialData(owner, tutorial_id)(
@@ -469,7 +461,7 @@ export const remoteTutorialImages = (owner, tutorial_id, name, url) => async (
     );
 
     dispatch({
-      type: actions.TUTORIAL_IMAGE_DELETE_SUCCESS
+      type: actions.TUTORIAL_IMAGE_DELETE_SUCCESS,
     });
   } catch (e) {
     dispatch({ type: actions.TUTORIAL_IMAGE_DELETE_FAIL, payload: e.message });
@@ -492,7 +484,7 @@ export const updateStepTitle = (
       .doc(tutorial_id)
       .update({
         [`steps.${step_id}.title`]: step_title,
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
     await getCurrentTutorialData(owner, tutorial_id)(
@@ -521,7 +513,7 @@ export const updateStepTime = (
       .doc(tutorial_id)
       .update({
         [`steps.${step_id}.time`]: step_time,
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       });
 
     await getCurrentTutorialData(owner, tutorial_id)(
