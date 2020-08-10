@@ -114,7 +114,7 @@ const Home = () => {
         </Col>
       </Row>
 
-      <Row className="light-green-bg home-row" justify="center" align="center">
+      <Row className="light-grey-bg home-row" justify="center" align="center">
         <Col cs={24} className="center pt-40 pb-40">
           <h1 className="home-title pl-24 pr-24 mb-8">
             Step-by-step instructions
