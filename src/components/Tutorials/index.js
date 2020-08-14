@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 import {
   getCurrentStepContentFromRTDB,
   getCurrentTutorialData,
-  setCurrentStepNo,
+  setCurrentStepNo
 } from "../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
@@ -39,7 +39,7 @@ const ViewTutorial = () => {
   const [stepsData, setStepData] = useState(null);
   const [tutorialData, setTutorialData] = useState(null);
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
+    query: "(min-device-width: 767px)"
   });
   const { owner, tutorial_id } = useParams();
 
@@ -50,16 +50,16 @@ const ViewTutorial = () => {
   const currentStepNo = useSelector(
     ({
       tutorials: {
-        editor: { current_step_no },
-      },
+        editor: { current_step_no }
+      }
     }) => current_step_no
   );
 
   const currentTutorialData = useSelector(
     ({
       tutorials: {
-        current: { data },
-      },
+        current: { data }
+      }
     }) => data
   );
 
@@ -74,8 +74,8 @@ const ViewTutorial = () => {
   const editorStepData = useSelector(
     ({
       tutorials: {
-        editor: { current_step },
-      },
+        editor: { current_step }
+      }
     }) => current_step
   );
 
@@ -98,7 +98,7 @@ const ViewTutorial = () => {
     }
   }, [tutorial_id, firebase, stepsData, currentStep, dispatch]);
 
-  const onChange = (current) => {
+  const onChange = current => {
     setCurrentStepNo(current)(dispatch);
     !isDesktop &&
       setTimeout(() => {
@@ -121,11 +121,9 @@ const ViewTutorial = () => {
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
                 noteID={stepsData[currentStep].id}
-                setMode={(mode) => setMode(mode)}
+                setMode={mode => setMode(mode)}
                 mode={mode}
-                toggleImageDrawer={() =>
-                  setImageDrawerVisible(!imageDrawerVisible)
-                }
+                toggleImageDrawer={() => setImageDrawerVisible(true)}
                 tutorial_id={tutorialData.tutorial_id}
                 toggleAddNewStep={() =>
                   setAddNewStepModalVisible(!addNewStepModalVisible)
