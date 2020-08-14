@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { Col, Row, Input, Form, message } from "antd";
+import React, { useState, useEffect } from "react";
+import { Col, Row, Input, InputNumber, Form, message } from "antd";
 import { useFirebase, useFirestore } from "react-redux-firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateStepTime, updateStepTitle } from "../../../store/actions";
 
 const StepsTitle = ({
@@ -17,9 +17,47 @@ const StepsTitle = ({
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
+  const [step_id, set_step_id] = useState(null);
+  const [step_title, set_step_title] = useState(null);
+  const [step_time, set_step_time] = useState(null);
+
+  const current_step_no = useSelector(
+    ({
+      tutorials: {
+        editor: { current_step_no }
+      }
+    }) => current_step_no
+  );
+  const current_data = useSelector(
+    ({
+      tutorials: {
+        current: { data }
+      }
+    }) => data
+  );
+
   useEffect(() => {
-    form.setFieldsValue({ step_title: step_title, step_time: step_time });
-  }, [step_time, step_title, form]);
+    if (current_data) {
+      const { steps } = current_data;
+      const current_step_data = steps[current_step_no];
+      set_step_id(current_step_data.id);
+      set_step_title(current_step_data.title);
+      set_step_time(current_step_data.time);
+      form.setFieldsValue({
+        step_title,
+        step_time
+      });
+    }
+  }, [
+    step_title,
+    step_time,
+    form,
+    current_data,
+    set_step_id,
+    set_step_title,
+    set_step_time,
+    current_step_no
+  ]);
 
   const setStepTitle = () => {
     const newStepTitle = form.getFieldValue("step_title");
