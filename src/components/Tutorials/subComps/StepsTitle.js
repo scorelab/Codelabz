@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Input, InputNumber, Form, message } from "antd";
+import { Col, Row, Input, Form, message } from "antd";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepTime, updateStepTitle } from "../../../store/actions";
 
-const StepsTitle = ({
-  owner,
-  tutorial_id,
-  step_id,
-  step_title,
-  step_time,
-  currentStepNo,
-}) => {
+const StepsTitle = ({ owner, tutorial_id }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -24,15 +17,15 @@ const StepsTitle = ({
   const current_step_no = useSelector(
     ({
       tutorials: {
-        editor: { current_step_no }
-      }
+        editor: { current_step_no },
+      },
     }) => current_step_no
   );
   const current_data = useSelector(
     ({
       tutorials: {
-        current: { data }
-      }
+        current: { data },
+      },
     }) => data
   );
 
@@ -45,7 +38,7 @@ const StepsTitle = ({
       set_step_time(current_step_data.time);
       form.setFieldsValue({
         step_title,
-        step_time
+        step_time,
       });
     }
   }, [
@@ -56,7 +49,7 @@ const StepsTitle = ({
     set_step_id,
     set_step_title,
     set_step_time,
-    current_step_no
+    current_step_no,
   ]);
 
   const setStepTitle = () => {
@@ -109,7 +102,7 @@ const StepsTitle = ({
                   placeholder="Title of the step"
                   className="tutorial-title-input"
                   size="large"
-                  prefix={currentStepNo + 1 + "."}
+                  prefix={current_step_no + 1 + "."}
                 />
               </Form.Item>
             </Col>
