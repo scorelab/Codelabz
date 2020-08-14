@@ -57,5 +57,6 @@ export {
   clearTutorialImagesReducer,
   remoteTutorialImages,
   updateStepTitle,
-  updateStepTime
+  updateStepTime,
+  setTutorialTheme
 } from "./tutorialsActions";
