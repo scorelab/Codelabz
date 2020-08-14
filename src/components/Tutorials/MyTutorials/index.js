@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Layout, Row, Col } from "antd";
 import SearchComponent from "./Search";
-import UserTutorialsComponent from "./UserTutorials";
+// import UserTutorialsComponent from "./UserTutorials";
 import OrgTutorialsComponent from "./OrgTutorials";
 import {
   getUserTutorialsBasicData,
   getOrgTutorialsBasicData,
-  clearTutorialsBasicData
+  clearTutorialsBasicData,
 } from "../../../store/actions";
 import { useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,38 +18,38 @@ const MyTutorials = () => {
   const userHandle = useSelector(
     ({
       firebase: {
-        profile: { handle }
-      }
+        profile: { handle },
+      },
     }) => handle
   );
 
   const displayName = useSelector(
     ({
       firebase: {
-        profile: { displayName }
-      }
+        profile: { displayName },
+      },
     }) => displayName
   );
 
   const photoURL = useSelector(
     ({
       firebase: {
-        profile: { photoURL }
-      }
+        profile: { photoURL },
+      },
     }) => photoURL
   );
 
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   const org_handles =
     organizations && organizations.length > 0
-      ? organizations.map(org => org.org_handle)
+      ? organizations.map((org) => org.org_handle)
       : [];
 
   useEffect(() => {
@@ -63,33 +63,27 @@ const MyTutorials = () => {
 
   useEffect(() => () => clearTutorialsBasicData()(dispatch), [dispatch]);
 
+  const userDetails = {
+    userHandle,
+    displayName,
+    photoURL,
+  };
+
   return (
     <Layout className="row-footer-below">
-      <Row className={"mb-24"}>
-        <Col span={1} />
-        <Col span={22}>
+      <Row className="mb-24">
+        <Col span={24}>
           <SearchComponent />
         </Col>
-        <Col span={1} />
-      </Row>
-      <Row className={"mb-24"}>
-        <Col span={1} />
-        <Col span={22}>
-          <UserTutorialsComponent
-            userHandle={userHandle}
-            displayName={displayName}
-            photoURL={photoURL}
-          />
-        </Col>
-        <Col span={1} />
       </Row>
       {organizations && organizations.length > 0 && (
-        <Row className={"mb-24"}>
-          <Col span={1} />
-          <Col span={22}>
-            <OrgTutorialsComponent organizations={organizations} />
+        <Row className="mb-24">
+          <Col span={24}>
+            <OrgTutorialsComponent
+              organizations={organizations}
+              user={userDetails}
+            />
           </Col>
-          <Col span={1} />
         </Row>
       )}
     </Layout>

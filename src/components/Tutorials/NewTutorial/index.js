@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, Form, Input, Modal, Space, Select, Avatar } from "antd";
 import {
   tutorialTitleNameValidation,
-  tutorialOwnerValidation
+  tutorialOwnerValidation,
 } from "../../../helpers/validationRules";
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import { createTutorial } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useHistory } from "react-router-dom";
 
-const NewTutorial = ({ viewModal, viewCallback }) => {
+const NewTutorial = ({ viewModal, viewCallback, active }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -19,19 +19,20 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [form] = Form.useForm();
 
   const loadingProp = useSelector(
     ({
       tutorials: {
-        create: { loading }
-      }
+        create: { loading },
+      },
     }) => loading
   );
   const errorProp = useSelector(
     ({
       tutorials: {
-        create: { error }
-      }
+        create: { error },
+      },
     }) => error
   );
 
@@ -46,32 +47,32 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   const userHandle = useSelector(
     ({
       firebase: {
-        profile: { handle }
-      }
+        profile: { handle },
+      },
     }) => handle
   );
 
   const displayName = useSelector(
     ({
       firebase: {
-        profile: { displayName }
-      }
+        profile: { displayName },
+      },
     }) => displayName
   );
 
   const photoURL = useSelector(
     ({
       firebase: {
-        profile: { photoURL }
-      }
+        profile: { photoURL },
+      },
     }) => photoURL
   );
 
@@ -99,13 +100,11 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
     setVisible(viewModal);
   }, [viewModal]);
 
-  const [form] = Form.useForm();
-
-  const onSubmit = formData => {
+  const onSubmit = (formData) => {
     const tutorialData = {
       ...formData,
       created_by: userHandle,
-      is_org: userHandle !== formData.owner
+      is_org: userHandle !== formData.owner,
     };
     createTutorial(tutorialData)(firebase, firestore, dispatch, history);
   };
@@ -115,9 +114,9 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
     setVisible(false);
   };
 
-  const onOwnerChange = value => {
+  const onOwnerChange = (value) => {
     form.setFieldsValue({
-      owner: value
+      owner: value,
     });
   };
 
@@ -130,6 +129,7 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
       footer={false}
       destroyOnClose={true}
       maskClosable={false}
+      forceRender={true}
     >
       {error && (
         <Alert
@@ -140,7 +140,11 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
           className="mb-24"
         />
       )}
-      <Form form={form} onFinish={onSubmit}>
+      <Form
+        form={form}
+        onFinish={onSubmit}
+        initialValues={{ owner: active || userHandle }}
+      >
         <Form.Item name={"title"} rules={tutorialTitleNameValidation}>
           <Input
             prefix={
@@ -165,7 +169,6 @@ const NewTutorial = ({ viewModal, viewCallback }) => {
           <Select
             placeholder="Select the owner of the tutorial"
             onChange={onOwnerChange}
-            allowClear
           >
             <Select.Option value={userHandle}>
               <Avatar src={photoURL} size="small" className="mr-8 ml-0">

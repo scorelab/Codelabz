@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, Form, Input, InputNumber, Modal, Space } from "antd";
 import {
   addNewStepNameValidation,
-  addNewStepTimeValidation
+  addNewStepTimeValidation,
 } from "../../../helpers/validationRules";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import {
   addNewTutorialStep,
-  clearCreateTutorials
+  clearCreateTutorials,
 } from "../../../store/actions";
 
 const AddNewStepModal = ({
@@ -17,7 +17,7 @@ const AddNewStepModal = ({
   viewCallback,
   tutorial_id,
   steps_length,
-  owner
+  owner,
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -36,15 +36,15 @@ const AddNewStepModal = ({
   const loadingProp = useSelector(
     ({
       tutorials: {
-        create: { loading }
-      }
+        create: { loading },
+      },
     }) => loading
   );
   const errorProp = useSelector(
     ({
       tutorials: {
-        create: { error }
-      }
+        create: { error },
+      },
     }) => error
   );
 
@@ -69,12 +69,12 @@ const AddNewStepModal = ({
 
   const [form] = Form.useForm();
 
-  const onSubmit = formData => {
+  const onSubmit = (formData) => {
     const set_data = {
       ...formData,
       id: `${tutorial_id}_${new Date().getTime()}`,
       tutorial_id,
-      owner
+      owner,
     };
     addNewTutorialStep(set_data)(firebase, firestore, dispatch);
   };

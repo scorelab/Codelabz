@@ -221,6 +221,11 @@
   padding: 0px !important;
 }
 
+.bp-8 {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
 @media (max-width: 767px) {
   .col-pad-8 {
     padding: 4px 8px;

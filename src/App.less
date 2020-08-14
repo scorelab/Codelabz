@@ -414,7 +414,7 @@ img {
   height: 50px;
   padding: 6px 25px;
   font-size: 20px;
-  border-radius: 2px;
+  border-radius: @border-radius-base;
 }
 
 .flip-image {
@@ -424,6 +424,10 @@ img {
 
 .light-green-bg {
   background-color: #f7fcfb;
+}
+
+.light-grey-bg {
+  background-color: fade(@primary-color, 5%);
 }
 
 .footer-link {
@@ -663,7 +667,7 @@ footer {
   background-color: #f5fbfb;
   padding: 16px 10px 16px 10px;
   border: 1px solid fade(@primary-color, 60%);
-  border-radius: 2px;
+  border-radius: @border-radius-base;
   transition: padding 0.1s ease-out;
   z-index: inherit;
 }
@@ -705,9 +709,55 @@ footer {
 }
 
 .editor-icon > .ant-badge > .ant-badge-dot {
-  right: 16px;
+  right: 4px;
   top: 26px;
   width: 10px;
   height: 10px;
   box-shadow: 0 0 0 2px #fff;
+}
+
+.editor-icon .ant-avatar {
+  margin-right: 0px !important;
+}
+
+.ant-btn-text {
+  color: rgba(0, 0, 0, 0.65);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.tutorial-title-input,
+.tutorial-title-input > .ant-input {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  font-weight: bold;
+  color: black;
+}
+
+.tutorial-title-input > .ant-input-suffix {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.custom-step
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title {
+  width: 100%;
+}
+
+.tutorial-card > .ant-card-actions > li {
+  text-align: right;
+  padding: 0 12px;
+}
+
+.tutorial-card > .ant-card-actions {
+  border-top: none;
+}
+
+.rc-color-picker-panel {
+  margin: 0 auto !important;
 }

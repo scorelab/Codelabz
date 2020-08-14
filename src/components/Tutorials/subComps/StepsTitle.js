@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Input, InputNumber, Form, message } from "antd";
+import { Col, Row, Input, Form, message } from "antd";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepTime, updateStepTitle } from "../../../store/actions";
@@ -17,15 +17,15 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   const current_step_no = useSelector(
     ({
       tutorials: {
-        editor: { current_step_no }
-      }
+        editor: { current_step_no },
+      },
     }) => current_step_no
   );
   const current_data = useSelector(
     ({
       tutorials: {
-        current: { data }
-      }
+        current: { data },
+      },
     }) => data
   );
 
@@ -38,7 +38,7 @@ const StepsTitle = ({ owner, tutorial_id }) => {
       set_step_time(current_step_data.time);
       form.setFieldsValue({
         step_title,
-        step_time
+        step_time,
       });
     }
   }, [
@@ -49,28 +49,38 @@ const StepsTitle = ({ owner, tutorial_id }) => {
     set_step_id,
     set_step_title,
     set_step_time,
-    current_step_no
+    current_step_no,
   ]);
 
   const setStepTitle = () => {
     const newStepTitle = form.getFieldValue("step_title");
-    if (step_title !== newStepTitle) {
-      updateStepTitle(owner, tutorial_id, step_id, newStepTitle)(
-        firebase,
-        firestore,
-        dispatch
-      ).then(() => message.success(`Step title updated!`));
+    if (step_title !== newStepTitle && newStepTitle.length > 0) {
+      let key = Math.random();
+      message.loading({ content: "Updating title...", key, duration: 10 });
+      updateStepTitle(
+        owner,
+        tutorial_id,
+        step_id,
+        newStepTitle
+      )(firebase, firestore, dispatch).then(() =>
+        message.success({ content: "Step title updated!", key, duration: 2 })
+      );
     }
   };
 
   const setStepTime = () => {
     const newStepTime = form.getFieldValue("step_time");
-    if (step_time !== newStepTime) {
-      updateStepTime(owner, tutorial_id, step_id, newStepTime)(
-        firebase,
-        firestore,
-        dispatch
-      ).then(() => message.success(`Step time updated!`));
+    if (step_time !== newStepTime && newStepTime.length > 0) {
+      let key = Math.random();
+      message.loading({ content: "Updating time...", key, duration: 10 });
+      updateStepTime(
+        owner,
+        tutorial_id,
+        step_id,
+        newStepTime
+      )(firebase, firestore, dispatch).then(() =>
+        message.success({ content: "Step time updated!", key, duration: 2 })
+      );
     }
   };
 
@@ -79,7 +89,7 @@ const StepsTitle = ({ owner, tutorial_id }) => {
       <Col xs={24}>
         <Form form={form}>
           <Row style={{ width: "100%" }}>
-            <Col xs={24} md={18}>
+            <Col xs={24} md={19}>
               <Form.Item
                 name="step_title"
                 rules={[{ type: "string" }]}
@@ -90,19 +100,23 @@ const StepsTitle = ({ owner, tutorial_id }) => {
                   onBlur={setStepTitle}
                   onPressEnter={setStepTitle}
                   placeholder="Title of the step"
+                  className="tutorial-title-input"
+                  size="large"
+                  prefix={current_step_no + 1 + "."}
                 />
               </Form.Item>
             </Col>
-            <Col xs={24} md={6}>
-              <Form.Item
-                name="step_time"
-                rules={[{ type: "number", min: 0, max: 99 }]}
-              >
-                <InputNumber
+            <Col xs={24} md={5}>
+              <Form.Item name="step_time">
+                <Input
                   onBlur={setStepTime}
                   onPressEnter={setStepTime}
-                  placeholder="Time (minutes)"
+                  placeholder="Time"
                   style={{ width: "100%" }}
+                  className="tutorial-title-input"
+                  size="large"
+                  type="number"
+                  suffix="minutes"
                 />
               </Form.Item>
             </Col>

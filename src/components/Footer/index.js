@@ -17,7 +17,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="light-green-bg pt-16 pb-16">
+    <footer className="light-grey-bg pt-16 pb-16">
       <Row>
         <Col sm={24} xs={24} md={6} className="col-pad-24">
           <h2 style={{ color: "#3AAFA9" }} className="brand-font mb-0">

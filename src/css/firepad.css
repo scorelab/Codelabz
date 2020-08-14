@@ -1,10 +1,10 @@
 #firepad-container {
   width: 100%;
-  min-height: calc(100vh - 350px);
+  min-height: calc(100vh - 100px);
   /* height: calc(100vh - 150px); */
   height: auto;
   margin: auto;
-  margin-bottom: 50px;
+  margin-bottom: 8px;
   border: 1px solid #c9c9c9;
 }
 
