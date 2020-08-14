@@ -11,7 +11,7 @@ import {
   FileImageOutlined,
   EyeOutlined,
   AlignLeftOutlined,
-  FormatPainterOutlined,
+  FormatPainterOutlined
 } from "@ant-design/icons";
 import UserList from "../../Editor/UserList";
 import { hideUnHideStep } from "../../../store/actions";
@@ -32,7 +32,7 @@ const EditControls = ({
   visibility,
   owner,
   currentStep,
-  step_length,
+  step_length
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -70,14 +70,14 @@ const EditControls = ({
         <Button
           style={{
             border: "none",
-            padding: 0,
+            padding: 0
           }}
           type="link"
         >
           <EllipsisOutlined
             style={{
               fontSize: 20,
-              verticalAlign: "top",
+              verticalAlign: "top"
             }}
           />
         </Button>
@@ -108,14 +108,13 @@ const EditControls = ({
                 message.loading({
                   content: "Updating step visibility...",
                   key,
-                  duration: 10,
+                  duration: 10
                 });
-                hideUnHideStep(
-                  owner,
-                  tutorial_id,
-                  noteID,
-                  visibility
-                )(firebase, firestore, dispatch).then(() => {
+                hideUnHideStep(owner, tutorial_id, noteID, visibility)(
+                  firebase,
+                  firestore,
+                  dispatch
+                ).then(() => {
                   message.success({ content: "Updated!", key, duration: 2 });
                 });
               }}
@@ -190,8 +189,9 @@ const EditControls = ({
       />
       <ColorPickerModal
         visible={viewColorPickerModal}
-        visibleCallback={(e) => setViewColorPickerModal(e)}
+        visibleCallback={e => setViewColorPickerModal(e)}
         tutorial_id={tutorial_id}
+        owner={owner}
       />
     </>
   );

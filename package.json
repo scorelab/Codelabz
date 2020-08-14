@@ -8,15 +8,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "antd": "^4.5.2",
+    "antd": "^4.5.4",
     "antd-img-crop": "^3.9.0",
     "codemirror": "^5.56.0",
     "color-thief-react": "^1.0.2",
     "craco-less": "^1.17.0",
     "elasticlunr": "^0.9.5",
-    "firebase": "^7.17.1",
+    "firebase": "^7.18.0",
     "history": "^4.10.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "query-string": "^6.13.1",
     "rc-color-picker": "^1.2.6",
     "react": "^16.13.1",
@@ -29,7 +29,7 @@
     "react-responsive": "^8.1.0",
     "react-reveal": "^1.2.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
     "react-syntax-highlighter": "^12.2.1",
     "redux": "^4.0.5",
     "redux-auth-wrapper": "^3.0.0",
@@ -58,7 +58,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^4.12.0",
+    "cypress": "^4.12.1",
     "cypress-xpath": "^1.6.0"
   }
 }

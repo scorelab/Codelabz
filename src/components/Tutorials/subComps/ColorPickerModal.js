@@ -3,30 +3,39 @@ import Modal from "antd/lib/modal/Modal";
 import { Row, Col } from "antd";
 import { Panel as ColorPickerPanel } from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
+import { setTutorialTheme } from "../../../store/actions";
 
-const ColorPickerModal = ({ visible, visibleCallback, tutorial_id }) => {
+const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
   const [bgColor, setBgColor] = useState("#ffffff");
   const [textColor, setTextColor] = useState("#000000");
   const [loading, setLoading] = useState(false);
-  console.log(tutorial_id);
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
+
   const handleOk = () => {
-    // TODO - put colors to the db
     setLoading(true);
-    setTimeout(() => {
+    setTutorialTheme({ tutorial_id, owner, bgColor, textColor })(
+      firebase,
+      firestore,
+      dispatch
+    ).then(() => {
       setLoading(false);
       visibleCallback(false);
-    }, 2000);
+    });
   };
 
   const handleCancel = () => {
     visibleCallback(false);
   };
 
-  const updateTextColor = (color) => {
+  const updateTextColor = color => {
     setTextColor(color.color);
   };
 
-  const updateBackgroundColor = (color) => {
+  const updateBackgroundColor = color => {
     setBgColor(color.color);
   };
 
@@ -79,7 +88,7 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id }) => {
             height: "50px",
             backgroundColor: bgColor,
             color: textColor,
-            border: "1px solid #eeeeee",
+            border: "1px solid #eeeeee"
           }}
           align="middle"
         >
