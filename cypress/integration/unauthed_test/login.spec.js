@@ -5,7 +5,10 @@ describe("Login Test | CodeLabz", () => {
     cy.fixture("login").then(function(credentials) {
       this.credentials = credentials;
     });
-    cy.visit("http://localhost:3000");
+    cy.fixture("base_url").then(function(data) {
+      this.base_url = data.base_url;
+      cy.visit(this.base_url);
+    });
   });
 
   it("Login Test - Passing", function() {

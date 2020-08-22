@@ -1,84 +1,90 @@
 /// <reference types="cypress" />
 
 describe("Unauthenticated Routes Access Test | CodeLabz", () => {
+  beforeEach(function() {
+    cy.fixture("base_url").then(function(data) {
+      this.base_url = data.base_url;
+    });
+  });
+
   it("Visit Login Page - Passing", function() {
-    cy.visit("http://localhost:3000/login");
+    cy.visit(`${this.base_url}login`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/login");
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
   });
 
   it("Visit Sign Up Page - Passing", function() {
-    cy.visit("http://localhost:3000/signup");
+    cy.visit(`${this.base_url}signup`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/signup");
+      expect(loc.href).to.eq(`${this.base_url}signup`);
     });
   });
 
   it("Visit Forgot Password Page - Passing", function() {
-    cy.visit("http://localhost:3000/forgotpassword");
+    cy.visit(`${this.base_url}forgotpassword`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/forgotpassword");
+      expect(loc.href).to.eq(`${this.base_url}forgotpassword`);
     });
   });
 
   it("Forbid Visit Manage Users Page - Passing", function() {
-    cy.visit("http://localhost:3000/manageusers");
+    cy.visit(`${this.base_url}manageusers`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/");
+      expect(loc.href).to.eq(this.base_url);
     });
   });
 
   it("Forbid Visit Dashboard Page - Passing", function() {
-    cy.visit("http://localhost:3000/dashboard");
+    cy.visit(`${this.base_url}dashboard`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/login");
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
   });
 
   it("Forbid Visit My Feed Page - Passing", function() {
-    cy.visit("http://localhost:3000/dashboard/my_feed");
+    cy.visit(`${this.base_url}dashboard/my_feed`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/login");
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
   });
 
   it("Forbid Visit Profile Page - Passing", function() {
-    cy.visit("http://localhost:3000/profile");
+    cy.visit(`${this.base_url}profile`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/login");
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
   });
 
   it("Forbid Visit Organization Page - Passing", function() {
-    cy.visit("http://localhost:3000/organization");
+    cy.visit(`${this.base_url}organization`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/login");
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
   });
 
   it("Forbid Visit Tutorials Page - Passing", function() {
-    cy.visit("http://localhost:3000/tutorials");
+    cy.visit(`${this.base_url}tutorials`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/login");
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
   });
 });

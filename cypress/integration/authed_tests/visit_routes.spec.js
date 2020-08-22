@@ -5,10 +5,13 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.fixture("login").then(function(credentials) {
       this.credentials = credentials;
     });
+    cy.fixture("base_url").then(function(data) {
+      this.base_url = data.base_url;
+    });
   });
 
   it("Login Test - Passing", function() {
-    cy.visit("http://localhost:3000");
+    cy.visit(this.base_url);
     cy.get(".ant-btn-link > a").click();
     cy.get("#email").type(this.credentials.email);
     cy.get("#password").type(this.credentials.password);
@@ -17,92 +20,92 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   });
 
   it("Forbid Visit Login Page - Passing", function() {
-    cy.visit("http://localhost:3000/login");
+    cy.visit(`${this.base_url}login`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/dashboard/my_feed");
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
 
   it("Forbid Visit Login Page - Passing", function() {
-    cy.visit("http://localhost:3000/login");
+    cy.visit(`${this.base_url}login`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/dashboard/my_feed");
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
 
   it("Forbid Visit Sign Up Page - Passing", function() {
-    cy.visit("http://localhost:3000/signup");
+    cy.visit(`${this.base_url}signup`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/dashboard/my_feed");
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
 
   it("Forbid Visit Forgot Password Page - Passing", function() {
-    cy.visit("http://localhost:3000/forgotpassword");
+    cy.visit(`${this.base_url}forgotpassword`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/dashboard/my_feed");
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
 
   it("Forbid Visit Manage Users Page - Passing", function() {
-    cy.visit("http://localhost:3000/manageusers");
+    cy.visit(`${this.base_url}manageusers`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/");
+      expect(loc.href).to.eq(`${this.base_url}`);
     });
   });
 
   it("Visit Dashboard Page - Passing", function() {
-    cy.visit("http://localhost:3000/dashboard");
+    cy.visit(`${this.base_url}dashboard`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/dashboard/my_feed");
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
 
   it("Visit My Feed Page - Passing", function() {
-    cy.visit("http://localhost:3000/dashboard/my_feed");
+    cy.visit(`${this.base_url}dashboard/my_feed`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/dashboard/my_feed");
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
 
   it("Visit Profile Page - Passing", function() {
-    cy.visit("http://localhost:3000/profile");
+    cy.visit(`${this.base_url}profile`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/profile");
+      expect(loc.href).to.eq(`${this.base_url}profile`);
     });
   });
 
   it("Visit Organization Page - Passing", function() {
-    cy.visit("http://localhost:3000/organization");
+    cy.visit(`${this.base_url}organization`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/");
+      expect(loc.href).to.eq(`${this.base_url}organization`);
     });
   });
 
   it("Visit Tutorials Page - Passing", function() {
-    cy.visit("http://localhost:3000/tutorials");
+    cy.visit(`${this.base_url}tutorials`);
     cy.wait(5000);
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq("http://localhost:3000/tutorials");
+      expect(loc.href).to.eq(`${this.base_url}tutorials`);
     });
   });
 });
