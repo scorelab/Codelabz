@@ -4,6 +4,7 @@ import Paragraph from 'antd/lib/typography/Paragraph';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFirestore } from 'react-redux-firebase';
+import { Link } from 'react-router-dom';
 import BrandName from '../../helpers/brandName';
 import { clearOrgData, getLaunchedOrgsData } from '../../store/actions';
 
@@ -31,22 +32,24 @@ const ExploreOrgs = () => {
           .slice(0, 5)
           .map((org) => (
             <Col xs={24} sm={12} md={8} lg={4} key={org.org_handle}>
-              <Card
-                style={{ height: '100%' }}
-                hoverable
-                cover={
-                  <img src={org.org_image} alt={org.org_handle} width={250} />
-                }
-              >
-                <Meta
-                  title={org.org_name}
-                  description={
-                    <Paragraph ellipsis={{ rows: 2 }}>
-                      {org.org_description}
-                    </Paragraph>
+              <Link to={`/org/${org.org_handle}`}>
+                <Card
+                  style={{ height: '100%' }}
+                  hoverable
+                  cover={
+                    <img src={org.org_image} alt={org.org_handle} width={250} />
                   }
-                />
-              </Card>
+                >
+                  <Meta
+                    title={org.org_name}
+                    description={
+                      <Paragraph ellipsis={{ rows: 2 }}>
+                        {org.org_description}
+                      </Paragraph>
+                    }
+                  />
+                </Card>
+              </Link>
             </Col>
           ))}
       <Col xs={24} sm={12} md={8} lg={4}>
