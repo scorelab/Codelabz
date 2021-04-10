@@ -25,6 +25,7 @@ yarn-error.log*
 /.idea
 .vscode/settings.json
 package-lock.json
+yarn.locl
 INTERNAL.md
 RULES.md
 firebase-debug.log
