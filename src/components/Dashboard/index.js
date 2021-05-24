@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Card, Col, Row, Button, Form, Input, Select } from "antd";
+import { Alert, Card, Row, Button, Form, Input, Select } from "antd";
+import {
+  // Button,
+  // Card,
+
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkOrgHandleExists,
   checkUserHandleExists,
   clearProfileEditError,
-  setUpInitialData
+  setUpInitialData,
 } from "../../store/actions";
 import {
   GlobalOutlined,
   UserAddOutlined,
   AppstoreAddOutlined,
   AppstoreOutlined,
-  IeOutlined
+  IeOutlined,
 } from "@ant-design/icons";
 import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
@@ -22,7 +33,7 @@ import Fade from "react-reveal/Fade";
 import {
   orgWebsiteValidation,
   orgHandleValidation,
-  userHandleValidation
+  userHandleValidation,
 } from "../../helpers/validationRules";
 
 const { Option } = Select;
@@ -42,8 +53,8 @@ const Dashboard = () => {
   const displayName = useSelector(
     ({
       firebase: {
-        profile: { displayName }
-      }
+        profile: { displayName },
+      },
     }) => displayName
   );
   const children = [];
@@ -80,7 +91,7 @@ const Dashboard = () => {
     org_handle,
     org_name,
     org_website,
-    org_country
+    org_country,
   }) => {
     setError("");
     await setUpInitialData({
@@ -91,7 +102,7 @@ const Dashboard = () => {
       org_handle,
       org_name,
       org_website,
-      org_country
+      org_country,
     })(firebase, firestore, dispatch);
   };
 
@@ -106,8 +117,8 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "handle",
-          errors: [`The handle [${handle}] is already taken`]
-        }
+          errors: [`The handle [${handle}] is already taken`],
+        },
       ]);
     }
   };
@@ -124,25 +135,25 @@ const Dashboard = () => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`]
-        }
+          errors: [`The handle [${orgHandle}] is already taken`],
+        },
       ]);
     }
   };
 
   return (
     <div className="home-row">
-      <Row align="middle" justify="space-between">
-        <Col xs={24} className="col-pad-24 pt-32">
+      <Grid container alignItems="center" justify="space-between">
+        <Grid xs={12} className="col-pad-24 pt-32">
           <h2 className="mb-0 center">Welcome to CodeLabz!</h2>
           <h3 className="mb-0 center">
             Let's complete your profile before we dive in.
           </h3>
-        </Col>
-        <Col xs={24} sm={24} md={showOrgForm ? 16 : 12}>
+        </Grid>
+        <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6}>
           {error && (
-            <Row>
-              <Col xs={24} className="col-pad-24 pr-12 pb-0">
+            <Grid container>
+              <Grid xs={12} className="col-pad-24 pr-12 pb-0">
                 <Alert
                   message={""}
                   description={error}
@@ -153,16 +164,16 @@ const Dashboard = () => {
                     (!showOrgForm && "auth-form-col")
                   }
                 />
-              </Col>
-            </Row>
+              </Grid>
+            </Grid>
           )}
 
           <Form form={form} onFinish={onSubmit}>
-            <Row>
-              <Col
-                xs={24}
-                sm={24}
-                md={showOrgForm ? 12 : 24}
+            <Grid container>
+              <Grid
+                xs={12}
+                sm={12}
+                md={showOrgForm ? 6 : 12}
                 className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
                 onFocus={() => setFocusLeft(true)}
               >
@@ -177,12 +188,12 @@ const Dashboard = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your name"
+                        message: "Please enter your name",
                       },
                       {
                         type: "string",
-                        message: "Please enter a valid name"
-                      }
+                        message: "Please enter a valid name",
+                      },
                     ]}
                   >
                     <Input
@@ -209,8 +220,8 @@ const Dashboard = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please select your country"
-                      }
+                        message: "Please select your country",
+                      },
                     ]}
                   >
                     <Select
@@ -243,10 +254,10 @@ const Dashboard = () => {
                     </Button>
                   </Form.Item>
                 </Card>
-              </Col>
-              <Col
-                xs={showOrgForm ? 24 : 0}
-                md={showOrgForm ? 12 : 0}
+              </Grid>
+              <Grid
+                xs={showOrgForm ? 12 : 0}
+                md={showOrgForm ? 6 : 0}
                 className="col-pad-24 pl-12 pr-12 pt-8"
                 onFocus={() => setFocusLeft(false)}
               >
@@ -257,12 +268,12 @@ const Dashboard = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter the organization name"
+                          message: "Please enter the organization name",
                         },
                         {
                           type: "string",
-                          message: "Please provide a valid organization name"
-                        }
+                          message: "Please provide a valid organization name",
+                        },
                       ]}
                     >
                       <Input
@@ -293,8 +304,8 @@ const Dashboard = () => {
                         {
                           required: true,
                           message:
-                            "Please select the country of the organization"
-                        }
+                            "Please select the country of the organization",
+                        },
                       ]}
                     >
                       <Select
@@ -328,8 +339,8 @@ const Dashboard = () => {
                     </Form.Item>
                   </Card>
                 )}
-              </Col>
-              <Col xs={24} className="center pl-24 pr-12 pb-32 pt-8">
+              </Grid>
+              <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8">
                 <Form.Item className="mb-0">
                   <Button
                     type="primary"
@@ -341,14 +352,14 @@ const Dashboard = () => {
                     {loading ? "Saving..." : "Save"}
                   </Button>
                 </Form.Item>
-              </Col>
-            </Row>
+              </Grid>
+            </Grid>
           </Form>
-        </Col>
-        <Col
+        </Grid>
+        <Grid
           xs={0}
           sm={0}
-          md={showOrgForm ? 8 : 12}
+          md={showOrgForm ? 4 : 6}
           className="col-pad-24 pl-12 pt-8"
         >
           <Fade right={true} when={showImage}>
@@ -359,8 +370,8 @@ const Dashboard = () => {
               className="dash-image"
             />
           </Fade>
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
     </div>
   );
 };
