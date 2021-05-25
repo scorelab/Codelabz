@@ -4,8 +4,14 @@ import { Link } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAuthError, sendPasswordResetEmail } from "../../../store/actions";
-import { Typography,Collapse,Button,Card,Grid,OutlinedInput,InputAdornment} from '@material-ui/core';
-import { createMuiTheme,makeStyles,ThemeProvider } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Collapse from "@material-ui/core/Collapse";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import {Alert} from '@material-ui/lab';
 
 const ForgotPassword = () => {
@@ -44,33 +50,22 @@ const ForgotPassword = () => {
     await sendPasswordResetEmail(email)(firebase, dispatch);
   };
 
-  const theme = createMuiTheme({
-    typography: {
-        h4:{
-          fontWeight: 600,
-        }
-      },
-    palette: {
-      primary: {
-        main:"#455a64",
-      }
-    },
-  });
-
   const useStyles = makeStyles({
     root: {
       padding: "2rem",
       background: "rgba(0,0,0,.01)",
       border: "none",
       boxShadow: "none",
+    },
+    heading:{
+      fontWeight:600,
     }
   })
   const classes = useStyles();
  
   return (
-    <ThemeProvider theme={theme}>
     <Card className={classes.root}>
-    <Typography variant="h4" className="mb-24 text-center">Trouble logging in?</Typography>
+    <Typography variant="h4" className={"mb-24 text-center "+classes.heading}>Trouble logging in?</Typography>
       <p className="mb-24 text-center">
         Don't worry, we got it covered. <br />
         Enter the email address registered with us and
@@ -112,7 +107,7 @@ const ForgotPassword = () => {
           <Button variant="contained" color="primary" loading={loading} className="mt-10" type="submit" fullWidth >
           {loading ? "Sending..." : "Send me the link"}
           </Button>
-          </form>
+      </form>
           <Grid justify="center" align="center" className="mt-16">or</Grid>
       <Grid justify="center" align="center" className="mt-24">
         <Grid sm={24} className="center">
@@ -126,7 +121,6 @@ const ForgotPassword = () => {
         </Grid>
       </Grid>
     </Card>
-    </ThemeProvider>
   );
 };
 
