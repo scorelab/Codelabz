@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import {Alert} from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 
 const ForgotPassword = () => {
   const firebase = useFirebase();
