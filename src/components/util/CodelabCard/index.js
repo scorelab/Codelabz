@@ -43,7 +43,11 @@ const CardComponent = () => {
             </Grid>
             <Divider light />
             <Grid item>
-              <Typography variant="body2" color="textSecondary">
+              <Typography
+                variant="body2"
+                color="textPrimary"
+                className={classes.tags}
+              >
                 #Lorem Tags1 #Lorem Tags1 #Lorem Tags1 #Lorem Tag2
               </Typography>
             </Grid>

@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontWeight: "600",
   },
+  tags: {
+    fontWeight: "500",
+    color: "#455A64",
+  },
 }));
 
 export default useStyles;
