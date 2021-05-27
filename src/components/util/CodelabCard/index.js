@@ -16,7 +16,7 @@ const CardComponent = (props) => {
   const classes = useStyles();
   const [logoPath, setLogoPath] = React.useState("");
   React.useEffect(() => {
-    setLogoPath(props.LLogo);
+    setLogoPath(props.Org);
   }, []);
   return (
     <>
@@ -33,29 +33,14 @@ const CardComponent = (props) => {
             >
               {logoPath ? (
                 <Grid container>
-                  <Grid
-                    item
-                    style={{
-                      width: "3rem",
-                      height: ".5rem",
-                      marginTop: "-1.5rem",
-                      border: "0.1px solid #f4f4f4",
-                    }}
-                  >
+                  <Grid item className={classes.headerGrid}>
                     <img src={logoPath} alt="logo" />
                     <img
                       src={PersonImg}
                       alt="person"
                       height="20rem"
-                      width="50%"
-                      style={{
-                        zIndex: 2,
-                        position: "relative",
-                        left: "2rem",
-                        top: "-.5rem",
-                        border: "1px solid black",
-                        borderRadius: "500px",
-                      }}
+                      width="20rem"
+                      className={classes.personImg}
                     />
                   </Grid>
                 </Grid>
@@ -65,7 +50,7 @@ const CardComponent = (props) => {
             </Grid>
           }
           title={
-            props.LLogo ? (
+            props.Org ? (
               <Typography variant="body">
                 Sougata {<span style={{ color: "#7D7C7D" }}>for</span>}{" "}
                 ScoreLabz
@@ -77,11 +62,6 @@ const CardComponent = (props) => {
           subheader="May25,2021(3 days ago)"
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
-          // action={
-          //   <IconButton aria-label="settings">
-          //     <ShareIcon />
-          //   </IconButton>
-          // }
         />
 
         <CardContent
@@ -120,28 +100,14 @@ const CardComponent = (props) => {
               >
                 #css
               </Typography>
-              <Typography
-                variant="body2"
-                color="textPrimary"
-                className={"mr-8 " + classes.tags}
-              >
-                #html
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textPrimary"
-                className={"mr-8 " + classes.tags}
-              >
-                #webdev
-              </Typography>
             </Grid>
           </Grid>
         </CardContent>
         <CardActions disableSpacing className={classes.cardAction}>
           <Grid container xs={6} justify="left" direction="row">
             <Grid item direction="row">
-              {!props.LLogo ? (
-                <Grid item>
+              {!props.Org ? (
+                <Grid item style={{ height: "2rem" }}>
                   <IconButton>
                     <FavoriteBorderIcon />
                   </IconButton>
@@ -153,11 +119,11 @@ const CardComponent = (props) => {
                 ""
               )}
             </Grid>
-            <Grid>
+            <Grid item>
               <IconButton aria-label="comment">
                 <ChatIcon />
               </IconButton>
-              {props.LLogo ? (
+              {props.Org ? (
                 <Typography variant="body" color="textPrimary">
                   Add Comment
                 </Typography>
@@ -180,6 +146,7 @@ const CardComponent = (props) => {
                 variant="body2"
                 color="textSecondary"
                 alignItems="flex-end"
+                className={classes.readTime}
               >
                 10 min read
               </Typography>

@@ -4,7 +4,6 @@ const useStyles = makeStyles((theme) => ({
   card: {
     margin: "2rem",
     width: "50vw",
-    // minWidth: "40vw",
     position: "relative",
     maxWidth: "80vw",
     textAlign: "left",
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "0rem 2rem 0rem 3.5rem",
     paddingBottom: "0rem",
     [theme.breakpoints.down(750)]: {
-      padding: "0rem 1rem 0rem 1rem", // secondary
+      padding: "0rem 1rem 0rem 1rem",
       justify: "center",
       textAlign: "left",
     },
@@ -37,18 +36,14 @@ const useStyles = makeStyles((theme) => ({
     color: "#455A64",
   },
   avatar: {
-    // marginTop: "4px",
-    // marginRight: "0px",
     height: "2rem",
     width: "2rem",
     position: "relative",
     left: "1rem",
-    // marginRight: "1rem",
     border: "1.5px solid black",
     borderRadius: "500px",
   },
   cardContent: {
-    // marginTop: "0px",
     paddingTop: "1rem",
   },
   cardAction: {
@@ -62,13 +57,15 @@ const useStyles = makeStyles((theme) => ({
     width: "1rem",
     height: "2rem",
     marginBottom: ".5rem",
+    [theme.breakpoints.down(750)]: {
+      height: "1.4rem",
+    },
   },
   logo: {
     width: "2.5rem",
     height: "2rem",
     marginTop: "0rem",
     zIndex: "1",
-    // top: "1rem",
   },
   organizationLogo: {
     display: "flex",
@@ -80,6 +77,27 @@ const useStyles = makeStyles((theme) => ({
   },
   cardHeader: {
     padding: "1rem 1rem 0rem 1rem",
+  },
+  readTime: {
+    [theme.breakpoints.down(750)]: {
+      fontSize: ".5rem",
+      background: "red",
+      display: "none",
+    },
+  },
+  headerGrid: {
+    width: "2rem",
+    height: ".5rem",
+    marginTop: "-1.5rem",
+    border: "0.1px solid #f4f4f4",
+  },
+  personImg: {
+    zIndex: 2,
+    position: "relative",
+    left: "1.5rem",
+    top: "-.6rem",
+    border: "1px solid black",
+    borderRadius: "500px",
   },
 }));
 

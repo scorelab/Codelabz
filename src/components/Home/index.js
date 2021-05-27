@@ -125,17 +125,6 @@ const Home = () => {
           <h2 className="home-description pl-24 pr-24">
             Follow them to the dot and you wouldn't miss anything
           </h2>
-          <Grid container align="center" justify="center">
-            <Grid item>
-              <CardComponent LLogo="/logo.jpeg">
-                Revealing Contents on Scroll Using JavaScript's Intersection
-                Observer API
-              </CardComponent>
-              <CardComponent>
-                React Native FAQ for 2021: All you Need To Know
-              </CardComponent>
-            </Grid>
-          </Grid>
           <Fade bottom>
             <img
               src={isDesktop ? homeInterface : homePhone}
