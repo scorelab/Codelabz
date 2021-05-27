@@ -36,7 +36,8 @@
     "redux": "^4.0.5",
     "redux-auth-wrapper": "^3.0.0",
     "redux-firestore": "^0.13.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "validator": "^13.6.0"
   },
   "scripts": {
     "start": "craco start",
