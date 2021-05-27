@@ -65,12 +65,12 @@ const Login = () => {
   const validateEmail = () => {
     if (validator.isEmpty(email)) {
       setEmailValidateError(true);
-      setEmailValidateErrorMessage('Email is required!');
+      setEmailValidateErrorMessage('Please Enter your Email!');
       return false;
     }
     if (!validator.isEmail(email)) {
       setEmailValidateError(true);
-      setEmailValidateErrorMessage('Enter an valid email!');
+      setEmailValidateErrorMessage('Please enter an valid email!');
       return false;
     }
     return true;
@@ -79,7 +79,7 @@ const Login = () => {
   const validatePassword = () => {
     if (validator.isEmpty(password)) {
       setPasswordValidateError(true);
-      setPasswordValidateErrorMessage('Password is required!');
+      setPasswordValidateErrorMessage('Please enter your password!');
       return false;
     }
     return true;
