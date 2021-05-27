@@ -11,8 +11,6 @@ import featureEven from "../../assets/images/feature-even.svg";
 import { Link } from "react-router-dom";
 import { useAuthStatus } from "../../helpers/customHooks";
 import { useMediaQuery } from "react-responsive";
-import Grid from "@material-ui/core/Grid";
-import CardComponent from "../util/CodelabCard/index";
 
 const Home = () => {
   const authed = useAuthStatus();
