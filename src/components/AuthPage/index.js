@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col } from "antd";
-import signinImage from "../../assets/images/signin-image.svg";
-import signupImage from "../../assets/images/signup-image.svg";
-import forgotPassImage from "../../assets/images/forgot-pass.svg";
-import Fade from "react-reveal/Fade";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import { UserIsNotAuthenticated } from "../../auth";
-import ForgotPassword from "./ForgotPassword";
-import { useMediaQuery } from "react-responsive";
+import { Grid } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import Fade from 'react-reveal/Fade';
+import forgotPassImage from '../../assets/images/forgot-pass.svg';
+import signinImage from '../../assets/images/signin-image.svg';
+import signupImage from '../../assets/images/signup-image.svg';
+import { UserIsNotAuthenticated } from '../../auth';
+import ForgotPassword from './ForgotPassword';
+import Login from './Login';
+import SignUp from './SignUp';
 
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
   const [showType, setShowType] = useState(type);
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
+    query: '(min-device-width: 767px)',
   });
 
   useEffect(() => {
@@ -26,74 +26,66 @@ const AuthPage = ({ type }) => {
   }, [type]);
 
   return (
-    <Row
-      align="middle"
-      style={{ overflowX: "hidden" }}
+    <Grid
+      container
+      alignItems="center"
+      style={{ overflowX: 'hidden' }}
       justify="center"
       className="row-footer-below auth-margin"
+      direction={
+        showType === 'login' || showType === 'forgotpassword'
+          ? 'row'
+          : 'row-reverse'
+      }
     >
-      <Col
-        xs={0}
-        sm={0}
-        md={12}
-        lg={14}
-        order={showType === "login" || showType === "forgotpassword" ? 1 : 2}
-        className="auth-image-col"
-      >
+      <Grid xs={false} sm={false} md={6} lg={7} className="auth-image-col">
         <Fade
-          left={isDesktop ? showType === "login" : false}
+          left={isDesktop ? showType === 'login' : false}
           right={
             isDesktop
-              ? showType === "signup" || showType === "forgotpassword"
+              ? showType === 'signup' || showType === 'forgotpassword'
               : false
           }
           when={show}
         >
           <img
             src={
-              showType === "login"
+              showType === 'login'
                 ? signinImage
-                : showType === "signup"
+                : showType === 'signup'
                 ? signupImage
                 : forgotPassImage
             }
             alt="Background for auth"
             width="100%"
             className={
-              showType === "login" || showType === "forgotpassword"
-                ? "signin-image"
-                : "signup-image"
+              showType === 'login' || showType === 'forgotpassword'
+                ? 'signin-image'
+                : 'signup-image'
             }
           />
         </Fade>
-      </Col>
-      <Col
-        xs={24}
-        sm={24}
-        md={10}
-        lg={8}
-        order={showType === "login" || showType === "forgotpassword" ? 2 : 1}
-        className="auth-form-col"
-      >
+      </Grid>
+      <Grid xs={12} sm={12} md={5} lg={4} className="auth-form-col">
         <Fade
-          left={isDesktop ? showType === "login" : false}
+          left={isDesktop ? showType === 'login' : false}
           right={
             isDesktop
-              ? showType === "signup" || showType === "forgotpassword"
+              ? showType === 'signup' || showType === 'forgotpassword'
               : false
           }
           when={show}
         >
-          {showType === "login" ? (
+          {showType === 'login' ? (
             <Login />
-          ) : showType === "signup" ? (
+          ) : showType === 'signup' ? (
             <SignUp />
           ) : (
             <ForgotPassword />
           )}
         </Fade>
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 };
 
