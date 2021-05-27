@@ -12,11 +12,11 @@ import ChatIcon from "@material-ui/icons/Chat";
 import useStyles from "./styles";
 import PersonImg from "../../../assets/images/demoperson4.jpeg";
 
-const CardComponent = (props) => {
+const CardComponent = ({ title, tags, profilePic, org = false }) => {
   const classes = useStyles();
   const [logoPath, setLogoPath] = React.useState("");
   React.useEffect(() => {
-    setLogoPath(props.Org);
+    setLogoPath(org);
   }, []);
   return (
     <>
@@ -34,7 +34,7 @@ const CardComponent = (props) => {
               {logoPath ? (
                 <Grid container>
                   <Grid item className={classes.headerGrid}>
-                    <img src={logoPath} alt="logo" />
+                    <img src="/logo.jpeg" alt="logo" />
                     <img
                       src={PersonImg}
                       alt="person"
@@ -45,12 +45,16 @@ const CardComponent = (props) => {
                   </Grid>
                 </Grid>
               ) : (
-                <img src={PersonImg} alt="person" className={classes.avatar} />
+                <img
+                  src={require(`../../../assets/images/${profilePic}`)}
+                  alt="person"
+                  className={classes.avatar}
+                />
               )}
             </Grid>
           }
           title={
-            props.Org ? (
+            org ? (
               <Typography variant="body">
                 Sougata {<span style={{ color: "#7D7C7D" }}>for</span>}{" "}
                 ScoreLabz
@@ -77,7 +81,7 @@ const CardComponent = (props) => {
           >
             <Grid item>
               <Typography variant="h5" gutterBottom className={classes.heading}>
-                {props.children}
+                {title}
               </Typography>
             </Grid>
             <Grid
@@ -91,14 +95,7 @@ const CardComponent = (props) => {
                 color="textPrimary"
                 className={"mr-8 " + classes.tags}
               >
-                #javascript
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textPrimary"
-                className={"mr-8 " + classes.tags}
-              >
-                #css
+                {tags}
               </Typography>
             </Grid>
           </Grid>
@@ -106,7 +103,7 @@ const CardComponent = (props) => {
         <CardActions disableSpacing className={classes.cardAction}>
           <Grid container xs={6} justify="left" direction="row">
             <Grid item direction="row">
-              {!props.Org ? (
+              {!org ? (
                 <Grid item style={{ height: "2rem" }}>
                   <IconButton>
                     <FavoriteBorderIcon />
@@ -123,7 +120,7 @@ const CardComponent = (props) => {
               <IconButton aria-label="comment">
                 <ChatIcon />
               </IconButton>
-              {props.Org ? (
+              {org ? (
                 <Typography variant="body" color="textPrimary">
                   Add Comment
                 </Typography>
