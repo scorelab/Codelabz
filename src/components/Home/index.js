@@ -11,6 +11,8 @@ import featureEven from "../../assets/images/feature-even.svg";
 import { Link } from "react-router-dom";
 import { useAuthStatus } from "../../helpers/customHooks";
 import { useMediaQuery } from "react-responsive";
+import Grid from "@material-ui/core/Grid";
+import CardComponent from "../util/CodelabCard/index";
 
 const Home = () => {
   const authed = useAuthStatus();
@@ -96,6 +98,7 @@ const Home = () => {
               Choose from hundreds of coding guides, tutorials and examples to
               learn new technology your heart desires.
             </h2>
+
             <Link to={authed ? "/dashboard" : "/signup"}>
               <Button type="primary" className="mt-24 mb-24 call-to-action-btn">
                 {authed ? "Explore" : "Join CodeLabz"}
@@ -122,6 +125,17 @@ const Home = () => {
           <h2 className="home-description pl-24 pr-24">
             Follow them to the dot and you wouldn't miss anything
           </h2>
+          <Grid container align="center" justify="center">
+            <Grid item>
+              <CardComponent LLogo="/logo.jpeg">
+                Revealing Contents on Scroll Using JavaScript's Intersection
+                Observer API
+              </CardComponent>
+              <CardComponent>
+                React Native FAQ for 2021: All you Need To Know
+              </CardComponent>
+            </Grid>
+          </Grid>
           <Fade bottom>
             <img
               src={isDesktop ? homeInterface : homePhone}

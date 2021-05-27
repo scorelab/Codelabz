@@ -6,72 +6,166 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import CardHeader from "@material-ui/core/CardHeader";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import ThumbDownIcon from "@material-ui/icons/ThumbDown";
-import ShareIcon from "@material-ui/icons/Share";
-import Divider from "@material-ui/core/Divider";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
-import PersonIcon from "@material-ui/icons/Person";
-
 import useStyles from "./styles";
+import PersonImg from "../../../assets/images/demoperson4.jpeg";
 
-const CardComponent = () => {
+const CardComponent = (props) => {
   const classes = useStyles();
+  const [logoPath, setLogoPath] = React.useState("");
+  React.useEffect(() => {
+    setLogoPath(props.LLogo);
+  }, []);
   return (
     <>
-      <Card maxWidth="md" className={classes.card} boxShadow={3}>
+      <Card maxWidth="sm" className={classes.card}>
         <CardHeader
-          avatar={<PersonIcon style={{ fontSize: "45px" }} />}
-          title="Sougata Das"
-          subheader="May25,2021"
-          className={classes.header}
+          className={classes.cardHeader}
+          avatar={
+            <Grid
+              container
+              className={classes.organizationLogo}
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              {logoPath ? (
+                <Grid container>
+                  <Grid
+                    item
+                    style={{
+                      width: "3rem",
+                      height: ".5rem",
+                      marginTop: "-1.5rem",
+                      border: "0.1px solid #f4f4f4",
+                    }}
+                  >
+                    <img src={logoPath} alt="logo" />
+                    <img
+                      src={PersonImg}
+                      alt="person"
+                      height="20rem"
+                      width="50%"
+                      style={{
+                        zIndex: 2,
+                        position: "relative",
+                        left: "2rem",
+                        top: "-.5rem",
+                        border: "1px solid black",
+                        borderRadius: "500px",
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              ) : (
+                <img src={PersonImg} alt="person" className={classes.avatar} />
+              )}
+            </Grid>
+          }
+          title={
+            props.LLogo ? (
+              <Typography variant="body">
+                Sougata {<span style={{ color: "#7D7C7D" }}>for</span>}{" "}
+                ScoreLabz
+              </Typography>
+            ) : (
+              <Typography variant="body">Sougata</Typography>
+            )
+          }
+          subheader="May25,2021(3 days ago)"
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
-          action={
-            <IconButton aria-label="settings">
-              <ShareIcon />
-            </IconButton>
-          }
+          // action={
+          //   <IconButton aria-label="settings">
+          //     <ShareIcon />
+          //   </IconButton>
+          // }
         />
 
-        <CardContent>
-          <Grid container alignItems="left" justify="center" direction="column">
+        <CardContent
+          className={classes.cardContent}
+          style={{ paddingBottom: "0rem" }}
+        >
+          <Grid
+            container
+            alignItems="left"
+            justify="flex-start"
+            direction="column"
+            className={classes.body}
+          >
             <Grid item>
-              <Typography variant="h4" gutterBottom className={classes.heading}>
-                Lorem Heading Heading Head
+              <Typography variant="h5" gutterBottom className={classes.heading}>
+                {props.children}
               </Typography>
             </Grid>
-            <Divider light />
-            <Grid item>
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="left"
+            >
               <Typography
                 variant="body2"
                 color="textPrimary"
-                className={classes.tags}
+                className={"mr-8 " + classes.tags}
               >
-                #Lorem Tags1 #Lorem Tags1 #Lorem Tags1 #Lorem Tag2
+                #javascript
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textPrimary"
+                className={"mr-8 " + classes.tags}
+              >
+                #css
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textPrimary"
+                className={"mr-8 " + classes.tags}
+              >
+                #html
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textPrimary"
+                className={"mr-8 " + classes.tags}
+              >
+                #webdev
               </Typography>
             </Grid>
-            <Divider light full />
           </Grid>
         </CardContent>
-        <CardActions disableSpacing>
-          <Grid
-            container
-            xs={6}
-            alignItems="center"
-            justify="center"
-            className={classes.grid}
-          >
+        <CardActions disableSpacing className={classes.cardAction}>
+          <Grid container xs={6} justify="left" direction="row">
             <Grid item direction="row">
-              <IconButton aria-label="like">
-                <ThumbUpAltIcon />
-              </IconButton>
-              <IconButton aria-label="dislike">
-                <ThumbDownIcon />
-              </IconButton>
+              {!props.LLogo ? (
+                <Grid item>
+                  <IconButton>
+                    <FavoriteBorderIcon />
+                  </IconButton>
+                  <Typography variant="body" color="textPrimary">
+                    222 reactions
+                  </Typography>
+                </Grid>
+              ) : (
+                ""
+              )}
+            </Grid>
+            <Grid>
               <IconButton aria-label="comment">
                 <ChatIcon />
               </IconButton>
+              {props.LLogo ? (
+                <Typography variant="body" color="textPrimary">
+                  Add Comment
+                </Typography>
+              ) : (
+                <Typography variant="body" color="textPrimary">
+                  20 comments
+                </Typography>
+              )}
             </Grid>
           </Grid>
           <Grid
@@ -87,8 +181,17 @@ const CardComponent = () => {
                 color="textSecondary"
                 alignItems="flex-end"
               >
-                ..Read More
+                10 min read
               </Typography>
+            </Grid>
+            <Grid item>
+              <Button
+                color="textPrimary"
+                variant="contained"
+                className={"mr-16 " + classes.button}
+              >
+                Save
+              </Button>
             </Grid>
           </Grid>
         </CardActions>
