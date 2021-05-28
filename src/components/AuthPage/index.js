@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Fade from 'react-reveal/Fade';

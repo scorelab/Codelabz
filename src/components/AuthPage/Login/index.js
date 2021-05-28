@@ -1,19 +1,15 @@
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@material-ui/core';
-import {
-  LockOutlined,
-  MailOutlined,
-  Visibility,
-  VisibilityOff,
-} from '@material-ui/icons';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import LockOutlined from '@material-ui/icons/LockOutlined';
+import MailOutlined from '@material-ui/icons/MailOutlined';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFirebase } from 'react-redux-firebase';
