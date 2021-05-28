@@ -1,26 +1,26 @@
 import React, { useEffect } from "react";
-import {
-  Card,
-  Box,
-  Grid,
-  Typography,
-  LinearProgress,
-  createMuiTheme,
-  ThemeProvider,
-} from "@material-ui/core";
-import {
-  FacebookFilled,
-  TwitterSquareFilled,
-  GithubFilled,
-  LinkOutlined,
-  LinkedinFilled,
-  FlagOutlined,
-} from "@ant-design/icons";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { clearUserProfile, getUserProfileData } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import noImageAvailable from "../../../assets/images/no-image-available.svg";
+
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Box from "@material-ui/core/Box";
+
+import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+
+import FacebookIcon from "@material-ui/icons/Facebook";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import LinkIcon from "@material-ui/icons/Link";
+import FlagIcon from "@material-ui/icons/Flag";
 
 const theme = createMuiTheme({
   palette: {
@@ -130,7 +130,10 @@ const ProfileView = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FacebookFilled className="facebook-color" />{" "}
+                      <FacebookIcon
+                        fontSize="small"
+                        className="facebook-color"
+                      />{" "}
                       {profileData.link_facebook}
                     </a>
                   </p>
@@ -142,7 +145,7 @@ const ProfileView = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <TwitterSquareFilled className="twitter-color" />{" "}
+                      <TwitterIcon fontSize="small" className="twitter-color" />{" "}
                       {profileData.link_twitter}
                     </a>
                   </p>
@@ -154,7 +157,7 @@ const ProfileView = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <GithubFilled className="github-color" />{" "}
+                      <GitHubIcon fontSize="small" className="github-color" />{" "}
                       {profileData.link_github}
                     </a>
                   </p>
@@ -169,7 +172,10 @@ const ProfileView = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <LinkedinFilled className="linkedin-color" />{" "}
+                      <LinkedInIcon
+                        fontSize="small"
+                        className="linkedin-color"
+                      />{" "}
                       {profileData.link_linkedin}
                     </a>
                   </p>
@@ -181,7 +187,7 @@ const ProfileView = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <LinkOutlined className="website-color" />{" "}
+                      <LinkIcon fontSize="small" className="website-color" />{" "}
                       {profileData.website}
                     </a>
                   </p>
@@ -195,7 +201,7 @@ const ProfileView = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FlagOutlined className="website-color" />{" "}
+                      <FlagIcon fontSize="small" className="website-color" />{" "}
                       {profileData.country}
                     </a>
                   </p>
