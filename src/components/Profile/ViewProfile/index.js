@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Empty } from "antd";
 import {
   Card,
   Box,
@@ -21,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { clearUserProfile, getUserProfileData } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
+import noImageAvailable from "../../../assets/images/no-image-available.svg";
 
 const theme = createMuiTheme({
   palette: {
@@ -77,7 +77,7 @@ const ProfileView = () => {
           <div>
             <Grid container>
               <Typography gutterBottom variant="h5" component="h2">
-                Feature 1
+                Profile Details
               </Typography>
             </Grid>
             <Grid container>
@@ -94,9 +94,15 @@ const ProfileView = () => {
                     className="org-image"
                   />
                 ) : (
-                  <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description={"No image available"}
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                    src={noImageAvailable}
+                    alt={"Not Available"}
+                    className="org-image"
                   />
                 )}
               </Grid>
