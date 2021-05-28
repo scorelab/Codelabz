@@ -96,6 +96,7 @@ const Home = () => {
               Choose from hundreds of coding guides, tutorials and examples to
               learn new technology your heart desires.
             </h2>
+
             <Link to={authed ? "/dashboard" : "/signup"}>
               <Button type="primary" className="mt-24 mb-24 call-to-action-btn">
                 {authed ? "Explore" : "Join CodeLabz"}
