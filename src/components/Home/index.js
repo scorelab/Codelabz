@@ -7,33 +7,33 @@ import {
   CardMedia,
   Grid,
   Typography,
-} from '@material-ui/core';
-import React, { useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import Fade from 'react-reveal/Fade';
-import { Link } from 'react-router-dom';
-import featureOdd from '../../assets/images/feature-odd.svg';
-import homeInterface from '../../assets/images/home-interface.svg';
+} from "@material-ui/core";
+import React, { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import Fade from "react-reveal/Fade";
+import { Link } from "react-router-dom";
+import featureOdd from "../../assets/images/feature-odd.svg";
+import homeInterface from "../../assets/images/home-interface.svg";
 // import homeMain from "../../assets/images/home-main.svg";
-import homeMain1 from '../../assets/images/home-main-1-flip.svg';
-import homePhone from '../../assets/images/home-phone.svg';
-import { messaging } from '../../config';
-import { useAuthStatus } from '../../helpers/customHooks';
+import homeMain1 from "../../assets/images/home-main-1-flip.svg";
+import homePhone from "../../assets/images/home-phone.svg";
+import { messaging } from "../../config";
+import { useAuthStatus } from "../../helpers/customHooks";
 
 const Home = () => {
   const authed = useAuthStatus();
   const isDesktop = useMediaQuery({
-    query: '(min-device-width: 767px)',
+    query: "(min-device-width: 767px)",
   });
 
   useEffect(() => {
     if (messaging) {
       if (
-        Notification.permission !== 'granted' &&
-        Notification.permission !== 'denied'
+        Notification.permission !== "granted" &&
+        Notification.permission !== "denied"
       ) {
         Notification.requestPermission().then((permission) => {
-          if (permission === 'granted') {
+          if (permission === "granted") {
             messaging
               .getToken()
               .then((refreshedToken) => {
@@ -99,13 +99,10 @@ const Home = () => {
               Choose from hundreds of coding guides, tutorials and examples to
               learn new technology your heart desires.
             </h2>
-            <Link to={authed ? '/dashboard' : '/signup'}>
-              <Button
-                variant="contained"
-                color="primary"
-                className="mt-24 mb-24 call-to-action-btn"
-              >
-                {authed ? 'Explore' : 'Join CodeLabz'}
+
+            <Link to={authed ? "/dashboard" : "/signup"}>
+              <Button type="primary" className="mt-24 mb-24 call-to-action-btn">
+                {authed ? "Explore" : "Join CodeLabz"}
               </Button>
             </Link>
           </Fade>
