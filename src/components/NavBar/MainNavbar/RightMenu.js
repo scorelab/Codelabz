@@ -1,8 +1,8 @@
 import React from "react";
-// import { Menu } from "antd";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
 import { Avatar } from "antd";
+// import Avatar from "@material-ui/core/Avatar";
 import { useAllowDashboard } from "../../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,8 +17,7 @@ import { Link, useLocation } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
-import MenuList from "@material-ui/core/MenuList";
-import Collapse from "@material-ui/core/Collapse";
+import { makeStyles } from "@material-ui/core/styles";
 
 const RightMenu = ({ mode }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -63,7 +62,15 @@ const RightMenu = ({ mode }) => {
           );
         })
       : null;
-
+  const useStyles = makeStyles((theme) => ({
+    menu: {
+      [theme.breakpoints.down(767)]: {
+        marginLeft: "1rem",
+        marginTop: "1rem",
+      },
+    },
+  }));
+  const classes = useStyles();
   return (
     <Grid container>
       <Avatar
@@ -72,6 +79,7 @@ const RightMenu = ({ mode }) => {
             profile.photoURL && profile.photoURL.length > 0
               ? "#fffff"
               : "#3AAFA9",
+          marginLeft: "1rem",
         }}
         size={mode === "inline" ? "default" : "large"}
         src={profile.photoURL}
@@ -86,15 +94,17 @@ const RightMenu = ({ mode }) => {
       >
         {acronym}
       </Avatar>
-      <Collapse
+      <Menu
         id="fade-menu"
         anchorEl={anchorEl}
         keepMounted
         open={open}
         onClose={handleClose}
         style={{
-          marginTop: "2.8rem",
+          marginTop: "3rem",
+          zIndex: 999999,
         }}
+        className={classes.menu}
       >
         {allowDashboard && (
           <MenuItem key="setting:2">
@@ -139,62 +149,7 @@ const RightMenu = ({ mode }) => {
         >
           <LogoutOutlined /> Log Out
         </MenuItem>
-      </Collapse>
-      {/* <Menu
-        id="fade-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-      >
-        {allowDashboard && (
-          <MenuItem key="setting:2">
-            <Link to={"/tutorials"}>
-              <CodeOutlined /> My Tutorials
-            </Link>
-          </MenuItem>
-        )}
-
-        {allowDashboard && allowOrgs && (
-          <Menu.SubMenu
-            title={
-              <>
-                <BlockOutlined /> My Organizations
-              </>
-            }
-          >
-            <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
-              <Link to={`/organization`}>
-                <SettingOutlined /> Manage All
-              </Link>
-            </MenuItem>
-            <Menu.Divider />
-            {orgList}
-          </Menu.SubMenu>
-        )}
-
-        {allowDashboard && <Menu.Divider />}
-
-        {profile.displayName && profile.displayName.length > 0 && (
-          <Menu.ItemGroup title={profile.displayName} />
-        )}
-
-        {allowDashboard && (
-          <MenuItem key="setting:1">
-            <Link to={"/profile"}>
-              <UserOutlined /> My Profile
-            </Link>
-          </MenuItem>
-        )}
-
-        <MenuItem
-          key="setting:4"
-          onClick={() => signOut()(firebase, dispatch)}
-          id={"log-out"}
-        >
-          <LogoutOutlined /> Log Out
-        </MenuItem>
-      </Menu> */}
+      </Menu>
     </Grid>
   );
 };
