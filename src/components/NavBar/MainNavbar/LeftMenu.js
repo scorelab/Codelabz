@@ -1,10 +1,11 @@
 import React from "react";
-import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import useGetPermissions from "../../../helpers/customHooks/useGetPermissions";
 import { useAllowDashboard } from "../../../helpers/customHooks";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Menu from "@material-ui/core/Menu";
 
 const LeftMenu = ({ mode }) => {
   const permissions = useGetPermissions();
@@ -28,7 +29,12 @@ const LeftMenu = ({ mode }) => {
   }));
   const classes = useStyles();
   return (
-    <Menu mode={mode} selectedKeys={location} className={classes.menu}>
+    <Grid
+      container
+      mode={mode}
+      selectedKeys={location}
+      className={classes.menu}
+    >
       <MenuItem key="/codefeed">
         <NavLink to="/">CodeFeed</NavLink>
       </MenuItem>
@@ -47,7 +53,7 @@ const LeftMenu = ({ mode }) => {
           <NavLink to="/organization">Organizations</NavLink>
         </MenuItem>
       )}
-    </Menu>
+    </Grid>
   );
 };
 
