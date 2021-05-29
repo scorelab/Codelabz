@@ -18,6 +18,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
 import MenuList from "@material-ui/core/MenuList";
+import Collapse from "@material-ui/core/Collapse";
 
 const RightMenu = ({ mode }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -85,14 +86,14 @@ const RightMenu = ({ mode }) => {
       >
         {acronym}
       </Avatar>
-      <Menu
+      <Collapse
         id="fade-menu"
         anchorEl={anchorEl}
         keepMounted
         open={open}
         onClose={handleClose}
         style={{
-          marginTop: "2.5rem",
+          marginTop: "2.8rem",
         }}
       >
         {allowDashboard && (
@@ -138,7 +139,7 @@ const RightMenu = ({ mode }) => {
         >
           <LogoutOutlined /> Log Out
         </MenuItem>
-      </Menu>
+      </Collapse>
       {/* <Menu
         id="fade-menu"
         anchorEl={anchorEl}
