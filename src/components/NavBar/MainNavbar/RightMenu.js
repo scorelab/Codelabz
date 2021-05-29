@@ -1,7 +1,5 @@
 import React from "react";
 // import { Menu } from "antd";
-import Grid from "@material-ui/core/Grid";
-import Menu from "@material-ui/core/Menu";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
 import { Avatar } from "antd";
@@ -16,7 +14,10 @@ import {
 } from "@ant-design/icons";
 import { avatarName } from "../../../helpers/avatarName";
 import { Link, useLocation } from "react-router-dom";
-import { MenuItem } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
+import Grid from "@material-ui/core/Grid";
+import Menu from "@material-ui/core/Menu";
+import MenuList from "@material-ui/core/MenuList";
 
 const RightMenu = ({ mode }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -63,24 +64,7 @@ const RightMenu = ({ mode }) => {
       : null;
 
   return (
-    <Grid
-      container
-      style={{ backgroundColor: "red" }}
-      mode={mode}
-      selectedKeys={location}
-    >
-      {/* <MenuItem
-        title={
-         
-        }
-      >
-        {allowDashboard && (
-          <Menu.Item key="setting:2">
-            <Link to={"/tutorials"}>
-              <CodeOutlined /> My Tutorials
-            </Link>
-          </Menu.Item>
-        )} */}
+    <Grid container>
       <Avatar
         style={{
           backgroundColor:
@@ -101,7 +85,24 @@ const RightMenu = ({ mode }) => {
       >
         {acronym}
       </Avatar>
-      {/* {allowDashboard && allowOrgs && (
+      <Menu
+        id="fade-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        style={{
+          marginTop: "2.5rem",
+        }}
+      >
+        {allowDashboard && (
+          <MenuItem key="setting:2">
+            <Link to={"/tutorials"}>
+              <CodeOutlined /> My Tutorials
+            </Link>
+          </MenuItem>
+        )}
+        {allowDashboard && allowOrgs && (
           <Menu.SubMenu
             title={
               <>
@@ -109,63 +110,90 @@ const RightMenu = ({ mode }) => {
               </>
             }
           >
-            <Menu.Item key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+            <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
               <Link to={`/organization`}>
                 <SettingOutlined /> Manage All
               </Link>
-            </Menu.Item>
+            </MenuItem>
             <Menu.Divider />
             {orgList}
           </Menu.SubMenu>
         )}
+
         {allowDashboard && <Menu.Divider />}
         {profile.displayName && profile.displayName.length > 0 && (
-          <Menu.ItemGroup title={profile.displayName} />
+          <MenuItem title={profile.displayName}>{profile.displayName}</MenuItem>
         )}
         {allowDashboard && (
-          <Menu.Item key="setting:1">
+          <MenuItem key="setting:1">
             <Link to={"/profile"}>
               <UserOutlined /> My Profile
             </Link>
-          </Menu.Item>
+          </MenuItem>
         )}
-        <Menu.Item
+        <MenuItem
           key="setting:4"
           onClick={() => signOut()(firebase, dispatch)}
           id={"log-out"}
         >
           <LogoutOutlined /> Log Out
-        </Menu.Item>{" "} */}
-      {/* </MenuItem> */}
-      <Menu
+        </MenuItem>
+      </Menu>
+      {/* <Menu
         id="fade-menu"
         anchorEl={anchorEl}
         keepMounted
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
-          {allowDashboard && allowOrgs && (
-            <Menu.SubMenu
-              title={
-                <>
-                  <BlockOutlined /> My Organizations
-                </>
-              }
-            >
-              <Menu.Item key={`org:${-1}`} style={{ marginBottom: "4px" }}>
-                <Link to={`/organization`}>
-                  <SettingOutlined /> Manage All
-                </Link>
-              </Menu.Item>
-              <Menu.Divider />
-              {orgList}
-            </Menu.SubMenu>
-          )}
+        {allowDashboard && (
+          <MenuItem key="setting:2">
+            <Link to={"/tutorials"}>
+              <CodeOutlined /> My Tutorials
+            </Link>
+          </MenuItem>
+        )}
+
+        {allowDashboard && allowOrgs && (
+          <Menu.SubMenu
+            title={
+              <>
+                <BlockOutlined /> My Organizations
+              </>
+            }
+          >
+            <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+              <Link to={`/organization`}>
+                <SettingOutlined /> Manage All
+              </Link>
+            </MenuItem>
+            <Menu.Divider />
+            {orgList}
+          </Menu.SubMenu>
+        )}
+
+        {allowDashboard && <Menu.Divider />}
+
+        {profile.displayName && profile.displayName.length > 0 && (
+          <Menu.ItemGroup title={profile.displayName} />
+        )}
+
+        {allowDashboard && (
+          <MenuItem key="setting:1">
+            <Link to={"/profile"}>
+              <UserOutlined /> My Profile
+            </Link>
+          </MenuItem>
+        )}
+
+        <MenuItem
+          key="setting:4"
+          onClick={() => signOut()(firebase, dispatch)}
+          id={"log-out"}
+        >
+          <LogoutOutlined /> Log Out
         </MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+      </Menu> */}
     </Grid>
   );
 };
