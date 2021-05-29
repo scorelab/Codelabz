@@ -1,5 +1,8 @@
 import React from "react";
 import { Menu } from "antd";
+// import Menu from "@material-ui/core/Menu";
+import Grid from "@material-ui/core/Grid";
+import MenuItem from "@material-ui/core/MenuItem";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
 import { Avatar } from "antd";
@@ -10,7 +13,7 @@ import {
   CodeOutlined,
   LogoutOutlined,
   BlockOutlined,
-  SettingOutlined
+  SettingOutlined,
 } from "@ant-design/icons";
 import { avatarName } from "../../../helpers/avatarName";
 import { Link, useLocation } from "react-router-dom";
@@ -26,8 +29,8 @@ const RightMenu = ({ mode }) => {
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
@@ -50,15 +53,15 @@ const RightMenu = ({ mode }) => {
       : null;
 
   return (
-    <Menu mode={mode} selectedKeys={location}>
-      <Menu.SubMenu
+    <Grid container mode={mode} selectedKeys={location}>
+      {/* <Menu.SubMenu
         title={
           <Avatar
             style={{
               backgroundColor:
                 profile.photoURL && profile.photoURL.length > 0
                   ? "#fffff"
-                  : "#3AAFA9"
+                  : "#3AAFA9",
             }}
             size={mode === "inline" ? "default" : "large"}
             src={profile.photoURL}
@@ -73,56 +76,76 @@ const RightMenu = ({ mode }) => {
             {acronym}
           </Avatar>
         }
+      > */}
+      <Avatar
+        style={{
+          backgroundColor:
+            profile.photoURL && profile.photoURL.length > 0
+              ? "#fffff"
+              : "#3AAFA9",
+        }}
+        size={mode === "inline" ? "default" : "large"}
+        src={profile.photoURL}
+        icon={
+          acronym ? null : (
+            <UserOutlined
+              style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
+            />
+          )
+        }
       >
+        {acronym}
+      </Avatar>
+      <Menu.SubMenu>
         {allowDashboard && (
-          <Menu.Item key="setting:2">
+          <MenuItem key="setting:2">
             <Link to={"/tutorials"}>
               <CodeOutlined /> My Tutorials
             </Link>
-          </Menu.Item>
+          </MenuItem>
         )}
-
-        {allowDashboard && allowOrgs && (
-          <Menu.SubMenu
-            title={
-              <>
-                <BlockOutlined /> My Organizations
-              </>
-            }
-          >
-            <Menu.Item key={`org:${-1}`} style={{ marginBottom: "4px" }}>
-              <Link to={`/organization`}>
-                <SettingOutlined /> Manage All
-              </Link>
-            </Menu.Item>
-            <Menu.Divider />
-            {orgList}
-          </Menu.SubMenu>
-        )}
-
-        {allowDashboard && <Menu.Divider />}
-
-        {profile.displayName && profile.displayName.length > 0 && (
-          <Menu.ItemGroup title={profile.displayName} />
-        )}
-
-        {allowDashboard && (
-          <Menu.Item key="setting:1">
-            <Link to={"/profile"}>
-              <UserOutlined /> My Profile
-            </Link>
-          </Menu.Item>
-        )}
-
-        <Menu.Item
-          key="setting:4"
-          onClick={() => signOut()(firebase, dispatch)}
-          id={"log-out"}
-        >
-          <LogoutOutlined /> Log Out
-        </Menu.Item>
       </Menu.SubMenu>
-    </Menu>
+      {/* {allowDashboard && allowOrgs && (
+        <Menu.SubMenu
+          title={
+            <>
+              <BlockOutlined /> My Organizations
+            </>
+          }
+        >
+          <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+            <Link to={`/organization`}>
+              <SettingOutlined /> Manage All
+            </Link>
+          </MenuItem>
+          <Menu.Divider />
+          {orgList}
+        </Menu.SubMenu>
+      )}
+
+      {allowDashboard && <Menu.Divider />}
+
+      {profile.displayName && profile.displayName.length > 0 && (
+        <Menu.ItemGroup title={profile.displayName} />
+      )}
+
+      {allowDashboard && (
+        <MenuItem key="setting:1">
+          <Link to={"/profile"}>
+            <UserOutlined /> My Profile
+          </Link>
+        </MenuItem>
+      )} */}
+
+      {/* <MenuItem
+        key="setting:4"
+        onClick={() => signOut()(firebase, dispatch)}
+        id={"log-out"}
+      >
+        <LogoutOutlined /> Log Out
+      </MenuItem> */}
+      {/* </Menu.SubMenu> */}
+    </Grid>
   );
 };
 
