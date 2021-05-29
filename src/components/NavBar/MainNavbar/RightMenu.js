@@ -1,17 +1,14 @@
 import React from "react";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
-import { Avatar } from "antd";
-// import Avatar from "@material-ui/core/Avatar";
+import Avatar from "@material-ui/core/Avatar";
 import { useAllowDashboard } from "../../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  UserOutlined,
-  CodeOutlined,
-  LogoutOutlined,
-  BlockOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import BlockOutlinedIcon from "@material-ui/icons/BlockOutlined";
+import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import { avatarName } from "../../../helpers/avatarName";
 import { Link, useLocation } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -80,12 +77,13 @@ const RightMenu = ({ mode }) => {
               ? "#fffff"
               : "#3AAFA9",
           marginLeft: "1rem",
+          marginBottom: ".2rem",
         }}
-        size={mode === "inline" ? "default" : "large"}
+        size={mode === "inline" ? "default" : "medium"}
         src={profile.photoURL}
         icon={
           acronym ? null : (
-            <UserOutlined
+            <PersonOutlineOutlinedIcon
               style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
             />
           )
@@ -109,7 +107,7 @@ const RightMenu = ({ mode }) => {
         {allowDashboard && (
           <MenuItem key="setting:2">
             <Link to={"/tutorials"}>
-              <CodeOutlined /> My Tutorials
+              <CodeOutlinedIcon /> My Tutorials
             </Link>
           </MenuItem>
         )}
@@ -117,13 +115,13 @@ const RightMenu = ({ mode }) => {
           <Menu.SubMenu
             title={
               <>
-                <BlockOutlined /> My Organizations
+                <BlockOutlinedIcon /> My Organizations
               </>
             }
           >
             <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
               <Link to={`/organization`}>
-                <SettingOutlined /> Manage All
+                <SettingsOutlinedIcon /> Manage All
               </Link>
             </MenuItem>
             <Menu.Divider />
@@ -138,7 +136,7 @@ const RightMenu = ({ mode }) => {
         {allowDashboard && (
           <MenuItem key="setting:1">
             <Link to={"/profile"}>
-              <UserOutlined /> My Profile
+              <PersonOutlineOutlinedIcon /> My Profile
             </Link>
           </MenuItem>
         )}
@@ -147,7 +145,7 @@ const RightMenu = ({ mode }) => {
           onClick={() => signOut()(firebase, dispatch)}
           id={"log-out"}
         >
-          <LogoutOutlined /> Log Out
+          <ExitToAppOutlinedIcon /> Log Out
         </MenuItem>
       </Menu>
     </Grid>
