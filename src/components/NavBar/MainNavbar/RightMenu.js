@@ -1,8 +1,7 @@
 import React from "react";
-import { Menu } from "antd";
-// import Menu from "@material-ui/core/Menu";
+// import { Menu } from "antd";
 import Grid from "@material-ui/core/Grid";
-import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
 import { Avatar } from "antd";
@@ -17,8 +16,19 @@ import {
 } from "@ant-design/icons";
 import { avatarName } from "../../../helpers/avatarName";
 import { Link, useLocation } from "react-router-dom";
+import { MenuItem } from "@material-ui/core";
 
 const RightMenu = ({ mode }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const allowDashboard = useAllowDashboard();
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -53,30 +63,24 @@ const RightMenu = ({ mode }) => {
       : null;
 
   return (
-    <Grid container mode={mode} selectedKeys={location}>
-      {/* <Menu.SubMenu
+    <Grid
+      container
+      style={{ backgroundColor: "red" }}
+      mode={mode}
+      selectedKeys={location}
+    >
+      {/* <MenuItem
         title={
-          <Avatar
-            style={{
-              backgroundColor:
-                profile.photoURL && profile.photoURL.length > 0
-                  ? "#fffff"
-                  : "#3AAFA9",
-            }}
-            size={mode === "inline" ? "default" : "large"}
-            src={profile.photoURL}
-            icon={
-              acronym ? null : (
-                <UserOutlined
-                  style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
-                />
-              )
-            }
-          >
-            {acronym}
-          </Avatar>
+         
         }
-      > */}
+      >
+        {allowDashboard && (
+          <Menu.Item key="setting:2">
+            <Link to={"/tutorials"}>
+              <CodeOutlined /> My Tutorials
+            </Link>
+          </Menu.Item>
+        )} */}
       <Avatar
         style={{
           backgroundColor:
@@ -93,58 +97,75 @@ const RightMenu = ({ mode }) => {
             />
           )
         }
+        onClick={handleClick}
       >
         {acronym}
       </Avatar>
-      <Menu.SubMenu>
-        {allowDashboard && (
-          <MenuItem key="setting:2">
-            <Link to={"/tutorials"}>
-              <CodeOutlined /> My Tutorials
-            </Link>
-          </MenuItem>
-        )}
-      </Menu.SubMenu>
       {/* {allowDashboard && allowOrgs && (
-        <Menu.SubMenu
-          title={
-            <>
-              <BlockOutlined /> My Organizations
-            </>
-          }
-        >
-          <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
-            <Link to={`/organization`}>
-              <SettingOutlined /> Manage All
+          <Menu.SubMenu
+            title={
+              <>
+                <BlockOutlined /> My Organizations
+              </>
+            }
+          >
+            <Menu.Item key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+              <Link to={`/organization`}>
+                <SettingOutlined /> Manage All
+              </Link>
+            </Menu.Item>
+            <Menu.Divider />
+            {orgList}
+          </Menu.SubMenu>
+        )}
+        {allowDashboard && <Menu.Divider />}
+        {profile.displayName && profile.displayName.length > 0 && (
+          <Menu.ItemGroup title={profile.displayName} />
+        )}
+        {allowDashboard && (
+          <Menu.Item key="setting:1">
+            <Link to={"/profile"}>
+              <UserOutlined /> My Profile
             </Link>
-          </MenuItem>
-          <Menu.Divider />
-          {orgList}
-        </Menu.SubMenu>
-      )}
-
-      {allowDashboard && <Menu.Divider />}
-
-      {profile.displayName && profile.displayName.length > 0 && (
-        <Menu.ItemGroup title={profile.displayName} />
-      )}
-
-      {allowDashboard && (
-        <MenuItem key="setting:1">
-          <Link to={"/profile"}>
-            <UserOutlined /> My Profile
-          </Link>
-        </MenuItem>
-      )} */}
-
-      {/* <MenuItem
-        key="setting:4"
-        onClick={() => signOut()(firebase, dispatch)}
-        id={"log-out"}
+          </Menu.Item>
+        )}
+        <Menu.Item
+          key="setting:4"
+          onClick={() => signOut()(firebase, dispatch)}
+          id={"log-out"}
+        >
+          <LogoutOutlined /> Log Out
+        </Menu.Item>{" "} */}
+      {/* </MenuItem> */}
+      <Menu
+        id="fade-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
       >
-        <LogoutOutlined /> Log Out
-      </MenuItem> */}
-      {/* </Menu.SubMenu> */}
+        <MenuItem onClick={handleClose}>
+          {allowDashboard && allowOrgs && (
+            <Menu.SubMenu
+              title={
+                <>
+                  <BlockOutlined /> My Organizations
+                </>
+              }
+            >
+              <Menu.Item key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+                <Link to={`/organization`}>
+                  <SettingOutlined /> Manage All
+                </Link>
+              </Menu.Item>
+              <Menu.Divider />
+              {orgList}
+            </Menu.SubMenu>
+          )}
+        </MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
     </Grid>
   );
 };
