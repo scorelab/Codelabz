@@ -2,6 +2,8 @@ import React from "react";
 import { Row, Col, Divider } from "antd";
 import { Link } from "react-router-dom";
 import BrandName from "../../helpers/brandName";
+import Grid from "@material-ui/core/Grid";
+// import Divider from '@material-ui/core/Divider';
 import {
   GithubOutlined,
   UnorderedListOutlined,
@@ -18,17 +20,17 @@ import {
 const Footer = () => {
   return (
     <footer className="light-grey-bg pt-16 pb-16">
-      <Row>
-        <Col sm={24} xs={24} md={6} className="col-pad-24">
+      <Grid container>
+        <Grid item sm={24} xs={24} md={6} className="col-pad-24">
           <h2 style={{ color: "#3AAFA9" }} className="brand-font mb-0">
             <Link to={"/"}>
               <BrandName />
             </Link>
           </h2>
           <p className="mb-">Live to learn, learn to live.</p>
-        </Col>
+        </Grid>
 
-        <Col xs={24} sm={24} md={6} className="col-pad-24">
+        <Grid item xs={24} sm={24} md={6} className="col-pad-24">
           <h3 className="mb-16">About</h3>
           <div className="mt-8 mb-8">
             <a
@@ -60,9 +62,9 @@ const Footer = () => {
               <LockOutlined className="mr-8" /> Privacy and security
             </a>
           </div>
-        </Col>
+        </Grid>
 
-        <Col xs={24} md={6} className="col-pad-24">
+        <Grid item xs={24} md={6} className="col-pad-24">
           <h3 className="mb-16">Help</h3>
           <div className="mt-8 mb-8">
             <a
@@ -94,9 +96,9 @@ const Footer = () => {
               <BugOutlined className="mr-8" /> Report a bug
             </a>
           </div>
-        </Col>
+        </Grid>
 
-        <Col xs={24} sm={24} md={6} className="col-pad-24">
+        <Grid item xs={24} sm={24} md={6} className="col-pad-24">
           <h3 className="mb-16">Contact</h3>
           <div className="mt-8 mb-8">
             <a href="tel: +94712345678" className="mb-8 mt-8 footer-link">
@@ -121,18 +123,18 @@ const Footer = () => {
               <HomeOutlined className="mr-8" /> 64, Singh Labs, Kings Canyon
             </a>
           </div>
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
 
-      <Row className="pr-24 pl-24">
+      <Grid container className="pr-24 pl-24">
         <Divider className="mt-0 mb-0" />
-      </Row>
+      </Grid>
 
-      <Row className="pt-16 pb-0">
-        <Col xs={24} className="center">
+      <Grid container className="pt-16 pb-0">
+        <Grid item xs={24} className="center">
           <CopyrightCircleOutlined /> {new Date().getFullYear()} CodeLabz
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
     </footer>
   );
 };
