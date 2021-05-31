@@ -4,18 +4,6 @@ import { Link } from "react-router-dom";
 import BrandName from "../../helpers/brandName";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import {
-  GithubOutlined,
-  UnorderedListOutlined,
-  BugOutlined,
-  PhoneOutlined,
-  MailOutlined,
-  HomeOutlined,
-  CheckOutlined,
-  LockOutlined,
-  QuestionOutlined,
-  CopyrightCircleOutlined,
-} from "@ant-design/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import BugReportOutlinedIcon from "@material-ui/icons/BugReportOutlined";
