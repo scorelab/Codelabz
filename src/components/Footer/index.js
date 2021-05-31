@@ -14,6 +14,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import PhoneEnabledOutlinedIcon from "@material-ui/icons/PhoneEnabledOutlined";
 import MailOutlineOutlinedIcon from "@material-ui/icons/MailOutlineOutlined";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import CopyrightOutlinedIcon from "@material-ui/icons/CopyrightOutlined";
 
 const Footer = () => {
   const useStyles = makeStyles({
@@ -183,8 +184,18 @@ const Footer = () => {
 
       <Divider />
       <Grid container className="pt-16 pb-0">
-        <Grid item xs={12} className="center">
-          <CopyrightCircleOutlined /> {new Date().getFullYear()} CodeLabz
+        <Grid
+          item
+          xs={12}
+          className="center"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textAlign: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CopyrightOutlinedIcon /> {new Date().getFullYear()} CodeLabz
         </Grid>
       </Grid>
     </footer>
