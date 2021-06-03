@@ -12,11 +12,6 @@ const LeftMenu = ({ mode }) => {
   const allowDashboard = useAllowDashboard();
   let { pathname: location } = useLocation();
 
-  /**
-   * @param {array<number>} levels
-   * @param {React.Component} Component
-   * @return {null|React.Component}
-   */
   const useStyles = makeStyles((theme) => ({
     menu: {
       width: "76vw",
@@ -42,11 +37,9 @@ const LeftMenu = ({ mode }) => {
         <NavLink to="/tutorials">Tutorials</NavLink>
       </MenuItem>
       {allowDashboard && (
-        <Menu.SubMenu title={"User"}>
-          <MenuItem key="my-code-feed">
-            <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
-          </MenuItem>
-        </Menu.SubMenu>
+        <MenuItem key="my-code-feed">
+          <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
+        </MenuItem>
       )}
       {allowDashboard && permissions.length > 0 && (
         <MenuItem key="/organization">

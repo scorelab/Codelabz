@@ -129,9 +129,8 @@ const RightMenu = ({ mode }) => {
           </Menu.SubMenu>
         )}
 
-        {allowDashboard && <Menu.Divider />}
         {profile.displayName && profile.displayName.length > 0 && (
-          <MenuItem title={profile.displayName}>{profile.displayName}</MenuItem>
+          <MenuItem>{profile.displayName}</MenuItem>
         )}
         {allowDashboard && (
           <MenuItem key="setting:1">
