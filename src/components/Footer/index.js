@@ -1,5 +1,4 @@
 import React from "react";
-// import { Row, Col, Divider } from "antd";
 import { Link } from "react-router-dom";
 import BrandName from "../../helpers/brandName";
 import Grid from "@material-ui/core/Grid";
