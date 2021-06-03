@@ -17,7 +17,7 @@
 <!--- Include details of your testing environment, and the tests you ran to -->
 <!--- see how your change affects other areas of the code, etc. -->
 
-## Screenshots (In case of UI changes):
+## Screenshots or GIF (In case of UI changes):
 
 ## Types of changes
 <!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
