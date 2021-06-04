@@ -135,7 +135,10 @@ const RightMenu = ({ mode }) => {
         {allowDashboard && (
           <MenuItem key="setting:1">
             <Link to={"/profile"}>
-              <PersonOutlineOutlinedIcon /> My Profile
+              <div style={{ color: "gray", marginTop: "2rem" }}>
+                <PersonOutlineOutlinedIcon style={{ marginTop: "-2rem" }} /> My
+                Profile
+              </div>
             </Link>
           </MenuItem>
         )}
