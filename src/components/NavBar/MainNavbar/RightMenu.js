@@ -32,7 +32,7 @@ const RightMenu = ({ mode }) => {
   const dispatch = useDispatch();
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym = avatarName(profile.displayName);
-  let { pathname: location } = useLocation();
+  // let { pathname: location } = useLocation();
 
   const organizations = useSelector(
     ({
@@ -112,7 +112,7 @@ const RightMenu = ({ mode }) => {
           </MenuItem>
         )}
         {allowDashboard && allowOrgs && (
-          <Menu.SubMenu
+          <Menu
             title={
               <>
                 <BlockOutlinedIcon /> My Organizations
@@ -126,18 +126,17 @@ const RightMenu = ({ mode }) => {
             </MenuItem>
             <Menu.Divider />
             {orgList}
-          </Menu.SubMenu>
+          </Menu>
         )}
 
         {profile.displayName && profile.displayName.length > 0 && (
-          <MenuItem>{profile.displayName}</MenuItem>
+          <MenuItem style={{ color: "gray" }}>{profile.displayName}</MenuItem>
         )}
         {allowDashboard && (
           <MenuItem key="setting:1">
             <Link to={"/profile"}>
-              <div style={{ color: "gray", marginTop: "2rem" }}>
-                <PersonOutlineOutlinedIcon style={{ marginTop: "-2rem" }} /> My
-                Profile
+              <div style={{ color: "#455A64" }}>
+                <PersonOutlineOutlinedIcon /> My Profile
               </div>
             </Link>
           </MenuItem>
@@ -146,6 +145,7 @@ const RightMenu = ({ mode }) => {
           key="setting:4"
           onClick={() => signOut()(firebase, dispatch)}
           id={"log-out"}
+          style={{ color: "#455A64" }}
         >
           <ExitToAppOutlinedIcon /> Log Out
         </MenuItem>
