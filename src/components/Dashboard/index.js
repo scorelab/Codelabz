@@ -13,7 +13,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import MailOutlined from "@material-ui/icons/MailOutlined";
 
 import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 import { Button as Button2 } from "@material-ui/core";
+import { Select as Select2 } from "@material-ui/core";
 import { FormControl, InputLabel, FormHelperText } from "@material-ui/core";
 
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -63,6 +65,13 @@ const Dashboard = () => {
     ""
   );
 
+  const [country, setCountry] = useState("");
+  const [countryValidateError, setCountryValidateError] = useState(false);
+  const [
+    countryValidateErrorMessage,
+    setCountryValidateErrorMessage,
+  ] = useState("");
+
   const displayName = useSelector(
     ({
       firebase: {
@@ -74,9 +83,9 @@ const Dashboard = () => {
 
   for (let i = 0; i < countryList.length; i++) {
     children.push(
-      <Option key={countryList[i].code} value={countryList[i].name}>
+      <MenuItem key={countryList[i].code} value={countryList[i].name}>
         {countryList[i].name}
-      </Option>
+      </MenuItem>
     );
   }
 
@@ -99,8 +108,8 @@ const Dashboard = () => {
 
   const onSubmit2 = async () => {
     validateHandle().then((validateHandle) => {
-      console.log(validateHandle);
-      if (validateHandle) {
+      console.log(validateCountry());
+      if (validateHandle && validateCountry()) {
         setError("");
         console.log("validated");
       } else {
@@ -133,8 +142,7 @@ const Dashboard = () => {
     }
   };
 
-  const onChangeHandle = (event) => setHandle(event.target.value);
-
+  const onChangeHandle = (handle) => setHandle(handle);
   const validateHandle = async () => {
     const handleExists = await checkUserHandleExists(handle)(
       firebase,
@@ -166,6 +174,20 @@ const Dashboard = () => {
     } else {
       setHandleValidateError(false);
       setHandleValidateErrorMessage("");
+      return true;
+    }
+  };
+
+  const onChangeCountry = (country) => setCountry(country);
+  const validateCountry = () => {
+    console.log(country);
+    if (validator.isEmpty(country)) {
+      setCountryValidateError(true);
+      setCountryValidateErrorMessage("Please select your country");
+      return false;
+    } else {
+      setCountryValidateError(false);
+      setCountryValidateErrorMessage("");
       return true;
     }
   };
@@ -290,7 +312,7 @@ const Dashboard = () => {
                       variant="outlined"
                       placeholder="handle"
                       value={handle}
-                      onChange={onChangeHandle}
+                      onChange={(event) => onChangeHandle(event.target.value)}
                       helperText={
                         handleValidateError ? handleValidateErrorMessage : null
                       }
@@ -323,6 +345,33 @@ const Dashboard = () => {
                       />
                     </Form.Item>
 
+                    {/* material */}
+                    <FormControl
+                      error={countryValidateError}
+                      fullWidth
+                      helperText={
+                        countryValidateError
+                          ? countryValidateErrorMessage
+                          : null
+                      }
+                    >
+                      <InputLabel>
+                        <div style={{ textAlign: "left" }}>
+                          <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} />{" "}
+                          Country
+                        </div>
+                      </InputLabel>
+                      <Select2
+                        children={children}
+                        style={{ width: "100%" }}
+                        showSearch={true}
+                        value={country}
+                        onChange={(event) =>
+                          onChangeCountry(event.target.value)
+                        }
+                      ></Select2>
+                    </FormControl>
+                    {/* material */}
                     <Form.Item
                       name="country"
                       rules={[
