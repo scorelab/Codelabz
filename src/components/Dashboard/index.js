@@ -156,6 +156,10 @@ const Dashboard = () => {
               name,
               handle,
               country,
+              org_handle: orgHandle,
+              org_name: orgName,
+              org_website: orgWebsite,
+              org_country: orgCountry,
             })(firebase, firestore, dispatch);
           } else {
             console.log("not validated");
@@ -171,10 +175,6 @@ const Dashboard = () => {
             name,
             handle,
             country,
-            orgHandle,
-            orgName,
-            orgWebsite,
-            orgCountry,
           })(firebase, firestore, dispatch);
         } else {
           console.log("not validated");
