@@ -1,17 +1,35 @@
 import React, { useEffect } from "react";
-import { Card, Row, Col, Empty } from "antd";
-import {
-  FacebookFilled,
-  TwitterSquareFilled,
-  GithubFilled,
-  LinkOutlined,
-  LinkedinFilled,
-  FlagOutlined
-} from "@ant-design/icons";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { clearUserProfile, getUserProfileData } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
+import noImageAvailable from "../../../assets/images/no-image-available.svg";
+
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Box from "@material-ui/core/Box";
+
+import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+
+import FacebookIcon from "@material-ui/icons/Facebook";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import LinkIcon from "@material-ui/icons/Link";
+import FlagIcon from "@material-ui/icons/Flag";
+
+const theme = createMuiTheme({
+  shadows: ["none"],
+  palette: {
+    primary: {
+      main: "#455a64",
+    },
+  },
+});
 
 const ProfileView = () => {
   const { handle } = useParams();
@@ -29,142 +47,228 @@ const ProfileView = () => {
   const profileData = useSelector(
     ({
       profile: {
-        user: { data }
-      }
+        user: { data },
+      },
     }) => data
   );
   const loading = useSelector(
     ({
       profile: {
-        user: { error }
-      }
+        user: { error },
+      },
     }) => error
   );
 
-  const checkAvailable = data => {
+  const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
 
+  if (loading || !profileData) {
+    return (
+      <ThemeProvider theme={theme}>
+        <LinearProgress theme={theme} />
+      </ThemeProvider>
+    );
+  }
+
   return (
-    <Card
-      title={"Profile Details"}
-      style={{ width: "100%" }}
-      className="p-0"
-      loading={loading}
-    >
-      {profileData && (
-        <Row>
-          <Col xs={24} md={6} lg={6}>
-            <Card
-              style={{ width: "100%" }}
-              bordered={false}
-              cover={
-                profileData.photoURL && profileData.photoURL.length > 0 ? (
-                  <img
-                    src={profileData.photoURL}
-                    alt={profileData.displayName}
-                    className="org-image"
-                  />
-                ) : (
-                  <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description={"No image available"}
-                  />
-                )
-              }
-              className="org-image-card"
-            />
-          </Col>
-          <Col xs={24} md={18} lg={18} className="pl-24-d pt-24-m">
-            <p>
-              <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
-                {profileData.displayName}
-              </span>
-            </p>
-            {checkAvailable(profileData.description) && (
-              <p className="text-justified">{profileData.description}</p>
-            )}
-            {checkAvailable(profileData.link_facebook) && (
-              <p>
-                <a
-                  href={"https://www.facebook.com/" + profileData.link_facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
+    <ThemeProvider theme={theme}>
+      <Card className="p-0">
+        {profileData && (
+          <div>
+            <Box mt={2} mb={2} m={3}>
+              <Grid container>
+                <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+                  Profile Details
+                </span>
+              </Grid>
+            </Box>
+            <Divider></Divider>
+            <Box mt={2} mb={2} m={3}>
+              <Grid container>
+                <Grid xs={12} md={3} lg={3} item={true}>
+                  {profileData.photoURL && profileData.photoURL.length > 0 ? (
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "8px",
+                      }}
+                      src={profileData.photoURL}
+                      alt={profileData.displayName}
+                      className="org-image"
+                    />
+                  ) : (
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        borderRadius: "8px",
+                      }}
+                      src={noImageAvailable}
+                      alt={"Not Available"}
+                      className="org-image"
+                    />
+                  )}
+                </Grid>
+                <Grid
+                  xs={12}
+                  md={9}
+                  lg={9}
+                  className="pl-24-d pt-24-m"
+                  item={true}
                 >
-                  <FacebookFilled className="facebook-color" />{" "}
-                  {profileData.link_facebook}
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.link_twitter) && (
-              <p>
-                <a
-                  href={"https://twitter.com/" + profileData.link_twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <TwitterSquareFilled className="twitter-color" />{" "}
-                  {profileData.link_twitter}
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.link_github) && (
-              <p>
-                <a
-                  href={"https://github.com/" + profileData.link_github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GithubFilled className="github-color" />{" "}
-                  {profileData.link_github}
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.link_linkedin) && (
-              <p>
-                <a
-                  href={
-                    "https://www.linkedin.com/in/" + profileData.link_linkedin
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <LinkedinFilled className="linkedin-color" />{" "}
-                  {profileData.link_linkedin}
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.website) && (
-              <p>
-                <a
-                  href={profileData.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <LinkOutlined className="website-color" />{" "}
-                  {profileData.website}
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.country) && (
-              <p className="mb-0">
-                <a
-                  href={
-                    "https://www.google.com/search?q=" + profileData.country
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FlagOutlined className="website-color" />{" "}
-                  {profileData.country}
-                </a>
-              </p>
-            )}
-          </Col>
-        </Row>
-      )}
-      {profileData === false && "No profile with the provided handle"}
-    </Card>
+                  <p>
+                    <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
+                      {profileData.displayName}
+                    </span>
+                  </p>
+                  {checkAvailable(profileData.description) && (
+                    <p className="text-justified">{profileData.description}</p>
+                  )}
+                  {checkAvailable(profileData.link_facebook) && (
+                    <p>
+                      <a
+                        href={
+                          "https://www.facebook.com/" +
+                          profileData.link_facebook
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <FacebookIcon
+                            fontSize="small"
+                            className="facebook-color"
+                          />{" "}
+                          {profileData.link_facebook}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.link_twitter) && (
+                    <p>
+                      <a
+                        href={"https://twitter.com/" + profileData.link_twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <TwitterIcon
+                            fontSize="small"
+                            className="twitter-color"
+                          />{" "}
+                          {profileData.link_twitter}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.link_github) && (
+                    <p>
+                      <a
+                        href={"https://github.com/" + profileData.link_github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <GitHubIcon
+                            fontSize="small"
+                            className="github-color"
+                          />{" "}
+                          {profileData.link_github}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.link_linkedin) && (
+                    <p>
+                      <a
+                        href={
+                          "https://www.linkedin.com/in/" +
+                          profileData.link_linkedin
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <LinkedInIcon
+                            fontSize="small"
+                            className="linkedin-color"
+                          />{" "}
+                          {profileData.link_linkedin}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.website) && (
+                    <p>
+                      <a
+                        href={profileData.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <LinkIcon
+                            fontSize="small"
+                            className="website-color"
+                          />{" "}
+                          {profileData.website}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.country) && (
+                    <p className="mb-0">
+                      <a
+                        href={
+                          "https://www.google.com/search?q=" +
+                          profileData.country
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <FlagIcon
+                            fontSize="small"
+                            className="website-color"
+                          />{" "}
+                          {profileData.country}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                </Grid>
+              </Grid>
+            </Box>
+          </div>
+        )}
+        {profileData === false && "No profile with the provided handle"}
+      </Card>
+    </ThemeProvider>
   );
 };
 
