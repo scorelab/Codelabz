@@ -142,11 +142,26 @@ const Dashboard = () => {
     );
     if (validator.isEmpty(handle)) {
       setHandleValidateError(true);
-      setHandleValidateErrorMessage("Please Enter a handle!");
+      setHandleValidateErrorMessage("Please enter a handle");
+      return false;
+    } else if (
+      !validator.isAlphanumeric(handle) ||
+      !validator.isLowercase(handle)
+    ) {
+      setHandleValidateError(true);
+      setHandleValidateErrorMessage(
+        "User handle can only contain lowercase alphanumeric characters"
+      );
+      return false;
+    } else if (handle.length < 6) {
+      setHandleValidateError(true);
+      setHandleValidateErrorMessage(
+        "User handle cannot be less than 6 characters"
+      );
       return false;
     } else if (handleExists) {
       setHandleValidateError(true);
-      setHandleValidateErrorMessage(`The handle [${handle}] is already taken`);
+      setHandleValidateErrorMessage(`The handle ${handle} is already taken`);
       return false;
     } else {
       setHandleValidateError(false);
