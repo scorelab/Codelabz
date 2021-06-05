@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Alert, Button, Form, Input, Select } from "antd";
-
+import validator from "validator";
 import {
   // Button,
   Card,
@@ -9,6 +9,9 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import MailOutlined from "@material-ui/icons/MailOutlined";
+
 import TextField from "@material-ui/core/TextField";
 import { Button as Button2 } from "@material-ui/core";
 import { FormControl, InputLabel, FormHelperText } from "@material-ui/core";
@@ -53,6 +56,13 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+
+  const [handle, setHandle] = useState("");
+  const [handleValidateError, setHandleValidateError] = useState(false);
+  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
+    ""
+  );
+
   const displayName = useSelector(
     ({
       firebase: {
@@ -87,6 +97,18 @@ const Dashboard = () => {
     [dispatch]
   );
 
+  const onSubmit2 = async () => {
+    validateHandle().then((validateHandle) => {
+      console.log(validateHandle);
+      if (validateHandle) {
+        setError("");
+        console.log("validated");
+      } else {
+        console.log("not validated");
+      }
+    });
+  };
+
   const onSubmit = async ({
     name,
     handle,
@@ -96,17 +118,41 @@ const Dashboard = () => {
     org_website,
     org_country,
   }) => {
-    setError("");
-    await setUpInitialData({
-      orgData: showOrgForm,
-      name,
-      handle,
-      country,
-      org_handle,
-      org_name,
-      org_website,
-      org_country,
-    })(firebase, firestore, dispatch);
+    if (validateHandle()) {
+      setError("");
+      await setUpInitialData({
+        orgData: showOrgForm,
+        name,
+        handle,
+        country,
+        org_handle,
+        org_name,
+        org_website,
+        org_country,
+      })(firebase, firestore, dispatch);
+    }
+  };
+
+  const onChangeHandle = (event) => setHandle(event.target.value);
+
+  const validateHandle = async () => {
+    const handleExists = await checkUserHandleExists(handle)(
+      firebase,
+      dispatch
+    );
+    if (validator.isEmpty(handle)) {
+      setHandleValidateError(true);
+      setHandleValidateErrorMessage("Please Enter a handle!");
+      return false;
+    } else if (handleExists) {
+      setHandleValidateError(true);
+      setHandleValidateErrorMessage(`The handle [${handle}] is already taken`);
+      return false;
+    } else {
+      setHandleValidateError(false);
+      setHandleValidateErrorMessage("");
+      return true;
+    }
   };
 
   const onHandleChange = async () => {
@@ -142,6 +188,11 @@ const Dashboard = () => {
         },
       ]);
     }
+  };
+
+  const onFocusHandle = () => {
+    setHandleValidateError(false);
+    setHandleValidateErrorMessage("");
   };
 
   return (
@@ -217,6 +268,33 @@ const Dashboard = () => {
                       />
                     </Form.Item>
 
+                    {/* material */}
+                    <TextField
+                      error={handleValidateError}
+                      label="handle"
+                      variant="outlined"
+                      placeholder="handle"
+                      value={handle}
+                      onChange={onChangeHandle}
+                      helperText={
+                        handleValidateError ? handleValidateErrorMessage : null
+                      }
+                      fullWidth
+                      autoComplete="handle"
+                      required
+                      onFocus={onFocusHandle}
+                      style={{ marginBottom: "15px" }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <MailOutlined
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    {/* material */}
                     <Form.Item name={"handle"} rules={userHandleValidation}>
                       <Input
                         onBlur={onHandleChange}
@@ -388,7 +466,7 @@ const Dashboard = () => {
                     htmlType="submit"
                     loading={loading}
                     className="auth-form-col"
-                    onClick={onSubmit}
+                    onClick={onSubmit2}
                   >
                     {loading ? "Saving..." : "Save"}
                   </Button2>
