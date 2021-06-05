@@ -59,17 +59,49 @@ const Dashboard = () => {
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
 
+  const [name, setName] = useState("");
+  const [nameValidateError, setNameValidateError] = useState(false);
+  const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
+
+  const [orgName, setOrgName] = useState("");
+  const [orgNameValidateError, setOrgNameValidateError] = useState(false);
+  const [
+    orgNameValidateErrorMessage,
+    setOrgNameValidateErrorMessage,
+  ] = useState("");
+
   const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
   const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
     ""
   );
 
+  const [orgHandle, setOrgHandle] = useState("");
+  const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
+  const [
+    orgHandleValidateErrorMessage,
+    setOrgHandleValidateErrorMessage,
+  ] = useState("");
+
   const [country, setCountry] = useState("");
   const [countryValidateError, setCountryValidateError] = useState(false);
   const [
     countryValidateErrorMessage,
     setCountryValidateErrorMessage,
+  ] = useState("");
+
+  const [orgCountry, setOrgCountry] = useState("");
+  const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
+  const [
+    orgCountryValidateErrorMessage,
+    setOrgCountryValidateErrorMessage,
+  ] = useState("");
+
+  const [orgWebsite, setOrgWebsite] = useState("");
+  const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
+  const [
+    orgWebsiteValidateErrorMessage,
+    setOrgWebsiteValidateErrorMessage,
   ] = useState("");
 
   const displayName = useSelector(
@@ -108,12 +140,36 @@ const Dashboard = () => {
 
   const onSubmit2 = async () => {
     validateHandle().then((validateHandle) => {
-      console.log(validateCountry());
-      if (validateHandle && validateCountry()) {
-        setError("");
-        console.log("validated");
+      if (showOrgForm) {
+        validateOrgHandle().then((validateOrgHandle) => {
+          validateCountry();
+          validateOrgCountry();
+          validateName();
+          validateOrgName();
+          validateOrgWebsite();
+          if (
+            validateCountry() &&
+            validateOrgCountry() &&
+            validateName() &&
+            validateOrgName() &&
+            validateHandle &&
+            validateOrgHandle
+          ) {
+            setError("");
+            console.log("validated");
+          } else {
+            console.log("not validated");
+          }
+        });
       } else {
-        console.log("not validated");
+        validateCountry();
+        validateName();
+        if (validateCountry() && validateName() && validateHandle) {
+          setError("");
+          console.log("validated");
+        } else {
+          console.log("not validated");
+        }
       }
     });
   };
@@ -139,6 +195,40 @@ const Dashboard = () => {
         org_website,
         org_country,
       })(firebase, firestore, dispatch);
+    }
+  };
+
+  const onChangeName = (name) => setName(name);
+  const validateName = () => {
+    if (validator.isEmpty(name)) {
+      setNameValidateError(true);
+      setNameValidateErrorMessage("Please enter your name");
+      return false;
+    } else if (!validator.isAlpha(name)) {
+      setNameValidateError(true);
+      setNameValidateErrorMessage("Please enter a real name");
+      return false;
+    } else {
+      setNameValidateError(false);
+      setNameValidateErrorMessage("");
+      return true;
+    }
+  };
+
+  const onChangeOrgName = (orgName) => setOrgName(orgName);
+  const validateOrgName = () => {
+    if (validator.isEmpty(orgName)) {
+      setOrgNameValidateError(true);
+      setOrgNameValidateErrorMessage("Please enter organization name");
+      return false;
+    } else if (!validator.isAlpha(orgName)) {
+      setOrgNameValidateError(true);
+      setOrgNameValidateErrorMessage("Please enter a real name");
+      return false;
+    } else {
+      setOrgNameValidateError(false);
+      setOrgNameValidateErrorMessage("");
+      return true;
     }
   };
 
@@ -178,6 +268,44 @@ const Dashboard = () => {
     }
   };
 
+  const onChangeOrgHandle = (orgHandle) => setOrgHandle(orgHandle);
+  const validateOrgHandle = async () => {
+    const orgHandleExists = await checkOrgHandleExists(orgHandle)(
+      firebase,
+      dispatch
+    );
+    if (validator.isEmpty(orgHandle)) {
+      setOrgHandleValidateError(true);
+      setOrgHandleValidateErrorMessage("Please enter a handle");
+      return false;
+    } else if (
+      !validator.isAlphanumeric(orgHandle) ||
+      !validator.isLowercase(orgHandle)
+    ) {
+      setOrgHandleValidateError(true);
+      setOrgHandleValidateErrorMessage(
+        "Organization handle can only contain lowercase alphanumeric characters"
+      );
+      return false;
+    } else if (orgHandle.length < 6) {
+      setOrgHandleValidateError(true);
+      setOrgHandleValidateErrorMessage(
+        "Organization handle cannot be less than 6 characters"
+      );
+      return false;
+    } else if (orgHandleExists) {
+      setOrgHandleValidateError(true);
+      setOrgHandleValidateErrorMessage(
+        `The handle ${orgHandle} is already taken`
+      );
+      return false;
+    } else {
+      setOrgHandleValidateError(false);
+      setOrgHandleValidateErrorMessage("");
+      return true;
+    }
+  };
+
   const onChangeCountry = (country) => setCountry(country);
   const validateCountry = () => {
     console.log(country);
@@ -192,20 +320,34 @@ const Dashboard = () => {
     }
   };
 
-  const onHandleChange = async () => {
-    const handle = form.getFieldValue("handle");
-    const handleExists = await checkUserHandleExists(handle)(
-      firebase,
-      dispatch
-    );
-    if (handleExists) {
-      form.resetFields(["handle"]);
-      form.setFields([
-        {
-          name: "handle",
-          errors: [`The handle [${handle}] is already taken`],
-        },
-      ]);
+  const onChangeOrgCountry = (orgCountry) => setCountry(orgCountry);
+  const validateOrgCountry = () => {
+    console.log(orgCountry);
+    if (validator.isEmpty(orgCountry)) {
+      setOrgCountryValidateError(true);
+      setOrgCountryValidateErrorMessage("Please select your country");
+      return false;
+    } else {
+      setOrgCountryValidateError(false);
+      setOrgCountryValidateErrorMessage("");
+      return true;
+    }
+  };
+
+  const onChangeOrgWebsite = (orgWebsite) => setOrgWebsite(orgWebsite);
+  const validateOrgWebsite = () => {
+    if (validator.isEmpty(orgWebsite)) {
+      setOrgWebsiteValidateError(true);
+      setOrgWebsiteValidateErrorMessage("Please enter organization website");
+      return false;
+    } else if (!validator.isURL(orgWebsite)) {
+      setOrgWebsiteValidateError(true);
+      setOrgWebsiteValidateErrorMessage("Please provide a valid URL");
+      return false;
+    } else {
+      setOrgWebsiteValidateError(false);
+      setOrgWebsiteValidateErrorMessage("");
+      return true;
     }
   };
 
@@ -280,30 +422,33 @@ const Dashboard = () => {
                   <Divider />
 
                   <Box m={3}>
-                    <Form.Item
-                      name={"name"}
-                      initialValue={displayName ? displayName : ""}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please enter your name",
-                        },
-                        {
-                          type: "string",
-                          message: "Please enter a valid name",
-                        },
-                      ]}
-                    >
-                      <Input
-                        prefix={
-                          <UserAddOutlined
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
-                        }
-                        placeholder="Name"
-                        autoComplete="email"
-                      />
-                    </Form.Item>
+                    {/* material */}
+                    <TextField
+                      error={nameValidateError}
+                      label="name"
+                      variant="outlined"
+                      placeholder={displayName ? displayName : ""}
+                      value={name}
+                      onChange={(event) => onChangeName(event.target.value)}
+                      helperText={
+                        nameValidateError ? nameValidateErrorMessage : null
+                      }
+                      fullWidth
+                      autoComplete="handle"
+                      required
+                      // onFocus={onFocusName}
+                      style={{ marginBottom: "15px" }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <MailOutlined
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    {/* material */}
 
                     {/* material */}
                     <TextField
@@ -332,18 +477,6 @@ const Dashboard = () => {
                       }}
                     />
                     {/* material */}
-                    <Form.Item name={"handle"} rules={userHandleValidation}>
-                      <Input
-                        onBlur={onHandleChange}
-                        prefix={
-                          <UserAddOutlined
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
-                        }
-                        placeholder="User Handle"
-                        autoComplete="off"
-                      />
-                    </Form.Item>
 
                     {/* material */}
                     <FormControl
@@ -372,30 +505,6 @@ const Dashboard = () => {
                       ></Select2>
                     </FormControl>
                     {/* material */}
-                    <Form.Item
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please select your country",
-                        },
-                      ]}
-                    >
-                      <Select
-                        style={{ width: "100%" }}
-                        placeholder={
-                          <div style={{ textAlign: "left" }}>
-                            <GlobalOutlined
-                              style={{ color: "rgba(0,0,0,.4)" }}
-                            />{" "}
-                            Country
-                          </div>
-                        }
-                        showSearch={true}
-                      >
-                        {children}
-                      </Select>
-                    </Form.Item>
 
                     <Form.Item className="mb-0">
                       <Button
@@ -434,83 +543,130 @@ const Dashboard = () => {
                     <Divider />
 
                     <Box m={3}>
-                      <Form.Item
-                        name={"org_name"}
-                        rules={[
-                          {
-                            required: true,
-                            message: "Please enter the organization name",
-                          },
-                          {
-                            type: "string",
-                            message: "Please provide a valid organization name",
-                          },
-                        ]}
+                      {/* material */}
+                      <TextField
+                        error={orgNameValidateError}
+                        label="orgName"
+                        variant="outlined"
+                        value={orgName}
+                        onChange={(event) =>
+                          onChangeOrgName(event.target.value)
+                        }
+                        helperText={
+                          orgNameValidateError
+                            ? orgNameValidateErrorMessage
+                            : null
+                        }
+                        fullWidth
+                        autoComplete="handle"
+                        required
+                        // onFocus={onFocusName}
+                        style={{ marginBottom: "15px" }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <MailOutlined
+                                style={{ color: "rgba(0,0,0,.25)" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {/* material */}
+
+                      {/* material */}
+                      <TextField
+                        error={orgHandleValidateError}
+                        label="orgHandle"
+                        variant="outlined"
+                        placeholder="orgHandle"
+                        value={orgHandle}
+                        onChange={(event) =>
+                          onChangeOrgHandle(event.target.value)
+                        }
+                        helperText={
+                          orgHandleValidateError
+                            ? orgHandleValidateErrorMessage
+                            : null
+                        }
+                        fullWidth
+                        autoComplete="orgHandle"
+                        required
+                        // onFocus={onFocusHandle}
+                        style={{ marginBottom: "15px" }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <MailOutlined
+                                style={{ color: "rgba(0,0,0,.25)" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {/* material */}
+
+                      {/* material */}
+                      <FormControl
+                        error={orgCountryValidateError}
+                        fullWidth
+                        helperText={
+                          orgCountryValidateError
+                            ? orgCountryValidateErrorMessage
+                            : null
+                        }
                       >
-                        <Input
-                          prefix={
-                            <AppstoreAddOutlined
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          }
-                          placeholder="Organization Name"
-                          autoComplete="organization"
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name={"org_handle"}
-                        rules={orgHandleValidation}
-                      >
-                        <Input
-                          onBlur={onOrgHandleChange}
-                          prefix={
-                            <AppstoreOutlined
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          }
-                          placeholder="Organization Handle"
-                          autoComplete="off"
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name="org_country"
-                        rules={[
-                          {
-                            required: true,
-                            message:
-                              "Please select the country of the organization",
-                          },
-                        ]}
-                      >
-                        <Select
+                        <InputLabel>
+                          <div style={{ textAlign: "left" }}>
+                            <GlobalOutlined
+                              style={{ color: "rgba(0,0,0,.4)" }}
+                            />{" "}
+                            Organization Country
+                          </div>
+                        </InputLabel>
+                        <Select2
+                          children={children}
                           style={{ width: "100%" }}
-                          placeholder={
-                            <div style={{ textAlign: "left" }}>
-                              <GlobalOutlined
-                                style={{ color: "rgba(0,0,0,.4)" }}
-                              />{" "}
-                              Country of the organization
-                            </div>
-                          }
                           showSearch={true}
-                        >
-                          {children}
-                        </Select>
-                      </Form.Item>
-                      <Form.Item
-                        name="org_website"
-                        className="mb-0"
-                        rules={orgWebsiteValidation}
-                        hasFeedback
-                      >
-                        <Input
-                          prefix={
-                            <IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                          value={orgCountry}
+                          onChange={(event) =>
+                            onChangeOrgCountry(event.target.value)
                           }
-                          placeholder="Website"
-                          autoComplete="url"
-                        />
-                      </Form.Item>
+                        ></Select2>
+                      </FormControl>
+                      {/* material */}
+
+                      {/* material */}
+                      <TextField
+                        error={orgWebsiteValidateError}
+                        label="orgWebsite"
+                        variant="outlined"
+                        placeholder="orgWebsite"
+                        value={orgWebsite}
+                        onChange={(event) =>
+                          onChangeOrgWebsite(event.target.value)
+                        }
+                        helperText={
+                          orgWebsiteValidateError
+                            ? orgWebsiteValidateErrorMessage
+                            : null
+                        }
+                        fullWidth
+                        autoComplete="orgWebsite"
+                        required
+                        // onFocus={onFocusWebsite}
+                        style={{ marginBottom: "15px" }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <MailOutlined
+                                style={{ color: "rgba(0,0,0,.25)" }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {/* material */}
                     </Box>
                   </Card>
                 )}
