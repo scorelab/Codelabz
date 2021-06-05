@@ -325,6 +325,14 @@ const Dashboard = () => {
       setOrgWebsiteValidateError(true);
       setOrgWebsiteValidateErrorMessage("Please provide a valid URL");
       return false;
+    } else if (
+      !(orgWebsite.includes("https://") || orgWebsite.includes("http://"))
+    ) {
+      setOrgWebsiteValidateError(true);
+      setOrgWebsiteValidateErrorMessage(
+        "URL must contain the protocol (https:// or http://)"
+      );
+      return false;
     } else {
       setOrgWebsiteValidateError(false);
       setOrgWebsiteValidateErrorMessage("");
