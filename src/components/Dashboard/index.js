@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import validator from "validator";
 
 import Alert from "@material-ui/lab/Alert";
+
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
@@ -13,9 +14,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import MailOutlined from "@material-ui/icons/MailOutlined";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+
+import PersonIcon from "@material-ui/icons/Person";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import PublicIcon from "@material-ui/icons/Public";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import BusinessIcon from "@material-ui/icons/Business";
 
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,18 +80,10 @@ const Dashboard = () => {
   //country
   const [country, setCountry] = useState("");
   const [countryValidateError, setCountryValidateError] = useState(false);
-  const [
-    countryValidateErrorMessage,
-    setCountryValidateErrorMessage,
-  ] = useState("");
 
   //organization country
   const [orgCountry, setOrgCountry] = useState("");
   const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
-  const [
-    orgCountryValidateErrorMessage,
-    setOrgCountryValidateErrorMessage,
-  ] = useState("");
 
   //rganization website
   const [orgWebsite, setOrgWebsite] = useState("");
@@ -129,7 +127,7 @@ const Dashboard = () => {
     [dispatch]
   );
 
-  const onSubmit2 = async () => {
+  const onSubmit = async () => {
     validateHandle().then(async (validateHandle) => {
       if (showOrgForm) {
         validateOrgHandle().then(async (validateOrgHandle) => {
@@ -157,8 +155,6 @@ const Dashboard = () => {
               org_website: orgWebsite,
               org_country: orgCountry,
             })(firebase, firestore, dispatch);
-          } else {
-            console.log("not validated");
           }
         });
       } else {
@@ -172,8 +168,6 @@ const Dashboard = () => {
             handle,
             country,
           })(firebase, firestore, dispatch);
-        } else {
-          console.log("not validated");
         }
       }
     });
@@ -292,11 +286,11 @@ const Dashboard = () => {
     console.log(country);
     if (validator.isEmpty(country)) {
       setCountryValidateError(true);
-      setCountryValidateErrorMessage("Please select your country");
+
       return false;
     } else {
       setCountryValidateError(false);
-      setCountryValidateErrorMessage("");
+
       return true;
     }
   };
@@ -306,11 +300,11 @@ const Dashboard = () => {
     console.log(orgCountry);
     if (validator.isEmpty(orgCountry)) {
       setOrgCountryValidateError(true);
-      setOrgCountryValidateErrorMessage("Please select your country");
+
       return false;
     } else {
       setOrgCountryValidateError(false);
-      setOrgCountryValidateErrorMessage("");
+
       return true;
     }
   };
@@ -348,13 +342,13 @@ const Dashboard = () => {
   return (
     <div className="home-row">
       <Grid container alignItems="center" justify="space-between">
-        <Grid xs={12} className="col-pad-24 pt-32">
+        <Grid xs={12} className="col-pad-24 pt-32" item={true}>
           <h2 className="mb-0 center">Welcome to CodeLabz!</h2>
           <h3 className="mb-0 center">
             Let's complete your profile before we dive in.
           </h3>
         </Grid>
-        <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6}>
+        <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6} item={true}>
           {error && (
             <Grid container>
               <Grid xs={12} className="col-pad-24 pr-12 pb-0">
@@ -372,14 +366,13 @@ const Dashboard = () => {
               md={showOrgForm ? 6 : 12}
               className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
               onFocus={() => setFocusLeft(true)}
+              item={true}
             >
               <Card className="auth-form-col" style={{ margin: "0 auto" }}>
                 <Box mt={2} mb={2} m={3}>
-                  <Typography>
-                    <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
-                      <p className="mb-0 ">Your Details</p>
-                    </Box>
-                  </Typography>
+                  <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
+                    Your Details
+                  </Box>
                 </Box>
 
                 <Divider />
@@ -387,7 +380,7 @@ const Dashboard = () => {
                 <Box m={3}>
                   <TextField
                     error={nameValidateError}
-                    label="name"
+                    label="User Name"
                     variant="outlined"
                     placeholder={displayName ? displayName : ""}
                     value={name}
@@ -402,16 +395,16 @@ const Dashboard = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                          <PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
                         </InputAdornment>
                       ),
                     }}
                   />
                   <TextField
                     error={handleValidateError}
-                    label="handle"
+                    label="User Handle"
                     variant="outlined"
-                    placeholder="handle"
+                    placeholder="User Handle"
                     value={handle}
                     onChange={(event) => onChangeHandle(event.target.value)}
                     helperText={
@@ -425,30 +418,30 @@ const Dashboard = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                          <PersonOutlineIcon
+                            style={{ color: "rgba(0,0,0,.25)" }}
+                          />
                         </InputAdornment>
                       ),
                     }}
                   />
                   <FormControl
+                    variant="outlined"
                     error={countryValidateError}
                     fullWidth
-                    helperText={
-                      countryValidateError ? countryValidateErrorMessage : null
-                    }
                   >
-                    <InputLabel>
-                      <div style={{ textAlign: "left" }}>Country</div>
-                    </InputLabel>
+                    <InputLabel>User Country</InputLabel>
                     <Select
+                      label="User Country"
                       children={children}
                       style={{ width: "100%" }}
-                      showSearch={true}
                       value={country}
                       onChange={(event) => onChangeCountry(event.target.value)}
                     ></Select>
                   </FormControl>
-
+                </Box>
+                <Divider></Divider>
+                <Box m={3}>
                   <Button
                     size="small"
                     fullWidth
@@ -469,10 +462,11 @@ const Dashboard = () => {
               </Card>
             </Grid>
             <Grid
-              xs={showOrgForm ? 12 : 0}
-              md={showOrgForm ? 6 : 0}
+              xs={showOrgForm ? 12 : null}
+              md={showOrgForm ? 6 : null}
               className="col-pad-24 pl-12 pr-12 pt-8"
               onFocus={() => setFocusLeft(false)}
+              item={true}
             >
               {showOrgForm && (
                 <Card>
@@ -489,8 +483,9 @@ const Dashboard = () => {
                   <Box m={3}>
                     <TextField
                       error={orgNameValidateError}
-                      label="orgName"
+                      label="Organization Name"
                       variant="outlined"
+                      placeholder="Organiztion Name"
                       value={orgName}
                       onChange={(event) => onChangeOrgName(event.target.value)}
                       helperText={
@@ -505,7 +500,7 @@ const Dashboard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <MailOutlined
+                            <LocationCityIcon
                               style={{ color: "rgba(0,0,0,.25)" }}
                             />
                           </InputAdornment>
@@ -514,9 +509,9 @@ const Dashboard = () => {
                     />
                     <TextField
                       error={orgHandleValidateError}
-                      label="orgHandle"
+                      label="Organization Handle"
                       variant="outlined"
-                      placeholder="orgHandle"
+                      placeholder="Organiztion Handle"
                       value={orgHandle}
                       onChange={(event) =>
                         onChangeOrgHandle(event.target.value)
@@ -533,7 +528,7 @@ const Dashboard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <MailOutlined
+                            <BusinessIcon
                               style={{ color: "rgba(0,0,0,.25)" }}
                             />
                           </InputAdornment>
@@ -541,20 +536,13 @@ const Dashboard = () => {
                       }}
                     />
                     <FormControl
+                      variant="outlined"
                       error={orgCountryValidateError}
                       fullWidth
-                      helperText={
-                        orgCountryValidateError
-                          ? orgCountryValidateErrorMessage
-                          : null
-                      }
                     >
-                      <InputLabel>
-                        <div style={{ textAlign: "left" }}>
-                          Organization Country
-                        </div>
-                      </InputLabel>
+                      <InputLabel>Organization Country</InputLabel>
                       <Select
+                        label="Organization Country"
                         children={children}
                         style={{ width: "100%" }}
                         showSearch={true}
@@ -564,11 +552,14 @@ const Dashboard = () => {
                         }
                       ></Select>
                     </FormControl>
+                  </Box>
+
+                  <Box m={3}>
                     <TextField
                       error={orgWebsiteValidateError}
-                      label="orgWebsite"
+                      label="Organization Website"
                       variant="outlined"
-                      placeholder="orgWebsite"
+                      placeholder="Organization Website"
                       value={orgWebsite}
                       onChange={(event) =>
                         onChangeOrgWebsite(event.target.value)
@@ -585,9 +576,7 @@ const Dashboard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <MailOutlined
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
+                            <PublicIcon style={{ color: "rgba(0,0,0,.25)" }} />
                           </InputAdornment>
                         ),
                       }}
@@ -597,7 +586,7 @@ const Dashboard = () => {
               )}
             </Grid>
 
-            <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8">
+            <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8" item={true}>
               <Button
                 size="small"
                 fullWidth
@@ -606,9 +595,8 @@ const Dashboard = () => {
                 style={{
                   backgroundColor: "#455a64",
                 }}
-                htmlType="submit"
                 className="auth-form-col"
-                onClick={onSubmit2}
+                onClick={onSubmit}
               >
                 {loading ? "Saving..." : "Save"}
               </Button>
@@ -620,6 +608,7 @@ const Dashboard = () => {
           sm={12}
           md={showOrgForm ? 4 : 6}
           className="col-pad-24 pl-12 pt-8"
+          item={true}
         >
           <Fade right={true} when={showImage}>
             <img
