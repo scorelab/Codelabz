@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Alert, Button, Form, Input, Select } from "antd";
+import React, { useEffect, useState } from "react";
+
 import validator from "validator";
+import Alert from "@material-ui/lab/Alert";
 import {
   // Button,
+
   Card,
   Box,
   Divider,
@@ -26,23 +28,13 @@ import {
   clearProfileEditError,
   setUpInitialData,
 } from "../../store/actions";
-import {
-  GlobalOutlined,
-  UserAddOutlined,
-  AppstoreAddOutlined,
-  AppstoreOutlined,
-  IeOutlined,
-} from "@ant-design/icons";
+
 import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
 import profileUser from "../../assets/images/profile-user.svg";
 import Fade from "react-reveal/Fade";
 
-const { Option } = Select;
-
 const Dashboard = () => {
-  const form2 = useRef(null);
-  const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOrgForm, setShowOrgForm] = useState(null);
@@ -360,24 +352,6 @@ const Dashboard = () => {
     }
   };
 
-  const onOrgHandleChange = async () => {
-    const orgHandle = form.getFieldValue("org_handle");
-    const orgHandleExists = await checkOrgHandleExists(orgHandle)(
-      firebase,
-      dispatch
-    );
-
-    if (orgHandleExists) {
-      form.resetFields(["org_handle"]);
-      form.setFields([
-        {
-          name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`],
-        },
-      ]);
-    }
-  };
-
   const onFocusHandle = () => {
     setHandleValidateError(false);
     setHandleValidateErrorMessage("");
@@ -396,34 +370,137 @@ const Dashboard = () => {
           {error && (
             <Grid container>
               <Grid xs={12} className="col-pad-24 pr-12 pb-0">
-                <Alert
-                  message={""}
-                  description={error}
-                  type="error"
-                  closable
-                  className={
-                    "login-error mb-16 center " +
-                    (!showOrgForm && "auth-form-col")
-                  }
-                />
+                <Alert variant="outlined" severity="error">
+                  {error}
+                </Alert>
               </Grid>
             </Grid>
           )}
 
-          <Form form={form} onFinish={onSubmit}>
-            <Grid container>
-              <Grid
-                xs={12}
-                sm={12}
-                md={showOrgForm ? 6 : 12}
-                className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
-                onFocus={() => setFocusLeft(true)}
-              >
-                <Card className="auth-form-col" style={{ margin: "0 auto" }}>
+          <Grid container>
+            <Grid
+              xs={12}
+              sm={12}
+              md={showOrgForm ? 6 : 12}
+              className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
+              onFocus={() => setFocusLeft(true)}
+            >
+              <Card className="auth-form-col" style={{ margin: "0 auto" }}>
+                <Box mt={2} mb={2} m={3}>
+                  <Typography>
+                    <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
+                      <p className="mb-0 ">Your Details</p>
+                    </Box>
+                  </Typography>
+                </Box>
+
+                <Divider />
+
+                <Box m={3}>
+                  {/* material */}
+                  <TextField
+                    error={nameValidateError}
+                    label="name"
+                    variant="outlined"
+                    placeholder={displayName ? displayName : ""}
+                    value={name}
+                    onChange={(event) => onChangeName(event.target.value)}
+                    helperText={
+                      nameValidateError ? nameValidateErrorMessage : null
+                    }
+                    fullWidth
+                    autoComplete="handle"
+                    required
+                    // onFocus={onFocusName}
+                    style={{ marginBottom: "15px" }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  {/* material */}
+
+                  {/* material */}
+                  <TextField
+                    error={handleValidateError}
+                    label="handle"
+                    variant="outlined"
+                    placeholder="handle"
+                    value={handle}
+                    onChange={(event) => onChangeHandle(event.target.value)}
+                    helperText={
+                      handleValidateError ? handleValidateErrorMessage : null
+                    }
+                    fullWidth
+                    autoComplete="handle"
+                    required
+                    onFocus={onFocusHandle}
+                    style={{ marginBottom: "15px" }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  {/* material */}
+
+                  {/* material */}
+                  <FormControl
+                    error={countryValidateError}
+                    fullWidth
+                    helperText={
+                      countryValidateError ? countryValidateErrorMessage : null
+                    }
+                  >
+                    <InputLabel>
+                      <div style={{ textAlign: "left" }}>Country</div>
+                    </InputLabel>
+                    <Select2
+                      children={children}
+                      style={{ width: "100%" }}
+                      showSearch={true}
+                      value={country}
+                      onChange={(event) => onChangeCountry(event.target.value)}
+                    ></Select2>
+                  </FormControl>
+                  {/* material */}
+
+                  <Button2
+                    size="small"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    style={{
+                      backgroundColor: "#3cafa9",
+                    }}
+                    onClick={() => setShowOrgForm(!showOrgForm)}
+                  >
+                    {showOrgForm === false
+                      ? "I want to create an organization"
+                      : showOrgForm === true
+                      ? "I don't want to create an organization"
+                      : "I want to create an organization"}
+                  </Button2>
+                </Box>
+              </Card>
+            </Grid>
+            <Grid
+              xs={showOrgForm ? 12 : 0}
+              md={showOrgForm ? 6 : 0}
+              className="col-pad-24 pl-12 pr-12 pt-8"
+              onFocus={() => setFocusLeft(false)}
+            >
+              {showOrgForm && (
+                <Card>
                   <Box mt={2} mb={2} m={3}>
                     <Typography>
                       <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
-                        <p className="mb-0 ">Your Details</p>
+                        <p className="mb-0 ">Organization Details</p>
                       </Box>
                     </Typography>
                   </Box>
@@ -433,14 +510,15 @@ const Dashboard = () => {
                   <Box m={3}>
                     {/* material */}
                     <TextField
-                      error={nameValidateError}
-                      label="name"
+                      error={orgNameValidateError}
+                      label="orgName"
                       variant="outlined"
-                      placeholder={displayName ? displayName : ""}
-                      value={name}
-                      onChange={(event) => onChangeName(event.target.value)}
+                      value={orgName}
+                      onChange={(event) => onChangeOrgName(event.target.value)}
                       helperText={
-                        nameValidateError ? nameValidateErrorMessage : null
+                        orgNameValidateError
+                          ? orgNameValidateErrorMessage
+                          : null
                       }
                       fullWidth
                       autoComplete="handle"
@@ -461,19 +539,23 @@ const Dashboard = () => {
 
                     {/* material */}
                     <TextField
-                      error={handleValidateError}
-                      label="handle"
+                      error={orgHandleValidateError}
+                      label="orgHandle"
                       variant="outlined"
-                      placeholder="handle"
-                      value={handle}
-                      onChange={(event) => onChangeHandle(event.target.value)}
+                      placeholder="orgHandle"
+                      value={orgHandle}
+                      onChange={(event) =>
+                        onChangeOrgHandle(event.target.value)
+                      }
                       helperText={
-                        handleValidateError ? handleValidateErrorMessage : null
+                        orgHandleValidateError
+                          ? orgHandleValidateErrorMessage
+                          : null
                       }
                       fullWidth
-                      autoComplete="handle"
+                      autoComplete="orgHandle"
                       required
-                      onFocus={onFocusHandle}
+                      // onFocus={onFocusHandle}
                       style={{ marginBottom: "15px" }}
                       InputProps={{
                         startAdornment: (
@@ -489,234 +571,86 @@ const Dashboard = () => {
 
                     {/* material */}
                     <FormControl
-                      error={countryValidateError}
+                      error={orgCountryValidateError}
                       fullWidth
                       helperText={
-                        countryValidateError
-                          ? countryValidateErrorMessage
+                        orgCountryValidateError
+                          ? orgCountryValidateErrorMessage
                           : null
                       }
                     >
                       <InputLabel>
                         <div style={{ textAlign: "left" }}>
-                          <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} />{" "}
-                          Country
+                          Organization Country
                         </div>
                       </InputLabel>
                       <Select2
                         children={children}
                         style={{ width: "100%" }}
                         showSearch={true}
-                        value={country}
+                        value={orgCountry}
                         onChange={(event) =>
-                          onChangeCountry(event.target.value)
+                          onChangeOrgCountry(event.target.value)
                         }
                       ></Select2>
                     </FormControl>
                     {/* material */}
 
-                    <Form.Item className="mb-0">
-                      <Button
-                        type="dashed"
-                        onClick={() => setShowOrgForm(!showOrgForm)}
-                        block
-                        loading={loading}
-                        danger={showOrgForm ? true : false}
-                      >
-                        {showOrgForm === false
-                          ? "I want to create an organization"
-                          : showOrgForm === true
-                          ? "I don't want to create an organization"
-                          : "I want to create an organization"}
-                      </Button>
-                    </Form.Item>
+                    {/* material */}
+                    <TextField
+                      error={orgWebsiteValidateError}
+                      label="orgWebsite"
+                      variant="outlined"
+                      placeholder="orgWebsite"
+                      value={orgWebsite}
+                      onChange={(event) =>
+                        onChangeOrgWebsite(event.target.value)
+                      }
+                      helperText={
+                        orgWebsiteValidateError
+                          ? orgWebsiteValidateErrorMessage
+                          : null
+                      }
+                      fullWidth
+                      autoComplete="orgWebsite"
+                      required
+                      // onFocus={onFocusWebsite}
+                      style={{ marginBottom: "15px" }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <MailOutlined
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    {/* material */}
                   </Box>
                 </Card>
-              </Grid>
-              <Grid
-                xs={showOrgForm ? 12 : 0}
-                md={showOrgForm ? 6 : 0}
-                className="col-pad-24 pl-12 pr-12 pt-8"
-                onFocus={() => setFocusLeft(false)}
-              >
-                {showOrgForm && (
-                  <Card>
-                    <Box mt={2} mb={2} m={3}>
-                      <Typography>
-                        <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
-                          <p className="mb-0 ">Organization Details</p>
-                        </Box>
-                      </Typography>
-                    </Box>
-
-                    <Divider />
-
-                    <Box m={3}>
-                      {/* material */}
-                      <TextField
-                        error={orgNameValidateError}
-                        label="orgName"
-                        variant="outlined"
-                        value={orgName}
-                        onChange={(event) =>
-                          onChangeOrgName(event.target.value)
-                        }
-                        helperText={
-                          orgNameValidateError
-                            ? orgNameValidateErrorMessage
-                            : null
-                        }
-                        fullWidth
-                        autoComplete="handle"
-                        required
-                        // onFocus={onFocusName}
-                        style={{ marginBottom: "15px" }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <MailOutlined
-                                style={{ color: "rgba(0,0,0,.25)" }}
-                              />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      {/* material */}
-
-                      {/* material */}
-                      <TextField
-                        error={orgHandleValidateError}
-                        label="orgHandle"
-                        variant="outlined"
-                        placeholder="orgHandle"
-                        value={orgHandle}
-                        onChange={(event) =>
-                          onChangeOrgHandle(event.target.value)
-                        }
-                        helperText={
-                          orgHandleValidateError
-                            ? orgHandleValidateErrorMessage
-                            : null
-                        }
-                        fullWidth
-                        autoComplete="orgHandle"
-                        required
-                        // onFocus={onFocusHandle}
-                        style={{ marginBottom: "15px" }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <MailOutlined
-                                style={{ color: "rgba(0,0,0,.25)" }}
-                              />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      {/* material */}
-
-                      {/* material */}
-                      <FormControl
-                        error={orgCountryValidateError}
-                        fullWidth
-                        helperText={
-                          orgCountryValidateError
-                            ? orgCountryValidateErrorMessage
-                            : null
-                        }
-                      >
-                        <InputLabel>
-                          <div style={{ textAlign: "left" }}>
-                            <GlobalOutlined
-                              style={{ color: "rgba(0,0,0,.4)" }}
-                            />{" "}
-                            Organization Country
-                          </div>
-                        </InputLabel>
-                        <Select2
-                          children={children}
-                          style={{ width: "100%" }}
-                          showSearch={true}
-                          value={orgCountry}
-                          onChange={(event) =>
-                            onChangeOrgCountry(event.target.value)
-                          }
-                        ></Select2>
-                      </FormControl>
-                      {/* material */}
-
-                      {/* material */}
-                      <TextField
-                        error={orgWebsiteValidateError}
-                        label="orgWebsite"
-                        variant="outlined"
-                        placeholder="orgWebsite"
-                        value={orgWebsite}
-                        onChange={(event) =>
-                          onChangeOrgWebsite(event.target.value)
-                        }
-                        helperText={
-                          orgWebsiteValidateError
-                            ? orgWebsiteValidateErrorMessage
-                            : null
-                        }
-                        fullWidth
-                        autoComplete="orgWebsite"
-                        required
-                        // onFocus={onFocusWebsite}
-                        style={{ marginBottom: "15px" }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <MailOutlined
-                                style={{ color: "rgba(0,0,0,.25)" }}
-                              />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      {/* material */}
-                    </Box>
-                  </Card>
-                )}
-              </Grid>
-
-              {/* <Material> */}
-              <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8">
-                <Form.Item className="mb-0">
-                  <Button2
-                    size="small"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    style={{
-                      backgroundColor: "#455a64",
-                    }}
-                    htmlType="submit"
-                    loading={loading}
-                    className="auth-form-col"
-                    onClick={onSubmit2}
-                  >
-                    {loading ? "Saving..." : "Save"}
-                  </Button2>
-                </Form.Item>
-              </Grid>
-              {/* </Material> */}
-              <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8">
-                <Form.Item className="mb-0">
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    block
-                    loading={loading}
-                    className="auth-form-col"
-                  >
-                    {loading ? "Saving..." : "Save"}
-                  </Button>
-                </Form.Item>
-              </Grid>
+              )}
             </Grid>
-          </Form>
+
+            {/* <Material> */}
+            <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8">
+              <Button2
+                size="small"
+                fullWidth
+                variant="contained"
+                color="primary"
+                style={{
+                  backgroundColor: "#455a64",
+                }}
+                htmlType="submit"
+                className="auth-form-col"
+                onClick={onSubmit2}
+              >
+                {loading ? "Saving..." : "Save"}
+              </Button2>
+            </Grid>
+            {/* </Material> */}
+          </Grid>
         </Grid>
         <Grid
           xs={12}
