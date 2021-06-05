@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 import validator from "validator";
+
 import Alert from "@material-ui/lab/Alert";
-import {
-  // Button,
-
-  Card,
-  Box,
-  Divider,
-  Grid,
-  Typography,
-} from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import MailOutlined from "@material-ui/icons/MailOutlined";
-
+import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Button as Button2 } from "@material-ui/core";
-import { Select as Select2 } from "@material-ui/core";
-import { FormControl, InputLabel, FormHelperText } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Select from "@material-ui/core/Select";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import MailOutlined from "@material-ui/icons/MailOutlined";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,10 +43,12 @@ const Dashboard = () => {
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
 
+  //name
   const [name, setName] = useState("");
   const [nameValidateError, setNameValidateError] = useState(false);
   const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
 
+  //organization name
   const [orgName, setOrgName] = useState("");
   const [orgNameValidateError, setOrgNameValidateError] = useState(false);
   const [
@@ -57,12 +56,14 @@ const Dashboard = () => {
     setOrgNameValidateErrorMessage,
   ] = useState("");
 
+  //handle
   const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
   const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
     ""
   );
 
+  //organization handle
   const [orgHandle, setOrgHandle] = useState("");
   const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
   const [
@@ -70,6 +71,7 @@ const Dashboard = () => {
     setOrgHandleValidateErrorMessage,
   ] = useState("");
 
+  //country
   const [country, setCountry] = useState("");
   const [countryValidateError, setCountryValidateError] = useState(false);
   const [
@@ -77,6 +79,7 @@ const Dashboard = () => {
     setCountryValidateErrorMessage,
   ] = useState("");
 
+  //organization country
   const [orgCountry, setOrgCountry] = useState("");
   const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
   const [
@@ -84,6 +87,7 @@ const Dashboard = () => {
     setOrgCountryValidateErrorMessage,
   ] = useState("");
 
+  //rganization website
   const [orgWebsite, setOrgWebsite] = useState("");
   const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
   const [
@@ -173,30 +177,6 @@ const Dashboard = () => {
         }
       }
     });
-  };
-
-  const onSubmit = async ({
-    name,
-    handle,
-    country,
-    org_handle,
-    org_name,
-    org_website,
-    org_country,
-  }) => {
-    if (validateHandle()) {
-      setError("");
-      await setUpInitialData({
-        orgData: showOrgForm,
-        name,
-        handle,
-        country,
-        org_handle,
-        org_name,
-        org_website,
-        org_country,
-      })(firebase, firestore, dispatch);
-    }
   };
 
   const onChangeName = (name) => setName(name);
@@ -397,7 +377,6 @@ const Dashboard = () => {
                 <Divider />
 
                 <Box m={3}>
-                  {/* material */}
                   <TextField
                     error={nameValidateError}
                     label="name"
@@ -411,7 +390,6 @@ const Dashboard = () => {
                     fullWidth
                     autoComplete="handle"
                     required
-                    // onFocus={onFocusName}
                     style={{ marginBottom: "15px" }}
                     InputProps={{
                       startAdornment: (
@@ -421,9 +399,6 @@ const Dashboard = () => {
                       ),
                     }}
                   />
-                  {/* material */}
-
-                  {/* material */}
                   <TextField
                     error={handleValidateError}
                     label="handle"
@@ -447,9 +422,6 @@ const Dashboard = () => {
                       ),
                     }}
                   />
-                  {/* material */}
-
-                  {/* material */}
                   <FormControl
                     error={countryValidateError}
                     fullWidth
@@ -460,17 +432,16 @@ const Dashboard = () => {
                     <InputLabel>
                       <div style={{ textAlign: "left" }}>Country</div>
                     </InputLabel>
-                    <Select2
+                    <Select
                       children={children}
                       style={{ width: "100%" }}
                       showSearch={true}
                       value={country}
                       onChange={(event) => onChangeCountry(event.target.value)}
-                    ></Select2>
+                    ></Select>
                   </FormControl>
-                  {/* material */}
 
-                  <Button2
+                  <Button
                     size="small"
                     fullWidth
                     variant="contained"
@@ -485,7 +456,7 @@ const Dashboard = () => {
                       : showOrgForm === true
                       ? "I don't want to create an organization"
                       : "I want to create an organization"}
-                  </Button2>
+                  </Button>
                 </Box>
               </Card>
             </Grid>
@@ -508,7 +479,6 @@ const Dashboard = () => {
                   <Divider />
 
                   <Box m={3}>
-                    {/* material */}
                     <TextField
                       error={orgNameValidateError}
                       label="orgName"
@@ -523,7 +493,6 @@ const Dashboard = () => {
                       fullWidth
                       autoComplete="handle"
                       required
-                      // onFocus={onFocusName}
                       style={{ marginBottom: "15px" }}
                       InputProps={{
                         startAdornment: (
@@ -535,9 +504,6 @@ const Dashboard = () => {
                         ),
                       }}
                     />
-                    {/* material */}
-
-                    {/* material */}
                     <TextField
                       error={orgHandleValidateError}
                       label="orgHandle"
@@ -555,7 +521,6 @@ const Dashboard = () => {
                       fullWidth
                       autoComplete="orgHandle"
                       required
-                      // onFocus={onFocusHandle}
                       style={{ marginBottom: "15px" }}
                       InputProps={{
                         startAdornment: (
@@ -567,9 +532,6 @@ const Dashboard = () => {
                         ),
                       }}
                     />
-                    {/* material */}
-
-                    {/* material */}
                     <FormControl
                       error={orgCountryValidateError}
                       fullWidth
@@ -584,7 +546,7 @@ const Dashboard = () => {
                           Organization Country
                         </div>
                       </InputLabel>
-                      <Select2
+                      <Select
                         children={children}
                         style={{ width: "100%" }}
                         showSearch={true}
@@ -592,11 +554,8 @@ const Dashboard = () => {
                         onChange={(event) =>
                           onChangeOrgCountry(event.target.value)
                         }
-                      ></Select2>
+                      ></Select>
                     </FormControl>
-                    {/* material */}
-
-                    {/* material */}
                     <TextField
                       error={orgWebsiteValidateError}
                       label="orgWebsite"
@@ -614,7 +573,6 @@ const Dashboard = () => {
                       fullWidth
                       autoComplete="orgWebsite"
                       required
-                      // onFocus={onFocusWebsite}
                       style={{ marginBottom: "15px" }}
                       InputProps={{
                         startAdornment: (
@@ -626,15 +584,13 @@ const Dashboard = () => {
                         ),
                       }}
                     />
-                    {/* material */}
                   </Box>
                 </Card>
               )}
             </Grid>
 
-            {/* <Material> */}
             <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8">
-              <Button2
+              <Button
                 size="small"
                 fullWidth
                 variant="contained"
@@ -647,9 +603,8 @@ const Dashboard = () => {
                 onClick={onSubmit2}
               >
                 {loading ? "Saving..." : "Save"}
-              </Button2>
+              </Button>
             </Grid>
-            {/* </Material> */}
           </Grid>
         </Grid>
         <Grid
