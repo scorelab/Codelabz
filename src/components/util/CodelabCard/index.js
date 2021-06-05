@@ -18,6 +18,7 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
   React.useEffect(() => {
     setLogoPath(org);
   }, []);
+
   return (
     <>
       <Card maxWidth="sm" className={classes.card}>
@@ -35,18 +36,11 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
                 <Grid container>
                   <Grid item className={classes.headerGrid}>
                     <img src="/logo.jpeg" alt="logo" />
-                    <img
-                      src={PersonImg}
-                      alt="person"
-                      height="20rem"
-                      width="20rem"
-                      className={classes.personImg}
-                    />
                   </Grid>
                 </Grid>
               ) : (
                 <img
-                  src={require(`../../../assets/images/${profilePic}`)}
+                  src={require(`../../../assets/images/${profilePic}`).default}
                   alt="person"
                   className={classes.avatar}
                 />
