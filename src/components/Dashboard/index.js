@@ -37,11 +37,6 @@ import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
 import profileUser from "../../assets/images/profile-user.svg";
 import Fade from "react-reveal/Fade";
-import {
-  orgWebsiteValidation,
-  orgHandleValidation,
-  userHandleValidation,
-} from "../../helpers/validationRules";
 
 const { Option } = Select;
 
@@ -139,9 +134,9 @@ const Dashboard = () => {
   );
 
   const onSubmit2 = async () => {
-    validateHandle().then((validateHandle) => {
+    validateHandle().then(async (validateHandle) => {
       if (showOrgForm) {
-        validateOrgHandle().then((validateOrgHandle) => {
+        validateOrgHandle().then(async (validateOrgHandle) => {
           validateCountry();
           validateOrgCountry();
           validateName();
@@ -156,7 +151,12 @@ const Dashboard = () => {
             validateOrgHandle
           ) {
             setError("");
-            console.log("validated");
+            await setUpInitialData({
+              orgData: showOrgForm,
+              name,
+              handle,
+              country,
+            })(firebase, firestore, dispatch);
           } else {
             console.log("not validated");
           }
@@ -166,7 +166,16 @@ const Dashboard = () => {
         validateName();
         if (validateCountry() && validateName() && validateHandle) {
           setError("");
-          console.log("validated");
+          await setUpInitialData({
+            orgData: showOrgForm,
+            name,
+            handle,
+            country,
+            orgHandle,
+            orgName,
+            orgWebsite,
+            orgCountry,
+          })(firebase, firestore, dispatch);
         } else {
           console.log("not validated");
         }
@@ -204,7 +213,7 @@ const Dashboard = () => {
       setNameValidateError(true);
       setNameValidateErrorMessage("Please enter your name");
       return false;
-    } else if (!validator.isAlpha(name)) {
+    } else if (!name.match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
       setNameValidateError(true);
       setNameValidateErrorMessage("Please enter a real name");
       return false;
@@ -221,7 +230,7 @@ const Dashboard = () => {
       setOrgNameValidateError(true);
       setOrgNameValidateErrorMessage("Please enter organization name");
       return false;
-    } else if (!validator.isAlpha(orgName)) {
+    } else if (!orgName.match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
       setOrgNameValidateError(true);
       setOrgNameValidateErrorMessage("Please enter a real name");
       return false;
@@ -320,7 +329,7 @@ const Dashboard = () => {
     }
   };
 
-  const onChangeOrgCountry = (orgCountry) => setCountry(orgCountry);
+  const onChangeOrgCountry = (orgCountry) => setOrgCountry(orgCountry);
   const validateOrgCountry = () => {
     console.log(orgCountry);
     if (validator.isEmpty(orgCountry)) {
