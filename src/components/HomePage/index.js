@@ -27,14 +27,16 @@ function HomePage() {
       flexDirection: "column",
     },
     sideBody: {
-      background: "red",
       display: "flex",
       alignContent: "flex-start",
       justifyContent: "flex-start",
       flex: "1",
       marginTop: "7rem",
+      maxWidth: "20rem",
+      margin: "0 1rem",
       height: "100%",
       flexDirection: "column",
+      background: "red",
       [theme.breakpoints.down(750)]: {
         display: "none",
       },
@@ -86,9 +88,27 @@ function HomePage() {
   return (
     <Card className={classes.wrapper}>
       <div className={classes.sideBody}>
-        <Card className={classes.sideCard}>
-          <Typography variant="h6">Upcoming Events</Typography>
-        </Card>
+        <Grid
+          container
+          className={classes.sideCard}
+          alignContent="center"
+          direction="column"
+          style={{ padding: "1rem" }}
+        >
+          <Grid item>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "2rem" }}
+            >
+              Upcoming Events
+            </Typography>
+          </Grid>
+          <Grid item>hello</Grid>
+          <Grid item>
+            hello lorem lorem text lorem text text lorem text lorem text
+          </Grid>
+        </Grid>
       </div>
       <div className={classes.mainBody}>
         <Grid container className={classes.sort}>
