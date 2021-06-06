@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": process.env.REACT_APP_FIREBASE_PROJECT_ID
+    "default": 'buoyant-country-311408'
   }
 }
