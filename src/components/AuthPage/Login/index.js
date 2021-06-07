@@ -87,8 +87,8 @@ const Login = () => {
   };
 
   const onSubmit = async () => {
+    setError('');
     if (validateEmail() & validatePassword()) {
-      setError('');
       await signIn({ email: email, password: password })(firebase, dispatch);
     }
   };
@@ -104,7 +104,7 @@ const Login = () => {
   };
 
   return (
-    <Card className="pr-24 pl-24 pt-24 pb-24 ml-24 mr-24 mb-24" raised>
+    <Card className="p-24 m-24" raised>
       <CardContent>
         <Typography
           variant="h4"
@@ -202,6 +202,7 @@ const Login = () => {
             color="primary"
             fullWidth
             onClick={onSubmit}
+            disabled={loading}
           >
             {loading ? 'Logging in...' : 'Log in'}
           </Button>
