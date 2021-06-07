@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Drawer } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import BrandName from "../../../helpers/brandName";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import Headroom from "react-headroom";
+import Drawer from "@material-ui/core/Drawer";
+import { makeStyles } from "@material-ui/core/styles";
+import CloseIcon from "@material-ui/icons/Close";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 function MainNavbar() {
   const [visible, setVisible] = useState(false);
@@ -17,12 +21,35 @@ function MainNavbar() {
   useEffect(() => {
     setVisible(false);
   }, [location]);
-
+  const useStyles = makeStyles((theme) => ({
+    drawer: {
+      width: 250,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: 250,
+    },
+    barsMenu: {
+      display: "none",
+      [theme.breakpoints.down(767)]: {
+        display: "inline-block",
+        position: "absolute",
+        right: "0",
+        top: "1.5rem",
+      },
+    },
+    navHeader: {
+      backgroundColor: "white",
+      borderBottom: "0",
+      padding: "15px 4px 0 24px",
+    },
+  }));
+  const classes = useStyles();
   return (
     <Headroom style={{ height: "66px" }}>
       <nav className="navbar">
-        <Layout>
-          <Layout.Header className="nav-header">
+        <Grid container>
+          <Grid className={classes.navHeader}>
             <div className="logo">
               <h3 style={{ color: "#3AAFA9" }} className="brand-font">
                 <Link to={"/"}>
@@ -34,33 +61,45 @@ function MainNavbar() {
               <div className="leftMenu">
                 <LeftMenu mode={"horizontal"} />
               </div>
-              <Button className="barsMenu" type="link" onClick={showDrawer}>
+              <Button
+                className={classes.barsMenu}
+                type="link"
+                onClick={showDrawer}
+              >
                 <span className="barsBtn"></span>
               </Button>
               <div className="rightMenu">
                 <RightMenu mode={"horizontal"} />
               </div>
-
               <Drawer
-                title={
-                  <h3 style={{ color: "#3AAFA9" }} className="brand-font">
-                    <Link to={"/"}>
-                      <BrandName />
-                    </Link>
-                  </h3>
-                }
-                placement="right"
                 closable={true}
                 onClose={showDrawer}
-                visible={visible}
                 style={{ zIndex: 99999 }}
+                open={visible}
+                anchor={"right"}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
               >
+                <h3
+                  style={{ color: "#3AAFA9", margin: "1.5rem" }}
+                  className="brand-font"
+                >
+                  <Link to={"/"}>
+                    <BrandName />
+                  </Link>
+                </h3>
+
+                <CloseIcon
+                  onClick={showDrawer}
+                  style={{ position: "absolute", top: "20px", right: "12px" }}
+                ></CloseIcon>
                 <LeftMenu mode={"inline"} />
                 <RightMenu mode={"inline"} />
               </Drawer>
             </div>
-          </Layout.Header>
-        </Layout>
+          </Grid>
+        </Grid>
       </nav>
     </Headroom>
   );
