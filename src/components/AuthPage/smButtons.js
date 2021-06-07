@@ -16,25 +16,25 @@ const SmButtons = () => {
 
   return (
     <Grid container justify="center" alignItems="center">
-      <Grid sm={12}>
+      <Grid xs={12}>
         <GoogleLoginButton
           size="40px"
           onClick={() => signInWithGoogle()(firebase, dispatch)}
         />
       </Grid>
-      <Grid sm={12}>
+      <Grid xs={12}>
         <FacebookLoginButton
           size="40px"
           onClick={() => signInWithProviderID('facebook')(firebase, dispatch)}
         />
       </Grid>
-      <Grid sm={12}>
+      <Grid xs={12}>
         <TwitterLoginButton
           size="40px"
           onClick={() => signInWithProviderID('twitter')(firebase, dispatch)}
         />
       </Grid>
-      <Grid sm={12}>
+      <Grid xs={12}>
         <GithubLoginButton
           size="40px"
           onClick={() => signInWithProviderID('github')(firebase, dispatch)}
