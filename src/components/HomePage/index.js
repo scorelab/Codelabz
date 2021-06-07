@@ -6,6 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import List from "@material-ui/core/List";
+import { userList } from "./userList";
 
 function HomePage() {
   const useStyles = makeStyles((theme) => ({
@@ -31,12 +36,12 @@ function HomePage() {
       alignContent: "flex-start",
       justifyContent: "flex-start",
       flex: "1",
-      marginTop: "7rem",
+      marginTop: "5rem",
       maxWidth: "20rem",
-      margin: "0 1rem",
+      margin: "0 1rem 2rem 1rem",
       height: "100%",
       flexDirection: "column",
-      background: "red",
+
       [theme.breakpoints.down(750)]: {
         display: "none",
       },
@@ -60,7 +65,7 @@ function HomePage() {
       alignItems: "center",
       justifyContent: "space-between",
       flexDirection: "row",
-      margin: "1rem 0 1rem 0",
+      margin: "0rem 0 0rem 0",
     },
     sortedList: {
       display: "flex",
@@ -82,9 +87,17 @@ function HomePage() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+      maxHeight: "30rem",
+      overflow: "auto",
+      margin: "0 0 2rem 0",
+      background: "white",
+      boxShadow: ".5px 2px 5px gray",
     },
   }));
   const classes = useStyles();
+  userList.persons.map((person) => {
+    console.log(person);
+  });
   return (
     <Card className={classes.wrapper}>
       <div className={classes.sideBody}>
@@ -99,14 +112,33 @@ function HomePage() {
             <Typography
               variant="h6"
               gutterBottom
-              style={{ marginBottom: "2rem" }}
+              style={{ marginBottom: "1rem" }}
             >
-              Upcoming Events
+              Popular Tags
             </Typography>
           </Grid>
-          <Grid item>hello</Grid>
-          <Grid item>
-            hello lorem lorem text lorem text text lorem text lorem text
+          <Grid container alignItems="left">
+            <List
+              component="nav"
+              className={classes.root}
+              aria-label="mailbox folders"
+              style={{ width: "100%" }}
+            >
+              <ListItem button>
+                <ListItemText primary="#javascript" />
+              </ListItem>
+              <Divider />
+              <ListItem button divider>
+                <ListItemText primary="#react" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="#html" />
+              </ListItem>
+              <Divider light />
+              <ListItem button>
+                <ListItemText primary="#css" />
+              </ListItem>
+            </List>
           </Grid>
         </Grid>
       </div>
@@ -129,19 +161,103 @@ function HomePage() {
             <BottomNavigationAction label="Latest" />
           </BottomNavigation>
         </Grid>
+        {/* <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
         <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
         <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
         <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
         <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
         <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
         <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
+        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" /> */}
+        {userList.persons.map((p) => {
+          <CardComponent
+            title={p.title}
+            tags={p.tags}
+            profilePic={p.profilePic}
+          />;
+        })}
       </div>
       <div className={classes.sideBody}>
-        <Card className={classes.sideCard}>
-          <Typography variant="h6">Upcoming Events</Typography>
-        </Card>
+        <Grid
+          container
+          className={classes.sideCard}
+          alignContent="center"
+          direction="column"
+          style={{ padding: "1rem" }}
+        >
+          <Grid item>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "1rem" }}
+            >
+              Upcoming Events
+            </Typography>
+          </Grid>
+          <Grid container alignItems="left">
+            <List
+              component="nav"
+              className={classes.root}
+              aria-label="mailbox folders"
+              style={{ width: "100%" }}
+            >
+              <ListItem button>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+              <Divider />
+              <ListItem button divider>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+              <Divider light />
+              <ListItem button>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          className={classes.sideCard}
+          alignContent="center"
+          direction="column"
+          style={{ padding: "1rem" }}
+        >
+          <Grid item>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "1rem" }}
+            >
+              Discussion
+            </Typography>
+          </Grid>
+          <Grid container alignItems="left">
+            <List
+              component="nav"
+              className={classes.root}
+              aria-label="mailbox folders"
+              style={{ width: "100%" }}
+            >
+              <ListItem button>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+              <Divider />
+              <ListItem button divider>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+              <Divider light />
+              <ListItem button>
+                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
       </div>
     </Card>
   );
