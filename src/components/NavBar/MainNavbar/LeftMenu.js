@@ -1,41 +1,52 @@
 import React from "react";
-import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import useGetPermissions from "../../../helpers/customHooks/useGetPermissions";
 import { useAllowDashboard } from "../../../helpers/customHooks";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Menu from "@material-ui/core/Menu";
 
 const LeftMenu = ({ mode }) => {
   const permissions = useGetPermissions();
   const allowDashboard = useAllowDashboard();
   let { pathname: location } = useLocation();
 
-  /**
-   * @param {array<number>} levels
-   * @param {React.Component} Component
-   * @return {null|React.Component}
-   */
-
+  const useStyles = makeStyles((theme) => ({
+    menu: {
+      width: "76vw",
+      display: "flex",
+      flexDirection: "row",
+      [theme.breakpoints.down(767)]: {
+        flexDirection: "column",
+      },
+    },
+  }));
+  const classes = useStyles();
   return (
-    <Menu mode={mode} selectedKeys={location}>
-      <Menu.Item key="/codefeed">
+    <Grid
+      container
+      mode={mode}
+      selectedKeys={location}
+      className={classes.menu}
+    >
+      <MenuItem key="/codefeed">
         <NavLink to="/">CodeFeed</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/tutorials">
+      </MenuItem>
+      <MenuItem key="/tutorials">
         <NavLink to="/tutorials">Tutorials</NavLink>
-      </Menu.Item>
+      </MenuItem>
       {allowDashboard && (
-        <Menu.SubMenu title={"User"}>
-          <Menu.Item key="my-code-feed">
-            <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
-          </Menu.Item>
-        </Menu.SubMenu>
+        <MenuItem key="my-code-feed">
+          <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
+        </MenuItem>
       )}
       {allowDashboard && permissions.length > 0 && (
-        <Menu.Item key="/organization">
+        <MenuItem key="/organization">
           <NavLink to="/organization">Organizations</NavLink>
-        </Menu.Item>
+        </MenuItem>
       )}
-    </Menu>
+    </Grid>
   );
 };
 
