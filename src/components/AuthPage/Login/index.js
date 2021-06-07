@@ -104,7 +104,7 @@ const Login = () => {
   };
 
   return (
-    <Card className="pr-24 pl-24 pt-24 pb-24" raised>
+    <Card className="pr-24 pl-24 pt-24 pb-24 ml-24 mr-24 mb-24" raised>
       <CardContent>
         <Typography
           variant="h4"
