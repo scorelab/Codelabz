@@ -36,6 +36,15 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
                 <Grid container>
                   <Grid item className={classes.headerGrid}>
                     <img src="/logo.jpeg" alt="logo" />
+                    <img
+                      src={
+                        require(`../../../assets/images/${profilePic}`).default
+                      }
+                      alt="person"
+                      height="20rem"
+                      width="20rem"
+                      className={classes.personImg}
+                    />
                   </Grid>
                 </Grid>
               ) : (

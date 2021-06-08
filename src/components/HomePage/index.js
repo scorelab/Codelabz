@@ -95,9 +95,7 @@ function HomePage() {
     },
   }));
   const classes = useStyles();
-  userList.persons.map((person) => {
-    console.log(person);
-  });
+
   return (
     <Card className={classes.wrapper}>
       <div className={classes.sideBody}>
@@ -141,6 +139,46 @@ function HomePage() {
             </List>
           </Grid>
         </Grid>
+        <Grid
+          container
+          className={classes.sideCard}
+          alignContent="center"
+          direction="column"
+          style={{ padding: "1rem" }}
+        >
+          <Grid item>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "1rem" }}
+            >
+              Popular Events
+            </Typography>
+          </Grid>
+          <Grid container alignItems="left">
+            <List
+              component="nav"
+              className={classes.root}
+              aria-label="mailbox folders"
+              style={{ width: "100%" }}
+            >
+              <ListItem button>
+                <ListItemText primary="Lorem Pervious Text" />
+              </ListItem>
+              <Divider />
+              <ListItem button divider>
+                <ListItemText primary="Lorem Pervious Text Event" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="Lorem Pervious Text" />
+              </ListItem>
+              <Divider light />
+              <ListItem button>
+                <ListItemText primary="Lorem Pervious Text Previous Event" />
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
       </div>
       <div className={classes.mainBody}>
         <Grid container className={classes.sort}>
@@ -156,26 +194,23 @@ function HomePage() {
               label="week"
               className={classes.navigation}
             ></BottomNavigationAction>
-            <BottomNavigationAction label="Month" />
+            <BottomNavigationAction
+              label="Month"
+              style={{ fontSize: "2rem" }}
+            />
             <BottomNavigationAction label="Year" />
             <BottomNavigationAction label="Latest" />
           </BottomNavigation>
         </Grid>
-        {/* <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" />
-        <CardComponent title="test" tags="codelabz" profilePic="logo.jpeg" /> */}
-        {userList.persons.map((p) => {
+
+        {userList.persons.map((person) => (
           <CardComponent
-            title={p.title}
-            tags={p.tags}
-            profilePic={p.profilePic}
-          />;
-        })}
+            title={person.title}
+            tags={person.tags}
+            profilePic={person.profilePic}
+            org={person.org}
+          />
+        ))}
       </div>
       <div className={classes.sideBody}>
         <Grid
