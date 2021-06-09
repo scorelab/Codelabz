@@ -46,6 +46,9 @@ const LeftMenu = ({ mode }) => {
           <NavLink to="/organization">Organizations</NavLink>
         </MenuItem>
       )}
+      <MenuItem key="/homePage">
+        <NavLink to="/homePage">Home Page</NavLink>
+      </MenuItem>
     </Grid>
   );
 };

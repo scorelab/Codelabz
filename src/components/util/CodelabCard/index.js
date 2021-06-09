@@ -10,7 +10,6 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import useStyles from "./styles";
-import PersonImg from "../../../assets/images/demoperson4.jpeg";
 
 const CardComponent = ({ title, tags, profilePic, org = false }) => {
   const classes = useStyles();
