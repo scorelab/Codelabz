@@ -36,11 +36,8 @@ import profileUser from "../../assets/images/profile-user.svg";
 import Fade from "react-reveal/Fade";
 
 import { validateName } from "../../helpers/validations";
-import { validateOrgName } from "../../helpers/validations";
 import { validateHandle } from "../../helpers/validations";
-import { validateOrgHandle } from "../../helpers/validations";
 import { validateCountry } from "../../helpers/validations";
-import { validateOrgCountry } from "../../helpers/validations";
 import { validateOrgWebsite } from "../../helpers/validations";
 
 const Dashboard = () => {
@@ -55,43 +52,30 @@ const Dashboard = () => {
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
 
-  //name
   const [name, setName] = useState("");
   const [nameValidateError, setNameValidateError] = useState(false);
   const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
-
-  //organization name
   const [orgName, setOrgName] = useState("");
   const [orgNameValidateError, setOrgNameValidateError] = useState(false);
   const [
     orgNameValidateErrorMessage,
     setOrgNameValidateErrorMessage,
   ] = useState("");
-
-  //handle
   const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
   const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
     ""
   );
-
-  //organization handle
   const [orgHandle, setOrgHandle] = useState("");
   const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
   const [
     orgHandleValidateErrorMessage,
     setOrgHandleValidateErrorMessage,
   ] = useState("");
-
-  //country
   const [country, setCountry] = useState("");
   const [countryValidateError, setCountryValidateError] = useState(false);
-
-  //organization country
   const [orgCountry, setOrgCountry] = useState("");
   const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
-
-  //rganization website
   const [orgWebsite, setOrgWebsite] = useState("");
   const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
   const [
@@ -140,32 +124,44 @@ const Dashboard = () => {
       dispatch,
       handle,
       setHandleValidateError,
-      setHandleValidateErrorMessage
+      setHandleValidateErrorMessage,
+      "Please enter a handle",
+      "User handle can only contain lowercase alphanumeric characters",
+      "User handle cannot be less than 6 characters",
+      `The handle ${handle} is already taken`
     ).then(async (validateHandle) => {
       if (showOrgForm) {
-        validateOrgHandle(
+        validateHandle(
           checkOrgHandleExists,
           firebase,
           dispatch,
           orgHandle,
           setOrgHandleValidateError,
-          setOrgHandleValidateErrorMessage
+          setOrgHandleValidateErrorMessage,
+          "Please enter a handle",
+          "Organization handle can only contain lowercase alphanumeric characters",
+          "Organization handle cannot be less than 6 characters",
+          `The handle ${orgHandle} is already taken`
         ).then(async (validateOrgHandle) => {
           const nameValid = validateName(
             name,
             setNameValidateError,
-            setNameValidateErrorMessage
+            setNameValidateErrorMessage,
+            "Please enter your name",
+            "Please enter a real name"
           );
-          const orgNameValid = validateOrgName(
+          const orgNameValid = validateName(
             orgName,
             setOrgNameValidateError,
-            setOrgNameValidateErrorMessage
+            setOrgNameValidateErrorMessage,
+            "Please enter organization name",
+            "Please enter a real name"
           );
           const countryValid = validateCountry(
             country,
             setCountryValidateError
           );
-          const orgCountryValid = validateOrgCountry(
+          const orgCountryValid = validateCountry(
             orgCountry,
             setOrgCountryValidateError
           );
@@ -192,7 +188,9 @@ const Dashboard = () => {
         const nameValid = validateName(
           name,
           setNameValidateError,
-          setNameValidateErrorMessage
+          setNameValidateErrorMessage,
+          "Please enter your name",
+          "Please enter a real name"
         );
         const countryValid = validateCountry(country, setCountryValidateError);
         if (nameValid && countryValid && validateHandle) {
