@@ -62,7 +62,6 @@ export const validateHandle = async (
 };
 
 export const validateCountry = (country, setCountryValidateError) => {
-  console.log(country);
   if (validator.isEmpty(country)) {
     setCountryValidateError(true);
     return false;

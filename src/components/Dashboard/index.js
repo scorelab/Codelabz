@@ -117,7 +117,9 @@ const Dashboard = () => {
     [dispatch]
   );
 
-  const validated = async () => {
+  const validated = async () => {};
+
+  const onSubmit = async () => {
     validateHandle(
       checkUserHandleExists,
       firebase,
@@ -179,9 +181,17 @@ const Dashboard = () => {
             validateHandle &&
             validateOrgHandle
           ) {
-            return true;
-          } else {
-            return false;
+            setError("");
+            await setUpInitialData({
+              orgData: showOrgForm,
+              name,
+              handle,
+              country,
+              org_handle: orgHandle,
+              org_name: orgName,
+              org_website: orgWebsite,
+              org_country: orgCountry,
+            })(firebase, firestore, dispatch);
           }
         });
       } else {
@@ -194,28 +204,14 @@ const Dashboard = () => {
         );
         const countryValid = validateCountry(country, setCountryValidateError);
         if (nameValid && countryValid && validateHandle) {
-          return true;
-        } else {
-          return false;
+          setError("");
+          await setUpInitialData({
+            orgData: showOrgForm,
+            name,
+            handle,
+            country,
+          })(firebase, firestore, dispatch);
         }
-      }
-    });
-  };
-
-  const onSubmit = async () => {
-    validated().then(async (validated) => {
-      if (validated) {
-        setError("");
-        await setUpInitialData({
-          orgData: showOrgForm,
-          name,
-          handle,
-          country,
-          org_handle: orgHandle,
-          org_name: orgName,
-          org_website: orgWebsite,
-          org_country: orgCountry,
-        })(firebase, firestore, dispatch);
       }
     });
   };
