@@ -1,33 +1,44 @@
 import React from "react";
-import { Menu } from "antd";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../store/actions";
-import { Avatar } from "antd";
+import Avatar from "@material-ui/core/Avatar";
 import { useAllowDashboard } from "../../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  UserOutlined,
-  CodeOutlined,
-  LogoutOutlined,
-  BlockOutlined,
-  SettingOutlined
-} from "@ant-design/icons";
+import BlockOutlinedIcon from "@material-ui/icons/BlockOutlined";
+import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
+import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import { avatarName } from "../../../helpers/avatarName";
 import { Link, useLocation } from "react-router-dom";
+import MenuItem from "@material-ui/core/MenuItem";
+import Grid from "@material-ui/core/Grid";
+import Menu from "@material-ui/core/Menu";
+import { makeStyles } from "@material-ui/core/styles";
 
 const RightMenu = ({ mode }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const allowDashboard = useAllowDashboard();
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym = avatarName(profile.displayName);
-  let { pathname: location } = useLocation();
+  // let { pathname: location } = useLocation();
 
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
@@ -48,81 +59,98 @@ const RightMenu = ({ mode }) => {
           );
         })
       : null;
-
+  const useStyles = makeStyles((theme) => ({
+    menu: {
+      [theme.breakpoints.down(767)]: {
+        marginLeft: "1rem",
+        marginTop: "1rem",
+      },
+    },
+  }));
+  const classes = useStyles();
   return (
-    <Menu mode={mode} selectedKeys={location}>
-      <Menu.SubMenu
-        title={
-          <Avatar
-            style={{
-              backgroundColor:
-                profile.photoURL && profile.photoURL.length > 0
-                  ? "#fffff"
-                  : "#3AAFA9"
-            }}
-            size={mode === "inline" ? "default" : "large"}
-            src={profile.photoURL}
-            icon={
-              acronym ? null : (
-                <UserOutlined
-                  style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
-                />
-              )
-            }
-          >
-            {acronym}
-          </Avatar>
+    <Grid container>
+      <Avatar
+        style={{
+          backgroundColor:
+            profile.photoURL && profile.photoURL.length > 0
+              ? "#fffff"
+              : "#3AAFA9",
+          marginLeft: "1rem",
+          marginBottom: ".2rem",
+        }}
+        size={mode === "inline" ? "default" : "medium"}
+        src={profile.photoURL}
+        icon={
+          acronym ? null : (
+            <PersonOutlineOutlinedIcon
+              style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
+            />
+          )
         }
+        onClick={handleClick}
+      >
+        {acronym}
+      </Avatar>
+      <Menu
+        id="fade-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        style={{
+          marginTop: "3rem",
+          zIndex: 999999,
+        }}
+        className={classes.menu}
       >
         {allowDashboard && (
-          <Menu.Item key="setting:2">
+          <MenuItem key="setting:2">
             <Link to={"/tutorials"}>
-              <CodeOutlined /> My Tutorials
+              <CodeOutlinedIcon /> My Tutorials
             </Link>
-          </Menu.Item>
+          </MenuItem>
         )}
-
         {allowDashboard && allowOrgs && (
-          <Menu.SubMenu
+          <Menu
             title={
               <>
-                <BlockOutlined /> My Organizations
+                <BlockOutlinedIcon /> My Organizations
               </>
             }
           >
-            <Menu.Item key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+            <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
               <Link to={`/organization`}>
-                <SettingOutlined /> Manage All
+                <SettingsOutlinedIcon /> Manage All
               </Link>
-            </Menu.Item>
+            </MenuItem>
             <Menu.Divider />
             {orgList}
-          </Menu.SubMenu>
+          </Menu>
         )}
-
-        {allowDashboard && <Menu.Divider />}
 
         {profile.displayName && profile.displayName.length > 0 && (
-          <Menu.ItemGroup title={profile.displayName} />
+          <MenuItem style={{ color: "gray" }}>{profile.displayName}</MenuItem>
         )}
-
         {allowDashboard && (
-          <Menu.Item key="setting:1">
+          <MenuItem key="setting:1">
             <Link to={"/profile"}>
-              <UserOutlined /> My Profile
+              <div style={{ color: "#455A64" }}>
+                <PersonOutlineOutlinedIcon /> My Profile
+              </div>
             </Link>
-          </Menu.Item>
+          </MenuItem>
         )}
-
-        <Menu.Item
+        <MenuItem
           key="setting:4"
           onClick={() => signOut()(firebase, dispatch)}
           id={"log-out"}
+          style={{ color: "#455A64" }}
         >
-          <LogoutOutlined /> Log Out
-        </Menu.Item>
-      </Menu.SubMenu>
-    </Menu>
+          <ExitToAppOutlinedIcon /> Log Out
+        </MenuItem>
+      </Menu>
+    </Grid>
   );
 };
 
