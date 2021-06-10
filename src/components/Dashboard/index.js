@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import validator from "validator";
-
 import Alert from "@material-ui/lab/Alert";
 
 import Card from "@material-ui/core/Card";
@@ -36,6 +34,14 @@ import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
 import profileUser from "../../assets/images/profile-user.svg";
 import Fade from "react-reveal/Fade";
+
+import { validateName } from "../../helpers/validations";
+import { validateOrgName } from "../../helpers/validations";
+import { validateHandle } from "../../helpers/validations";
+import { validateOrgHandle } from "../../helpers/validations";
+import { validateCountry } from "../../helpers/validations";
+import { validateOrgCountry } from "../../helpers/validations";
+import { validateOrgWebsite } from "../../helpers/validations";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
@@ -128,19 +134,49 @@ const Dashboard = () => {
   );
 
   const onSubmit = async () => {
-    validateHandle().then(async (validateHandle) => {
+    validateHandle(
+      checkUserHandleExists,
+      firebase,
+      dispatch,
+      handle,
+      setHandleValidateError,
+      setHandleValidateErrorMessage
+    ).then(async (validateHandle) => {
       if (showOrgForm) {
-        validateOrgHandle().then(async (validateOrgHandle) => {
-          validateCountry();
-          validateOrgCountry();
-          validateName();
-          validateOrgName();
-          validateOrgWebsite();
+        validateOrgHandle(
+          checkOrgHandleExists,
+          firebase,
+          dispatch,
+          orgHandle,
+          setOrgHandleValidateError,
+          setOrgHandleValidateErrorMessage
+        ).then(async (validateOrgHandle) => {
+          validateCountry(country, setCountryValidateError);
+          validateOrgCountry(orgCountry, setOrgCountryValidateError);
+          validateName(name, setNameValidateError, setNameValidateErrorMessage);
+          validateOrgName(
+            orgName,
+            setOrgNameValidateError,
+            setOrgNameValidateErrorMessage
+          );
+          validateOrgWebsite(
+            orgWebsite,
+            setOrgWebsiteValidateError,
+            setOrgWebsiteValidateErrorMessage
+          );
           if (
-            validateCountry() &&
-            validateOrgCountry() &&
-            validateName() &&
-            validateOrgName() &&
+            validateCountry(country, setCountryValidateError) &&
+            validateOrgCountry(orgCountry, setOrgCountryValidateError) &&
+            validateName(
+              name,
+              setNameValidateError,
+              setNameValidateErrorMessage
+            ) &&
+            validateOrgName(
+              orgName,
+              setOrgNameValidateError,
+              setOrgNameValidateErrorMessage
+            ) &&
             validateHandle &&
             validateOrgHandle
           ) {
@@ -158,9 +194,17 @@ const Dashboard = () => {
           }
         });
       } else {
-        validateCountry();
-        validateName();
-        if (validateCountry() && validateName() && validateHandle) {
+        validateCountry(country, setCountryValidateError);
+        validateName(name, setNameValidateError, setNameValidateErrorMessage);
+        if (
+          validateCountry(country, setCountryValidateError) &&
+          validateName(
+            name,
+            setNameValidateError,
+            setNameValidateErrorMessage
+          ) &&
+          validateHandle
+        ) {
           setError("");
           await setUpInitialData({
             orgData: showOrgForm,
@@ -173,166 +217,14 @@ const Dashboard = () => {
     });
   };
 
+  //OnChange
   const onChangeName = (name) => setName(name);
-  const validateName = () => {
-    if (validator.isEmpty(name)) {
-      setNameValidateError(true);
-      setNameValidateErrorMessage("Please enter your name");
-      return false;
-    } else if (!name.match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
-      setNameValidateError(true);
-      setNameValidateErrorMessage("Please enter a real name");
-      return false;
-    } else {
-      setNameValidateError(false);
-      setNameValidateErrorMessage("");
-      return true;
-    }
-  };
-
   const onChangeOrgName = (orgName) => setOrgName(orgName);
-  const validateOrgName = () => {
-    if (validator.isEmpty(orgName)) {
-      setOrgNameValidateError(true);
-      setOrgNameValidateErrorMessage("Please enter organization name");
-      return false;
-    } else if (!orgName.match(/^[a-zA-Z][a-zA-Z\s]*$/)) {
-      setOrgNameValidateError(true);
-      setOrgNameValidateErrorMessage("Please enter a real name");
-      return false;
-    } else {
-      setOrgNameValidateError(false);
-      setOrgNameValidateErrorMessage("");
-      return true;
-    }
-  };
-
   const onChangeHandle = (handle) => setHandle(handle);
-  const validateHandle = async () => {
-    const handleExists = await checkUserHandleExists(handle)(
-      firebase,
-      dispatch
-    );
-    if (validator.isEmpty(handle)) {
-      setHandleValidateError(true);
-      setHandleValidateErrorMessage("Please enter a handle");
-      return false;
-    } else if (
-      !validator.isAlphanumeric(handle) ||
-      !validator.isLowercase(handle)
-    ) {
-      setHandleValidateError(true);
-      setHandleValidateErrorMessage(
-        "User handle can only contain lowercase alphanumeric characters"
-      );
-      return false;
-    } else if (handle.length < 6) {
-      setHandleValidateError(true);
-      setHandleValidateErrorMessage(
-        "User handle cannot be less than 6 characters"
-      );
-      return false;
-    } else if (handleExists) {
-      setHandleValidateError(true);
-      setHandleValidateErrorMessage(`The handle ${handle} is already taken`);
-      return false;
-    } else {
-      setHandleValidateError(false);
-      setHandleValidateErrorMessage("");
-      return true;
-    }
-  };
-
   const onChangeOrgHandle = (orgHandle) => setOrgHandle(orgHandle);
-  const validateOrgHandle = async () => {
-    const orgHandleExists = await checkOrgHandleExists(orgHandle)(
-      firebase,
-      dispatch
-    );
-    if (validator.isEmpty(orgHandle)) {
-      setOrgHandleValidateError(true);
-      setOrgHandleValidateErrorMessage("Please enter a handle");
-      return false;
-    } else if (
-      !validator.isAlphanumeric(orgHandle) ||
-      !validator.isLowercase(orgHandle)
-    ) {
-      setOrgHandleValidateError(true);
-      setOrgHandleValidateErrorMessage(
-        "Organization handle can only contain lowercase alphanumeric characters"
-      );
-      return false;
-    } else if (orgHandle.length < 6) {
-      setOrgHandleValidateError(true);
-      setOrgHandleValidateErrorMessage(
-        "Organization handle cannot be less than 6 characters"
-      );
-      return false;
-    } else if (orgHandleExists) {
-      setOrgHandleValidateError(true);
-      setOrgHandleValidateErrorMessage(
-        `The handle ${orgHandle} is already taken`
-      );
-      return false;
-    } else {
-      setOrgHandleValidateError(false);
-      setOrgHandleValidateErrorMessage("");
-      return true;
-    }
-  };
-
   const onChangeCountry = (country) => setCountry(country);
-  const validateCountry = () => {
-    console.log(country);
-    if (validator.isEmpty(country)) {
-      setCountryValidateError(true);
-
-      return false;
-    } else {
-      setCountryValidateError(false);
-
-      return true;
-    }
-  };
-
   const onChangeOrgCountry = (orgCountry) => setOrgCountry(orgCountry);
-  const validateOrgCountry = () => {
-    console.log(orgCountry);
-    if (validator.isEmpty(orgCountry)) {
-      setOrgCountryValidateError(true);
-
-      return false;
-    } else {
-      setOrgCountryValidateError(false);
-
-      return true;
-    }
-  };
-
   const onChangeOrgWebsite = (orgWebsite) => setOrgWebsite(orgWebsite);
-  const validateOrgWebsite = () => {
-    if (validator.isEmpty(orgWebsite)) {
-      setOrgWebsiteValidateError(true);
-      setOrgWebsiteValidateErrorMessage("Please enter organization website");
-      return false;
-    } else if (!validator.isURL(orgWebsite)) {
-      setOrgWebsiteValidateError(true);
-      setOrgWebsiteValidateErrorMessage("Please provide a valid URL");
-      return false;
-    } else if (
-      !(orgWebsite.includes("https://") || orgWebsite.includes("http://"))
-    ) {
-      setOrgWebsiteValidateError(true);
-      setOrgWebsiteValidateErrorMessage(
-        "URL must contain the protocol (https:// or http://)"
-      );
-      return false;
-    } else {
-      setOrgWebsiteValidateError(false);
-      setOrgWebsiteValidateErrorMessage("");
-      return true;
-    }
-  };
 
   const onFocusHandle = () => {
     setHandleValidateError(false);
