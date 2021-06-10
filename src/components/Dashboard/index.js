@@ -133,7 +133,7 @@ const Dashboard = () => {
     [dispatch]
   );
 
-  const onSubmit = async () => {
+  const validated = async () => {
     validateHandle(
       checkUserHandleExists,
       firebase,
@@ -151,68 +151,73 @@ const Dashboard = () => {
           setOrgHandleValidateError,
           setOrgHandleValidateErrorMessage
         ).then(async (validateOrgHandle) => {
-          validateCountry(country, setCountryValidateError);
-          validateOrgCountry(orgCountry, setOrgCountryValidateError);
-          validateName(name, setNameValidateError, setNameValidateErrorMessage);
-          validateOrgName(
+          const nameValid = validateName(
+            name,
+            setNameValidateError,
+            setNameValidateErrorMessage
+          );
+          const orgNameValid = validateOrgName(
             orgName,
             setOrgNameValidateError,
             setOrgNameValidateErrorMessage
           );
-          validateOrgWebsite(
+          const countryValid = validateCountry(
+            country,
+            setCountryValidateError
+          );
+          const orgCountryValid = validateOrgCountry(
+            orgCountry,
+            setOrgCountryValidateError
+          );
+          const orgWebsiteValid = validateOrgWebsite(
             orgWebsite,
             setOrgWebsiteValidateError,
             setOrgWebsiteValidateErrorMessage
           );
           if (
-            validateCountry(country, setCountryValidateError) &&
-            validateOrgCountry(orgCountry, setOrgCountryValidateError) &&
-            validateName(
-              name,
-              setNameValidateError,
-              setNameValidateErrorMessage
-            ) &&
-            validateOrgName(
-              orgName,
-              setOrgNameValidateError,
-              setOrgNameValidateErrorMessage
-            ) &&
+            nameValid &&
+            orgNameValid &&
+            countryValid &&
+            orgCountryValid &&
+            orgWebsiteValid &&
             validateHandle &&
             validateOrgHandle
           ) {
-            setError("");
-            await setUpInitialData({
-              orgData: showOrgForm,
-              name,
-              handle,
-              country,
-              org_handle: orgHandle,
-              org_name: orgName,
-              org_website: orgWebsite,
-              org_country: orgCountry,
-            })(firebase, firestore, dispatch);
+            return true;
+          } else {
+            return false;
           }
         });
       } else {
-        validateCountry(country, setCountryValidateError);
-        validateName(name, setNameValidateError, setNameValidateErrorMessage);
-        if (
-          validateCountry(country, setCountryValidateError) &&
-          validateName(
-            name,
-            setNameValidateError,
-            setNameValidateErrorMessage
-          ) &&
-          validateHandle
-        ) {
-          setError("");
-          await setUpInitialData({
-            orgData: showOrgForm,
-            name,
-            handle,
-            country,
-          })(firebase, firestore, dispatch);
+        const nameValid = validateName(
+          name,
+          setNameValidateError,
+          setNameValidateErrorMessage
+        );
+        const countryValid = validateCountry(country, setCountryValidateError);
+        if (nameValid && countryValid && validateHandle) {
+          return true;
+        } else {
+          return false;
         }
+      }
+    });
+  };
+
+  const onSubmit = async () => {
+    validated().then(async (validated) => {
+      if (validated) {
+        setError("");
+        await setUpInitialData({
+          orgData: showOrgForm,
+          name,
+          handle,
+          country,
+          org_handle: orgHandle,
+          org_name: orgName,
+          org_website: orgWebsite,
+          org_country: orgCountry,
+        })(firebase, firestore, dispatch);
       }
     });
   };
