@@ -117,7 +117,59 @@ const Dashboard = () => {
     [dispatch]
   );
 
-  const validated = async () => {};
+  const validated = () => {
+    if (showOrgForm) {
+      const nameValid = validateName(
+        name,
+        setNameValidateError,
+        setNameValidateErrorMessage,
+        "Please enter your name",
+        "Please enter a real name"
+      );
+      const orgNameValid = validateName(
+        orgName,
+        setOrgNameValidateError,
+        setOrgNameValidateErrorMessage,
+        "Please enter organization name",
+        "Please enter a real name"
+      );
+      const countryValid = validateCountry(country, setCountryValidateError);
+      const orgCountryValid = validateCountry(
+        orgCountry,
+        setOrgCountryValidateError
+      );
+      const orgWebsiteValid = validateOrgWebsite(
+        orgWebsite,
+        setOrgWebsiteValidateError,
+        setOrgWebsiteValidateErrorMessage
+      );
+      if (
+        nameValid &&
+        orgNameValid &&
+        countryValid &&
+        orgCountryValid &&
+        orgWebsiteValid
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      const nameValid = validateName(
+        name,
+        setNameValidateError,
+        setNameValidateErrorMessage,
+        "Please enter your name",
+        "Please enter a real name"
+      );
+      const countryValid = validateCountry(country, setCountryValidateError);
+      if (nameValid && countryValid) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
 
   const onSubmit = async () => {
     validateHandle(
@@ -131,7 +183,7 @@ const Dashboard = () => {
       "User handle can only contain lowercase alphanumeric characters",
       "User handle cannot be less than 6 characters",
       `The handle ${handle} is already taken`
-    ).then(async (validateHandle) => {
+    ).then(async (validateUserHandle) => {
       if (showOrgForm) {
         validateHandle(
           checkOrgHandleExists,
@@ -145,42 +197,7 @@ const Dashboard = () => {
           "Organization handle cannot be less than 6 characters",
           `The handle ${orgHandle} is already taken`
         ).then(async (validateOrgHandle) => {
-          const nameValid = validateName(
-            name,
-            setNameValidateError,
-            setNameValidateErrorMessage,
-            "Please enter your name",
-            "Please enter a real name"
-          );
-          const orgNameValid = validateName(
-            orgName,
-            setOrgNameValidateError,
-            setOrgNameValidateErrorMessage,
-            "Please enter organization name",
-            "Please enter a real name"
-          );
-          const countryValid = validateCountry(
-            country,
-            setCountryValidateError
-          );
-          const orgCountryValid = validateCountry(
-            orgCountry,
-            setOrgCountryValidateError
-          );
-          const orgWebsiteValid = validateOrgWebsite(
-            orgWebsite,
-            setOrgWebsiteValidateError,
-            setOrgWebsiteValidateErrorMessage
-          );
-          if (
-            nameValid &&
-            orgNameValid &&
-            countryValid &&
-            orgCountryValid &&
-            orgWebsiteValid &&
-            validateHandle &&
-            validateOrgHandle
-          ) {
+          if (validated() && validateOrgHandle && validateUserHandle) {
             setError("");
             await setUpInitialData({
               orgData: showOrgForm,
@@ -195,15 +212,7 @@ const Dashboard = () => {
           }
         });
       } else {
-        const nameValid = validateName(
-          name,
-          setNameValidateError,
-          setNameValidateErrorMessage,
-          "Please enter your name",
-          "Please enter a real name"
-        );
-        const countryValid = validateCountry(country, setCountryValidateError);
-        if (nameValid && countryValid && validateHandle) {
+        if (validated() && validateUserHandle) {
           setError("");
           await setUpInitialData({
             orgData: showOrgForm,
