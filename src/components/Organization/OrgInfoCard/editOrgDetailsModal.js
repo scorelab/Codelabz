@@ -66,7 +66,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
     }
   }, [closeModal, loading, error]);
 
-  const [questions, setQuestions] = React.useState({
+  const [formValue, setformValue] = React.useState({
     org_name: "",
     org_website: "",
     org_link_facebook: "",
@@ -83,14 +83,14 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
       {
         org_handle: currentOrgData.org_handle,
         org_image: currentOrgData.org_image,
-        ...questions,
+        ...formValue,
       },
       profileOrganizations
     )(firebase, firestore, dispatch);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setQuestions((prev) => ({
+    setformValue((prev) => ({
       ...prev,
       [name]: value,
     }));
