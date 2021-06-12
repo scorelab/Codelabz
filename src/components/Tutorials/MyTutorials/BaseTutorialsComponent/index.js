@@ -1,9 +1,9 @@
-import React from "react";
-import { Layout, Row, Col } from "antd";
-import TutorialCard from "./TutorialCard";
-import { useSelector } from "react-redux";
-import EmptyTutorials from "../../../../helpers/emptyTutorials";
-import Spinner from "../../../../helpers/spinner";
+import Grid from '@material-ui/core/Grid';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import EmptyTutorials from '../../../../helpers/emptyTutorials';
+import Spinner from '../../../../helpers/spinner';
+import TutorialCard from './TutorialCard';
 
 /**
  * @param {string} owner - Owner of the tutorials
@@ -36,8 +36,8 @@ const BaseTutorialsComponent = ({ owner, ownerName }) => {
 
     return (
       <div>
-        <Layout>
-          <Row justify="start" align="middle">
+        <Grid container>
+          <Grid justify="center" alignItems="center">
             {index_array.map((tutorial, index) => (
               <TutorialCard
                 key={index}
@@ -48,17 +48,17 @@ const BaseTutorialsComponent = ({ owner, ownerName }) => {
             {index_array.length === 0 && (
               <EmptyTutorials org={ownerName} orgHandle={owner} />
             )}
-          </Row>
-        </Layout>
+          </Grid>
+        </Grid>
       </div>
     );
   } else {
     return (
-      <Row justify="center" align="middle">
-        <Col xs={24} className="col-pad-24">
+      <Grid justify="center" align="center">
+        <Grid xs={12} className="col-pad-24">
           <Spinner half />
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
     );
   }
 };

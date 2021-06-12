@@ -1,41 +1,56 @@
-import React from "react";
-import { Card, Avatar, Col, Skeleton, Button } from "antd";
-import { Link } from "react-router-dom";
-const { Meta } = Card;
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const TutorialCard = ({
   tutorialData: { tutorial_id, title, summary, icon, owner },
   loading,
 }) => {
   return (
-    <Col xs={24} sm={12} md={8} lg={6} xxl={4} className="pr-24">
-      <Card
-        loading={loading}
-        className="mb-24 tutorial-card"
-        style={{ width: "100%" }}
-        actions={[
-          <Link to={`/tutorials/${owner}/${tutorial_id}`}>
-            <Button type="primary">View</Button>
-          </Link>,
-        ]}
-      >
-        <Skeleton loading={loading} avatar active>
-          <Meta
-            avatar={
-              <Avatar
-                src={
-                  icon
-                    ? icon
-                    : "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                }
-              />
+    <Grid xs={12} sm={6} md={3} lg={2} xl={2} className="pr-24">
+      <Card className="mb-24">
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Tutorial icon"
+            height="140"
+            image={
+              icon
+                ? icon
+                : 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
             }
-            title={title}
-            description={summary}
+            title="Tutorial icon"
           />
-        </Skeleton>
+
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {title}
+            </Typography>
+            {loading ? <Skeleton variant="text" /> : null}
+            {loading ? <Skeleton variant="text" /> : null}
+            {loading ? <Skeleton variant="text" /> : null}
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Link to={`/tutorials/${owner}/${tutorial_id}`}>
+            <Button size="small" color="primary">
+              View
+            </Button>
+          </Link>
+        </CardActions>
       </Card>
-    </Col>
+    </Grid>
   );
 };
 

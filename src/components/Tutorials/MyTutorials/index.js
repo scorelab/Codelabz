@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
-import { Layout, Row, Col } from "antd";
-import SearchComponent from "./Search";
-// import UserTutorialsComponent from "./UserTutorials";
-import OrgTutorialsComponent from "./OrgTutorials";
+import Grid from '@material-ui/core/Grid';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFirestore } from 'react-redux-firebase';
 import {
-  getUserTutorialsBasicData,
-  getOrgTutorialsBasicData,
   clearTutorialsBasicData,
-} from "../../../store/actions";
-import { useFirestore } from "react-redux-firebase";
-import { useDispatch, useSelector } from "react-redux";
+  getOrgTutorialsBasicData,
+  getUserTutorialsBasicData,
+} from '../../../store/actions';
+// import UserTutorialsComponent from "./UserTutorials";
+import OrgTutorialsComponent from './OrgTutorials';
+import SearchComponent from './Search';
 
 const MyTutorials = () => {
   const firestore = useFirestore();
@@ -70,23 +70,21 @@ const MyTutorials = () => {
   };
 
   return (
-    <Layout className="row-footer-below">
-      <Row className="mb-24">
-        <Col span={24}>
+    <div className="row-footer-below">
+      <Grid container>
+        <Grid xs={12} className="mb-24">
           <SearchComponent />
-        </Col>
-      </Row>
-      {organizations && organizations.length > 0 && (
-        <Row className="mb-24">
-          <Col span={24}>
+        </Grid>
+        {organizations && organizations.length > 0 && (
+          <Grid xs={12} className="m-24">
             <OrgTutorialsComponent
               organizations={organizations}
               user={userDetails}
             />
-          </Col>
-        </Row>
-      )}
-    </Layout>
+          </Grid>
+        )}
+      </Grid>
+    </div>
   );
 };
 
