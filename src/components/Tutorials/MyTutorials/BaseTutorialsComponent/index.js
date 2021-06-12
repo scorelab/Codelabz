@@ -36,19 +36,19 @@ const BaseTutorialsComponent = ({ owner, ownerName }) => {
 
     return (
       <div>
-        <Grid container>
-          <Grid justify="center" alignItems="center">
-            {index_array.map((tutorial, index) => (
+        <Grid container item>
+          {index_array.map((tutorial, index) => (
+            <Grid xs={12} sm={6} md={3} lg={2} xl={2}>
               <TutorialCard
                 key={index}
                 tutorialData={tutorial}
                 loading={false}
               />
-            ))}
-            {index_array.length === 0 && (
-              <EmptyTutorials org={ownerName} orgHandle={owner} />
-            )}
-          </Grid>
+            </Grid>
+          ))}
+          {index_array.length === 0 && (
+            <EmptyTutorials org={ownerName} orgHandle={owner} />
+          )}
         </Grid>
       </div>
     );

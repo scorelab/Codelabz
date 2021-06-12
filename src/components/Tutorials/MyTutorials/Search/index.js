@@ -1,7 +1,9 @@
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
 import Add from '@material-ui/icons/Add';
-import { Input } from 'antd';
+import Search from '@material-ui/icons/Search';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -76,10 +78,17 @@ const SearchComponent = () => {
         />
       </Grid>
       <Grid xs={12} md={4} className="col-pad-24">
-        <Input.Search
+        <TextField
           placeholder="Search CodeLabz by title, summary, or owner"
           onKeyUp={handleOnSearch}
           style={{ width: '100%' }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
         />
       </Grid>
       {viewResults && (
