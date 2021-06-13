@@ -13,6 +13,7 @@ import Dashboard from './components/Dashboard';
 import Editor from './components/Editor';
 import NotFound from './components/ErrorPages/404';
 import Home from './components/Home';
+import HomePage from './components/HomePage/index';
 import ManageUsers from './components/ManageUsers';
 import MyFeed from './components/MyFeed';
 import Navbar from './components/NavBar';
@@ -86,6 +87,7 @@ const Routes = () => {
         <Navbar />
         <Switch>
           <Route exact path={'/'} component={Home} />
+          <Route path={'/homepage'} component={HomePage} />
           <Route
             exact
             path={'/login'}
