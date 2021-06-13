@@ -66,7 +66,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
     }
   }, [closeModal, loading, error]);
 
-  const [formValue, setformValue] = React.useState({
+  const [formValue, setformValue] = useState({
     org_name: "",
     org_website: "",
     org_link_facebook: "",
