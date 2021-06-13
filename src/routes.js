@@ -4,7 +4,7 @@ import Dashboard from "./components/Dashboard";
 import {
   UserIsAllowedUserDashboard,
   UserIsNotAllowedUserDashboard,
-  UserIsAllowOrgManager
+  UserIsAllowOrgManager,
 } from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import { useSelector } from "react-redux";
@@ -24,6 +24,7 @@ import ProfileView from "./components/Profile/ViewProfile";
 import ViewOrganization from "./components/Organization/ViewOrganization";
 import Editor from "./components/Editor";
 import MyTutorials from "./components/Tutorials/MyTutorials";
+import HomePage from "./components/HomePage/index";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -87,20 +88,21 @@ const Routes = () => {
         <Navbar />
         <Switch>
           <Route exact path={"/"} component={Home} />
+          <Route path={"/homepage"} component={HomePage} />
           <Route
             exact
             path={"/login"}
-            render={props => <AuthPage {...props} type={"login"} />}
+            render={(props) => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={props => <AuthPage {...props} type={"signup"} />}
+            render={(props) => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={props => <AuthPage {...props} type={"forgotpassword"} />}
+            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
