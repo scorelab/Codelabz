@@ -6,27 +6,24 @@ import {
   UserIsAllowedUserDashboard,
   UserIsAllowOrgManager,
   UserIsNotAllowedUserDashboard,
-  UserIsAllowOrgManager,
-} from "./auth";
-import { AllowManageUser } from "./auth/manageUserAuth";
-import { useSelector } from "react-redux";
-import { isLoaded, isEmpty } from "react-redux-firebase";
-import Home from "./components/Home";
-import AuthPage from "./components/AuthPage";
-import Spinner from "./helpers/spinner";
-import Navbar from "./components/NavBar";
-import ManageUsers from "./components/ManageUsers";
-import NotFound from "./components/ErrorPages/404";
-import MyFeed from "./components/MyFeed";
-import Footer from "./components/Footer";
-import Organization from "./components/Organization";
-import Profile from "./components/Profile";
-import ViewTutorial from "./components/Tutorials";
-import ProfileView from "./components/Profile/ViewProfile";
-import ViewOrganization from "./components/Organization/ViewOrganization";
-import Editor from "./components/Editor";
-import MyTutorials from "./components/Tutorials/MyTutorials";
-import HomePage from "./components/HomePage/index";
+} from './auth';
+import { AllowManageUser } from './auth/manageUserAuth';
+import AuthPage from './components/AuthPage';
+import Dashboard from './components/Dashboard';
+import Editor from './components/Editor';
+import NotFound from './components/ErrorPages/404';
+import Home from './components/Home';
+import HomePage from './components/HomePage/index';
+import ManageUsers from './components/ManageUsers';
+import MyFeed from './components/MyFeed';
+import Navbar from './components/NavBar';
+import Organization from './components/Organization';
+import ViewOrganization from './components/Organization/ViewOrganization';
+import Profile from './components/Profile';
+import ProfileView from './components/Profile/ViewProfile';
+import ViewTutorial from './components/Tutorials';
+import MyTutorials from './components/Tutorials/MyTutorials';
+import Spinner from './helpers/spinner';
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -89,22 +86,22 @@ const Routes = () => {
       <AuthIsLoaded>
         <Navbar />
         <Switch>
-          <Route exact path={"/"} component={Home} />
-          <Route path={"/homepage"} component={HomePage} />
+          <Route exact path={'/'} component={Home} />
+          <Route path={'/homepage'} component={HomePage} />
           <Route
             exact
-            path={"/login"}
-            render={(props) => <AuthPage {...props} type={"login"} />}
+            path={'/login'}
+            render={(props) => <AuthPage {...props} type={'login'} />}
           />
           <Route
             exact
-            path={"/signup"}
-            render={(props) => <AuthPage {...props} type={"signup"} />}
+            path={'/signup'}
+            render={(props) => <AuthPage {...props} type={'signup'} />}
           />
           <Route
             exact
-            path={"/forgotpassword"}
-            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
+            path={'/forgotpassword'}
+            render={(props) => <AuthPage {...props} type={'forgotpassword'} />}
           />
           <Route
             exact
