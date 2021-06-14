@@ -9,14 +9,7 @@ const CountryDropDown = (props) => {
   const changeHandler = (value) => {
     setValue(value);
   };
-  return (
-    <Select
-      styles={{ margin: "2rem" }}
-      options={options}
-      value={value}
-      onChange={changeHandler}
-    />
-  );
+  return <Select options={options} value={value} onChange={changeHandler} />;
 };
 
 export default CountryDropDown;

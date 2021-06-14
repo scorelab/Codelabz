@@ -118,7 +118,9 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
         <label className="form-label">Organization country</label>
         <CountryDropdown />
 
-        <label className="form-label">Organization website</label>
+        <label className="form-label" style={{ marginTop: "1.5rem" }}>
+          Organization website
+        </label>
         <Form.Item name="org_website" rules={orgWebsiteValidation}>
           <Input
             prefix={<IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
