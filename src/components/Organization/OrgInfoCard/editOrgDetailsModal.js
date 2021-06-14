@@ -6,13 +6,13 @@ import {
   FacebookFilled,
   TwitterSquareFilled,
   LinkedinFilled,
-  GithubFilled
+  GithubFilled,
 } from "@ant-design/icons";
 import CountryDropdown from "../../../helpers/countryDropdown";
 import {
   orgNameValidation,
   orgWebsiteValidation,
-  orgSMValidation
+  orgSMValidation,
 } from "../../../helpers/validationRules";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -29,22 +29,22 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
   const loadingProps = useSelector(
     ({
       org: {
-        general: { loading }
-      }
+        general: { loading },
+      },
     }) => loading
   );
   const errorProps = useSelector(
     ({
       org: {
-        general: { error }
-      }
+        general: { error },
+      },
     }) => error
   );
   const profileOrganizations = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
@@ -77,16 +77,16 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
       org_link_linkedin: currentOrgData.org_link_linkedin,
       org_link_twitter: currentOrgData.org_link_twitter,
       org_description: currentOrgData.org_description,
-      org_country: currentOrgData.org_country
+      org_country: currentOrgData.org_country,
     });
   }, [form, currentOrgData]);
 
-  const onSubmit = formData => {
+  const onSubmit = (formData) => {
     editGeneralData(
       {
         org_handle: currentOrgData.org_handle,
         org_image: currentOrgData.org_image,
-        ...formData
+        ...formData,
       },
       profileOrganizations
     )(firebase, firestore, dispatch);

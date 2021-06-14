@@ -1,44 +1,22 @@
-import React from "react";
-import { Form, Select } from "antd";
-import { GlobalOutlined } from "@ant-design/icons";
-import countryList from "./countryList";
-const { Option } = Select;
+import React, { useState, useMemo } from "react";
+import Select from "react-select";
+import countryList from "react-select-country-list";
 
-const CountryDropdown = props => {
-  const children = [];
+const CountryDropDown = (props) => {
+  const [value, setValue] = useState("");
+  const options = useMemo(() => countryList().getData(), []);
 
-  for (let i = 0; i < countryList.length; i++) {
-    children.push(
-      <Option key={countryList[i].code} value={countryList[i].name}>
-        {countryList[i].name}
-      </Option>
-    );
-  }
-
+  const changeHandler = (value) => {
+    setValue(value);
+  };
   return (
-    <Form.Item
-      name="org_country"
-      rules={[
-        {
-          required: true,
-          message: "Please select the country"
-        }
-      ]}
-    >
-      <Select
-        style={{ width: "100%" }}
-        placeholder={
-          <div style={{ textAlign: "left" }}>
-            <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} /> Country
-          </div>
-        }
-        showSearch={true}
-        defaultValue={props.defaultValue}
-      >
-        {children}
-      </Select>
-    </Form.Item>
+    <Select
+      styles={{ margin: "2rem" }}
+      options={options}
+      value={value}
+      onChange={changeHandler}
+    />
   );
 };
 
-export default CountryDropdown;
+export default CountryDropDown;
