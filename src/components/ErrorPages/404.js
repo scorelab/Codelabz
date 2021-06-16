@@ -15,11 +15,12 @@ const NotFound = () => {
       justifyContent: "center",
     },
     image: {
-      height: "20rem",
+      height: "10rem",
       width: "20rem",
+
       alignItems: "center",
       [theme.breakpoints.down(750)]: {
-        height: "15rem",
+        height: "10rem",
         width: "15rem",
       },
     },
@@ -69,16 +70,17 @@ const NotFound = () => {
 
   return (
     <Grid container className={`row-fullheight ${classes.wrapper}`}>
-      <Grid item style={{ padding: "0", marginTop: "-5rem" }}>
+      <Grid
+        item
+        style={{ padding: "0", marginTop: "-5rem", marginLeft: "2rem" }}
+      >
         <img className={classes.image} src={errorImg} alt="error" />
       </Grid>
       <Grid
         item
-        style={{ marginTop: "-5rem", display: "flex", alignItems: "center" }}
+        style={{ marginTop: "2rem", display: "flex", alignItems: "center" }}
       >
-        <Typography variant="h2" gutterBottom>
-          Oops!
-        </Typography>
+        <Typography variant="h2">Oops!</Typography>
       </Grid>
       <Grid item>
         <ul className={classes.oops}>
