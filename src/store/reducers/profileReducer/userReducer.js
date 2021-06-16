@@ -1,12 +1,13 @@
 import * as actions from "../../actions/actionTypes";
+import UserReducer from "../orgReducer/userReducer";
 
 const initialState = {
   loading: false,
   error: null,
-  data: null
+  data: null,
 };
 
-export default (state = initialState, { type, payload }) => {
+const ProfileUserReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_USER_PROFILE_DATA_STATE:
       return initialState;
@@ -15,7 +16,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
 
     case actions.GET_USER_DATA_SUCCESS:
@@ -23,17 +24,19 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
-        data: payload
+        data: payload,
       };
 
     case actions.GET_USER_DATA_FAIL:
       return {
         ...state,
         loading: false,
-        error: payload
+        error: payload,
       };
 
     default:
       return state;
   }
 };
+
+export default ProfileUserReducer;

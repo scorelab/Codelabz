@@ -3,10 +3,10 @@ import { modifyAuthErrorMsg } from "../../../helpers/errorMsgHandler";
 
 const initialState = {
   loading: false,
-  error: null
+  error: null,
 };
 
-export default (state = initialState, { type, payload }) => {
+const ProfileReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_AUTH_PROFILE_STATE:
       return initialState;
@@ -18,7 +18,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
 
     case actions.SIGN_UP_SUCCESS:
@@ -28,7 +28,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: false
+        error: false,
       };
 
     case actions.SIGN_UP_FAIL:
@@ -38,10 +38,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: modifyAuthErrorMsg(payload)
+        error: modifyAuthErrorMsg(payload),
       };
 
     default:
       return state;
   }
 };
+
+export default ProfileReducer;

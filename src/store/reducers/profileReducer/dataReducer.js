@@ -1,12 +1,13 @@
 import * as actions from "../../actions/actionTypes";
+import DataReducer from "../orgReducer/dataReducer";
 
 const initialState = {
   isLoaded: true,
   isEmpty: true,
-  error: null
+  error: null,
 };
 
-export default (state = initialState, { type, payload }) => {
+const ProfileDataReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_PROFILE_DATA_STATE:
       return initialState;
@@ -16,7 +17,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: false,
         isEmpty: true,
-        error: null
+        error: null,
       };
 
     case actions.GET_PROFILE_DATA_SUCCESS:
@@ -25,7 +26,7 @@ export default (state = initialState, { type, payload }) => {
         ...payload,
         isLoaded: true,
         isEmpty: false,
-        error: false
+        error: false,
       };
 
     case actions.GET_PROFILE_DATA_FAIL:
@@ -33,17 +34,19 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: true,
         isEmpty: true,
-        error: payload
+        error: payload,
       };
 
     case actions.GET_PROFILE_DATA_END:
       return {
         ...state,
         isLoaded: true,
-        isEmpty: true
+        isEmpty: true,
       };
 
     default:
       return state;
   }
 };
+
+export default ProfileDataReducer;
