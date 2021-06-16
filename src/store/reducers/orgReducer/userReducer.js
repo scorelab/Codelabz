@@ -4,7 +4,7 @@ const initialState = {
   isLoaded: true,
   isEmpty: true,
   error: null,
-  data: []
+  data: [],
 };
 
 //notes on reducer
@@ -12,7 +12,7 @@ const initialState = {
 //start state isLoaded: false isEmpty:true
 //success state isLoaded: true isEmpty:false
 //fail state isLoaded: true isEmpty:true
-export default (state = initialState, { type, payload }) => {
+const UserReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_ORG_USER_STATE:
       return initialState;
@@ -23,7 +23,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: false,
         isEmpty: true,
-        error: null
+        error: null,
       };
 
     case actions.GET_ORG_USER_DATA_SUCCESS:
@@ -31,7 +31,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: true,
         isEmpty: false,
-        data: payload
+        data: payload,
       };
 
     case actions.ADD_ORG_USER_SUCCESS:
@@ -39,7 +39,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: true,
         isEmpty: false,
-        error: false
+        error: false,
       };
 
     case actions.GET_ORG_USER_DATA_FAIL:
@@ -48,10 +48,12 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: true,
         isEmpty: true,
-        error: payload
+        error: payload,
       };
 
     default:
       return state;
   }
 };
+
+export default UserReducer;

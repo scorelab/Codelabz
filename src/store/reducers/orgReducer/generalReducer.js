@@ -6,7 +6,7 @@ const initialState = {
   isLoaded: true,
   isEmpty: true,
   loading: false,
-  error: null
+  error: null,
 };
 
 //notes on reducer
@@ -14,7 +14,7 @@ const initialState = {
 //start state isLoaded: false isEmpty:true
 //success state isLoaded: true isEmpty:false
 //fail state isLoaded: true isEmpty:true
-export default (state = initialState, { type, payload }) => {
+const GeneralReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_ORG_GENERAL_STATE:
       return initialState;
@@ -23,7 +23,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoaded: false,
-        isEmpty: true
+        isEmpty: true,
       };
 
     case actions.SET_CURRENT_ORG_PERMISSIONS_SUCCESS:
@@ -32,41 +32,41 @@ export default (state = initialState, { type, payload }) => {
         permissions: payload.permissions,
         current: payload.org_handle,
         isLoaded: true,
-        isEmpty: false
+        isEmpty: false,
       };
 
     case actions.SET_CURRENT_ORG_PERMISSIONS_FAIL:
       return {
         ...state,
         isLoaded: true,
-        isEmpty: true
+        isEmpty: true,
       };
 
     case actions.GET_ORG_GENERAL_START:
     case actions.EDIT_ORG_GENERAL_START:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     case actions.CLEAR_EDIT_ORG_GENERAL:
       return {
         ...state,
         loading: false,
-        error: null
+        error: null,
       };
 
     case actions.GET_ORG_GENERAL_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
 
     case actions.EDIT_ORG_GENERAL_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false
+        error: false,
       };
 
     case actions.GET_ORG_GENERAL_FAIL:
@@ -74,10 +74,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload
+        error: payload,
       };
 
     default:
       return state;
   }
 };
+
+export default GeneralReducer;

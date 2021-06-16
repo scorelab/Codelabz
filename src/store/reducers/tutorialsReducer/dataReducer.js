@@ -4,10 +4,10 @@ const initialState = {
   user: null,
   org: [],
   loading: false,
-  error: null
+  error: null,
 };
 
-export default (state = initialState, { type, payload }) => {
+const TutorialsDataReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_TUTORIALS_BASIC_STATE:
       return initialState;
@@ -17,7 +17,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
 
     case actions.GET_USER_TUTORIALS_BASIC_SUCCESS:
@@ -25,7 +25,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         user: payload,
         loading: false,
-        error: false
+        error: false,
       };
 
     case actions.GET_ORG_TUTORIALS_BASIC_SUCCESS:
@@ -33,7 +33,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         org: payload,
         loading: false,
-        error: false
+        error: false,
       };
 
     case actions.GET_USER_TUTORIALS_BASIC_FAIL:
@@ -41,10 +41,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload
+        error: payload,
       };
 
     default:
       return state;
   }
 };
+
+export default TutorialsDataReducer;
