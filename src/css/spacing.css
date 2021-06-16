@@ -1,4 +1,8 @@
 /* Margins */
+.m-24 {
+  margin: 24px !important;
+}
+
 .mt-0 {
   margin-top: 0 !important;
 }
@@ -71,6 +75,10 @@
   margin-right: 16px !important;
 }
 
+.mr-24 {
+  margin-right: 24px !important;
+}
+
 .ml-0 {
   margin-left: 0 !important;
 }
@@ -88,6 +96,9 @@
 }
 
 /* Paddings */
+.p-24 {
+  padding: 24px !important;
+}
 
 .pl-0 {
   padding-left: 0 !important;
