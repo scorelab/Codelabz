@@ -14,6 +14,7 @@ import Chip from "@material-ui/core/Chip";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Input from "@material-ui/core/Input";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -36,6 +37,8 @@ const { Dragger } = Upload;
 const ProfileInfoCard = () => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
+
+  const [image, setImage] = useState(null);
 
   const [imageUploading, setImageUploading] = useState(false);
   const [profileEditModalVisible, setProfileEditModalVisible] = useState(false);
@@ -85,6 +88,8 @@ const ProfileInfoCard = () => {
     return !!(data && data.length > 0);
   };
 
+  const onChangeImage = (file) => setImage(file);
+
   return (
     <>
       <Card className="p-0">
@@ -121,6 +126,7 @@ const ProfileInfoCard = () => {
                 />
               )}
               {/* uploadImage(file) */}
+
               <ImgCrop rotate>
                 <Dragger beforeUpload={uploadImage} className="mt-16">
                   {imageUploading ? (
@@ -136,6 +142,27 @@ const ProfileInfoCard = () => {
                   )}
                 </Dragger>
               </ImgCrop>
+
+              {/* safe space */}
+              <Input
+                type="file"
+                onChange={(event) => onChangeImage(URL.createObjectURL(event.target.files[0]))}
+                inputProps={{ accept: "image/*" }}
+              />
+              {image ? (
+                <img
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: "8px",
+                  }}
+                  src={image}
+                  alt={profileData.displayName}
+                  className="org-image"
+                />
+              ) : null}
+
+              {/* safe space end */}
             </Box>
           </Grid>
           <Grid xs={12} md={9} lg={9} item={true}>
