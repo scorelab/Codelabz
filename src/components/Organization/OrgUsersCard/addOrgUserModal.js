@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import EditIcon from '@material-ui/icons/Edit';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import PersonIcon from '@material-ui/icons/Person';
-import { addOrgUser, checkUserHandleExists } from '../../../store/actions';
+import React, { useEffect, useState } from "react";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import EditIcon from "@material-ui/icons/Edit";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import PersonIcon from "@material-ui/icons/Person";
+import { addOrgUser, checkUserHandleExists } from "../../../store/actions";
 import {
   isEmpty,
   isLoaded,
   useFirebase,
   useFirestore,
-} from 'react-redux-firebase';
-import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
+} from "react-redux-firebase";
+import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
 
 const AddOrgUserModal = ({ currentOrgHandle }) => {
   const currentUser = useSelector(
@@ -37,16 +37,14 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
-  const [handle, setHandle] = useState('');
+  const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
-  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
-    ''
-  );
-  const [selected, setSelected] = useState('perm_0');
+  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState("");
+  const [selected, setSelected] = useState("perm_0");
   const options = [
-    { name: 'Reviewer', icon: <VisibilityIcon />, value: 'perm_0' },
-    { name: 'Editor', icon: <EditIcon />, value: 'perm_1' },
-    { name: 'Admin', icon: <PersonIcon />, value: 'perm_2' },
+    { name: "Reviewer", icon: <VisibilityIcon />, value: "perm_0" },
+    { name: "Editor", icon: <EditIcon />, value: "perm_1" },
+    { name: "Admin", icon: <PersonIcon />, value: "perm_2" },
   ];
   const onChangeHandle = (event) => {
     if (event.target.value.length < 1) {
@@ -54,7 +52,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
       setHandleValidateErrorMessage(
         `Please input the user handle you want to add`
       );
-      setHandle('');
+      setHandle("");
     } else {
       setHandleValidateError(false);
       setHandle(event.target.value);
@@ -85,19 +83,19 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
       return;
     }
     if (handleExists === false) {
-      setHandle('');
+      setHandle("");
       setHandleValidateError(true);
       setHandleValidateErrorMessage(
         `The handle ${handle} is not a registered CodeLabz user`
       );
     } else if (handle === currentUser) {
-      setHandle('');
+      setHandle("");
       setHandleValidateError(true);
       setHandleValidateErrorMessage(`You can't add yourself. Or can you? o.O`);
     } else if (
       _.findIndex(currentOrgUsers, (user) => user.handle === handle) !== -1
     ) {
-      setHandle('');
+      setHandle("");
       setHandleValidateError(true);
       setHandleValidateErrorMessage(
         `The user ${handle} is already in the organization ${currentOrgHandle}`
@@ -105,7 +103,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
     } else {
       await addOrgUser({
         org_handle: currentOrgHandle,
-        permissions: parseInt(selected.split('_')[1]),
+        permissions: parseInt(selected.split("_")[1]),
         handle: handle,
       })(firestore, dispatch);
     }
@@ -127,20 +125,20 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         helperText={handleValidateError ? handleValidateErrorMessage : null}
       />
       <Grid container justify="flex-end">
-        <div style={{ padding: '10px' }}>
-          <span style={{ paddingRight: '10px' }}>Select user role</span>
+        <div style={{ padding: "10px" }}>
+          <span style={{ paddingRight: "10px" }}>Select user role</span>
           <Select value={selected} onChange={handlePermissionChange}>
             {options.map((option, index) => (
               <MenuItem key={index} value={option.value}>
                 <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                 >
                   {option.icon}
-                  <div style={{ paddingLeft: '5px' }}>{option.name}</div>
+                  <div style={{ paddingLeft: "5px" }}>{option.name}</div>
                 </div>
               </MenuItem>
             ))}
@@ -149,12 +147,12 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
       </Grid>
 
       <Button
-        style={{ backgroundColor: '#0f7029' }}
+        style={{ backgroundColor: "#0f7029",color:"white" }}
         fullWidth
         variant="contained"
         onClick={onFinish}
       >
-        {loading ? 'Adding user...' : 'Add user'}
+        {loading ? "Adding user..." : "Add user"}
       </Button>
     </Grid>
   );

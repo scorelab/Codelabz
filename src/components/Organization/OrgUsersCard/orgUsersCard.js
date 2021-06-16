@@ -1,51 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import CardHeader from '@material-ui/core/CardHeader';
-import AddIcon from '@material-ui/icons/Add';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import Box from '@material-ui/core/Box';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-import EditIcon from '@material-ui/icons/Edit';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import PersonIcon from '@material-ui/icons/Person';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import SearchIcon from '@material-ui/icons/Search';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { withStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import CardHeader from "@material-ui/core/CardHeader";
+import AddIcon from "@material-ui/icons/Add";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import DeleteIcon from "@material-ui/icons/Delete";
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import Box from "@material-ui/core/Box";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import EditIcon from "@material-ui/icons/Edit";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import PersonIcon from "@material-ui/icons/Person";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import SearchIcon from "@material-ui/icons/Search";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { withStyles } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addOrgUser,
   getOrgUserData,
   removeOrgUser,
   searchFromIndex,
-} from '../../../store/actions';
-import { useFirestore } from 'react-redux-firebase';
-import { Link } from 'react-router-dom';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
-import AddOrgUserModal from './addOrgUserModal';
-import _ from 'lodash';
+} from "../../../store/actions";
+import { useFirestore } from "react-redux-firebase";
+import { Link } from "react-router-dom";
+import { isLoaded, isEmpty } from "react-redux-firebase";
+import AddOrgUserModal from "./addOrgUserModal";
+import _ from "lodash";
 
 const permissionLevelIcons = [
   <VisibilityIcon />,
@@ -54,14 +53,14 @@ const permissionLevelIcons = [
   <InsertEmoticonIcon />,
 ];
 
-const permissionLevelTitles = ['Reviewer', 'Editor', 'Admin', 'Owner'];
+const permissionLevelTitles = ["Reviewer", "Editor", "Admin", "Owner"];
 const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
   },
   closeButton: {
-    position: 'absolute',
+    position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
   },
@@ -123,7 +122,6 @@ const OrgUsersCard = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
-  const [viewModal, setViewModal] = useState(false);
   const [dataSource, setDataSource] = useState([]);
   const [opensnack, setOpenSnack] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -142,7 +140,7 @@ const OrgUsersCard = () => {
     setAnchorEl(null);
   };
   const snackhandleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -190,31 +188,31 @@ const OrgUsersCard = () => {
   }, [data]);
 
   const options = [
-    { name: 'Reviewer', icon: <VisibilityIcon />, value: 'perm_0' },
-    { name: 'Editor', icon: <EditIcon />, value: 'perm_1' },
-    { name: 'Admin', icon: <PersonIcon />, value: 'perm_2' },
-    { name: 'Delete', icon: <DeleteIcon />, value: 'remove_user' },
+    { name: "Reviewer", icon: <VisibilityIcon />, value: "perm_0" },
+    { name: "Editor", icon: <EditIcon />, value: "perm_1" },
+    { name: "Admin", icon: <PersonIcon />, value: "perm_2" },
+    { name: "Delete", icon: <DeleteIcon />, value: "remove_user" },
   ];
 
   const handlePermissionChange = (key, permission_level, handle) => {
     console.log(handle);
-    if (key === 'remove_user') {
+    if (key === "remove_user") {
       removeOrgUser({
         org_handle: currentOrgHandle,
         handle,
       })(firestore, dispatch);
-    } else if (parseInt(key.split('_')[1]) !== permission_level[0]) {
+    } else if (parseInt(key.split("_")[1]) !== permission_level[0]) {
       addOrgUser({
         org_handle: currentOrgHandle,
         handle,
-        permissions: parseInt(key.split('_')[1]),
+        permissions: parseInt(key.split("_")[1]),
       })(firestore, dispatch);
     }
     setAnchorEl(null);
   };
 
   const handleOnSearch = ({ target: { value } }) => {
-    if (value === '') {
+    if (value === "") {
       return setDataSource(data);
     }
     const result = searchFromIndex(value);
@@ -237,7 +235,7 @@ const OrgUsersCard = () => {
     <>
       <Card>
         <CardHeader
-          style={{ borderBottom: ' 1px solid  black' }}
+          style={{ borderBottom: " 1px solid  black" }}
           title="Organization Users"
           className="max-height-mobile"
           action={
@@ -267,7 +265,7 @@ const OrgUsersCard = () => {
               </div>
             )
           }
-        />{' '}
+        />{" "}
         <Box mt={2} mb={2} m={3}>
           <Grid xs={12} md={12} lg={12} item={true}>
             <List
@@ -292,7 +290,7 @@ const OrgUsersCard = () => {
               {dataSource.map((item, i) => {
                 return (
                   <div key={i}>
-                    {' '}
+                    {" "}
                     <ListItem>
                       <ListItemAvatar>
                         <Avatar src={item.image} />
@@ -356,7 +354,7 @@ const OrgUsersCard = () => {
                             {options.map((option, index) => (
                               <div key={index}>
                                 <MenuItem
-                                  style={{ color: index === 3 ? 'red' : '' }}
+                                  style={{ color: index === 3 ? "red" : "" }}
                                   onClick={() =>
                                     handlePermissionChange(
                                       option.value,
@@ -367,13 +365,13 @@ const OrgUsersCard = () => {
                                 >
                                   <div
                                     style={{
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'space-between',
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "space-between",
                                     }}
                                   >
                                     {option.icon}
-                                    <div style={{ paddingLeft: '5px' }}>
+                                    <div style={{ paddingLeft: "5px" }}>
                                       {option.name}
                                     </div>
                                   </div>
@@ -397,7 +395,7 @@ const OrgUsersCard = () => {
                     </ListItem>
                   </div>
                 );
-              })}{' '}
+              })}{" "}
             </List>
           </Grid>
         </Box>
