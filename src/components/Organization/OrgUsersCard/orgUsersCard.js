@@ -8,7 +8,7 @@ import {
   List,
   Input,
   Modal,
-  message
+  message,
 } from "antd";
 import {
   DownOutlined,
@@ -17,14 +17,14 @@ import {
   EyeOutlined,
   DeleteOutlined,
   SmileOutlined,
-  PlusOutlined
+  PlusOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addOrgUser,
   getOrgUserData,
   removeOrgUser,
-  searchFromIndex
+  searchFromIndex,
 } from "../../../store/actions";
 import { useFirestore } from "react-redux-firebase";
 import { Link } from "react-router-dom";
@@ -36,7 +36,7 @@ const permissionLevelIcons = [
   <EyeOutlined />,
   <EditOutlined />,
   <SafetyOutlined />,
-  <SmileOutlined />
+  <SmileOutlined />,
 ];
 
 const permissionLevelTitles = ["Reviewer", "Editor", "Admin", "Owner"];
@@ -45,35 +45,35 @@ const OrgUsersCard = () => {
   const data = useSelector(
     ({
       org: {
-        user: { data }
-      }
+        user: { data },
+      },
     }) => data
   );
   const currentUserHandle = useSelector(
     ({
       firebase: {
-        profile: { handle }
-      }
+        profile: { handle },
+      },
     }) => handle
   );
   const currentUserPermission = useSelector(
     ({
       org: {
-        general: { permissions }
-      }
+        general: { permissions },
+      },
     }) => permissions
   );
   const currentOrgHandle = useSelector(
     ({
       org: {
-        general: { current }
-      }
+        general: { current },
+      },
     }) => current
   );
 
   const firestore = useFirestore();
   const dispatch = useDispatch();
-  let userIsAdmin = [2, 3].some(e => currentUserPermission.includes(e));
+  let userIsAdmin = [2, 3].some((e) => currentUserPermission.includes(e));
 
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -84,8 +84,8 @@ const OrgUsersCard = () => {
   const errorProps = useSelector(
     ({
       org: {
-        user: { error }
-      }
+        user: { error },
+      },
     }) => error
   );
 
@@ -123,8 +123,8 @@ const OrgUsersCard = () => {
   const permissionLevelsButton = ({ selected, item }) => {
     return (
       <Menu
-        onClick={e => handlePermissionChange({ ...e, ...item })}
-        selectedKeys={selected}
+        onClick={(e) => handlePermissionChange({ ...e, ...item })}
+        selectedkeys={selected}
       >
         <Menu.Item key={"perm_0"}>
           <EyeOutlined /> Reviewer
@@ -147,13 +147,13 @@ const OrgUsersCard = () => {
     if (key === "remove_user") {
       removeOrgUser({
         org_handle: currentOrgHandle,
-        handle
+        handle,
       })(firestore, dispatch);
     } else if (parseInt(key.split("_")[1]) !== permission_level[0]) {
       addOrgUser({
         org_handle: currentOrgHandle,
         handle,
-        permissions: parseInt(key.split("_")[1])
+        permissions: parseInt(key.split("_")[1]),
       })(firestore, dispatch);
     }
   };
@@ -168,10 +168,10 @@ const OrgUsersCard = () => {
     }
     if (result.length > 0) {
       let tempArray = [];
-      result.forEach(item => {
+      result.forEach((item) => {
         tempArray = [
           ...tempArray,
-          ..._.filter(data, ref => ref.handle === item.ref)
+          ..._.filter(data, (ref) => ref.handle === item.ref),
         ];
       });
       return setDataSource(tempArray);
@@ -185,7 +185,7 @@ const OrgUsersCard = () => {
         style={{ width: "100%" }}
         className="max-height-mobile"
         extra={
-          [2, 3].some(e => currentUserPermission.includes(e)) && (
+          [2, 3].some((e) => currentUserPermission.includes(e)) && (
             <Button
               type="link"
               onClick={() => setViewModal(true)}
@@ -202,7 +202,7 @@ const OrgUsersCard = () => {
           className="pt-0"
           dataSource={dataSource}
           loading={loading}
-          renderItem={item => (
+          renderItem={(item) => (
             <List.Item
               actions={
                 //owner can't change their permissions but can change anyone else's
@@ -212,21 +212,21 @@ const OrgUsersCard = () => {
                   ? [
                       <Button style={{ marginRight: "-8px" }} disabled>
                         {permissionLevelIcons[item.permission_level[0]]} Owner
-                      </Button>
+                      </Button>,
                     ]
                   : item.handle === currentUserHandle
                   ? [
                       <Button style={{ marginRight: "-8px" }} disabled>
                         {permissionLevelIcons[item.permission_level[0]]}{" "}
                         {permissionLevelTitles[item.permission_level[0]]}
-                      </Button>
+                      </Button>,
                     ]
                   : userIsAdmin
                   ? [
                       <Dropdown
                         overlay={permissionLevelsButton({
                           item,
-                          selected: "perm_" + item.permission_level[0]
+                          selected: "perm_" + item.permission_level[0],
                         })}
                       >
                         <Button
@@ -237,13 +237,13 @@ const OrgUsersCard = () => {
                           {permissionLevelIcons[item.permission_level[0]]}{" "}
                           <DownOutlined />
                         </Button>
-                      </Dropdown>
+                      </Dropdown>,
                     ]
                   : [
                       <Button style={{ marginRight: "-8px" }} disabled>
                         {permissionLevelIcons[item.permission_level[0]]}{" "}
                         {permissionLevelTitles[item.permission_level[0]]}
-                      </Button>
+                      </Button>,
                     ]
               }
             >

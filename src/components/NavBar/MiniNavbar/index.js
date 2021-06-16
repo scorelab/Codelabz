@@ -63,7 +63,6 @@ const MiniNavbar = ({ type }) => {
 
                   <Button
                     key="1"
-                    variant="dotted"
                     type={
                       type && type === "/signup"
                         ? "primary"
