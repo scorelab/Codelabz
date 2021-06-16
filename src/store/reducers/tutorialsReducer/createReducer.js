@@ -2,10 +2,10 @@ import * as actions from "../../actions/actionTypes";
 
 const initialState = {
   loading: false,
-  error: null
+  error: null,
 };
 
-export default (state = initialState, { type, payload }) => {
+const TutorialsCreateReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_CREATE_TUTORIALS_STATE:
       return initialState;
@@ -15,7 +15,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
 
     case actions.CREATE_TUTORIAL_SUCCESS:
@@ -23,7 +23,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: false
+        error: false,
       };
 
     case actions.CREATE_TUTORIAL_FAIL:
@@ -31,10 +31,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload
+        error: payload,
       };
 
     default:
       return state;
   }
 };
+
+export default TutorialsCreateReducer;

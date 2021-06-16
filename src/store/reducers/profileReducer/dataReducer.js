@@ -1,5 +1,4 @@
 import * as actions from "../../actions/actionTypes";
-import DataReducer from "../orgReducer/dataReducer";
 
 const initialState = {
   isLoaded: true,

@@ -1,5 +1,4 @@
 import * as actions from "../../actions/actionTypes";
-import UserReducer from "../orgReducer/userReducer";
 
 const initialState = {
   loading: false,
