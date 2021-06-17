@@ -10,11 +10,13 @@ const MyFeed = () => {
       <Grid container>
         <Grid
           container
+          item
+          xs={12}
           spacing={0}
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ paddingTop: "15px" }}
+          style={{ padding: "15px" }}
         >
           <Typography variant="h2">Explore Codelabz</Typography>
           <p>
@@ -23,7 +25,7 @@ const MyFeed = () => {
           </p>
         </Grid>
 
-        <Grid>
+        <Grid item xs={12}>
           {" "}
           <ExploreOrgs />
         </Grid>
