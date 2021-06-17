@@ -72,7 +72,7 @@ function MainNavbar() {
                 <RightMenu mode={"horizontal"} />
               </div>
               <Drawer
-                closable={true}
+                closable="true"
                 onClose={showDrawer}
                 style={{ zIndex: 99999 }}
                 open={visible}
