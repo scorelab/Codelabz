@@ -27,7 +27,7 @@ const LeftMenu = ({ mode }) => {
     <Grid
       container
       mode={mode}
-      selectedKeys={location}
+      selectedkeys={location}
       className={classes.menu}
     >
       <MenuItem key="/codefeed">
