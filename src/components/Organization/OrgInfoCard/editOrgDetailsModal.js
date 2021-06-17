@@ -67,14 +67,14 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
   }, [closeModal, loading, error]);
 
   const [formValue, setformValue] = useState({
-    org_name: "",
-    org_website: "",
-    org_link_facebook: "",
-    org_link_github: "",
-    org_link_linkedin: "",
-    org_link_twitter: "",
-    org_description: "",
-    org_country: "",
+    org_name: currentOrgData.org_name,
+    org_website: currentOrgData.org_website,
+    org_link_facebook: currentOrgData.org_link_facebook,
+    org_link_github: currentOrgData.org_link_github,
+    org_link_linkedin: currentOrgData.org_link_linkedin,
+    org_link_twitter: currentOrgData.org_link_twitter,
+    org_description: currentOrgData.org_description,
+    org_country: currentOrgData.org_country,
   });
 
   const onSubmit = (formData) => {
@@ -107,6 +107,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
           fullWidth
           style={{ marginBottom: "1.5rem" }}
           name="org_name"
+          defaultValue={formValue.org_name}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -127,6 +128,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
           autoComplete="url"
           fullWidth
           name="org_website"
+          defaultValue={formValue.org_website}
           style={{ marginBottom: "1.5rem" }}
           InputProps={{
             startAdornment: (
@@ -145,6 +147,9 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
           placeholder="Provide a description about the organization and/or the tutorials published"
           fullWidth
           name="org_description"
+          defaultValue={formValue.org_description}
+          multiline
+          rows={4}
           style={{ marginBottom: "1.5rem" }}
           onChange={(e) => handleChange(e)}
         ></TextField>
@@ -155,6 +160,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
           placeholder="Facebook page handle"
           autoComplete="none"
           fullWidth
+          defaultValue={formValue.org_link_facebook}
           style={{ marginBottom: "1.5rem" }}
           name="org_link_facebook"
           InputProps={{
@@ -176,6 +182,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
           fullWidth
           style={{ marginBottom: "1.5rem" }}
           name="org_link_twitter"
+          defaultValue={formValue.org_link_twitter}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -196,6 +203,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
           fullWidth
           style={{ marginBottom: "1.5rem" }}
           name="org_link_linkedin"
+          defaultValue={formValue.org_link_linkedin}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -217,6 +225,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
           fullWidth
           style={{ marginBottom: "2.5rem" }}
           name="org_link_github"
+          defaultValue={formValue.org_link_github}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
