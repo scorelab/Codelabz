@@ -70,7 +70,7 @@ const ExploreOrgs = () => {
                   .map((a) => a.value)
                   .slice(0, 5)
                   .map((org) => (
-                    <Grid item xs={12} md={6} lg={3} className={classes.root}>
+                    <Grid item xs={12} md={6} lg={3} className={classes.root} key={org.org_handle}> 
                       <Link to={`/org/${org.org_handle}`}>
                         <Card className={classes.card}>
                           <CardActionArea>
