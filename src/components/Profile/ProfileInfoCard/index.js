@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import ReactCrop, { makeAspectCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
+
 import { Upload } from "antd";
 import { CameraOutlined, LoadingOutlined } from "@ant-design/icons";
 
@@ -40,6 +43,8 @@ const ProfileInfoCard = () => {
 
   const [image, setImage] = useState(null);
   const [showImageDialog, setShowImageDialog] = useState(false);
+  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 16 });
+  const [src, setSrc] = useState(null);
 
   const [imageUploading, setImageUploading] = useState(false);
   const [profileEditModalVisible, setProfileEditModalVisible] = useState(false);
@@ -89,7 +94,23 @@ const ProfileInfoCard = () => {
     return !!(data && data.length > 0);
   };
 
-  const onChangeImage = (file) => setImage(file);
+  const onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setSrc(reader.result));
+      reader.readAsDataURL(e.target.files[0]);
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const onCropChange = (crop) => {
+    setCrop(crop);
+  };
+
+  const onChangeImage = () => {
+    setShowImageDialog(false);
+    uploadImage(image);
+  };
 
   return (
     <>
@@ -166,7 +187,14 @@ const ProfileInfoCard = () => {
               <Dialog fullWidth="md" maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
                 <DialogTitle id="alert-dialog-title">{"Upload a New Image"}</DialogTitle>
                 <DialogContent>
+                  <div>
+                    <div>
+                      <input type="file" onChange={onSelectFile} />
+                    </div>
+                    {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} />}
+                  </div>
                   <Button onClick={() => setShowImageDialog(false)}>Close</Button>
+                  <Button onClick={() => onChangeImage()}>Save</Button>
                 </DialogContent>
               </Dialog>
 
