@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import ReactCrop, { makeAspectCrop } from "react-image-crop";
+import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-
-import { Upload } from "antd";
-import { CameraOutlined, LoadingOutlined } from "@ant-design/icons";
 
 import noImageAvailable from "../../../assets/images/no-image-available.svg";
 
@@ -30,12 +27,9 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 import { useDispatch, useSelector } from "react-redux";
-import ImgCrop from "antd-img-crop";
 import EditProfileDetailsModal from "./editProfileDetailsModal";
 import { uploadProfileImage } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
-
-const { Dragger } = Upload;
 
 const ProfileInfoCard = () => {
   const firebase = useFirebase();
@@ -147,49 +141,15 @@ const ProfileInfoCard = () => {
                   className="org-image"
                 />
               )}
-              {/* uploadImage(file) */}
 
-              <ImgCrop rotate>
-                <Dragger beforeUpload={uploadImage} className="mt-16">
-                  {imageUploading ? (
-                    <>
-                      <LoadingOutlined /> Please wait...
-                      <p className="ant-upload-hint mt-8">Uploading image...</p>
-                    </>
-                  ) : (
-                    <>
-                      <CameraOutlined /> Change image
-                      <p className="ant-upload-hint mt-8">Click or drag your image here</p>
-                    </>
-                  )}
-                </Dragger>
-              </ImgCrop>
+              {imageUploading ? <Button>Loading</Button> : <Button onClick={() => setShowImageDialog(true)}>Upload a New Image</Button>}
 
-              {/* safe space */}
-              {/* <Input
-                type="file"
-                onChange={(event) => onChangeImage(URL.createObjectURL(event.target.files[0]))}
-                inputProps={{ accept: "image/*" }}
-              />
-              {image ? (
-                <img
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "8px",
-                  }}
-                  src={image}
-                  alt={profileData.displayName}
-                  className="org-image"
-                />
-              ) : null} */}
-              <Button onClick={() => setShowImageDialog(true)}>Upload a New Image</Button>
               <Dialog fullWidth="md" maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
                 <DialogTitle id="alert-dialog-title">{"Upload a New Image"}</DialogTitle>
                 <DialogContent>
                   <div>
                     <div>
-                      <input type="file" onChange={onSelectFile} />
+                      <Input type="file" onChange={onSelectFile} />
                     </div>
                     {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} />}
                   </div>
