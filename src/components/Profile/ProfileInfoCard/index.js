@@ -15,6 +15,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Input from "@material-ui/core/Input";
+import Divider from "@material-ui/core/Divider";
+
+import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -25,11 +29,21 @@ import FlagIcon from "@material-ui/icons/Flag";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 import { useDispatch, useSelector } from "react-redux";
 import EditProfileDetailsModal from "./editProfileDetailsModal";
 import { uploadProfileImage } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
+
+const theme = createMuiTheme({
+  shadows: ["none"],
+  palette: {
+    primary: {
+      main: "#455a64",
+    },
+  },
+});
 
 const ProfileInfoCard = () => {
   const firebase = useFirebase();
@@ -108,156 +122,205 @@ const ProfileInfoCard = () => {
 
   return (
     <>
-      <Card className="p-0">
-        <DropdownMenu />
-        <Box mt={2} mb={2} m={3}>
+      <ThemeProvider theme={theme}>
+        <Card className="p-0" style={{ shadows: ["none"] }}>
+          <DropdownMenu />
+          <Box mt={2} mb={2} m={3}>
+            <Grid container>
+              <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
+            </Grid>
+          </Box>
           <Grid container>
-            <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
-          </Grid>
-        </Box>
-        <Grid container>
-          <Grid xs={12} md={3} lg={3} item={true}>
-            <Box mt={2} mb={2} m={3}>
-              {profileData.photoURL && profileData.photoURL.length > 0 ? (
-                <img
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "8px",
-                  }}
-                  src={profileData.photoURL}
-                  alt={profileData.displayName}
-                  className="org-image"
-                />
-              ) : (
-                <img
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "8px",
-                  }}
-                  src={noImageAvailable}
-                  alt={"Not Available"}
-                  className="org-image"
-                />
-              )}
+            <Grid xs={12} md={3} lg={3} item={true}>
+              <Box mt={2} mb={2} m={3}>
+                {profileData.photoURL && profileData.photoURL.length > 0 ? (
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                    src={profileData.photoURL}
+                    alt={profileData.displayName}
+                    className="org-image"
+                  />
+                ) : (
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                    src={noImageAvailable}
+                    alt={"Not Available"}
+                    className="org-image"
+                  />
+                )}
 
-              {imageUploading ? <Button>Loading</Button> : <Button onClick={() => setShowImageDialog(true)}>Upload a New Image</Button>}
+                <Divider></Divider>
+                {imageUploading ? (
+                  <Button>Loading</Button>
+                ) : (
+                  <Box mt={4} mb={6} m={0}>
+                    <center>
+                      <Button
+                        fullWidth
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        startIcon={<CloudUploadIcon />}
+                        onClick={() => setShowImageDialog(true)}
+                      >
+                        Change proifle picture
+                      </Button>
+                    </center>
+                  </Box>
+                )}
 
-              <Dialog fullWidth="md" maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
-                <DialogTitle id="alert-dialog-title">{"Upload a New Image"}</DialogTitle>
-                <DialogContent>
-                  <div>
+                <Dialog fullWidth="md" maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
+                  <DialogTitle id="alert-dialog-title">{"Change profile picture"}</DialogTitle>
+                  <DialogContent>
                     <div>
-                      <Input type="file" onChange={onSelectFile} />
+                      <div>
+                        <Input type="file" onChange={onSelectFile} />
+                      </div>
+                      {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} />}
                     </div>
-                    {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} />}
-                  </div>
-                  <Button onClick={() => setShowImageDialog(false)}>Close</Button>
-                  <Button onClick={() => onChangeImage()}>Save</Button>
-                </DialogContent>
-              </Dialog>
+                    <Button onClick={() => setShowImageDialog(false)}>Close</Button>
+                    <Button onClick={() => onChangeImage()}>Save</Button>
+                  </DialogContent>
+                </Dialog>
+              </Box>
+            </Grid>
+            <Grid xs={12} md={9} lg={9} item={true}>
+              <Box mt={2} mb={2} m={3}>
+                <p>
+                  <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
+                    {profileData.displayName}
+                    <Box>
+                      {verified ? (
+                        <Chip
+                          size="small"
+                          icon={<CheckCircleIcon />}
+                          label="Email Verified"
+                          color="primary"
+                          style={{ backgroundColor: "LimeGreen" }}
+                        />
+                      ) : (
+                        <Chip size="small" icon={<CancelIcon />} label="Email not verified" color="secondary" />
+                      )}
+                    </Box>
+                  </span>
+                </p>
+                <Box mr={12}>{checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}</Box>
 
-              {/* safe space end */}
-            </Box>
+                {checkAvailable(profileData.link_facebook) && (
+                  <p>
+                    <a href={"https://www.facebook.com/" + profileData.link_facebook} target="_blank" rel="noopener noreferrer">
+                      <div
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        <Box mr={1}>
+                          <FacebookIcon fontSize="small" className="facebook-color" />
+                        </Box>{" "}
+                        {profileData.link_facebook}
+                      </div>
+                    </a>
+                  </p>
+                )}
+                {checkAvailable(profileData.link_twitter) && (
+                  <p>
+                    <a href={"https://twitter.com/" + profileData.link_twitter} target="_blank" rel="noopener noreferrer">
+                      <div
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        <Box mr={1}>
+                          <TwitterIcon fontSize="small" className="twitter-color" />{" "}
+                        </Box>
+                        {profileData.link_twitter}
+                      </div>
+                    </a>
+                  </p>
+                )}
+                {checkAvailable(profileData.link_github) && (
+                  <p>
+                    <a href={"https://github.com/" + profileData.link_github} target="_blank" rel="noopener noreferrer">
+                      <div
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        <Box mr={1}>
+                          <GitHubIcon fontSize="small" className="github-color" />{" "}
+                        </Box>
+                        {profileData.link_github}
+                      </div>
+                    </a>
+                  </p>
+                )}
+                {checkAvailable(profileData.link_linkedin) && (
+                  <p>
+                    <a href={"https://www.linkedin.com/in/" + profileData.link_linkedin} target="_blank" rel="noopener noreferrer">
+                      <div
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        <Box mr={1}>
+                          <LinkedInIcon fontSize="small" className="linkedin-color" />
+                        </Box>{" "}
+                        {profileData.link_linkedin}
+                      </div>
+                    </a>
+                  </p>
+                )}
+                {checkAvailable(profileData.website) && (
+                  <p>
+                    <a href={profileData.website} target="_blank" rel="noopener noreferrer">
+                      <div
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        <Box mr={1}>
+                          <LinkIcon fontSize="small" className="website-color" />
+                        </Box>{" "}
+                        {profileData.website}
+                      </div>
+                    </a>
+                  </p>
+                )}
+                {checkAvailable(profileData.country) && (
+                  <p className="mb-0">
+                    <a href={"https://www.google.com/search?q=" + profileData.country} target="_blank" rel="noopener noreferrer">
+                      <div
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        <Box mr={1}>
+                          <FlagIcon fontSize="small" className="website-color" />{" "}
+                        </Box>
+                        {profileData.country}
+                      </div>
+                    </a>
+                  </p>
+                )}
+              </Box>
+            </Grid>
           </Grid>
-          <Grid xs={12} md={9} lg={9} item={true}>
-            <p>
-              <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>{profileData.displayName}</span>
-              {verified ? (
-                <Chip size="small" icon={<CheckCircleIcon />} label="Email Verified" color="primary" />
-              ) : (
-                <Chip size="small" icon={<CancelIcon />} label="Email not verified" color="secondary" />
-              )}
-            </p>
-            {checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}
-            {checkAvailable(profileData.link_facebook) && (
-              <p>
-                <a href={"https://www.facebook.com/" + profileData.link_facebook} target="_blank" rel="noopener noreferrer">
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    <FacebookIcon fontSize="small" className="facebook-color" /> {profileData.link_facebook}
-                  </div>
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.link_twitter) && (
-              <p>
-                <a href={"https://twitter.com/" + profileData.link_twitter} target="_blank" rel="noopener noreferrer">
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    <TwitterIcon fontSize="small" className="twitter-color" /> {profileData.link_twitter}
-                  </div>
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.link_github) && (
-              <p>
-                <a href={"https://github.com/" + profileData.link_github} target="_blank" rel="noopener noreferrer">
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    <GitHubIcon fontSize="small" className="github-color" /> {profileData.link_github}
-                  </div>
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.link_linkedin) && (
-              <p>
-                <a href={"https://www.linkedin.com/in/" + profileData.link_linkedin} target="_blank" rel="noopener noreferrer">
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    <LinkedInIcon fontSize="small" className="linkedin-color" /> {profileData.link_linkedin}
-                  </div>
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.website) && (
-              <p>
-                <a href={profileData.website} target="_blank" rel="noopener noreferrer">
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    <LinkIcon fontSize="small" className="website-color" /> {profileData.website}
-                  </div>
-                </a>
-              </p>
-            )}
-            {checkAvailable(profileData.country) && (
-              <p className="mb-0">
-                <a href={"https://www.google.com/search?q=" + profileData.country} target="_blank" rel="noopener noreferrer">
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    <FlagIcon fontSize="small" className="website-color" /> {profileData.country}
-                  </div>
-                </a>
-              </p>
-            )}
-          </Grid>
-        </Grid>
-      </Card>
-      <Dialog fullWidth="md" maxWidth="md" open={profileEditModalVisible} onClose={() => setProfileEditModalVisible(false)}>
-        <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
-        <DialogContent>
-          <EditProfileDetailsModal profileData={profileData} modelCloseCallback={(e) => setProfileEditModalVisible(e)} />
-        </DialogContent>
-      </Dialog>
+        </Card>
+        <Dialog fullWidth="md" maxWidth="md" open={profileEditModalVisible} onClose={() => setProfileEditModalVisible(false)}>
+          <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
+          <DialogContent>
+            <EditProfileDetailsModal profileData={profileData} modelCloseCallback={(e) => setProfileEditModalVisible(e)} />
+          </DialogContent>
+        </Dialog>
+      </ThemeProvider>
     </>
   );
 };
