@@ -18,7 +18,7 @@ import Input from "@material-ui/core/Input";
 import Divider from "@material-ui/core/Divider";
 
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { basicTheme } from "../../../helpers/themes";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -35,15 +35,6 @@ import { useDispatch, useSelector } from "react-redux";
 import EditProfileDetailsModal from "./editProfileDetailsModal";
 import { uploadProfileImage } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
-
-const theme = createMuiTheme({
-  shadows: ["none"],
-  palette: {
-    primary: {
-      main: "#455a64",
-    },
-  },
-});
 
 const ProfileInfoCard = () => {
   const firebase = useFirebase();
@@ -122,7 +113,7 @@ const ProfileInfoCard = () => {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={basicTheme}>
         <Card className="p-0" style={{ shadows: ["none"] }}>
           <DropdownMenu />
           <Box mt={2} mb={2} m={3}>
