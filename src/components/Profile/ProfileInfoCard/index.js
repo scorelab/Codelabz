@@ -39,6 +39,7 @@ const ProfileInfoCard = () => {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState(null);
+  const [showImageDialog, setShowImageDialog] = useState(false);
 
   const [imageUploading, setImageUploading] = useState(false);
   const [profileEditModalVisible, setProfileEditModalVisible] = useState(false);
@@ -144,7 +145,7 @@ const ProfileInfoCard = () => {
               </ImgCrop>
 
               {/* safe space */}
-              <Input
+              {/* <Input
                 type="file"
                 onChange={(event) => onChangeImage(URL.createObjectURL(event.target.files[0]))}
                 inputProps={{ accept: "image/*" }}
@@ -160,7 +161,14 @@ const ProfileInfoCard = () => {
                   alt={profileData.displayName}
                   className="org-image"
                 />
-              ) : null}
+              ) : null} */}
+              <Button onClick={() => setShowImageDialog(true)}>Upload a New Image</Button>
+              <Dialog fullWidth="md" maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
+                <DialogTitle id="alert-dialog-title">{"Upload a New Image"}</DialogTitle>
+                <DialogContent>
+                  <Button onClick={() => setShowImageDialog(false)}>Close</Button>
+                </DialogContent>
+              </Dialog>
 
               {/* safe space end */}
             </Box>
