@@ -39,8 +39,13 @@ const ProfileInfoCard = () => {
   const [upImg, setUpImg] = useState();
   const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
-  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 9 });
+  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 16 });
   const [completedCrop, setCompletedCrop] = useState(null);
+  const [showImageDialog, setShowImageDialog] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const [profileEditModalVisible, setProfileEditModalVisible] = useState(false);
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -53,33 +58,6 @@ const ProfileInfoCard = () => {
   const onLoad = useCallback((img) => {
     imgRef.current = img;
   }, []);
-
-  useEffect(() => {
-    if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
-      return;
-    }
-
-    const image = imgRef.current;
-    const canvas = previewCanvasRef.current;
-    const crop = completedCrop;
-
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    const ctx = canvas.getContext("2d");
-    const pixelRatio = window.devicePixelRatio;
-
-    canvas.width = crop.width * pixelRatio;
-    canvas.height = crop.height * pixelRatio;
-
-    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    ctx.imageSmoothingQuality = "high";
-
-    ctx.drawImage(image, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
-  }, [completedCrop]);
-
-  const convertCanvasToImage = (canvas) => {
-    return base64StringToFile(canvas.toDataURL(), "newfile");
-  };
 
   const base64StringToFile = (base64String, filename) => {
     let arr = base64String.split(","),
@@ -97,20 +75,8 @@ const ProfileInfoCard = () => {
     if (!crop || !canvas) {
       return;
     }
-    // convertCanvasToImage(canvas);
-    console.log(convertCanvasToImage(canvas));
-
-    uploadImage(convertCanvasToImage(canvas));
+    uploadImage(base64StringToFile(canvas.toDataURL(), "newfile"));
   };
-
-  const [showImageDialog, setShowImageDialog] = useState(false);
-
-  const [imageUploading, setImageUploading] = useState(false);
-  const [profileEditModalVisible, setProfileEditModalVisible] = useState(false);
-
-  const profileData = useSelector(({ firebase: { profile } }) => profile);
-
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -140,22 +106,23 @@ const ProfileInfoCard = () => {
     return !!(data && data.length > 0);
   };
 
-  // const onCropChange = (crop) => {
-  //   setCrop(crop);
-  // };
-
-  // const handleOnCropComplete = async (crop, pixelCrop) => {
-  //   const canvasRef = imagePreviewCanvasRef.current;
-  //   await image64toCanvasRef(canvasRef, src, pixelCrop);
-  //   const base64String = canvasRef.toDataURL(image.type);
-  //   const newFile = base64StringToFile(base64String, image.name);
-  //   setNewImage(newFile);
-  // };
-
-  // const onChangeImage = () => {
-  //   setShowImageDialog(false);
-  //   uploadImage(newImage);
-  // };
+  useEffect(() => {
+    if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
+      return;
+    }
+    const image = imgRef.current;
+    const canvas = previewCanvasRef.current;
+    const crop = completedCrop;
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    const ctx = canvas.getContext("2d");
+    const pixelRatio = window.devicePixelRatio;
+    canvas.width = crop.width * pixelRatio;
+    canvas.height = crop.height * pixelRatio;
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(image, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
+  }, [completedCrop]);
 
   return (
     <div>
