@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import { Img } from "react-image";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { clearUserProfile, getUserProfileData } from "../../../store/actions";
@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { basicTheme } from "../../../helpers/themes";
@@ -77,7 +78,7 @@ const ProfileView = () => {
               <Grid container>
                 <Grid xs={12} md={3} lg={3} item={true}>
                   {profileData.photoURL && profileData.photoURL.length > 0 ? (
-                    <img
+                    <Img
                       style={{
                         width: "100%",
                         height: "auto",
@@ -86,6 +87,17 @@ const ProfileView = () => {
                       src={profileData.photoURL}
                       alt={profileData.displayName}
                       className="org-image"
+                      loader={
+                        <Box mt="40%" mb="40%">
+                          <center>
+                            <CircularProgress
+                              style={{
+                                color: "#455a64",
+                              }}
+                            />
+                          </center>
+                        </Box>
+                      }
                     />
                   ) : (
                     <img
