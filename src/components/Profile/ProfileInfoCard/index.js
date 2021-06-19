@@ -71,10 +71,11 @@ const ProfileInfoCard = () => {
     return new File([u8arr], filename, { type: mime });
   };
 
-  const generateDownload = (canvas, crop) => {
+  const saveImage = (canvas, crop) => {
     if (!crop || !canvas) {
       return;
     }
+    setShowImageDialog(false);
     uploadImage(base64StringToFile(canvas.toDataURL(), "newfile"));
   };
 
@@ -195,15 +196,31 @@ const ProfileInfoCard = () => {
                 </Box>
               )}
 
-              <Dialog fullWidth maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
+              <Dialog fullWidth maxWidth="sm" open={showImageDialog} onClose={!showImageDialog}>
                 <DialogTitle id="alert-dialog-title">
                   <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Change profile picture"}</span>
                 </DialogTitle>
                 <DialogContent>
-                  {/* hello */}
                   <div className="App">
                     <div>
-                      <input type="file" accept="image/*" onChange={onSelectFile} />
+                      <Divider></Divider>
+                      <Box mt={2} mb={2} m={0}>
+                        <label
+                          for="file-upload"
+                          class="custom-file-upload"
+                          style={{ display: "block", width: "100%", color: "white", backgroundColor: "#455a64" }}
+                        >
+                          <center>Click here to select an image from your device</center>
+                        </label>
+                        <input
+                          id="file-upload"
+                          fullWidth
+                          style={{ display: "none" }}
+                          accept="image/*"
+                          type="file"
+                          onChange={onSelectFile}
+                        />
+                      </Box>
                     </div>
                     <ReactCrop
                       src={upImg}
@@ -213,34 +230,52 @@ const ProfileInfoCard = () => {
                       onComplete={(c) => setCompletedCrop(c)}
                     />
                     <div>
-                      <canvas
-                        ref={previewCanvasRef}
-                        // Rounding is important so the canvas width and height matches/is a multiple for sharpness.
-                        style={{
-                          width: Math.round(completedCrop?.width ?? 0),
-                          height: Math.round(completedCrop?.height ?? 0),
-                        }}
-                      />
+                      <Grid container>
+                        <canvas
+                          ref={previewCanvasRef}
+                          style={{
+                            width: Math.round(completedCrop?.width ?? 0),
+                            height: Math.round(completedCrop?.height ?? 0),
+                            display: "none",
+                          }}
+                        />
+                      </Grid>
+                      <Grid container direction="row-reverse">
+                        <Grid xs={6} md={6} lg={6} item={true}>
+                          <Box mt={0} mb={4} m={1}>
+                            <Button
+                              fullWidth
+                              size="small"
+                              variant="contained"
+                              color="primary"
+                              style={{
+                                backgroundColor: "SeaGreen",
+                              }}
+                              onClick={() => saveImage(previewCanvasRef.current, completedCrop)}
+                            >
+                              Save
+                            </Button>
+                          </Box>
+                        </Grid>
+                        <Grid xs={6} md={6} lg={6} item={true}>
+                          <Box mt={0} mb={4} m={1}>
+                            <Button
+                              fullWidth
+                              size="small"
+                              variant="contained"
+                              color="secondary"
+                              style={{
+                                backgroundColor: "Tomato",
+                              }}
+                              onClick={() => setShowImageDialog(false)}
+                            >
+                              Close
+                            </Button>
+                          </Box>
+                        </Grid>
+                      </Grid>
                     </div>
-                    <p>
-                      Note that the download below won't work in this sandbox due to the iframe missing 'allow-downloads'. It's just for
-                      your reference.
-                    </p>
                   </div>
-                  <Button onClick={() => setShowImageDialog(false)}>Close</Button>
-                  <Button onClick={() => generateDownload(previewCanvasRef.current, completedCrop)}>Save</Button>
-                  {/* hello */}
-                  {/* <div>
-                    <div>
-                      <label for="file-upload" class="custom-file-upload">
-                        Custom Upload
-                      </label>
-                      <Input id="file-upload" fullWidth style={{ display: "none" }} type="file" onChange={onSelectFile} />
-                    </div>
-                    {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} onComplete={handleOnCropComplete} />}
-                  </div>
-                  <Button onClick={() => setShowImageDialog(false)}>Close</Button>
-                  <Button onClick={() => onChangeImage()}>Save</Button> */}
                 </DialogContent>
               </Dialog>
             </Box>
