@@ -113,7 +113,10 @@ const ProfileView = () => {
                             display: "flex",
                           }}
                         >
-                          <FacebookIcon fontSize="small" className="facebook-color" /> {profileData.link_facebook}
+                          <Box mr={1}>
+                            <FacebookIcon fontSize="small" className="facebook-color" />
+                          </Box>{" "}
+                          {profileData.link_facebook}
                         </div>
                       </a>
                     </p>
@@ -126,7 +129,10 @@ const ProfileView = () => {
                             display: "flex",
                           }}
                         >
-                          <TwitterIcon fontSize="small" className="twitter-color" /> {profileData.link_twitter}
+                          <Box mr={1}>
+                            <TwitterIcon fontSize="small" className="twitter-color" />{" "}
+                          </Box>
+                          {profileData.link_twitter}
                         </div>
                       </a>
                     </p>
@@ -139,7 +145,10 @@ const ProfileView = () => {
                             display: "flex",
                           }}
                         >
-                          <GitHubIcon fontSize="small" className="github-color" /> {profileData.link_github}
+                          <Box mr={1}>
+                            <GitHubIcon fontSize="small" className="github-color" />{" "}
+                          </Box>
+                          {profileData.link_github}
                         </div>
                       </a>
                     </p>
@@ -152,7 +161,10 @@ const ProfileView = () => {
                             display: "flex",
                           }}
                         >
-                          <LinkedInIcon fontSize="small" className="linkedin-color" /> {profileData.link_linkedin}
+                          <Box mr={1}>
+                            <LinkedInIcon fontSize="small" className="linkedin-color" />
+                          </Box>{" "}
+                          {profileData.link_linkedin}
                         </div>
                       </a>
                     </p>
@@ -165,7 +177,10 @@ const ProfileView = () => {
                             display: "flex",
                           }}
                         >
-                          <LinkIcon fontSize="small" className="website-color" /> {profileData.website}
+                          <Box mr={1}>
+                            <LinkIcon fontSize="small" className="website-color" />
+                          </Box>{" "}
+                          {profileData.website}
                         </div>
                       </a>
                     </p>
@@ -178,7 +193,10 @@ const ProfileView = () => {
                             display: "flex",
                           }}
                         >
-                          <FlagIcon fontSize="small" className="website-color" /> {profileData.country}
+                          <Box mr={1}>
+                            <FlagIcon fontSize="small" className="website-color" />{" "}
+                          </Box>
+                          {profileData.country}
                         </div>
                       </a>
                     </p>

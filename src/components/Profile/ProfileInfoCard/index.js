@@ -47,7 +47,7 @@ const ProfileInfoCard = () => {
 
   const profileData = useSelector(({ firebase: { profile } }) => profile);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -100,10 +100,10 @@ const ProfileInfoCard = () => {
       <Card className="p-0" variant="outlined">
         <Box mt={2} mb={2} m={3}>
           <Grid container>
-            <Grid xs={6} md={6} lg={11} item={true}>
+            <Grid xs={6} md={11} lg={11} item={true}>
               <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
             </Grid>
-            <Grid xs={6} md={6} lg={1} item={true}>
+            <Grid xs={6} md={1} lg={1} item={true}>
               <div>
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                   <SettingsOutlinedIcon /> Options
@@ -115,9 +115,10 @@ const ProfileInfoCard = () => {
             </Grid>
           </Grid>
         </Box>
+        <Divider></Divider>
         <Grid container>
           <Grid xs={12} md={3} lg={3} item={true}>
-            <Box mt={2} mb={2} m={3}>
+            <Box mt={6} mb={2} m={3}>
               {profileData.photoURL && profileData.photoURL.length > 0 ? (
                 <img
                   style={{
@@ -153,6 +154,9 @@ const ProfileInfoCard = () => {
                       size="small"
                       variant="contained"
                       color="primary"
+                      style={{
+                        backgroundColor: "#455a64",
+                      }}
                       startIcon={<CloudUploadIcon />}
                       onClick={() => setShowImageDialog(true)}
                     >
@@ -162,7 +166,7 @@ const ProfileInfoCard = () => {
                 </Box>
               )}
 
-              <Dialog fullWidth="md" maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
+              <Dialog fullWidth maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
                 <DialogTitle id="alert-dialog-title">{"Change profile picture"}</DialogTitle>
                 <DialogContent>
                   <div>
@@ -178,7 +182,7 @@ const ProfileInfoCard = () => {
             </Box>
           </Grid>
           <Grid xs={12} md={9} lg={9} item={true}>
-            <Box mt={2} mb={2} m={3}>
+            <Box mt={6} mb={2} m={3}>
               <p>
                 <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
                   {profileData.displayName}
@@ -299,7 +303,7 @@ const ProfileInfoCard = () => {
           </Grid>
         </Grid>
       </Card>
-      <Dialog fullWidth="md" maxWidth="md" open={profileEditModalVisible} onClose={() => setProfileEditModalVisible(false)}>
+      <Dialog fullWidth maxWidth="md" open={profileEditModalVisible} onClose={!profileEditModalVisible}>
         <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
         <DialogContent>
           <EditProfileDetailsModal profileData={profileData} modelCloseCallback={(e) => setProfileEditModalVisible(e)} />
