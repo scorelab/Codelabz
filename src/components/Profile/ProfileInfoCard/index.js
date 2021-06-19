@@ -15,6 +15,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Divider from "@material-ui/core/Divider";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -175,7 +176,7 @@ const ProfileInfoCard = () => {
 
               <Divider></Divider>
               {imageUploading ? (
-                <Button>Loading</Button>
+                <LinearProgress />
               ) : (
                 <Box mt={4} mb={6} m={0}>
                   <center>
@@ -204,7 +205,7 @@ const ProfileInfoCard = () => {
                   <div className="App">
                     <div>
                       <Divider></Divider>
-                      <Box mt={2} mb={2} m={0}>
+                      <Box mt={2} mb={2} m={1}>
                         <label
                           for="file-upload"
                           class="custom-file-upload"
@@ -221,6 +222,7 @@ const ProfileInfoCard = () => {
                           onChange={onSelectFile}
                         />
                       </Box>
+                      <Divider></Divider>
                     </div>
                     <ReactCrop
                       src={upImg}
