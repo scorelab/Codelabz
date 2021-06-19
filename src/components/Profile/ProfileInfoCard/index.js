@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
@@ -14,7 +14,6 @@ import Chip from "@material-ui/core/Chip";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Input from "@material-ui/core/Input";
 import Divider from "@material-ui/core/Divider";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
@@ -37,10 +36,74 @@ const ProfileInfoCard = () => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
 
-  const [image, setImage] = useState(null);
+  const [upImg, setUpImg] = useState();
+  const imgRef = useRef(null);
+  const previewCanvasRef = useRef(null);
+  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 9 });
+  const [completedCrop, setCompletedCrop] = useState(null);
+
+  const onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setUpImg(reader.result));
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const onLoad = useCallback((img) => {
+    imgRef.current = img;
+  }, []);
+
+  useEffect(() => {
+    if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
+      return;
+    }
+
+    const image = imgRef.current;
+    const canvas = previewCanvasRef.current;
+    const crop = completedCrop;
+
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    const ctx = canvas.getContext("2d");
+    const pixelRatio = window.devicePixelRatio;
+
+    canvas.width = crop.width * pixelRatio;
+    canvas.height = crop.height * pixelRatio;
+
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingQuality = "high";
+
+    ctx.drawImage(image, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
+  }, [completedCrop]);
+
+  const convertCanvasToImage = (canvas) => {
+    return base64StringToFile(canvas.toDataURL(), "newfile");
+  };
+
+  const base64StringToFile = (base64String, filename) => {
+    let arr = base64String.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  };
+
+  const generateDownload = (canvas, crop) => {
+    if (!crop || !canvas) {
+      return;
+    }
+    // convertCanvasToImage(canvas);
+    console.log(convertCanvasToImage(canvas));
+
+    uploadImage(convertCanvasToImage(canvas));
+  };
+
   const [showImageDialog, setShowImageDialog] = useState(false);
-  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 16 });
-  const [src, setSrc] = useState(null);
 
   const [imageUploading, setImageUploading] = useState(false);
   const [profileEditModalVisible, setProfileEditModalVisible] = useState(false);
@@ -77,23 +140,22 @@ const ProfileInfoCard = () => {
     return !!(data && data.length > 0);
   };
 
-  const onSelectFile = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => setSrc(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
-      setImage(e.target.files[0]);
-    }
-  };
+  // const onCropChange = (crop) => {
+  //   setCrop(crop);
+  // };
 
-  const onCropChange = (crop) => {
-    setCrop(crop);
-  };
+  // const handleOnCropComplete = async (crop, pixelCrop) => {
+  //   const canvasRef = imagePreviewCanvasRef.current;
+  //   await image64toCanvasRef(canvasRef, src, pixelCrop);
+  //   const base64String = canvasRef.toDataURL(image.type);
+  //   const newFile = base64StringToFile(base64String, image.name);
+  //   setNewImage(newFile);
+  // };
 
-  const onChangeImage = () => {
-    setShowImageDialog(false);
-    uploadImage(image);
-  };
+  // const onChangeImage = () => {
+  //   setShowImageDialog(false);
+  //   uploadImage(newImage);
+  // };
 
   return (
     <div>
@@ -171,17 +233,47 @@ const ProfileInfoCard = () => {
                   <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Change profile picture"}</span>
                 </DialogTitle>
                 <DialogContent>
-                  <div>
+                  {/* hello */}
+                  <div className="App">
+                    <div>
+                      <input type="file" accept="image/*" onChange={onSelectFile} />
+                    </div>
+                    <ReactCrop
+                      src={upImg}
+                      onImageLoaded={onLoad}
+                      crop={crop}
+                      onChange={(c) => setCrop(c)}
+                      onComplete={(c) => setCompletedCrop(c)}
+                    />
+                    <div>
+                      <canvas
+                        ref={previewCanvasRef}
+                        // Rounding is important so the canvas width and height matches/is a multiple for sharpness.
+                        style={{
+                          width: Math.round(completedCrop?.width ?? 0),
+                          height: Math.round(completedCrop?.height ?? 0),
+                        }}
+                      />
+                    </div>
+                    <p>
+                      Note that the download below won't work in this sandbox due to the iframe missing 'allow-downloads'. It's just for
+                      your reference.
+                    </p>
+                  </div>
+                  <Button onClick={() => setShowImageDialog(false)}>Close</Button>
+                  <Button onClick={() => generateDownload(previewCanvasRef.current, completedCrop)}>Save</Button>
+                  {/* hello */}
+                  {/* <div>
                     <div>
                       <label for="file-upload" class="custom-file-upload">
                         Custom Upload
                       </label>
                       <Input id="file-upload" fullWidth style={{ display: "none" }} type="file" onChange={onSelectFile} />
                     </div>
-                    {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} />}
+                    {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} onComplete={handleOnCropComplete} />}
                   </div>
                   <Button onClick={() => setShowImageDialog(false)}>Close</Button>
-                  <Button onClick={() => onChangeImage()}>Save</Button>
+                  <Button onClick={() => onChangeImage()}>Save</Button> */}
                 </DialogContent>
               </Dialog>
             </Box>
