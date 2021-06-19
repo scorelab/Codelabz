@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-
+import { Img } from "react-image";
 import noImageAvailable from "../../../assets/images/no-image-available.svg";
 
 import Box from "@material-ui/core/Box";
@@ -16,6 +16,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Divider from "@material-ui/core/Divider";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -151,7 +152,7 @@ const ProfileInfoCard = () => {
           <Grid xs={12} md={3} lg={3} item={true}>
             <Box mt={6} mb={2} m={3}>
               {profileData.photoURL && profileData.photoURL.length > 0 ? (
-                <img
+                <Img
                   style={{
                     width: "100%",
                     height: "auto",
@@ -160,6 +161,17 @@ const ProfileInfoCard = () => {
                   src={profileData.photoURL}
                   alt={profileData.displayName}
                   className="org-image"
+                  loader={
+                    <Box mt="40%" mb="40%">
+                      <center>
+                        <CircularProgress
+                          style={{
+                            color: "#455a64",
+                          }}
+                        />
+                      </center>
+                    </Box>
+                  }
                 />
               ) : (
                 <img
