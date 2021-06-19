@@ -203,7 +203,7 @@ const ProfileInfoCard = () => {
                       startIcon={<CloudUploadIcon />}
                       onClick={() => setShowImageDialog(true)}
                     >
-                      Change proifle picture
+                      Change Proifle Picture
                     </Button>
                   </center>
                 </Box>
@@ -211,7 +211,7 @@ const ProfileInfoCard = () => {
 
               <Dialog fullWidth maxWidth="sm" open={showImageDialog} onClose={!showImageDialog}>
                 <DialogTitle id="alert-dialog-title">
-                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Change profile picture"}</span>
+                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Change Profile Picture"}</span>
                 </DialogTitle>
                 <DialogContent>
                   <div className="App">
