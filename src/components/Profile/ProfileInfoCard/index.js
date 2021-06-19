@@ -167,11 +167,16 @@ const ProfileInfoCard = () => {
               )}
 
               <Dialog fullWidth maxWidth="md" open={showImageDialog} onClose={!showImageDialog}>
-                <DialogTitle id="alert-dialog-title">{"Change profile picture"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">
+                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Change profile picture"}</span>
+                </DialogTitle>
                 <DialogContent>
                   <div>
                     <div>
-                      <Input type="file" onChange={onSelectFile} />
+                      <label for="file-upload" class="custom-file-upload">
+                        Custom Upload
+                      </label>
+                      <Input id="file-upload" fullWidth style={{ display: "none" }} type="file" onChange={onSelectFile} />
                     </div>
                     {src && <ReactCrop src={src} crop={crop} onChange={onCropChange} />}
                   </div>
