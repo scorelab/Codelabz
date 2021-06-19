@@ -65,19 +65,6 @@ const ProfileInfoCard = () => {
     }) => emailVerified
   );
 
-  const DropdownMenu = () => {
-    return (
-      <div>
-        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-          <SettingsOutlinedIcon /> Options
-        </Button>
-        <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-          <MenuItem onClick={() => setProfileEditModalVisible(true)}>Edit Profile</MenuItem>
-        </Menu>
-      </div>
-    );
-  };
-
   const uploadImage = (file) => {
     setImageUploading(true);
     uploadProfileImage(file, profileData.handle)(firebase, dispatch).then(() => {
@@ -109,12 +96,23 @@ const ProfileInfoCard = () => {
   };
 
   return (
-    <>
+    <div>
       <Card className="p-0" variant="outlined">
-        <DropdownMenu />
         <Box mt={2} mb={2} m={3}>
           <Grid container>
-            <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
+            <Grid xs={6} md={6} lg={11} item={true}>
+              <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
+            </Grid>
+            <Grid xs={6} md={6} lg={1} item={true}>
+              <div>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                  <SettingsOutlinedIcon /> Options
+                </Button>
+                <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+                  <MenuItem onClick={() => setProfileEditModalVisible(true)}>Edit Profile</MenuItem>
+                </Menu>
+              </div>
+            </Grid>
           </Grid>
         </Box>
         <Grid container>
@@ -307,7 +305,7 @@ const ProfileInfoCard = () => {
           <EditProfileDetailsModal profileData={profileData} modelCloseCallback={(e) => setProfileEditModalVisible(e)} />
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 
