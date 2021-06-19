@@ -1,9 +1,9 @@
-import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
-import Footer from '../../components/Footer/index';
+import React from "react";
+import { MemoryRouter } from "react-router-dom";
+import Footer from "../../components/Footer/index";
 
 export default {
-  title: 'Footer',
+  title: "Footer",
   component: Footer,
 };
 

@@ -10,11 +10,12 @@ import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import { avatarName } from "../../../helpers/avatarName";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
 
 const RightMenu = ({ mode }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -124,7 +125,7 @@ const RightMenu = ({ mode }) => {
                 <SettingsOutlinedIcon /> Manage All
               </Link>
             </MenuItem>
-            <Menu.Divider />
+            <Divider></Divider>
             {orgList}
           </Menu>
         )}

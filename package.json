@@ -34,6 +34,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-syntax-highlighter": "^15.4.3",
+    "react-social-login-buttons": "^3.4.0",
     "redux": "^4.0.5",
     "redux-auth-wrapper": "^3.0.0",
     "redux-firestore": "^0.15.0",

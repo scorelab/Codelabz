@@ -27,7 +27,7 @@ const Footer = () => {
   return (
     <footer className="light-grey-bg pt-16 pb-16">
       <Grid container direction="row">
-        <Grid item sm={24} xs={24} md={3} className="col-pad-24">
+        <Grid item sm={12} xs={12} md={3} className="col-pad-24">
           <h2 style={{ color: "#3AAFA9" }} className="brand-font mb-0">
             <Link to={"/"}>
               <BrandName />
@@ -36,7 +36,7 @@ const Footer = () => {
           <p className="mb-">Live to learn, learn to live.</p>
         </Grid>
 
-        <Grid item xs={24} sm={24} md={3} className="col-pad-24">
+        <Grid item xs={12} sm={12} md={3} className="col-pad-24">
           <h3 className="mb-16">About</h3>
           <div className="mt-8 mb-8">
             <a
@@ -88,7 +88,7 @@ const Footer = () => {
           </div>
         </Grid>
 
-        <Grid item xs={12} sm={24} md={3} className="col-pad-24">
+        <Grid item xs={12} sm={12} md={3} className="col-pad-24">
           <h3 className="mb-16">Help</h3>
           <div className="mt-8 mb-8">
             <a
@@ -137,7 +137,7 @@ const Footer = () => {
           </div>
         </Grid>
 
-        <Grid item xs={24} sm={24} md={3} className="col-pad-24">
+        <Grid item xs={12} sm={12} md={3} className="col-pad-24">
           <h3 className="mb-16">Contact</h3>
           <div className="mt-8 mb-8">
             <a href="tel: +94712345678" className="mb-8 mt-8 footer-link">

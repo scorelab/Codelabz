@@ -1,4 +1,4 @@
-import * as actions from "../../actions/actionTypes";
+import * as actions from '../../actions/actionTypes';
 
 const initialState = {
   loading: false,
@@ -6,18 +6,18 @@ const initialState = {
   data: null,
 };
 
-const DataReducer = (state = initialState, { type, payload }) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_ORG_DATA_STATE:
       return initialState;
 
-    case actions.GET_ORG_DATA_START:
+    case actions.GET_LAUNCHED_ORGS_START:
       return {
         ...state,
         loading: true,
       };
 
-    case actions.GET_ORG_DATA_SUCCESS:
+    case actions.GET_LAUNCHED_ORGS_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -25,7 +25,7 @@ const DataReducer = (state = initialState, { type, payload }) => {
         data: payload,
       };
 
-    case actions.GET_ORG_DATA_FAIL:
+    case actions.GET_LAUNCHED_ORGS_FAIL:
       return {
         ...state,
         loading: false,
@@ -36,5 +36,3 @@ const DataReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
-
-export default DataReducer;

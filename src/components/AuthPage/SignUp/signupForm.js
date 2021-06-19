@@ -1,18 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { Alert, Button, Form, Input } from "antd";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { clearAuthError, signUp } from "../../../store/actions";
-import { useFirebase } from "react-redux-firebase";
-import { useDispatch, useSelector } from "react-redux";
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Collapse from '@material-ui/core/Collapse';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import CloseIcon from '@material-ui/icons/Close';
+import LockOutlined from '@material-ui/icons/LockOutlined';
+import MailOutlined from '@material-ui/icons/MailOutlined';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Alert from '@material-ui/lab/Alert';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFirebase } from 'react-redux-firebase';
+import validator from 'validator';
+import { clearAuthError, signUp } from '../../../store/actions';
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+  const [errorOpen, setErrorOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [emailValidateError, setEmailValidateError] = useState(false);
+  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
+    ''
+  );
+
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordValidateError, setPasswordValidateError] = useState(false);
+  const [
+    passwordValidateErrorMessage,
+    setPasswordValidateErrorMessage,
+  ] = useState('');
+
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [
+    confirmPasswordValidateError,
+    setConfirmPasswordValidateError,
+  ] = useState(false);
+  const [
+    confirmPasswordValidateErrorMessage,
+    setConfirmPasswordValidateErrorMessage,
+  ] = useState('');
+
+  const [agreed, setAgreed] = useState(false);
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
@@ -32,112 +73,242 @@ const SignupForm = () => {
     }
   }, [errorProp, loadingProp]);
 
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
+
+  const handleMouseDownPassword = (event) => event.preventDefault();
+
+  const onChangeEmail = (event) => setEmail(event.target.value);
+  const onChangePassword = (event) => setPassword(event.target.value);
+  const onChangeConfirmPassword = (event) => {
+    setConfirmPassword(event.target.value);
+  };
+
+  const validateEmail = () => {
+    if (validator.isEmpty(email)) {
+      setEmailValidateError(true);
+      setEmailValidateErrorMessage('Please Enter your Email!');
+      return false;
+    }
+    if (!validator.isEmail(email)) {
+      setEmailValidateError(true);
+      setEmailValidateErrorMessage('Please enter an valid email!');
+      return false;
+    }
+    return true;
+  };
+
+  const validatePassword = () => {
+    if (validator.isEmpty(password)) {
+      setPasswordValidateError(true);
+      setPasswordValidateErrorMessage('Please enter your password!');
+      return false;
+    }
+    return true;
+  };
+
+  const validateConfirmPassword = () => {
+    console.log(password);
+    console.log(confirmPassword);
+    if (password != confirmPassword) {
+      setConfirmPasswordValidateError(true);
+      setConfirmPasswordValidateErrorMessage(
+        'The two passwords that you entered does not match!'
+      );
+      return false;
+    }
+    setConfirmPasswordValidateError(false);
+    setConfirmPasswordValidateErrorMessage(null);
+    return true;
+  };
+
   const onSubmit = async ({ accepted, email, password }) => {
-    setError("");
-    await signUp({ email, password })(firebase, dispatch);
+    setError('');
+    if (
+      (validateEmail() & validatePassword() && validateConfirmPassword(),
+      agreed)
+    ) {
+      await signUp({ email, password })(firebase, dispatch);
+    }
+  };
+
+  const onFocusEmail = () => {
+    setEmailValidateError(false);
+    setEmailValidateErrorMessage('');
+  };
+
+  const onFocusPassword = () => {
+    setPasswordValidateError(false);
+    setPasswordValidateErrorMessage('');
+  };
+
+  const onFocusConfirmPassword = () => {
+    setConfirmPasswordValidateError(false);
+    setConfirmPasswordValidateErrorMessage('');
   };
 
   return (
     <>
       {error && (
-        <Alert
-          message={""}
-          description={error}
-          type="error"
-          closable
-          className="login-error mb-16"
-        />
+        <Collapse in={errorOpen}>
+          <Alert
+            severity="error"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setErrorOpen(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            className="login-error mb-16"
+          >
+            {error}
+          </Alert>
+        </Collapse>
       )}
 
       {success && (
-        <Alert
-          message={""}
-          description={
-            "Successfully registered. Please check your email for the verification link."
-          }
-          type="success"
-          closable
-          className="mb-16"
-        />
+        <Collapse in={successOpen}>
+          <Alert
+            severity="success"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setSuccessOpen(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            className="mb-16"
+          >
+            Successfully registered. Please check your email for the
+            verification link.
+          </Alert>
+        </Collapse>
       )}
 
-      <Form onFinish={onSubmit}>
-        <Form.Item
-          name={"email"}
-          rules={[
-            {
-              required: true,
-              message: "Please enter your email address",
-            },
-            {
-              type: "email",
-              message: "Please enter a valid email address",
-            },
-          ]}
+      <div>
+        <TextField
+          error={emailValidateError}
+          label="Email"
+          variant="outlined"
+          placeholder="mail@codelabz.com"
+          value={email}
+          onChange={onChangeEmail}
+          helperText={emailValidateError ? emailValidateErrorMessage : null}
+          error={emailValidateError}
+          fullWidth
+          autoComplete="email"
+          required
+          onFocus={onFocusEmail}
+          style={{ marginBottom: '15px' }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <MailOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
+          label="New password"
+          variant="outlined"
+          helperText={
+            passwordValidateError ? passwordValidateErrorMessage : null
+          }
+          error={passwordValidateError}
+          fullWidth
+          required
+          value={password}
+          onFocus={onFocusPassword}
+          onChange={onChangePassword}
+          autoComplete="new-password"
+          type={showPassword ? 'text' : 'password'}
+          style={{ marginBottom: '15px' }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
+          label="Confirm password"
+          variant="outlined"
+          helperText={
+            confirmPasswordValidateError
+              ? confirmPasswordValidateErrorMessage
+              : null
+          }
+          error={confirmPasswordValidateError}
+          fullWidth
+          required
+          value={confirmPassword}
+          onFocus={onFocusConfirmPassword}
+          onChange={onChangeConfirmPassword}
+          type={showConfirmPassword ? 'text' : 'password'}
+          style={{ marginBottom: '15px' }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowConfirmPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={agreed}
+              onChange={() => setAgreed(!agreed)}
+              name="remember"
+              color="primary"
+            />
+          }
+          label="By creating an account, you agree to our terms and conditions."
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          disabled={loading}
         >
-          <Input
-            prefix={<MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Email"
-            autoComplete="email"
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please enter a password",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input.Password
-            prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="New password"
-            autoComplete="new-password"
-          />
-        </Form.Item>
-        <Form.Item
-          name="confirm"
-          dependencies={["password"]}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Please re-type the password",
-            },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  "The two passwords that you entered does not match"
-                );
-              },
-            }),
-          ]}
-        >
-          <Input.Password
-            prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            required
-            placeholder="Confirm password"
-            autoComplete="new-password"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="accepted" valuePropName="checked" noStyle>
-            <p className="text-center mb-0">
-              By creating an account, you agree to our terms and conditions.
-            </p>
-          </Form.Item>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block loading={loading}>
-            {loading ? "Creating your account..." : "Create an account"}
-          </Button>
-        </Form.Item>
-      </Form>
+          {loading ? 'Creating your account...' : 'Create an account'}
+        </Button>
+      </div>
     </>
   );
 };

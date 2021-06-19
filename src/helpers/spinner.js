@@ -3,7 +3,7 @@ import { Col } from 'antd';
 import React from 'react';
 import BrandName from './brandName';
 
-export default ({ half }) => {
+const Spinner = ({ half }) => {
   return (
     <Grid
       justify={'center'}
@@ -20,3 +20,5 @@ export default ({ half }) => {
     </Grid>
   );
 };
+
+export default Spinner;

@@ -10,7 +10,6 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import useStyles from "./styles";
-import PersonImg from "../../../assets/images/demoperson4.jpeg";
 
 const CardComponent = ({ title, tags, profilePic, org = false }) => {
   const classes = useStyles();
@@ -18,6 +17,7 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
   React.useEffect(() => {
     setLogoPath(org);
   }, []);
+
   return (
     <>
       <Card maxWidth="sm" className={classes.card}>
@@ -36,7 +36,9 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
                   <Grid item className={classes.headerGrid}>
                     <img src="/logo.jpeg" alt="logo" />
                     <img
-                      src={PersonImg}
+                      src={
+                        require(`../../../assets/images/${profilePic}`).default
+                      }
                       alt="person"
                       height="20rem"
                       width="20rem"
@@ -46,7 +48,7 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
                 </Grid>
               ) : (
                 <img
-                  src={require(`../../../assets/images/${profilePic}`)}
+                  src={require(`../../../assets/images/${profilePic}`).default}
                   alt="person"
                   className={classes.avatar}
                 />

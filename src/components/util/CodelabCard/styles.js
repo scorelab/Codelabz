@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    margin: "2rem",
+    margin: ".5rem",
     width: "50vw",
     position: "relative",
     maxWidth: "80vw",
