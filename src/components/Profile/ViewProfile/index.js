@@ -139,6 +139,7 @@ const ProfileView = () => {
                         <div
                           style={{
                             display: "flex",
+                            gap: "10px",
                           }}
                         >
                           <FacebookIcon
@@ -160,6 +161,7 @@ const ProfileView = () => {
                         <div
                           style={{
                             display: "flex",
+                            gap: "10px",
                           }}
                         >
                           <TwitterIcon
@@ -181,6 +183,7 @@ const ProfileView = () => {
                         <div
                           style={{
                             display: "flex",
+                            gap: "10px",
                           }}
                         >
                           <GitHubIcon
@@ -205,6 +208,7 @@ const ProfileView = () => {
                         <div
                           style={{
                             display: "flex",
+                            gap: "10px",
                           }}
                         >
                           <LinkedInIcon
@@ -226,6 +230,7 @@ const ProfileView = () => {
                         <div
                           style={{
                             display: "flex",
+                            gap: "10px",
                           }}
                         >
                           <LinkIcon
@@ -250,6 +255,7 @@ const ProfileView = () => {
                         <div
                           style={{
                             display: "flex",
+                            gap: "10px",
                           }}
                         >
                           <FlagIcon
