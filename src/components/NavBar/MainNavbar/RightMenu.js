@@ -33,7 +33,6 @@ const RightMenu = ({ mode }) => {
   const dispatch = useDispatch();
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym = avatarName(profile.displayName);
-  // let { pathname: location } = useLocation();
 
   const organizations = useSelector(
     ({
@@ -70,7 +69,12 @@ const RightMenu = ({ mode }) => {
   }));
   const classes = useStyles();
   return (
-    <Grid container>
+    <Grid
+      container
+      style={{
+        marginRight: "2rem",
+      }}
+    >
       <Avatar
         style={{
           backgroundColor:

@@ -5,7 +5,6 @@ import { useAllowDashboard } from "../../../helpers/customHooks";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Menu from "@material-ui/core/Menu";
 
 const LeftMenu = ({ mode }) => {
   const permissions = useGetPermissions();
@@ -14,7 +13,7 @@ const LeftMenu = ({ mode }) => {
 
   const useStyles = makeStyles((theme) => ({
     menu: {
-      width: "76vw",
+      width: "100%",
       display: "flex",
       flexDirection: "row",
       [theme.breakpoints.down(767)]: {

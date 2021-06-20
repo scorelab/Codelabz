@@ -16,7 +16,7 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
   const [logoPath, setLogoPath] = React.useState("");
   React.useEffect(() => {
     setLogoPath(org);
-  }, []);
+  }, [org]);
 
   return (
     <>
@@ -58,18 +58,17 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
           title={
             org ? (
               <Typography variant="body">
-                Sougata {<span style={{ color: "#7D7C7D" }}>for</span>}{" "}
+                Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>}{" "}
                 ScoreLabz
               </Typography>
             ) : (
-              <Typography variant="body">Sougata</Typography>
+              <Typography variant="body">Demo Name</Typography>
             )
           }
           subheader="May25,2021(3 days ago)"
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
         />
-
         <CardContent
           className={classes.cardContent}
           style={{ paddingBottom: "0rem" }}
@@ -111,7 +110,7 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
                     <FavoriteBorderIcon />
                   </IconButton>
                   <Typography variant="body" color="textPrimary">
-                    222 reactions
+                    222
                   </Typography>
                 </Grid>
               ) : (
@@ -124,11 +123,11 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
               </IconButton>
               {org ? (
                 <Typography variant="body" color="textPrimary">
-                  Add Comment
+                  comment
                 </Typography>
               ) : (
                 <Typography variant="body" color="textPrimary">
-                  20 comments
+                  20
                 </Typography>
               )}
             </Grid>
