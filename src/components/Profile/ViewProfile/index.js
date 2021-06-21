@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
-import { Img } from "react-image";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { clearUserProfile, getUserProfileData } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
-import noImageAvailable from "../../../assets/images/no-image-available.svg";
+import { BasicImage, NoImage } from "../../../helpers/images";
 
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
-import CircularProgress from "@material-ui/core/CircularProgress";
-
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { basicTheme } from "../../../helpers/themes";
-
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -77,40 +73,9 @@ const ProfileView = () => {
             <Box mt={2} mb={2} m={3}>
               <Grid container>
                 <Grid xs={12} md={3} lg={3} item={true}>
-                  {profileData.photoURL && profileData.photoURL.length > 0 ? (
-                    <Img
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "8px",
-                      }}
-                      src={profileData.photoURL}
-                      alt={profileData.displayName}
-                      className="org-image"
-                      loader={
-                        <Box mt="40%" mb="40%">
-                          <center>
-                            <CircularProgress
-                              style={{
-                                color: "#455a64",
-                              }}
-                            />
-                          </center>
-                        </Box>
-                      }
-                    />
-                  ) : (
-                    <img
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "8px",
-                      }}
-                      src={noImageAvailable}
-                      alt={"Not Available"}
-                      className="org-image"
-                    />
-                  )}
+                  {profileData.photoURL && profileData.photoURL.length > 0
+                    ? BasicImage(profileData.photoURL, profileData.displayName)
+                    : BasicImage(NoImage, "Not Available")}
                 </Grid>
                 <Grid xs={12} md={9} lg={9} className="pl-24-d pt-24-m" item={true}>
                   <p>
