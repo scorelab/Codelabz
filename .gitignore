@@ -11,9 +11,6 @@
 # production
 /build
 
-#config
-src/config/index.js
-
 # misc
 .DS_Store
 .env.local
