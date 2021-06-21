@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import { Img } from "react-image";
-import noImageAvailable from "../../../assets/images/no-image-available.svg";
+import { BasicImage, NoImage } from "../../../helpers/images";
 
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
@@ -16,7 +15,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Divider from "@material-ui/core/Divider";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -150,41 +148,9 @@ const ProfileInfoCard = () => {
         <Grid container>
           <Grid xs={12} md={3} lg={3} item={true}>
             <Box mt={6} mb={2} m={3}>
-              {profileData.photoURL && profileData.photoURL.length > 0 ? (
-                <Img
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "8px",
-                  }}
-                  src={profileData.photoURL}
-                  alt={profileData.displayName}
-                  className="org-image"
-                  loader={
-                    <Box mt="40%" mb="40%">
-                      <center>
-                        <CircularProgress
-                          style={{
-                            color: "#455a64",
-                          }}
-                        />
-                      </center>
-                    </Box>
-                  }
-                />
-              ) : (
-                <img
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "8px",
-                  }}
-                  src={noImageAvailable}
-                  alt={"Not Available"}
-                  className="org-image"
-                />
-              )}
-
+              {profileData.photoURL && profileData.photoURL.length > 0
+                ? BasicImage(profileData.photoURL, profileData.displayName)
+                : BasicImage(NoImage, "Not Available")}
               <Divider></Divider>
               {imageUploading ? (
                 <LinearProgress />
