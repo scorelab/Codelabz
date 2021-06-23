@@ -6,7 +6,7 @@ import {
   GithubFilled,
   LinkOutlined,
   LinkedinFilled,
-  FlagOutlined
+  FlagOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -15,33 +15,79 @@ import { clearOrgData, getOrgData } from "../../../store/actions";
 
 const ViewOrganization = () => {
   const { handle } = useParams();
+  const [people, setPeople] = useState([]);
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
+  const [followed, setFollowed] = useState(false);
+  const db = firebase.firestore();
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
 
   const [imageLoading, setImageLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = db.collection("cl_org_general").onSnapshot((snap) => {
+      const data = snap.docs.map((doc) => doc.data());
+      console.log(data[0].followers);
+      setPeople(data[0].followers);
+      // console.log(data[0].followers.includes(profileData.handle));
+      if (data[0].followers && data[0].followers.includes(profileData.handle))
+        setFollowed((prev) => !prev);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const addValue = (value) => {
+    setFollowed((prev) => !prev);
+    if (people && people.includes(value)) {
+      console.log("already followed");
+    } else if (people) {
+      const arr = [...people];
+      arr.push(value);
+      db.collection("cl_org_general").doc(handle).update({
+        followers: arr,
+      });
+    } else {
+      db.collection("cl_org_general")
+        .doc(handle)
+        .update({
+          followers: [value],
+        });
+    }
+  };
+
+  const removeValue = (val) => {
+    setFollowed((prev) => !prev);
+    var filtered = people.filter(function (value, index, arr) {
+      return value !== val;
+    });
+    db.collection("cl_org_general").doc(handle).update({
+      followers: filtered,
+    });
+  };
 
   const loading = useSelector(
     ({
       org: {
-        data: { loading }
-      }
+        data: { loading },
+      },
     }) => loading
   );
 
   const currentOrgData = useSelector(
     ({
       org: {
-        data: { data }
-      }
+        data: { data },
+      },
     }) => data
   );
 
   const organizations = useSelector(
     ({
       firebase: {
-        profile: { organizations }
-      }
+        profile: { organizations },
+      },
     }) => organizations
   );
 
@@ -53,7 +99,7 @@ const ViewOrganization = () => {
     };
   }, [handle, firebase, firestore, dispatch, organizations]);
 
-  const checkAvailable = data => {
+  const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
 
@@ -187,6 +233,38 @@ const ViewOrganization = () => {
                 </a>
               </p>
             )}
+            {/* {console.log(people)} */}
+            {/* {!followed ? (
+              <button onClick={(e) => addValue(profileData.handle)}>
+                follow
+              </button>
+            ) : (
+              <button onClick={(e) => removeValue(profileData.handle)}>
+                unfollow
+              </button>
+            )} */}
+            {!people ? (
+              <button onClick={(e) => addValue(profileData.handle)}>
+                Follow
+              </button>
+            ) : !people.includes(profileData.handle) ? (
+              <button onClick={(e) => addValue(profileData.handle)}>
+                follow
+              </button>
+            ) : (
+              <button onClick={(e) => removeValue(profileData.handle)}>
+                unfollow
+              </button>
+            )}
+            {/* { people && !people.includes(profileData.handle) ? (
+              <button onClick={(e) => addValue(profileData.handle)}>
+                follow
+              </button>
+            ) : (
+              <button onClick={(e) => removeValue(profileData.handle)}>
+                unfollow
+              </button>
+            )} */}
           </Col>
         </Row>
       )}
