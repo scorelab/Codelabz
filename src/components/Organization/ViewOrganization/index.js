@@ -19,27 +19,26 @@ const ViewOrganization = () => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
-  const [followed, setFollowed] = useState(false);
   const db = firebase.firestore();
   const profileData = useSelector(({ firebase: { profile } }) => profile);
 
   const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = db.collection("cl_org_general").onSnapshot((snap) => {
-      const data = snap.docs.map((doc) => doc.data());
-      console.log(data[0].followers);
-      setPeople(data[0].followers);
-      // console.log(data[0].followers.includes(profileData.handle));
-      if (data[0].followers && data[0].followers.includes(profileData.handle))
-        setFollowed((prev) => !prev);
-    });
+    const unsubscribe = db
+      .collection("cl_org_general")
+      .doc(handle)
+      .onSnapshot((snap) => {
+        // const data = snap.docs.map((doc) => doc.data());
+        const data = snap.data();
+
+        setPeople(data.followers);
+      });
 
     return () => unsubscribe();
   }, []);
 
   const addValue = (value) => {
-    setFollowed((prev) => !prev);
     if (people && people.includes(value)) {
       console.log("already followed");
     } else if (people) {
@@ -58,7 +57,6 @@ const ViewOrganization = () => {
   };
 
   const removeValue = (val) => {
-    setFollowed((prev) => !prev);
     var filtered = people.filter(function (value, index, arr) {
       return value !== val;
     });
@@ -233,16 +231,7 @@ const ViewOrganization = () => {
                 </a>
               </p>
             )}
-            {/* {console.log(people)} */}
-            {/* {!followed ? (
-              <button onClick={(e) => addValue(profileData.handle)}>
-                follow
-              </button>
-            ) : (
-              <button onClick={(e) => removeValue(profileData.handle)}>
-                unfollow
-              </button>
-            )} */}
+
             {!people ? (
               <button onClick={(e) => addValue(profileData.handle)}>
                 Follow
@@ -256,15 +245,6 @@ const ViewOrganization = () => {
                 unfollow
               </button>
             )}
-            {/* { people && !people.includes(profileData.handle) ? (
-              <button onClick={(e) => addValue(profileData.handle)}>
-                follow
-              </button>
-            ) : (
-              <button onClick={(e) => removeValue(profileData.handle)}>
-                unfollow
-              </button>
-            )} */}
           </Col>
         </Row>
       )}
