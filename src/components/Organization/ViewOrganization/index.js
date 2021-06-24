@@ -16,6 +16,7 @@ import { clearOrgData, getOrgData } from "../../../store/actions";
 const ViewOrganization = () => {
   const { handle } = useParams();
   const [people, setPeople] = useState([]);
+  const [orgFollowed, setOrgFollowed] = useState([]);
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
@@ -31,8 +32,20 @@ const ViewOrganization = () => {
       .onSnapshot((snap) => {
         // const data = snap.docs.map((doc) => doc.data());
         const data = snap.data();
-
         setPeople(data.followers);
+      });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("cl_user")
+      .doc(profileData.uid)
+      .onSnapshot((snap) => {
+        // const data = snap.docs.map((doc) => doc.data());
+        const data = snap.data();
+        setOrgFollowed(data.orgFollowed);
       });
 
     return () => unsubscribe();
@@ -47,21 +60,35 @@ const ViewOrganization = () => {
       db.collection("cl_org_general").doc(handle).update({
         followers: arr,
       });
+      var arr2 = [];
+      if (orgFollowed) arr2 = [...orgFollowed];
+
+      arr2.push(handle);
+      db.collection("cl_user").doc(profileData.uid).update({
+        orgFollowed: arr2,
+      });
     } else {
       db.collection("cl_org_general")
-        .doc(handle)
+        .doc(profileData.uid)
         .update({
-          followers: [value],
+          orgFollowed: [handle],
         });
     }
   };
 
   const removeValue = (val) => {
-    var filtered = people.filter(function (value, index, arr) {
+    var filteredFollowers = people.filter(function (value, index, arr) {
       return value !== val;
     });
     db.collection("cl_org_general").doc(handle).update({
-      followers: filtered,
+      followers: filteredFollowers,
+    });
+
+    var Orgfiltered = orgFollowed.filter(function (value, index, arr) {
+      return handle !== value;
+    });
+    db.collection("cl_user").doc(profileData.uid).update({
+      orgFollowed: Orgfiltered,
     });
   };
 
