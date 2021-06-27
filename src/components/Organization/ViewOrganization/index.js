@@ -11,7 +11,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useParams } from "react-router-dom";
-import { clearOrgData, getOrgData } from "../../../store/actions";
+import {
+  clearOrgData,
+  getOrgData,
+  addFollower,
+  removeFollower,
+} from "../../../store/actions";
 
 const ViewOrganization = () => {
   const { handle } = useParams();
@@ -30,7 +35,6 @@ const ViewOrganization = () => {
       .collection("cl_org_general")
       .doc(handle)
       .onSnapshot((snap) => {
-        // const data = snap.docs.map((doc) => doc.data());
         const data = snap.data();
         setPeople(data.followers);
       });
@@ -43,7 +47,6 @@ const ViewOrganization = () => {
       .collection("cl_user")
       .doc(profileData.uid)
       .onSnapshot((snap) => {
-        // const data = snap.docs.map((doc) => doc.data());
         const data = snap.data();
         setOrgFollowed(data.orgFollowed);
       });
@@ -51,45 +54,25 @@ const ViewOrganization = () => {
     return () => unsubscribe();
   }, []);
 
-  const addValue = (value) => {
-    if (people && people.includes(value)) {
-      console.log("already followed");
-    } else if (people) {
-      const arr = [...people];
-      arr.push(value);
-      db.collection("cl_org_general").doc(handle).update({
-        followers: arr,
-      });
-      var arr2 = [];
-      if (orgFollowed) arr2 = [...orgFollowed];
-
-      arr2.push(handle);
-      db.collection("cl_user").doc(profileData.uid).update({
-        orgFollowed: arr2,
-      });
-    } else {
-      db.collection("cl_org_general")
-        .doc(profileData.uid)
-        .update({
-          orgFollowed: [handle],
-        });
-    }
+  const addfollower = (e, people, handle, orgFollowed) => {
+    e.preventDefault();
+    addFollower(
+      profileData.handle,
+      people,
+      handle,
+      orgFollowed,
+      profileData.uid
+    )(firestore, dispatch);
   };
-
-  const removeValue = (val) => {
-    var filteredFollowers = people.filter(function (value, index, arr) {
-      return value !== val;
-    });
-    db.collection("cl_org_general").doc(handle).update({
-      followers: filteredFollowers,
-    });
-
-    var Orgfiltered = orgFollowed.filter(function (value, index, arr) {
-      return handle !== value;
-    });
-    db.collection("cl_user").doc(profileData.uid).update({
-      orgFollowed: Orgfiltered,
-    });
+  const removefollower = (e, val, people, handle, orgFollowed) => {
+    e.preventDefault();
+    removeFollower(
+      val,
+      people,
+      handle,
+      orgFollowed,
+      profileData.uid
+    )(firestore, dispatch);
   };
 
   const loading = useSelector(
@@ -260,15 +243,29 @@ const ViewOrganization = () => {
             )}
 
             {!people ? (
-              <button onClick={(e) => addValue(profileData.handle)}>
-                Follow
+              <button
+                onClick={(e) => addfollower(e, people, handle, orgFollowed)}
+              >
+                follow
               </button>
             ) : !people.includes(profileData.handle) ? (
-              <button onClick={(e) => addValue(profileData.handle)}>
+              <button
+                onClick={(e) => addfollower(e, people, handle, orgFollowed)}
+              >
                 follow
               </button>
             ) : (
-              <button onClick={(e) => removeValue(profileData.handle)}>
+              <button
+                onClick={(e) =>
+                  removefollower(
+                    e,
+                    profileData.handle,
+                    people,
+                    handle,
+                    orgFollowed
+                  )
+                }
+              >
                 unfollow
               </button>
             )}
