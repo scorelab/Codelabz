@@ -8,13 +8,6 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 
 const MyFeed = () => {
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-  });
   return (
     <Box>
       <Grid container>

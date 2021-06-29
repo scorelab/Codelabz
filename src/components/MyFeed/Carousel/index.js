@@ -135,19 +135,8 @@ const Carousel = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-  // if (!Array.isArray(slides) || slides.length <= 0) {
-  //   return null;
-  // }
-
   return (
     <section className={classes.slides}>
-      {/* <button
-        className="left-arrow"
-        onClick={prevSlide}
-        style={{ position: "absolute", left: "0rem" }}
-      >
-        -
-      </button> */}
       <ArrowBackIosIcon
         onClick={prevSlide}
         className={classes.arrow}
@@ -158,12 +147,7 @@ const Carousel = () => {
         className={classes.arrow}
         style={{ position: "absolute", right: "-1rem", fontSize: "2.3rem" }}
       />
-      {/* <button
-        onClick={nextSlide}
-        style={{ position: "absolute", right: "0rem" }}
-      >
-        -
-      </button> */}
+
       {width > 800
         ? launchedOrgs &&
           launchedOrgs.map((org, index) => {
@@ -299,14 +283,6 @@ const Carousel = () => {
                           </Typography>
                         </CardContent>
                       </CardActionArea>
-                      {/* <CardActions>
-                        <Button size="small" color="primary">
-                          Share
-                        </Button>
-                        <Button size="small" color="primary">
-                          Learn More
-                        </Button>
-                      </CardActions> */}
                     </Card>
                   </Link>
                 )}
