@@ -121,7 +121,17 @@ const ProfileInfoCard = () => {
     canvas.height = crop.height * pixelRatio;
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(image, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
   }, [completedCrop]);
 
   return (
@@ -279,11 +289,17 @@ const ProfileInfoCard = () => {
                   </Box>
                 </span>
               </p>
-              <Box mr={12}>{checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}</Box>
+              <Box mr={12}>
+                {checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}
+              </Box>
 
               {checkAvailable(profileData.link_facebook) && (
                 <p>
-                  <a href={"https://www.facebook.com/" + profileData.link_facebook} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={"https://www.facebook.com/" + profileData.link_facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -331,7 +347,11 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.link_linkedin) && (
                 <p>
-                  <a href={"https://www.linkedin.com/in/" + profileData.link_linkedin} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={"https://www.linkedin.com/in/" + profileData.link_linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -363,7 +383,11 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.country) && (
                 <p className="mb-0">
-                  <a href={"https://www.google.com/search?q=" + profileData.country} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={"https://www.google.com/search?q=" + profileData.country}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -382,9 +406,14 @@ const ProfileInfoCard = () => {
         </Grid>
       </Card>
       <Dialog fullWidth maxWidth="md" open={profileEditModalVisible} onClose={!profileEditModalVisible}>
-        <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Edit Profile"}</span>
+        </DialogTitle>
         <DialogContent>
-          <EditProfileDetailsModal profileData={profileData} modelCloseCallback={(e) => setProfileEditModalVisible(e)} />
+          <EditProfileDetailsModal
+            profileData={profileData}
+            modelCloseCallback={(e) => setProfileEditModalVisible(e)}
+          />
         </DialogContent>
       </Dialog>
     </div>

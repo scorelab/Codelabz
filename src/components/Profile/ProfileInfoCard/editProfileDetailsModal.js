@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import countryList from "../../../helpers/countryList";
 import { validateName, validateCountry, validateOrgWebsite, validateIsEmpty } from "../../../helpers/validations";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { updateUserProfile, clearProfileEditError } from "../../../store/actions";
 
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
@@ -16,17 +19,12 @@ import Alert from "@material-ui/lab/Alert";
 import PersonIcon from "@material-ui/icons/Person";
 import PublicIcon from "@material-ui/icons/Public";
 
-import { useDispatch, useSelector } from "react-redux";
-import { useFirebase, useFirestore } from "react-redux-firebase";
-import { updateUserProfile, clearProfileEditError } from "../../../store/actions";
-
 const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const getData = (prop) => (Boolean(prop) ? prop : "");
 
   const [name, setName] = useState(getData(profileData.displayName));
@@ -54,7 +52,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const [githubValidateErrorMessage, setGithubValidateErrorMessage] = useState("");
 
   const children = [];
-
   for (let i = 0; i < countryList.length; i++) {
     children.push(
       <MenuItem key={countryList[i].code} value={countryList[i].name}>
@@ -176,6 +173,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const onChangeTwitter = (twitter) => setTwitter(twitter);
   const onChangeLinkedin = (linkedin) => setLinkedin(linkedin);
   const onChangeGithub = (github) => setGithub(github);
+
   return (
     <>
       {error && (
@@ -188,14 +186,14 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
         </Grid>
       )}
 
-      {/* start */}
       <Divider />
-      <Box m={3}>
+
+      <Box m={2}>
         <TextField
           error={nameValidateError}
-          label="Name"
+          label="Display Name"
           variant="outlined"
-          placeholder="Name"
+          placeholder="Display Name"
           value={name}
           onChange={(event) => onChangeName(event.target.value)}
           helperText={nameValidateError ? nameValidateErrorMessage : null}
@@ -211,22 +209,27 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             ),
           }}
         />
+      </Box>
+
+      <Box m={2}>
         <FormControl variant="outlined" error={countryValidateError} fullWidth>
-          <InputLabel>User Country</InputLabel>
+          <InputLabel>Country</InputLabel>
           <Select
-            label="User Country"
+            label="Country"
             children={children}
             style={{ width: "100%" }}
             value={country}
             onChange={(event) => onChangeCountry(event.target.value)}
           ></Select>
         </FormControl>
+      </Box>
 
+      <Box mt={4} mb={3} m={2}>
         <TextField
           error={websiteValidateError}
-          label="Organization Website"
+          label="Website"
           variant="outlined"
-          placeholder="Organization Website"
+          placeholder="Website"
           value={website}
           onChange={(event) => onChangeOrgWebsite(event.target.value)}
           helperText={websiteValidateError ? websiteValidateErrorMessage : null}
@@ -242,12 +245,15 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             ),
           }}
         />
+      </Box>
+
+      <Box m={2}>
         <TextField
           error={descriptionValidateError}
-          label="description"
+          label="Description"
           multiline
           variant="outlined"
-          placeholder="description"
+          placeholder="Description"
           value={description}
           onChange={(event) => onChangeDescription(event.target.value)}
           helperText={descriptionValidateError ? descriptionValidateErrorMessage : null}
@@ -263,9 +269,12 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             ),
           }}
         />
+      </Box>
+
+      <Box m={2}>
         <TextField
           error={facebookValidateError}
-          label="facebook"
+          label="Facebook"
           variant="outlined"
           placeholder="username"
           value={facebook}
@@ -284,10 +293,12 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             ),
           }}
         />
+      </Box>
 
+      <Box m={2}>
         <TextField
           error={twitterValidateError}
-          label="twitter"
+          label="Twitter"
           variant="outlined"
           value={twitter}
           placeholder="username"
@@ -306,10 +317,12 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             ),
           }}
         />
+      </Box>
 
+      <Box m={2}>
         <TextField
           error={linkedinValidateError}
-          label="linkedin"
+          label="Linkedin"
           variant="outlined"
           value={linkedin}
           placeholder="username"
@@ -328,10 +341,12 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             ),
           }}
         />
+      </Box>
 
+      <Box m={2}>
         <TextField
           error={githubValidateError}
-          label="github"
+          label="Github"
           variant="outlined"
           value={github}
           placeholder="username"
@@ -351,23 +366,43 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           }}
         />
       </Box>
-      <Divider></Divider>
-      {/* end */}
 
-      <Button onClick={closeModal}>Cancel</Button>
-      <Button
-        size="small"
-        fullWidth
-        variant="contained"
-        color="primary"
-        style={{
-          backgroundColor: "#455a64",
-        }}
-        className="auth-form-col"
-        onClick={onSubmit}
-      >
-        {loading ? "Saving..." : "Save"}
-      </Button>
+      <Divider />
+
+      <Grid container direction="row-reverse">
+        <Grid xs={6} md={6} lg={6} item={true}>
+          <Box mt={0} mb={4} m={1}>
+            <Button
+              fullWidth
+              size="small"
+              variant="contained"
+              color="primary"
+              style={{
+                backgroundColor: "SeaGreen",
+              }}
+              onClick={onSubmit}
+            >
+              {loading ? "Saving..." : "Save"}
+            </Button>
+          </Box>
+        </Grid>
+        <Grid xs={6} md={6} lg={6} item={true}>
+          <Box mt={0} mb={4} m={1}>
+            <Button
+              fullWidth
+              size="small"
+              variant="contained"
+              color="secondary"
+              style={{
+                backgroundColor: "Tomato",
+              }}
+              onClick={closeModal}
+            >
+              Close
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
     </>
   );
 };
