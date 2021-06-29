@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Form, Space, Button, Alert, message } from "antd";
+import { Input, Form, Space, Alert, message } from "antd";
 import countryList from "../../../helpers/countryList";
 
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
@@ -120,15 +121,15 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
     });
   }, [form, profileData]);
 
-  const onSubmit = (formData) => {
-    const { displayName, website, link_facebook, link_github, link_linkedin, link_twitter, description, org_country: country } = formData;
+  const onSubmit = () => {
+    console.log(name);
     updateUserProfile({
-      displayName,
+      name,
       website,
-      link_facebook,
-      link_github,
-      link_linkedin,
-      link_twitter,
+      facebook,
+      github,
+      linkedin,
+      twitter,
       description,
       country,
     })(firebase, firestore, dispatch);
@@ -311,88 +312,21 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       </Box>
       <Divider></Divider>
       {/* end */}
-      <Form form={form} onFinish={onSubmit}>
-        <label className="form-label">Name</label>
-        <Form.Item name={"displayName"} rules={orgNameValidation}>
-          <Input prefix={<AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />} placeholder="Name" autoComplete="none" />
-        </Form.Item>
 
-        <label className="form-label">Country</label>
-        <CountryDropdown />
-
-        <label className="form-label">Website</label>
-        <Form.Item name="website" rules={userWebsiteValidation}>
-          <Input prefix={<IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />} placeholder="Website" autoComplete="url" />
-        </Form.Item>
-
-        <label className="form-label">Description</label>
-        <Form.Item name="description" rules={null}>
-          <Input.TextArea placeholder="Provide a description about yourself" autoSize={{ minRows: 4, maxRows: 20 }} />
-        </Form.Item>
-
-        <label className="form-label">Facebook page</label>
-        <Form.Item name="link_facebook" rules={orgSMValidation}>
-          <Input
-            prefix={
-              <>
-                <FacebookFilled className="facebook-color mr-4" /> facebook.com/
-              </>
-            }
-            placeholder="Facebook page handle"
-            autoComplete="none"
-          />
-        </Form.Item>
-
-        <label className="form-label">Twitter account</label>
-        <Form.Item name="link_twitter" rules={orgSMValidation}>
-          <Input
-            prefix={
-              <>
-                <TwitterSquareFilled className="twitter-color mr-4" /> twitter.com/
-              </>
-            }
-            placeholder="Twitter handle (without @)"
-            autoComplete="none"
-          />
-        </Form.Item>
-
-        <label className="form-label">LinkedIn profile</label>
-        <Form.Item name="link_linkedin" rules={orgSMValidation}>
-          <Input
-            prefix={
-              <>
-                <LinkedinFilled className="linkedin-color mr-4" /> linkedin.com/in/
-              </>
-            }
-            placeholder="Linkedin handle"
-            autoComplete="none"
-          />
-        </Form.Item>
-
-        <label className="form-label">GitHub profile</label>
-        <Form.Item name="link_github" rules={orgSMValidation}>
-          <Input
-            prefix={
-              <>
-                <GithubFilled className="github-color mr-4" /> github.com/
-              </>
-            }
-            placeholder="GitHub handle"
-            autoComplete="none"
-          />
-        </Form.Item>
-
-        <Form.Item className="mb-0">
-          <Space style={{ float: "right" }}>
-            <Button key="back" onClick={closeModal}>
-              Cancel
-            </Button>
-            <Button key="submit" type="primary" htmlType="submit" loading={loading}>
-              {loading ? "Saving..." : "Save"}
-            </Button>
-          </Space>
-        </Form.Item>
-      </Form>
+      <Button onClick={closeModal}>Cancel</Button>
+      <Button
+        size="small"
+        fullWidth
+        variant="contained"
+        color="primary"
+        style={{
+          backgroundColor: "#455a64",
+        }}
+        className="auth-form-col"
+        onClick={onSubmit}
+      >
+        {loading ? "Saving..." : "Save"}
+      </Button>
     </>
   );
 };
