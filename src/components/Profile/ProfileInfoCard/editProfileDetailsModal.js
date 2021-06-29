@@ -1,30 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Form, message } from "antd";
 import countryList from "../../../helpers/countryList";
+import { validateName, validateCountry, validateOrgWebsite, validateIsEmpty } from "../../../helpers/validations";
 
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-
 import Select from "@material-ui/core/Select";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Alert from "@material-ui/lab/Alert";
 import PersonIcon from "@material-ui/icons/Person";
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import PublicIcon from "@material-ui/icons/Public";
-import LocationCityIcon from "@material-ui/icons/LocationCity";
-import BusinessIcon from "@material-ui/icons/Business";
-import { TextareaAutosize } from "@material-ui/core";
-import { IeOutlined, AppstoreAddOutlined, FacebookFilled, TwitterSquareFilled, LinkedinFilled, GithubFilled } from "@ant-design/icons";
-import CountryDropdown from "../../../helpers/countryDropdown";
-import { orgNameValidation, orgSMValidation, userWebsiteValidation } from "../../../helpers/validationRules";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { updateUserProfile, clearProfileEditError } from "../../../store/actions";
@@ -33,7 +24,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
-  const [form] = Form.useForm();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -103,22 +93,79 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
 
   useEffect(() => {
     if (loading === false && error === false) {
-      message.success("Changes saved!");
       closeModal();
     }
   }, [closeModal, loading, error]);
 
-  const onSubmit = () => {
-    updateUserProfile({
-      displayName: name,
-      website,
-      link_facebook: facebook,
-      link_github: github,
-      link_linkedin: linkedin,
-      link_twitter: twitter,
+  const validated = () => {
+    const countryValid = validateCountry(country, setCountryValidateError);
+    const orgWebsiteValid = validateOrgWebsite(website, setWebsiteValidateError, setWebsiteValidateErrorMessage);
+    const nameValid = validateName(
+      name,
+      setNameValidateError,
+      setNameValidateErrorMessage,
+      "Please enter your name",
+      "Please enter a real name"
+    );
+    const descriptionValid = validateIsEmpty(
       description,
-      country,
-    })(firebase, firestore, dispatch);
+      setDescriptionValidateError,
+      setDescriptionValidateErrorMessage,
+      "Please enter a description"
+    );
+    const facebookValid = validateIsEmpty(
+      facebook,
+      setFacebookValidateError,
+      setFacebookValidateErrorMessage,
+      "Please enter a facebook username"
+    );
+    const twitterValid = validateIsEmpty(
+      twitter,
+      setTwitterValidateError,
+      setTwitterValidateErrorMessage,
+      "Please enter a twitter username"
+    );
+    const linkedinValid = validateIsEmpty(
+      linkedin,
+      setLinkedinValidateError,
+      setLinkedinValidateErrorMessage,
+      "Please enter a linkedin username"
+    );
+    const githubValid = validateIsEmpty(
+      github,
+      setGithubValidateError,
+      setGithubValidateErrorMessage,
+      "Please enter a github username"
+    );
+    if (
+      nameValid &&
+      countryValid &&
+      orgWebsiteValid &&
+      descriptionValid &&
+      facebookValid &&
+      twitterValid &&
+      githubValid &&
+      linkedinValid
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const onSubmit = () => {
+    if (validated()) {
+      updateUserProfile({
+        displayName: name,
+        website,
+        link_facebook: facebook,
+        link_github: github,
+        link_linkedin: linkedin,
+        link_twitter: twitter,
+        description,
+        country,
+      })(firebase, firestore, dispatch);
+    }
   };
 
   const onChangeName = (name) => setName(name);
@@ -148,7 +195,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           error={nameValidateError}
           label="Name"
           variant="outlined"
-          // placeholder={displayName ? displayName : ""}
+          placeholder="Name"
           value={name}
           onChange={(event) => onChangeName(event.target.value)}
           helperText={nameValidateError ? nameValidateErrorMessage : null}
