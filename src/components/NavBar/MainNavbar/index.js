@@ -49,7 +49,7 @@ function MainNavbar() {
     <Headroom style={{ height: "66px" }}>
       <nav className="navbar">
         <Grid container>
-          <Grid className={classes.navHeader}>
+          <Grid className={classes.navHeader} style={{ width: "100%" }}>
             <div className="logo">
               <h3 style={{ color: "#3AAFA9" }} className="brand-font">
                 <Link to={"/"}>
