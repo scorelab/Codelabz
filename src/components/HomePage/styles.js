@@ -19,15 +19,13 @@ const useStyles = makeStyles((theme) => ({
   },
   sideBody: {
     display: "flex",
-    alignContent: "flex-start",
-    justifyContent: "flex-start",
-    flex: "1",
+    alignContent: "center",
+    justifyContent: "center",
+    width: "100%",
     marginTop: "5rem",
-    maxWidth: "20rem",
     margin: "0 1rem 2rem 1rem",
     height: "100%",
     flexDirection: "column",
-
     [theme.breakpoints.down(750)]: {
       display: "none",
     },
@@ -38,12 +36,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     alignItems: "center",
     direction: "column",
-  },
-  pp: {
-    display: "flex",
-    justifyContent: "center",
-    padding: "5rem",
-    background: "red",
   },
   sort: {
     width: "100%",
@@ -69,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sideCard: {
-    minWidth: "20vw",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

@@ -1,25 +1,25 @@
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import Collapse from '@material-ui/core/Collapse';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import CloseIcon from '@material-ui/icons/Close';
-import LockOutlined from '@material-ui/icons/LockOutlined';
-import MailOutlined from '@material-ui/icons/MailOutlined';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Alert from '@material-ui/lab/Alert';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useFirebase } from 'react-redux-firebase';
-import validator from 'validator';
-import { clearAuthError, signUp } from '../../../store/actions';
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import Collapse from "@material-ui/core/Collapse";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import CloseIcon from "@material-ui/icons/Close";
+import LockOutlined from "@material-ui/icons/LockOutlined";
+import MailOutlined from "@material-ui/icons/MailOutlined";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Alert from "@material-ui/lab/Alert";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase } from "react-redux-firebase";
+import validator from "validator";
+import { clearAuthError, signUp } from "../../../store/actions";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -28,21 +28,21 @@ const SignupForm = () => {
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
   const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
-    ''
+    ""
   );
 
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
   const [
     passwordValidateErrorMessage,
     setPasswordValidateErrorMessage,
-  ] = useState('');
+  ] = useState("");
 
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [
     confirmPasswordValidateError,
@@ -51,7 +51,7 @@ const SignupForm = () => {
   const [
     confirmPasswordValidateErrorMessage,
     setConfirmPasswordValidateErrorMessage,
-  ] = useState('');
+  ] = useState("");
 
   const [agreed, setAgreed] = useState(false);
 
@@ -88,12 +88,12 @@ const SignupForm = () => {
   const validateEmail = () => {
     if (validator.isEmpty(email)) {
       setEmailValidateError(true);
-      setEmailValidateErrorMessage('Please Enter your Email!');
+      setEmailValidateErrorMessage("Please Enter your Email!");
       return false;
     }
     if (!validator.isEmail(email)) {
       setEmailValidateError(true);
-      setEmailValidateErrorMessage('Please enter an valid email!');
+      setEmailValidateErrorMessage("Please enter an valid email!");
       return false;
     }
     return true;
@@ -102,7 +102,7 @@ const SignupForm = () => {
   const validatePassword = () => {
     if (validator.isEmpty(password)) {
       setPasswordValidateError(true);
-      setPasswordValidateErrorMessage('Please enter your password!');
+      setPasswordValidateErrorMessage("Please enter your password!");
       return false;
     }
     return true;
@@ -114,7 +114,7 @@ const SignupForm = () => {
     if (password != confirmPassword) {
       setConfirmPasswordValidateError(true);
       setConfirmPasswordValidateErrorMessage(
-        'The two passwords that you entered does not match!'
+        "The two passwords that you entered does not match!"
       );
       return false;
     }
@@ -123,8 +123,8 @@ const SignupForm = () => {
     return true;
   };
 
-  const onSubmit = async ({ accepted, email, password }) => {
-    setError('');
+  const onSubmit = async () => {
+    setError("");
     if (
       (validateEmail() & validatePassword() && validateConfirmPassword(),
       agreed)
@@ -135,17 +135,17 @@ const SignupForm = () => {
 
   const onFocusEmail = () => {
     setEmailValidateError(false);
-    setEmailValidateErrorMessage('');
+    setEmailValidateErrorMessage("");
   };
 
   const onFocusPassword = () => {
     setPasswordValidateError(false);
-    setPasswordValidateErrorMessage('');
+    setPasswordValidateErrorMessage("");
   };
 
   const onFocusConfirmPassword = () => {
     setConfirmPasswordValidateError(false);
-    setConfirmPasswordValidateErrorMessage('');
+    setConfirmPasswordValidateErrorMessage("");
   };
 
   return (
@@ -211,11 +211,11 @@ const SignupForm = () => {
           autoComplete="email"
           required
           onFocus={onFocusEmail}
-          style={{ marginBottom: '15px' }}
+          style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <MailOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+                <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
               </InputAdornment>
             ),
           }}
@@ -233,12 +233,12 @@ const SignupForm = () => {
           onFocus={onFocusPassword}
           onChange={onChangePassword}
           autoComplete="new-password"
-          type={showPassword ? 'text' : 'password'}
-          style={{ marginBottom: '15px' }}
+          type={showPassword ? "text" : "password"}
+          style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+                <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
               </InputAdornment>
             ),
             endAdornment: (
@@ -268,12 +268,12 @@ const SignupForm = () => {
           value={confirmPassword}
           onFocus={onFocusConfirmPassword}
           onChange={onChangeConfirmPassword}
-          type={showConfirmPassword ? 'text' : 'password'}
-          style={{ marginBottom: '15px' }}
+          type={showConfirmPassword ? "text" : "password"}
+          style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+                <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
               </InputAdornment>
             ),
             endAdornment: (
@@ -304,9 +304,10 @@ const SignupForm = () => {
           variant="contained"
           color="primary"
           fullWidth
+          onClick={onSubmit}
           disabled={loading}
         >
-          {loading ? 'Creating your account...' : 'Create an account'}
+          {loading ? "Creating your account..." : "Create an account"}
         </Button>
       </div>
     </>

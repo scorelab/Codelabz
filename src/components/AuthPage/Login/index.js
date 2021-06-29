@@ -1,46 +1,46 @@
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import LockOutlined from '@material-ui/icons/LockOutlined';
-import MailOutlined from '@material-ui/icons/MailOutlined';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useFirebase } from 'react-redux-firebase';
-import { Link } from 'react-router-dom';
-import validator from 'validator';
-import Divider from '../../../globalComponents/Divider';
-import { clearAuthError, signIn } from '../../../store/actions';
-import SmButtons from '../smButtons';
-import ViewAlerts from './ViewAlerts';
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import LockOutlined from "@material-ui/icons/LockOutlined";
+import MailOutlined from "@material-ui/icons/MailOutlined";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase } from "react-redux-firebase";
+import { Link } from "react-router-dom";
+import validator from "validator";
+import Divider from "../../../globalComponents/Divider";
+import { clearAuthError, signIn } from "../../../store/actions";
+import SmButtons from "../smButtons";
+import ViewAlerts from "./ViewAlerts";
 
 const Login = () => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
   const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
-    ''
+    ""
   );
 
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
   const [
     passwordValidateErrorMessage,
     setPasswordValidateErrorMessage,
-  ] = useState('');
+  ] = useState("");
 
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
@@ -66,12 +66,12 @@ const Login = () => {
   const validateEmail = () => {
     if (validator.isEmpty(email)) {
       setEmailValidateError(true);
-      setEmailValidateErrorMessage('Please Enter your Email!');
+      setEmailValidateErrorMessage("Please Enter your Email!");
       return false;
     }
     if (!validator.isEmail(email)) {
       setEmailValidateError(true);
-      setEmailValidateErrorMessage('Please enter an valid email!');
+      setEmailValidateErrorMessage("Please enter an valid email!");
       return false;
     }
     return true;
@@ -80,14 +80,14 @@ const Login = () => {
   const validatePassword = () => {
     if (validator.isEmpty(password)) {
       setPasswordValidateError(true);
-      setPasswordValidateErrorMessage('Please enter your password!');
+      setPasswordValidateErrorMessage("Please enter your password!");
       return false;
     }
     return true;
   };
 
   const onSubmit = async () => {
-    setError('');
+    setError("");
     if (validateEmail() & validatePassword()) {
       await signIn({ email: email, password: password })(firebase, dispatch);
     }
@@ -95,12 +95,12 @@ const Login = () => {
 
   const onFocusEmail = () => {
     setEmailValidateError(false);
-    setEmailValidateErrorMessage('');
+    setEmailValidateErrorMessage("");
   };
 
   const onFocusPassword = () => {
     setPasswordValidateError(false);
-    setPasswordValidateErrorMessage('');
+    setPasswordValidateErrorMessage("");
   };
 
   return (
@@ -108,7 +108,7 @@ const Login = () => {
       <CardContent>
         <Typography
           variant="h4"
-          style={{ textAlign: 'center', marginBottom: '40px' }}
+          style={{ textAlign: "center", marginBottom: "40px" }}
         >
           Welcome back!
         </Typography>
@@ -127,11 +127,11 @@ const Login = () => {
             autoComplete="email"
             required
             onFocus={onFocusEmail}
-            style={{ marginBottom: '15px' }}
+            style={{ marginBottom: "15px" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <MailOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+                  <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                 </InputAdornment>
               ),
             }}
@@ -149,12 +149,12 @@ const Login = () => {
             onFocus={onFocusPassword}
             onChange={onChangePassword}
             autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
-            style={{ marginBottom: '15px' }}
+            type={showPassword ? "text" : "password"}
+            style={{ marginBottom: "15px" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />
+                  <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                 </InputAdornment>
               ),
               endAdornment: (
@@ -190,7 +190,7 @@ const Login = () => {
               <Link
                 to="/forgotpassword"
                 className="login-form-forgot"
-                style={{ float: 'right' }}
+                style={{ float: "right" }}
               >
                 Forgot password
               </Link>
@@ -204,15 +204,15 @@ const Login = () => {
             onClick={onSubmit}
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Log in'}
+            {loading ? "Logging in..." : "Log in"}
           </Button>
         </div>
         <Divider>or</Divider>
         <SmButtons />
         <Grid container justify="center" alignItems="center" className="mt-24">
-          <Grid sm={12} className="center">
-            New to <span className="brand-font text-bold">CodeLabz</span>?{' '}
-            <Link to={'/signup'}>Create an account</Link>
+          <Grid item={true} sm={12} className="center">
+            New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
+            <Link to={"/signup"}>Create an account</Link>
           </Grid>
         </Grid>
       </CardContent>
