@@ -1,17 +1,17 @@
-import Grid from '@material-ui/core/Grid';
-import React, { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import Fade from 'react-reveal/Fade';
-import { UserIsNotAuthenticated } from '../../auth';
-import ForgotPassword from './ForgotPassword';
-import Login from './Login';
-import SignUp from './SignUp';
+import Grid from "@material-ui/core/Grid";
+import React, { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import Fade from "react-reveal/Fade";
+import { UserIsNotAuthenticated } from "../../auth";
+import ForgotPassword from "./ForgotPassword";
+import Login from "./Login";
+import SignUp from "./SignUp";
 
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
   const [showType, setShowType] = useState(type);
   const isDesktop = useMediaQuery({
-    query: '(min-device-width: 767px)',
+    query: "(min-device-width: 767px)",
   });
 
   useEffect(() => {
@@ -26,23 +26,23 @@ const AuthPage = ({ type }) => {
     <Grid
       container
       alignItems="center"
-      style={{ overflowX: 'hidden' }}
+      style={{ overflowX: "hidden" }}
       justify="center"
       className="row-footer-below auth-margin"
     >
-      <Grid xs={12} sm={12} md={8} lg={5} className="auth-form-col">
+      <Grid item={true} xs={12} sm={12} md={8} lg={5} className="auth-form-col">
         <Fade
-          left={isDesktop ? showType === 'login' : false}
+          left={isDesktop ? showType === "login" : false}
           right={
             isDesktop
-              ? showType === 'signup' || showType === 'forgotpassword'
+              ? showType === "signup" || showType === "forgotpassword"
               : false
           }
           when={show}
         >
-          {showType === 'login' ? (
+          {showType === "login" ? (
             <Login />
-          ) : showType === 'signup' ? (
+          ) : showType === "signup" ? (
             <SignUp />
           ) : (
             <ForgotPassword />
