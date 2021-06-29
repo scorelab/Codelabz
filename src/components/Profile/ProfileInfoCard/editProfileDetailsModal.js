@@ -18,6 +18,11 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Alert from "@material-ui/lab/Alert";
 import PersonIcon from "@material-ui/icons/Person";
 import PublicIcon from "@material-ui/icons/Public";
+import DescriptionIcon from "@material-ui/icons/Description";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const firebase = useFirebase();
@@ -264,7 +269,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PublicIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                <DescriptionIcon style={{ color: "rgba(0,0,0,.25)" }} />
               </InputAdornment>
             ),
           }}
@@ -287,7 +292,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                <FacebookIcon style={{ color: "rgba(0,0,0,.25)" }} />
                 <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>facebook.com/</p>
               </InputAdornment>
             ),
@@ -311,7 +316,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                <TwitterIcon style={{ color: "rgba(0,0,0,.25)" }} />
                 <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>twitter.com/</p>
               </InputAdornment>
             ),
@@ -335,7 +340,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                <LinkedInIcon style={{ color: "rgba(0,0,0,.25)" }} />
                 <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>linkedin.com/in/</p>
               </InputAdornment>
             ),
@@ -359,7 +364,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                <GitHubIcon style={{ color: "rgba(0,0,0,.25)" }} />
                 <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>github.com/</p>
               </InputAdornment>
             ),
