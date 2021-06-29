@@ -327,7 +327,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       <Box m={2}>
         <TextField
           error={linkedinValidateError}
-          label="Linkedin"
+          label="LinkedIn"
           variant="outlined"
           value={linkedin}
           placeholder="username"
@@ -351,7 +351,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       <Box m={2}>
         <TextField
           error={githubValidateError}
-          label="Github"
+          label="GitHub"
           variant="outlined"
           value={github}
           placeholder="username"
