@@ -31,7 +31,9 @@ export const functions = firebase.functions();
 let firebase_messaging;
 if (firebase.messaging.isSupported()) {
   firebase_messaging = firebase.messaging();
-  firebase_messaging.usePublicVapidKey(process.env.REACT_APP_FIREBASE_FCM_VAPID_KEY);
+  firebase_messaging.usePublicVapidKey(
+    process.env.REACT_APP_FIREBASE_FCM_VAPID_KEY
+  );
 }
 
 export const messaging = firebase_messaging;
