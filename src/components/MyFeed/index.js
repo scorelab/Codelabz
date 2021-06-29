@@ -1,10 +1,20 @@
+import { Card, Col, Row } from "antd";
+import React, { useEffect, useState } from "react";
+import BrandName from "../../helpers/brandName";
+import ExploreOrgs from "./ExploreOrgs";
+import Carousel from "./Carousel/index";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
-import ExploreOrgs from "./ExploreOrgs";
 
 const MyFeed = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+  });
   return (
     <Box>
       <Grid container>
@@ -23,12 +33,15 @@ const MyFeed = () => {
             Explore top rated Organizations and find the <b>Codelabz</b> you are
             looking for
           </p>
+          <div item xs={12}>
+            <Carousel />
+          </div>
         </Grid>
 
-        <Grid item xs={12}>
-          {" "}
-          <ExploreOrgs />
-        </Grid>
+        {/* <Grid item xs={12} > */}
+        {/* {" "} */}
+        {/* <ExploreOrgs /> */}
+        {/* </Grid> */}
       </Grid>
     </Box>
   );
