@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Form, Space, Alert, message } from "antd";
+import { Form, message } from "antd";
 import countryList from "../../../helpers/countryList";
 
 import Button from "@material-ui/core/Button";
@@ -15,7 +15,7 @@ import Select from "@material-ui/core/Select";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
-
+import Alert from "@material-ui/lab/Alert";
 import PersonIcon from "@material-ui/icons/Person";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import PublicIcon from "@material-ui/icons/Public";
@@ -108,19 +108,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
     }
   }, [closeModal, loading, error]);
 
-  useEffect(() => {
-    form.setFieldsValue({
-      displayName: getData(profileData.displayName),
-      website: getData(profileData.website),
-      link_facebook: getData(profileData.link_facebook),
-      link_github: getData(profileData.link_github),
-      link_linkedin: getData(profileData.link_linkedin),
-      link_twitter: getData(profileData.link_twitter),
-      description: getData(profileData.description),
-      org_country: getData(profileData.country),
-    });
-  }, [form, profileData]);
-
   const onSubmit = () => {
     updateUserProfile({
       displayName: name,
@@ -144,7 +131,15 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const onChangeGithub = (github) => setGithub(github);
   return (
     <>
-      {error && <Alert message={""} description={error} type="error" closable className="mb-24" />}
+      {error && (
+        <Grid container>
+          <Grid xs={12} className="col-pad-24 pr-12 pb-0">
+            <Alert variant="outlined" severity="error">
+              {error}
+            </Alert>
+          </Grid>
+        </Grid>
+      )}
 
       {/* start */}
       <Divider />
