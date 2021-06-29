@@ -119,25 +119,25 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       facebook,
       setFacebookValidateError,
       setFacebookValidateErrorMessage,
-      "Please enter a facebook username"
+      "Please enter a Facebook username"
     );
     const twitterValid = validateIsEmpty(
       twitter,
       setTwitterValidateError,
       setTwitterValidateErrorMessage,
-      "Please enter a twitter username"
+      "Please enter a Twitter username"
     );
     const linkedinValid = validateIsEmpty(
       linkedin,
       setLinkedinValidateError,
       setLinkedinValidateErrorMessage,
-      "Please enter a linkedin username"
+      "Please enter a LinkedIn username"
     );
     const githubValid = validateIsEmpty(
       github,
       setGithubValidateError,
       setGithubValidateErrorMessage,
-      "Please enter a github username"
+      "Please enter a GitHub username"
     );
     if (
       nameValid &&
