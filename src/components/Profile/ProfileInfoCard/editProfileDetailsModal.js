@@ -122,14 +122,13 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   }, [form, profileData]);
 
   const onSubmit = () => {
-    console.log(name);
     updateUserProfile({
-      name,
+      displayName: name,
       website,
-      facebook,
-      github,
-      linkedin,
-      twitter,
+      link_facebook: facebook,
+      link_github: github,
+      link_linkedin: linkedin,
+      link_twitter: twitter,
       description,
       country,
     })(firebase, firestore, dispatch);
