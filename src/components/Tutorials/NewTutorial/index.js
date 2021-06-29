@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Form, Input, Modal, Space, Select, Avatar } from "antd";
 import {
   tutorialTitleNameValidation,
   tutorialOwnerValidation,
@@ -10,6 +9,13 @@ import { avatarName } from "../../../helpers/avatarName";
 import { createTutorial } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Alert from "@material-ui/lab/Alert";
+import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select/Select";
+import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import Avatar from "@material-ui/core/Avatar";
+import Modal from "@material-ui/core/Modal";
 
 const NewTutorial = ({ viewModal, viewCallback, active }) => {
   const firebase = useFirebase();
@@ -19,7 +25,11 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [form] = Form.useForm();
+  const [formValue, setformValue] = useState({
+    title: "",
+    summary: "",
+    owner: "",
+  });
 
   const loadingProp = useSelector(
     ({
@@ -84,9 +94,14 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
           if (org.permissions.includes(3) || org.permissions.includes(2)) {
             return (
               <Select.Option value={org.org_handle} key={i}>
-                <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
+                <Avatar
+                  src={org.org_image}
+                  size="small"
+                  className="mr-8 ml-0"
+                  style={{ size: "1rem" }}
+                >
                   {avatarName(org.org_name)}
-                </Avatar>{" "}
+                </Avatar>
                 {org.org_name}
               </Select.Option>
             );
@@ -96,106 +111,126 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
         })
       : null;
 
+  const list = [];
+  orgList && orgList.map((org) => list.push(org.props.value));
+
   useEffect(() => {
     setVisible(viewModal);
   }, [viewModal]);
 
   const onSubmit = (formData) => {
+    formData.preventDefault();
     const tutorialData = {
-      ...formData,
+      ...formValue,
       created_by: userHandle,
-      is_org: userHandle !== formData.owner,
+      is_org: userHandle !== formValue.owner,
     };
+    console.log(tutorialData);
     createTutorial(tutorialData)(firebase, firestore, dispatch, history);
   };
 
+  const onOwnerChange = (e) => {
+    console.log(e.target.value);
+    setformValue((prev) => ({
+      ...prev,
+      owner: e.target.value,
+    }));
+  };
   const handleCancel = () => {
-    form.resetFields();
     setVisible(false);
   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const onOwnerChange = (value) => {
-    form.setFieldsValue({
-      owner: value,
-    });
+    setformValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-
   return (
     <Modal
-      title={`Add New Tutorial`}
-      visible={visible}
-      onCancel={() => viewCallback()}
-      onOk={() => viewCallback()}
-      footer={false}
-      destroyOnClose={true}
-      maskClosable={false}
-      forceRender={true}
+      open={visible}
+      onClose={handleCancel}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
-      {error && (
-        <Alert
-          message={""}
-          description={"Tutorial Creation Failed"}
-          type="error"
-          closable
-          className="mb-24"
-        />
-      )}
-      <Form
-        form={form}
-        onFinish={onSubmit}
-        initialValues={{ owner: active || userHandle }}
+      <div
+        style={{
+          height: "auto",
+          width: "auto",
+          background: "white",
+          padding: "2rem",
+          maxWidth: "80%",
+        }}
       >
-        <Form.Item name={"title"} rules={tutorialTitleNameValidation}>
-          <Input
+        {error && (
+          <Alert message={""} type="error" closable="true" className="mb-24">
+            description={"Tutorial Creation Failed"}/
+          </Alert>
+        )}
+        <form>
+          <TextField
             prefix={
               <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
             }
             placeholder="Title of the Tutorial"
             autoComplete="title"
+            name="title"
+            variant="outlined"
+            fullWidth
+            style={{ marginBottom: "2rem" }}
+            onChange={(e) => handleChange(e)}
           />
-        </Form.Item>
 
-        <Form.Item name={"summary"} rules={tutorialTitleNameValidation}>
-          <Input
+          <TextField
             prefix={
               <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
             }
+            fullWidth
+            variant="outlined"
+            name="summary"
             placeholder="Summary of the Tutorial"
             autoComplete="summary"
+            onChange={(e) => handleChange(e)}
+            style={{ marginBottom: "2rem" }}
           />
-        </Form.Item>
-
-        <Form.Item name={"owner"} rules={tutorialOwnerValidation}>
           <Select
-            placeholder="Select the owner of the tutorial"
             onChange={onOwnerChange}
+            fullWidth
+            style={{ marginBottom: "2rem" }}
+            value={formValue.owner}
           >
-            <Select.Option value={userHandle}>
-              <Avatar src={photoURL} size="small" className="mr-8 ml-0">
-                {avatarName(displayName)}
-              </Avatar>{" "}
-              {displayName}
-            </Select.Option>
-            {orgList}
+            <MenuItem value={userHandle}>{displayName}</MenuItem>
+            {list?.map((item) => {
+              return <MenuItem value={item}>{item}</MenuItem>;
+            })}
           </Select>
-        </Form.Item>
 
-        <Form.Item className="mb-0">
-          <Space style={{ float: "right" }}>
-            <Button key="back" onClick={handleCancel}>
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              htmlType="submit"
-              loading={loading}
-            >
-              {loading ? "Creating..." : "Create"}
-            </Button>
-          </Space>
-        </Form.Item>
-      </Form>
+          <div className="mb-0">
+            <div style={{ float: "right", marginTop: "-1rem" }}>
+              <Button key="back" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button
+                key="submit"
+                type="primary"
+                variant="contained"
+                color="primary"
+                htmlType="submit"
+                loading={loading}
+                onClick={(e) => onSubmit(e)}
+              >
+                {loading ? "Creating..." : "Create"}
+              </Button>
+            </div>
+          </div>
+        </form>
+      </div>
     </Modal>
   );
 };
