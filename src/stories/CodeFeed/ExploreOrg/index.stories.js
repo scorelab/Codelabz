@@ -23,4 +23,10 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  cardHeight: 450,
+  cardWidth: 345,
+  mediaHeight: 320,
+  mediaWidth: 320,
+  cardColor: "white",
+};
