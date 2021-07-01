@@ -23,10 +23,11 @@ import { clearAuthError, signIn } from "../../../store/actions";
 import SmButtons from "../smButtons";
 import ViewAlerts from "./ViewAlerts";
 import { makeStyles } from "@material-ui/core/styles";
+import LoginImg from "../../../assets/images/login.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: "#f2f2f2",
+    background: "#E1DDE3",
     height: "95vh",
     width: "100vw",
     display: "flex",
@@ -39,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
   loginLeft: {
     flex: "2.2",
-    background: "red",
     [theme.breakpoints.down(750)]: {
       flex: "0",
     },
@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
   },
   rootChildrenLeft: {
     flex: "1.4",
+    border: "2px solid black",
+    boxShadow: "5px 5px 10px gray",
+    background: "#759F9E",
   },
   rootChildrenRight: {
     flex: "1",
@@ -157,7 +160,13 @@ const Login = () => {
         }}
         className={classes.rootChildrenLeft}
       >
-        <Grid className={classes.loginLeft}></Grid>
+        <Grid className={classes.loginLeft}>
+          <img
+            src={LoginImg}
+            style={{ height: "auto", width: "auto", marginTop: "5rem" }}
+            alt="login"
+          />
+        </Grid>
 
         <Card raised className={classes.card} className={classes.loginRight}>
           <CardContent>
