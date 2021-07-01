@@ -26,11 +26,11 @@ const AuthPage = ({ type }) => {
     <Grid
       container
       alignItems="center"
-      style={{ overflowX: "hidden" }}
+      style={{ overflowX: "hidden", background: "pink" }}
       justify="center"
       className="row-footer-below auth-margin"
     >
-      <Grid item={true} xs={12} sm={12} md={8} lg={5} className="auth-form-col">
+      <Grid item={true}>
         <Fade
           left={isDesktop ? showType === "login" : false}
           right={

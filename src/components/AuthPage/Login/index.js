@@ -22,12 +22,56 @@ import Divider from "../../../globalComponents/Divider";
 import { clearAuthError, signIn } from "../../../store/actions";
 import SmButtons from "../smButtons";
 import ViewAlerts from "./ViewAlerts";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    background: "#f2f2f2",
+    height: "95vh",
+    width: "100vw",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexFlow: "row",
+  },
+  card: {
+    boxShadow: "none",
+  },
+  loginLeft: {
+    flex: "2.2",
+    background: "red",
+    [theme.breakpoints.down(750)]: {
+      flex: "0",
+    },
+  },
+  loginRight: {
+    flex: "1.8",
+    boxShadow: "none",
+    [theme.breakpoints.down(750)]: {
+      flex: "1",
+    },
+  },
+  rootChildrenLeft: {
+    flex: "1.4",
+  },
+  rootChildrenRight: {
+    flex: "1",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexFlow: "column",
+    [theme.breakpoints.down(750)]: {
+      flex: "0",
+      display: "none",
+    },
+  },
+}));
 
 const Login = () => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const classes = useStyles();
   const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
   const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
@@ -104,119 +148,156 @@ const Login = () => {
   };
 
   return (
-    <Card className="p-24 m-24" raised>
-      <CardContent>
-        <Typography
-          variant="h4"
-          style={{ textAlign: "center", marginBottom: "40px" }}
-        >
-          Welcome back!
-        </Typography>
-        <ViewAlerts error={error} email={email} />
-        <div>
-          <TextField
-            error={emailValidateError}
-            label="Email"
-            variant="outlined"
-            placeholder="mail@codelabz.com"
-            value={email}
-            onChange={onChangeEmail}
-            helperText={emailValidateError ? emailValidateErrorMessage : null}
-            error={emailValidateError}
-            fullWidth
-            autoComplete="email"
-            required
-            onFocus={onFocusEmail}
-            style={{ marginBottom: "15px" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            helperText={
-              passwordValidateError ? passwordValidateErrorMessage : null
-            }
-            error={passwordValidateError}
-            fullWidth
-            required
-            value={password}
-            onFocus={onFocusPassword}
-            onChange={onChangePassword}
-            autoComplete="current-password"
-            type={showPassword ? "text" : "password"}
-            style={{ marginBottom: "15px" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Grid container alignItems="center" justify="space-between">
-            <Grid>
-              <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      // checked={state.checkedB}
-                      // onChange={handleChange}
-                      name="remember"
-                      color="primary"
-                    />
-                  }
-                  label="Remember me"
-                />
-              </FormGroup>
-            </Grid>
-            <Grid>
-              <Link
-                to="/forgotpassword"
-                className="login-form-forgot"
-                style={{ float: "right" }}
-              >
-                Forgot password
-              </Link>
-            </Grid>
-          </Grid>
+    <Grid container className={classes.root}>
+      <Grid
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignContent: "left",
+        }}
+        className={classes.rootChildrenLeft}
+      >
+        <Grid className={classes.loginLeft}></Grid>
 
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={onSubmit}
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Log in"}
-          </Button>
-        </div>
-        <Divider>or</Divider>
-        <SmButtons />
-        <Grid container justify="center" alignItems="center" className="mt-24">
-          <Grid item={true} sm={12} className="center">
-            New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
-            <Link to={"/signup"}>Create an account</Link>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+        <Card raised className={classes.card} className={classes.loginRight}>
+          <CardContent>
+            <Typography
+              variant="h4"
+              style={{ textAlign: "center", marginBottom: "40px" }}
+            >
+              Welcome back!
+            </Typography>
+            <ViewAlerts error={error} email={email} />
+            <div>
+              <TextField
+                error={emailValidateError}
+                label="Email"
+                variant="outlined"
+                placeholder="mail@codelabz.com"
+                value={email}
+                onChange={onChangeEmail}
+                helperText={
+                  emailValidateError ? emailValidateErrorMessage : null
+                }
+                error={emailValidateError}
+                fullWidth
+                autoComplete="email"
+                required
+                onFocus={onFocusEmail}
+                style={{ marginBottom: "15px" }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                label="Password"
+                variant="outlined"
+                helperText={
+                  passwordValidateError ? passwordValidateErrorMessage : null
+                }
+                error={passwordValidateError}
+                fullWidth
+                required
+                value={password}
+                onFocus={onFocusPassword}
+                onChange={onChangePassword}
+                autoComplete="current-password"
+                type={showPassword ? "text" : "password"}
+                style={{ marginBottom: "15px" }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Grid container alignItems="center" justify="space-between">
+                <Grid>
+                  <FormGroup row>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          // checked={state.checkedB}
+                          // onChange={handleChange}
+                          name="remember"
+                          color="primary"
+                        />
+                      }
+                      label="Remember me"
+                    />
+                  </FormGroup>
+                </Grid>
+                <Grid>
+                  <Link
+                    to="/forgotpassword"
+                    className="login-form-forgot"
+                    style={{ float: "right" }}
+                  >
+                    Forgot password
+                  </Link>
+                </Grid>
+              </Grid>
+
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={onSubmit}
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Log in"}
+              </Button>
+            </div>
+            <Divider>or</Divider>
+            <SmButtons />
+            <Grid
+              container
+              justify="center"
+              alignItems="center"
+              className="mt-24"
+            >
+              <Grid item={true} sm={12} className="center">
+                New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
+                <Link to={"/signup"}>Create an account</Link>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid className={classes.rootChildrenRight}>
+        <Typography variant="h3" style={{ marginBottom: "2rem" }}>
+          Welcome To <br />
+          Your Journey
+        </Typography>
+        <Typography variant="body" style={{ maxWidth: "30rem" }}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </Typography>
+      </Grid>
+    </Grid>
   );
 };
 
