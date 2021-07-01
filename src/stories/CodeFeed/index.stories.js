@@ -4,8 +4,16 @@ import CodeFeed from "../../components/MyFeed/index";
 import ProviderWrapper from "../../helpers/providerWrapper";
 
 export default {
-  title: "CodeFeed",
+  title: "Organization/CodeFeed",
   component: CodeFeed,
+  argTypes: {
+    backgroundcolor: {
+      control: "color",
+    },
+    textcolor: {
+      control: "color",
+    },
+  },
 };
 
 const Template = (args) => (
@@ -18,12 +26,8 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 
-Default.args = {};
-
-// export const dashboard = () => (
-//   <ProviderWrapper>
-//     <MemoryRouter>
-//       <CodeFeed />
-//     </MemoryRouter>
-//   </ProviderWrapper>
-// );
+Default.args = {
+  heading: "Explore Organization",
+  title:
+    "Explore top rated Organizations and find the Codelabz you are looking for",
+};

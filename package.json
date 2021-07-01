@@ -20,6 +20,7 @@
     "firebase": "^8.6.3",
     "history": "^4.10.1",
     "lodash": "^4.17.20",
+    "prop-types": "^15.7.2",
     "query-string": "^6.13.1",
     "rc-color-picker": "^1.2.6",
     "react": "^16.13.1",
