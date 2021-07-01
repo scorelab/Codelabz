@@ -26,18 +26,18 @@ const AuthPage = ({ type }) => {
     <Grid
       container
       alignItems="center"
-      style={{ overflowX: "hidden", background: "pink" }}
+      style={{ overflowX: "hidden" }}
       justify="center"
       className="row-footer-below auth-margin"
     >
       <Grid item={true}>
         <Fade
-          left={isDesktop ? showType === "login" : false}
-          right={
-            isDesktop
-              ? showType === "signup" || showType === "forgotpassword"
-              : false
-          }
+          // left={isDesktop ? showType === "login" : false}
+          // right={
+          //   isDesktop
+          //     ? showType === "signup" || showType === "forgotpassword"
+          //     : false
+          // }
           when={show}
         >
           {showType === "login" ? (

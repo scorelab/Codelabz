@@ -56,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid black",
     boxShadow: "5px 5px 10px gray",
     background: "#759F9E",
+    animation: "$myEffectFromRight 1900ms",
+    zIndex: "2",
   },
   rootChildrenRight: {
     flex: "1",
@@ -63,9 +65,30 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     flexFlow: "column",
+    animation: "$myEffectFromLeft 1500ms",
     [theme.breakpoints.down(750)]: {
       flex: "0",
       display: "none",
+    },
+  },
+  "@keyframes myEffectFromRight": {
+    "0%": {
+      opacity: 1,
+      transform: "scale(.7,.7) translate(200vw) ",
+    },
+    "100%": {
+      opacity: 1,
+      transform: "scale(1,1) rotateY(0) translate(0vw)",
+    },
+  },
+  "@keyframes myEffectFromLeft": {
+    "0%": {
+      opacity: 1,
+      transform: "scale(.7,.7) translate(-100vw) ",
+    },
+    "100%": {
+      opacity: 1,
+      transform: "scale(1,1) rotateY(0) translate(0vw)",
     },
   },
 }));
@@ -158,7 +181,7 @@ const Login = () => {
           justifyContent: "flex-start",
           alignContent: "left",
         }}
-        className={classes.rootChildrenLeft}
+        className={`${classes.rootChildrenLeft}`}
       >
         <Grid className={classes.loginLeft}>
           <img
@@ -168,7 +191,11 @@ const Login = () => {
           />
         </Grid>
 
-        <Card raised className={classes.card} className={classes.loginRight}>
+        <Card
+          raised
+          className={`${classes.card} ${classes.loginRight}  `}
+          // className=
+        >
           <CardContent>
             <Typography
               variant="h4"
