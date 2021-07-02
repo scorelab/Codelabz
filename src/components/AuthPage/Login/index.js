@@ -27,7 +27,7 @@ import LoginImg from "../../../assets/images/login.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: "#E1DDE3",
+    background: "#ECEAEB",
     height: "95vh",
     width: "100vw",
     display: "flex",
