@@ -3,6 +3,7 @@ import noImageAvailable from "../../../assets/images/no-image-available.svg";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
@@ -16,7 +17,12 @@ import FlagIcon from "@material-ui/icons/Flag";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useParams } from "react-router-dom";
-import { clearOrgData, getOrgData } from "../../../store/actions";
+import {
+  clearOrgData,
+  getOrgData,
+  addFollower,
+  removeFollower,
+} from "../../../store/actions";
 
 const theme = createMuiTheme({
   shadows: ["none"],
@@ -28,11 +34,60 @@ const theme = createMuiTheme({
 });
 const ViewOrganization = () => {
   const { handle } = useParams();
+  const [people, setPeople] = useState([]);
+  const [orgFollowed, setOrgFollowed] = useState([]);
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
+  const db = firebase.firestore();
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
 
   const [imageLoading, setImageLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("cl_org_general")
+      .doc(handle)
+      .onSnapshot((snap) => {
+        const data = snap.data();
+        setPeople(data.followers);
+      });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("cl_user")
+      .doc(profileData.uid)
+      .onSnapshot((snap) => {
+        const data = snap.data();
+        setOrgFollowed(data.orgFollowed);
+      });
+
+    return () => unsubscribe();
+  }, []);
+
+  const addfollower = (e, people, handle, orgFollowed) => {
+    e.preventDefault();
+    addFollower(
+      profileData.handle,
+      people,
+      handle,
+      orgFollowed,
+      profileData.uid
+    )(firestore, dispatch);
+  };
+  const removefollower = (e, val, people, handle, orgFollowed) => {
+    e.preventDefault();
+    removeFollower(
+      val,
+      people,
+      handle,
+      orgFollowed,
+      profileData.uid
+    )(firestore, dispatch);
+  };
 
   const loading = useSelector(
     ({
@@ -280,6 +335,45 @@ const ViewOrganization = () => {
                               className="website-color"
                             />{" "}
                             {currentOrgData.org_country}
+                          </div>
+                          <div>
+                            {!people ? (
+                              <Button
+                                variant="contained"
+                                style={{ marginTop: "1rem" }}
+                                onClick={(e) =>
+                                  addfollower(e, people, handle, orgFollowed)
+                                }
+                              >
+                                follow
+                              </Button>
+                            ) : !people.includes(profileData.handle) ? (
+                              <Button
+                                variant="contained"
+                                style={{ marginTop: "1rem" }}
+                                onClick={(e) =>
+                                  addfollower(e, people, handle, orgFollowed)
+                                }
+                              >
+                                follow
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={(e) =>
+                                  removefollower(
+                                    e,
+                                    profileData.handle,
+                                    people,
+                                    handle,
+                                    orgFollowed
+                                  )
+                                }
+                                variant="contained"
+                                style={{ marginTop: "1rem" }}
+                              >
+                                unfollow
+                              </Button>
+                            )}
                           </div>
                         </a>
                       </p>
