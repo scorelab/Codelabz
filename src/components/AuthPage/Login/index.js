@@ -22,7 +22,6 @@ import Divider from "../../../globalComponents/Divider";
 import { clearAuthError, signIn } from "../../../store/actions";
 import SmButtons from "../smButton/smButtons";
 import ViewAlerts from "./ViewAlerts";
-import LoginImg from "../../../assets/images/login.svg";
 import useStyles from "./styles";
 
 const Login = () => {
