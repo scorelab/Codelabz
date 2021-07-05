@@ -31,15 +31,7 @@ const AuthPage = ({ type }) => {
       className="row-footer-below auth-margin"
     >
       <Grid item={true}>
-        <Fade
-          // left={isDesktop ? showType === "login" : false}
-          // right={
-          //   isDesktop
-          //     ? showType === "signup" || showType === "forgotpassword"
-          //     : false
-          // }
-          when={show}
-        >
+        <Fade when={show}>
           {showType === "login" ? (
             <Login />
           ) : showType === "signup" ? (
