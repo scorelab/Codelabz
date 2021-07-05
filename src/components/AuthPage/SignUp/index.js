@@ -7,10 +7,12 @@ import { Link } from "react-router-dom";
 import Divider from "../../../globalComponents/Divider";
 import SmButtons from "../smButton/smButtons";
 import SignupForm from "./signupForm";
+import useStyles from "./styles";
 
 const SignUp = () => {
+  const classes = useStyles();
   return (
-    <Card className="p-24 m-24" raised>
+    <Card raised className={`${classes.card}   `}>
       <CardContent>
         <Typography
           variant="h4"

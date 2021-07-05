@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import validator from "validator";
 import { clearAuthError, signUp } from "../../../store/actions";
+import Card from "@material-ui/core/Card";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
@@ -197,7 +198,7 @@ const SignupForm = () => {
         </Collapse>
       )}
 
-      <div>
+      <Card>
         <TextField
           error={emailValidateError}
           label="Email"
@@ -309,7 +310,7 @@ const SignupForm = () => {
         >
           {loading ? "Creating your account..." : "Create an account"}
         </Button>
-      </div>
+      </Card>
     </>
   );
 };

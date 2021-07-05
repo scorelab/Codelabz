@@ -106,147 +106,111 @@ const Login = () => {
   };
 
   return (
-    <Grid container className={classes.root}>
-      <Grid className={`${classes.rootChildrenLeft}`}>
-        <Grid className={classes.loginLeft}>
-          <img
-            src={LoginImg}
-            style={{ height: "auto", width: "auto", marginTop: "5rem" }}
-            alt="login"
+    <Card raised className={`${classes.card}   `}>
+      <CardContent>
+        <Typography
+          variant="h4"
+          style={{ textAlign: "center", marginBottom: "40px" }}
+        >
+          Welcome back!
+        </Typography>
+        <ViewAlerts error={error} email={email} />
+        <div>
+          <TextField
+            error={emailValidateError}
+            label="Email"
+            variant="outlined"
+            placeholder="mail@codelabz.com"
+            value={email}
+            onChange={onChangeEmail}
+            helperText={emailValidateError ? emailValidateErrorMessage : null}
+            fullWidth
+            autoComplete="email"
+            required
+            onFocus={onFocusEmail}
+            style={{ marginBottom: "15px" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                </InputAdornment>
+              ),
+            }}
           />
-        </Grid>
-
-        <Card raised className={`${classes.card} ${classes.loginRight}  `}>
-          <CardContent>
-            <Typography
-              variant="h4"
-              style={{ textAlign: "center", marginBottom: "40px" }}
-            >
-              Welcome back!
-            </Typography>
-            <ViewAlerts error={error} email={email} />
-            <div>
-              <TextField
-                error={emailValidateError}
-                label="Email"
-                variant="outlined"
-                placeholder="mail@codelabz.com"
-                value={email}
-                onChange={onChangeEmail}
-                helperText={
-                  emailValidateError ? emailValidateErrorMessage : null
-                }
-                fullWidth
-                autoComplete="email"
-                required
-                onFocus={onFocusEmail}
-                style={{ marginBottom: "15px" }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <TextField
-                label="Password"
-                variant="outlined"
-                helperText={
-                  passwordValidateError ? passwordValidateErrorMessage : null
-                }
-                error={passwordValidateError}
-                fullWidth
-                required
-                value={password}
-                onFocus={onFocusPassword}
-                onChange={onChangePassword}
-                autoComplete="current-password"
-                type={showPassword ? "text" : "password"}
-                style={{ marginBottom: "15px" }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Grid container alignItems="center" justify="space-between">
-                <Grid>
-                  <FormGroup row>
-                    <FormControlLabel
-                      control={<Checkbox name="remember" color="primary" />}
-                      label="Remember me"
-                    />
-                  </FormGroup>
-                </Grid>
-                <Grid>
-                  <Link
-                    to="/forgotpassword"
-                    className="login-form-forgot"
-                    style={{ float: "right" }}
+          <TextField
+            label="Password"
+            variant="outlined"
+            helperText={
+              passwordValidateError ? passwordValidateErrorMessage : null
+            }
+            error={passwordValidateError}
+            fullWidth
+            required
+            value={password}
+            onFocus={onFocusPassword}
+            onChange={onChangePassword}
+            autoComplete="current-password"
+            type={showPassword ? "text" : "password"}
+            style={{ marginBottom: "15px" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
                   >
-                    Forgot password
-                  </Link>
-                </Grid>
-              </Grid>
-
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={onSubmit}
-                disabled={loading}
-              >
-                {loading ? "Logging in..." : "Log in"}
-              </Button>
-            </div>
-            <Divider>or</Divider>
-            <SmButtons />
-            <Grid
-              container
-              justify="center"
-              alignItems="center"
-              className="mt-24"
-            >
-              <Grid item={true} sm={12} className="center">
-                New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
-                <Link to={"/signup"}>Create an account</Link>
-              </Grid>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Grid container alignItems="center" justify="space-between">
+            <Grid>
+              <FormGroup row>
+                <FormControlLabel
+                  control={<Checkbox name="remember" color="primary" />}
+                  label="Remember me"
+                />
+              </FormGroup>
             </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid className={classes.rootChildrenRight}>
-        <Typography variant="h3" style={{ marginBottom: "2rem" }}>
-          Welcome To <br />
-          Your Journey
-        </Typography>
-        <Typography variant="body" style={{ maxWidth: "30rem" }}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Typography>
-      </Grid>
-    </Grid>
+            <Grid>
+              <Link
+                to="/forgotpassword"
+                className="login-form-forgot"
+                style={{ float: "right" }}
+              >
+                Forgot password
+              </Link>
+            </Grid>
+          </Grid>
+
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={onSubmit}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Log in"}
+          </Button>
+        </div>
+        <Divider>or</Divider>
+        <SmButtons />
+        <Grid container justify="center" alignItems="center" className="mt-24">
+          <Grid item={true} sm={12} className="center">
+            New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
+            <Link to={"/signup"}>Create an account</Link>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 };
 
