@@ -2,7 +2,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    border: "2px solid gray",
+    // boxShadow: "none",
+    // border: "1px solid gray",
     [theme.breakpoints.down(750)]: {
       minWidth: "90vw",
       border: "none",

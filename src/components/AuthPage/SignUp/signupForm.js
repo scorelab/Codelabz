@@ -212,7 +212,7 @@ const SignupForm = () => {
           autoComplete="email"
           required
           onFocus={onFocusEmail}
-          style={{ marginBottom: "15px" }}
+          style={{ marginBottom: "15px", marginTop: "12px" }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
