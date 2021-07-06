@@ -198,7 +198,7 @@ const SignupForm = () => {
         </Collapse>
       )}
 
-      <Card>
+      <Card style={{ boxShadow: "none" }}>
         <TextField
           error={emailValidateError}
           label="Email"
