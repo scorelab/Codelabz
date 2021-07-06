@@ -1,21 +1,19 @@
 import React from "react";
-import { Row, Col, Layout } from "antd";
 import ProfileInfoCard from "./ProfileInfoCard";
-const { Content } = Layout;
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 const Profile = () => {
   return (
-    <Layout className="row-footer-below">
-      <Layout>
-        <Content style={{ backgroundColor: "white" }}>
-          <Row>
-            <Col xs={24} sm={24} md={24} className="col-pad-24-s">
-              <ProfileInfoCard />
-            </Col>
-          </Row>
-        </Content>
-      </Layout>
-    </Layout>
+    <Box mt={4} mb={2} m={4} className="row-footer-below">
+      <Box style={{ backgroundColor: "white" }}>
+        <Grid container>
+          <Grid xs={12} md={12} lg={12} item={true}>
+            <ProfileInfoCard />
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 

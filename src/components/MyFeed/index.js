@@ -1,37 +1,36 @@
-import { Card, Col, Row } from 'antd';
-import React from 'react';
-import BrandName from '../../helpers/brandName';
-import ExploreOrgs from './ExploreOrgs';
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
+import ExploreOrgs from "./ExploreOrgs";
 
 const MyFeed = () => {
   return (
-    <Card bordered={false}>
-      <Row justify="center">
-        <Col xs={24} md={8} />
-        <Col xs={24} md={8}>
-          <h2 style={{ textAlign: 'center' }}>
-            <BrandName /> My Feed
-          </h2>
-        </Col>
-        <Col xs={24} md={8} />
-      </Row>
-      <Col>
-        <h2>Explore Organizations</h2>
-        <p>
-          Explore top rated Organizations and find the <b>Codelabz</b> you are
-          looking for;
-        </p>
-      </Col>
-      <ExploreOrgs />
-      {/* <Divider />
-      <Col>
-        <h2>Explore Codelabz</h2>
-        <p>
-          Explore top rated User created <b>Codelabz</b> and find what you are
-          looking for;
-        </p>
-      </Col> */}
-    </Card>
+    <Box>
+      <Grid container>
+        <Grid
+          container
+          item
+          xs={12}
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ padding: "15px" }}
+        >
+          <Typography variant="h2">Explore Codelabz</Typography>
+          <p>
+            Explore top rated Organizations and find the <b>Codelabz</b> you are
+            looking for
+          </p>
+        </Grid>
+
+        <Grid item xs={12}>
+          {" "}
+          <ExploreOrgs />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

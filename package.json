@@ -26,6 +26,8 @@
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-headroom": "^3.0.0",
+    "react-image": "^4.0.3",
+    "react-image-crop": "^8.6.12",
     "react-markdown": "^6.0.2",
     "react-redux": "^7.2.1",
     "react-redux-firebase": "^3.7.0",
