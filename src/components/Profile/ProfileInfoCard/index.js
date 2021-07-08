@@ -46,6 +46,12 @@ const ProfileInfoCard = () => {
   const profileData = useSelector(({ firebase: { profile } }) => profile);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const [facebookURI] = useState("https://www.facebook.com/");
+  const [twitterURI] = useState("https://twitter.com/");
+  const [githubURI] = useState("https://github.com/");
+  const [linkedinURI] = useState("https://www.linkedin.com/in/");
+  const [googleURI] = useState("https://www.google.com/search?q=");
+
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
@@ -96,9 +102,11 @@ const ProfileInfoCard = () => {
 
   const uploadImage = (file) => {
     setImageUploading(true);
-    uploadProfileImage(file, profileData.handle)(firebase, dispatch).then(() => {
-      setImageUploading(false);
-    });
+    uploadProfileImage(file, profileData.handle)(firebase, dispatch).then(
+      () => {
+        setImageUploading(false);
+      }
+    );
     return false;
   };
 
@@ -121,7 +129,17 @@ const ProfileInfoCard = () => {
     canvas.height = crop.height * pixelRatio;
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(image, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
   }, [completedCrop]);
 
   return (
@@ -130,15 +148,29 @@ const ProfileInfoCard = () => {
         <Box mt={2} mb={2} m={3}>
           <Grid container>
             <Grid xs={6} md={11} lg={11} item={true}>
-              <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
+              <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+                Profile Details
+              </span>
             </Grid>
             <Grid xs={6} md={1} lg={1} item={true}>
               <div>
-                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                <Button
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
                   <SettingsOutlinedIcon /> Options
                 </Button>
-                <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                  <MenuItem onClick={() => setProfileEditModalVisible(true)}>Edit Profile</MenuItem>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={() => setProfileEditModalVisible(true)}>
+                    Edit Profile
+                  </MenuItem>
                 </Menu>
               </div>
             </Grid>
@@ -174,9 +206,16 @@ const ProfileInfoCard = () => {
                 </Box>
               )}
 
-              <Dialog fullWidth maxWidth="sm" open={showImageDialog} onClose={!showImageDialog}>
+              <Dialog
+                fullWidth
+                maxWidth="sm"
+                open={showImageDialog}
+                onClose={!showImageDialog}
+              >
                 <DialogTitle id="alert-dialog-title">
-                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Change Profile Picture"}</span>
+                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+                    {"Change Profile Picture"}
+                  </span>
                 </DialogTitle>
                 <DialogContent>
                   <div className="App">
@@ -186,9 +225,16 @@ const ProfileInfoCard = () => {
                         <label
                           for="file-upload"
                           class="custom-file-upload"
-                          style={{ display: "block", width: "100%", color: "white", backgroundColor: "#455a64" }}
+                          style={{
+                            display: "block",
+                            width: "100%",
+                            color: "white",
+                            backgroundColor: "#455a64",
+                          }}
                         >
-                          <center>Click here to select an image from your device</center>
+                          <center>
+                            Click here to select an image from your device
+                          </center>
                         </label>
                         <input
                           id="file-upload"
@@ -230,7 +276,12 @@ const ProfileInfoCard = () => {
                               style={{
                                 backgroundColor: "SeaGreen",
                               }}
-                              onClick={() => saveImage(previewCanvasRef.current, completedCrop)}
+                              onClick={() =>
+                                saveImage(
+                                  previewCanvasRef.current,
+                                  completedCrop
+                                )
+                              }
                             >
                               Save
                             </Button>
@@ -274,23 +325,39 @@ const ProfileInfoCard = () => {
                         style={{ backgroundColor: "LimeGreen" }}
                       />
                     ) : (
-                      <Chip size="small" icon={<CancelIcon />} label="Email not verified" color="secondary" />
+                      <Chip
+                        size="small"
+                        icon={<CancelIcon />}
+                        label="Email not verified"
+                        color="secondary"
+                      />
                     )}
                   </Box>
                 </span>
               </p>
-              <Box mr={12}>{checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}</Box>
+              <Box mr={12}>
+                {checkAvailable(profileData.description) && (
+                  <p className="text-justified">{profileData.description}</p>
+                )}
+              </Box>
 
               {checkAvailable(profileData.link_facebook) && (
                 <p>
-                  <a href={"https://www.facebook.com/" + profileData.link_facebook} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={facebookURI.concat(profileData.link_facebook)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
                       }}
                     >
                       <Box mr={1}>
-                        <FacebookIcon fontSize="small" className="facebook-color" />
+                        <FacebookIcon
+                          fontSize="small"
+                          className="facebook-color"
+                        />
                       </Box>{" "}
                       {profileData.link_facebook}
                     </div>
@@ -299,14 +366,21 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.link_twitter) && (
                 <p>
-                  <a href={"https://twitter.com/" + profileData.link_twitter} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={twitterURI.concat(profileData.link_twitter)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
                       }}
                     >
                       <Box mr={1}>
-                        <TwitterIcon fontSize="small" className="twitter-color" />{" "}
+                        <TwitterIcon
+                          fontSize="small"
+                          className="twitter-color"
+                        />{" "}
                       </Box>
                       {profileData.link_twitter}
                     </div>
@@ -315,7 +389,11 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.link_github) && (
                 <p>
-                  <a href={"https://github.com/" + profileData.link_github} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={githubURI.concat(profileData.link_github)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -331,14 +409,21 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.link_linkedin) && (
                 <p>
-                  <a href={"https://www.linkedin.com/in/" + profileData.link_linkedin} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={linkedinURI.concat(profileData.link_linkedin)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
                       }}
                     >
                       <Box mr={1}>
-                        <LinkedInIcon fontSize="small" className="linkedin-color" />
+                        <LinkedInIcon
+                          fontSize="small"
+                          className="linkedin-color"
+                        />
                       </Box>{" "}
                       {profileData.link_linkedin}
                     </div>
@@ -347,7 +432,11 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.website) && (
                 <p>
-                  <a href={profileData.website} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={profileData.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -363,7 +452,11 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.country) && (
                 <p className="mb-0">
-                  <a href={"https://www.google.com/search?q=" + profileData.country} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={googleURI.concat(profileData.country)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -381,10 +474,22 @@ const ProfileInfoCard = () => {
           </Grid>
         </Grid>
       </Card>
-      <Dialog fullWidth maxWidth="md" open={profileEditModalVisible} onClose={!profileEditModalVisible}>
-        <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
+      <Dialog
+        fullWidth
+        maxWidth="md"
+        open={profileEditModalVisible}
+        onClose={!profileEditModalVisible}
+      >
+        <DialogTitle id="alert-dialog-title">
+          <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+            {"Edit Profile"}
+          </span>
+        </DialogTitle>
         <DialogContent>
-          <EditProfileDetailsModal profileData={profileData} modelCloseCallback={(e) => setProfileEditModalVisible(e)} />
+          <EditProfileDetailsModal
+            profileData={profileData}
+            modelCloseCallback={(e) => setProfileEditModalVisible(e)}
+          />
         </DialogContent>
       </Dialog>
     </div>

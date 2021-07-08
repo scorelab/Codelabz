@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export {
   checkOrgHandleExists,
   checkUserHandleExists,
@@ -58,3 +59,67 @@ export {
   updateStepTitle,
   uploadTutorialImages,
 } from './tutorialsActions';
+=======
+export {
+  checkOrgHandleExists,
+  checkUserHandleExists,
+  clearAuthError,
+  clearRecoverPasswordError,
+  confirmPasswordReset,
+  resendVerifyEmail,
+  sendPasswordResetEmail,
+  setUpInitialData,
+  signIn,
+  signInWithGoogle,
+  signInWithProviderID,
+  signOut,
+  signUp,
+  verifyEmail,
+  verifyPasswordResetCode,
+} from "./authActions";
+export {
+  addOrgUser,
+  clearEditGeneral,
+  clearOrgData,
+  editGeneralData,
+  getLaunchedOrgsData,
+  getOrgData,
+  getOrgUserData,
+  removeOrgUser,
+  searchFromIndex,
+  unPublishOrganization,
+  uploadOrgProfileImage,
+  addFollower,
+  removeFollower,
+} from "./orgActions";
+export {
+  clearProfileEditError,
+  clearUserProfile,
+  createOrganization,
+  getProfileData,
+  getUserProfileData,
+  updateUserProfile,
+  uploadProfileImage,
+} from "./profileActions";
+export {
+  addNewTutorialStep,
+  clearCreateTutorials,
+  clearTutorialImagesReducer,
+  clearTutorialsBasicData,
+  createTutorial,
+  getCurrentStepContentFromRTDB,
+  getCurrentTutorialData,
+  getOrgTutorialsBasicData,
+  getUserTutorialsBasicData,
+  hideUnHideStep,
+  remoteTutorialImages,
+  removeStep,
+  searchFromTutorialsIndex,
+  setCurrentStep,
+  setCurrentStepNo,
+  setTutorialTheme,
+  updateStepTime,
+  updateStepTitle,
+  uploadTutorialImages,
+} from "./tutorialsActions";
+>>>>>>> master
