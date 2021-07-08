@@ -1,7 +1,4 @@
-import { Card, Col, Row } from "antd";
 import React from "react";
-import BrandName from "../../helpers/brandName";
-import ExploreOrgs from "./ExploreOrgs";
 import Carousel from "./Carousel/index";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
