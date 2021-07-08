@@ -1,12 +1,6 @@
 import validator from "validator";
 
-export const validateName = (
-  name,
-  setNameValidateError,
-  setNameValidateErrorMessage,
-  emptyMsg,
-  realNameMsg
-) => {
+export const validateName = (name, setNameValidateError, setNameValidateErrorMessage, emptyMsg, realNameMsg) => {
   if (validator.isEmpty(name)) {
     setNameValidateError(true);
     setNameValidateErrorMessage(emptyMsg);
@@ -39,10 +33,7 @@ export const validateHandle = async (
     setHandleValidateError(true);
     setHandleValidateErrorMessage(emptyMsg);
     return false;
-  } else if (
-    !validator.isAlphanumeric(handle) ||
-    !validator.isLowercase(handle)
-  ) {
+  } else if (!validator.isAlphanumeric(handle) || !validator.isLowercase(handle)) {
     setHandleValidateError(true);
     setHandleValidateErrorMessage(lowercaseMsg);
     return false;
@@ -71,30 +62,34 @@ export const validateCountry = (country, setCountryValidateError) => {
   }
 };
 
-export const validateOrgWebsite = (
-  orgWebsite,
-  setOrgWebsiteValidateError,
-  setOrgWebsiteValidateErrorMessage
-) => {
+export const validateOrgWebsite = (orgWebsite, setOrgWebsiteValidateError, setOrgWebsiteValidateErrorMessage) => {
   if (validator.isEmpty(orgWebsite)) {
     setOrgWebsiteValidateError(true);
-    setOrgWebsiteValidateErrorMessage("Please enter organization website");
+    setOrgWebsiteValidateErrorMessage("Please enter a website");
     return false;
   } else if (!validator.isURL(orgWebsite)) {
     setOrgWebsiteValidateError(true);
     setOrgWebsiteValidateErrorMessage("Please provide a valid URL");
     return false;
-  } else if (
-    !(orgWebsite.includes("https://") || orgWebsite.includes("http://"))
-  ) {
+  } else if (!(orgWebsite.includes("https://") || orgWebsite.includes("http://"))) {
     setOrgWebsiteValidateError(true);
-    setOrgWebsiteValidateErrorMessage(
-      "URL must contain the protocol (https:// or http://)"
-    );
+    setOrgWebsiteValidateErrorMessage("URL must contain the protocol (https:// or http://)");
     return false;
   } else {
     setOrgWebsiteValidateError(false);
     setOrgWebsiteValidateErrorMessage("");
+    return true;
+  }
+};
+
+export const validateIsEmpty = (string, setStringValidateError, setStringValidateErrorMessage, emptyMsg) => {
+  if (validator.isEmpty(string)) {
+    setStringValidateError(true);
+    setStringValidateErrorMessage(emptyMsg);
+    return false;
+  } else {
+    setStringValidateError(false);
+    setStringValidateErrorMessage("");
     return true;
   }
 };

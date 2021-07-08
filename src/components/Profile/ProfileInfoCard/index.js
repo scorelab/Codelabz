@@ -46,6 +46,12 @@ const ProfileInfoCard = () => {
   const profileData = useSelector(({ firebase: { profile } }) => profile);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const [facebookURI] = useState("https://www.facebook.com/");
+  const [twitterURI] = useState("https://twitter.com/");
+  const [githubURI] = useState("https://github.com/");
+  const [linkedinURI] = useState("https://www.linkedin.com/in/");
+  const [googleURI] = useState("https://www.google.com/search?q=");
+
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
@@ -121,7 +127,17 @@ const ProfileInfoCard = () => {
     canvas.height = crop.height * pixelRatio;
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(image, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
   }, [completedCrop]);
 
   return (
@@ -279,11 +295,13 @@ const ProfileInfoCard = () => {
                   </Box>
                 </span>
               </p>
-              <Box mr={12}>{checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}</Box>
+              <Box mr={12}>
+                {checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}
+              </Box>
 
               {checkAvailable(profileData.link_facebook) && (
                 <p>
-                  <a href={"https://www.facebook.com/" + profileData.link_facebook} target="_blank" rel="noopener noreferrer">
+                  <a href={facebookURI.concat(profileData.link_facebook)} target="_blank" rel="noopener noreferrer">
                     <div
                       style={{
                         display: "flex",
@@ -299,7 +317,7 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.link_twitter) && (
                 <p>
-                  <a href={"https://twitter.com/" + profileData.link_twitter} target="_blank" rel="noopener noreferrer">
+                  <a href={twitterURI.concat(profileData.link_twitter)} target="_blank" rel="noopener noreferrer">
                     <div
                       style={{
                         display: "flex",
@@ -315,7 +333,7 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.link_github) && (
                 <p>
-                  <a href={"https://github.com/" + profileData.link_github} target="_blank" rel="noopener noreferrer">
+                  <a href={githubURI.concat(profileData.link_github)} target="_blank" rel="noopener noreferrer">
                     <div
                       style={{
                         display: "flex",
@@ -331,7 +349,7 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.link_linkedin) && (
                 <p>
-                  <a href={"https://www.linkedin.com/in/" + profileData.link_linkedin} target="_blank" rel="noopener noreferrer">
+                  <a href={linkedinURI.concat(profileData.link_linkedin)} target="_blank" rel="noopener noreferrer">
                     <div
                       style={{
                         display: "flex",
@@ -363,7 +381,7 @@ const ProfileInfoCard = () => {
               )}
               {checkAvailable(profileData.country) && (
                 <p className="mb-0">
-                  <a href={"https://www.google.com/search?q=" + profileData.country} target="_blank" rel="noopener noreferrer">
+                  <a href={googleURI.concat(profileData.country)} target="_blank" rel="noopener noreferrer">
                     <div
                       style={{
                         display: "flex",
@@ -382,9 +400,14 @@ const ProfileInfoCard = () => {
         </Grid>
       </Card>
       <Dialog fullWidth maxWidth="md" open={profileEditModalVisible} onClose={!profileEditModalVisible}>
-        <DialogTitle id="alert-dialog-title">{"Edit Profile"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Edit Profile"}</span>
+        </DialogTitle>
         <DialogContent>
-          <EditProfileDetailsModal profileData={profileData} modelCloseCallback={(e) => setProfileEditModalVisible(e)} />
+          <EditProfileDetailsModal
+            profileData={profileData}
+            modelCloseCallback={(e) => setProfileEditModalVisible(e)}
+          />
         </DialogContent>
       </Dialog>
     </div>

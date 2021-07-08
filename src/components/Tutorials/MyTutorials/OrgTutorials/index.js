@@ -1,13 +1,13 @@
-import Avatar from '@material-ui/core/Avatar';
-import _ from 'lodash';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Content from '../../../../globalComponents/TabPanel/Content';
-import Contents from '../../../../globalComponents/TabPanel/Contents';
-import Tab from '../../../../globalComponents/TabPanel/Tab';
-import TabPanel from '../../../../globalComponents/TabPanel/TabPanel';
-import Tabs from '../../../../globalComponents/TabPanel/Tabs';
-import BaseTutorialsComponent from '../BaseTutorialsComponent';
+import Avatar from "@material-ui/core/Avatar";
+import _ from "lodash";
+import React from "react";
+import { useSelector } from "react-redux";
+import Content from "../../../../globalComponents/TabPanel/Content";
+import Contents from "../../../../globalComponents/TabPanel/Contents";
+import Tab from "../../../../globalComponents/TabPanel/Tab";
+import TabPanel from "../../../../globalComponents/TabPanel/TabPanel";
+import Tabs from "../../../../globalComponents/TabPanel/Tabs";
+import BaseTutorialsComponent from "../BaseTutorialsComponent";
 
 const OrgTutorialsComponent = ({ organizations, user }) => {
   const org_list = organizations.map((o) => o.org_handle);
@@ -24,37 +24,40 @@ const OrgTutorialsComponent = ({ organizations, user }) => {
 
     const onSelectTab = (index) => setSelectedTab(index);
 
+    const arr = [
+      {
+        name: user.displayName,
+        image: user.photoURL,
+        handle: user.userHandle,
+      },
+    ];
+
+    orgList.map((org) => {
+      arr.push({
+        name: org.org_name,
+        image: org.org_image,
+        handle: org.org_handle,
+      });
+    });
+
     return (
       <TabPanel>
         <Tabs onSelect={onSelectTab}>
-          <Tab
-            label={user.displayName}
-            key={0}
-            icon={<Avatar alt={user.displayName} src={user.photoURL} />}
-          />
-          {orgList.map((org, index) => (
+          {arr.map((org) => (
             <Tab
-              key={index + 1}
-              label={org.org_name}
-              icon={<Avatar alt={org.org_name} src={org.org_image} />}
-            />
+              label={org.name}
+              key={0}
+              icon={<Avatar alt={org.name} src={org.image} />}
+            ></Tab>
           ))}
         </Tabs>
         <Contents active={selectedTab}>
-          <Content key={0}>
-            <BaseTutorialsComponent
-              owner={user.userHandle}
-              imageURL={user.photoURL}
-              ownerName={user.displayName}
-            />
-          </Content>
-          {orgList.map((org, index) => (
-            <Content key={index + 1}>
+          {arr.map((org) => (
+            <Content>
               <BaseTutorialsComponent
-                key={index}
-                owner={org.org_handle}
-                imageURL={org.org_image}
-                ownerName={org.org_name}
+                owner={org.handle}
+                imageURL={org.image}
+                ownerName={org.name}
               />
             </Content>
           ))}
@@ -73,7 +76,7 @@ const OrgTutorialsComponent = ({ organizations, user }) => {
 
     const clone_orgs = _.clone(organizations);
     const merged_orgs = _.merge(clone_orgs, orgs_with_tutorials_count);
-    const updated_orgs = _.reverse(_.sortBy(merged_orgs, ['tutorials_count']));
+    const updated_orgs = _.reverse(_.sortBy(merged_orgs, ["tutorials_count"]));
 
     return <OrgTabPanel orgList={updated_orgs} />;
   } else {

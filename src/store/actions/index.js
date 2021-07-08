@@ -14,7 +14,7 @@ export {
   signUp,
   verifyEmail,
   verifyPasswordResetCode,
-} from './authActions';
+} from "./authActions";
 export {
   addOrgUser,
   clearEditGeneral,
@@ -27,7 +27,9 @@ export {
   searchFromIndex,
   unPublishOrganization,
   uploadOrgProfileImage,
-} from './orgActions';
+  addFollower,
+  removeFollower,
+} from "./orgActions";
 export {
   clearProfileEditError,
   clearUserProfile,
@@ -36,7 +38,7 @@ export {
   getUserProfileData,
   updateUserProfile,
   uploadProfileImage,
-} from './profileActions';
+} from "./profileActions";
 export {
   addNewTutorialStep,
   clearCreateTutorials,
@@ -57,4 +59,4 @@ export {
   updateStepTime,
   updateStepTitle,
   uploadTutorialImages,
-} from './tutorialsActions';
+} from "./tutorialsActions";
