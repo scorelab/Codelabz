@@ -1,9 +1,9 @@
-import Grid from '@material-ui/core/Grid';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import EmptyTutorials from '../../../../helpers/emptyTutorials';
-import Spinner from '../../../../helpers/spinner';
-import TutorialCard from './TutorialCard';
+import Grid from "@material-ui/core/Grid";
+import React from "react";
+import { useSelector } from "react-redux";
+import EmptyTutorials from "../../../../helpers/emptyTutorials";
+import Spinner from "../../../../helpers/spinner";
+import TutorialCard from "./TutorialCard";
 
 /**
  * @param {string} owner - Owner of the tutorials

@@ -17,7 +17,7 @@ import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
 import Modal from "@material-ui/core/Modal";
 
-const NewTutorial = ({ viewModal, viewCallback, active }) => {
+const NewTutorial = ({ viewModal, close, viewCallback, active }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -150,7 +150,7 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
   return (
     <Modal
       open={visible}
-      onClose={handleCancel}
+      onClose={close}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       style={{
