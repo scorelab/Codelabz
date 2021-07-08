@@ -1,5 +1,5 @@
 import { Card, Col, Row } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import BrandName from "../../helpers/brandName";
 import ExploreOrgs from "./ExploreOrgs";
 import Carousel from "./Carousel/index";
@@ -30,11 +30,6 @@ const MyFeed = () => {
             <Carousel />
           </div>
         </Grid>
-
-        {/* <Grid item xs={12} > */}
-        {/* {" "} */}
-        {/* <ExploreOrgs /> */}
-        {/* </Grid> */}
       </Grid>
     </Box>
   );
