@@ -1,20 +1,20 @@
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
+import Skeleton from "@material-ui/lab/Skeleton";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const TutorialCard = ({
   tutorialData: { tutorial_id, title, summary, icon, owner },
   loading,
 }) => {
   return (
-    <Card style={{ height: '100%' }}>
+    <Card style={{ height: "100%" }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -23,7 +23,7 @@ const TutorialCard = ({
           image={
             icon
               ? icon
-              : 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+              : "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
           }
           title="Tutorial icon"
         />
