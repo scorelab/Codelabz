@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Form, Input, Typography, Row, Col } from "antd";
+import Alert from "@material-ui/lab/Alert";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import { LockOutlined } from "@ant-design/icons";
 import { confirmPasswordReset } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
@@ -47,7 +52,7 @@ const PasswordResetForm = ({ actionCode }) => {
         <Alert
           message={""}
           description={error}
-          type="error"
+          severity="error"
           closable
           className="login-error mb-16"
         />
@@ -58,15 +63,15 @@ const PasswordResetForm = ({ actionCode }) => {
           <Alert
             message={""}
             description={"Successfully changed your password"}
-            type="success"
+            severity="success"
             closable
             className="mb-16"
           />
-          <Row justify="center" align="center" className="mt-24">
-            <Col sm={24} className="center">
+          <Grid justify="center" align="center" className="mt-24">
+            <Grid sm={24} className="center">
               <Link to={"/login"}>Sign in</Link>
-            </Col>
-          </Row>
+            </Grid>
+          </Grid>
         </>
       )}
       {!success && (
@@ -120,11 +125,11 @@ const PasswordResetForm = ({ actionCode }) => {
               </Button>
             </Form.Item>
           </Form>
-          <Row justify="center" align="center" className="mt-24">
-            <Col sm={24} className="center">
+          <Grid justify="center" align="center" className="mt-24">
+            <Grid sm={24} className="center">
               Back to <Link to={"/login"}>CodeLabz</Link>
-            </Col>
-          </Row>
+            </Grid>
+          </Grid>
         </>
       )}
     </>
