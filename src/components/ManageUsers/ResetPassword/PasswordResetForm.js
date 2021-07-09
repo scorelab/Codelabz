@@ -76,8 +76,8 @@ const PasswordResetForm = ({ actionCode }) => {
       )}
       {!success && (
         <>
-          <Form onFinish={onSubmit}>
-            <Form.Item
+          <form onFinish={onSubmit}>
+            <FormControl
               name="password"
               rules={[
                 {
@@ -91,8 +91,8 @@ const PasswordResetForm = ({ actionCode }) => {
                 prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
                 placeholder="Password"
               />
-            </Form.Item>
-            <Form.Item
+            </FormControl>
+            <FormControl
               name="confirm"
               dependencies={["password"]}
               hasFeedback
@@ -118,13 +118,13 @@ const PasswordResetForm = ({ actionCode }) => {
                 required
                 placeholder="Confirm password"
               />
-            </Form.Item>
-            <Form.Item>
+            </FormControl>
+            <FormControl>
               <Button type="primary" htmlType="submit" block loading={loading}>
                 {loading ? "Changing your password..." : "Change password"}
               </Button>
-            </Form.Item>
-          </Form>
+            </FormControl>
+          </form>
           <Grid justify="center" align="center" className="mt-24">
             <Grid sm={24} className="center">
               Back to <Link to={"/login"}>CodeLabz</Link>
