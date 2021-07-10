@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
+import TutorialImg from "../../../../assets/images/tutorialCard.png";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -20,11 +21,7 @@ const TutorialCard = ({
           component="img"
           alt="Tutorial icon"
           height="140"
-          image={
-            icon
-              ? icon
-              : "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-          }
+          image={icon ? icon : TutorialImg}
           title="Tutorial icon"
         />
 
