@@ -113,38 +113,26 @@ const CreateOrgModal = (props) => {
         />
       )}
       <div style={{ margin: "2rem" }}>
-        <form
-          form={form}
-          onSubmit={onSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          <FormControl name={"org_name"} rules={orgNameValidation}>
+        <Form form={form} onFinish={onSubmit}>
+          <Form.Item name={"org_name"} rules={orgNameValidation}>
             <Input
               prefix={
                 <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
               }
               placeholder="Organization Name"
               autoComplete="organization"
-              fullWidth
-              style={{ marginBottom: "1rem" }}
             />
-          </FormControl>
-          <FormControl name={"org_handle"} rules={orgHandleValidation}>
+          </Form.Item>
+          <Form.Item name={"org_handle"} rules={orgHandleValidation}>
             <Input
               onBlur={onOrgHandleChange}
               prefix={<AppstoreOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Organization Handle"
               autoComplete="off"
-              fullWidth
-              style={{ marginBottom: "1rem" }}
             />
-          </FormControl>
-          <CountryDropdown style={{ zIndex: "2" }} />
-          <FormControl
+          </Form.Item>
+          <CountryDropdown />
+          <Form.Item
             name="org_website"
             rules={orgWebsiteValidation}
             hasFeedback
@@ -153,10 +141,9 @@ const CreateOrgModal = (props) => {
               prefix={<IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Website"
               autoComplete="url"
-              style={{ marginBottom: "1rem" }}
             />
-          </FormControl>
-          <FormControl className="mb-0">
+          </Form.Item>
+          <Form.Item className="mb-0">
             <Space style={{ float: "right" }}>
               <Button key="back" onClick={handleCancel}>
                 Cancel
@@ -170,8 +157,8 @@ const CreateOrgModal = (props) => {
                 {loading ? "Creating..." : "Create"}
               </Button>
             </Space>
-          </FormControl>
-        </form>
+          </Form.Item>
+        </Form>
       </div>
     </Dialog>
   );
