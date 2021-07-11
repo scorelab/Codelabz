@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Dropdown,
-  Menu,
-  Tag,
-  Row,
-  Col,
-  Upload,
-  Modal,
-  Empty,
-  Skeleton
-} from "antd";
+import { Dropdown, Menu, Tag, Upload, Modal, Empty, Skeleton } from "antd";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
 import {
   EditOutlined,
   EyeInvisibleOutlined,
@@ -24,7 +15,7 @@ import {
   LinkOutlined,
   LinkedinFilled,
   SettingOutlined,
-  FlagOutlined
+  FlagOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import ImgCrop from "antd-img-crop";
@@ -32,9 +23,10 @@ import EditOrgDetailsModal from "./editOrgDetailsModal";
 import {
   clearEditGeneral,
   unPublishOrganization,
-  uploadOrgProfileImage
+  uploadOrgProfileImage,
 } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
+import useStyles from "./styles";
 
 const { Dragger } = Upload;
 
@@ -47,6 +39,7 @@ const OrgInfoCard = () => {
   const [imageLoading, setImageLoading] = useState(true);
   const [orgEditModalVisible, setOrgEditModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const classes = useStyles();
 
   const OrgMenu = () => {
     return (
@@ -85,7 +78,7 @@ const OrgInfoCard = () => {
         <Button
           style={{
             border: "none",
-            padding: 0
+            padding: 0,
           }}
           type="link"
         >
@@ -98,16 +91,16 @@ const OrgInfoCard = () => {
   const loadingProps = useSelector(
     ({
       org: {
-        general: { loading }
-      }
+        general: { loading },
+      },
     }) => loading
   );
 
   const current = useSelector(
     ({
       org: {
-        general: { current }
-      }
+        general: { current },
+      },
     }) => current
   );
 
@@ -118,29 +111,33 @@ const OrgInfoCard = () => {
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   useEffect(() => {
-    let orgDetails = orgs.find(element => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === current;
     });
     setCurrentOrgData(orgDetails);
     setImageLoading(true);
   }, [current, orgs]);
 
-  const uploadImage = file => {
+  const uploadImage = (file) => {
     setImageUploading(true);
-    uploadOrgProfileImage(file, current, orgs)(firebase, dispatch).then(() => {
+    uploadOrgProfileImage(
+      file,
+      current,
+      orgs
+    )(firebase, dispatch).then(() => {
       setImageUploading(false);
       clearEditGeneral()(dispatch);
     });
     return false;
   };
 
-  const checkAvailable = data => {
+  const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
 
@@ -160,17 +157,15 @@ const OrgInfoCard = () => {
           title={"Organization Details"}
           extra={
             currentOrgData.permissions &&
-            [2, 3].some(p => currentOrgData.permissions.includes(p)) ? (
+            [2, 3].some((p) => currentOrgData.permissions.includes(p)) ? (
               <DropdownMenu key="more" />
             ) : null
           }
-          style={{ width: "100%" }}
-          className="p-0"
         >
-          <Row>
-            <Col xs={24} md={8} lg={8}>
+          <Grid className={classes.root}>
+            <Grid md={8} lg={8}>
               <Card
-                style={{ width: "100%" }}
+                style={{ width: "100%", height: "30vh" }}
                 bordered={false}
                 cover={
                   currentOrgData.org_image &&
@@ -219,8 +214,8 @@ const OrgInfoCard = () => {
                     </ImgCrop>
                   )}
               </Card>
-            </Col>
-            <Col xs={24} md={16} lg={16} className="pl-24-d pt-24-m">
+            </Grid>
+            <Grid xs={24} md={16} lg={16} className="pl-24-d pt-24-m">
               <p>
                 <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
                   {currentOrgData.org_name}
@@ -325,8 +320,8 @@ const OrgInfoCard = () => {
                   </a>
                 </p>
               )}
-            </Col>
-          </Row>
+            </Grid>
+          </Grid>
         </Card>
         <Modal
           visible={orgEditModalVisible}
@@ -340,7 +335,7 @@ const OrgInfoCard = () => {
         >
           <EditOrgDetailsModal
             currentOrgData={currentOrgData}
-            modelCloseCallback={e => setOrgEditModalVisible(e)}
+            modelCloseCallback={(e) => setOrgEditModalVisible(e)}
           />
         </Modal>
       </>
