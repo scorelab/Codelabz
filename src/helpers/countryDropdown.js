@@ -4,7 +4,7 @@ import { GlobalOutlined } from "@ant-design/icons";
 import countryList from "./countryList";
 const { Option } = Select;
 
-const CountryDropdown = props => {
+const CountryDropdown = (props) => {
   const children = [];
 
   for (let i = 0; i < countryList.length; i++) {
@@ -21,8 +21,8 @@ const CountryDropdown = props => {
       rules={[
         {
           required: true,
-          message: "Please select the country"
-        }
+          message: "Please select the country",
+        },
       ]}
     >
       <Select

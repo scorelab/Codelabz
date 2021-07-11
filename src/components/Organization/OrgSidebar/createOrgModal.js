@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Input, Alert, Space } from "antd";
+import { Form, Space } from "antd";
 import {
   AppstoreAddOutlined,
   AppstoreOutlined,
-  IeOutlined
+  IeOutlined,
 } from "@ant-design/icons";
+import Alert from "@material-ui/lab/Alert";
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
 import {
   checkOrgHandleExists,
-  createOrganization
+  createOrganization,
 } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,10 +20,10 @@ import CountryDropdown from "../../../helpers/countryDropdown";
 import {
   orgWebsiteValidation,
   orgHandleValidation,
-  orgNameValidation
+  orgNameValidation,
 } from "../../../helpers/validationRules";
 
-const CreateOrgModal = props => {
+const CreateOrgModal = (props) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -28,15 +33,15 @@ const CreateOrgModal = props => {
   const loadingProp = useSelector(
     ({
       profile: {
-        edit: { loading }
-      }
+        edit: { loading },
+      },
     }) => loading
   );
   const errorProp = useSelector(
     ({
       profile: {
-        edit: { error }
-      }
+        edit: { error },
+      },
     }) => error
   );
 
@@ -74,7 +79,7 @@ const CreateOrgModal = props => {
     setVisible(false);
   };
 
-  const onSubmit = async formData => {
+  const onSubmit = async (formData) => {
     await createOrganization(formData)(firebase, firestore, dispatch);
   };
 
@@ -90,74 +95,85 @@ const CreateOrgModal = props => {
       form.setFields([
         {
           name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`]
-        }
+          errors: [`The handle [${orgHandle}] is already taken`],
+        },
       ]);
     }
   };
 
   return (
-    <Modal
-      visible={visible}
-      title="Create new organization"
-      onCancel={handleCancel}
-      maskClosable={false}
-      footer={null}
-      centered
-    >
+    <Dialog open={visible} onClose={!handleCancel} style={{ zIndex: "1" }}>
       {error && (
         <Alert
           message={""}
           description={"Org creation failed"}
-          type="error"
+          severity="error"
           closable
           className="mb-24"
         />
       )}
-
-      <Form form={form} onFinish={onSubmit}>
-        <Form.Item name={"org_name"} rules={orgNameValidation}>
-          <Input
-            prefix={
-              <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-            }
-            placeholder="Organization Name"
-            autoComplete="organization"
-          />
-        </Form.Item>
-        <Form.Item name={"org_handle"} rules={orgHandleValidation}>
-          <Input
-            onBlur={onOrgHandleChange}
-            prefix={<AppstoreOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Organization Handle"
-            autoComplete="off"
-          />
-        </Form.Item>
-        <CountryDropdown />
-        <Form.Item name="org_website" rules={orgWebsiteValidation} hasFeedback>
-          <Input
-            prefix={<IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Website"
-            autoComplete="url"
-          />
-        </Form.Item>
-        <Form.Item className="mb-0">
-          <Space style={{ float: "right" }}>
-            <Button key="back" onClick={handleCancel}>
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              htmlType="submit"
-              loading={loading}
-            >
-              {loading ? "Creating..." : "Create"}
-            </Button>
-          </Space>
-        </Form.Item>
-      </Form>
-    </Modal>
+      <div style={{ margin: "2rem" }}>
+        <form
+          form={form}
+          onSubmit={onSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <FormControl name={"org_name"} rules={orgNameValidation}>
+            <Input
+              prefix={
+                <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+              }
+              placeholder="Organization Name"
+              autoComplete="organization"
+              fullWidth
+              style={{ marginBottom: "1rem" }}
+            />
+          </FormControl>
+          <FormControl name={"org_handle"} rules={orgHandleValidation}>
+            <Input
+              onBlur={onOrgHandleChange}
+              prefix={<AppstoreOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Organization Handle"
+              autoComplete="off"
+              fullWidth
+              style={{ marginBottom: "1rem" }}
+            />
+          </FormControl>
+          <CountryDropdown style={{ zIndex: "2" }} />
+          <FormControl
+            name="org_website"
+            rules={orgWebsiteValidation}
+            hasFeedback
+          >
+            <Input
+              prefix={<IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Website"
+              autoComplete="url"
+              style={{ marginBottom: "1rem" }}
+            />
+          </FormControl>
+          <FormControl className="mb-0">
+            <Space style={{ float: "right" }}>
+              <Button key="back" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button
+                key="submit"
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+              >
+                {loading ? "Creating..." : "Create"}
+              </Button>
+            </Space>
+          </FormControl>
+        </form>
+      </div>
+    </Dialog>
   );
 };
 

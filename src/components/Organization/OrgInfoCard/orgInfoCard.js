@@ -11,7 +11,6 @@ import ReactCrop from "react-image-crop";
 import Divider from "@material-ui/core/Divider";
 import "react-image-crop/dist/ReactCrop.css";
 import { BasicImage, NoImage } from "../../../helpers/images";
-
 import TwitterIcon from "@material-ui/icons/Twitter";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
