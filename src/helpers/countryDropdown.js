@@ -32,6 +32,7 @@ const CountryDropdown = (props) => {
             <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} /> Country
           </div>
         }
+        onChange={(e) => props.handleChange(e)}
         showSearch={true}
         defaultValue={props.defaultValue}
       >

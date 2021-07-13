@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Divider } from "antd";
+
 import { OrgIcons } from "./orgIcons";
 import { Palette } from "color-thief-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,7 +73,6 @@ const OrgSidebar = ({ onOrgChange }) => {
             active={true}
             isDesktop={isDesktop}
           />
-          <Divider className="mt-16 mb-0" />
         </>
       )}
 

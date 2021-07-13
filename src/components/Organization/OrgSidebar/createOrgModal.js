@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Form, Space } from "antd";
-import {
-  AppstoreAddOutlined,
-  AppstoreOutlined,
-  IeOutlined,
-} from "@ant-design/icons";
+
 import Alert from "@material-ui/lab/Alert";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import {
   checkOrgHandleExists,
@@ -30,6 +24,25 @@ const CreateOrgModal = (props) => {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState(false);
+  const [data, setData] = useState({
+    org_name: "",
+    org_handle: "",
+    org_website: "",
+    org_country: "",
+  });
+
+  const handleChange = (e) => {
+    setData((prev) => ({
+      ...prev,
+      [e.target?.name]: e.target?.value,
+    }));
+  };
+  const handleCountry = (e) => {
+    setData((prev) => ({
+      ...prev,
+      org_country: e,
+    }));
+  };
   const loadingProp = useSelector(
     ({
       profile: {
@@ -59,8 +72,6 @@ const CreateOrgModal = (props) => {
     }
   }, [loadingProp, errorProp]);
 
-  const [form] = Form.useForm();
-
   useEffect(() => {
     if (props.show === true) {
       setVisible(true);
@@ -75,34 +86,23 @@ const CreateOrgModal = (props) => {
   }, [visible, props]);
 
   const handleCancel = () => {
-    form.resetFields();
     setVisible(false);
   };
-
-  const onSubmit = async (formData) => {
-    await createOrganization(formData)(firebase, firestore, dispatch);
-  };
-
-  const onOrgHandleChange = async () => {
-    const orgHandle = form.getFieldValue("org_handle");
-    const orgHandleExists = await checkOrgHandleExists(orgHandle)(
-      firebase,
-      dispatch
-    );
-
-    if (orgHandleExists) {
-      form.resetFields(["org_handle"]);
-      form.setFields([
-        {
-          name: "org_handle",
-          errors: [`The handle [${orgHandle}] is already taken`],
-        },
-      ]);
-    }
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log("orgData", data);
+    setLoading(true);
+    await createOrganization(data)(firebase, firestore, dispatch);
   };
 
   return (
-    <Dialog open={visible} onClose={!handleCancel} style={{ zIndex: "1" }}>
+    <Dialog
+      open={visible}
+      onClose={!handleCancel}
+      style={{
+        zIndex: "1",
+      }}
+    >
       {error && (
         <Alert
           message={""}
@@ -112,53 +112,62 @@ const CreateOrgModal = (props) => {
           className="mb-24"
         />
       )}
-      <div style={{ margin: "2rem" }}>
-        <Form form={form} onFinish={onSubmit}>
-          <Form.Item name={"org_name"} rules={orgNameValidation}>
-            <Input
-              prefix={
-                <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-              }
-              placeholder="Organization Name"
-              autoComplete="organization"
-            />
-          </Form.Item>
-          <Form.Item name={"org_handle"} rules={orgHandleValidation}>
-            <Input
-              onBlur={onOrgHandleChange}
-              prefix={<AppstoreOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Organization Handle"
-              autoComplete="off"
-            />
-          </Form.Item>
-          <CountryDropdown />
-          <Form.Item
+      <div
+        style={{
+          margin: "2rem",
+        }}
+      >
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flexFlow: "column",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            padding: "1rem",
+          }}
+        >
+          <Input
+            placeholder="Organization Name"
+            autoComplete="organization"
+            name="org_name"
+            onChange={(e) => handleChange(e)}
+            fullWidth
+            style={{ marginBottom: "1rem" }}
+          />
+          <Input
+            placeholder="Organization Handle"
+            autoComplete="off"
+            name="org_handle"
+            onChange={(e) => handleChange(e)}
+            fullWidth
+            style={{ marginBottom: "1rem" }}
+          />
+          <CountryDropdown name="org_country" handleChange={handleCountry} />
+
+          <Input
+            placeholder="Website"
+            autoComplete="url"
             name="org_website"
-            rules={orgWebsiteValidation}
-            hasFeedback
-          >
-            <Input
-              prefix={<IeOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Website"
-              autoComplete="url"
-            />
-          </Form.Item>
-          <Form.Item className="mb-0">
-            <Space style={{ float: "right" }}>
-              <Button key="back" onClick={handleCancel}>
-                Cancel
-              </Button>
-              <Button
-                key="submit"
-                type="primary"
-                htmlType="submit"
-                loading={loading}
-              >
-                {loading ? "Creating..." : "Create"}
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
+            onChange={(e) => handleChange(e)}
+            fullWidth
+            style={{ marginBottom: "1rem" }}
+          />
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Button key="back" onClick={handleCancel}>
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              onClick={(e) => onSubmit(e)}
+            >
+              {loading ? "Creating..." : "Create"}
+            </Button>
+          </div>
+        </form>
       </div>
     </Dialog>
   );

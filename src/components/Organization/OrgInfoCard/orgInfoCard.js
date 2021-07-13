@@ -77,7 +77,7 @@ const OrgInfoCard = () => {
     return (
       <Grid style={{ display: "flex", flexFlow: "row" }}>
         <Button onClick={() => setOrgEditModalVisible(true)} variant="outlined">
-          Edit Details
+          Edit
         </Button>
 
         <Button
@@ -87,11 +87,7 @@ const OrgInfoCard = () => {
           variant="outlined"
           onClick={unpublishOrganization}
         >
-          {currentOrgData.org_published ? (
-            <>Unpublish Organization</>
-          ) : (
-            <>Publish Organization</>
-          )}
+          {currentOrgData.org_published ? <>Unpublish</> : <>Publish</>}
         </Button>
       </Grid>
     );
