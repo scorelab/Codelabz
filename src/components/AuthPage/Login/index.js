@@ -127,6 +127,7 @@ const Login = () => {
             autoComplete="email"
             required
             onFocus={onFocusEmail}
+            className="email"
             style={{ marginBottom: "15px" }}
             InputProps={{
               startAdornment: (
