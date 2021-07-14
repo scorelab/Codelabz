@@ -101,4 +101,12 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
       expect(loc.href).to.eq(`${this.base_url}tutorials`);
     });
   });
+
+  it("Visit Home Page - Passing", function () {
+    cy.visit(`${this.base_url}homePage`);
+    cy.wait(5000);
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}homePage`);
+    });
+  });
 });
