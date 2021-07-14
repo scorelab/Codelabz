@@ -1,5 +1,5 @@
+/* eslint-disable no-undef */
 /// <reference types="cypress" />
-
 describe("Authenticated Route Access Test | CodeLabz", () => {
   beforeEach(function () {
     cy.fixture("login").then(function (credentials) {
@@ -16,98 +16,89 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
       multiple: true,
     });
     cy.get(".email").type(this.credentials.email);
-    cy.get("#password").type(this.credentials.password);
-    cy.get(".MuiButton-label").click();
+    cy.get(".password").type(this.credentials.password);
+    cy.get(".loginButton").click();
     cy.wait(5000);
   });
 
-  // it("Forbid Visit Login Page - Passing", function () {
-  //   cy.visit(`${this.base_url}login`);
-  //   cy.wait(5000);
+  it("Forbid Visit Login Page - Passing", function () {
+    cy.visit(`${this.base_url}login`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
+    });
+  });
 
-  // it("Forbid Visit Login Page - Passing", function () {
-  //   cy.visit(`${this.base_url}login`);
-  //   cy.wait(5000);
+  it("Forbid Visit Sign Up Page - Passing", function () {
+    cy.visit(`${this.base_url}signup`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
+    });
+  });
 
-  // it("Forbid Visit Sign Up Page - Passing", function () {
-  //   cy.visit(`${this.base_url}signup`);
-  //   cy.wait(5000);
+  it("Forbid Visit Forgot Password Page - Passing", function () {
+    cy.visit(`${this.base_url}forgotpassword`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
+    });
+  });
 
-  // it("Forbid Visit Forgot Password Page - Passing", function () {
-  //   cy.visit(`${this.base_url}forgotpassword`);
-  //   cy.wait(5000);
+  it("Forbid Visit Manage Users Page - Passing", function () {
+    cy.visit(`${this.base_url}manageusers`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}`);
+    });
+  });
 
-  // it("Forbid Visit Manage Users Page - Passing", function () {
-  //   cy.visit(`${this.base_url}manageusers`);
-  //   cy.wait(5000);
+  it("Visit Dashboard Page - Passing", function () {
+    cy.visit(`${this.base_url}dashboard`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
+    });
+  });
 
-  // it("Visit Dashboard Page - Passing", function () {
-  //   cy.visit(`${this.base_url}dashboard`);
-  //   cy.wait(5000);
+  it("Visit My Feed Page - Passing", function () {
+    cy.visit(`${this.base_url}dashboard/my_feed`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
+    });
+  });
 
-  // it("Visit My Feed Page - Passing", function () {
-  //   cy.visit(`${this.base_url}dashboard/my_feed`);
-  //   cy.wait(5000);
+  it("Visit Profile Page - Passing", function () {
+    cy.visit(`${this.base_url}profile`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}profile`);
+    });
+  });
 
-  // it("Visit Profile Page - Passing", function () {
-  //   cy.visit(`${this.base_url}profile`);
-  //   cy.wait(5000);
+  it("Visit Organization Page - Passing", function () {
+    cy.visit(`${this.base_url}organization`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}profile`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}organization`);
+    });
+  });
 
-  // it("Visit Organization Page - Passing", function () {
-  //   cy.visit(`${this.base_url}organization`);
-  //   cy.wait(5000);
+  it("Visit Tutorials Page - Passing", function () {
+    cy.visit(`${this.base_url}tutorials`);
+    cy.wait(5000);
 
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}organization`);
-  //   });
-  // });
-
-  // it("Visit Tutorials Page - Passing", function () {
-  //   cy.visit(`${this.base_url}tutorials`);
-  //   cy.wait(5000);
-
-  //   cy.location().should((loc) => {
-  //     expect(loc.href).to.eq(`${this.base_url}tutorials`);
-  //   });
-  // });
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(`${this.base_url}tutorials`);
+    });
+  });
 });

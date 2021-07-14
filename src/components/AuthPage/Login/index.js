@@ -143,6 +143,7 @@ const Login = () => {
             helperText={
               passwordValidateError ? passwordValidateErrorMessage : null
             }
+            className="password"
             error={passwordValidateError}
             fullWidth
             required
@@ -197,6 +198,7 @@ const Login = () => {
             fullWidth
             onClick={onSubmit}
             disabled={loading}
+            className="loginButton"
           >
             {loading ? "Logging in..." : "Log in"}
           </Button>
