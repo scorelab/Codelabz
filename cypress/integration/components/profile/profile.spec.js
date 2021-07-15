@@ -46,6 +46,6 @@ describe("Profile Page | CodeLabz", () => {
   it("Check Profile Details Component", function () {
     cy.visit(`${this.base_url}profile`);
     cy.wait(5000);
-    cy.get(".MuiBox-root MuiBox-root-42");
+    cy.get("#profileData");
   });
 });
