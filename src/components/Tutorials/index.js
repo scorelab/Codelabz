@@ -32,7 +32,7 @@ const ViewTutorial = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
-  const [mode, setMode] = useState("view"); // modes = edit, view
+  const [mode, setMode] = useState("view");
   const [allowEdit, setAllowEdit] = useState(true);
   const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
   const [addNewStepModalVisible, setAddNewStepModalVisible] = useState(false);
@@ -114,7 +114,7 @@ const ViewTutorial = () => {
   if (tutorialData) {
     window.scrollTo(0, 0);
     return (
-      <Layout className="row-footer-below">
+      <Grid className="row-footer-below">
         {allowEdit && (
           <Grid>
             <Grid xs={24} sm={24} md={24}>
@@ -149,12 +149,11 @@ const ViewTutorial = () => {
             />
           </Grid>
         </Grid>
-        <Layout>
-          <Sider
-            width={stepPanelVisible ? (isDesktop ? "25%" : "100%") : "0"}
-            className={stepPanelVisible ? "col-pad-24-s scrollfix " : ""}
+        <Grid style={{ display: "flex", flexDirection: "row" }}>
+          <Grid
+            width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : "0"}
             theme="light"
-            style={{ backgroundColor: "white" }}
+            style={{ backgroundColor: "white", padding: "2rem" }}
           >
             <StepsPanel
               currentStep={currentStep}
@@ -163,10 +162,10 @@ const ViewTutorial = () => {
               onClick={() => setStepPanelVisible(false)}
               hideButton={isDesktop}
             />
-          </Sider>
+          </Grid>
 
-          <Content style={{ backgroundColor: "#f0f0f0" }}>
-            <Grid className="tutorial-content" justify="center">
+          <Grid style={{ width: "90%", background: "#f0f0f0" }}>
+            <Grid className="tutorial-content" justify="center" container>
               <Grid
                 xs={24}
                 sm={24}
@@ -236,9 +235,9 @@ const ViewTutorial = () => {
                 />
               </Grid>
             </Grid>
-          </Content>
-        </Layout>
-      </Layout>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   } else {
     return <Spinner half />;
