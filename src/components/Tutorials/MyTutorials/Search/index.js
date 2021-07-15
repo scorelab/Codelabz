@@ -1,15 +1,15 @@
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import Add from '@material-ui/icons/Add';
-import Search from '@material-ui/icons/Search';
-import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { searchFromTutorialsIndex } from '../../../../store/actions';
-import NewTutorial from '../../NewTutorial';
-import SearchResultsComponent from './SearchResultsComponent';
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import Add from "@material-ui/icons/Add";
+import Search from "@material-ui/icons/Search";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { searchFromTutorialsIndex } from "../../../../store/actions";
+import NewTutorial from "../../NewTutorial";
+import SearchResultsComponent from "./SearchResultsComponent";
 
 const SearchComponent = () => {
   const [results, setResults] = useState([]);
@@ -40,7 +40,7 @@ const SearchComponent = () => {
   }, [user, org]);
 
   const handleOnSearch = ({ target: { value } }) => {
-    if (value === '') {
+    if (value === "") {
       return setViewResults(false);
     }
     const result = searchFromTutorialsIndex(value);
@@ -61,6 +61,9 @@ const SearchComponent = () => {
     }
   };
 
+  const closeModal = () => {
+    setVisibleModal((prev) => !prev);
+  };
   return (
     <Grid container item justify="space-between">
       <Grid xs={12} md={3} className="col-pad-24">
@@ -74,14 +77,14 @@ const SearchComponent = () => {
         </Button>
         <NewTutorial
           viewModal={visibleModal}
-          viewCallback={() => setVisibleModal(false)}
+          onSidebarClick={(e) => closeModal(e)}
         />
       </Grid>
       <Grid xs={12} md={4} className="col-pad-24">
         <TextField
           placeholder="Search CodeLabz by title, summary, or owner"
           onKeyUp={handleOnSearch}
-          style={{ width: '100%' }}
+          style={{ width: "100%" }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -92,7 +95,7 @@ const SearchComponent = () => {
         />
       </Grid>
       {viewResults && (
-        <Grid xs={12} className={'mb-24 '}>
+        <Grid xs={12} className={"mb-24 "}>
           <SearchResultsComponent results={results} />
         </Grid>
       )}

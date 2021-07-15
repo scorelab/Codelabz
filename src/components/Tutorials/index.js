@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Row, Col } from "antd";
+import { Layout } from "antd";
+import Grid from "@material-ui/core/Grid";
 import { useMediaQuery } from "react-responsive";
 import StepsPanel from "./subComps/StepsPanel";
 import ReactMarkdown from "react-markdown";
@@ -115,8 +116,8 @@ const ViewTutorial = () => {
     return (
       <Layout className="row-footer-below">
         {allowEdit && (
-          <Row>
-            <Col xs={24} sm={24} md={24}>
+          <Grid>
+            <Grid xs={24} sm={24} md={24}>
               <EditControls
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
@@ -133,12 +134,12 @@ const ViewTutorial = () => {
                 currentStep={currentStep}
                 step_length={stepsData.length}
               />
-            </Col>
-          </Row>
+            </Grid>
+          </Grid>
         )}
 
-        <Row>
-          <Col xs={24} sm={24} md={24}>
+        <Grid>
+          <Grid xs={24} sm={24} md={24}>
             <TutorialTitle
               stepPanelVisible={stepPanelVisible}
               isDesktop={isDesktop}
@@ -146,8 +147,8 @@ const ViewTutorial = () => {
               tutorialData={tutorialData}
               timeRemaining={timeRemaining}
             />
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
         <Layout>
           <Sider
             width={stepPanelVisible ? (isDesktop ? "25%" : "100%") : "0"}
@@ -165,8 +166,8 @@ const ViewTutorial = () => {
           </Sider>
 
           <Content style={{ backgroundColor: "#f0f0f0" }}>
-            <Row className="tutorial-content" justify="center">
-              <Col
+            <Grid className="tutorial-content" justify="center">
+              <Grid
                 xs={24}
                 sm={24}
                 md={20}
@@ -205,7 +206,7 @@ const ViewTutorial = () => {
                     )}
                   </>
                 )}
-              </Col>
+              </Grid>
               {imageDrawerVisible && (
                 <ImageDrawer
                   visible={imageDrawerVisible}
@@ -224,17 +225,17 @@ const ViewTutorial = () => {
                 steps_length={stepsData.length}
                 owner={tutorialData.owner}
               />
-            </Row>
-            <Row>
-              <Col xs={24} sm={24} md={24} className="col-pad-24-s">
+            </Grid>
+            <Grid>
+              <Grid xs={24} sm={24} md={24} className="col-pad-24-s">
                 <ControlButtons
                   currentStep={currentStep}
                   setCurrentStep={setCurrentStep}
                   stepsData={stepsData}
                   hide={!isDesktop && stepPanelVisible}
                 />
-              </Col>
-            </Row>
+              </Grid>
+            </Grid>
           </Content>
         </Layout>
       </Layout>
