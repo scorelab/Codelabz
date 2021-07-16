@@ -1,6 +1,8 @@
 import React from "react";
-import { Steps, Button } from "antd";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import { Steps } from "antd";
+import Button from "@material-ui/core/Button";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 const { Step } = Steps;
 
 const StepsPanel = ({
@@ -14,7 +16,7 @@ const StepsPanel = ({
     <div style={{ width: "100%" }}>
       <span>{title} </span>
       <span style={{ float: "right", verticalAlign: "middle" }}>
-        {visibility ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+        {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
       </span>
     </div>
   );
@@ -22,7 +24,7 @@ const StepsPanel = ({
   return (
     <div className="tutorial-steps-sider">
       {!hideButton &&
-      false && ( //remove false to show
+        false && ( //remove false to show
           <Button
             type="link"
             size="large"
