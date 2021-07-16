@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { PageHeader, Button, Menu, Dropdown, Space, message } from "antd";
+import {  Dropdown } from "antd";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from '@material-ui/core/MenuItem';
+import Snackbar from "@material-ui/core/Snackbar";
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import {
   SnippetsOutlined,
   EllipsisOutlined,
@@ -39,40 +44,53 @@ const EditControls = ({
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
+   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const TutorialMenu = () => {
     return (
-      <Menu>
-        <Menu.Item key="edit_description">
+      <Menu anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose} >
+        <MenuItem key="edit_description">
           <AlignLeftOutlined /> Edit Description
-        </Menu.Item>
-        <Menu.Item
+        </MenuItem>
+        <MenuItem
           key="edit_codeLabz_theme"
           onClick={() => setViewColorPickerModal(true)}
         >
           <FormatPainterOutlined /> Edit CodeLabz Theme
-        </Menu.Item>
+        </MenuItem>
         <Menu.Divider />
-        <Menu.Item
+        <MenuItem
           key="delete_tutorial"
           onClick={() => null}
           style={{ color: "red" }}
         >
           <DeleteOutlined /> Move to Trash
-        </Menu.Item>
+        </MenuItem>
       </Menu>
     );
   };
 
   const DropdownMenu = () => {
     return (
-      <Dropdown key="more" overlay={TutorialMenu}>
-        <Button
+      <>
+        
+      <Button
           style={{
             border: "none",
             padding: 0
           }}
           type="link"
+           onClick={handleClick}
         >
           <EllipsisOutlined
             style={{
@@ -81,41 +99,80 @@ const EditControls = ({
             }}
           />
         </Button>
-      </Dropdown>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        style={{left:"80vw",top:"20%  "}}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem key="edit_description">
+          <AlignLeftOutlined /> Edit Description
+        </MenuItem>
+       <MenuItem
+          key="edit_codeLabz_theme"
+          onClick={() => setViewColorPickerModal(true)}
+        >
+          <FormatPainterOutlined /> Edit CodeLabz Theme
+        </MenuItem>
+        <MenuItem
+          key="delete_tutorial"
+          onClick={() => null}
+          style={{ color: "red" }}
+        >
+          <DeleteOutlined /> Move to Trash
+        </MenuItem>
+      </Menu>
+      </>
     );
   };
 
   return (
     <>
-      <PageHeader
+      <Grid
+      style={{display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}
         className={
           (!stepPanelVisible && !isDesktop
             ? "ant-page-header-fix "
             : "ant-page-header-unfix ") + "tutorial-title-header low-padding"
         }
-        title={
-          <Space>
-            <Button type="primary" onClick={() => toggleAddNewStep()}>
+      >
+            <div>
+            <Button type="primary" variant="outlined" onClick={() => toggleAddNewStep()}>
               <PlusOutlined /> Add New Step
             </Button>
-            <Button className="ml-24" onClick={() => toggleImageDrawer()}>
+            <Button variant="outlined" className="ml-24" onClick={() => toggleImageDrawer()}>
               <FileImageOutlined /> Add images
             </Button>
 
             <Button
+            variant="outlined"
               onClick={() => {
                 let key = Math.random();
-                message.loading({
-                  content: "Updating step visibility...",
-                  key,
-                  duration: 10
-                });
+                <Snackbar
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                open={true}
+                autoHideDuration={6000}
+                message="updating step visibility...."
+              />;
                 hideUnHideStep(owner, tutorial_id, noteID, visibility)(
                   firebase,
                   firestore,
                   dispatch
                 ).then(() => {
-                  message.success({ content: "Updated!", key, duration: 2 });
+                 <Snackbar
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  open={true}
+                  autoHideDuration={6000}
+                  message="updated...."
+                />;
                 });
               }}
             >
@@ -130,6 +187,7 @@ const EditControls = ({
               )}
             </Button>
             <Button
+            variant="outlined"
               danger
               onClick={() => {
                 setViewRemoveStepModal(!viewRemoveStepModal);
@@ -146,15 +204,15 @@ const EditControls = ({
                 step_length={step_length}
               />
             </Button>
-          </Space>
-        }
-        extra={
-          !isDesktop && stepPanelVisible ? null : (
+            </div>
+          <div>
+          {!isDesktop && stepPanelVisible ? null : (
             <>
               {mode === "edit" && (
                 <UserList tutorial_id={tutorial_id} noteID={noteID} />
               )}
               <Button
+              
                 type="text"
                 shape="circle"
                 icon={<MessageOutlined />}
@@ -184,9 +242,11 @@ const EditControls = ({
               </Button>
               <DropdownMenu key="more" />
             </>
-          )
-        }
-      />
+           
+          )}
+           </div>
+     
+      </Grid>
       <ColorPickerModal
         visible={viewColorPickerModal}
         visibleCallback={e => setViewColorPickerModal(e)}

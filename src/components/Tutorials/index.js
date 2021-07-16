@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Layout } from "antd";
 import Grid from "@material-ui/core/Grid";
 import { useMediaQuery } from "react-responsive";
 import StepsPanel from "./subComps/StepsPanel";
@@ -23,7 +22,6 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
 
-const { Content, Sider } = Layout;
 
 const ViewTutorial = () => {
   const firebase = useFirebase();
