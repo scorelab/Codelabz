@@ -86,8 +86,7 @@ const Routes = () => {
       <AuthIsLoaded>
         <Navbar />
         <Switch>
-          <Route exact path={"/"} component={Home} />
-          <Route path={"/homepage"} component={HomePage} />
+          <Route exact path={"/"} component={HomePage} />
           <Route
             exact
             path={"/login"}
