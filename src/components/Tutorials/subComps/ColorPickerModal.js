@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Modal from "antd/lib/modal/Modal";
 import Grid from "@material-ui/core/Grid";
+import Modal from '@material-ui/core/Modal'
 import { Panel as ColorPickerPanel } from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -42,13 +42,20 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
 
   return (
     <div>
-      <Modal
-        title="Edit CodeLabz Theme"
-        visible={visible}
-        onOk={handleOk}
+     <Modal
+      open={visible}
+      onClose={handleCancel}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+       onOk={handleOk}
         confirmLoading={loading}
-        onCancel={handleCancel}
-      >
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Grid>
         <Grid align="middle" justify="center" className="mb-24">
           <Grid
             xs={24}
@@ -96,6 +103,7 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
           <Grid xs={24} style={{ textAlign: "center" }}>
             Change the values above to see the preview
           </Grid>
+        </Grid>
         </Grid>
       </Modal>
     </div>
