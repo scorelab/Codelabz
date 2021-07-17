@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Modal from "antd/lib/modal/Modal";
-import { Row, Col } from "antd";
+import Grid from "@material-ui/core/Grid";
 import { Panel as ColorPickerPanel } from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { setTutorialTheme } from "../../../store/actions";
+import { GridOff } from "@material-ui/icons";
 
 const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
   const [bgColor, setBgColor] = useState("#ffffff");
@@ -48,8 +49,8 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
         confirmLoading={loading}
         onCancel={handleCancel}
       >
-        <Row align="middle" justify="center" className="mb-24">
-          <Col
+        <Grid align="middle" justify="center" className="mb-24">
+          <Grid
             xs={24}
             md={12}
             className="mb-16"
@@ -63,8 +64,8 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
                 mode="RGB"
               />
             </div>
-          </Col>
-          <Col
+          </Grid>
+          <Grid
             xs={24}
             md={12}
             className="mb-16"
@@ -79,10 +80,10 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
                 align="center"
               />
             </div>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
 
-        <Row
+        <Grid
           style={{
             width: "100%",
             height: "50px",
@@ -92,10 +93,10 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
           }}
           align="middle"
         >
-          <Col xs={24} style={{ textAlign: "center" }}>
+          <Grid xs={24} style={{ textAlign: "center" }}>
             Change the values above to see the preview
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
       </Modal>
     </div>
   );
