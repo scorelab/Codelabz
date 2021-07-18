@@ -213,7 +213,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const onChangeGithub = (github) => setGithub(github);
 
   return (
-    <>
+    <Grid id="editModalBox">
       {error && (
         <Grid container>
           <Grid xs={12} className="col-pad-24 pr-12 pb-0">
@@ -455,7 +455,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           </Box>
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };
 

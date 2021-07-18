@@ -483,6 +483,7 @@ const ProfileInfoCard = () => {
         maxWidth="md"
         open={profileEditModalVisible}
         onClose={!profileEditModalVisible}
+        id="editProfileModal"
       >
         <DialogTitle id="alert-dialog-title">
           <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
