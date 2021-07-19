@@ -23,10 +23,10 @@ describe("Login Test | CodeLabz", () => {
     cy.xpath('//*[(@id = "log-out")]').click({ force: true });
   });
 
-  // it("Login Test - Failing", () => {
-  //   cy.get(".ant-btn-link > a").click();
-  //   cy.get("#email").type("seniyaklop23@gmail.com");
-  //   cy.get("#password").type("123456789");
-  //   cy.get(".ant-form-item-control-input-content > .ant-btn").click();
-  // });
+  it("Login Test - Failing", () => {
+    cy.get(".ant-btn-link > a").click();
+    cy.get("#email").type("seniyaklop23@gmail.com");
+    cy.get("#password").type("123456789");
+    cy.get(".ant-form-item-control-input-content > .ant-btn").click();
+  });
 });

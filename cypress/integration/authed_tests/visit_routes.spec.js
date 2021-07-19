@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /// <reference types="cypress" />
 describe("Authenticated Route Access Test | CodeLabz", () => {
   beforeEach(function () {
