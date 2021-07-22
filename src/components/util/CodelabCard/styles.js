@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   heading: {
-    fontWeight: 900,
+    fontWeight: 700,
     marginTop: "-.5rem",
     [theme.breakpoints.down(750)]: {
       fontSize: "1rem",

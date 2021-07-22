@@ -168,7 +168,10 @@ const ProfileInfoCard = () => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={() => setProfileEditModalVisible(true)}>
+                  <MenuItem
+                    id="edit"
+                    onClick={() => setProfileEditModalVisible(true)}
+                  >
                     Edit Profile
                   </MenuItem>
                 </Menu>
@@ -197,6 +200,7 @@ const ProfileInfoCard = () => {
                       style={{
                         backgroundColor: "#455a64",
                       }}
+                      id="changeProfile"
                       startIcon={<CloudUploadIcon />}
                       onClick={() => setShowImageDialog(true)}
                     >

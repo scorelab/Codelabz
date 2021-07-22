@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import countryList from "../../../helpers/countryList";
-import { validateName, validateCountry, validateOrgWebsite, validateIsEmpty } from "../../../helpers/validations";
+import {
+  validateName,
+  validateCountry,
+  validateOrgWebsite,
+  validateIsEmpty,
+} from "../../../helpers/validations";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
-import { updateUserProfile, clearProfileEditError } from "../../../store/actions";
+import {
+  updateUserProfile,
+  clearProfileEditError,
+} from "../../../store/actions";
 
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
@@ -39,22 +47,43 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
   const [countryValidateError, setCountryValidateError] = useState(false);
   const [website, setWebsite] = useState(getData(profileData.website));
   const [websiteValidateError, setWebsiteValidateError] = useState(false);
-  const [websiteValidateErrorMessage, setWebsiteValidateErrorMessage] = useState("");
-  const [description, setDescription] = useState(getData(profileData.description));
-  const [descriptionValidateError, setDescriptionValidateError] = useState(false);
-  const [descriptionValidateErrorMessage, setDescriptionValidateErrorMessage] = useState("");
+  const [
+    websiteValidateErrorMessage,
+    setWebsiteValidateErrorMessage,
+  ] = useState("");
+  const [description, setDescription] = useState(
+    getData(profileData.description)
+  );
+  const [descriptionValidateError, setDescriptionValidateError] = useState(
+    false
+  );
+  const [
+    descriptionValidateErrorMessage,
+    setDescriptionValidateErrorMessage,
+  ] = useState("");
   const [facebook, setFacebook] = useState(getData(profileData.link_facebook));
   const [facebookValidateError, setFacebookValidateError] = useState(false);
-  const [facebookValidateErrorMessage, setFacebookValidateErrorMessage] = useState("");
+  const [
+    facebookValidateErrorMessage,
+    setFacebookValidateErrorMessage,
+  ] = useState("");
   const [twitter, setTwitter] = useState(getData(profileData.link_twitter));
   const [twitterValidateError, setTwitterValidateError] = useState(false);
-  const [twitterValidateErrorMessage, setTwitterValidateErrorMessage] = useState("");
+  const [
+    twitterValidateErrorMessage,
+    setTwitterValidateErrorMessage,
+  ] = useState("");
   const [linkedin, setLinkedin] = useState(getData(profileData.link_linkedin));
   const [linkedinValidateError, setLinkedinValidateError] = useState(false);
-  const [linkedinValidateErrorMessage, setLinkedinValidateErrorMessage] = useState("");
+  const [
+    linkedinValidateErrorMessage,
+    setLinkedinValidateErrorMessage,
+  ] = useState("");
   const [github, setGithub] = useState(getData(profileData.link_github));
   const [githubValidateError, setGithubValidateError] = useState(false);
-  const [githubValidateErrorMessage, setGithubValidateErrorMessage] = useState("");
+  const [githubValidateErrorMessage, setGithubValidateErrorMessage] = useState(
+    ""
+  );
 
   const children = [];
   for (let i = 0; i < countryList.length; i++) {
@@ -101,7 +130,11 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
 
   const validated = () => {
     const countryValid = validateCountry(country, setCountryValidateError);
-    const orgWebsiteValid = validateOrgWebsite(website, setWebsiteValidateError, setWebsiteValidateErrorMessage);
+    const orgWebsiteValid = validateOrgWebsite(
+      website,
+      setWebsiteValidateError,
+      setWebsiteValidateErrorMessage
+    );
     const nameValid = validateName(
       name,
       setNameValidateError,
@@ -261,7 +294,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           placeholder="Description"
           value={description}
           onChange={(event) => onChangeDescription(event.target.value)}
-          helperText={descriptionValidateError ? descriptionValidateErrorMessage : null}
+          helperText={
+            descriptionValidateError ? descriptionValidateErrorMessage : null
+          }
           fullWidth
           autoComplete="description"
           required
@@ -284,7 +319,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           placeholder="username"
           value={facebook}
           onChange={(event) => onChangeFacebook(event.target.value)}
-          helperText={facebookValidateError ? facebookValidateErrorMessage : null}
+          helperText={
+            facebookValidateError ? facebookValidateErrorMessage : null
+          }
           fullWidth
           autoComplete="handle"
           required
@@ -293,7 +330,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <FacebookIcon style={{ color: "rgba(0,0,0,.25)" }} />
-                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>facebook.com/</p>
+                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>
+                  facebook.com/
+                </p>
               </InputAdornment>
             ),
           }}
@@ -317,7 +356,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <TwitterIcon style={{ color: "rgba(0,0,0,.25)" }} />
-                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>twitter.com/</p>
+                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>
+                  twitter.com/
+                </p>
               </InputAdornment>
             ),
           }}
@@ -332,7 +373,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           value={linkedin}
           placeholder="username"
           onChange={(event) => onChangeLinkedin(event.target.value)}
-          helperText={linkedinValidateError ? linkedinValidateErrorMessage : null}
+          helperText={
+            linkedinValidateError ? linkedinValidateErrorMessage : null
+          }
           fullWidth
           autoComplete="handle"
           required
@@ -341,7 +384,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <LinkedInIcon style={{ color: "rgba(0,0,0,.25)" }} />
-                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>linkedin.com/in/</p>
+                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>
+                  linkedin.com/in/
+                </p>
               </InputAdornment>
             ),
           }}
@@ -365,7 +410,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <GitHubIcon style={{ color: "rgba(0,0,0,.25)" }} />
-                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>github.com/</p>
+                <p style={{ margin: "15px 0px 15px 8px", color: "grey" }}>
+                  github.com/
+                </p>
               </InputAdornment>
             ),
           }}
