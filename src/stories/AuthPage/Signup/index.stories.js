@@ -1,16 +1,27 @@
-import React from 'react';
-import SignUp from '../../../components/AuthPage/SignUp';
-import ProviderWrapper from '../../../helpers/providerWrapper';
-import { MemoryRouter } from 'react-router-dom';
+import React from "react";
+import SignUp from "../../../components/AuthPage/SignUp";
+import ProviderWrapper from "../../../helpers/providerWrapper";
+import { MemoryRouter } from "react-router-dom";
 export default {
-  title: 'AuthPage/Sign Up Page',
+  title: "AuthPage/Sign Up Page",
   component: SignUp,
+  argTypes: {
+    background: {
+      control: "color",
+    },
+  },
 };
 
-export const signup = () => (
+const Template = (args) => (
   <ProviderWrapper>
     <MemoryRouter>
-      <SignUp />{' '}
+      <SignUp {...args} />{" "}
     </MemoryRouter>
   </ProviderWrapper>
 );
+
+export const Default = Template.bind({});
+
+// Default.args = {
+//   background: "white",
+// };
