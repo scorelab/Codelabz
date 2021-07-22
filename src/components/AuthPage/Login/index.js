@@ -23,8 +23,13 @@ import { clearAuthError, signIn } from "../../../store/actions";
 import SmButtons from "../smButton/smButtons";
 import ViewAlerts from "./ViewAlerts";
 import useStyles from "./styles";
+import PropTypes from "prop-types";
 
-const Login = () => {
+const Login = ({
+  loginButton = "blue",
+  background = "white",
+  loginText = "Welcome Back",
+}) => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -105,13 +110,17 @@ const Login = () => {
   };
 
   return (
-    <Card raised className={`${classes.card}   `}>
+    <Card
+      raised
+      className={`${classes.card}`}
+      style={{ background: background }}
+    >
       <CardContent>
         <Typography
           variant="h4"
           style={{ textAlign: "center", marginBottom: "40px" }}
         >
-          Welcome back!
+          {loginText}
         </Typography>
         <ViewAlerts error={error} email={email} />
         <div>
@@ -196,6 +205,7 @@ const Login = () => {
             fullWidth
             onClick={onSubmit}
             disabled={loading}
+            style={{ background: loginButton }}
           >
             {loading ? "Logging in..." : "Log in"}
           </Button>
@@ -211,6 +221,12 @@ const Login = () => {
       </CardContent>
     </Card>
   );
+};
+
+Login.propTypes = {
+  loginButton: PropTypes.string,
+  background: PropTypes.string,
+  loginText: PropTypes.string,
 };
 
 export default Login;
