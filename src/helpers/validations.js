@@ -1,6 +1,12 @@
 import validator from "validator";
 
-export const validateName = (name, setNameValidateError, setNameValidateErrorMessage, emptyMsg, realNameMsg) => {
+export const validateName = (
+  name,
+  setNameValidateError,
+  setNameValidateErrorMessage,
+  emptyMsg,
+  realNameMsg
+) => {
   if (validator.isEmpty(name)) {
     setNameValidateError(true);
     setNameValidateErrorMessage(emptyMsg);
@@ -33,7 +39,10 @@ export const validateHandle = async (
     setHandleValidateError(true);
     setHandleValidateErrorMessage(emptyMsg);
     return false;
-  } else if (!validator.isAlphanumeric(handle) || !validator.isLowercase(handle)) {
+  } else if (
+    !validator.isAlphanumeric(handle) ||
+    !validator.isLowercase(handle)
+  ) {
     setHandleValidateError(true);
     setHandleValidateErrorMessage(lowercaseMsg);
     return false;
@@ -62,7 +71,11 @@ export const validateCountry = (country, setCountryValidateError) => {
   }
 };
 
-export const validateOrgWebsite = (orgWebsite, setOrgWebsiteValidateError, setOrgWebsiteValidateErrorMessage) => {
+export const validateOrgWebsite = (
+  orgWebsite,
+  setOrgWebsiteValidateError,
+  setOrgWebsiteValidateErrorMessage
+) => {
   if (validator.isEmpty(orgWebsite)) {
     setOrgWebsiteValidateError(true);
     setOrgWebsiteValidateErrorMessage("Please enter a website");
@@ -71,9 +84,13 @@ export const validateOrgWebsite = (orgWebsite, setOrgWebsiteValidateError, setOr
     setOrgWebsiteValidateError(true);
     setOrgWebsiteValidateErrorMessage("Please provide a valid URL");
     return false;
-  } else if (!(orgWebsite.includes("https://") || orgWebsite.includes("http://"))) {
+  } else if (
+    !(orgWebsite.includes("https://") || orgWebsite.includes("http://"))
+  ) {
     setOrgWebsiteValidateError(true);
-    setOrgWebsiteValidateErrorMessage("URL must contain the protocol (https:// or http://)");
+    setOrgWebsiteValidateErrorMessage(
+      "URL must contain the protocol (https:// or http://)"
+    );
     return false;
   } else {
     setOrgWebsiteValidateError(false);
@@ -82,7 +99,12 @@ export const validateOrgWebsite = (orgWebsite, setOrgWebsiteValidateError, setOr
   }
 };
 
-export const validateIsEmpty = (string, setStringValidateError, setStringValidateErrorMessage, emptyMsg) => {
+export const validateIsEmpty = (
+  string,
+  setStringValidateError,
+  setStringValidateErrorMessage,
+  emptyMsg
+) => {
   if (validator.isEmpty(string)) {
     setStringValidateError(true);
     setStringValidateErrorMessage(emptyMsg);

@@ -16,24 +16,32 @@ import { Link } from "react-router-dom";
 import BrandName from "../../helpers/brandName";
 import { clearOrgData, getLaunchedOrgsData } from "../../store/actions";
 import { CardHeader } from "@material-ui/core";
+import PropTypes from "prop-types";
 
-const useStyles = makeStyles({
-  root: {
-    paddingBottom: 10,
-  },
+const ExploreOrgs = ({
+  cardHeight = 450,
+  cardWidth = 345,
+  mediaHeight = 320,
+  mediaWidth = 320,
+  cardColor = "white",
+}) => {
+  const useStyles = makeStyles({
+    root: {
+      paddingBottom: 10,
+    },
 
-  card: {
-    height: 450,
-    maxWidth: 345,
-  },
+    card: {
+      height: cardHeight,
+      maxWidth: cardWidth,
+      background: cardColor,
+    },
 
-  media: {
-    height: 320,
-    margin: "auto",
-  },
-});
+    media: {
+      height: mediaHeight,
+      margin: "auto",
+    },
+  });
 
-const ExploreOrgs = () => {
   const classes = useStyles();
   const loading = useSelector(({ org }) => org.launched.loading);
   const error = useSelector(({ org }) => org.launched.error);
@@ -70,7 +78,14 @@ const ExploreOrgs = () => {
                   .map((a) => a.value)
                   .slice(0, 5)
                   .map((org) => (
-                    <Grid item xs={12} md={6} lg={3} className={classes.root} key={org.org_handle}> 
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                      lg={3}
+                      className={classes.root}
+                      key={org.org_handle}
+                    >
                       <Link to={`/org/${org.org_handle}`}>
                         <Card className={classes.card}>
                           <CardActionArea>
@@ -127,6 +142,13 @@ const ExploreOrgs = () => {
       )}
     </Box>
   );
+};
+ExploreOrgs.propTypes = {
+  cardHeight: PropTypes.number,
+  cardWidth: PropTypes.number,
+  mediaHeight: PropTypes.number,
+  mediaWidth: PropTypes.number,
+  cardColor: PropTypes.string,
 };
 
 export default ExploreOrgs;

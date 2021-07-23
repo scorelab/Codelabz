@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import validator from "validator";
 import { clearAuthError, signUp } from "../../../store/actions";
+import Card from "@material-ui/core/Card";
 
 const SignupForm = () => {
   const [loading, setLoading] = useState(false);
@@ -25,35 +26,21 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
-  const [errorOpen, setErrorOpen] = useState(false);
-  const [successOpen, setSuccessOpen] = useState(false);
 
-  const [email, setEmail] = useState("");
+  const [errorOpen, setErrorOpen] = useState(true);
+  const [email, setEmail] = useState('');
   const [emailValidateError, setEmailValidateError] = useState(false);
-  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
-    ""
-  );
-
-  const [password, setPassword] = useState("");
+  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
-  const [
-    passwordValidateErrorMessage,
-    setPasswordValidateErrorMessage,
-  ] = useState("");
-
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordValidateErrorMessage,setPasswordValidateErrorMessage,] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [
-    confirmPasswordValidateError,
-    setConfirmPasswordValidateError,
-  ] = useState(false);
-  const [
-    confirmPasswordValidateErrorMessage,
-    setConfirmPasswordValidateErrorMessage,
-  ] = useState("");
-
+  const [confirmPasswordValidateError,setConfirmPasswordValidateError,] = useState(false);
+  const [confirmPasswordValidateErrorMessage,setConfirmPasswordValidateErrorMessage,] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [agreedText, setAgreedText] = useState(false);
 
   useEffect(() => setError(errorProp), [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
@@ -109,8 +96,6 @@ const SignupForm = () => {
   };
 
   const validateConfirmPassword = () => {
-    console.log(password);
-    console.log(confirmPassword);
     if (password != confirmPassword) {
       setConfirmPasswordValidateError(true);
       setConfirmPasswordValidateErrorMessage(
@@ -124,13 +109,11 @@ const SignupForm = () => {
   };
 
   const onSubmit = async () => {
-    setError("");
-    if (
-      (validateEmail() & validatePassword() && validateConfirmPassword(),
-      agreed)
-    ) {
+    if(validateEmail() && validatePassword() && validateConfirmPassword() && agreed)
+    {
       await signUp({ email, password })(firebase, dispatch);
-    }
+    }else{
+      setAgreedText(true);}
   };
 
   const onFocusEmail = () => {
@@ -174,7 +157,7 @@ const SignupForm = () => {
       )}
 
       {success && (
-        <Collapse in={successOpen}>
+        <Collapse in={success}>
           <Alert
             severity="success"
             action={
@@ -183,7 +166,7 @@ const SignupForm = () => {
                 color="inherit"
                 size="small"
                 onClick={() => {
-                  setSuccessOpen(false);
+                  setSuccess(false);
                 }}
               >
                 <CloseIcon fontSize="inherit" />
@@ -197,7 +180,7 @@ const SignupForm = () => {
         </Collapse>
       )}
 
-      <div>
+      <Card style={{ boxShadow: "none" }}>
         <TextField
           error={emailValidateError}
           label="Email"
@@ -211,7 +194,7 @@ const SignupForm = () => {
           autoComplete="email"
           required
           onFocus={onFocusEmail}
-          style={{ marginBottom: "15px" }}
+          style={{ marginBottom: "15px", marginTop: "12px" }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -290,6 +273,7 @@ const SignupForm = () => {
           }}
         />
         <FormControlLabel
+
           control={
             <Checkbox
               checked={agreed}
@@ -300,7 +284,9 @@ const SignupForm = () => {
           }
           label="By creating an account, you agree to our terms and conditions."
         />
+        {agreedText && !agreed ? <div style={{color:"red" ,padding:'5px'}}> You have to agree to our terms and conditions in order to register</div> :null}
         <Button
+           onClick={onSubmit}
           variant="contained"
           color="primary"
           fullWidth
@@ -309,7 +295,7 @@ const SignupForm = () => {
         >
           {loading ? "Creating your account..." : "Create an account"}
         </Button>
-      </div>
+      </Card>
     </>
   );
 };

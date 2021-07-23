@@ -17,7 +17,7 @@ import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
 import Modal from "@material-ui/core/Modal";
 
-const NewTutorial = ({ viewModal, viewCallback, active }) => {
+const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -136,9 +136,7 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
       owner: e.target.value,
     }));
   };
-  const handleCancel = () => {
-    setVisible(false);
-  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -150,7 +148,7 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
   return (
     <Modal
       open={visible}
-      onClose={handleCancel}
+      onClose={onSidebarClick}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       style={{
@@ -213,7 +211,7 @@ const NewTutorial = ({ viewModal, viewCallback, active }) => {
 
           <div className="mb-0">
             <div style={{ float: "right", marginTop: "-1rem" }}>
-              <Button key="back" onClick={handleCancel}>
+              <Button key="back" onClick={onSidebarClick}>
                 Cancel
               </Button>
               <Button

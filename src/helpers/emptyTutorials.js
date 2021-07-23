@@ -6,6 +6,10 @@ import EmptySVG from "../assets/images/empty.svg";
 
 const EmptyTutorials = ({ org, orgHandle }) => {
   const [visibleModal, setVisibleModal] = useState(false);
+
+  const closeModal = () => {
+    setVisibleModal((prev) => !prev);
+  };
   return (
     <Col xs={24}>
       <Empty
@@ -21,6 +25,7 @@ const EmptyTutorials = ({ org, orgHandle }) => {
       </Empty>
       <NewTutorial
         viewModal={visibleModal}
+        onSidebarClick={(e) => closeModal(e)}
         viewCallback={() => setVisibleModal(false)}
         active={orgHandle}
       />

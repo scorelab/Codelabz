@@ -20,14 +20,15 @@ import { Link } from "react-router-dom";
 import validator from "validator";
 import Divider from "../../../globalComponents/Divider";
 import { clearAuthError, signIn } from "../../../store/actions";
-import SmButtons from "../smButtons";
+import SmButtons from "../smButton/smButtons";
 import ViewAlerts from "./ViewAlerts";
+import useStyles from "./styles";
 
 const Login = () => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const classes = useStyles();
   const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
   const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
@@ -104,7 +105,7 @@ const Login = () => {
   };
 
   return (
-    <Card className="p-24 m-24" raised>
+    <Card raised className={`${classes.card}   `}>
       <CardContent>
         <Typography
           variant="h4"
@@ -122,11 +123,11 @@ const Login = () => {
             value={email}
             onChange={onChangeEmail}
             helperText={emailValidateError ? emailValidateErrorMessage : null}
-            error={emailValidateError}
             fullWidth
             autoComplete="email"
             required
             onFocus={onFocusEmail}
+            className="email"
             style={{ marginBottom: "15px" }}
             InputProps={{
               startAdornment: (
@@ -142,6 +143,7 @@ const Login = () => {
             helperText={
               passwordValidateError ? passwordValidateErrorMessage : null
             }
+            className="password"
             error={passwordValidateError}
             fullWidth
             required
@@ -174,14 +176,7 @@ const Login = () => {
             <Grid>
               <FormGroup row>
                 <FormControlLabel
-                  control={
-                    <Checkbox
-                      // checked={state.checkedB}
-                      // onChange={handleChange}
-                      name="remember"
-                      color="primary"
-                    />
-                  }
+                  control={<Checkbox name="remember" color="primary" />}
                   label="Remember me"
                 />
               </FormGroup>
@@ -203,6 +198,7 @@ const Login = () => {
             fullWidth
             onClick={onSubmit}
             disabled={loading}
+            className="loginButton"
           >
             {loading ? "Logging in..." : "Log in"}
           </Button>

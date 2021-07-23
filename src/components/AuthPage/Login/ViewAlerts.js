@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resendVerifyEmail } from '../../../store/actions';
 
 const AlertComp = ({ description, type }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <Collapse in={isOpen}>
       <Alert
