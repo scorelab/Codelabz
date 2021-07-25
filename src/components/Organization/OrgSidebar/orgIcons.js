@@ -1,6 +1,8 @@
 import React from "react";
-import { Avatar, Row, Col, Tooltip } from "antd";
+import Avatar from "@material-ui/core/Avatar";
 import { avatarName } from "../../../helpers/avatarName";
+import Tooltip from "@material-ui/core/Tooltip";
+import Grid from "@material-ui/core/Grid";
 /**Sidebar Icons component
  *
  * @param {boolean} active // whether the icon is selected
@@ -32,33 +34,25 @@ export const OrgIcons = ({
   }
 
   return (
-    <Row type="flex" align="middle" justify="space-around">
-      <Col xs={24}>
-        <Tooltip
-          {...tooltipProps}
-          //visible={isDesktop ? null : false}
-        >
-          <Row
+    <Grid type="flex" align="middle" justify="space-around">
+      <Grid xs={24}>
+        <Tooltip {...tooltipProps}>
+          <Grid
             align="middle"
             justify={isDesktop ? "space-around" : null}
             onClick={onClick && data ? () => onClick(data) : null}
           >
-            <Col>
+            <Grid>
               <div
-                className={
-                  "minisidebar-item" +
-                  (active === true ? " minisidebar-active" : "") +
-                  (border === true
-                    ? " minisidebar-item-border"
-                    : " minisidebar-item-no-border")
-                }
                 style={{
-                  borderColor: borderColor ? borderColor : null,
+                  borderColor: "black",
+                  display: "flex",
+                  justifyItems: "center",
+                  justifyContent: "center",
+                  height: "10vh",
                 }}
               >
                 <Avatar
-                  shape="circle"
-                  size={35}
                   icon={icon ? icon : null}
                   src={image ? image : null}
                   style={{
@@ -69,15 +63,15 @@ export const OrgIcons = ({
                   {text ? avatarName(text) : ""}
                 </Avatar>
               </div>
-            </Col>
+            </Grid>
             {isDesktop === false && (
-              <Col className="ml-8" style={{ marginTop: "12px" }}>
+              <Grid className="ml-8" style={{ marginTop: "12px" }}>
                 {data ? data.name : null}
-              </Col>
+              </Grid>
             )}
-          </Row>
+          </Grid>
         </Tooltip>
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Divider } from "antd";
+
 import { OrgIcons } from "./orgIcons";
 import { Palette } from "color-thief-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,41 +10,42 @@ import { useMediaQuery } from "react-responsive";
 
 const OrgSidebar = ({ onOrgChange }) => {
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)"
+    query: "(min-device-width: 767px)",
   });
 
   const dispatch = useDispatch();
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   const current = useSelector(
     ({
       org: {
-        general: { current }
-      }
+        general: { current },
+      },
     }) => current
   );
 
   const [activeOrg, setActiveOrg] = useState(orgs[0]); // set the current active org here
   const [showModal, setShowModal] = useState(false); // set the current active org here
 
-  const handleClickEvent = data => {
+  const handleClickEvent = (data) => {
     onOrgChange();
-    let orgDetails = orgs.find(element => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === data.handle;
     });
-    setCurrentOrgUserPermissions(orgDetails.org_handle, orgDetails.permissions)(
-      dispatch
-    );
+    setCurrentOrgUserPermissions(
+      orgDetails.org_handle,
+      orgDetails.permissions
+    )(dispatch);
   };
 
   useEffect(() => {
-    let orgDetails = orgs.find(element => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === current;
     });
     setActiveOrg(orgDetails);
@@ -72,7 +73,6 @@ const OrgSidebar = ({ onOrgChange }) => {
             active={true}
             isDesktop={isDesktop}
           />
-          <Divider className="mt-16 mb-0" />
         </>
       )}
 
@@ -88,7 +88,7 @@ const OrgSidebar = ({ onOrgChange }) => {
       />
 
       {orgs &&
-        orgs.map(org => (
+        orgs.map((org) => (
           <Palette
             src={org.org_image}
             crossOrigin="Anonymous"
@@ -118,7 +118,7 @@ const OrgSidebar = ({ onOrgChange }) => {
                     onClick={handleClickEvent}
                     data={{
                       name: org.org_name,
-                      handle: org.org_handle
+                      handle: org.org_handle,
                     }}
                     active={false}
                     isDesktop={isDesktop}
