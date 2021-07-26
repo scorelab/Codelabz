@@ -20,7 +20,7 @@ import ProfileView from "./components/Profile/ViewProfile";
 import ViewTutorial from "./components/Tutorials";
 import MyTutorials from "./components/Tutorials/MyTutorials";
 import Spinner from "./helpers/spinner";
-import PrimarySearchAppBar from "./helpers/appBar";
+import CodeLabzAppBar from "./helpers/appBar";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -74,7 +74,7 @@ const Routes = () => {
   return (
     <Router>
       <AuthIsLoaded>
-        <PrimarySearchAppBar />
+        <CodeLabzAppBar />
         {/* <Navbar /> */}
         <Switch>
           <Route exact path={"/"} component={HomePage} />
