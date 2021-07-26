@@ -7,7 +7,7 @@ import { verifyEmail, clearAuthError } from "../../../store/actions";
 
 const { Title } = Typography;
 
-const VerifyEmail = ({ queryParams }) => {
+const VerifyEmail = ({ queryParams = "test" }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const { oobCode: actionCode } = queryParams;
