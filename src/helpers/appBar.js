@@ -11,12 +11,14 @@ import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import AppsIcon from "@material-ui/icons/Apps";
+import AddIcon from "@material-ui/icons/Add";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { makeStyles } from "@material-ui/core/styles";
 
 import BrandName from "./brandName";
 import RightMenu from "../components/NavBar/MainNavbar/RightMenu";
 import useGetPermissions from "./customHooks/useGetPermissions";
-import { useAllowDashboard } from "./customHooks";
+import { useAllowDashboard, useAuthStatus } from "./customHooks";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -94,9 +96,13 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  toolbar: {
+    minHeight: 70,
+  },
 }));
 
 const CodeLabzAppBar = () => {
+  const authed = useAuthStatus();
   const permissions = useGetPermissions();
   const allowDashboard = useAllowDashboard();
   const classes = useStyles();
@@ -140,61 +146,118 @@ const CodeLabzAppBar = () => {
     </Menu>
   );
 
-  return (
-    <div className={classes.grow}>
-      <AppBar position="static" color="white">
-        <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <Link to={"/"}>
-              <BrandName />
-            </Link>
-          </Typography>
+  if (authed) {
+    return (
+      <div className={classes.grow}>
+        <AppBar position="static" color="white">
+          <Toolbar className={classes.toolbar}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              <Link to={"/"}>
+                <BrandName />
+              </Link>
+            </Typography>
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+
+              <InputBase
+                placeholder="Search"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
             </div>
 
-            <InputBase
-              placeholder="Search"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
+            <div className={classes.grow} />
 
-          <div className={classes.grow} />
+            <div className={classes.newButtonDesktop}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ backgroundColor: "royalblue" }}
+                endIcon={<AddIcon />}
+              >
+                New Codelab
+              </Button>
+            </div>
 
-          <div className={classes.newButtonDesktop}>
-            <Button variant="contained" color="primary">
-              New Codelab
-            </Button>
-          </div>
+            <div className={classes.newButtonMobile}>
+              <IconButton>
+                <AddCircleIcon fontSize="large" />
+              </IconButton>
+            </div>
 
-          <div className={classes.newButtonMobile}>
-            <Button variant="contained" color="primary">
-              +
-            </Button>
-          </div>
+            <IconButton aria-label="appsIcon" className={classes.margin} onClick={handleMenuOpen}>
+              <AppsIcon fontSize="large" />
+            </IconButton>
 
-          <IconButton aria-label="appsIcon" className={classes.margin} onClick={handleMenuOpen}>
-            <AppsIcon fontSize="large" />
-          </IconButton>
+            <div className={classes.sectionDesktop}>
+              <RightMenu mode={"horizontal"} />
+            </div>
 
-          <div className={classes.sectionDesktop}>
-            <RightMenu mode={"horizontal"} />
-          </div>
+            <div className={classes.sectionMobile}>
+              <RightMenu mode={"horizontal"} />
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMenu}
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes.grow}>
+        <AppBar position="static" color="white">
+          <Toolbar className={classes.toolbar}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              <Link to={"/"}>
+                <BrandName />
+              </Link>
+            </Typography>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
 
-          <div className={classes.sectionMobile}>
-            <RightMenu mode={"horizontal"} />
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMenu}
-    </div>
-  );
+              <InputBase
+                placeholder="Search"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
+            <div className={classes.grow} />
+            <div className={classes.newButtonDesktop}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ backgroundColor: "royalblue" }}
+                endIcon={<AddIcon />}
+              >
+                New Codelab
+              </Button>
+            </div>
+            <div className={classes.newButtonMobile}>
+              <IconButton>
+                <AddCircleIcon fontSize="large" />
+              </IconButton>
+            </div>
+            &nbsp; &nbsp;
+            <Link to={"/login"}>
+              <Button variant="contained" color="primary" style={{ backgroundColor: "royalblue" }}>
+                Log In
+              </Button>
+            </Link>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 };
 
 export default CodeLabzAppBar;
