@@ -75,7 +75,7 @@ const Routes = () => {
     <Router>
       <AuthIsLoaded>
         <CodeLabzAppBar />
-        <Navbar />
+        {/* <Navbar /> */}
         <Switch>
           <Route exact path={"/"} component={HomePage} />
           <Route exact path={"/login"} render={(props) => <AuthPage {...props} type={"login"} />} />

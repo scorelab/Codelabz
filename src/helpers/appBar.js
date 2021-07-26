@@ -1,4 +1,6 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,10 +11,12 @@ import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import AppsIcon from "@material-ui/icons/Apps";
-import BrandName from "./brandName";
-import { Link } from "react-router-dom";
-import RightMenu from "../components/NavBar/MainNavbar/RightMenu";
 import { makeStyles } from "@material-ui/core/styles";
+
+import BrandName from "./brandName";
+import RightMenu from "../components/NavBar/MainNavbar/RightMenu";
+import useGetPermissions from "./customHooks/useGetPermissions";
+import { useAllowDashboard } from "./customHooks";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -46,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
     width: "50%",
 
-    //if not mobile size
+    // If not mobile size
     [theme.breakpoints.up("md")]: {
       left: "20%",
       width: "40%",
@@ -71,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "500px",
 
-    //if not mobile size
+    // If not mobile size
     [theme.breakpoints.up("md")]: {
       top: "20%",
       position: "absolute",
@@ -93,8 +97,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CodeLabzAppBar = () => {
+  const permissions = useGetPermissions();
+  const allowDashboard = useAllowDashboard();
   const classes = useStyles();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const menuId = "primary-search-account-menu";
@@ -117,8 +122,21 @@ const CodeLabzAppBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem key="/tutorials">
+        <NavLink to="/tutorials">Tutorials</NavLink>
+      </MenuItem>
+
+      {allowDashboard && (
+        <MenuItem key="my-code-feed">
+          <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
+        </MenuItem>
+      )}
+
+      {allowDashboard && permissions.length > 0 && (
+        <MenuItem key="/organization">
+          <NavLink to="/organization">Organizations</NavLink>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -148,16 +166,19 @@ const CodeLabzAppBar = () => {
           </div>
 
           <div className={classes.grow} />
+
           <div className={classes.newButtonDesktop}>
             <Button variant="contained" color="primary">
               New Codelab
             </Button>
           </div>
+
           <div className={classes.newButtonMobile}>
             <Button variant="contained" color="primary">
               +
             </Button>
           </div>
+
           <IconButton aria-label="appsIcon" className={classes.margin} onClick={handleMenuOpen}>
             <AppsIcon fontSize="large" />
           </IconButton>
@@ -165,6 +186,7 @@ const CodeLabzAppBar = () => {
           <div className={classes.sectionDesktop}>
             <RightMenu mode={"horizontal"} />
           </div>
+
           <div className={classes.sectionMobile}>
             <RightMenu mode={"horizontal"} />
           </div>
