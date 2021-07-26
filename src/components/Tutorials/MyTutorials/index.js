@@ -1,15 +1,15 @@
-import Grid from '@material-ui/core/Grid';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useFirestore } from 'react-redux-firebase';
+import Grid from "@material-ui/core/Grid";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirestore } from "react-redux-firebase";
 import {
   clearTutorialsBasicData,
   getOrgTutorialsBasicData,
   getUserTutorialsBasicData,
-} from '../../../store/actions';
+} from "../../../store/actions";
 // import UserTutorialsComponent from "./UserTutorials";
-import OrgTutorialsComponent from './OrgTutorials';
-import SearchComponent from './Search';
+import OrgTutorialsComponent from "./OrgTutorials";
+import SearchComponent from "./Search";
 
 const MyTutorials = () => {
   const firestore = useFirestore();
@@ -75,6 +75,7 @@ const MyTutorials = () => {
         <Grid xs={12} className="mb-24">
           <SearchComponent />
         </Grid>
+        {console.log(organizations)}
         {organizations && organizations.length > 0 && (
           <Grid xs={12} className="m-24">
             <OrgTutorialsComponent
