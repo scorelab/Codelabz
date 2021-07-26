@@ -1,40 +1,35 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-
+import React from "react";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
-import MenuIcon from "@material-ui/icons/Menu";
+import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
+import AppsIcon from "@material-ui/icons/Apps";
 import BrandName from "./brandName";
 import { Link } from "react-router-dom";
 import RightMenu from "../components/NavBar/MainNavbar/RightMenu";
-
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-
-import Divider from "@material-ui/core/Divider";
-
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-
-const drawerWidth = 240;
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    flexGrow: 1,
+    flexGrow: 10,
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  newButtonDesktop: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  newButtonMobile: {
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
   },
   title: {
     display: "none",
@@ -43,15 +38,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   search: {
+    left: "0%",
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "whitesmoke",
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
     marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
+    width: "50%",
+
+    //if not mobile size
+    [theme.breakpoints.up("md")]: {
+      left: "20%",
+      width: "40%",
+      height: "50px",
     },
   },
   searchIcon: {
@@ -67,12 +66,16 @@ const useStyles = makeStyles((theme) => ({
     color: "inherit",
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(1, 1, 1, 1),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
-    width: "100%",
+    width: "500px",
+
+    //if not mobile size
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      top: "20%",
+      position: "absolute",
+      transform: "translateY(-25%)",
     },
   },
   sectionDesktop: {
@@ -92,15 +95,32 @@ const useStyles = makeStyles((theme) => ({
 const CodeLabzAppBar = () => {
   const classes = useStyles();
 
-  // const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const menuId = "primary-search-account-menu";
 
-  // const handleDrawerOpen = (open) => {
-  //   setOpen(true);
-  // };
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  // const handleDrawerClose = (open) => {
-  //   setOpen(false);
-  // };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
+  );
 
   return (
     <div className={classes.grow}>
@@ -111,12 +131,14 @@ const CodeLabzAppBar = () => {
               <BrandName />
             </Link>
           </Typography>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
+
             <InputBase
-              placeholder="Search…"
+              placeholder="Search"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -124,7 +146,22 @@ const CodeLabzAppBar = () => {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
+
           <div className={classes.grow} />
+          <div className={classes.newButtonDesktop}>
+            <Button variant="contained" color="primary">
+              New Codelab
+            </Button>
+          </div>
+          <div className={classes.newButtonMobile}>
+            <Button variant="contained" color="primary">
+              +
+            </Button>
+          </div>
+          <IconButton aria-label="appsIcon" className={classes.margin} onClick={handleMenuOpen}>
+            <AppsIcon fontSize="large" />
+          </IconButton>
+
           <div className={classes.sectionDesktop}>
             <RightMenu mode={"horizontal"} />
           </div>
@@ -133,6 +170,7 @@ const CodeLabzAppBar = () => {
           </div>
         </Toolbar>
       </AppBar>
+      {renderMenu}
     </div>
   );
 };
