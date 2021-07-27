@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
 import {
@@ -75,7 +75,6 @@ const MyTutorials = () => {
         <Grid xs={12} className="mb-24">
           <SearchComponent />
         </Grid>
-        {console.log(organizations)}
         {organizations && organizations.length > 0 && (
           <Grid xs={12} className="m-24">
             <OrgTutorialsComponent
