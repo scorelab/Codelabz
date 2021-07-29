@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
 const AddOrgUserModal = ({ currentOrgHandle }) => {
+  const [users, setUsers] = useState([]);
   const currentUser = useSelector(
     ({
       firebase: {
@@ -32,6 +33,15 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
       },
     }) => data
   );
+
+  useEffect(() => {
+    setUsers([]);
+    firebase.ref(`cl_user_handle/`).on("value", (snapshot) => {
+      snapshot.forEach((snap) => {
+        setUsers((prev) => [...prev, snap.key]);
+      });
+    });
+  }, []);
   const userProps = useSelector(({ org: { user } }) => user);
   const [loading, setLoading] = useState(false);
   const firebase = useFirebase();
@@ -39,7 +49,9 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
   const dispatch = useDispatch();
   const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
-  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState("");
+  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
+    ""
+  );
   const [selected, setSelected] = useState("perm_0");
   const options = [
     { name: "Reviewer", icon: <VisibilityIcon />, value: "perm_0" },
@@ -124,6 +136,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         onChange={onChangeHandle}
         helperText={handleValidateError ? handleValidateErrorMessage : null}
       />
+      {console.log(users)}
       <Grid container justify="flex-end">
         <div style={{ padding: "10px" }}>
           <span style={{ paddingRight: "10px" }}>Select user role</span>
@@ -147,7 +160,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
       </Grid>
 
       <Button
-        style={{ backgroundColor: "#0f7029",color:"white" }}
+        style={{ backgroundColor: "#0f7029", color: "white" }}
         fullWidth
         variant="contained"
         onClick={onFinish}
