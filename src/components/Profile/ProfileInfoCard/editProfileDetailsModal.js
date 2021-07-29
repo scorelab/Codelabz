@@ -33,13 +33,13 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
 const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
-  console.log("profileData", profileData);
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const getData = (prop) => (Boolean(prop) ? prop : "");
+
   const [name, setName] = useState(getData(profileData.displayName));
   const [nameValidateError, setNameValidateError] = useState(false);
   const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
