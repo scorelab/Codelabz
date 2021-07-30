@@ -7,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import PersonIcon from "@material-ui/icons/Person";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import { addOrgUser, checkUserHandleExists } from "../../../store/actions";
 import {
   isEmpty,
@@ -38,7 +39,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
     setUsers([]);
     firebase.ref(`cl_user_handle/`).on("value", (snapshot) => {
       snapshot.forEach((snap) => {
-        setUsers((prev) => [...prev, snap.key]);
+        setUsers((prev) => [...prev, { title: snap.key, value: snap.key }]);
       });
     });
   }, []);
@@ -127,14 +128,26 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
 
   return (
     <Grid container item={true}>
-      <TextField
+      <Autocomplete
         label="User Handle"
         variant="outlined"
-        fullWidth
-        value={handle}
-        error={handleValidateError}
-        onChange={onChangeHandle}
+        id="Search"
+        autoComplete="off"
+        onChange={(e) => setHandle(e.target.innerHTML)}
         helperText={handleValidateError ? handleValidateErrorMessage : null}
+        options={users}
+        getOptionLabel={(option) => option.title}
+        style={{ width: "100%" }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Choose User"
+            variant="outlined"
+            inputProps={{
+              ...params.inputProps,
+            }}
+          />
+        )}
       />
       {console.log(users)}
       <Grid container justify="flex-end">
