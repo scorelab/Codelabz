@@ -4,7 +4,7 @@ import AddOrganization from "../../../components/Organization/OrgUsersCard/addOr
 import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
-  title: "Organization/Organization",
+  title: "Organization/Add Organization",
   component: AddOrganization,
 };
 
