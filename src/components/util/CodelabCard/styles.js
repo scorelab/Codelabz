@@ -99,6 +99,9 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid black",
     borderRadius: "500px",
   },
+  logoImg: {
+    height: "1rem",
+  },
 }));
 
 export default useStyles;
