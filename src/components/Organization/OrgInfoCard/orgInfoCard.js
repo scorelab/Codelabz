@@ -1,113 +1,115 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Dropdown,
-  Menu,
-  Tag,
-  Row,
-  Col,
-  Upload,
-  Modal,
-  Empty,
-  Skeleton
-} from "antd";
-import {
-  EditOutlined,
-  EyeInvisibleOutlined,
-  EyeOutlined,
-  CameraOutlined,
-  LoadingOutlined,
-  FacebookFilled,
-  TwitterSquareFilled,
-  GithubFilled,
-  LinkOutlined,
-  LinkedinFilled,
-  SettingOutlined,
-  FlagOutlined
-} from "@ant-design/icons";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import ReactCrop from "react-image-crop";
+import Divider from "@material-ui/core/Divider";
+import "react-image-crop/dist/ReactCrop.css";
+import { BasicImage, NoImage } from "../../../helpers/images";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { useDispatch, useSelector } from "react-redux";
-import ImgCrop from "antd-img-crop";
 import EditOrgDetailsModal from "./editOrgDetailsModal";
 import {
   clearEditGeneral,
   unPublishOrganization,
-  uploadOrgProfileImage
+  uploadOrgProfileImage,
 } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
-
-const { Dragger } = Upload;
+import useStyles from "./styles";
 
 const OrgInfoCard = () => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
   const [currentOrgData, setCurrentOrgData] = useState({});
-  const [imageUploading, setImageUploading] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
   const [orgEditModalVisible, setOrgEditModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const classes = useStyles();
+  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 16 });
+  const [completedCrop, setCompletedCrop] = useState(null);
+  const [showImageDialog, setShowImageDialog] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const [upImg, setUpImg] = useState();
+  const imgRef = useRef(null);
+  const previewCanvasRef = useRef(null);
+
+  const onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setUpImg(reader.result));
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+  const onLoad = useCallback((img) => {
+    imgRef.current = img;
+  }, []);
+
+  const base64StringToFile = (base64String, filename) => {
+    let arr = base64String.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  };
+
+  const saveImage = (canvas, crop) => {
+    if (!crop || !canvas) {
+      return;
+    }
+    setShowImageDialog(false);
+    uploadImage(base64StringToFile(canvas.toDataURL(), "newfile"));
+  };
 
   const OrgMenu = () => {
     return (
-      <Menu>
-        <Menu.Item
-          key={"setting_edit_org"}
-          onClick={() => setOrgEditModalVisible(true)}
-        >
-          <EditOutlined /> Edit Details
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item
+      <Grid style={{ display: "flex", flexFlow: "row" }}>
+        <Button onClick={() => setOrgEditModalVisible(true)} variant="outlined">
+          Edit
+        </Button>
+
+        <Button
           style={
             currentOrgData.org_published ? { color: "red" } : { color: "green" }
           }
-          key={"setting_unpublish_org"}
+          variant="outlined"
           onClick={unpublishOrganization}
         >
-          {currentOrgData.org_published ? (
-            <>
-              <EyeInvisibleOutlined /> Unpublish Organization
-            </>
-          ) : (
-            <>
-              <EyeOutlined /> Publish Organization
-            </>
-          )}
-        </Menu.Item>
-      </Menu>
+          {currentOrgData.org_published ? <>Unpublish</> : <>Publish</>}
+        </Button>
+      </Grid>
     );
   };
 
   const DropdownMenu = () => {
-    return (
-      <Dropdown key="more" overlay={OrgMenu}>
-        <Button
-          style={{
-            border: "none",
-            padding: 0
-          }}
-          type="link"
-        >
-          <SettingOutlined /> Options
-        </Button>
-      </Dropdown>
-    );
+    return <OrgMenu />;
   };
 
   const loadingProps = useSelector(
     ({
       org: {
-        general: { loading }
-      }
+        general: { loading },
+      },
     }) => loading
   );
 
   const current = useSelector(
     ({
       org: {
-        general: { current }
-      }
+        general: { current },
+      },
     }) => current
   );
 
@@ -118,29 +120,33 @@ const OrgInfoCard = () => {
   const orgs = useSelector(
     ({
       profile: {
-        data: { organizations }
-      }
+        data: { organizations },
+      },
     }) => organizations
   );
 
   useEffect(() => {
-    let orgDetails = orgs.find(element => {
+    let orgDetails = orgs.find((element) => {
       return element.org_handle === current;
     });
     setCurrentOrgData(orgDetails);
     setImageLoading(true);
   }, [current, orgs]);
 
-  const uploadImage = file => {
+  const uploadImage = (file) => {
     setImageUploading(true);
-    uploadOrgProfileImage(file, current, orgs)(firebase, dispatch).then(() => {
+    uploadOrgProfileImage(
+      file,
+      current,
+      orgs
+    )(firebase, dispatch).then(() => {
       setImageUploading(false);
       clearEditGeneral()(dispatch);
     });
     return false;
   };
 
-  const checkAvailable = data => {
+  const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
 
@@ -155,85 +161,158 @@ const OrgInfoCard = () => {
   if (currentOrgData) {
     return (
       <>
-        <Card
-          loading={loading}
-          title={"Organization Details"}
-          extra={
-            currentOrgData.permissions &&
-            [2, 3].some(p => currentOrgData.permissions.includes(p)) ? (
-              <DropdownMenu key="more" />
-            ) : null
-          }
-          style={{ width: "100%" }}
-          className="p-0"
-        >
-          <Row>
-            <Col xs={24} md={8} lg={8}>
+        <Card loading={loading}>
+          <Grid style={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="h6" style={{ margin: ".5rem" }}>
+              Organization Details
+            </Typography>
+            <div style={{ margin: ".5rem" }}>
+              {currentOrgData.permissions &&
+              [2, 3].some((p) => currentOrgData.permissions.includes(p)) ? (
+                <DropdownMenu key="more" />
+              ) : null}
+            </div>
+          </Grid>
+          <Grid className={classes.root}>
+            <Grid md={8} lg={8}>
               <Card
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                }}
                 bordered={false}
-                cover={
-                  currentOrgData.org_image &&
-                  currentOrgData.org_image.length > 0 ? (
-                    <>
-                      {imageLoading && <Skeleton />}
-                      <img
-                        src={currentOrgData.org_image}
-                        alt={currentOrgData.org_name}
-                        className="org-image"
-                        onLoad={() => {
-                          setImageLoading(false);
-                        }}
-                        style={{ display: imageLoading ? "none" : "block" }}
-                      />
-                    </>
-                  ) : (
-                    <Empty
-                      image={Empty.PRESENTED_IMAGE_SIMPLE}
-                      description={"No image available"}
-                    />
-                  )
-                }
                 className="org-image-card"
               >
+                {currentOrgData.org_image
+                  ? BasicImage(currentOrgData.org_image, "name")
+                  : BasicImage(NoImage, "Not Available")}
                 {currentOrgData.permissions &&
                   currentOrgData.permissions[0] >= 2 && (
-                    <ImgCrop rotate>
-                      <Dragger beforeUpload={uploadImage} className="mt-16">
-                        {imageUploading ? (
-                          <>
-                            <LoadingOutlined /> Please wait...
-                            <p className="ant-upload-hint mt-8">
-                              Uploading image...
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <CameraOutlined /> Change image
-                            <p className="ant-upload-hint mt-8">
-                              Click or drag your image here
-                            </p>
-                          </>
-                        )}
-                      </Dragger>
-                    </ImgCrop>
+                    <Box mt={4} mb={1} m={0}>
+                      <center>
+                        <Button
+                          fullWidth
+                          size="small"
+                          variant="contained"
+                          color="primary"
+                          style={{
+                            backgroundColor: "#455a64",
+                          }}
+                          onClick={() => setShowImageDialog(true)}
+                        >
+                          Change Proifle Picture
+                        </Button>
+                      </center>
+                    </Box>
                   )}
+                <Dialog
+                  fullWidth
+                  maxWidth="sm"
+                  open={showImageDialog}
+                  onClose={!showImageDialog}
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+                      {"Change Profile Picture"}
+                    </span>
+                  </DialogTitle>
+                  <DialogContent>
+                    <div className="App">
+                      <div>
+                        <Divider></Divider>
+                        <Box mt={2} mb={2} m={1}>
+                          <label
+                            for="file-upload"
+                            class="custom-file-upload"
+                            style={{
+                              display: "block",
+                              width: "100%",
+                              color: "white",
+                              backgroundColor: "#455a64",
+                            }}
+                          >
+                            <center>
+                              Click here to select an image from your device
+                            </center>
+                          </label>
+                          <input
+                            id="file-upload"
+                            fullWidth
+                            style={{ display: "none" }}
+                            accept="image/*"
+                            type="file"
+                            onChange={onSelectFile}
+                          />
+                        </Box>
+                        <Divider></Divider>
+                      </div>
+                      <ReactCrop
+                        src={upImg}
+                        onImageLoaded={onLoad}
+                        crop={crop}
+                        onChange={(c) => setCrop(c)}
+                        onComplete={(c) => setCompletedCrop(c)}
+                      />
+                      <div>
+                        <Grid container>
+                          <canvas
+                            ref={previewCanvasRef}
+                            style={{
+                              width: Math.round(completedCrop?.width ?? 0),
+                              height: Math.round(completedCrop?.height ?? 0),
+                              display: "none",
+                            }}
+                          />
+                        </Grid>
+                        <Grid container direction="row-reverse">
+                          <Grid xs={6} md={6} lg={6} item={true}>
+                            <Box mt={0} mb={4} m={1}>
+                              <Button
+                                fullWidth
+                                size="small"
+                                variant="contained"
+                                color="primary"
+                                style={{
+                                  backgroundColor: "SeaGreen",
+                                }}
+                                onClick={() =>
+                                  saveImage(
+                                    previewCanvasRef.current,
+                                    completedCrop
+                                  )
+                                }
+                              >
+                                Save
+                              </Button>
+                            </Box>
+                          </Grid>
+                          <Grid xs={6} md={6} lg={6} item={true}>
+                            <Box mt={0} mb={4} m={1}>
+                              <Button
+                                fullWidth
+                                size="small"
+                                variant="contained"
+                                color="secondary"
+                                style={{
+                                  backgroundColor: "Tomato",
+                                }}
+                                onClick={() => setShowImageDialog(false)}
+                              >
+                                Close
+                              </Button>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </Card>
-            </Col>
-            <Col xs={24} md={16} lg={16} className="pl-24-d pt-24-m">
+            </Grid>
+            <Grid xs={24} md={16} lg={16} className="pl-24-d pt-24-m">
               <p>
                 <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
                   {currentOrgData.org_name}
                 </span>
-                {currentOrgData.org_published ? (
-                  <Tag color="green" className="ml-16">
-                    Published
-                  </Tag>
-                ) : (
-                  <Tag color="red" className="ml-16">
-                    Unpublished
-                  </Tag>
-                )}
               </p>
               {checkAvailable(currentOrgData.org_description) && (
                 <p className="text-justified">
@@ -250,7 +329,7 @@ const OrgInfoCard = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FacebookFilled className="facebook-color" />{" "}
+                    <FacebookIcon className="facebook-color" />{" "}
                     {currentOrgData.org_link_facebook}
                   </a>
                 </p>
@@ -264,7 +343,7 @@ const OrgInfoCard = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <TwitterSquareFilled className="twitter-color" />{" "}
+                    <TwitterIcon className="twitter-color" />{" "}
                     {currentOrgData.org_link_twitter}
                   </a>
                 </p>
@@ -278,7 +357,7 @@ const OrgInfoCard = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <GithubFilled className="github-color" />{" "}
+                    <GitHubIcon className="github-color" />{" "}
                     {currentOrgData.org_link_github}
                   </a>
                 </p>
@@ -293,7 +372,7 @@ const OrgInfoCard = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <LinkedinFilled className="linkedin-color" />{" "}
+                    <LinkedInIcon className="linkedin-color" />{" "}
                     {currentOrgData.org_link_linkedin}
                   </a>
                 </p>
@@ -305,7 +384,6 @@ const OrgInfoCard = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <LinkOutlined className="website-color" />{" "}
                     {currentOrgData.org_website}
                   </a>
                 </p>
@@ -320,29 +398,27 @@ const OrgInfoCard = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FlagOutlined className="website-color" />{" "}
                     {currentOrgData.org_country}
                   </a>
                 </p>
               )}
-            </Col>
-          </Row>
+            </Grid>
+          </Grid>
         </Card>
-        <Modal
-          visible={orgEditModalVisible}
-          title={`Edit details of [${currentOrgData.org_handle}]`}
-          onCancel={() => setOrgEditModalVisible(false)}
-          maskClosable={false}
-          footer={null}
-          centered
-          destroyOnClose={true}
+        <Dialog
+          fullWidth
+          maxWidth="sm"
+          open={orgEditModalVisible}
+          onClose={!setOrgEditModalVisible}
           className="pt-24"
         >
-          <EditOrgDetailsModal
-            currentOrgData={currentOrgData}
-            modelCloseCallback={e => setOrgEditModalVisible(e)}
-          />
-        </Modal>
+          <div style={{ margin: "2rem" }}>
+            <EditOrgDetailsModal
+              currentOrgData={currentOrgData}
+              modelCloseCallback={(e) => setOrgEditModalVisible(e)}
+            />
+          </div>
+        </Dialog>
       </>
     );
   } else {

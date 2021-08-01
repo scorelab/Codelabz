@@ -1,15 +1,19 @@
 import React from "react";
-import { Button, message, Affix } from "antd";
+import Button from '@material-ui/core/Button';
+import Snackbar from "@material-ui/core/Snackbar";
+import Grid from '@material-ui/core/Grid';
 
 const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
   const bottomMargin = 54;
 
   if (!hide && stepsData) {
     return (
-      <Affix offsetBottom={bottomMargin} style={{ height: 0 }}>
-        <div>
+      <Grid>
+      <div>
           {currentStep > 0 && (
             <Button
+            color="secondary"
+            variant="contained"
               onClick={() => {
                 setCurrentStep(currentStep - 1);
                 window.scrollTo(0, 0);
@@ -20,6 +24,8 @@ const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
           )}
           {currentStep < stepsData.length - 1 && (
             <Button
+             variant="contained"
+             color="primary"
               type="primary"
               onClick={() => {
                 setCurrentStep(currentStep + 1);
@@ -34,7 +40,14 @@ const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
             <Button
               type="primary"
               onClick={() => {
-                message.success("Tutorial complete!");
+                <Snackbar 
+                anchorOrigin={{ 
+                  vertical: "bottom",
+                   horizontal: "left",
+                 }}
+                 open={true} autoHideDuration={6000}
+                 message="tutorial complete" 
+                />;
                 window.scrollTo(0, 0);
               }}
               style={{ float: "right" }}
@@ -43,7 +56,7 @@ const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
             </Button>
           )}
         </div>
-      </Affix>
+      </Grid>
     );
   } else return null;
 };
