@@ -54,37 +54,25 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
-
   const [name, setName] = useState("");
   const [nameValidateError, setNameValidateError] = useState(false);
   const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
   const [orgName, setOrgName] = useState("");
   const [orgNameValidateError, setOrgNameValidateError] = useState(false);
-  const [
-    orgNameValidateErrorMessage,
-    setOrgNameValidateErrorMessage,
-  ] = useState("");
+  const [orgNameValidateErrorMessage,setOrgNameValidateErrorMessage] = useState("");
   const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
-  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
-    ""
-  );
+  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState("");
   const [orgHandle, setOrgHandle] = useState("");
   const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
-  const [
-    orgHandleValidateErrorMessage,
-    setOrgHandleValidateErrorMessage,
-  ] = useState("");
+  const [orgHandleValidateErrorMessage,setOrgHandleValidateErrorMessage,] = useState("");
   const [country, setCountry] = useState("");
   const [countryValidateError, setCountryValidateError] = useState(false);
   const [orgCountry, setOrgCountry] = useState("");
   const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
   const [orgWebsite, setOrgWebsite] = useState("");
   const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
-  const [
-    orgWebsiteValidateErrorMessage,
-    setOrgWebsiteValidateErrorMessage,
-  ] = useState("");
+  const [orgWebsiteValidateErrorMessage,setOrgWebsiteValidateErrorMessage,] = useState("");
 
   const displayName = useSelector(
     ({
@@ -137,22 +125,9 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
         "Please enter a real name"
       );
       const countryValid = validateCountry(country, setCountryValidateError);
-      const orgCountryValid = validateCountry(
-        orgCountry,
-        setOrgCountryValidateError
-      );
-      const orgWebsiteValid = validateOrgWebsite(
-        orgWebsite,
-        setOrgWebsiteValidateError,
-        setOrgWebsiteValidateErrorMessage
-      );
-      if (
-        nameValid &&
-        orgNameValid &&
-        countryValid &&
-        orgCountryValid &&
-        orgWebsiteValid
-      ) {
+      const orgCountryValid = validateCountry(orgCountry,setOrgCountryValidateError);
+      const orgWebsiteValid = validateOrgWebsite(orgWebsite,setOrgWebsiteValidateError,setOrgWebsiteValidateErrorMessage);
+      if (nameValid &&orgNameValid &&countryValid &&orgCountryValid &&orgWebsiteValid) {
         return true;
       } else {
         return false;
