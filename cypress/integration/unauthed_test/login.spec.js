@@ -24,9 +24,10 @@ describe("Login Test | CodeLabz", () => {
   });
 
   it("Login Test - Failing", () => {
-    cy.get(".ant-btn-link > a").click();
-    cy.get("#email").type("seniyaklop23@gmail.com");
-    cy.get("#password").type("123456789");
-    cy.get(".ant-form-item-control-input-content > .ant-btn").click();
+    cy.get(".MuiButton-outlined > .MuiButton-label > a").click();
+    cy.get(".email").type(this.credentials.email);
+    cy.get(".password").type("123456789");
+    cy.get(".loginButton").click();
+    cy.get(".loginButton");
   });
 });
