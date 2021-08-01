@@ -18,15 +18,15 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  owner: "rijusougata31",
-  ownerName: "riju",
+  owner: "SCoRe Lab owner",
+  ownerName: "SCoRe Lab owner name",
   users: [
     {
       featured_image: "",
       icon: "",
-      owner: "rijusougata31",
-      summary: "a",
-      title: "CodeLabz - FrontEnd Improvements",
+      owner: "SCoRe Lab owner",
+      summary: "SCoRe Lab summary",
+      title: "CodeLabz/ SCoRe Lab",
     },
   ],
 };

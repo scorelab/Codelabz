@@ -20,24 +20,22 @@ export const Default = Template.bind({});
 Default.args = {
   organizations: [
     {
-      org_country: "Angola",
+      org_country: "Org Country",
       org_description: undefined,
-      org_handle: "test5test5",
+      org_handle: "Org handle",
       org_image: "",
-      org_link_facebook: undefined,
-      org_link_github: undefined,
-      org_link_linkedin: undefined,
-      org_link_twitter: undefined,
-      org_name: "test5",
+      org_link_facebook: "Org facebook",
+      org_link_github: "Org github",
+      org_link_linkedin: "Org linkedin",
+      org_link_twitter: "Org twitter",
+      org_name: "Org name",
       org_published: true,
-      org_website: "https://abc.com",
+      org_website: "https://org.com",
       tutorials_count: 7,
     },
   ],
   user: {
-    displayName: "riju",
-    photoURL:
-      "https://firebasestorage.googleapis.com/v0/b/buoyant-country-311408.appspot.com/o/user%2Frijusougata31%2Fimages%2Fnewfile?alt=media&token=2c295b90-2183-4d2b-99b9-b83c8e2ef9ac",
-    userHandle: "rijusougata31",
+    displayName: "OrgDisplayName",
+    userHandle: "OrgDisplayName",
   },
 };
