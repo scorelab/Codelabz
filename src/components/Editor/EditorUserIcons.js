@@ -1,5 +1,8 @@
 import React from "react";
-import { Avatar, Tooltip, Badge, Popover } from "antd";
+import Badge from "@material-ui/core/Badge";
+import Avatar from "@material-ui/core/Avatar";
+import Tooltip from "@material-ui/core/Tooltip";
+import Popover from "@material-ui/core/Popover";
 import { avatarName } from "../../helpers/avatarName";
 /**Sidebar Icons component
  *
