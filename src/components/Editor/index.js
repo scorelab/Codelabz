@@ -5,7 +5,7 @@ import "../../css/codemirror.css";
 import { useFirebase } from "react-redux-firebase";
 import CodeMirror from "codemirror";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col } from "antd";
+import Grid from "@material-ui/core/Grid";
 import { Prompt } from "react-router-dom";
 import { setCurrentStep } from "../../store/actions";
 
@@ -88,11 +88,11 @@ const Editor = ({ id, data, tutorial_id }) => {
         when={!allSaved}
         message="You have unsaved changes, are you sure you want to leave?"
       />
-      <Row>
-        <Col xs={24} md={24}>
+      <Grid>
+        <Grid xs={24} md={24}>
           <div id="firepad-container" ref={editorRef} />
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
     </div>
   );
 };

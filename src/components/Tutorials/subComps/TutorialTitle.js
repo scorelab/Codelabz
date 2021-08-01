@@ -1,11 +1,9 @@
 import React from "react";
-import { PageHeader, Button, Tooltip } from "antd";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  ClockCircleOutlined,
-  FullscreenOutlined,
-} from "@ant-design/icons";
+import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
+import Grid from "@material-ui/core/Grid";
+import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
+import FullscreenIcon from "@material-ui/icons/Fullscreen";
 
 const TutorialTitle = ({
   stepPanelVisible,
@@ -24,29 +22,20 @@ const TutorialTitle = ({
   };
 
   return (
-    <PageHeader
-      style={{ ...styleProps }}
-      className={
-        (!stepPanelVisible && !isDesktop
-          ? "ant-page-header-fix "
-          : "ant-page-header-unfix ") + "tutorial-title-header"
-      }
-      onBack={(e) => {
-        setStepPanelVisible(!stepPanelVisible);
+    <Grid
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
       }}
-      title={<span style={{ ...styleProps }}>{tutorialData.title}</span>}
-      backIcon={
-        stepPanelVisible ? (
-          <MenuFoldOutlined style={{ fontSize: "1.2rem", ...styleProps }} />
-        ) : (
-          <MenuUnfoldOutlined style={{ fontSize: "1.2rem", ...styleProps }} />
-        )
-      }
-      extra={
-        !isDesktop && stepPanelVisible ? null : (
-          <>
+    >
+      <h2>{tutorialData.title}</h2>
+      {!isDesktop && stepPanelVisible ? null : (
+        <>
+          <Grid>
             <Button type="text" className="p-0">
-              <ClockCircleOutlined style={{ ...styleProps }} />{" "}
+              <QueryBuilderIcon style={{ ...styleProps }} />{" "}
               <span style={{ ...styleProps }}>
                 {timeRemaining} mins remaining
               </span>
@@ -58,13 +47,13 @@ const TutorialTitle = ({
                 className="bp-8"
                 style={{ ...styleProps }}
               >
-                <FullscreenOutlined />
+                <FullscreenIcon />
               </Button>
             </Tooltip>
-          </>
-        )
-      }
-    />
+          </Grid>
+        </>
+      )}
+    </Grid>
   );
 };
 
