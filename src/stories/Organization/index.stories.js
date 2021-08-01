@@ -18,10 +18,7 @@ export default {
 
 const Template = (args) => (
   <ProviderWrapper>
-    <MemoryRouter>
-      under construction
-      {/* <Organization {...args} /> */}
-    </MemoryRouter>
+    <MemoryRouter>under construction</MemoryRouter>
   </ProviderWrapper>
 );
 
