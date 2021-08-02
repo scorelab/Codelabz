@@ -105,7 +105,7 @@ const Login = () => {
   };
 
   return (
-    <Card raised className={`${classes.card}   `}>
+    <Card raised className={`${classes.card}   `} data-testId="login">
       <CardContent>
         <Typography
           variant="h4"
@@ -183,6 +183,7 @@ const Login = () => {
             </Grid>
             <Grid>
               <Link
+                data-testId="forgotPassoword"
                 to="/forgotpassword"
                 className="login-form-forgot"
                 style={{ float: "right" }}

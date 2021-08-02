@@ -12,7 +12,7 @@ import useStyles from "./styles";
 const SignUp = () => {
   const classes = useStyles();
   return (
-    <Card raised className={`${classes.card}   `}>
+    <Card raised className={`${classes.card}   `} data-testId="signUp">
       <CardContent>
         <Typography
           variant="h4"
@@ -23,7 +23,13 @@ const SignUp = () => {
         <SignupForm />
         <Divider>or</Divider>
         <SmButtons />
-        <Grid container justify="center" alignItems="center" className="mt-24">
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          className="mt-24"
+          data-testId="signUpHaveAccount"
+        >
           <Grid item={true} sm={12} className="center">
             Already have a{" "}
             <span className="brand-font text-bold">CodeLabz</span> account?{" "}
