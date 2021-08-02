@@ -12,7 +12,7 @@ describe("Login Test | CodeLabz", () => {
   });
 
   it("Login Test - Passing", function () {
-    cy.get(".MuiButton-outlined > .MuiButton-label > a").click();
+    cy.visit(`${this.base_url}login`)
     cy.get(".email").type(this.credentials.email);
     cy.get(".password").type(this.credentials.password);
     cy.get(".loginButton").click();

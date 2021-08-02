@@ -69,7 +69,7 @@ const NotFound = () => {
   const classes = useStyles();
 
   return (
-    <Grid container className={`row-fullheight ${classes.wrapper}`}>
+    <Grid container className={`row-fullheight ${classes.wrapper}`}data-testId="errorPage">
       <Grid
         item
         style={{ padding: "0", marginTop: "-5rem", marginLeft: "2rem" }}
