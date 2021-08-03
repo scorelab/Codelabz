@@ -66,7 +66,9 @@ const ProfileView = () => {
           <div>
             <Box mt={2} mb={2} m={3}>
               <Grid container>
-                <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
+                <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+                  Profile Details
+                </span>
               </Grid>
             </Box>
             <Divider></Divider>
@@ -77,14 +79,31 @@ const ProfileView = () => {
                     ? BasicImage(profileData.photoURL, profileData.displayName)
                     : BasicImage(NoImage, "Not Available")}
                 </Grid>
-                <Grid xs={12} md={9} lg={9} className="pl-24-d pt-24-m" item={true}>
+                <Grid
+                  xs={12}
+                  md={9}
+                  lg={9}
+                  className="pl-24-d pt-24-m"
+                  item={true}
+                >
                   <p>
-                    <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>{profileData.displayName}</span>
+                    <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
+                      {profileData.displayName}
+                    </span>
                   </p>
-                  {checkAvailable(profileData.description) && <p className="text-justified">{profileData.description}</p>}
+                  {checkAvailable(profileData.description) && (
+                    <p className="text-justified">{profileData.description}</p>
+                  )}
                   {checkAvailable(profileData.link_facebook) && (
                     <p>
-                      <a href={"https://www.facebook.com/" + profileData.link_facebook} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={
+                          "https://www.facebook.com/" +
+                          profileData.link_facebook
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div
                           style={{
                             display: "flex",
@@ -92,7 +111,10 @@ const ProfileView = () => {
                           }}
                         >
                           <Box mr={1}>
-                            <FacebookIcon fontSize="small" className="facebook-color" />
+                            <FacebookIcon
+                              fontSize="small"
+                              className="facebook-color"
+                            />
                           </Box>{" "}
                           {profileData.link_facebook}
                         </div>
@@ -101,7 +123,11 @@ const ProfileView = () => {
                   )}
                   {checkAvailable(profileData.link_twitter) && (
                     <p>
-                      <a href={"https://twitter.com/" + profileData.link_twitter} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={"https://twitter.com/" + profileData.link_twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div
                           style={{
                             display: "flex",
@@ -109,7 +135,10 @@ const ProfileView = () => {
                           }}
                         >
                           <Box mr={1}>
-                            <TwitterIcon fontSize="small" className="twitter-color" />{" "}
+                            <TwitterIcon
+                              fontSize="small"
+                              className="twitter-color"
+                            />{" "}
                           </Box>
                           {profileData.link_twitter}
                         </div>
@@ -118,7 +147,11 @@ const ProfileView = () => {
                   )}
                   {checkAvailable(profileData.link_github) && (
                     <p>
-                      <a href={"https://github.com/" + profileData.link_github} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={"https://github.com/" + profileData.link_github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div
                           style={{
                             display: "flex",
@@ -126,7 +159,10 @@ const ProfileView = () => {
                           }}
                         >
                           <Box mr={1}>
-                            <GitHubIcon fontSize="small" className="github-color" />{" "}
+                            <GitHubIcon
+                              fontSize="small"
+                              className="github-color"
+                            />{" "}
                           </Box>
                           {profileData.link_github}
                         </div>
@@ -135,7 +171,14 @@ const ProfileView = () => {
                   )}
                   {checkAvailable(profileData.link_linkedin) && (
                     <p>
-                      <a href={"https://www.linkedin.com/in/" + profileData.link_linkedin} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={
+                          "https://www.linkedin.com/in/" +
+                          profileData.link_linkedin
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div
                           style={{
                             display: "flex",
@@ -143,7 +186,10 @@ const ProfileView = () => {
                           }}
                         >
                           <Box mr={1}>
-                            <LinkedInIcon fontSize="small" className="linkedin-color" />
+                            <LinkedInIcon
+                              fontSize="small"
+                              className="linkedin-color"
+                            />
                           </Box>{" "}
                           {profileData.link_linkedin}
                         </div>
@@ -152,7 +198,11 @@ const ProfileView = () => {
                   )}
                   {checkAvailable(profileData.website) && (
                     <p>
-                      <a href={profileData.website} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={profileData.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div
                           style={{
                             display: "flex",
@@ -160,7 +210,10 @@ const ProfileView = () => {
                           }}
                         >
                           <Box mr={1}>
-                            <LinkIcon fontSize="small" className="website-color" />
+                            <LinkIcon
+                              fontSize="small"
+                              className="website-color"
+                            />
                           </Box>{" "}
                           {profileData.website}
                         </div>
@@ -169,7 +222,14 @@ const ProfileView = () => {
                   )}
                   {checkAvailable(profileData.country) && (
                     <p className="mb-0">
-                      <a href={"https://www.google.com/search?q=" + profileData.country} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={
+                          "https://www.google.com/search?q=" +
+                          profileData.country
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div
                           style={{
                             display: "flex",
@@ -177,7 +237,10 @@ const ProfileView = () => {
                           }}
                         >
                           <Box mr={1}>
-                            <FlagIcon fontSize="small" className="website-color" />{" "}
+                            <FlagIcon
+                              fontSize="small"
+                              className="website-color"
+                            />{" "}
                           </Box>
                           {profileData.country}
                         </div>

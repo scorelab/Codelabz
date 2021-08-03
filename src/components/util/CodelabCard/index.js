@@ -10,8 +10,15 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import useStyles from "./styles";
+import PropTypes from "prop-types";
 
-const CardComponent = ({ title, tags, profilePic, org = false }) => {
+const CardComponent = ({
+  title = "I made 100 more CSS loaders for your next project",
+  tags = "#css #webdev #beginners #html",
+  profilePic = "demoperson4.jpeg",
+  org = false,
+  background = "white",
+}) => {
   const classes = useStyles();
   const [logoPath, setLogoPath] = React.useState("");
   React.useEffect(() => {
@@ -20,7 +27,11 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
 
   return (
     <>
-      <Card maxWidth="sm" className={classes.card}>
+      <Card
+        maxWidth="sm"
+        className={classes.card}
+        style={{ background: background }}
+      >
         <CardHeader
           className={classes.cardHeader}
           avatar={
@@ -34,12 +45,16 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
               {logoPath ? (
                 <Grid container>
                   <Grid item className={classes.headerGrid}>
-                    <img src="/logo.jpeg" alt="logo" />
+                    <img
+                      src="/logo.jpeg"
+                      alt="logo"
+                      className={classes.logoImg}
+                    />
                     <img
                       src={
                         require(`../../../assets/images/${profilePic}`).default
                       }
-                      alt="person"
+                      alt=""
                       height="20rem"
                       width="20rem"
                       className={classes.personImg}
@@ -49,7 +64,7 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
               ) : (
                 <img
                   src={require(`../../../assets/images/${profilePic}`).default}
-                  alt="person"
+                  alt=""
                   className={classes.avatar}
                 />
               )}
@@ -165,4 +180,11 @@ const CardComponent = ({ title, tags, profilePic, org = false }) => {
   );
 };
 
+CardComponent.propTypes = {
+  title: PropTypes.string,
+  tags: PropTypes.string,
+  profilePic: PropTypes.string,
+  org: PropTypes.bool,
+  background: PropTypes.string,
+};
 export default CardComponent;

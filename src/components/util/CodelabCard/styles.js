@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   heading: {
-    fontWeight: 900,
+    fontWeight: 700,
     marginTop: "-.5rem",
     [theme.breakpoints.down(750)]: {
       fontSize: "1rem",
@@ -98,6 +98,9 @@ const useStyles = makeStyles((theme) => ({
     top: "-.6rem",
     border: "1px solid black",
     borderRadius: "500px",
+  },
+  logoImg: {
+    height: "1rem",
   },
 }));
 
