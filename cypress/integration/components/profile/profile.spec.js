@@ -56,4 +56,31 @@ describe("Profile Page | CodeLabz", () => {
     // cy.get("#editModalBox").should("have.length");
     expect("#editModalBox").to.have.length.at.least(4);
   });
+
+  it("check Edit profile works", function () {
+    cy.visit(`${this.base_url}profile`);
+    cy.wait(3000);
+    cy.get("#edit").click({ force: true });
+    cy.get("[data-testId=editProfileName] > div > input").clear();
+    cy.get("[data-testId=editProfileName]").type("test name");
+    cy.get("[data-testId=editProfileFacebook] > div > input").clear();
+    cy.get("[data-testId=editProfileFacebook]").type(" facebook");
+    cy.get("[data-testId=editProfileTwitter] > div > input").clear();
+    cy.get("[data-testId=editProfileTwitter]").type(" twitter");
+    cy.get("[data-testId=editProfileLinkedin] > div > input").clear();
+    cy.get("[data-testId=editProfileLinkedin]").type(" linkedin");
+    cy.get("[data-testId=editProfileGithub] > div > input").clear();
+    cy.get("[data-testId=editProfileGithub]").type(" github");
+    cy.get("[data-testId=editProfileWebsite] > div > input").clear();
+    cy.get("[data-testId=editProfileWebsite]").type("https://test.org");
+    cy.get("[data-testId=editProfileDescription] > div > textarea").clear({
+      force: true,
+    });
+    cy.get("[data-testId=editProfileDescription]  > div > textarea")
+      .first()
+      .type("test Description", { force: true });
+    cy.get("[data-testId=editProfileSave]").click();
+    cy.wait(5000);
+    cy.get("[data-testId=profileName]").contains("test name");
+  });
 });
