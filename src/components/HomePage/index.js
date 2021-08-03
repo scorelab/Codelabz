@@ -19,7 +19,7 @@ function HomePage() {
     setValue(newValue);
   };
   return (
-    <Card className={classes.wrapper}>
+    <Card className={classes.wrapper} data-testId="homepage">
       <div className={classes.sideBody}>
         <Grid
           container
@@ -31,6 +31,7 @@ function HomePage() {
             overflow: "auto",
             maxHeight: "25rem",
           }}
+          data-testId="homepageTagSidebar"
         >
           <Grid item>
             <Typography
@@ -74,6 +75,7 @@ function HomePage() {
             overflow: "auto",
             maxHeight: "25rem",
           }}
+          data-testId="homepagePopularEventSidebar"
         >
           <Grid item>
             <Typography
@@ -109,7 +111,7 @@ function HomePage() {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.mainBody}>
+      <div className={classes.mainBody} data-testId="homepageMainBody">
         <Grid container className={classes.sort}>
           <Typography
             variant="h6"
@@ -123,6 +125,7 @@ function HomePage() {
             className={classes.sortedList}
             value={value}
             onChange={handleChange}
+            data-testId="sortByTime"
           >
             <BottomNavigationAction label="week" />
             <BottomNavigationAction
@@ -150,6 +153,7 @@ function HomePage() {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
+          data-testId="homepageUpcomingEventSidebar"
         >
           <Grid item>
             <Typography
@@ -193,6 +197,7 @@ function HomePage() {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
+          data-testId="homepageDiscussionSidebar"
         >
           <Typography
             variant="h6"
