@@ -1,21 +1,17 @@
 import React from "react";
-import SignUp from "../../../components/AuthPage/SignUp";
 import ProviderWrapper from "../../../helpers/providerWrapper";
+import ResetPassword from "../../../components/ManageUsers/ResetPassword/index";
 import { MemoryRouter } from "react-router-dom";
+
 export default {
-  title: "AuthPage/Sign Up Page",
-  component: SignUp,
-  argTypes: {
-    background: {
-      control: "color",
-    },
-  },
+  title: "ManageUsers/ResetPassword",
+  component: ResetPassword,
 };
 
-const Template = (args) => (
+const Template = () => (
   <ProviderWrapper>
     <MemoryRouter>
-      <SignUp {...args} />{" "}
+      <ResetPassword />
     </MemoryRouter>
   </ProviderWrapper>
 );

@@ -12,15 +12,14 @@ import TutorialCard from "./TutorialCard";
  * @returns {JSX.Element}
  * @constructor
  */
-const BaseTutorialsComponent = ({ owner, ownerName }) => {
-  const user = useSelector(
+const BaseTutorialsComponent = ({ owner = "", ownerName = "", users = [] }) => {
+  let user = useSelector(
     ({
       tutorials: {
         data: { user },
       },
     }) => user
   );
-
   const org = useSelector(
     ({
       tutorials: {
@@ -28,7 +27,7 @@ const BaseTutorialsComponent = ({ owner, ownerName }) => {
       },
     }) => org
   );
-
+  if (!user) user = users;
   if (user) {
     const index = [...user, ...org];
 

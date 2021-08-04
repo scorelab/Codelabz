@@ -11,8 +11,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "antd": "^4.5.4",
-    "antd-img-crop": "^3.9.0",
     "codemirror": "^5.56.0",
     "color-thief-react": "^1.0.2",
     "craco-less": "^1.18.0",

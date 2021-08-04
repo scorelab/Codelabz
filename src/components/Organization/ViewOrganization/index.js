@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import {createMuiTheme} from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -24,7 +24,7 @@ import {
   removeFollower,
 } from "../../../store/actions";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   shadows: ["none"],
   palette: {
     primary: {

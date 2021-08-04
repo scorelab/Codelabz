@@ -1,21 +1,17 @@
 import React from "react";
-import SignUp from "../../../components/AuthPage/SignUp";
 import ProviderWrapper from "../../../helpers/providerWrapper";
+import VerifyEmail from "../../../components/ManageUsers/VerifyEmail/index";
 import { MemoryRouter } from "react-router-dom";
+
 export default {
-  title: "AuthPage/Sign Up Page",
-  component: SignUp,
-  argTypes: {
-    background: {
-      control: "color",
-    },
-  },
+  title: "ManageUsers/VerifyEmail",
+  component: VerifyEmail,
 };
 
-const Template = (args) => (
+const Template = () => (
   <ProviderWrapper>
     <MemoryRouter>
-      <SignUp {...args} />{" "}
+      <VerifyEmail />
     </MemoryRouter>
   </ProviderWrapper>
 );

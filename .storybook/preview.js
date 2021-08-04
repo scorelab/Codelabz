@@ -1,8 +1,8 @@
-import 'antd/dist/antd.css';
-import '../src/css/spacing.css';
+import "antd/dist/antd.css";
+import "../src/css/spacing.css";
 
 export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
+  actions: { argTypesRegex: "^on[A-Z].*" },
   options: {
     storySort: (a, b) =>
       a[1].kind === b[1].kind
