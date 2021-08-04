@@ -97,7 +97,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
   return (
     <>
       {error && <Alert severity="error">Error!</Alert>}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} data-testId="editOrgForm">
         <label className="form-label">Organization Name</label>
         <TextField
           variant="outlined"
