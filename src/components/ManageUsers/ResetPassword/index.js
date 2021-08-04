@@ -14,7 +14,7 @@ import PasswordResetForm from "./PasswordResetForm";
 
 const { Title } = Typography;
 
-const ResetPassword = ({ queryParams }) => {
+const ResetPassword = ({ queryParams = "test" }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const { oobCode: actionCode } = queryParams;

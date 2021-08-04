@@ -1,14 +1,16 @@
 import React from "react";
-import Dashboard from "../../components/Dashboard";
+import { MemoryRouter } from "react-router";
+import Organization from "../../components/Organization/index";
 import ProviderWrapper from "../../helpers/providerWrapper";
+
 export default {
-  title: "Dashboard",
-  component: Dashboard,
+  title: "Organization/Organization",
+  component: Organization,
   argTypes: {
-    background: {
+    backgroundcolor: {
       control: "color",
     },
-    textColor: {
+    textcolor: {
       control: "color",
     },
   },
@@ -16,13 +18,8 @@ export default {
 
 const Template = (args) => (
   <ProviderWrapper>
-    <Dashboard {...args} />
+    <MemoryRouter>under construction</MemoryRouter>
   </ProviderWrapper>
 );
 
 export const Default = Template.bind({});
-
-Default.args = {
-  background: "white",
-  textColor: "black",
-};
