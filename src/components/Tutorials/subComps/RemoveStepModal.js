@@ -25,7 +25,6 @@ const RemoveStepModal = ({
   }, [viewModal]);
 
   const handleOnOk = () => {
-    let key = Math.random();
     <Snackbar
       anchorOrigin={{
         vertical: "bottom",

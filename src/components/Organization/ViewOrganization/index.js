@@ -54,7 +54,7 @@ const ViewOrganization = () => {
       });
 
     return () => unsubscribe();
-  }, []);
+  }, [db,handle]);
 
   useEffect(() => {
     const unsubscribe = db
@@ -66,7 +66,7 @@ const ViewOrganization = () => {
       });
 
     return () => unsubscribe();
-  }, []);
+  }, [db,profileData.uid]);
 
   const addfollower = (e, people, handle, orgFollowed) => {
     e.preventDefault();
@@ -151,6 +151,7 @@ const ViewOrganization = () => {
                             width: "100%",
                             height: "auto",
                             borderRadius: "8px",
+                            display: imageLoading ? "none" : "block"
                           }}
                           src={currentOrgData.org_image}
                           alt={currentOrgData.org_name}
@@ -158,7 +159,6 @@ const ViewOrganization = () => {
                           onLoad={() => {
                             setImageLoading(false);
                           }}
-                          style={{ display: imageLoading ? "none" : "block" }}
                         />
                       </>
                     ) : (

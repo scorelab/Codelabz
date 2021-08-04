@@ -1,6 +1,5 @@
 import Grid from "@material-ui/core/Grid";
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive";
 import Fade from "react-reveal/Fade";
 import { UserIsNotAuthenticated } from "../../auth";
 import ForgotPassword from "./ForgotPassword";
@@ -10,9 +9,7 @@ import SignUp from "./SignUp";
 const AuthPage = ({ type }) => {
   const [show, setShow] = useState(false);
   const [showType, setShowType] = useState(type);
-  const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
-  });
+  
 
   useEffect(() => {
     setShow(false);

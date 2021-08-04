@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  tutorialTitleNameValidation,
-  tutorialOwnerValidation,
-} from "../../../helpers/validationRules";
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { avatarName } from "../../../helpers/avatarName";
@@ -78,13 +74,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }) => displayName
   );
 
-  const photoURL = useSelector(
-    ({
-      firebase: {
-        profile: { photoURL },
-      },
-    }) => photoURL
-  );
+ 
 
   const allowOrgs = organizations && organizations.length > 0;
 

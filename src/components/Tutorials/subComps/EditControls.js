@@ -50,34 +50,7 @@ const EditControls = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const TutorialMenu = () => {
-    return (
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem key="edit_description">
-          <FormatAlignLeftIcon /> Edit Description
-        </MenuItem>
-        <MenuItem
-          key="edit_codeLabz_theme"
-          onClick={() => setViewColorPickerModal(true)}
-        >
-          <FormatPaintIcon /> Edit CodeLabz Theme
-        </MenuItem>
-        <Menu.Divider />
-        <MenuItem
-          key="delete_tutorial"
-          onClick={() => null}
-          style={{ color: "red" }}
-        >
-          <DeleteIcon /> Move to Trash
-        </MenuItem>
-      </Menu>
-    );
-  };
+  
 
   const DropdownMenu = () => {
     return (
@@ -161,7 +134,6 @@ const EditControls = ({
           <Button
             variant="outlined"
             onClick={() => {
-              let key = Math.random();
               <Snackbar
                 anchorOrigin={{
                   vertical: "bottom",

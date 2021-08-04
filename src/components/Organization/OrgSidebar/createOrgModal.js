@@ -5,17 +5,12 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import {
-  checkOrgHandleExists,
   createOrganization,
 } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import CountryDropdown from "../../../helpers/countryDropdown";
-import {
-  orgWebsiteValidation,
-  orgHandleValidation,
-  orgNameValidation,
-} from "../../../helpers/validationRules";
+
 
 const CreateOrgModal = (props) => {
   const firebase = useFirebase();

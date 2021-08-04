@@ -96,7 +96,7 @@ const SignupForm = () => {
   };
 
   const validateConfirmPassword = () => {
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       setConfirmPasswordValidateError(true);
       setConfirmPasswordValidateErrorMessage(
         "The two passwords that you entered does not match!"
@@ -182,7 +182,7 @@ const SignupForm = () => {
 
       <Card style={{ boxShadow: "none" }}>
         <TextField
-          error={emailValidateError}
+         
           label="Email"
           variant="outlined"
           placeholder="mail@codelabz.com"
@@ -286,7 +286,6 @@ const SignupForm = () => {
         />
         {agreedText && !agreed ? <div style={{color:"red" ,padding:'5px'}}> You have to agree to our terms and conditions in order to register</div> :null}
         <Button
-           onClick={onSubmit}
           variant="contained"
           color="primary"
           fullWidth

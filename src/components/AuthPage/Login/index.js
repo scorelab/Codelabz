@@ -135,7 +135,6 @@ const Login = ({
             fullWidth
             autoComplete="email"
             required
-            className="email"
             onFocus={onFocusEmail}
             className="email"
             style={{ marginBottom: "15px" }}
@@ -158,7 +157,6 @@ const Login = ({
             fullWidth
             required
             value={password}
-            className="password"
             onFocus={onFocusPassword}
             onChange={onChangePassword}
             autoComplete="current-password"
@@ -208,7 +206,6 @@ const Login = ({
             color="primary"
             fullWidth
             onClick={onSubmit}
-            className="loginButton"
             disabled={loading}
             style={{ background: loginButton }}
             className="loginButton"

@@ -3,7 +3,7 @@ import errorImg from "../../assets/images/404.png";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Children } from "react";
+
 
 const NotFound = ({ background = "white", textColor = "black" }) => {
   const useStyles = makeStyles((theme) => ({

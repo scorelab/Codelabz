@@ -5,10 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
-import {
-  addNewStepNameValidation,
-  addNewStepTimeValidation,
-} from "../../../helpers/validationRules";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { AppstoreAddOutlined } from "@ant-design/icons";
