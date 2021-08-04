@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Card, Col, Row, Typography } from "antd";
+import Alert from "@material-ui/lab/Alert";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
 import { Link } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyEmail, clearAuthError } from "../../../store/actions";
 
-const { Title } = Typography;
 
-const VerifyEmail = ({ queryParams }) => {
+const VerifyEmail = ({ queryParams = "test" }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const { oobCode: actionCode } = queryParams;
@@ -46,56 +48,46 @@ const VerifyEmail = ({ queryParams }) => {
 
   return (
     <>
-      <Row justify="center">
-        <Col xs={24} sm={24} md={12} lg={10}>
+      <Grid justify="center">
+        <Grid xs={24} sm={24} md={12} lg={10}>
           <Card bordered={false}>
             {loading && (
-              <Title
-                level={4}
+              <Typography
+                variant="h3"
                 style={{ textAlign: "center", marginBottom: "40px" }}
               >
                 Now verifying your email
-              </Title>
+              </Typography>
             )}
 
             {error && (
               <>
-                <Alert
-                  message={"Email verification failed"}
-                  description={error}
-                  type="error"
-                  closable
-                  className="mb-16"
-                  showIcon
-                />
-                <Row justify="center" align="center" className="mt-24">
-                  <Col sm={24} className="center">
+                <Alert severity="error" closable className="mb-16" showIcon>
+                  Verification failed
+                </Alert>
+                <Grid justify="center" align="center" className="mt-24">
+                  <Grid sm={24} className="center">
                     Back to <Link to={"/login"}>CodeLabz</Link>
-                  </Col>
-                </Row>
+                  </Grid>
+                </Grid>
               </>
             )}
 
             {success && (
               <>
-                <Alert
-                  message={"Success"}
-                  description={"Your email has been verified!"}
-                  type="success"
-                  closable
-                  className="mb-16"
-                  showIcon
-                />
-                <Row justify="center" align="center" className="mt-24">
-                  <Col sm={24} className="center">
+                <Alert severity="success" closable className="mb-16" showIcon>
+                  Your email has been verified!
+                </Alert>
+                <Grid justify="center" align="center" className="mt-24">
+                  <Grid sm={24} className="center">
                     <Link to={"/login"}>Log in</Link>
-                  </Col>
-                </Row>
+                  </Grid>
+                </Grid>
               </>
             )}
           </Card>
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
     </>
   );
 };

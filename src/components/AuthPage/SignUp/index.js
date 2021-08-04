@@ -8,11 +8,13 @@ import Divider from "../../../globalComponents/Divider";
 import SmButtons from "../smButton/smButtons";
 import SignupForm from "./signupForm";
 import useStyles from "./styles";
+import PropTypes from "prop-types";
 
-const SignUp = () => {
+const SignUp = ({ background = "white" }) => {
   const classes = useStyles();
   return (
-    <Card raised className={`${classes.card}   `} data-testId="signUp">
+    <Card raised className={`${classes.card}   `} data-testId="signUp" style={{ background: background }}>
+    
       <CardContent>
         <Typography
           variant="h4"
@@ -39,6 +41,9 @@ const SignUp = () => {
       </CardContent>
     </Card>
   );
+};
+SignUp.prototype = {
+  background: PropTypes.string,
 };
 
 export default SignUp;

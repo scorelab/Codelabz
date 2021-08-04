@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { PageHeader, Button, Menu, Dropdown, Space, message } from "antd";
-import {
-  SnippetsOutlined,
-  EllipsisOutlined,
-  DeleteOutlined,
-  MessageOutlined,
-  EditOutlined,
-  EyeInvisibleOutlined,
-  PlusOutlined,
-  FileImageOutlined,
-  EyeOutlined,
-  AlignLeftOutlined,
-  FormatPainterOutlined
-} from "@ant-design/icons";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
+import ListIcon from "@material-ui/icons/List";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ChatIcon from "@material-ui/icons/Chat";
+import EditIcon from "@material-ui/icons/Edit";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import AddIcon from "@material-ui/icons/Add";
+import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
+import FormatPaintIcon from "@material-ui/icons/FormatPaint";
 import UserList from "../../Editor/UserList";
 import { hideUnHideStep } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -32,124 +34,192 @@ const EditControls = ({
   visibility,
   owner,
   currentStep,
-  step_length
+  step_length,
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const TutorialMenu = () => {
     return (
-      <Menu>
-        <Menu.Item key="edit_description">
-          <AlignLeftOutlined /> Edit Description
-        </Menu.Item>
-        <Menu.Item
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem key="edit_description">
+          <FormatAlignLeftIcon /> Edit Description
+        </MenuItem>
+        <MenuItem
           key="edit_codeLabz_theme"
           onClick={() => setViewColorPickerModal(true)}
         >
-          <FormatPainterOutlined /> Edit CodeLabz Theme
-        </Menu.Item>
+          <FormatPaintIcon /> Edit CodeLabz Theme
+        </MenuItem>
         <Menu.Divider />
-        <Menu.Item
+        <MenuItem
           key="delete_tutorial"
           onClick={() => null}
           style={{ color: "red" }}
         >
-          <DeleteOutlined /> Move to Trash
-        </Menu.Item>
+          <DeleteIcon /> Move to Trash
+        </MenuItem>
       </Menu>
     );
   };
 
   const DropdownMenu = () => {
     return (
-      <Dropdown key="more" overlay={TutorialMenu}>
+      <>
         <Button
           style={{
             border: "none",
-            padding: 0
+            padding: 0,
           }}
           type="link"
+          onClick={handleClick}
         >
-          <EllipsisOutlined
+          <ListIcon
             style={{
               fontSize: 20,
-              verticalAlign: "top"
+              verticalAlign: "top",
             }}
           />
         </Button>
-      </Dropdown>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          style={{ left: "80vw", top: "20%  " }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem key="edit_description">
+            <FormatAlignLeftIcon /> Edit Description
+          </MenuItem>
+          <MenuItem
+            key="edit_codeLabz_theme"
+            onClick={() => setViewColorPickerModal(true)}
+          >
+            <FormatPaintIcon /> Edit CodeLabz Theme
+          </MenuItem>
+          <MenuItem
+            key="delete_tutorial"
+            onClick={() => null}
+            style={{ color: "red" }}
+          >
+            <DeleteIcon /> Move to Trash
+          </MenuItem>
+        </Menu>
+      </>
     );
   };
 
   return (
     <>
-      <PageHeader
+      <Grid
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: ".5rem",
+        }}
         className={
           (!stepPanelVisible && !isDesktop
             ? "ant-page-header-fix "
             : "ant-page-header-unfix ") + "tutorial-title-header low-padding"
         }
-        title={
-          <Space>
-            <Button type="primary" onClick={() => toggleAddNewStep()}>
-              <PlusOutlined /> Add New Step
-            </Button>
-            <Button className="ml-24" onClick={() => toggleImageDrawer()}>
-              <FileImageOutlined /> Add images
-            </Button>
+      >
+        <div>
+          <Button
+            type="primary"
+            variant="outlined"
+            onClick={() => toggleAddNewStep()}
+          >
+            <AddIcon /> Add New Step
+          </Button>
+          <Button
+            variant="outlined"
+            className="ml-24"
+            onClick={() => toggleImageDrawer()}
+          >
+            <InsertDriveFileIcon /> Add images
+          </Button>
 
-            <Button
-              onClick={() => {
-                let key = Math.random();
-                message.loading({
-                  content: "Updating step visibility...",
-                  key,
-                  duration: 10
-                });
-                hideUnHideStep(owner, tutorial_id, noteID, visibility)(
-                  firebase,
-                  firestore,
-                  dispatch
-                ).then(() => {
-                  message.success({ content: "Updated!", key, duration: 2 });
-                });
-              }}
-            >
-              {!visibility ? (
-                <>
-                  <EyeOutlined /> Show step
-                </>
-              ) : (
-                <>
-                  <EyeInvisibleOutlined /> Hide step
-                </>
-              )}
-            </Button>
-            <Button
-              danger
-              onClick={() => {
-                setViewRemoveStepModal(!viewRemoveStepModal);
-              }}
-              disabled={step_length === 1}
-            >
-              <DeleteOutlined /> Remove step
-              <RemoveStepModal
-                owner={owner}
-                tutorial_id={tutorial_id}
-                step_id={noteID}
-                viewModal={viewRemoveStepModal}
-                currentStep={currentStep}
-                step_length={step_length}
-              />
-            </Button>
-          </Space>
-        }
-        extra={
-          !isDesktop && stepPanelVisible ? null : (
+          <Button
+            variant="outlined"
+            onClick={() => {
+              let key = Math.random();
+              <Snackbar
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                open={true}
+                autoHideDuration={6000}
+                message="updating step visibility...."
+              />;
+              hideUnHideStep(
+                owner,
+                tutorial_id,
+                noteID,
+                visibility
+              )(firebase, firestore, dispatch).then(() => {
+                <Snackbar
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  open={true}
+                  autoHideDuration={6000}
+                  message="updated...."
+                />;
+              });
+            }}
+          >
+            {!visibility ? (
+              <>
+                <VisibilityOffIcon /> Show step
+              </>
+            ) : (
+              <>
+                <VisibilityIcon /> Hide step
+              </>
+            )}
+          </Button>
+          <Button
+            variant="outlined"
+            danger
+            onClick={() => {
+              setViewRemoveStepModal(!viewRemoveStepModal);
+            }}
+            disabled={step_length === 1}
+          >
+            <DeleteIcon /> Remove step
+            <RemoveStepModal
+              owner={owner}
+              tutorial_id={tutorial_id}
+              step_id={noteID}
+              viewModal={viewRemoveStepModal}
+              currentStep={currentStep}
+              step_length={step_length}
+            />
+          </Button>
+        </div>
+        <div>
+          {!isDesktop && stepPanelVisible ? null : (
             <>
               {mode === "edit" && (
                 <UserList tutorial_id={tutorial_id} noteID={noteID} />
@@ -157,7 +227,7 @@ const EditControls = ({
               <Button
                 type="text"
                 shape="circle"
-                icon={<MessageOutlined />}
+                icon={<ChatIcon />}
                 size="large"
                 className="ml-24"
               />
@@ -167,7 +237,7 @@ const EditControls = ({
                   className="ml-24"
                   onClick={() => setMode("edit")}
                 >
-                  <EditOutlined /> Editor mode
+                  <EditIcon /> Editor mode
                 </Button>
               )}
               {mode === "edit" && (
@@ -176,20 +246,20 @@ const EditControls = ({
                   className="ml-24"
                   onClick={() => setMode("view")}
                 >
-                  <SnippetsOutlined /> Preview mode
+                  <FileCopyIcon /> Preview mode
                 </Button>
               )}
               <Button type="dashed">
-                <SnippetsOutlined /> Publish
+                <FileCopyIcon /> Publish
               </Button>
               <DropdownMenu key="more" />
             </>
-          )
-        }
-      />
+          )}
+        </div>
+      </Grid>
       <ColorPickerModal
         visible={viewColorPickerModal}
-        visibleCallback={e => setViewColorPickerModal(e)}
+        visibleCallback={(e) => setViewColorPickerModal(e)}
         tutorial_id={tutorial_id}
         owner={owner}
       />

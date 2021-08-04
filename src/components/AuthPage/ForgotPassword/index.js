@@ -13,8 +13,14 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
+import PropTypes from "prop-types";
 
-const ForgotPassword = () => {
+const ForgotPassword = ({
+  rootBackground = "rgba(0,0,0,.01)",
+  confirmationText = "We have sent you an email containing the link to reset your password .Please check your inbox including spams",
+  fontweight = "800",
+  buttonColor = "blue",
+}) => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -53,7 +59,7 @@ const ForgotPassword = () => {
   const useStyles = makeStyles({
     root: {
       padding: "2rem",
-      background: "rgba(0,0,0,.01)",
+      background: rootBackground,
       border: "none",
       boxShadow: "none",
     },
@@ -102,8 +108,7 @@ const ForgotPassword = () => {
             }}
             message={""}
           >
-            We have sent you an email containing the link to reset your
-            password. Please check your inbox including spams.
+            {confirmationText}
           </Alert>
         </Collapse>
       )}
@@ -127,6 +132,7 @@ const ForgotPassword = () => {
         <Button
           variant="contained"
           color="primary"
+          style={{ background: buttonColor }}
           loading={loading}
           className="mt-10"
           type="submit"
@@ -152,6 +158,13 @@ const ForgotPassword = () => {
       </Grid>
     </Card>
   );
+};
+
+ForgotPassword.propTypes = {
+  rootBackground: PropTypes.string,
+  confirmationText: PropTypes.string,
+  fontweight: PropTypes.string,
+  buttonColor: PropTypes.string,
 };
 
 export default ForgotPassword;

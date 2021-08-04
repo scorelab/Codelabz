@@ -23,8 +23,13 @@ import { clearAuthError, signIn } from "../../../store/actions";
 import SmButtons from "../smButton/smButtons";
 import ViewAlerts from "./ViewAlerts";
 import useStyles from "./styles";
+import PropTypes from "prop-types";
 
-const Login = () => {
+const Login = ({
+  loginButton = "blue",
+  background = "white",
+  loginText = "Welcome Back",
+}) => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -105,13 +110,13 @@ const Login = () => {
   };
 
   return (
-    <Card raised className={`${classes.card}   `} data-testId="login">
+    <Card raised className={`${classes.card}   `}style={{ background: background }}data-testId="login">
       <CardContent>
         <Typography
           variant="h4"
           style={{ textAlign: "center", marginBottom: "40px" }}
         >
-          Welcome back!
+          {loginText}
         </Typography>
         <ViewAlerts error={error} email={email} />
         <div>
@@ -126,6 +131,7 @@ const Login = () => {
             fullWidth
             autoComplete="email"
             required
+            className="email"
             onFocus={onFocusEmail}
             className="email"
             style={{ marginBottom: "15px" }}
@@ -148,6 +154,7 @@ const Login = () => {
             fullWidth
             required
             value={password}
+            className="password"
             onFocus={onFocusPassword}
             onChange={onChangePassword}
             autoComplete="current-password"
@@ -198,7 +205,9 @@ const Login = () => {
             color="primary"
             fullWidth
             onClick={onSubmit}
+            className="loginButton"
             disabled={loading}
+            style={{ background: loginButton }}
             className="loginButton"
           >
             {loading ? "Logging in..." : "Log in"}
@@ -215,6 +224,12 @@ const Login = () => {
       </CardContent>
     </Card>
   );
+};
+
+Login.propTypes = {
+  loginButton: PropTypes.string,
+  background: PropTypes.string,
+  loginText: PropTypes.string,
 };
 
 export default Login;

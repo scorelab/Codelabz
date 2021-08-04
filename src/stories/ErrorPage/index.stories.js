@@ -4,6 +4,21 @@ import ErrorPage from "../../components/ErrorPages/404";
 export default {
   title: "ErrorPage",
   component: ErrorPage,
+  argTypes: {
+    background: {
+      control: "color",
+    },
+    textColor: {
+      control: "color",
+    },
+  },
 };
 
-export const errorPage = () => <ErrorPage />;
+const Template = (args) => <ErrorPage {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  background: "white",
+  textColor: "black",
+};

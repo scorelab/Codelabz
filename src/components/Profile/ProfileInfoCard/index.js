@@ -315,9 +315,12 @@ const ProfileInfoCard = () => {
             </Box>
           </Grid>
           <Grid xs={12} md={9} lg={9} item={true}>
-            <Box mt={6} mb={2} m={3}>
+            <Box mt={6} mb={2} m={3} id="profileData">
               <p>
-                <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
+                <span
+                  style={{ fontSize: "1.3em", fontWeight: "bold" }}
+                  data-testId="profileName"
+                >
                   {profileData.displayName}
                   <Box>
                     {verified ? (
@@ -483,6 +486,7 @@ const ProfileInfoCard = () => {
         maxWidth="md"
         open={profileEditModalVisible}
         onClose={!profileEditModalVisible}
+        id="editProfileModal"
       >
         <DialogTitle id="alert-dialog-title">
           <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
