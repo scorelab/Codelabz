@@ -19,7 +19,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     setValue(newValue);
   };
   return (
-    <Card className={classes.wrapper} style={{ background: background }}>
+    <Card className={classes.wrapper} style={{ background: background }} data-testId="homepage">
       <div className={classes.sideBody}>
         <Grid
           container
@@ -31,6 +31,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             overflow: "auto",
             maxHeight: "25rem",
           }}
+          data-testId="homepageTagSidebar"
         >
           <Grid item>
             <Typography
@@ -74,6 +75,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             overflow: "auto",
             maxHeight: "25rem",
           }}
+          data-testId="homepagePopularEventSidebar"
         >
           <Grid item>
             <Typography
@@ -109,7 +111,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.mainBody}>
+      <div className={classes.mainBody} data-testId="homepageMainBody">
         <Grid container className={classes.sort}>
           <Typography
             variant="h6"
@@ -127,6 +129,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             className={classes.sortedList}
             value={value}
             onChange={handleChange}
+            data-testId="sortByTime"
           >
             <BottomNavigationAction label="week" />
             <BottomNavigationAction
@@ -154,6 +157,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
+          data-testId="homepageUpcomingEventSidebar"
         >
           <Grid item>
             <Typography
@@ -197,6 +201,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
+          data-testId="homepageDiscussionSidebar"
         >
           <Typography
             variant="h6"
