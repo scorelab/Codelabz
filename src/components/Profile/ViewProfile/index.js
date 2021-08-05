@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { clearUserProfile, getUserProfileData } from "../../../store/actions";
+import {
+  clearUserProfile,
+  getUserProfileData,
+  addUserFollower,
+  removeUserFollower,
+} from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { BasicImage, NoImage } from "../../../helpers/images";
-
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
@@ -18,12 +23,17 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import LinkIcon from "@material-ui/icons/Link";
 import FlagIcon from "@material-ui/icons/Flag";
+import Typography from "@material-ui/core/Typography";
 
 const ProfileView = () => {
   const { handle } = useParams();
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const [followers, setFollowers] = useState([]);
+  const [targetUserFollowing, setTargetUserFollowing] = useState(0);
+  const [following, setFollowing] = useState([]);
+  const db = firebase.firestore();
 
   useEffect(() => {
     getUserProfileData(handle)(firebase, firestore, dispatch);
@@ -39,6 +49,9 @@ const ProfileView = () => {
       },
     }) => data
   );
+  const currentProfileData = useSelector(
+    ({ firebase: { profile } }) => profile
+  );
   const loading = useSelector(
     ({
       profile: {
@@ -47,6 +60,41 @@ const ProfileView = () => {
     }) => error
   );
 
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("cl_user")
+      .doc(profileData?.uid)
+      .onSnapshot((snap) => {
+        const data = snap.data();
+        setFollowers(data?.followers);
+      });
+
+    return () => unsubscribe();
+  }, [profileData]);
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("cl_user")
+      .doc(profileData?.uid)
+      .onSnapshot((snap) => {
+        const data = snap.data();
+        setTargetUserFollowing(data?.following);
+      });
+
+    return () => unsubscribe();
+  }, [profileData]);
+
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("cl_user")
+      .doc(currentProfileData?.uid)
+      .onSnapshot((snap) => {
+        const data = snap.data();
+        setFollowing(data?.following);
+      });
+
+    return () => unsubscribe();
+  }, [currentProfileData]);
   const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
@@ -59,6 +107,29 @@ const ProfileView = () => {
     );
   }
 
+  const addFollower = (e) => {
+    e.preventDefault();
+    addUserFollower(
+      currentProfileData,
+      followers,
+      following,
+      profileData,
+      firestore,
+      dispatch
+    );
+  };
+
+  const removeFollower = (e) => {
+    e.preventDefault();
+    removeUserFollower(
+      followers,
+      currentProfileData,
+      following,
+      profileData,
+      firestore,
+      dispatch
+    );
+  };
   return (
     <ThemeProvider theme={basicTheme}>
       <Card className="p-0">
@@ -246,6 +317,38 @@ const ProfileView = () => {
                         </div>
                       </a>
                     </p>
+                  )}
+                  {console.log("followers", followers, "following", following)}
+                  <Typography
+                    variant="body2"
+                    style={{ margin: ".5rem 0 .5rem 0" }}
+                  >
+                    Followers : <span>{followers ? followers.length : 0}</span>{" "}
+                    Following :{" "}
+                    <span>
+                      {targetUserFollowing ? targetUserFollowing.length : 0}
+                    </span>
+                  </Typography>
+                  {!following ? (
+                    <Button
+                      variant="contained"
+                      onClick={(e) => addFollower(e)}
+                      style={{ marginTop: "1rem" }}
+                    >
+                      follow
+                    </Button>
+                  ) : !following.includes(profileData.handle) ? (
+                    <Button variant="contained" onClick={(e) => addFollower(e)}>
+                      follow
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={(e) => removeFollower(e)}
+                      variant="contained"
+                      style={{ marginTop: "1rem" }}
+                    >
+                      unfollow
+                    </Button>
                   )}
                 </Grid>
               </Grid>
