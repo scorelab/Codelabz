@@ -8,7 +8,7 @@ import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyEmail, clearAuthError } from "../../../store/actions";
 
-const VerifyEmail = ({ queryParams }) => {
+const VerifyEmail = ({ queryParams = "test" }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const { oobCode: actionCode } = queryParams;

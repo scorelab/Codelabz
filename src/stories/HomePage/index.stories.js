@@ -1,18 +1,33 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from "react";
 import ProviderWrapper from "../../helpers/providerWrapper";
-import Home from "../../components/Home/index";
+import Home from "../../components/HomePage/index";
 import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "Home",
   component: Home,
+  argTypes: {
+    background: {
+      control: "color",
+    },
+    textColor: {
+      control: "color",
+    },
+  },
 };
 
-export const home = () => (
+const Template = (args) => (
   <ProviderWrapper>
     <MemoryRouter>
-      <Home />
+      <Home {...args} />
     </MemoryRouter>
   </ProviderWrapper>
 );
+
+export const Default = Template.bind({});
+
+Default.args = {
+  background: "white",
+  textColor: "black",
+};

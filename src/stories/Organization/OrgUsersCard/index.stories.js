@@ -1,21 +1,17 @@
 import React from "react";
-import SignUp from "../../../components/AuthPage/SignUp";
+import { MemoryRouter } from "react-router";
+import OrgUsersCard from "../../../components/Organization/OrgUsersCard/orgUsersCard";
 import ProviderWrapper from "../../../helpers/providerWrapper";
-import { MemoryRouter } from "react-router-dom";
+
 export default {
-  title: "AuthPage/Sign Up Page",
-  component: SignUp,
-  argTypes: {
-    background: {
-      control: "color",
-    },
-  },
+  title: "Organization/Organization User Card",
+  component: OrgUsersCard,
 };
 
 const Template = (args) => (
   <ProviderWrapper>
     <MemoryRouter>
-      <SignUp {...args} />{" "}
+      <OrgUsersCard {...args} />
     </MemoryRouter>
   </ProviderWrapper>
 );
