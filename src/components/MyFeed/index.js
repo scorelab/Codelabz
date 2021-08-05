@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 import ExploreOrgs from "./ExploreOrgs";
 import PropTypes from "prop-types";
-import Carousel from "./Carousel/index";
 
 const MyFeed = ({
   heading = "Explore Codelabz",
@@ -24,21 +23,16 @@ const MyFeed = ({
           alignItems="center"
           justify="center"
           style={{ padding: "15px" }}
-          data-testId="codefeedTitle"
         >
           <Typography variant="h2" style={{ color: textcolor }}>
             {heading}
           </Typography>
           <p>{title}</p>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Carousel />
-          </div>
+        </Grid>
+
+        <Grid item xs={12}>
+          {" "}
+          <ExploreOrgs />
         </Grid>
       </Grid>
     </Box>
