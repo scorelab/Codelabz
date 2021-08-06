@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import { createTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -24,7 +24,7 @@ import {
   removeFollower,
 } from "../../../store/actions";
 
-const theme = createTheme({
+const theme = createMuiTheme({
   shadows: ["none"],
   palette: {
     primary: {
@@ -54,7 +54,7 @@ const ViewOrganization = () => {
       });
 
     return () => unsubscribe();
-  }, [db,handle]);
+  }, [db, handle]);
 
   useEffect(() => {
     const unsubscribe = db
@@ -66,7 +66,7 @@ const ViewOrganization = () => {
       });
 
     return () => unsubscribe();
-  }, [db,profileData.uid]);
+  }, [db, profileData.uid]);
 
   const addfollower = (e, people, handle, orgFollowed) => {
     e.preventDefault();
@@ -151,7 +151,7 @@ const ViewOrganization = () => {
                             width: "100%",
                             height: "auto",
                             borderRadius: "8px",
-                            display: imageLoading ? "none" : "block"
+                            display: imageLoading ? "none" : "block",
                           }}
                           src={currentOrgData.org_image}
                           alt={currentOrgData.org_name}
