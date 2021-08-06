@@ -23,16 +23,27 @@ import BusinessIcon from "@material-ui/icons/Business";
 
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { checkOrgHandleExists, checkUserHandleExists, clearProfileEditError, setUpInitialData } from "../../store/actions";
+import {
+  checkOrgHandleExists,
+  checkUserHandleExists,
+  clearProfileEditError,
+  setUpInitialData,
+} from "../../store/actions";
 
 import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
 import profileUser from "../../assets/images/profile-user.svg";
 import Fade from "react-reveal/Fade";
 
-import { validateName, validateHandle, validateCountry, validateOrgWebsite } from "../../helpers/validations";
+import {
+  validateName,
+  validateHandle,
+  validateCountry,
+  validateOrgWebsite,
+} from "../../helpers/validations";
+import PropTypes from "prop-types";
 
-const Dashboard = () => {
+const Dashboard = ({ background = "white", textColor = "black" }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOrgForm, setShowOrgForm] = useState(null);
@@ -43,26 +54,25 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
-
   const [name, setName] = useState("");
   const [nameValidateError, setNameValidateError] = useState(false);
   const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
   const [orgName, setOrgName] = useState("");
   const [orgNameValidateError, setOrgNameValidateError] = useState(false);
-  const [orgNameValidateErrorMessage, setOrgNameValidateErrorMessage] = useState("");
+  const [orgNameValidateErrorMessage,setOrgNameValidateErrorMessage] = useState("");
   const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
   const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState("");
   const [orgHandle, setOrgHandle] = useState("");
   const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
-  const [orgHandleValidateErrorMessage, setOrgHandleValidateErrorMessage] = useState("");
+  const [orgHandleValidateErrorMessage,setOrgHandleValidateErrorMessage,] = useState("");
   const [country, setCountry] = useState("");
   const [countryValidateError, setCountryValidateError] = useState(false);
   const [orgCountry, setOrgCountry] = useState("");
   const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
   const [orgWebsite, setOrgWebsite] = useState("");
   const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
-  const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] = useState("");
+  const [orgWebsiteValidateErrorMessage,setOrgWebsiteValidateErrorMessage,] = useState("");
 
   const displayName = useSelector(
     ({
@@ -115,9 +125,9 @@ const Dashboard = () => {
         "Please enter a real name"
       );
       const countryValid = validateCountry(country, setCountryValidateError);
-      const orgCountryValid = validateCountry(orgCountry, setOrgCountryValidateError);
-      const orgWebsiteValid = validateOrgWebsite(orgWebsite, setOrgWebsiteValidateError, setOrgWebsiteValidateErrorMessage);
-      if (nameValid && orgNameValid && countryValid && orgCountryValid && orgWebsiteValid) {
+      const orgCountryValid = validateCountry(orgCountry,setOrgCountryValidateError);
+      const orgWebsiteValid = validateOrgWebsite(orgWebsite,setOrgWebsiteValidateError,setOrgWebsiteValidateErrorMessage);
+      if (nameValid &&orgNameValid &&countryValid &&orgCountryValid &&orgWebsiteValid) {
         return true;
       } else {
         return false;
@@ -208,11 +218,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="home-row">
+    <div className="home-row" style={{ background: background }}>
       <Grid container alignItems="center" justify="space-between">
         <Grid xs={12} className="col-pad-24 pt-32" item={true}>
-          <h2 className="mb-0 center">Welcome to CodeLabz!</h2>
-          <h3 className="mb-0 center">Let's complete your profile before we dive in.</h3>
+          <h2 className="mb-0 center" style={{ color: textColor }}>
+            Welcome to CodeLabz!
+          </h2>
+          <h3 className="mb-0 center" style={{ color: textColor }}>
+            Let's complete your profile before we dive in.
+          </h3>
         </Grid>
         <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6} item={true}>
           {error && (
@@ -236,7 +250,12 @@ const Dashboard = () => {
             >
               <Card className="auth-form-col" style={{ margin: "0 auto" }}>
                 <Box mt={2} mb={2} m={3}>
-                  <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
+                  <Box
+                    fontSize={16}
+                    fontWeight="fontWeightBold"
+                    m={1}
+                    style={{ color: textColor }}
+                  >
                     Your Details
                   </Box>
                 </Box>
@@ -251,7 +270,9 @@ const Dashboard = () => {
                     placeholder={displayName ? displayName : ""}
                     value={name}
                     onChange={(event) => onChangeName(event.target.value)}
-                    helperText={nameValidateError ? nameValidateErrorMessage : null}
+                    helperText={
+                      nameValidateError ? nameValidateErrorMessage : null
+                    }
                     fullWidth
                     autoComplete="handle"
                     required
@@ -271,7 +292,9 @@ const Dashboard = () => {
                     placeholder="User Handle"
                     value={handle}
                     onChange={(event) => onChangeHandle(event.target.value)}
-                    helperText={handleValidateError ? handleValidateErrorMessage : null}
+                    helperText={
+                      handleValidateError ? handleValidateErrorMessage : null
+                    }
                     fullWidth
                     autoComplete="handle"
                     required
@@ -280,13 +303,21 @@ const Dashboard = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <PersonOutlineIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                          <PersonOutlineIcon
+                            style={{ color: "rgba(0,0,0,.25)" }}
+                          />
                         </InputAdornment>
                       ),
                     }}
                   />
-                  <FormControl variant="outlined" error={countryValidateError} fullWidth>
-                    <InputLabel>User Country</InputLabel>
+                  <FormControl
+                    variant="outlined"
+                    error={countryValidateError}
+                    fullWidth
+                  >
+                    <InputLabel style={{ color: textColor }}>
+                      User Country
+                    </InputLabel>
                     <Select
                       label="User Country"
                       children={children}
@@ -329,7 +360,9 @@ const Dashboard = () => {
                   <Box mt={2} mb={2} m={3}>
                     <Typography>
                       <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
-                        <p className="mb-0 ">Organization Details</p>
+                        <p className="mb-0 " style={{ color: textColor }}>
+                          Organization Details
+                        </p>
                       </Box>
                     </Typography>
                   </Box>
@@ -344,7 +377,11 @@ const Dashboard = () => {
                       placeholder="Organiztion Name"
                       value={orgName}
                       onChange={(event) => onChangeOrgName(event.target.value)}
-                      helperText={orgNameValidateError ? orgNameValidateErrorMessage : null}
+                      helperText={
+                        orgNameValidateError
+                          ? orgNameValidateErrorMessage
+                          : null
+                      }
                       fullWidth
                       autoComplete="handle"
                       required
@@ -352,7 +389,9 @@ const Dashboard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <LocationCityIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                            <LocationCityIcon
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
                           </InputAdornment>
                         ),
                       }}
@@ -363,8 +402,14 @@ const Dashboard = () => {
                       variant="outlined"
                       placeholder="Organiztion Handle"
                       value={orgHandle}
-                      onChange={(event) => onChangeOrgHandle(event.target.value)}
-                      helperText={orgHandleValidateError ? orgHandleValidateErrorMessage : null}
+                      onChange={(event) =>
+                        onChangeOrgHandle(event.target.value)
+                      }
+                      helperText={
+                        orgHandleValidateError
+                          ? orgHandleValidateErrorMessage
+                          : null
+                      }
                       fullWidth
                       autoComplete="orgHandle"
                       required
@@ -372,20 +417,30 @@ const Dashboard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <BusinessIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                            <BusinessIcon
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
                           </InputAdornment>
                         ),
                       }}
                     />
-                    <FormControl variant="outlined" error={orgCountryValidateError} fullWidth>
-                      <InputLabel>Organization Country</InputLabel>
+                    <FormControl
+                      variant="outlined"
+                      error={orgCountryValidateError}
+                      fullWidth
+                    >
+                      <InputLabel style={{ color: textColor }}>
+                        Organization Country
+                      </InputLabel>
                       <Select
                         label="Organization Country"
                         children={children}
                         style={{ width: "100%" }}
                         showSearch={true}
                         value={orgCountry}
-                        onChange={(event) => onChangeOrgCountry(event.target.value)}
+                        onChange={(event) =>
+                          onChangeOrgCountry(event.target.value)
+                        }
                       ></Select>
                     </FormControl>
                   </Box>
@@ -397,8 +452,14 @@ const Dashboard = () => {
                       variant="outlined"
                       placeholder="Organization Website"
                       value={orgWebsite}
-                      onChange={(event) => onChangeOrgWebsite(event.target.value)}
-                      helperText={orgWebsiteValidateError ? orgWebsiteValidateErrorMessage : null}
+                      onChange={(event) =>
+                        onChangeOrgWebsite(event.target.value)
+                      }
+                      helperText={
+                        orgWebsiteValidateError
+                          ? orgWebsiteValidateErrorMessage
+                          : null
+                      }
                       fullWidth
                       autoComplete="orgWebsite"
                       required
@@ -433,9 +494,20 @@ const Dashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid xs={12} sm={12} md={showOrgForm ? 4 : 6} className="col-pad-24 pl-12 pt-8" item={true}>
+        <Grid
+          xs={12}
+          sm={12}
+          md={showOrgForm ? 4 : 6}
+          className="col-pad-24 pl-12 pt-8"
+          item={true}
+        >
           <Fade right={true} when={showImage}>
-            <img src={showImage === "user" ? profileUser : orgUser} alt="Background for auth" width="100%" className="dash-image" />
+            <img
+              src={showImage === "user" ? profileUser : orgUser}
+              alt="Background for auth"
+              width="100%"
+              className="dash-image"
+            />
           </Fade>
         </Grid>
       </Grid>
@@ -443,4 +515,8 @@ const Dashboard = () => {
   );
 };
 
+Dashboard.prototype = {
+  background: PropTypes.string,
+  textColor: PropTypes.string,
+};
 export default Dashboard;
