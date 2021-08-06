@@ -13,11 +13,8 @@ import PropTypes from "prop-types";
 const SignUp = ({ background = "white" }) => {
   const classes = useStyles();
   return (
-    <Card
-      raised
-      className={`${classes.card}`}
-      style={{ background: background }}
-    >
+    <Card raised className={`${classes.card}   `} data-testId="signUp" style={{ background: background }}>
+    
       <CardContent>
         <Typography
           variant="h4"
@@ -28,7 +25,13 @@ const SignUp = ({ background = "white" }) => {
         <SignupForm />
         <Divider>or</Divider>
         <SmButtons />
-        <Grid container justify="center" alignItems="center" className="mt-24">
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          className="mt-24"
+          data-testId="signUpHaveAccount"
+        >
           <Grid item={true} sm={12} className="center">
             Already have a{" "}
             <span className="brand-font text-bold">CodeLabz</span> account?{" "}

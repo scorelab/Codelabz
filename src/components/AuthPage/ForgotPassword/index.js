@@ -64,13 +64,13 @@ const ForgotPassword = ({
       boxShadow: "none",
     },
     heading: {
-      fontWeight: fontweight,
+      fontWeight: 600,
     },
   });
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} data-testId="forgotPassword">
       <Typography
         variant="h4"
         className={"mb-24 text-center " + classes.heading}
@@ -121,6 +121,7 @@ const ForgotPassword = ({
           className="mb-32"
           fullWidth
           height="10rem"
+          data-testId="forgotPasswordEmail"
           startAdornment={
             <InputAdornment sposition="start">
               <MailOutlineOutlinedIcon style={{ color: "rgba(0,0,0,.25)" }} />
@@ -136,6 +137,7 @@ const ForgotPassword = ({
           className="mt-10"
           type="submit"
           fullWidth
+          data-testId="forgotPasswordButton"
         >
           {loading ? "Sending..." : "Send me the link"}
         </Button>
