@@ -70,7 +70,7 @@ const MyTutorials = () => {
   };
 
   return (
-    <div className="row-footer-below">
+    <div className="row-footer-below" data-testId="tutorialMainBody">
       <Grid container>
         <Grid xs={12} className="mb-24">
           <SearchComponent />
