@@ -1,13 +1,28 @@
-import React from 'react';
-import Dashboard from '../../components/Dashboard';
-import ProviderWrapper from '../../helpers/providerWrapper';
+import React from "react";
+import Dashboard from "../../components/Dashboard";
+import ProviderWrapper from "../../helpers/providerWrapper";
 export default {
-  title: 'Dashboard',
+  title: "Dashboard",
   component: Dashboard,
+  argTypes: {
+    background: {
+      control: "color",
+    },
+    textColor: {
+      control: "color",
+    },
+  },
 };
 
-export const dashboard = () => (
+const Template = (args) => (
   <ProviderWrapper>
-    <Dashboard />
+    <Dashboard {...args} />
   </ProviderWrapper>
 );
+
+export const Default = Template.bind({});
+
+Default.args = {
+  background: "white",
+  textColor: "black",
+};

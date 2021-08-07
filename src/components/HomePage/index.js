@@ -12,14 +12,18 @@ import List from "@material-ui/core/List";
 import { userList } from "./userList";
 import useStyles from "./styles";
 
-function HomePage() {
+function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
   const [value, setValue] = useState(2);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
-    <Card className={classes.wrapper}>
+    <Card
+      className={classes.wrapper}
+      style={{ background: background }}
+      data-testId="homepage"
+    >
       <div className={classes.sideBody}>
         <Grid
           container
@@ -31,12 +35,13 @@ function HomePage() {
             overflow: "auto",
             maxHeight: "25rem",
           }}
+          data-testId="homepageTagSidebar"
         >
           <Grid item>
             <Typography
               variant="h6"
               gutterBottom
-              style={{ marginBottom: "1rem" }}
+              style={{ marginBottom: "1rem", color: textColor }}
             >
               Popular Tags
             </Typography>
@@ -74,12 +79,13 @@ function HomePage() {
             overflow: "auto",
             maxHeight: "25rem",
           }}
+          data-testId="homepagePopularEventSidebar"
         >
           <Grid item>
             <Typography
               variant="h6"
               gutterBottom
-              style={{ marginBottom: "1rem" }}
+              style={{ marginBottom: "1rem", color: textColor }}
             >
               Popular Events
             </Typography>
@@ -109,11 +115,15 @@ function HomePage() {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.mainBody}>
+      <div className={classes.mainBody} data-testId="homepageMainBody">
         <Grid container className={classes.sort}>
           <Typography
             variant="h6"
-            style={{ padding: ".5rem 1rem", fontWeight: "bold" }}
+            style={{
+              padding: ".5rem 1rem",
+              fontWeight: "bold",
+              color: textColor,
+            }}
           >
             Posts
           </Typography>
@@ -123,6 +133,7 @@ function HomePage() {
             className={classes.sortedList}
             value={value}
             onChange={handleChange}
+            data-testId="sortByTime"
           >
             <BottomNavigationAction label="week" />
             <BottomNavigationAction
@@ -150,12 +161,13 @@ function HomePage() {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
+          data-testId="homepageUpcomingEventSidebar"
         >
           <Grid item>
             <Typography
               variant="h6"
               gutterBottom
-              style={{ marginBottom: "1rem" }}
+              style={{ marginBottom: "1rem", color: textColor }}
             >
               Upcoming Events
             </Typography>
@@ -193,11 +205,12 @@ function HomePage() {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
+          data-testId="homepageDiscussionSidebar"
         >
           <Typography
             variant="h6"
             gutterBottom
-            style={{ marginBottom: "1rem" }}
+            style={{ marginBottom: "1rem", color: textColor }}
           >
             Discussion
           </Typography>
@@ -209,6 +222,7 @@ function HomePage() {
                 width: "100%",
                 overflow: "auto",
                 maxHeight: "25rem",
+                color: textColor,
               }}
             >
               <ListItem button>

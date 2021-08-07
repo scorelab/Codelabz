@@ -8,11 +8,13 @@ import Divider from "../../../globalComponents/Divider";
 import SmButtons from "../smButton/smButtons";
 import SignupForm from "./signupForm";
 import useStyles from "./styles";
+import PropTypes from "prop-types";
 
-const SignUp = () => {
+const SignUp = ({ background = "white" }) => {
   const classes = useStyles();
   return (
-    <Card raised className={`${classes.card}   `}>
+    <Card raised className={`${classes.card}   `} data-testId="signUp" style={{ background: background }}>
+    
       <CardContent>
         <Typography
           variant="h4"
@@ -23,7 +25,13 @@ const SignUp = () => {
         <SignupForm />
         <Divider>or</Divider>
         <SmButtons />
-        <Grid container justify="center" alignItems="center" className="mt-24">
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          className="mt-24"
+          data-testId="signUpHaveAccount"
+        >
           <Grid item={true} sm={12} className="center">
             Already have a{" "}
             <span className="brand-font text-bold">CodeLabz</span> account?{" "}
@@ -33,6 +41,9 @@ const SignUp = () => {
       </CardContent>
     </Card>
   );
+};
+SignUp.prototype = {
+  background: PropTypes.string,
 };
 
 export default SignUp;

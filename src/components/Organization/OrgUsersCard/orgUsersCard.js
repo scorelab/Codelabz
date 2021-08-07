@@ -246,11 +246,12 @@ const OrgUsersCard = () => {
                   aria-haspopup="true"
                   onClick={handleClickOpen}
                   startIcon={<AddIcon />}
+                  id="addNewUser"
                 >
                   Add New
                 </Button>
 
-                <Dialog open={open} onClose={handleCloseDialog}>
+                <Dialog open={open} onClose={handleCloseDialog} id="addNewUserDialog">
                   <DialogTitle
                     id="customized-dialog-title"
                     onClose={handleCloseDialog}
@@ -266,7 +267,7 @@ const OrgUsersCard = () => {
             )
           }
         />{" "}
-        <Box mt={2} mb={2} m={3}>
+        <Box mt={2} mb={2} m={3} data-testId="orgUserCard">
           <Grid xs={12} md={12} lg={12} item={true}>
             <List
               subheader={

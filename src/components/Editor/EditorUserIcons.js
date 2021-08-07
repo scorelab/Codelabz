@@ -33,7 +33,7 @@ export const EditorUserIcons = ({
 
   return (
     <Tooltip {...tooltipProps}>
-      <div className="editor-icon noselect" id="editorUser">
+      <div className="editor-icon noselect">
         <Badge
           dot
           color={borderColor ? borderColor : null}
