@@ -28,17 +28,28 @@ const SignupForm = () => {
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
 
   const [errorOpen, setErrorOpen] = useState(true);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
-  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState('');
-  const [password, setPassword] = useState('');
+  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
+    ""
+  );
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
-  const [passwordValidateErrorMessage,setPasswordValidateErrorMessage,] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [
+    passwordValidateErrorMessage,
+    setPasswordValidateErrorMessage,
+  ] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [confirmPasswordValidateError,setConfirmPasswordValidateError,] = useState(false);
-  const [confirmPasswordValidateErrorMessage,setConfirmPasswordValidateErrorMessage,] = useState('');
+  const [
+    confirmPasswordValidateError,
+    setConfirmPasswordValidateError,
+  ] = useState(false);
+  const [
+    confirmPasswordValidateErrorMessage,
+    setConfirmPasswordValidateErrorMessage,
+  ] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [agreedText, setAgreedText] = useState(false);
 
@@ -109,11 +120,16 @@ const SignupForm = () => {
   };
 
   const onSubmit = async () => {
-    if(validateEmail() && validatePassword() && validateConfirmPassword() && agreed)
-    {
+    if (
+      validateEmail() &&
+      validatePassword() &&
+      validateConfirmPassword() &&
+      agreed
+    ) {
       await signUp({ email, password })(firebase, dispatch);
-    }else{
-      setAgreedText(true);}
+    } else {
+      setAgreedText(true);
+    }
   };
 
   const onFocusEmail = () => {
@@ -180,9 +196,8 @@ const SignupForm = () => {
         </Collapse>
       )}
 
-      <Card style={{ boxShadow: "none" }}>
+      <Card data-testId="signUpForm" style={{ boxShadow: "none" }}>
         <TextField
-         
           label="Email"
           variant="outlined"
           placeholder="mail@codelabz.com"
@@ -191,6 +206,7 @@ const SignupForm = () => {
           helperText={emailValidateError ? emailValidateErrorMessage : null}
           error={emailValidateError}
           fullWidth
+          data-testId="signUpEmail"
           autoComplete="email"
           required
           onFocus={onFocusEmail}
@@ -215,6 +231,7 @@ const SignupForm = () => {
           value={password}
           onFocus={onFocusPassword}
           onChange={onChangePassword}
+          data-testId="signUpPassword"
           autoComplete="new-password"
           type={showPassword ? "text" : "password"}
           style={{ marginBottom: "15px" }}
@@ -248,6 +265,7 @@ const SignupForm = () => {
           error={confirmPasswordValidateError}
           fullWidth
           required
+          data-testId="signUpConfirmPassword"
           value={confirmPassword}
           onFocus={onFocusConfirmPassword}
           onChange={onChangeConfirmPassword}
@@ -273,7 +291,6 @@ const SignupForm = () => {
           }}
         />
         <FormControlLabel
-
           control={
             <Checkbox
               checked={agreed}
@@ -284,13 +301,20 @@ const SignupForm = () => {
           }
           label="By creating an account, you agree to our terms and conditions."
         />
-        {agreedText && !agreed ? <div style={{color:"red" ,padding:'5px'}}> You have to agree to our terms and conditions in order to register</div> :null}
+        {agreedText && !agreed ? (
+          <div style={{ color: "red", padding: "5px" }}>
+            {" "}
+            You have to agree to our terms and conditions in order to register
+          </div>
+        ) : null}
         <Button
+          onClick={onSubmit}
           variant="contained"
           color="primary"
           fullWidth
           onClick={onSubmit}
           disabled={loading}
+          data-testId="signUpButton"
         >
           {loading ? "Creating your account..." : "Create an account"}
         </Button>

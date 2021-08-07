@@ -49,11 +49,13 @@ const Carousel = () => {
     <section className={classes.slides}>
       <ArrowBackIosIcon
         onClick={prevSlide}
+        data-testId="codefeedLeftarrow"
         className={classes.arrow}
         style={{ position: "absolute", left: "-1rem" }}
       />
       <ChevronRightIcon
         onClick={nextSlide}
+        data-testId="codefeedRightarrow"
         className={classes.arrow}
         style={{ position: "absolute", right: "-1rem", fontSize: "2.3rem" }}
       />
@@ -76,6 +78,7 @@ const Carousel = () => {
                       style={{
                         zIndex: -1,
                       }}
+                      data-testId="codefeedCarouselCard"
                     >
                       <CardActionArea>
                         <CardMedia

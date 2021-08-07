@@ -73,6 +73,7 @@ const NotFound = ({ background = "white", textColor = "black" }) => {
       container
       className={`row-fullheight ${classes.wrapper}`}
       style={{ background: background }}
+      data-testId="errorPage"
     >
       <Grid
         item
