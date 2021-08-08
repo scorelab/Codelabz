@@ -74,7 +74,6 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }) => displayName
   );
 
-
   const allowOrgs = organizations && organizations.length > 0;
 
   const orgList =

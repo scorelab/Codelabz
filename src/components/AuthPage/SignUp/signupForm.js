@@ -107,7 +107,7 @@ const SignupForm = () => {
   };
 
   const validateConfirmPassword = () => {
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       setConfirmPasswordValidateError(true);
       setConfirmPasswordValidateErrorMessage(
         "The two passwords that you entered does not match!"
@@ -198,7 +198,6 @@ const SignupForm = () => {
 
       <Card data-testId="signUpForm" style={{ boxShadow: "none" }}>
         <TextField
-          error={emailValidateError}
           label="Email"
           variant="outlined"
           placeholder="mail@codelabz.com"

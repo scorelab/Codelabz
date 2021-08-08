@@ -6,7 +6,6 @@ import "rc-color-picker/assets/index.css";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { setTutorialTheme } from "../../../store/actions";
-import { GridOff } from "@material-ui/icons";
 
 const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
   const [bgColor, setBgColor] = useState("#ffffff");

@@ -52,8 +52,6 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   const setStepTitle = () => {
     const newStepTitle = "step_title";
     if (step_title !== newStepTitle && newStepTitle.length > 0) {
-      let key = Math.random();
-
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
@@ -85,8 +83,7 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   const setStepTime = () => {
     const newStepTime = "step_time";
     if (step_time !== newStepTime && newStepTime.length > 0) {
-      let key = Math.random();
-
+      
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",

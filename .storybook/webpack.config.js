@@ -9,7 +9,6 @@ module.exports = {
         test: /\.js$/,
         options: {
           presets: ["@babel/react"],
-          plugins: [["import", { libraryName: "antd", style: true }]],
         },
       },
       {

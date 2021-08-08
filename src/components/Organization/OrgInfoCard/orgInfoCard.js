@@ -30,14 +30,12 @@ const OrgInfoCard = () => {
   const dispatch = useDispatch();
   const firestore = useFirestore();
   const [currentOrgData, setCurrentOrgData] = useState({});
-  const [imageLoading, setImageLoading] = useState(true);
   const [orgEditModalVisible, setOrgEditModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 16 });
   const [completedCrop, setCompletedCrop] = useState(null);
   const [showImageDialog, setShowImageDialog] = useState(false);
-  const [imageUploading, setImageUploading] = useState(false);
   const [upImg, setUpImg] = useState();
   const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
@@ -134,17 +132,14 @@ const OrgInfoCard = () => {
       return element.org_handle === current;
     });
     setCurrentOrgData(orgDetails);
-    setImageLoading(true);
   }, [current, orgs]);
 
   const uploadImage = (file) => {
-    setImageUploading(true);
     uploadOrgProfileImage(
       file,
       current,
       orgs
     )(firebase, dispatch).then(() => {
-      setImageUploading(false);
       clearEditGeneral()(dispatch);
     });
     return false;

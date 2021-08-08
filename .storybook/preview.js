@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import "../src/css/spacing.css";
 
 export const parameters = {

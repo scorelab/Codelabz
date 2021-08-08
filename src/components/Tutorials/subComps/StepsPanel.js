@@ -3,8 +3,6 @@ import Stepper from "@material-ui/core/Stepper";
 import Button from "@material-ui/core/Button";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
 const StepsPanel = ({
   currentStep,
@@ -13,20 +11,7 @@ const StepsPanel = ({
   onClick,
   hideButton,
 }) => {
-  const stepView = (title, visibility) => (
-    <div style={{ width: "100%" }}>
-      <span>{title} </span>
-      <span
-        style={{
-          float: "right",
-          verticalAlign: "middle",
-        }}
-      >
-        {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
-      </span>
-    </div>
-  );
-
+  
   return (
     <div className="tutorial-steps-sider">
       {!hideButton &&

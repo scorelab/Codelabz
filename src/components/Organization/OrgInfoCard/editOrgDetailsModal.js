@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import CountryDropdown from "../../../helpers/countryDropdown";
-import {
-  orgNameValidation,
-  orgWebsiteValidation,
-  orgSMValidation,
-} from "../../../helpers/validationRules";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { editGeneralData, clearEditGeneral } from "../../../store/actions";

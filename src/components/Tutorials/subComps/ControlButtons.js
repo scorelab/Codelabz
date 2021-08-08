@@ -4,7 +4,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Grid from '@material-ui/core/Grid';
 
 const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
-  const bottomMargin = 54;
 
   if (!hide && stepsData) {
     return (
