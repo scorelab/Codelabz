@@ -46,7 +46,7 @@ function MainNavbar() {
   }));
   const classes = useStyles();
   return (
-    <Headroom style={{ height: "66px" }}>
+    <Headroom style={{ height: "66px" }} data-testId="mainNavbar">
       <nav className="navbar">
         <Grid container>
           <Grid className={classes.navHeader} style={{ width: "100%" }}>

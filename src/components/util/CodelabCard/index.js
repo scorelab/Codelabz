@@ -31,8 +31,10 @@ const CardComponent = ({
         maxWidth="sm"
         className={classes.card}
         style={{ background: background }}
+        data-testId="codelabzCard"
       >
         <CardHeader
+          data-testId="codelabzCardHeader"
           className={classes.cardHeader}
           avatar={
             <Grid
@@ -85,6 +87,7 @@ const CardComponent = ({
           subheaderTypographyProps={{ align: "left" }}
         />
         <CardContent
+          data-testId="codelabzCardContent"
           className={classes.cardContent}
           style={{ paddingBottom: "0rem" }}
         >
@@ -117,7 +120,13 @@ const CardComponent = ({
           </Grid>
         </CardContent>
         <CardActions disableSpacing className={classes.cardAction}>
-          <Grid container xs={6} justify="left" direction="row">
+          <Grid
+            container
+            xs={6}
+            justify="left"
+            direction="row"
+            data-testId="codelabzCardButtonGroup"
+          >
             <Grid item direction="row">
               {!org ? (
                 <Grid item style={{ height: "2rem" }}>

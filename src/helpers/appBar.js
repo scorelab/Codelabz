@@ -148,10 +148,15 @@ const CodeLabzAppBar = () => {
 
   if (authed) {
     return (
-      <div className={classes.grow}>
+      <div className={classes.grow} data-testId="navbarloggedIn">
         <AppBar position="static" color="white">
           <Toolbar className={classes.toolbar}>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              noWrap
+              data-testId="navbarBrand"
+            >
               <Link to={"/"}>
                 <BrandName />
               </Link>
@@ -163,6 +168,7 @@ const CodeLabzAppBar = () => {
               </div>
 
               <InputBase
+                data-testId="navbarSearch"
                 placeholder="Search"
                 classes={{
                   root: classes.inputRoot,
@@ -191,7 +197,12 @@ const CodeLabzAppBar = () => {
               </IconButton>
             </div>
 
-            <IconButton aria-label="appsIcon" className={classes.margin} onClick={handleMenuOpen}>
+            <IconButton
+              aria-label="appsIcon"
+              className={classes.margin}
+              onClick={handleMenuOpen}
+              data-testId="navbarAppMenu"
+            >
               <AppsIcon fontSize="large" />
             </IconButton>
 
@@ -209,10 +220,15 @@ const CodeLabzAppBar = () => {
     );
   } else {
     return (
-      <div className={classes.grow}>
+      <div className={classes.grow} data-testId="navbarNonloggedIn">
         <AppBar position="static" color="white">
           <Toolbar className={classes.toolbar}>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              noWrap
+              data-testId="navbarBrand"
+            >
               <Link to={"/"}>
                 <BrandName />
               </Link>
@@ -223,6 +239,7 @@ const CodeLabzAppBar = () => {
               </div>
 
               <InputBase
+                data-testId="navbarSearch"
                 placeholder="Search"
                 classes={{
                   root: classes.inputRoot,
@@ -249,7 +266,12 @@ const CodeLabzAppBar = () => {
             </div>
             &nbsp; &nbsp;
             <Link to={"/login"}>
-              <Button variant="contained" color="primary" style={{ backgroundColor: "royalblue" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ backgroundColor: "royalblue" }}
+                data-testId="navbarlogin"
+              >
                 Log In
               </Button>
             </Link>

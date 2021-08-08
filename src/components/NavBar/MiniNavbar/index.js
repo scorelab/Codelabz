@@ -17,6 +17,7 @@ const MiniNavbar = ({ type }) => {
   return (
     <Headroom>
       <Grid
+        data-testId="miniNavbar"
         container
         direction="row"
         justify="space-between"
