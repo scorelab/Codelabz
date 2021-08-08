@@ -19,7 +19,11 @@ function HomePage({ background = "white", textColor = "black" }) {
     setValue(newValue);
   };
   return (
-    <Card className={classes.wrapper} style={{ background: background }} data-testId="homepage">
+    <Card
+      className={classes.wrapper}
+      style={{ background: background }}
+      data-testId="homepage"
+    >
       <div className={classes.sideBody}>
         <Grid
           container

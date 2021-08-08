@@ -154,6 +154,7 @@ const EditControls = ({
             variant="outlined"
             className="ml-24"
             onClick={() => toggleImageDrawer()}
+            id="tutorialAddImg"
           >
             <InsertDriveFileIcon /> Add images
           </Button>
@@ -236,6 +237,7 @@ const EditControls = ({
                   type="primary"
                   className="ml-24"
                   onClick={() => setMode("edit")}
+                  id="editorMode"
                 >
                   <EditIcon /> Editor mode
                 </Button>

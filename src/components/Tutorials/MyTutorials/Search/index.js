@@ -65,13 +65,14 @@ const SearchComponent = () => {
     setVisibleModal((prev) => !prev);
   };
   return (
-    <Grid container item justify="space-between">
+    <Grid container item justify="space-between" data-testId="tutorialSearch">
       <Grid xs={12} md={3} className="col-pad-24">
         <Button
           variant="contained"
           onClick={() => setVisibleModal(true)}
           color="primary"
           startIcon={<Add />}
+          data-testId="tutorialAddNewButton"
         >
           Add New CodeLabz
         </Button>

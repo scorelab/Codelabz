@@ -76,7 +76,11 @@ const OrgInfoCard = () => {
   const OrgMenu = () => {
     return (
       <Grid style={{ display: "flex", flexFlow: "row" }}>
-        <Button onClick={() => setOrgEditModalVisible(true)} variant="outlined" id="editOrg">
+        <Button
+          onClick={() => setOrgEditModalVisible(true)}
+          variant="outlined"
+          id="editOrg"
+        >
           Edit
         </Button>
 
@@ -310,7 +314,13 @@ const OrgInfoCard = () => {
                 </Dialog>
               </Card>
             </Grid>
-            <Grid xs={24} md={16} lg={16} className="pl-24-d pt-24-m"  data-testId="orgInfoCard">
+            <Grid
+              xs={24}
+              md={16}
+              lg={16}
+              className="pl-24-d pt-24-m"
+              data-testId="orgInfoCard"
+            >
               <p>
                 <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
                   {currentOrgData.org_name}

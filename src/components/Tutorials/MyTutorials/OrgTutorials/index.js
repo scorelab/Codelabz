@@ -41,7 +41,7 @@ const OrgTutorialsComponent = ({ organizations, user }) => {
     });
 
     return (
-      <TabPanel>
+      <TabPanel data-testId="tutorialOrgComponent">
         <Tabs onSelect={onSelectTab}>
           {arr.map((org) => (
             <Tab

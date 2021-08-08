@@ -90,7 +90,7 @@ const OrgSidebar = ({ onOrgChange }) => {
       {orgs &&
         orgs.map((org) => (
           <Palette
-          data-testId="orgSidebarIcon"
+            data-testId="orgSidebarIcon"
             src={org.org_image}
             crossOrigin="Anonymous"
             key={org.org_handle}

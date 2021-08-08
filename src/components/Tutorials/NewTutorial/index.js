@@ -147,6 +147,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       }}
     >
       <div
+        data-testId="tutorialNewModal"
         style={{
           height: "auto",
           width: "auto",
@@ -160,7 +161,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             description={"Tutorial Creation Failed"}/
           </Alert>
         )}
-        <form>
+        <form id="tutorialNewForm">
           <TextField
             prefix={
               <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
@@ -170,6 +171,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             name="title"
             variant="outlined"
             fullWidth
+            id="newTutorialTitle"
             style={{ marginBottom: "2rem" }}
             onChange={(e) => handleChange(e)}
           />
@@ -183,6 +185,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             name="summary"
             placeholder="Summary of the Tutorial"
             autoComplete="summary"
+            id="newTutorialSummary"
             onChange={(e) => handleChange(e)}
             style={{ marginBottom: "2rem" }}
           />
@@ -191,6 +194,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             fullWidth
             style={{ marginBottom: "2rem" }}
             value={formValue.owner}
+            id="newTutorialSelect"
           >
             <MenuItem value={userHandle}>{displayName}</MenuItem>
             {list?.map((item) => {
@@ -200,7 +204,11 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
 
           <div className="mb-0">
             <div style={{ float: "right", marginTop: "-1rem" }}>
-              <Button key="back" onClick={onSidebarClick}>
+              <Button
+                key="back"
+                onClick={onSidebarClick}
+                id="cancelAddTutorial"
+              >
                 Cancel
               </Button>
               <Button
