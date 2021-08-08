@@ -318,7 +318,7 @@ const ProfileView = () => {
                       </a>
                     </p>
                   )}
-                  {console.log("followers", followers, "following", following)}
+
                   <Typography
                     variant="body2"
                     style={{ margin: ".5rem 0 .5rem 0" }}

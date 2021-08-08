@@ -188,7 +188,6 @@ export const addUserFollower = (
 ) => {
   try {
     if (followers && followers.includes(currentProfileData.handle)) {
-      console.log("already followed");
     } else if (followers) {
       const arr = [...followers];
       arr.push(currentProfileData.handle);
@@ -242,7 +241,5 @@ export const removeUserFollower = (
     firestore.collection("cl_user").doc(currentProfileData.uid).update({
       following: currFollowing,
     });
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
