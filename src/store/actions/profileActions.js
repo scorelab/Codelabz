@@ -3,44 +3,44 @@ import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
 import { getOrgBasicData } from "./orgActions";
 import _ from "lodash";
 
-export const clearProfileEditError = () => async dispatch => {
+export const clearProfileEditError = () => async (dispatch) => {
   dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
 };
 
-export const setCurrentOrgUserPermissions = (
-  org_handle,
-  permissions
-) => dispatch => {
+export const setCurrentOrgUserPermissions = (org_handle, permissions) => (
+  dispatch
+) => {
   try {
     dispatch({
-      type: actions.SET_CURRENT_ORG_PERMISSIONS_START
+      type: actions.SET_CURRENT_ORG_PERMISSIONS_START,
     });
     dispatch({
       type: actions.SET_CURRENT_ORG_PERMISSIONS_SUCCESS,
-      payload: { org_handle, permissions }
+      payload: { org_handle, permissions },
     });
   } catch (e) {
     dispatch({
-      type: actions.SET_CURRENT_ORG_PERMISSIONS_FAIL
+      type: actions.SET_CURRENT_ORG_PERMISSIONS_FAIL,
     });
   }
 };
 
-export const getProfileData = organizations => async (firebase, dispatch) => {
+export const getProfileData = (organizations) => async (firebase, dispatch) => {
   try {
     let orgs = [];
     if (organizations && organizations.length > 0) {
       dispatch({ type: actions.GET_PROFILE_DATA_START });
-      const promises = organizations.map(org_handle =>
+      const promises = organizations.map((org_handle) =>
         getOrgBasicData(org_handle)(firebase)
       );
       orgs = await Promise.all(promises);
-      setCurrentOrgUserPermissions(orgs[0].org_handle, orgs[0].permissions)(
-        dispatch
-      );
+      setCurrentOrgUserPermissions(
+        orgs[0].org_handle,
+        orgs[0].permissions
+      )(dispatch);
       dispatch({
         type: actions.GET_PROFILE_DATA_SUCCESS,
-        payload: { organizations: _.orderBy(orgs, ["org_handle"], ["asc"]) }
+        payload: { organizations: _.orderBy(orgs, ["org_handle"], ["asc"]) },
       });
     } else {
       dispatch({ type: actions.GET_PROFILE_DATA_END });
@@ -50,7 +50,7 @@ export const getProfileData = organizations => async (firebase, dispatch) => {
   }
 };
 
-export const createOrganization = orgData => async (
+export const createOrganization = (orgData) => async (
   firebase,
   firestore,
   dispatch
@@ -64,7 +64,7 @@ export const createOrganization = orgData => async (
     if (isOrgHandleExists) {
       dispatch({
         type: actions.PROFILE_EDIT_FAIL,
-        payload: { message: `Handle [${org_handle}] is already taken` }
+        payload: { message: `Handle [${org_handle}] is already taken` },
       });
       return;
     }
@@ -79,7 +79,7 @@ export const createOrganization = orgData => async (
         org_email: userData.email,
         org_created_date: firestore.FieldValue.serverTimestamp(),
         createdAt: firestore.FieldValue.serverTimestamp(),
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       }
     );
 
@@ -107,7 +107,7 @@ export const updateUserProfile = ({
   link_linkedin,
   link_twitter,
   description,
-  country
+  country,
 }) => async (firebase, firestore, dispatch) => {
   try {
     dispatch({ type: actions.PROFILE_EDIT_START });
@@ -121,7 +121,7 @@ export const updateUserProfile = ({
         link_twitter,
         description,
         country,
-        updatedAt: firestore.FieldValue.serverTimestamp()
+        updatedAt: firestore.FieldValue.serverTimestamp(),
       },
       { useSet: false, merge: true }
     );
@@ -144,14 +144,14 @@ export const uploadProfileImage = (file, user_handle) => async (
       metadataFactory: (uploadRes, firebase, metadata, downloadURL) => {
         return { photoURL: downloadURL };
       },
-      documentId: userData.uid
+      documentId: userData.uid,
     });
   } catch (e) {
     dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
   }
 };
 
-export const getUserProfileData = handle => async (
+export const getUserProfileData = (handle) => async (
   firebase,
   firestore,
   dispatch
@@ -174,6 +174,72 @@ export const getUserProfileData = handle => async (
   }
 };
 
-export const clearUserProfile = () => dispatch => {
+export const clearUserProfile = () => (dispatch) => {
   dispatch({ type: actions.CLEAR_USER_PROFILE_DATA_STATE });
+};
+
+export const addUserFollower = (
+  currentProfileData,
+  followers,
+  following,
+  profileData,
+  firestore,
+  dispatch
+) => {
+  try {
+    if (followers && followers.includes(currentProfileData.handle)) {
+    } else if (followers) {
+      const arr = [...followers];
+      arr.push(currentProfileData.handle);
+      firestore.collection("cl_user").doc(profileData.uid).update({
+        followers: arr,
+      });
+      var arr2 = [];
+      if (following) arr2 = [...following];
+
+      arr2.push(profileData.handle);
+      firestore.collection("cl_user").doc(currentProfileData.uid).update({
+        following: arr2,
+      });
+    } else {
+      firestore
+        .collection("cl_user")
+        .doc(currentProfileData.uid)
+        .update({
+          following: [profileData.handle],
+        });
+      firestore
+        .collection("cl_user")
+        .doc(profileData.uid)
+        .update({
+          followers: [currentProfileData.handle],
+        });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const removeUserFollower = (
+  followers,
+  currentProfileData,
+  following,
+  profileData,
+  firestore,
+  dispatch
+) => {
+  try {
+    var filteredFollowers = followers.filter(function (value, index, arr) {
+      return value !== currentProfileData.handle;
+    });
+    firestore.collection("cl_user").doc(profileData.uid).update({
+      followers: filteredFollowers,
+    });
+    var currFollowing = following.filter(function (value, index, arr) {
+      return profileData.handle !== value;
+    });
+    firestore.collection("cl_user").doc(currentProfileData.uid).update({
+      following: currFollowing,
+    });
+  } catch (e) {}
 };

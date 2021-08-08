@@ -38,6 +38,8 @@ export {
   getUserProfileData,
   updateUserProfile,
   uploadProfileImage,
+  addUserFollower,
+  removeUserFollower,
 } from "./profileActions";
 export {
   addNewTutorialStep,
