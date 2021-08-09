@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
 import {
@@ -12,6 +12,7 @@ import OrgTutorialsComponent from "./OrgTutorials";
 import SearchComponent from "./Search";
 
 const MyTutorials = () => {
+  const [org_handles, setOrgHnadles] = useState([]);
   const firestore = useFirestore();
   const dispatch = useDispatch();
 
@@ -47,10 +48,13 @@ const MyTutorials = () => {
     }) => organizations
   );
 
-  const org_handles =
-    organizations && organizations.length > 0
-      ? organizations.map((org) => org.org_handle)
-      : [];
+  useEffect(() => {
+    setOrgHnadles(
+      organizations && organizations.length > 0
+        ? organizations.map((org) => org.org_handle)
+        : []
+    );
+  }, [organizations]);
 
   useEffect(() => {
     getUserTutorialsBasicData(userHandle)(firestore, dispatch);

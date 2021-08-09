@@ -70,7 +70,7 @@ const ProfileView = () => {
       });
 
     return () => unsubscribe();
-  }, [profileData]);
+  }, [profileData, db]);
 
   useEffect(() => {
     const unsubscribe = db
@@ -82,7 +82,7 @@ const ProfileView = () => {
       });
 
     return () => unsubscribe();
-  }, [profileData]);
+  }, [profileData, db]);
 
   useEffect(() => {
     const unsubscribe = db
@@ -94,7 +94,7 @@ const ProfileView = () => {
       });
 
     return () => unsubscribe();
-  }, [currentProfileData]);
+  }, [currentProfileData, db]);
   const checkAvailable = (data) => {
     return !!(data && data.length > 0);
   };
