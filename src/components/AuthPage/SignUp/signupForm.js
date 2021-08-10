@@ -275,12 +275,12 @@ const SignupForm = () => {
           </div>
         ) : null}
         <Button
-          onClick={onSubmit}
           variant="contained"
           color="primary"
           fullWidth
           disabled={loading}
           data-testId="signUpButton"
+          onClick={onSubmit}
         >
           {loading ? "Creating your account..." : "Create an account"}
         </Button>

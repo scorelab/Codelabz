@@ -33,7 +33,7 @@ const OrgTutorialsComponent = ({ organizations, user }) => {
     ];
 
     orgList.map((org) => {
-      arr.push({
+      return arr.push({
         name: org.org_name,
         image: org.org_image,
         handle: org.org_handle,

@@ -8,7 +8,7 @@ import Carousel from "./Carousel/index";
 const MyFeed = ({
   heading = "Explore Codelabz",
   title = " Explore top rated Organizations and find the Codelabz you are looking for",
-  backgroundcolor = "#f2f2f2",
+  backgroundcolor = "white",
   textcolor = "black",
 }) => {
   return (

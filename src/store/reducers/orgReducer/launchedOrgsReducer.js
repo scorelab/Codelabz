@@ -6,7 +6,7 @@ const initialState = {
   data: null,
 };
 
-const LaunchedOrgsReducer = (state = initialState, { type, payload }) => {
+const launchedReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_ORG_DATA_STATE:
       return initialState;
@@ -36,5 +36,4 @@ const LaunchedOrgsReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
-
-export default LaunchedOrgsReducer;
+export default launchedReducer;
