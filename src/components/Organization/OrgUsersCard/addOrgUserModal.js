@@ -30,6 +30,8 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
     }) => data
   );
 
+  const firebase = useFirebase();
+
   useEffect(() => {
     setUsers([]);
     firebase.ref(`cl_user_handle/`).on("value", (snapshot) => {
@@ -37,10 +39,10 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         setUsers((prev) => [...prev, { title: snap.key, value: snap.key }]);
       });
     });
-  }, []);
+  }, [firebase]);
+
   const userProps = useSelector(({ org: { user } }) => user);
   const [loading, setLoading] = useState(false);
-  const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [handle, setHandle] = useState("");
@@ -52,16 +54,6 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
     { name: "Editor", icon: <EditIcon />, value: "perm_1" },
     { name: "Admin", icon: <PersonIcon />, value: "perm_2" },
   ];
-  const onChangeHandle = (event) => {
-    if (event.target.value.length < 1) {
-      setHandleValidateError(true);
-      setHandleValidateErrorMessage(`Please input the user handle you want to add`);
-      setHandle("");
-    } else {
-      setHandleValidateError(false);
-      setHandle(event.target.value);
-    }
-  };
 
   useEffect(() => {
     if (!isLoaded(userProps) && isEmpty(userProps)) {

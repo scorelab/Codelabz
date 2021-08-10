@@ -38,7 +38,6 @@ const OrgTutorialsComponent = ({ organizations, user }) => {
         image: org.org_image,
         handle: org.org_handle,
       });
-      return null;
     });
 
     return (

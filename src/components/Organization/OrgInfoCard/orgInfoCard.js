@@ -81,7 +81,6 @@ const OrgInfoCard = () => {
         </Button>
 
         <Button
-          style={currentOrgData.org_published ? { color: "red" } : { color: "green" }}
           variant="contained"
           color="primary"
           style={{ backgroundColor: "royalblue", margin: "4px" }}
