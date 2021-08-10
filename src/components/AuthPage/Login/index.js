@@ -25,28 +25,19 @@ import ViewAlerts from "./ViewAlerts";
 import useStyles from "./styles";
 import PropTypes from "prop-types";
 
-const Login = ({
-  loginButton = "blue",
-  background = "white",
-  loginText = "Welcome Back",
-}) => {
+const Login = ({ loginButton = "blue", background = "white", loginText = "Welcome Back" }) => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
-  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
-    ""
-  );
+  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState("");
 
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
-  const [
-    passwordValidateErrorMessage,
-    setPasswordValidateErrorMessage,
-  ] = useState("");
+  const [passwordValidateErrorMessage, setPasswordValidateErrorMessage] = useState("");
 
   const errorProp = useSelector(({ auth }) => auth.profile.error);
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
@@ -110,17 +101,9 @@ const Login = ({
   };
 
   return (
-    <Card
-      raised
-      className={`${classes.card}   `}
-      style={{ background: background }}
-      data-testId="login"
-    >
+    <Card raised className={`${classes.card}   `} style={{ background: background }} data-testId="login">
       <CardContent>
-        <Typography
-          variant="h4"
-          style={{ textAlign: "center", marginBottom: "40px" }}
-        >
+        <Typography variant="h4" style={{ textAlign: "center", marginBottom: "40px" }}>
           {loginText}
         </Typography>
         <ViewAlerts error={error} email={email} />
@@ -150,9 +133,7 @@ const Login = ({
           <TextField
             label="Password"
             variant="outlined"
-            helperText={
-              passwordValidateError ? passwordValidateErrorMessage : null
-            }
+            helperText={passwordValidateError ? passwordValidateErrorMessage : null}
             className="password"
             error={passwordValidateError}
             fullWidth
@@ -185,10 +166,7 @@ const Login = ({
           <Grid container alignItems="center" justify="space-between">
             <Grid>
               <FormGroup row>
-                <FormControlLabel
-                  control={<Checkbox name="remember" color="primary" />}
-                  label="Remember me"
-                />
+                <FormControlLabel control={<Checkbox name="remember" color="primary" />} label="Remember me" />
               </FormGroup>
             </Grid>
             <Grid>
@@ -209,8 +187,8 @@ const Login = ({
             fullWidth
             onClick={onSubmit}
             disabled={loading}
-            style={{ background: loginButton }}
             className="loginButton"
+            style={{ background: loginButton, backgroundColor: "royalblue" }}
           >
             {loading ? "Logging in..." : "Log in"}
           </Button>
@@ -219,8 +197,7 @@ const Login = ({
         <SmButtons />
         <Grid container justify="center" alignItems="center" className="mt-24">
           <Grid item={true} sm={12} className="center">
-            New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
-            <Link to={"/signup"}>Create an account</Link>
+            New to <span className="brand-font text-bold">CodeLabz</span>? <Link to={"/signup"}>Create an account</Link>
           </Grid>
         </Grid>
       </CardContent>

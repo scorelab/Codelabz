@@ -9,12 +9,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import PersonIcon from "@material-ui/icons/Person";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { addOrgUser, checkUserHandleExists } from "../../../store/actions";
-import {
-  isEmpty,
-  isLoaded,
-  useFirebase,
-  useFirestore,
-} from "react-redux-firebase";
+import { isEmpty, isLoaded, useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
@@ -35,6 +30,8 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
     }) => data
   );
 
+  const firebase = useFirebase();
+
   useEffect(() => {
     setUsers([]);
     firebase.ref(`cl_user_handle/`).on("value", (snapshot) => {
@@ -42,35 +39,21 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         setUsers((prev) => [...prev, { title: snap.key, value: snap.key }]);
       });
     });
-  }, []);
+  }, [firebase]);
+
   const userProps = useSelector(({ org: { user } }) => user);
   const [loading, setLoading] = useState(false);
-  const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [handle, setHandle] = useState("");
   const [handleValidateError, setHandleValidateError] = useState(false);
-  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState(
-    ""
-  );
+  const [handleValidateErrorMessage, setHandleValidateErrorMessage] = useState("");
   const [selected, setSelected] = useState("perm_0");
   const options = [
     { name: "Reviewer", icon: <VisibilityIcon />, value: "perm_0" },
     { name: "Editor", icon: <EditIcon />, value: "perm_1" },
     { name: "Admin", icon: <PersonIcon />, value: "perm_2" },
   ];
-  const onChangeHandle = (event) => {
-    if (event.target.value.length < 1) {
-      setHandleValidateError(true);
-      setHandleValidateErrorMessage(
-        `Please input the user handle you want to add`
-      );
-      setHandle("");
-    } else {
-      setHandleValidateError(false);
-      setHandle(event.target.value);
-    }
-  };
 
   useEffect(() => {
     if (!isLoaded(userProps) && isEmpty(userProps)) {
@@ -85,10 +68,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
   }, [userProps]);
 
   const onFinish = async () => {
-    const handleExists = await checkUserHandleExists(handle)(
-      firebase,
-      dispatch
-    );
+    const handleExists = await checkUserHandleExists(handle)(firebase, dispatch);
 
     if (handle.length < 1) {
       setHandleValidateError(true);
@@ -98,21 +78,15 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
     if (handleExists === false) {
       setHandle("");
       setHandleValidateError(true);
-      setHandleValidateErrorMessage(
-        `The handle ${handle} is not a registered CodeLabz user`
-      );
+      setHandleValidateErrorMessage(`The handle ${handle} is not a registered CodeLabz user`);
     } else if (handle === currentUser) {
       setHandle("");
       setHandleValidateError(true);
       setHandleValidateErrorMessage(`You can't add yourself. Or can you? o.O`);
-    } else if (
-      _.findIndex(currentOrgUsers, (user) => user.handle === handle) !== -1
-    ) {
+    } else if (_.findIndex(currentOrgUsers, (user) => user.handle === handle) !== -1) {
       setHandle("");
       setHandleValidateError(true);
-      setHandleValidateErrorMessage(
-        `The user ${handle} is already in the organization ${currentOrgHandle}`
-      );
+      setHandleValidateErrorMessage(`The user ${handle} is already in the organization ${currentOrgHandle}`);
     } else {
       await addOrgUser({
         org_handle: currentOrgHandle,
@@ -172,12 +146,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         </div>
       </Grid>
 
-      <Button
-        style={{ backgroundColor: "#0f7029", color: "white" }}
-        fullWidth
-        variant="contained"
-        onClick={onFinish}
-      >
+      <Button style={{ backgroundColor: "royalblue", color: "white" }} fullWidth variant="contained" onClick={onFinish}>
         {loading ? "Adding user..." : "Add user"}
       </Button>
     </Grid>

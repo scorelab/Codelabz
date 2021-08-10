@@ -30,26 +30,15 @@ const SignupForm = () => {
   const [errorOpen, setErrorOpen] = useState(true);
   const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
-  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState(
-    ""
-  );
+  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
-  const [
-    passwordValidateErrorMessage,
-    setPasswordValidateErrorMessage,
-  ] = useState("");
+  const [passwordValidateErrorMessage, setPasswordValidateErrorMessage] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [
-    confirmPasswordValidateError,
-    setConfirmPasswordValidateError,
-  ] = useState(false);
-  const [
-    confirmPasswordValidateErrorMessage,
-    setConfirmPasswordValidateErrorMessage,
-  ] = useState("");
+  const [confirmPasswordValidateError, setConfirmPasswordValidateError] = useState(false);
+  const [confirmPasswordValidateErrorMessage, setConfirmPasswordValidateErrorMessage] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [agreedText, setAgreedText] = useState(false);
 
@@ -72,8 +61,7 @@ const SignupForm = () => {
   }, [errorProp, loadingProp]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleClickShowConfirmPassword = () =>
-    setShowConfirmPassword(!showConfirmPassword);
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   const handleMouseDownPassword = (event) => event.preventDefault();
 
@@ -109,9 +97,7 @@ const SignupForm = () => {
   const validateConfirmPassword = () => {
     if (password !== confirmPassword) {
       setConfirmPasswordValidateError(true);
-      setConfirmPasswordValidateErrorMessage(
-        "The two passwords that you entered does not match!"
-      );
+      setConfirmPasswordValidateErrorMessage("The two passwords that you entered does not match!");
       return false;
     }
     setConfirmPasswordValidateError(false);
@@ -120,12 +106,7 @@ const SignupForm = () => {
   };
 
   const onSubmit = async () => {
-    if (
-      validateEmail() &&
-      validatePassword() &&
-      validateConfirmPassword() &&
-      agreed
-    ) {
+    if (validateEmail() && validatePassword() && validateConfirmPassword() && agreed) {
       await signUp({ email, password })(firebase, dispatch);
     } else {
       setAgreedText(true);
@@ -190,8 +171,7 @@ const SignupForm = () => {
             }
             className="mb-16"
           >
-            Successfully registered. Please check your email for the
-            verification link.
+            Successfully registered. Please check your email for the verification link.
           </Alert>
         </Collapse>
       )}
@@ -222,9 +202,7 @@ const SignupForm = () => {
         <TextField
           label="New password"
           variant="outlined"
-          helperText={
-            passwordValidateError ? passwordValidateErrorMessage : null
-          }
+          helperText={passwordValidateError ? passwordValidateErrorMessage : null}
           error={passwordValidateError}
           fullWidth
           required
@@ -257,11 +235,7 @@ const SignupForm = () => {
         <TextField
           label="Confirm password"
           variant="outlined"
-          helperText={
-            confirmPasswordValidateError
-              ? confirmPasswordValidateErrorMessage
-              : null
-          }
+          helperText={confirmPasswordValidateError ? confirmPasswordValidateErrorMessage : null}
           error={confirmPasswordValidateError}
           fullWidth
           required
@@ -291,14 +265,7 @@ const SignupForm = () => {
           }}
         />
         <FormControlLabel
-          control={
-            <Checkbox
-              checked={agreed}
-              onChange={() => setAgreed(!agreed)}
-              name="remember"
-              color="primary"
-            />
-          }
+          control={<Checkbox checked={agreed} onChange={() => setAgreed(!agreed)} name="remember" color="primary" />}
           label="By creating an account, you agree to our terms and conditions."
         />
         {agreedText && !agreed ? (
@@ -311,9 +278,9 @@ const SignupForm = () => {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={onSubmit}
           disabled={loading}
           data-testId="signUpButton"
+          onClick={onSubmit}
         >
           {loading ? "Creating your account..." : "Create an account"}
         </Button>

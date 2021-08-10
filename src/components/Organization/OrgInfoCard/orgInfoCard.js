@@ -17,11 +17,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { useDispatch, useSelector } from "react-redux";
 import EditOrgDetailsModal from "./editOrgDetailsModal";
-import {
-  clearEditGeneral,
-  unPublishOrganization,
-  uploadOrgProfileImage,
-} from "../../../store/actions";
+import { clearEditGeneral, unPublishOrganization, uploadOrgProfileImage } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import useStyles from "./styles";
 
@@ -76,17 +72,18 @@ const OrgInfoCard = () => {
       <Grid style={{ display: "flex", flexFlow: "row" }}>
         <Button
           onClick={() => setOrgEditModalVisible(true)}
-          variant="outlined"
           id="editOrg"
+          variant="contained"
+          color="primary"
+          style={{ backgroundColor: "royalblue", margin: "4px" }}
         >
           Edit
         </Button>
 
         <Button
-          style={
-            currentOrgData.org_published ? { color: "red" } : { color: "green" }
-          }
-          variant="outlined"
+          variant="contained"
+          color="primary"
+          style={{ backgroundColor: "royalblue", margin: "4px" }}
           onClick={unpublishOrganization}
         >
           {currentOrgData.org_published ? <>Unpublish</> : <>Publish</>}
@@ -150,11 +147,7 @@ const OrgInfoCard = () => {
   };
 
   const unpublishOrganization = () => {
-    unPublishOrganization(current, currentOrgData.org_published, orgs)(
-      firebase,
-      firestore,
-      dispatch
-    );
+    unPublishOrganization(current, currentOrgData.org_published, orgs)(firebase, firestore, dispatch);
   };
 
   if (currentOrgData) {
@@ -166,8 +159,7 @@ const OrgInfoCard = () => {
               Organization Details
             </Typography>
             <div style={{ margin: ".5rem" }}>
-              {currentOrgData.permissions &&
-              [2, 3].some((p) => currentOrgData.permissions.includes(p)) ? (
+              {currentOrgData.permissions && [2, 3].some((p) => currentOrgData.permissions.includes(p)) ? (
                 <DropdownMenu key="more" />
               ) : null}
             </div>
@@ -184,26 +176,23 @@ const OrgInfoCard = () => {
                 {currentOrgData.org_image
                   ? BasicImage(currentOrgData.org_image, "name")
                   : BasicImage(NoImage, "Not Available")}
-                {currentOrgData.permissions &&
-                  currentOrgData.permissions[0] >= 2 && (
-                    <Box mt={4} mb={1} m={0}>
-                      <center>
-                        <Button
-                          fullWidth
-                          size="small"
-                          variant="contained"
-                          color="primary"
-                          style={{
-                            backgroundColor: "#455a64",
-                          }}
-                          id="changeOrgImg"
-                          onClick={() => setShowImageDialog(true)}
-                        >
-                          Change Proifle Picture
-                        </Button>
-                      </center>
-                    </Box>
-                  )}
+                {currentOrgData.permissions && currentOrgData.permissions[0] >= 2 && (
+                  <Box mt={4} mb={1} m={0}>
+                    <center>
+                      <Button
+                        fullWidth
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        style={{ backgroundColor: "royalblue" }}
+                        id="changeOrgImg"
+                        onClick={() => setShowImageDialog(true)}
+                      >
+                        Change Proifle Picture
+                      </Button>
+                    </center>
+                  </Box>
+                )}
                 <Dialog
                   fullWidth
                   maxWidth="sm"
@@ -212,9 +201,7 @@ const OrgInfoCard = () => {
                   data-testId="changeOrgImgDialog"
                 >
                   <DialogTitle id="alert-dialog-title">
-                    <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
-                      {"Change Profile Picture"}
-                    </span>
+                    <span style={{ fontSize: "1.3em", fontWeight: "480" }}>{"Change Profile Picture"}</span>
                   </DialogTitle>
                   <DialogContent>
                     <div className="App">
@@ -228,12 +215,10 @@ const OrgInfoCard = () => {
                               display: "block",
                               width: "100%",
                               color: "white",
-                              backgroundColor: "#455a64",
+                              backgroundColor: "royalBlue",
                             }}
                           >
-                            <center>
-                              Click here to select an image from your device
-                            </center>
+                            <center>Click here to select an image from your device</center>
                           </label>
                           <input
                             id="file-upload"
@@ -272,15 +257,8 @@ const OrgInfoCard = () => {
                                 size="small"
                                 variant="contained"
                                 color="primary"
-                                style={{
-                                  backgroundColor: "SeaGreen",
-                                }}
-                                onClick={() =>
-                                  saveImage(
-                                    previewCanvasRef.current,
-                                    completedCrop
-                                  )
-                                }
+                                style={{ backgroundColor: "royalblue" }}
+                                onClick={() => saveImage(previewCanvasRef.current, completedCrop)}
                               >
                                 Save
                               </Button>
@@ -293,9 +271,7 @@ const OrgInfoCard = () => {
                                 size="small"
                                 variant="contained"
                                 color="secondary"
-                                style={{
-                                  backgroundColor: "Tomato",
-                                }}
+                                style={{ backgroundColor: "royalblue" }}
                                 onClick={() => setShowImageDialog(false)}
                               >
                                 Close
@@ -309,88 +285,60 @@ const OrgInfoCard = () => {
                 </Dialog>
               </Card>
             </Grid>
-            <Grid
-              xs={24}
-              md={16}
-              lg={16}
-              className="pl-24-d pt-24-m"
-              data-testId="orgInfoCard"
-            >
+            <Grid xs={24} md={16} lg={16} className="pl-24-d pt-24-m" data-testId="orgInfoCard">
               <p>
-                <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
-                  {currentOrgData.org_name}
-                </span>
+                <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>{currentOrgData.org_name}</span>
               </p>
               {checkAvailable(currentOrgData.org_description) && (
-                <p className="text-justified">
-                  {currentOrgData.org_description}
-                </p>
+                <p className="text-justified">{currentOrgData.org_description}</p>
               )}
               {checkAvailable(currentOrgData.org_link_facebook) && (
                 <p>
                   <a
-                    href={
-                      "https://www.facebook.com/" +
-                      currentOrgData.org_link_facebook
-                    }
+                    href={"https://www.facebook.com/" + currentOrgData.org_link_facebook}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FacebookIcon className="facebook-color" />{" "}
-                    {currentOrgData.org_link_facebook}
+                    <FacebookIcon className="facebook-color" /> {currentOrgData.org_link_facebook}
                   </a>
                 </p>
               )}
               {checkAvailable(currentOrgData.org_link_twitter) && (
                 <p>
                   <a
-                    href={
-                      "https://twitter.com/" + currentOrgData.org_link_twitter
-                    }
+                    href={"https://twitter.com/" + currentOrgData.org_link_twitter}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <TwitterIcon className="twitter-color" />{" "}
-                    {currentOrgData.org_link_twitter}
+                    <TwitterIcon className="twitter-color" /> {currentOrgData.org_link_twitter}
                   </a>
                 </p>
               )}
               {checkAvailable(currentOrgData.org_link_github) && (
                 <p>
                   <a
-                    href={
-                      "https://github.com/" + currentOrgData.org_link_github
-                    }
+                    href={"https://github.com/" + currentOrgData.org_link_github}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <GitHubIcon className="github-color" />{" "}
-                    {currentOrgData.org_link_github}
+                    <GitHubIcon className="github-color" /> {currentOrgData.org_link_github}
                   </a>
                 </p>
               )}
               {checkAvailable(currentOrgData.org_link_linkedin) && (
                 <p>
                   <a
-                    href={
-                      "https://www.linkedin.com/company/" +
-                      currentOrgData.org_link_linkedin
-                    }
+                    href={"https://www.linkedin.com/company/" + currentOrgData.org_link_linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <LinkedInIcon className="linkedin-color" />{" "}
-                    {currentOrgData.org_link_linkedin}
+                    <LinkedInIcon className="linkedin-color" /> {currentOrgData.org_link_linkedin}
                   </a>
                 </p>
               )}
               {checkAvailable(currentOrgData.org_website) && (
                 <p>
-                  <a
-                    href={currentOrgData.org_website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={currentOrgData.org_website} target="_blank" rel="noopener noreferrer">
                     {currentOrgData.org_website}
                   </a>
                 </p>
@@ -398,10 +346,7 @@ const OrgInfoCard = () => {
               {checkAvailable(currentOrgData.org_country) && (
                 <p className="mb-0">
                   <a
-                    href={
-                      "https://www.google.com/search?q=" +
-                      currentOrgData.org_country
-                    }
+                    href={"https://www.google.com/search?q=" + currentOrgData.org_country}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -412,13 +357,7 @@ const OrgInfoCard = () => {
             </Grid>
           </Grid>
         </Card>
-        <Dialog
-          fullWidth
-          maxWidth="sm"
-          open={orgEditModalVisible}
-          onClose={!setOrgEditModalVisible}
-          className="pt-24"
-        >
+        <Dialog fullWidth maxWidth="sm" open={orgEditModalVisible} onClose={!setOrgEditModalVisible} className="pt-24">
           <div style={{ margin: "2rem" }}>
             <EditOrgDetailsModal
               currentOrgData={currentOrgData}
@@ -429,14 +368,7 @@ const OrgInfoCard = () => {
       </>
     );
   } else {
-    return (
-      <Card
-        loading={loading}
-        title={"Organization Details"}
-        style={{ width: "100%" }}
-        className="p-0"
-      />
-    );
+    return <Card loading={loading} title={"Organization Details"} style={{ width: "100%" }} className="p-0" />;
   }
 };
 
