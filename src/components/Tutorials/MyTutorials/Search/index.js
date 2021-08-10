@@ -51,10 +51,7 @@ const SearchComponent = () => {
     if (result.length > 0) {
       let tempArray = [];
       result.forEach((item) => {
-        tempArray = [
-          ...tempArray,
-          ..._.filter(indexData, (ref) => ref.tutorial_id === item.ref),
-        ];
+        tempArray = [...tempArray, ..._.filter(indexData, (ref) => ref.tutorial_id === item.ref)];
       });
       setViewResults(true);
       return setResults(tempArray);
@@ -73,13 +70,11 @@ const SearchComponent = () => {
           color="primary"
           startIcon={<Add />}
           data-testId="tutorialAddNewButton"
+          style={{ backgroundColor: "royalblue" }}
         >
           Add New CodeLabz
         </Button>
-        <NewTutorial
-          viewModal={visibleModal}
-          onSidebarClick={(e) => closeModal(e)}
-        />
+        <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
       </Grid>
       <Grid xs={12} md={4} className="col-pad-24">
         <TextField

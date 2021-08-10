@@ -82,12 +82,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
           if (org.permissions.includes(3) || org.permissions.includes(2)) {
             return (
               <Select.Option value={org.org_handle} key={i}>
-                <Avatar
-                  src={org.org_image}
-                  size="small"
-                  className="mr-8 ml-0"
-                  style={{ size: "1rem" }}
-                >
+                <Avatar src={org.org_image} size="small" className="mr-8 ml-0" style={{ size: "1rem" }}>
                   {avatarName(org.org_name)}
                 </Avatar>
                 {org.org_name}
@@ -162,9 +157,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
         )}
         <form id="tutorialNewForm">
           <TextField
-            prefix={
-              <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-            }
+            prefix={<AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Title of the Tutorial"
             autoComplete="title"
             name="title"
@@ -176,9 +169,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
           />
 
           <TextField
-            prefix={
-              <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-            }
+            prefix={<AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
             fullWidth
             variant="outlined"
             name="summary"
@@ -203,11 +194,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
 
           <div className="mb-0">
             <div style={{ float: "right", marginTop: "-1rem" }}>
-              <Button
-                key="back"
-                onClick={onSidebarClick}
-                id="cancelAddTutorial"
-              >
+              <Button key="back" onClick={onSidebarClick} id="cancelAddTutorial">
                 Cancel
               </Button>
               <Button
@@ -218,6 +205,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 htmlType="submit"
                 loading={loading}
                 onClick={(e) => onSubmit(e)}
+                style={{ backgroundColor: "royalblue" }}
               >
                 {loading ? "Creating..." : "Create"}
               </Button>
