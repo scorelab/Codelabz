@@ -207,7 +207,7 @@ const ProfileInfoCard = () => {
                             display: "block",
                             width: "100%",
                             color: "white",
-                            backgroundColor: "#455a64",
+                            backgroundColor: "royalblue",
                           }}
                         >
                           <center>Click here to select an image from your device</center>
@@ -263,9 +263,7 @@ const ProfileInfoCard = () => {
                               size="small"
                               variant="contained"
                               color="secondary"
-                              style={{
-                                backgroundColor: "Tomato",
-                              }}
+                              style={{ backgroundColor: "royalblue" }}
                               onClick={() => setShowImageDialog(false)}
                             >
                               Close
