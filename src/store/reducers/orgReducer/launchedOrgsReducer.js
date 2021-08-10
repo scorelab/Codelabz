@@ -1,4 +1,4 @@
-import * as actions from '../../actions/actionTypes';
+import * as actions from "../../actions/actionTypes";
 
 const initialState = {
   loading: false,
@@ -6,7 +6,7 @@ const initialState = {
   data: null,
 };
 
-export default (state = initialState, { type, payload }) => {
+const LaunchedOrgsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.CLEAR_ORG_DATA_STATE:
       return initialState;
@@ -36,3 +36,5 @@ export default (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default LaunchedOrgsReducer;
