@@ -308,7 +308,6 @@ const SignupForm = () => {
           </div>
         ) : null}
         <Button
-          onClick={onSubmit}
           variant="contained"
           color="primary"
           fullWidth

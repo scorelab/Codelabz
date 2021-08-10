@@ -2,14 +2,13 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-import ExploreOrgs from "./ExploreOrgs";
 import PropTypes from "prop-types";
 import Carousel from "./Carousel/index";
 
 const MyFeed = ({
   heading = "Explore Codelabz",
   title = " Explore top rated Organizations and find the Codelabz you are looking for",
-  backgroundcolor = "#f2f2f2",
+  backgroundcolor = "white",
   textcolor = "black",
 }) => {
   return (
