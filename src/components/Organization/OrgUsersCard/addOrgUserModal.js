@@ -146,7 +146,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         </div>
       </Grid>
 
-      <Button style={{ backgroundColor: "#0f7029", color: "white" }} fullWidth variant="contained" onClick={onFinish}>
+      <Button style={{ backgroundColor: "royalblue", color: "white" }} fullWidth variant="contained" onClick={onFinish}>
         {loading ? "Adding user..." : "Add user"}
       </Button>
     </Grid>
