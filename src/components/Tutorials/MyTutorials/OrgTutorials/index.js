@@ -38,27 +38,20 @@ const OrgTutorialsComponent = ({ organizations, user }) => {
         image: org.org_image,
         handle: org.org_handle,
       });
+      return null;
     });
 
     return (
       <TabPanel data-testId="tutorialOrgComponent">
         <Tabs onSelect={onSelectTab}>
           {arr.map((org) => (
-            <Tab
-              label={org.name}
-              key={0}
-              icon={<Avatar alt={org.name} src={org.image} />}
-            ></Tab>
+            <Tab label={org.name} key={0} icon={<Avatar alt={org.name} src={org.image} />}></Tab>
           ))}
         </Tabs>
         <Contents active={selectedTab}>
           {arr.map((org) => (
             <Content>
-              <BaseTutorialsComponent
-                owner={org.handle}
-                imageURL={org.image}
-                ownerName={org.name}
-              />
+              <BaseTutorialsComponent owner={org.handle} imageURL={org.image} ownerName={org.name} />
             </Content>
           ))}
         </Contents>
