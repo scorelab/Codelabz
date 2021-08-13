@@ -48,9 +48,7 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
-    "cypress-run": "npx cypress run",
-    "int-test": "start-server-and-test http://localhost:3000 cypress-run"
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -75,10 +73,9 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
     "css-loader": "^5.2.6",
-    "cypress": "^6.0.1",
+    "cypress": "^4.12.1",
     "cypress-xpath": "^1.6.0",
     "less-loader": "^9.0.0",
-    "start-server-and-test": "^1.11.6",
     "style-loader": "^2.0.0"
   }
 }
