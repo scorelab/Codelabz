@@ -66,14 +66,13 @@ const OrgInfoCard = () => {
 
   useEffect(() => {
     setLoading(loadingProps);
-  }, []);
+  }, [loadingProps]);
 
   useEffect(() => {
     let orgDetails = orgs.find((element) => {
       return element.org_handle === current;
     });
     setCurrentOrgData(orgDetails);
-    console.log(currentOrgData);
   }, [current, orgs]);
 
   const onSelectFile = (e) => {
@@ -115,6 +114,7 @@ const OrgInfoCard = () => {
       orgs
     )(firebase, dispatch).then(() => {
       setImageUploading(false);
+      window.location.reload();
     });
     return false;
   };
@@ -155,6 +155,8 @@ const OrgInfoCard = () => {
     return (
       <Grid style={{ display: "flex", flexFlow: "row" }}>
         <Button
+          fullWidth
+          size="small"
           onClick={() => setOrgEditModalVisible(true)}
           id="editOrg"
           variant="contained"
@@ -165,6 +167,8 @@ const OrgInfoCard = () => {
         </Button>
 
         <Button
+          fullWidth
+          size="small"
           variant="contained"
           color="primary"
           style={{ backgroundColor: "royalblue", margin: "4px" }}
@@ -190,57 +194,59 @@ const OrgInfoCard = () => {
 
   return (
     <>
-      <Card>
-        <Grid style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="h6" style={{ margin: ".5rem" }}>
-            Organization Details
-          </Typography>
-          <div style={{ margin: ".5rem" }}>
-            {currentOrgData.permissions && [2, 3].some((p) => currentOrgData.permissions.includes(p)) ? (
-              <DropdownMenu key="more" />
-            ) : null}
-          </div>
+      <Card className="p-0" variant="outlined" loading={loading}>
+        <Grid container>
+          <Grid xs={12} md={12} lg={12}>
+            <Typography variant="h6" style={{ margin: ".5rem" }}>
+              <center>Organization Details</center>
+            </Typography>
+          </Grid>
+          <Divider></Divider>
+          <Grid xs={12} md={12} lg={12}>
+            <div style={{ margin: ".5rem" }}>
+              {currentOrgData.permissions && [2, 3].some((p) => currentOrgData.permissions.includes(p)) ? (
+                <DropdownMenu key="more" />
+              ) : null}
+            </div>
+          </Grid>
         </Grid>
-        <Grid>
-          <Grid md={8} lg={8}>
-            <Card
-              style={{
-                width: "100%",
-              }}
-              bordered={false}
-              className="org-image-card"
-            >
-              {currentOrgData.org_image && currentOrgData.org_image.length > 0
-                ? BasicImage(currentOrgData.org_image, "name")
-                : BasicImage(NoImage, "Not Available")}
-              <p>ff</p>
 
-              <Divider></Divider>
-              {imageUploading ? (
-                <LinearProgress />
-              ) : (
-                <div>
-                  {currentOrgData.permissions && currentOrgData.permissions[0] >= 2 && (
-                    <Box mt={4} mb={6} m={0}>
-                      <center>
-                        <Button
-                          fullWidth
-                          size="small"
-                          variant="contained"
-                          color="primary"
-                          style={{ backgroundColor: "royalblue" }}
-                          id="changeProfile"
-                          startIcon={<CloudUploadIcon />}
-                          onClick={() => setShowImageDialog(true)}
-                        >
-                          Change Proifle Picture
-                        </Button>
-                      </center>
-                    </Box>
-                  )}
-                </div>
-              )}
-
+        <Divider></Divider>
+        <Grid xs={12} md={12} lg={12}>
+          <Box mt={1} mb={0} m={1}>
+            {currentOrgData.org_image && currentOrgData.org_image.length > 0
+              ? BasicImage(currentOrgData.org_image, "name")
+              : BasicImage(NoImage, "Not Available")}
+            <Divider></Divider>
+            {imageUploading ? (
+              <LinearProgress />
+            ) : (
+              <div>
+                {currentOrgData.permissions && currentOrgData.permissions[0] >= 2 && (
+                  <Box mt={1} mb={0} m={0}>
+                    <center>
+                      <Button
+                        fullWidth
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        style={{ backgroundColor: "royalblue" }}
+                        id="changeProfile"
+                        startIcon={<CloudUploadIcon />}
+                        onClick={() => setShowImageDialog(true)}
+                      >
+                        Change Proifle Picture
+                      </Button>
+                    </center>
+                  </Box>
+                )}
+              </div>
+            )}
+          </Box>
+        </Grid>
+        <Grid container>
+          <Grid xs={12} md={3} lg={3} item={true}>
+            <Box mt={6} mb={0} m={3}>
               <Dialog
                 fullWidth
                 maxWidth="sm"
@@ -255,7 +261,7 @@ const OrgInfoCard = () => {
                   <div className="App">
                     <div>
                       <Divider></Divider>
-                      <Box mt={2} mb={2} m={1}>
+                      <Box mt={2} mb={0} m={1}>
                         <label
                           for="file-upload"
                           class="custom-file-upload"
@@ -299,7 +305,7 @@ const OrgInfoCard = () => {
                       </Grid>
                       <Grid container direction="row-reverse">
                         <Grid xs={6} md={6} lg={6} item={true}>
-                          <Box mt={0} mb={4} m={1}>
+                          <Box mt={0} mb={0} m={1}>
                             <Button
                               fullWidth
                               size="small"
@@ -313,7 +319,7 @@ const OrgInfoCard = () => {
                           </Box>
                         </Grid>
                         <Grid xs={6} md={6} lg={6} item={true}>
-                          <Box mt={0} mb={4} m={1}>
+                          <Box mt={0} mb={1} m={1}>
                             <Button
                               fullWidth
                               size="small"
@@ -331,77 +337,79 @@ const OrgInfoCard = () => {
                   </div>
                 </DialogContent>
               </Dialog>
-            </Card>
+            </Box>
           </Grid>
-          <Grid xs={24} md={16} lg={16} className="pl-24-d pt-24-m" data-testId="orgInfoCard">
-            <p>
-              <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>{currentOrgData.org_name}</span>
-            </p>
-            {checkAvailable(currentOrgData.org_description) && (
-              <p className="text-justified">{currentOrgData.org_description}</p>
-            )}
-            {checkAvailable(currentOrgData.org_link_facebook) && (
+          <Grid xs={12} md={12} lg={12}>
+            <Box mt={1} mb={2} m={3} id="profileData">
               <p>
-                <a
-                  href={"https://www.facebook.com/" + currentOrgData.org_link_facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FacebookIcon className="facebook-color" /> {currentOrgData.org_link_facebook}
-                </a>
+                <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>{currentOrgData.org_name}</span>
               </p>
-            )}
-            {checkAvailable(currentOrgData.org_link_twitter) && (
-              <p>
-                <a
-                  href={"https://twitter.com/" + currentOrgData.org_link_twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <TwitterIcon className="twitter-color" /> {currentOrgData.org_link_twitter}
-                </a>
-              </p>
-            )}
-            {checkAvailable(currentOrgData.org_link_github) && (
-              <p>
-                <a
-                  href={"https://github.com/" + currentOrgData.org_link_github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GitHubIcon className="github-color" /> {currentOrgData.org_link_github}
-                </a>
-              </p>
-            )}
-            {checkAvailable(currentOrgData.org_link_linkedin) && (
-              <p>
-                <a
-                  href={"https://www.linkedin.com/company/" + currentOrgData.org_link_linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <LinkedInIcon className="linkedin-color" /> {currentOrgData.org_link_linkedin}
-                </a>
-              </p>
-            )}
-            {checkAvailable(currentOrgData.org_website) && (
-              <p>
-                <a href={currentOrgData.org_website} target="_blank" rel="noopener noreferrer">
-                  {currentOrgData.org_website}
-                </a>
-              </p>
-            )}
-            {checkAvailable(currentOrgData.org_country) && (
-              <p className="mb-0">
-                <a
-                  href={"https://www.google.com/search?q=" + currentOrgData.org_country}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {currentOrgData.org_country}
-                </a>
-              </p>
-            )}
+              {checkAvailable(currentOrgData.org_description) && (
+                <p className="text-justified">{currentOrgData.org_description}</p>
+              )}
+              {checkAvailable(currentOrgData.org_link_facebook) && (
+                <p>
+                  <a
+                    href={"https://www.facebook.com/" + currentOrgData.org_link_facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FacebookIcon className="facebook-color" /> {currentOrgData.org_link_facebook}
+                  </a>
+                </p>
+              )}
+              {checkAvailable(currentOrgData.org_link_twitter) && (
+                <p>
+                  <a
+                    href={"https://twitter.com/" + currentOrgData.org_link_twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <TwitterIcon className="twitter-color" /> {currentOrgData.org_link_twitter}
+                  </a>
+                </p>
+              )}
+              {checkAvailable(currentOrgData.org_link_github) && (
+                <p>
+                  <a
+                    href={"https://github.com/" + currentOrgData.org_link_github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <GitHubIcon className="github-color" /> {currentOrgData.org_link_github}
+                  </a>
+                </p>
+              )}
+              {checkAvailable(currentOrgData.org_link_linkedin) && (
+                <p>
+                  <a
+                    href={"https://www.linkedin.com/company/" + currentOrgData.org_link_linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <LinkedInIcon className="linkedin-color" /> {currentOrgData.org_link_linkedin}
+                  </a>
+                </p>
+              )}
+              {checkAvailable(currentOrgData.org_website) && (
+                <p>
+                  <a href={currentOrgData.org_website} target="_blank" rel="noopener noreferrer">
+                    {currentOrgData.org_website}
+                  </a>
+                </p>
+              )}
+              {checkAvailable(currentOrgData.org_country) && (
+                <p className="mb-0">
+                  <a
+                    href={"https://www.google.com/search?q=" + currentOrgData.org_country}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {currentOrgData.org_country}
+                  </a>
+                </p>
+              )}
+            </Box>
           </Grid>
         </Grid>
       </Card>
