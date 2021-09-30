@@ -2,6 +2,10 @@
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS front end library and the back end will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
 
+# Deployed on
+
+https://dev.codelabz.io/
+
 ## User Guide
 
 #### How to Setup
@@ -31,6 +35,13 @@ You should fill in these values in their relevent fields in the `.env` file.
 
 To run the project:  
  `$ npm start`
+
+If you failed to run the project do the following steps :
+
+- delete node modules
+- delete package-lock.json
+- re run `npm install `
+  If error still exists add `SKIP_PREFLIGHT_CHECK=true` in your .env file
 
 > **NOTE**: Before starting the server create a file named `.env` same as `.env.example` and add your **Firebase Configurations** in the file.
 
@@ -71,3 +82,11 @@ Find the project ID form the project list that you want to deploy the cloud func
 firebase use <project_id>
 firebase deploy
 ```
+
+To run storybook :
+` npm run storybook`
+It will redirect to 6006 port.Find detailed information [here](https://storybook.js.org/docs/react/get-started/introduction)
+
+To run cypress tests:
+`npx cypress run`
+It will open a promt displaying all the tests.You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
