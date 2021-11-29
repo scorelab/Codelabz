@@ -66,6 +66,9 @@ const RightMenu = ({ mode }) => {
         marginTop: "1rem",
       },
     },
+    icon:{
+      verticalAlign:"middle"
+    }
   }));
   const classes = useStyles();
   return (
@@ -112,21 +115,21 @@ const RightMenu = ({ mode }) => {
         {allowDashboard && (
           <MenuItem key="setting:2">
             <Link to={"/tutorials"}>
-              <CodeOutlinedIcon /> My Tutorials
+              <CodeOutlinedIcon className={classes.icon} /> My Tutorials
             </Link>
           </MenuItem>
         )}
         {allowDashboard && allowOrgs && (
           <Menu
             title={
-              <>
-                <BlockOutlinedIcon /> My Organizations
-              </>
+              <p>
+                <BlockOutlinedIcon  className={classes.icon}/> My Organizations
+              </p>
             }
           >
             <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
               <Link to={`/organization`}>
-                <SettingsOutlinedIcon /> Manage All
+                <SettingsOutlinedIcon  className={classes.icon}/> Manage All
               </Link>
             </MenuItem>
             <Divider></Divider>
@@ -135,13 +138,15 @@ const RightMenu = ({ mode }) => {
         )}
 
         {profile.displayName && profile.displayName.length > 0 && (
-          <MenuItem style={{ color: "gray" }}>{profile.displayName}</MenuItem>
+          <span>
+            <MenuItem style={{ color: "gray",verticalAlign:"middle" }}>{profile.displayName}</MenuItem>
+          </span>
         )}
         {allowDashboard && (
           <MenuItem key="setting:1">
             <Link to={"/profile"}>
-              <div style={{ color: "#455A64" }}>
-                <PersonOutlineOutlinedIcon /> My Profile
+              <div style={{ color: "#455A64"}}>
+                <PersonOutlineOutlinedIcon className={classes.icon} /> My Profile
               </div>
             </Link>
           </MenuItem>
@@ -150,9 +155,9 @@ const RightMenu = ({ mode }) => {
           key="setting:4"
           onClick={() => signOut()(firebase, dispatch)}
           id={"log-out"}
-          style={{ color: "#455A64" }}
+          style={{ color: "#455A64"}}
         >
-          <ExitToAppOutlinedIcon /> Log Out
+          <ExitToAppOutlinedIcon className={classes.icon} /> Log Out
         </MenuItem>
       </Menu>
     </Grid>
