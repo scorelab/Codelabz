@@ -148,6 +148,11 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     }
   };
 
+  useEffect(() => {
+    console.log("Error")
+    console.log(error);
+  },[])
+
   const onSubmit = async () => {
     validateHandle(
       checkUserHandleExists,

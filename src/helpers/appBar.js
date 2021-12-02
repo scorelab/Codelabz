@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import MenuItem from "@material-ui/core/MenuItem";
@@ -15,6 +15,7 @@ import AddIcon from "@material-ui/icons/Add";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { makeStyles } from "@material-ui/core/styles";
 
+import NewTutorial from "../components/Tutorials/NewTutorial";
 import BrandName from "./brandName";
 import RightMenu from "../components/NavBar/MainNavbar/RightMenu";
 import useGetPermissions from "./customHooks/useGetPermissions";
@@ -118,6 +119,12 @@ const CodeLabzAppBar = () => {
     setAnchorEl(null);
   };
 
+  const [visibleModal, setVisibleModal] = useState(false);
+
+  const closeModal = () => {
+    setVisibleModal((prev) => !prev);
+  };
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -186,9 +193,16 @@ const CodeLabzAppBar = () => {
                 color="primary"
                 style={{ backgroundColor: "royalblue" }}
                 endIcon={<AddIcon />}
+                onClick={() => setVisibleModal(true)}
               >
                 New Codelab
               </Button>
+
+              <NewTutorial
+                viewModal={visibleModal}
+                onSidebarClick={(e) => closeModal(e)}
+                viewCallback={() => setVisibleModal(false)}
+              />
             </div>
 
             <div className={classes.newButtonMobile}>
@@ -250,14 +264,6 @@ const CodeLabzAppBar = () => {
             </div>
             <div className={classes.grow} />
             <div className={classes.newButtonDesktop}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ backgroundColor: "royalblue" }}
-                endIcon={<AddIcon />}
-              >
-                New Codelab
-              </Button>
             </div>
             <div className={classes.newButtonMobile}>
               <IconButton>
