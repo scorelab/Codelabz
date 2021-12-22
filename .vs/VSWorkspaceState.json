@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\AuthPage",
+    "\\src\\components\\Editor",
+    "\\src\\components\\Home",
+    "\\src\\components\\Organization",
+    "\\src\\components\\Profile",
+    "\\src\\components\\Tutorials",
+    "\\src\\components\\util"
+  ],
+  "SelectedNode": "\\public",
+  "PreviewInSolutionExplorer": false
+}
