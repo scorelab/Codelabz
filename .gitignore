@@ -39,3 +39,4 @@ firebase-sw-private.js
 cypress.json
 cypress/screenshots
 cypress/videos
+/.vs/VSWorkspaceState.json
