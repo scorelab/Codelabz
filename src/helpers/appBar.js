@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 1, 1, 1),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
-    width: "500px",
+    width: "325px",
 
     // If not mobile size
     [theme.breakpoints.up("md")]: {
