@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import {
+    useLocation,
+    useRouteMatch
+} from "react-router";
+
 
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -109,6 +114,7 @@ const CodeLabzAppBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const menuId = "primary-search-account-menu";
+  const location = useLocation();
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -117,7 +123,6 @@ const CodeLabzAppBar = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -265,16 +270,31 @@ const CodeLabzAppBar = () => {
               </IconButton>
             </div>
             &nbsp; &nbsp;
-            <Link to={"/login"}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ backgroundColor: "royalblue" }}
-                data-testId="navbarlogin"
-              >
-                Log In
-              </Button>
-            </Link>
+                        {location.pathname != "/login" && location.pathname != "/signup" &&
+                        <Link to={"/login"}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                style={{ backgroundColor: "royalblue", width: "82px" }}
+                                data-testId="navbarlogin"
+                            >
+                                Log In
+                 </Button>
+                        </Link>
+                    }
+                    {(location.pathname == "/login" || location.pathname == "/signup") &&
+                        <Link to={"/"}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                style={{ backgroundColor: "royalblue", width: "82px" }}
+                                data-testId="navbarlogin"
+                            >
+                                Home
+                 </Button>
+                        </Link>
+                    }
+
           </Toolbar>
         </AppBar>
       </div>
