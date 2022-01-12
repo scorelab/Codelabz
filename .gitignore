@@ -33,12 +33,12 @@ INTERNAL.md
 RULES.md
 firebase-debug.log
 
+firebase-sw-private.js
+/.firebase
 cypress.json
 cypress/screenshots
 cypress/videos
 
-firebase.json
-.firebaserc
 .vs/VSWorkspaceState.json
 .vs/codelabz
 .vs/
