@@ -21,6 +21,7 @@ export const signIn = credentials => async (firebase, dispatch) => {
       });
     }
   } catch (e) {
+      console.log(e.message);
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
 };
@@ -34,6 +35,7 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
     });
     dispatch({ type: actions.SIGN_IN_SUCCESS });
   } catch (e) {
+      console.log(e.message);
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
 };
@@ -53,6 +55,7 @@ export const signInWithProviderID = providerID => async (
     });
     dispatch({ type: actions.SIGN_IN_SUCCESS });
   } catch (e) {
+      console.log(e.message);
     if (e.code === "auth/account-exists-with-different-credential") {
       const methods = await firebase.auth().fetchSignInMethodsForEmail(e.email);
       dispatch({
@@ -79,7 +82,8 @@ export const signOut = () => async (firebase, dispatch) => {
     await firebase.logout();
     window.location.reload();
   } catch (e) {
-    console.log(e.message);
+    console.log(e.
+        message);
   }
 };
 
@@ -91,6 +95,7 @@ export const signUp = userData => async (firebase, dispatch) => {
     await firebase.logout();
     dispatch({ type: actions.SIGN_UP_SUCCESS });
   } catch (e) {
+      console.log(e.message);
     dispatch({ type: actions.SIGN_UP_FAIL, payload: e });
   }
 };

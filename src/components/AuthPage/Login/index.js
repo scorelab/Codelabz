@@ -1,30 +1,11 @@
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import LockOutlined from "@material-ui/icons/LockOutlined";
-import MailOutlined from "@material-ui/icons/MailOutlined";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
-import { Link } from "react-router-dom";
 import validator from "validator";
-import Divider from "../../../globalComponents/Divider";
 import { clearAuthError, signIn } from "../../../store/actions";
-import SmButtons from "../smButton/smButtons";
-import ViewAlerts from "./ViewAlerts";
 import useStyles from "./styles";
 import PropTypes from "prop-types";
-
+import LoginPage from "../../../pages/AuthPage/LoginPage"
 const Login = ({ loginButton = "blue", background = "white", loginText = "Welcome Back" }) => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
@@ -101,107 +82,15 @@ const Login = ({ loginButton = "blue", background = "white", loginText = "Welcom
   };
 
   return (
-    <Card raised className={`${classes.card}   `} style={{ background: background }} data-testId="login">
-      <CardContent>
-        <Typography variant="h4" style={{ textAlign: "center", marginBottom: "40px" }}>
-          {loginText}
-        </Typography>
-        <ViewAlerts error={error} email={email} />
-        <div>
-          <TextField
-            error={emailValidateError}
-            label="Email"
-            variant="outlined"
-            placeholder="mail@codelabz.com"
-            value={email}
-            onChange={onChangeEmail}
-            helperText={emailValidateError ? emailValidateErrorMessage : null}
-            fullWidth
-            autoComplete="email"
-            required
-            onFocus={onFocusEmail}
-            className="email"
-            style={{ marginBottom: "15px" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            helperText={passwordValidateError ? passwordValidateErrorMessage : null}
-            className="password"
-            error={passwordValidateError}
-            fullWidth
-            required
-            value={password}
-            onFocus={onFocusPassword}
-            onChange={onChangePassword}
-            autoComplete="current-password"
-            type={showPassword ? "text" : "password"}
-            style={{ marginBottom: "15px" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Grid container alignItems="center" justify="space-between">
-            <Grid>
-              <FormGroup row>
-                <FormControlLabel control={<Checkbox name="remember" color="primary" />} label="Remember me" />
-              </FormGroup>
-            </Grid>
-            <Grid>
-              <Link
-                data-testId="forgotPassoword"
-                to="/forgotpassword"
-                className="login-form-forgot"
-                style={{ float: "right" }}
-              >
-                Forgot password
-              </Link>
-            </Grid>
-          </Grid>
-
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={onSubmit}
-            disabled={loading}
-            className="loginButton"
-            style={{ background: loginButton, backgroundColor: "royalblue" }}
-          >
-            {loading ? "Logging in..." : "Log in"}
-          </Button>
-        </div>
-        <Divider>or</Divider>
-        <SmButtons />
-        <Grid container justify="center" alignItems="center" className="mt-24">
-          <Grid item={true} sm={12} className="center">
-            New to <span className="brand-font text-bold">CodeLabz</span>? <Link to={"/signup"}>Create an account</Link>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+      <LoginPage
+          onFocusPassword={onFocusPassword}loading={loading} setLoading={setLoading} error={error} setError={setError}
+          classes={classes}  email={email} setEmail={setEmail} emailValidateError={emailValidateError} emailValidateErrorMessage={emailValidateErrorMessage}
+          password={password} setPassword={setPassword} showPassword={showPassword} setShowPassword={setShowPassword}
+          passwordValidateError={passwordValidateError} setPasswordValidateError={setPasswordValidateError}  passwordValidateErrorMessage={passwordValidateErrorMessage} setPasswordValidateErrorMessage={setPasswordValidateErrorMessage}
+          handleClickShowPassword={handleClickShowPassword} handleMouseDownPassword={handleMouseDownPassword} onChangeEmail={onChangeEmail}
+          onChangePassword={onChangePassword}  validateEmail={validateEmail} validatePassword={validatePassword} onSubmit={onSubmit} onFocusEmail={onFocusEmail}
+          onFocusPassword={onFocusPassword}
+      />
   );
 };
 
