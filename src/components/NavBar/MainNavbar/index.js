@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import BrandLogo from "../../../assets/images/cl_logo.png"
 
 function MainNavbar() {
   const [visible, setVisible] = useState(false);

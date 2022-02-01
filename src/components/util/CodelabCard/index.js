@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import useStyles from "./styles";
 import PropTypes from "prop-types";
+import { TextField, Box } from "@material-ui/core";
+import { useAuthStatus } from "../../../helpers/customHooks";
 
 const CardComponent = ({
   title = "I made 100 more CSS loaders for your next project",
@@ -20,7 +22,29 @@ const CardComponent = ({
   background = "white",
 }) => {
   const classes = useStyles();
+  const authed = useAuthStatus();
   const [logoPath, setLogoPath] = React.useState("");
+  const [likes, setLikes] = useState(222);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [open, setOpen] = useState("none");
+  const [again, setAgain] = useState(true)
+  
+  const handleLikes=()=>{
+    if(again){
+    setLikes(likes+1);
+    setAgain(false)
+  }else{
+    setLikes(likes-1);
+    setAgain(true)
+  }
+  }
+
+  const handleComment=()=>{
+    setMessages([...messages, message ]);
+    setMessage('');
+  }
+
   React.useEffect(() => {
     setLogoPath(org);
   }, [org]);
@@ -93,28 +117,50 @@ const CardComponent = ({
             <Grid item direction="row">
               {!org ? (
                 <Grid item style={{ height: "2rem" }}>
-                  <IconButton style={{ color: "red" }}>
-                    <FavoriteIcon />
-                  </IconButton>
-                  <Typography variant="body" color="textPrimary">
-                    222
-                  </Typography>
+                  {
+                    authed? (
+                      <>
+                      <IconButton style={{ color: "red" }} onClick={()=>handleLikes()}>
+                      <FavoriteIcon />
+                      </IconButton>
+                    <Typography variant="body" color="textPrimary">
+                      {likes}
+                    </Typography>
+                    </>
+                    ):
+                    (
+                      <>
+                      <IconButton style={{ color: "red" }}>
+                      <FavoriteIcon />
+                    </IconButton>
+                     <Typography variant="body" color="textPrimary">
+                      {likes}
+                    </Typography>
+                    </>
+                    )
+                  }
                 </Grid>
               ) : (
                 ""
               )}
             </Grid>
             <Grid item>
-              <IconButton aria-label="comment" style={{ color: "green" }}>
+              {authed?(
+                  <IconButton aria-label="comment" style={{ color: "green" }} onClick={()=>setOpen("block")}>
+                  <ChatIcon />
+                </IconButton>
+              ):(
+                <IconButton aria-label="comment" style={{ color: "green" }}>
                 <ChatIcon />
               </IconButton>
+              )}
               {org ? (
                 <Typography variant="body" color="textPrimary">
                   comment
                 </Typography>
               ) : (
                 <Typography variant="body" color="textPrimary">
-                  20
+                  {messages.length}
                 </Typography>
               )}
             </Grid>
@@ -132,6 +178,31 @@ const CardComponent = ({
             </Grid>
           </Grid>
         </CardActions>
+        <CardContent style={{display:`${open}`}}>
+            <Grid item >
+            <Grid item style={{marginLeft:50}}>
+            {messages.map(e=>
+              <Box>
+                {e}
+              </Box>
+              )}
+            </Grid>
+            <TextField 
+               label="Write a comment"
+               variant="outlined"
+               value={message}
+               onChange={(e)=>setMessage(e.target.value)}
+               placeholder="Write a comment"
+               style={{marginLeft:50, marginTop:50}}
+            />
+             <Button variant="contained" color="primary" style={{ backgroundColor: "royalblue", margin: "16px", marginTop:60 }} onClick={()=>handleComment()}>
+                Post
+              </Button>
+             <Button variant="contained" color="primary" style={{ backgroundColor: "royalblue", margin: "10px", marginTop:60 }} onClick={()=>setOpen("none")}>
+                Close
+              </Button>
+          </Grid>
+        </CardContent>
       </Card>
     </>
   );

@@ -16,6 +16,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { makeStyles } from "@material-ui/core/styles";
 
 import BrandName from "./brandName";
+import BrandLogo from "../assets/images/cl_logo.png"
 import RightMenu from "../components/NavBar/MainNavbar/RightMenu";
 import useGetPermissions from "./customHooks/useGetPermissions";
 import { useAllowDashboard, useAuthStatus } from "./customHooks";
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "whitesmoke",
     marginRight: theme.spacing(1),
-    marginLeft: 0,
+    marginLeft: -70,
     width: "50%",
 
     // If not mobile size
@@ -158,7 +159,7 @@ const CodeLabzAppBar = () => {
               data-testId="navbarBrand"
             >
               <Link to={"/"}>
-                <BrandName />
+              <span><img src={BrandLogo} alt="" style={{width:150, height:80, marginLeft:50}}/></span>
               </Link>
             </Typography>
 

@@ -34,7 +34,7 @@ const MiniNavbar = ({ type }) => {
             className="brand-font mb-0"
           >
             <Link to={"/"}>
-              <BrandName />
+             <BrandName />
             </Link>
           </h3>
         </Grid>
