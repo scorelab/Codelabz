@@ -1,6 +1,15 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  card: {
+    margin: ".5rem",
+    width: "50vw",
+    minHeight: "20vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "20px",
+  },
   wrapper: {
     display: "flex",
     alignItems: "top",
