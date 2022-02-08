@@ -243,7 +243,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
               xs={12}
               sm={12}
               md={showOrgForm ? 6 : 12}
-              className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
+              className="col-pad-24 pr-12 pt-8 pb-24 pl-12 div-transition"
               onFocus={() => setFocusLeft(true)}
               item={true}
             >
@@ -336,7 +336,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
               item={true}
             >
               {showOrgForm && (
-                <Card>
+                <Card className="org-form">
                   <Box mt={2} mb={2} m={3}>
                     <Typography>
                       <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
