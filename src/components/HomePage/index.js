@@ -77,7 +77,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             </Typography>
           </Grid>
           <Grid container alignItems="left">
-            <List component="nav" aria-label="mailbox folders" style={{ width: "100%" }}>
+            <List component="nav" aria-label="mailbox folders" style={{ width: "100%",padding:"7px 0" }}>
               <ListItem button>
                 <ListItemText primary="Lorem Pervious Text" />
               </ListItem>
