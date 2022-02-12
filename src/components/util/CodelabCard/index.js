@@ -25,48 +25,107 @@ const CardComponent = ({
     setLogoPath(org);
   }, [org]);
 
+ const getDates = (str) => {
+        let today = new Date();
+        let currentYear = today.getFullYear();
+        let currentMonth = today.getMonth()+1;
+        let currentDate = today.getDate();
+        let arr = str.split(" ");
+        let ageString = "";
+
+        let givenDate = arr[0];
+        let givenMonth = arr[1];
+        let givenYear = arr[2];
+
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let given_mo_idx = months.indexOf(givenMonth)+1;
+        var yearAge = currentYear - givenYear;
+
+        //get months
+        if (currentMonth >= given_mo_idx)
+            var monthAge = currentMonth - given_mo_idx;
+        else {
+            yearAge--;
+                var monthAge = 12 + currentMonth - given_mo_idx;
+        }
+
+        //get days
+        if (currentDate >= givenDate)
+           var dateAge = currentDate - givenDate;
+        else {
+            monthAge--;
+                var dateAge = 31 + currentDate - givenDate;
+
+            if (monthAge < 0) {
+                monthAge = 11;
+                yearAge--;
+            }
+        }
+
+        let age = {
+            years: yearAge,
+            months: monthAge,
+            days: dateAge
+        };
+
+        if (age.years > 1)
+            ageString = age.years + " years ago";
+        else if (age.years == 1)
+            ageString = age.years + " year ago";
+        else if (age.months > 1)
+            ageString = age.months + " months ago";
+        else if (age.months == 1)
+            ageString = age.months + " month ago.";
+        else if (age.days > 1)
+            ageString = age.days + " days ago";
+        else if (age.days == 1)
+            ageString = age.days + " day ago";
+        else ageString = "Today";
+
+        return (str+" ("+ageString+")");
+    }
   return (
     <>
       <Card maxWidth="sm" className={classes.card} style={{ background: background }} data-testId="codelabzCard">
-        <CardHeader
-          data-testId="codelabzCardHeader"
-          className={classes.cardHeader}
-          avatar={
-            <Grid
-              container
-              className={classes.organizationLogo}
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
-              {logoPath ? (
-                <Grid container>
-                  <Grid item className={classes.headerGrid}>
-                    <img src="/logo.jpeg" alt="logo" className={classes.logoImg} />
-                    <img
-                      src={require(`../../../assets/images/${profilePic}`).default}
-                      alt=""
-                      height="20rem"
-                      width="20rem"
-                      className={classes.personImg}
-                    />
-                  </Grid>
-                </Grid>
-              ) : (
-                <img src={require(`../../../assets/images/${profilePic}`).default} alt="" className={classes.avatar} />
-              )}
-            </Grid>
-          }
-          title={
-            org ? (
-              <Typography variant="body">
-                Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>} ScoreLabz
-              </Typography>
-            ) : (
-              <Typography variant="body">Demo Name</Typography>
-            )
-          }
-          subheader="May25,2021(3 days ago)"
+              <CardHeader
+                  data-testId="codelabzCardHeader"
+                  className={classes.cardHeader}
+                  avatar={
+                      <Grid
+                          container
+                          className={classes.organizationLogo}
+                          direction="column"
+                          justify="center"
+                          alignItems="center"
+                      >
+                          {logoPath ? (
+                              <Grid container>
+                                  <Grid item className={classes.headerGrid}>
+                                      <img src="/logo.jpeg" alt="logo" className={classes.logoImg} />
+                                      <img
+                                          src={require(`../../../assets/images/${profilePic}`).default}
+                                          alt=""
+                                          height="20rem"
+                                          width="20rem"
+                                          className={classes.personImg}
+                                      />
+                                  </Grid>
+                              </Grid>
+                          ) : (
+                              <img src={require(`../../../assets/images/${profilePic}`).default} alt="" className={classes.avatar} />
+                          )}
+                      </Grid>
+                  }
+                  title={
+                      org ? (
+                          <Typography variant="body">
+                              Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>} ScoreLabz
+                          </Typography>
+                      ) : (
+                          <Typography variant="body">Demo Name</Typography>
+                      )
+                  }
+                  subheader={getDates("11 Feb 2021")}
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
         />
