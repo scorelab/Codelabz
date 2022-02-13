@@ -79,7 +79,7 @@ const ExploreOrgs = ({
                   .slice(0, 5)
                   .map((org) => (
                     <Grid
-                      item
+                      item={true}
                       xs={12}
                       md={6}
                       lg={3}
@@ -116,7 +116,7 @@ const ExploreOrgs = ({
                       </Link>
                     </Grid>
                   ))}
-              <Grid item xs={12} md={6} lg={3} className={classes.root}>
+              <Grid item={true} xs={12} md={6} lg={3} className={classes.root}>
                 <Card>
                   <CardHeader title="Didn't find Any?" />
                   <CardContent>

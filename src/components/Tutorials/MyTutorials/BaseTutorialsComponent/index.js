@@ -38,6 +38,7 @@ const BaseTutorialsComponent = ({ owner = "", ownerName = "", users = [] }) => {
         <Grid container item>
           {index_array.map((tutorial, index) => (
             <Grid
+              item={true}
               xs={12}
               sm={6}
               md={3}
@@ -60,8 +61,8 @@ const BaseTutorialsComponent = ({ owner = "", ownerName = "", users = [] }) => {
     );
   } else {
     return (
-      <Grid justify="center" align="center">
-        <Grid xs={12} className="col-pad-24">
+      <Grid justifyContent="center" align="center">
+        <Grid item={true} xs={12} className="col-pad-24">
           <Spinner half />
         </Grid>
       </Grid>

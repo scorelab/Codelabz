@@ -53,7 +53,7 @@ const ResetPassword = ({ queryParams = "test" }) => {
 
   return (
     <>
-      <Grid justify="center">
+      <Grid justifyContent="center">
         <Grid md={12} lg={10}>
           <Card bordered={false}>
             {loading && (
@@ -74,7 +74,7 @@ const ResetPassword = ({ queryParams = "test" }) => {
                   className="mb-16"
                   showIcon
                 />
-                <Grid justify="center" align="center" className="mt-24">
+                <Grid justifyContent="center" align="center" className="mt-24">
                   <Grid className="center">
                     Back to <Link to={"/login"}>CodeLabz</Link>
                   </Grid>

@@ -24,7 +24,7 @@ const AuthPage = ({ type }) => {
       container
       alignItems="center"
       style={{ overflowX: "hidden" }}
-      justify="center"
+      justifyContent="center"
       className="row-footer-below auth-margin"
     >
       <Grid item={true}>

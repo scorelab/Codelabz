@@ -89,7 +89,7 @@ const Editor = ({ id, data, tutorial_id }) => {
         message="You have unsaved changes, are you sure you want to leave?"
       />
       <Grid>
-        <Grid xs={24} md={24}>
+        <Grid xs={24} md={24} item={true}>
           <div id="firepad-container" ref={editorRef} />
         </Grid>
       </Grid>

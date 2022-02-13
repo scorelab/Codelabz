@@ -216,7 +216,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
     <Grid id="editModalBox">
       {error && (
         <Grid container>
-          <Grid xs={12} className="col-pad-24 pr-12 pb-0">
+          <Grid item={true} xs={12} className="col-pad-24 pr-12 pb-0">
             <Alert variant="outlined" severity="error">
               {error}
             </Alert>

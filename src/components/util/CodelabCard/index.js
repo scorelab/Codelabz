@@ -36,7 +36,7 @@ const CardComponent = ({
               container
               className={classes.organizationLogo}
               direction="column"
-              justify="center"
+              justifyContent="center"
               alignItems="center"
             >
               {logoPath ? (
@@ -75,13 +75,13 @@ const CardComponent = ({
           className={classes.cardContent}
           style={{ paddingBottom: "0rem" }}
         >
-          <Grid container alignItems="left" justify="flex-start" direction="column" className={classes.body}>
+          <Grid container alignItems="left" justifyContent="flex-start" direction="column" className={classes.body}>
             <Grid item>
               <Typography variant="h5" gutterBottom className={classes.heading}>
                 {title}
               </Typography>
             </Grid>
-            <Grid container direction="row" justify="flex-start" alignItems="left">
+            <Grid container direction="row" justifyContent="flex-start" alignItems="left">
               <Typography variant="body2" color="textPrimary" className={"mr-8 " + classes.tags}>
                 {tags}
               </Typography>
@@ -89,8 +89,8 @@ const CardComponent = ({
           </Grid>
         </CardContent>
         <CardActions disableSpacing className={classes.cardAction}>
-          <Grid container xs={6} justify="left" direction="row" data-testId="codelabzCardButtonGroup">
-            <Grid item direction="row">
+          <Grid item={true} container xs={6} justifyContent="left" direction="row" data-testId="codelabzCardButtonGroup">
+            <Grid direction="row">
               {!org ? (
                 <Grid item style={{ height: "2rem" }}>
                   <IconButton style={{ color: "red" }}>
@@ -119,8 +119,8 @@ const CardComponent = ({
               )}
             </Grid>
           </Grid>
-          <Grid xs={6} container direction="row" justify="flex-end" alignItems="center">
-            <Grid item xs={3}>
+          <Grid item={true} xs={6} container direction="row" justifyContent="flex-end" alignItems="center">
+            <Grid item={true} xs={3}>
               <Typography variant="body2" color="textSecondary" alignItems="flex-end" className={classes.readTime}>
                 10 min read
               </Typography>

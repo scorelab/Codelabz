@@ -124,7 +124,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         )}
       />
       {console.log(users)}
-      <Grid container justify="flex-end">
+      <Grid container justifyContent="flex-end">
         <div style={{ padding: "10px" }}>
           <span style={{ paddingRight: "10px" }}>Select user role</span>
           <Select value={selected} onChange={handlePermissionChange}>

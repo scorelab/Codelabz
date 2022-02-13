@@ -67,7 +67,7 @@ const PasswordResetForm = ({ actionCode }) => {
             closable
             className="mb-16"
           />
-          <Grid justify="center" align="center" className="mt-24">
+          <Grid justifyContent="center" align="center" className="mt-24">
             <Grid sm={24} className="center">
               <Link to={"/login"}>Sign in</Link>
             </Grid>
@@ -125,7 +125,7 @@ const PasswordResetForm = ({ actionCode }) => {
               </Button>
             </FormControl>
           </form>
-          <Grid justify="center" align="center" className="mt-24">
+          <Grid justifyContent="center" align="center" className="mt-24">
             <Grid sm={24} className="center">
               Back to <Link to={"/login"}>CodeLabz</Link>
             </Grid>

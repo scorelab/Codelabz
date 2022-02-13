@@ -34,7 +34,7 @@ const Organizations = () => {
           onClose={() => setDrawerVisible(false)}
         >
           <Grid>
-            <Grid xs={24} className="col-pad-24-s pt-0">
+            <Grid item={true} xs={24} className="col-pad-24-s pt-0">
               <OrgSidebar
                 onOrgChange={() => {
                   setDrawerVisible(false);
@@ -48,7 +48,7 @@ const Organizations = () => {
       <Grid>
         {!isDesktop && (
           <Grid>
-            <Grid xs={24} className="col-pad-24-s pb-0">
+            <Grid item={true} xs={24} className="col-pad-24-s pb-0">
               <Button
                 onClick={() => setDrawerVisible(true)}
                 block
@@ -61,10 +61,10 @@ const Organizations = () => {
           </Grid>
         )}
         <Grid className={classes.cardBody}>
-          <Grid xs={24} sm={24} md={14} className="col-pad-24-s pr-12">
+          <Grid item={true} xs={24} sm={24} md={14} className="col-pad-24-s pr-12">
             <OrgInfoCard />
           </Grid>
-          <Grid xs={24} sm={24} md={10} className="col-pad-24-s pl-12">
+          <Grid item={true} xs={24} sm={24} md={10} className="col-pad-24-s pl-12">
             <OrgUsersCard />
           </Grid>
         </Grid>

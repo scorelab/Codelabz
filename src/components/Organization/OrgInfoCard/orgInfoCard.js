@@ -285,7 +285,7 @@ const OrgInfoCard = () => {
                 </Dialog>
               </Card>
             </Grid>
-            <Grid xs={24} md={16} lg={16} className="pl-24-d pt-24-m" data-testId="orgInfoCard">
+            <Grid item={true} xs={24} md={16} lg={16} className="pl-24-d pt-24-m" data-testId="orgInfoCard">
               <p>
                 <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>{currentOrgData.org_name}</span>
               </p>

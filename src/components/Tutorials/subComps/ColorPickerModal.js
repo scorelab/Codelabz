@@ -53,8 +53,9 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
         }}
       >
         <Grid>
-          <Grid align="middle" justify="center" className="mb-24">
+          <Grid align="middle" justifyContent="center" className="mb-24">
             <Grid
+              item={true}
               xs={24}
               md={12}
               className="mb-16"
@@ -70,6 +71,7 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
               </div>
             </Grid>
             <Grid
+              item={true}
               xs={24}
               md={12}
               className="mb-16"
@@ -97,7 +99,7 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
             }}
             align="middle"
           >
-            <Grid xs={24} style={{ textAlign: "center" }}>
+            <Grid item={true} xs={24} style={{ textAlign: "center" }}>
               Change the values above to see the preview
             </Grid>
           </Grid>

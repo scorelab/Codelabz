@@ -5,12 +5,12 @@ import BrandName from "./brandName";
 const Spinner = ({ half }) => {
   return (
     <Grid
-      justify={"center"}
+      justifyContent={"center"}
       style={{ minHeight: half ? "50vh" : "100vh" }}
       alignItems="center"
       container
     >
-      <Grid xs={12} style={{ textAlign: "center" }}>
+      <Grid item={true} xs={12} style={{ textAlign: "center" }}>
         <div className="pulse">
           <BrandName />
         </div>

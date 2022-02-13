@@ -87,11 +87,11 @@ const Home = () => {
       <Grid
         container
         alignItems="center"
-        justify="center"
+        justifyContent="center"
         className="home-row mobile-top-padding mb-24"
         direction="row-reverse"
       >
-        <Grid item xs={12} sm={12} md={6} lg={6} className="home-left-col">
+        <Grid item={true} xs={12} sm={12} md={6} lg={6} className="home-left-col">
           <Fade right={isDesktop}>
             <h1 className="home-title">Get first hand experience in coding.</h1>
             <h2 className="home-description">
@@ -120,10 +120,10 @@ const Home = () => {
       <Grid
         container
         className="light-grey-bg home-row"
-        justify="center"
+        justifyContent="center"
         align="center"
       >
-        <Grid item xs={12} className="center pt-40 pb-40">
+        <Grid item={true} xs={12} className="center pt-40 pb-40">
           <h1 className="home-title pl-24 pr-24 mb-8">
             Step-by-step instructions
           </h1>
@@ -144,14 +144,14 @@ const Home = () => {
         container
         className="home-row pt-40 pb-40"
         align="middle"
-        justify="center"
+        justifyContent="center"
       >
-        <Grid item xs={12} className="center mb-24">
+        <Grid item={true} xs={12} className="center mb-24">
           <h1 className="home-title mb-8">Learning made easier</h1>
           <h2 className="home-description">Features that help you get going</h2>
         </Grid>
 
-        <Grid item md={3} xs={12} className="col-pad-24">
+        <Grid item={true} md={3} xs={12} className="col-pad-24">
           <Fade left>
             <Card>
               <CardActionArea>
@@ -184,7 +184,7 @@ const Home = () => {
           </Fade>
         </Grid>
 
-        <Grid item md={3} xs={12} className="col-pad-24">
+        <Grid item={true} md={3} xs={12} className="col-pad-24">
           <Fade left>
             <Card>
               <CardActionArea>
@@ -217,7 +217,7 @@ const Home = () => {
           </Fade>
         </Grid>
 
-        <Grid item md={3} xs={12} className="col-pad-24">
+        <Grid item={true} md={3} xs={12} className="col-pad-24">
           <Fade left>
             <Card>
               <CardActionArea>
@@ -250,7 +250,7 @@ const Home = () => {
           </Fade>
         </Grid>
 
-        <Grid item md={3} xs={12} className="col-pad-24">
+        <Grid item={true} md={3} xs={12} className="col-pad-24">
           <Fade left>
             <Card>
               <CardActionArea>

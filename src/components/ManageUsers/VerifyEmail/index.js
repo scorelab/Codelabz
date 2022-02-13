@@ -47,8 +47,8 @@ const VerifyEmail = ({ queryParams = "test" }) => {
 
   return (
     <>
-      <Grid justify="center">
-        <Grid xs={24} sm={24} md={12} lg={10}>
+      <Grid justifyContent="center">
+        <Grid item={true} xs={24} sm={24} md={12} lg={10}>
           <Card bordered={false}>
             {loading && (
               <Typography
@@ -64,7 +64,7 @@ const VerifyEmail = ({ queryParams = "test" }) => {
                 <Alert severity="error" closable className="mb-16" showIcon>
                   Verification failed
                 </Alert>
-                <Grid justify="center" align="center" className="mt-24">
+                <Grid justifyContent="center" align="center" className="mt-24">
                   <Grid sm={24} className="center">
                     Back to <Link to={"/login"}>CodeLabz</Link>
                   </Grid>
@@ -77,7 +77,7 @@ const VerifyEmail = ({ queryParams = "test" }) => {
                 <Alert severity="success" closable className="mb-16" showIcon>
                   Your email has been verified!
                 </Alert>
-                <Grid justify="center" align="center" className="mt-24">
+                <Grid justifyContent="center" align="center" className="mt-24">
                   <Grid sm={24} className="center">
                     <Link to={"/login"}>Log in</Link>
                   </Grid>

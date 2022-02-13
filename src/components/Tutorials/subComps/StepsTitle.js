@@ -114,10 +114,10 @@ const StepsTitle = ({ owner, tutorial_id }) => {
 
   return (
     <Grid>
-      <Grid xs={24}>
+      <Grid item={true} xs={24}>
         <form>
           <Grid style={{ width: "100%" }}>
-            <Grid xs={24} md={19}>
+            <Grid item={true} xs={24} md={19}>
               <Input
                 onBlur={setStepTitle}
                 onPressEnter={setStepTitle}
@@ -127,7 +127,7 @@ const StepsTitle = ({ owner, tutorial_id }) => {
                 prefix={current_step_no + 1 + "."}
               />
             </Grid>
-            <Grid xs={24} md={5}>
+            <Grid item={true} xs={24} md={5}>
               <Input
                 onBlur={setStepTime}
                 onPressEnter={setStepTime}
