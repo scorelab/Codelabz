@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\Home",
+    "\\src\\components\\HomePage",
+    "\\src\\components\\util",
+    "\\src\\components\\util\\CodelabCard",
+    "\\src\\css",
+    "\\src\\globalComponents",
+    "\\src\\helpers"
+  ],
+  "PreviewInSolutionExplorer": false
+}

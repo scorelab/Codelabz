@@ -28,7 +28,7 @@ const CardComponent = ({
  const getDates = (str) => {
         let today = new Date();
         let currentYear = today.getFullYear();
-        let currentMonth = today.getMonth()+1;
+        let currentMonth = today.getMonth();
         let currentDate = today.getDate();
         let arr = str.split(" ");
         let ageString = "";
@@ -38,7 +38,7 @@ const CardComponent = ({
         let givenYear = arr[2];
 
         var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        let given_mo_idx = months.indexOf(givenMonth)+1;
+        let given_mo_idx = months.indexOf(givenMonth);
         var yearAge = currentYear - givenYear;
 
         //get months
@@ -46,14 +46,14 @@ const CardComponent = ({
             var monthAge = currentMonth - given_mo_idx;
         else {
             yearAge--;
-                var monthAge = 12 + currentMonth - given_mo_idx;
+            var monthAge = 12 + currentMonth - given_mo_idx;
         }
 
         //get days
         if (currentDate >= givenDate)
            var dateAge = currentDate - givenDate;
         else {
-            monthAge--;
+                monthAge--;
                 var dateAge = 31 + currentDate - givenDate;
 
             if (monthAge < 0) {
@@ -68,6 +68,7 @@ const CardComponent = ({
             days: dateAge
         };
 
+     console.log(age);
         if (age.years > 1)
             ageString = age.years + " years ago";
         else if (age.years == 1)
@@ -125,7 +126,7 @@ const CardComponent = ({
                           <Typography variant="body">Demo Name</Typography>
                       )
                   }
-                  subheader={getDates("11 Feb 2021")}
+                  subheader={getDates("13 Mar 2021")}
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
         />
