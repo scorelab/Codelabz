@@ -39,22 +39,7 @@ const CardComponent = ({
               justify="center"
               alignItems="center"
             >
-              {logoPath ? (
-                <Grid container>
-                  <Grid item className={classes.headerGrid}>
-                    <img src="/logo.jpeg" alt="logo" className={classes.logoImg} />
-                    <img
-                      src={require(`../../../assets/images/${profilePic}`).default}
-                      alt=""
-                      height="20rem"
-                      width="20rem"
-                      className={classes.personImg}
-                    />
-                  </Grid>
-                </Grid>
-              ) : (
                 <img src={require(`../../../assets/images/${profilePic}`).default} alt="" className={classes.avatar} />
-              )}
             </Grid>
           }
           title={
@@ -65,6 +50,17 @@ const CardComponent = ({
             ) : (
               <Typography variant="body">Demo Name</Typography>
             )
+          }
+          action={
+              logoPath ? (
+                <IconButton aria-label="settings">
+                   <img src="/logo.jpeg" alt="logo" className={classes.logoImg} />
+                  </IconButton>
+              ) : (
+                <IconButton aria-label="settings"> 
+                </IconButton>
+              )
+            
           }
           subheader="May25,2021(3 days ago)"
           titleTypographyProps={{ align: "left" }}

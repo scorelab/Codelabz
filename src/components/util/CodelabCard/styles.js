@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "500px",
   },
   logoImg: {
-    height: "1rem",
+    height: "2rem",
   },
 }));
 
