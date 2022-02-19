@@ -33,9 +33,9 @@ const CardComponent = ({
     const dateSplit = date.split(" ");
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     const monthFromIdx = months.indexOf(dateSplit[1])+1;
-    const answer = dayjs().to(dayjs(dateSplit[2] + '-' + monthFromIdx + '-' + dateSplit[0]));
+    const answer = dayjs().to(`${dayjs(dateSplit[2])}-${monthFromIdx}-${dateSplit[0]}`);
 
-    return (date + " (" +answer+")");
+    return (`${date} (${answer})`);
   }
 
   return (
