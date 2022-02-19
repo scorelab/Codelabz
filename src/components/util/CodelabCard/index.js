@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import useStyles from "./styles";
 import PropTypes from "prop-types";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime'; 
 
 const CardComponent = ({
   title = "I made 100 more CSS loaders for your next project",
@@ -21,70 +23,21 @@ const CardComponent = ({
 }) => {
   const classes = useStyles();
   const [logoPath, setLogoPath] = React.useState("");
+  
   React.useEffect(() => {
     setLogoPath(org);
   }, [org]);
 
- const getDates = (str) => {
-        let today = new Date();
-        let currentYear = today.getFullYear();
-        let currentMonth = today.getMonth();
-        let currentDate = today.getDate();
-        let arr = str.split(" ");
-        let ageString = "";
+  dayjs.extend(relativeTime);
+  const timeAgo = (date) => {
+    const dateSplit = date.split(" ");
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    const monthFromIdx = months.indexOf(dateSplit[1])+1;
+    const answer = dayjs().to(dayjs(dateSplit[2] + '-' + monthFromIdx + '-' + dateSplit[0]));
 
-        let givenDate = arr[0];
-        let givenMonth = arr[1];
-        let givenYear = arr[2];
+    return (date + " (" +answer+")");
+  }
 
-        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        let given_mo_idx = months.indexOf(givenMonth);
-        var yearAge = currentYear - givenYear;
-
-        //get months
-        if (currentMonth >= given_mo_idx)
-            var monthAge = currentMonth - given_mo_idx;
-        else {
-            yearAge--;
-            var monthAge = 12 + currentMonth - given_mo_idx;
-        }
-
-        //get days
-        if (currentDate >= givenDate)
-           var dateAge = currentDate - givenDate;
-        else {
-                monthAge--;
-                var dateAge = 31 + currentDate - givenDate;
-
-            if (monthAge < 0) {
-                monthAge = 11;
-                yearAge--;
-            }
-        }
-
-        let age = {
-            years: yearAge,
-            months: monthAge,
-            days: dateAge
-        };
-
-     console.log(age);
-        if (age.years > 1)
-            ageString = age.years + " years ago";
-        else if (age.years == 1)
-            ageString = age.years + " year ago";
-        else if (age.months > 1)
-            ageString = age.months + " months ago";
-        else if (age.months == 1)
-            ageString = age.months + " month ago.";
-        else if (age.days > 1)
-            ageString = age.days + " days ago";
-        else if (age.days == 1)
-            ageString = age.days + " day ago";
-        else ageString = "Today";
-
-        return (str+" ("+ageString+")");
-    }
   return (
     <>
       <Card maxWidth="sm" className={classes.card} style={{ background: background }} data-testId="codelabzCard">
@@ -126,7 +79,7 @@ const CardComponent = ({
                           <Typography variant="body">Demo Name</Typography>
                       )
                   }
-                  subheader={getDates("13 Mar 2021")}
+                  subheader={timeAgo("13 Mar 2021")}
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
         />
