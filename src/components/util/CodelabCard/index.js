@@ -27,7 +27,7 @@ const CardComponent = ({
 
   return (
     <>
-      <Card maxWidth="sm" className={classes.card} style={{ background: background }} data-testId="codelabzCard">
+      <Card maxwidth="sm" className={classes.card} style={{ background: background }} data-testId="codelabzCard">
         <CardHeader
           data-testId="codelabzCardHeader"
           className={classes.cardHeader}
@@ -75,13 +75,13 @@ const CardComponent = ({
           className={classes.cardContent}
           style={{ paddingBottom: "0rem" }}
         >
-          <Grid container alignItems="left" justify="flex-start" direction="column" className={classes.body}>
+          <Grid container alignItems="flex-start" justify="flex-start" direction="column" className={classes.body}>
             <Grid item>
               <Typography variant="h5" gutterBottom className={classes.heading}>
                 {title}
               </Typography>
             </Grid>
-            <Grid container direction="row" justify="flex-start" alignItems="left">
+            <Grid container direction="row" justify="flex-start" alignItems="flex-start">
               <Typography variant="body2" color="textPrimary" className={"mr-8 " + classes.tags}>
                 {tags}
               </Typography>
@@ -121,7 +121,7 @@ const CardComponent = ({
           </Grid>
           <Grid xs={6} container direction="row" justify="flex-end" alignItems="center">
             <Grid item xs={3}>
-              <Typography variant="body2" color="textSecondary" alignItems="flex-end" className={classes.readTime}>
+              <Typography variant="body2" color="textSecondary" alignitems="flex-end" className={classes.readTime}>
                 10 min read
               </Typography>
             </Grid>
