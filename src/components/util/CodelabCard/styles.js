@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   organizationLogo: {
     display: "flex",
-    alignItems: "left",
+    alignItems: "flex-start",
     justifyContent: "flex-start",
     flexDirecton: "column",
     paddingRight: "10px",

@@ -19,7 +19,7 @@ const Footer = () => {
   const useStyles = makeStyles({
     item: {
       display: "flex",
-      alignItems: "left",
+      alignItems: "flex-start",
       justifyContent: "flex-start",
     },
   });
