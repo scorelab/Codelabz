@@ -6,7 +6,22 @@ body {
     box-sizing:border-box;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: royalblue;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #e7e6f9;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
