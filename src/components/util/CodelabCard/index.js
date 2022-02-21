@@ -29,7 +29,7 @@ const CardComponent = ({
   }, [org]);
 
   dayjs.extend(relativeTime);
-  const timeAgo = (date) => {
+  const calculateTimeDiff = (date) => {
     const dateSplit = date.split(" ");
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     const monthFromIdx = months.indexOf(dateSplit[1])+1;
@@ -79,7 +79,7 @@ const CardComponent = ({
                           <Typography variant="body">Demo Name</Typography>
                       )
                   }
-                  subheader={timeAgo("13 Mar 2021")}
+                  subheader={calculateTimeDiff("13 Mar 2021")}
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
         />

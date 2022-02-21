@@ -39,3 +39,11 @@ firebase-sw-private.js
 cypress.json
 cypress/screenshots
 cypress/videos
+
+.vs/VSWorkspaceState.json
+.vs/codelabz
+.vs/
+.vs/.vs/slnx.sqlite
+.vs/Codelabz/config/applicationhost.config
+.vs/Codelabz/v16/.suo
+database.rules.json
