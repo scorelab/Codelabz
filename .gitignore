@@ -35,7 +35,14 @@ firebase-debug.log
 
 firebase-sw-private.js
 /.firebase
-.firebaserc
 cypress.json
 cypress/screenshots
 cypress/videos
+
+.vs/VSWorkspaceState.json
+.vs/codelabz
+.vs/
+.vs/.vs/slnx.sqlite
+.vs/Codelabz/config/applicationhost.config
+.vs/Codelabz/v16/.suo
+database.rules.json
