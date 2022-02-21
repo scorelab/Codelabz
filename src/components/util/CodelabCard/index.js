@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import useStyles from "./styles";
 import PropTypes from "prop-types";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime'; 
 
 const CardComponent = ({
   title = "I made 100 more CSS loaders for your next project",
@@ -21,52 +23,63 @@ const CardComponent = ({
 }) => {
   const classes = useStyles();
   const [logoPath, setLogoPath] = React.useState("");
+  
   React.useEffect(() => {
     setLogoPath(org);
   }, [org]);
 
+  dayjs.extend(relativeTime);
+  const calculateTimeDiff = (date) => {
+    const dateSplit = date.split(" ");
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    const monthFromIdx = months.indexOf(dateSplit[1])+1;
+    const answer = dayjs().to(`${dayjs(dateSplit[2])}-${monthFromIdx}-${dateSplit[0]}`);
+
+    return (`${date} (${answer})`);
+  }
+
   return (
     <>
       <Card maxWidth="sm" className={classes.card} style={{ background: background }} data-testId="codelabzCard">
-        <CardHeader
-          data-testId="codelabzCardHeader"
-          className={classes.cardHeader}
-          avatar={
-            <Grid
-              container
-              className={classes.organizationLogo}
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
-              {logoPath ? (
-                <Grid container>
-                  <Grid item className={classes.headerGrid}>
-                    <img src="/logo.jpeg" alt="logo" className={classes.logoImg} />
-                    <img
-                      src={require(`../../../assets/images/${profilePic}`).default}
-                      alt=""
-                      height="20rem"
-                      width="20rem"
-                      className={classes.personImg}
-                    />
-                  </Grid>
-                </Grid>
-              ) : (
-                <img src={require(`../../../assets/images/${profilePic}`).default} alt="" className={classes.avatar} />
-              )}
-            </Grid>
-          }
-          title={
-            org ? (
-              <Typography variant="body">
-                Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>} ScoreLabz
-              </Typography>
-            ) : (
-              <Typography variant="body">Demo Name</Typography>
-            )
-          }
-          subheader="May25,2021(3 days ago)"
+              <CardHeader
+                  data-testId="codelabzCardHeader"
+                  className={classes.cardHeader}
+                  avatar={
+                      <Grid
+                          container
+                          className={classes.organizationLogo}
+                          direction="column"
+                          justify="center"
+                          alignItems="center"
+                      >
+                          {logoPath ? (
+                              <Grid container>
+                                  <Grid item className={classes.headerGrid}>
+                                      <img src="/logo.jpeg" alt="logo" className={classes.logoImg} />
+                                      <img
+                                          src={require(`../../../assets/images/${profilePic}`).default}
+                                          alt=""
+                                          height="20rem"
+                                          width="20rem"
+                                          className={classes.personImg}
+                                      />
+                                  </Grid>
+                              </Grid>
+                          ) : (
+                              <img src={require(`../../../assets/images/${profilePic}`).default} alt="" className={classes.avatar} />
+                          )}
+                      </Grid>
+                  }
+                  title={
+                      org ? (
+                          <Typography variant="body">
+                              Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>} ScoreLabz
+                          </Typography>
+                      ) : (
+                          <Typography variant="body">Demo Name</Typography>
+                      )
+                  }
+                  subheader={calculateTimeDiff("13 Mar 2021")}
           titleTypographyProps={{ align: "left" }}
           subheaderTypographyProps={{ align: "left" }}
         />
