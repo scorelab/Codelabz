@@ -1,11 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {
-    useLocation,
-    useRouteMatch
-} from "react-router";
-
-
+import { useLocation, useRouteMatch } from "react-router";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AppBar from "@material-ui/core/AppBar";
@@ -19,7 +14,6 @@ import AppsIcon from "@material-ui/icons/Apps";
 import AddIcon from "@material-ui/icons/Add";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { makeStyles } from "@material-ui/core/styles";
-
 import BrandName from "./brandName";
 import RightMenu from "../components/NavBar/MainNavbar/RightMenu";
 import useGetPermissions from "./customHooks/useGetPermissions";
@@ -270,31 +264,31 @@ const CodeLabzAppBar = () => {
               </IconButton>
             </div>
             &nbsp; &nbsp;
-                        {location.pathname != "/login" && location.pathname != "/signup" &&
-                        <Link to={"/login"}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                style={{ backgroundColor: "royalblue", width: "82px" }}
-                                data-testId="navbarlogin"
-                            >
-                                Log In
-                 </Button>
-                        </Link>
-                    }
-                    {(location.pathname == "/login" || location.pathname == "/signup") &&
-                        <Link to={"/"}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                style={{ backgroundColor: "royalblue", width: "82px" }}
-                                data-testId="navbarlogin"
-                            >
-                                Home
-                 </Button>
-                        </Link>
-                    }
-
+            {location.pathname != "/login" && location.pathname != "/signup" && (
+              <Link to={"/login"}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ backgroundColor: "royalblue", width: "82px" }}
+                  data-testId="navbarlogin"
+                >
+                  Log In
+                </Button>
+              </Link>
+            )}
+            {(location.pathname == "/login" ||
+              location.pathname == "/signup") && (
+              <Link to={"/"}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ backgroundColor: "royalblue", width: "82px" }}
+                  data-testId="navbarlogin"
+                >
+                  Home
+                </Button>
+              </Link>
+            )}
           </Toolbar>
         </AppBar>
       </div>
