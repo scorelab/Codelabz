@@ -33,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   newButtonMobile: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       display: "none",
     },
   },
   title: {
     display: "none",
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       display: "block",
     },
   },
@@ -181,14 +181,16 @@ const CodeLabzAppBar = () => {
             <div className={classes.grow} />
 
             <div className={classes.newButtonDesktop}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ backgroundColor: "royalblue" }}
-                endIcon={<AddIcon />}
-              >
-                New Codelab
-              </Button>
+              <NavLink to="/tutorials">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ backgroundColor: "royalblue" }}
+                  endIcon={<AddIcon />}
+                >
+                  New Codelab
+                </Button>
+              </NavLink>
             </div>
 
             <div className={classes.newButtonMobile}>
@@ -250,14 +252,16 @@ const CodeLabzAppBar = () => {
             </div>
             <div className={classes.grow} />
             <div className={classes.newButtonDesktop}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ backgroundColor: "royalblue" }}
-                endIcon={<AddIcon />}
-              >
-                New Codelab
-              </Button>
+              <NavLink to="/tutorials">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ backgroundColor: "royalblue" }}
+                  endIcon={<AddIcon />}
+                >
+                  New Codelab
+                </Button>
+              </NavLink>
             </div>
             <div className={classes.newButtonMobile}>
               <IconButton>
