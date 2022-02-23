@@ -33,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   newButtonMobile: {
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       display: "none",
     },
   },
   title: {
     display: "none",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       display: "block",
     },
   },
