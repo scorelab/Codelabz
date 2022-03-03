@@ -9,9 +9,13 @@ import SmButtons from "./smButton/smButtons";
 import SignupForm from "../../components/AuthPage/SignUp/signupForm";
 
 const SignUpPage = (props) => {
- return (
-    <Card raised className={`${props.classes.card}   `} data-testId="signUp" style={{ background: props.background }}>
-    
+  return (
+    <Card
+      raised
+      className={`${props.classes.card}   `}
+      data-testId="signUp"
+      style={{ background: props.background }}
+    >
       <CardContent>
         <Typography
           variant="h4"

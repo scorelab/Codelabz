@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearAuthError, sendPasswordResetEmail } from "../../../store/actions";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import ForgotPass from "../../../pages/AuthPage/ForgotPassPage"
+import ForgotPass from "../../../pages/AuthPage/ForgotPassPage";
 
 const ForgotPassword = ({
   rootBackground = "rgba(0,0,0,.01)",
@@ -61,23 +61,23 @@ const ForgotPassword = ({
   const classes = useStyles();
 
   return (
-      <ForgotPass
-          classes={classes}
-          open={open}
-          setOpen={setOpen}
-          error={error}
-          setError={setError}
-          confirmationText={confirmationText}
-          onSubmit={onSubmit}
-          setEmail={setEmail}
-          loading={loading}
-          rootBackground={rootBackground}
-          confirmationText={confirmationText}
-          fontweight={fontweight}
-          buttonColor={buttonColor}
-          success={success}
-          setSuccess={setSuccess}
-      />
+    <ForgotPass
+      classes={classes}
+      open={open}
+      setOpen={setOpen}
+      error={error}
+      setError={setError}
+      confirmationText={confirmationText}
+      onSubmit={onSubmit}
+      setEmail={setEmail}
+      loading={loading}
+      rootBackground={rootBackground}
+      confirmationText={confirmationText}
+      fontweight={fontweight}
+      buttonColor={buttonColor}
+      success={success}
+      setSuccess={setSuccess}
+    />
   );
 };
 

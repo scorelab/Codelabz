@@ -102,5 +102,4 @@ const ForgotPassPage = (props) => {
   );
 };
 
-
 export default ForgotPassPage;

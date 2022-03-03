@@ -19,12 +19,22 @@ import Divider from "../../globalComponents/Divider";
 import SmButtons from "./smButton/smButtons";
 import ViewAlerts from "../../components/AuthPage/Login/ViewAlerts";
 
-const LoginPage = (props, { loginButton = "blue", background = "white", loginText = "Welcome Back" }) => {
-
+const LoginPage = (
+  props,
+  { loginButton = "blue", background = "white", loginText = "Welcome Back" }
+) => {
   return (
-    <Card raised className={`${props.classes.card}   `} style={{ background: background }} data-testId="login">
+    <Card
+      raised
+      className={`${props.classes.card}   `}
+      style={{ background: background }}
+      data-testId="login"
+    >
       <CardContent>
-        <Typography variant="h4" style={{ textAlign: "center", marginBottom: "40px" }}>
+        <Typography
+          variant="h4"
+          style={{ textAlign: "center", marginBottom: "40px" }}
+        >
           {props.loginText}
         </Typography>
         <ViewAlerts error={props.error} email={props.email} />
@@ -36,7 +46,9 @@ const LoginPage = (props, { loginButton = "blue", background = "white", loginTex
             placeholder="mail@codelabz.com"
             value={props.email}
             onChange={props.onChangeEmail}
-            helperText={props.emailValidateError ? props.emailValidateErrorMessage : null}
+            helperText={
+              props.emailValidateError ? props.emailValidateErrorMessage : null
+            }
             fullWidth
             autoComplete="email"
             required
@@ -54,7 +66,11 @@ const LoginPage = (props, { loginButton = "blue", background = "white", loginTex
           <TextField
             label="Password"
             variant="outlined"
-            helperText={props.passwordValidateError ? props.passwordValidateErrorMessage : null}
+            helperText={
+              props.passwordValidateError
+                ? props.passwordValidateErrorMessage
+                : null
+            }
             className="password"
             error={props.passwordValidateError}
             fullWidth
@@ -87,7 +103,10 @@ const LoginPage = (props, { loginButton = "blue", background = "white", loginTex
           <Grid container alignItems="center" justify="space-between">
             <Grid>
               <FormGroup row>
-                <FormControlLabel control={<Checkbox name="remember" color="primary" />} label="Remember me" />
+                <FormControlLabel
+                  control={<Checkbox name="remember" color="primary" />}
+                  label="Remember me"
+                />
               </FormGroup>
             </Grid>
             <Grid>
@@ -118,7 +137,8 @@ const LoginPage = (props, { loginButton = "blue", background = "white", loginTex
         <SmButtons />
         <Grid container justify="center" alignItems="center" className="mt-24">
           <Grid item={true} sm={12} className="center">
-            New to <span className="brand-font text-bold">CodeLabz</span>? <Link to={"/signup"}>Create an account</Link>
+            New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
+            <Link to={"/signup"}>Create an account</Link>
           </Grid>
         </Grid>
       </CardContent>
