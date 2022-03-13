@@ -21,7 +21,7 @@ Run `npm install` in `CodeLabz` folder.
  npm install
 ```
 
-First you need to create a `.env` file in `CodeLabz` folder following the template provided in the file `env.example`<br/> <br/>
+First you need to create a `.env` file in `CodeLabz` folder following the template provided in the file [`.env.sample`](./.env.sample)<br/> <br/>
 
 1. Sign in to https://console.firebase.google.com/.
 2. Click **Add Project** and necessary information about the project.
@@ -31,7 +31,7 @@ First you need to create a `.env` file in `CodeLabz` folder following the templa
 6. Copy the firebase configuration.
 7. Paste the configuration `.env` file.
 
-You should fill in these values in their relevent fields in the `.env` file.
+You should fill in these values in their relevant fields in the `.env` file.
 
 To run the project:  
  `$ npm start`
@@ -43,7 +43,7 @@ If you failed to run the project do the following steps :
 - re run `npm install `
   If error still exists add `SKIP_PREFLIGHT_CHECK=true` in your .env file
 
-> **NOTE**: Before starting the server create a file named `.env` same as `.env.example` and add your **Firebase Configurations** in the file.
+> **NOTE**: Before starting the server create a file named `.env` same as [`.env.sample`](./.env.sample) and add your **Firebase Configurations** in the file.
 
 Visit [localhost:3000](http://localhost:3000) to browse.
 
@@ -63,7 +63,7 @@ Run `npm install` in `CodeLabz/functions ` folder.
 
 Then you have to generate a private key file for your service account.To get the key file go to this link and follow the instructions https://firebase.google.com/docs/admin/setup#initialize-sdk.
 
-Once you have obtaions the key create folder name as **'private'** in this folder **'CodeLabz/functions'**.Then copy and paste the key file in private folder.
+Once you have obtained the key, create a folder named as **'private'** in this folder **'CodeLabz/functions'**.Then copy and paste the key file in private folder.
 Rename the key file as **'cl-dev-pk.json'**
 
 After that change the database url to your project database url in **'CodeLabz/functions/auth.js'**
@@ -89,4 +89,4 @@ It will redirect to 6006 port.Find detailed information [here](https://storybook
 
 To run cypress tests:
 `npx cypress run`
-It will open a promt displaying all the tests.You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
+It will open a prompt displaying all the tests.You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
