@@ -26,6 +26,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "35px",
   },
   go: {},
+  imageIcon: {
+    display: "flex",
+    height: "inherit",
+    width: "inherit",
+    margin: "auto",
+  },
+  google: {
+    textAlign: "center",
+    fontSize: "35px",
+  },
 }));
 
 export default useStyles;
