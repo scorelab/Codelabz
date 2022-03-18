@@ -128,20 +128,26 @@ const CodeLabzAppBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem key="/tutorials">
-        <NavLink to="/tutorials">Tutorials</NavLink>
-      </MenuItem>
+      <NavLink to="/tutorials">
+        <MenuItem key="/tutorials">
+          Tutorials
+        </MenuItem>
+      </NavLink>
 
       {allowDashboard && (
-        <MenuItem key="my-code-feed">
-          <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
-        </MenuItem>
+        <NavLink to="/dashboard/my_feed">
+          <MenuItem key="my-code-feed">
+            My CodeFeed
+          </MenuItem>
+        </NavLink>
       )}
 
       {allowDashboard && permissions.length > 0 && (
-        <MenuItem key="/organization">
-          <NavLink to="/organization">Organizations</NavLink>
-        </MenuItem>
+        <NavLink to="/organization">
+          <MenuItem key="/organization">
+            Organizations
+          </MenuItem>
+        </NavLink>
       )}
     </Menu>
   );
