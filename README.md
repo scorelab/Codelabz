@@ -1,6 +1,6 @@
 # CodeLabz
 
-CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS front end library and the back end will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
+CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS front-end library and the back-end will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
 
 # Deployed on
 
@@ -49,10 +49,10 @@ Visit [localhost:3000](http://localhost:3000) to browse.
 
 #### How to Deploy Firebase Cloud Functions
 
-> **NOTE**:To Deploy firebase cloud functions you have to satisfy following requirements
+> **NOTE**:To Deploy firebase cloud functions you have to satisfy following requirements:
 
-1. Your Firebase project should have Blaze plan or higher version
-2. You should have installed Firebase CLI tool in your machine
+1. Your Firebase project should have Blaze plan or higher version.
+2. You should have installed Firebase CLI tool in your machine.
 
 Run `npm install` in `CodeLabz/functions ` folder.
 
@@ -63,10 +63,10 @@ Run `npm install` in `CodeLabz/functions ` folder.
 
 Then you have to generate a private key file for your service account.To get the key file go to this link and follow the instructions https://firebase.google.com/docs/admin/setup#initialize-sdk.
 
-Once you have obtaions the key create folder name as **'private'** in this folder **'CodeLabz/functions'**.Then copy and paste the key file in private folder.
-Rename the key file as **'cl-dev-pk.json'**
+Once you have obtain the key create folder name as **'private'** in this folder **'CodeLabz/functions'**.Then copy and paste the key file in private folder.
+Rename the key file as **'cl-dev-pk.json'**.
 
-After that change the database url to your project database url in **'CodeLabz/functions/auth.js'**
+After that change the database url to your project database url in **'CodeLabz/functions/auth.js'**.
 
 Move to the root directory and open a command prompt and type following commands
 
@@ -89,4 +89,4 @@ It will redirect to 6006 port.Find detailed information [here](https://storybook
 
 To run cypress tests:
 `npx cypress run`
-It will open a promt displaying all the tests.You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
+It will open a prompt displaying all the tests.You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
