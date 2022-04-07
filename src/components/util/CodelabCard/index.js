@@ -105,19 +105,30 @@ const CardComponent = ({
               )}
             </Grid>
             <Grid item>
-              <IconButton aria-label="comment" style={{ color: "green" }}>
-                <ChatIcon />
-              </IconButton>
+              
               {org ? (
-                <Typography variant="body" color="textPrimary">
-                  comment
-                </Typography>
+                <Grid item style={{ height: "2rem" }}>
+                  <IconButton style={{ color: "red" }}>
+                    <FavoriteIcon />
+                  </IconButton>
+                  <Typography variant="body" color="textPrimary">
+                    222
+                  </Typography>
+                </Grid>
               ) : (
-                <Typography variant="body" color="textPrimary">
-                  20
-                </Typography>
+                ""
               )}
             </Grid>
+            <Grid item style={{ height: "2rem" }}>
+            <IconButton aria-label="comment" style={{ color: "green" }}>
+                <ChatIcon />
+              </IconButton>
+              <Typography variant="body" color="textPrimary">
+                    20
+                </Typography>
+                </Grid>
+
+            
           </Grid>
           <Grid xs={6} container direction="row" justify="flex-end" alignItems="center">
             <Grid item xs={3}>
