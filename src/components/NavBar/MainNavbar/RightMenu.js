@@ -66,6 +66,9 @@ const RightMenu = ({ mode }) => {
         marginTop: "1rem",
       },
     },
+    icon:{
+      verticalAlign:"middle"
+    }
   }));
   const classes = useStyles();
   return (
@@ -112,7 +115,7 @@ const RightMenu = ({ mode }) => {
         {allowDashboard && (
           <MenuItem key="setting:2">
             <Link to={"/tutorials"}>
-              <CodeOutlinedIcon /> My Tutorials
+              <CodeOutlinedIcon className={classes.icon} /> My Tutorials
             </Link>
           </MenuItem>
         )}
@@ -120,13 +123,13 @@ const RightMenu = ({ mode }) => {
           <Menu
             title={
               <>
-                <BlockOutlinedIcon /> My Organizations
+                <BlockOutlinedIcon className={classes.icon} /> My Organizations
               </>
             }
           >
             <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
               <Link to={`/organization`}>
-                <SettingsOutlinedIcon /> Manage All
+                <SettingsOutlinedIcon className={classes.icon} /> Manage All
               </Link>
             </MenuItem>
             <Divider></Divider>
@@ -135,13 +138,15 @@ const RightMenu = ({ mode }) => {
         )}
 
         {profile.displayName && profile.displayName.length > 0 && (
-          <MenuItem style={{ color: "gray" }}>{profile.displayName}</MenuItem>
+          <span>
+          <MenuItem style={{ color: "gray",verticalAlign:"middle" }}>{profile.displayName}</MenuItem>
+          </span>
         )}
         {allowDashboard && (
           <MenuItem key="setting:1">
             <Link to={"/profile"}>
               <div style={{ color: "#455A64" }}>
-                <PersonOutlineOutlinedIcon /> My Profile
+                <PersonOutlineOutlinedIcon className={classes.icon}/> My Profile
               </div>
             </Link>
           </MenuItem>
@@ -152,7 +157,7 @@ const RightMenu = ({ mode }) => {
           id={"log-out"}
           style={{ color: "#455A64" }}
         >
-          <ExitToAppOutlinedIcon /> Log Out
+          <ExitToAppOutlinedIcon className={classes.icon}/> Log Out
         </MenuItem>
       </Menu>
     </Grid>
