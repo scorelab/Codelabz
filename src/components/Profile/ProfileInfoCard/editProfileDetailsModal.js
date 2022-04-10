@@ -191,6 +191,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           helperText={nameValidateError ? nameValidateErrorMessage : null}
           fullWidth
           autoComplete="handle"
+          required
           style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
@@ -203,7 +204,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       </Box>
 
       <Box m={2}>
-        <FormControl variant="outlined" error={countryValidateError} fullWidth>
+        <FormControl required variant="outlined" error={countryValidateError} fullWidth>
           <InputLabel>Country</InputLabel>
           <Select
             label="Country"
@@ -226,6 +227,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           onChange={(event) => onChangeOrgWebsite(event.target.value)}
           helperText={websiteValidateError ? websiteValidateErrorMessage : null}
           fullWidth
+          required
           autoComplete="orgWebsite"
           style={{ marginBottom: "15px" }}
           InputProps={{
@@ -245,6 +247,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           multiline
           variant="outlined"
           placeholder="Description"
+          required
           data-testId="editProfileDescription"
           value={description}
           onChange={(event) => onChangeDescription(event.target.value)}
