@@ -66,7 +66,7 @@ Then you have to generate a private key file for your service account.To get the
 Once you have obtaions the key create folder name as **'private'** in this folder **'CodeLabz/functions'**.Then copy and paste the key file in private folder.
 Rename the key file as **'cl-dev-pk.json'**
 
-After that change the database url to your project database url in **'CodeLabz/functions/auth.js'**
+After that change the database url to your project database url in **'CodeLabz/functions/auth.js'**fir
 
 Move to the root directory and open a command prompt and type following commands
 
