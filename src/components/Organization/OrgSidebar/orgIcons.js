@@ -34,12 +34,12 @@ export const OrgIcons = ({
   }
 
   return (
-    <Grid type="flex" align="middle" justify="space-around">
-      <Grid xs={24}>
+    <Grid type="flex" align="middle" justifyContent="space-around">
+      <Grid item xs={24}>
         <Tooltip {...tooltipProps}>
           <Grid
             align="middle"
-            justify={isDesktop ? "space-around" : null}
+            justifyContent={isDesktop ? "space-around" : null}
             onClick={onClick && data ? () => onClick(data) : null}
           >
             <Grid>

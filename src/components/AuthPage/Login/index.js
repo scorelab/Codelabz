@@ -163,7 +163,7 @@ const Login = ({ loginButton = "blue", background = "white", loginText = "Welcom
               ),
             }}
           />
-          <Grid container alignItems="center" justify="space-between">
+          <Grid container alignItems="center" justifyContent="space-between">
             <Grid>
               <FormGroup row>
                 <FormControlLabel control={<Checkbox name="remember" color="primary" />} label="Remember me" />
@@ -195,7 +195,7 @@ const Login = ({ loginButton = "blue", background = "white", loginText = "Welcom
         </div>
         <Divider>or</Divider>
         <SmButtons />
-        <Grid container justify="center" alignItems="center" className="mt-24">
+        <Grid container justifyContent="center" alignItems="center" className="mt-24">
           <Grid item={true} sm={12} className="center">
             New to <span className="brand-font text-bold">CodeLabz</span>? <Link to={"/signup"}>Create an account</Link>
           </Grid>

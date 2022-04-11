@@ -27,7 +27,7 @@ const SignUp = ({ background = "white" }) => {
         <SmButtons />
         <Grid
           container
-          justify="center"
+          justifyContent="center"
           alignItems="center"
           className="mt-24"
           data-testId="signUpHaveAccount"

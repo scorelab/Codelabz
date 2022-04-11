@@ -169,10 +169,10 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
           imageURLs.length > 0 &&
           imageURLs.map((image, i) => (
             <Grid className="mb-24" key={i}>
-              <Grid xs={24} md={8}>
+              <Grid item xs={24} md={8}>
                 <img src={image.url} alt="" />
               </Grid>
-              <Grid xs={24} md={16} className="pl-8" style={{}}>
+              <Grid item xs={24} md={16} className="pl-8" style={{}}>
                 <h4 className="pb-8">{image.name}</h4>
 
                 <CopyToClipboard

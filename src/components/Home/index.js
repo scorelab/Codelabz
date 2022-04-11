@@ -87,7 +87,7 @@ const Home = () => {
       <Grid
         container
         alignItems="center"
-        justify="center"
+        justifyContent="center"
         className="home-row mobile-top-padding mb-24"
         direction="row-reverse"
       >
@@ -120,7 +120,7 @@ const Home = () => {
       <Grid
         container
         className="light-grey-bg home-row"
-        justify="center"
+        justifyContent="center"
         align="center"
       >
         <Grid item xs={12} className="center pt-40 pb-40">
@@ -144,7 +144,7 @@ const Home = () => {
         container
         className="home-row pt-40 pb-40"
         align="middle"
-        justify="center"
+        justifyContent="center"
       >
         <Grid item xs={12} className="center mb-24">
           <h1 className="home-title mb-8">Learning made easier</h1>

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "0rem",
     [theme.breakpoints.down(750)]: {
       padding: "0rem 1rem 0rem 1rem",
-      justify: "center",
+      justifyContent: "center",
       textAlign: "left",
     },
   },

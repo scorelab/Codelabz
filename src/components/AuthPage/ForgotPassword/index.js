@@ -142,15 +142,15 @@ const ForgotPassword = ({
           {loading ? "Sending..." : "Send me the link"}
         </Button>
       </form>
-      <Grid justify="center" align="center" className="mt-16">
+      <Grid justifyContent="center" align="center" className="mt-16">
         or
       </Grid>
-      <Grid justify="center" align="center" className="mt-24">
+      <Grid justifyContent="center" align="center" className="mt-24">
         <Grid sm={24} className="center">
           <Link to={"/login"}>Back to Sign in</Link>
         </Grid>
       </Grid>
-      <Grid justify="center" align="center" className="mt-24">
+      <Grid justifyContent="center" align="center" className="mt-24">
         <Grid sm={24} className="center">
           New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
           <Link to={"/signup"}>Create an account</Link>

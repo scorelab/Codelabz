@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     marginLeft: 0,
     width: "50%",
+    color : "black",
 
     // If not mobile size
     [theme.breakpoints.up("md")]: {
@@ -221,7 +222,7 @@ const CodeLabzAppBar = () => {
   } else {
     return (
       <div className={classes.grow} data-testId="navbarNonloggedIn">
-        <AppBar position="static" color="white">
+        <AppBar position="static" color="secondary">
           <Toolbar className={classes.toolbar}>
             <Typography
               className={classes.title}

@@ -12,7 +12,7 @@ const EmptyTutorials = ({ org, orgHandle }) => {
     setVisibleModal((prev) => !prev);
   };
   return (
-    <Grid xs={24}>
+    <Grid item xs={24}>
       <Grid
         style={{ display: "flex", flexFlow: "column", background: "#f2f2f2" }}
         description={<span>{org} has no CodeLabz yet</span>}

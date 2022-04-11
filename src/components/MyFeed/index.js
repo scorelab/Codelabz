@@ -21,7 +21,7 @@ const MyFeed = ({
           spacing={0}
           direction="column"
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{ padding: "15px" }}
           data-testId="codefeedTitle"
         >

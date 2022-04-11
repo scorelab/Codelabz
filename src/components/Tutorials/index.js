@@ -115,7 +115,7 @@ const ViewTutorial = () => {
       <Grid className="row-footer-below">
         {allowEdit && (
           <Grid>
-            <Grid xs={24} sm={24} md={24}>
+            <Grid item xs={24} sm={24} md={24}>
               <EditControls
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
@@ -137,7 +137,7 @@ const ViewTutorial = () => {
         )}
 
         <Grid>
-          <Grid xs={24} sm={24} md={24}>
+          <Grid item xs={24} sm={24} md={24}>
             <TutorialTitle
               stepPanelVisible={stepPanelVisible}
               isDesktop={isDesktop}
@@ -163,7 +163,7 @@ const ViewTutorial = () => {
           </Grid>
 
           <Grid style={{ width: "90%", background: "#f0f0f0" }}>
-            <Grid className="tutorial-content" justify="center" container>
+            <Grid className="tutorial-content" justifyContent="center" container>
               <Grid
                 xs={24}
                 sm={24}
@@ -224,7 +224,7 @@ const ViewTutorial = () => {
               />
             </Grid>
             <Grid>
-              <Grid xs={24} sm={24} md={24} className="col-pad-24-s">
+              <Grid item xs={24} sm={24} md={24} className="col-pad-24-s">
                 <ControlButtons
                   currentStep={currentStep}
                   setCurrentStep={setCurrentStep}

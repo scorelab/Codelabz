@@ -27,7 +27,7 @@ const CardComponent = ({
 
   return (
     <>
-      <Card maxWidth="sm" className={classes.card} style={{ background: background }} data-testId="codelabzCard">
+      <Card className={classes.card} style={{ background: background ,maxWidth : "sm" }} data-testId="codelabzCard">
         <CardHeader
           data-testId="codelabzCardHeader"
           className={classes.cardHeader}
@@ -36,7 +36,7 @@ const CardComponent = ({
               container
               className={classes.organizationLogo}
               direction="column"
-              justify="center"
+              justifyContent="center"
               alignItems="center"
             >
               {logoPath ? (
@@ -59,11 +59,11 @@ const CardComponent = ({
           }
           title={
             org ? (
-              <Typography variant="body">
+              <Typography>
                 Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>} ScoreLabz
               </Typography>
             ) : (
-              <Typography variant="body">Demo Name</Typography>
+              <Typography>Demo Name</Typography>
             )
           }
           subheader="May25,2021(3 days ago)"
@@ -75,13 +75,13 @@ const CardComponent = ({
           className={classes.cardContent}
           style={{ paddingBottom: "0rem" }}
         >
-          <Grid container alignItems="left" justify="flex-start" direction="column" className={classes.body}>
+          <Grid container alignItems="flex-start" justifyContent="flex-start" direction="column" className={classes.body}>
             <Grid item>
               <Typography variant="h5" gutterBottom className={classes.heading}>
                 {title}
               </Typography>
             </Grid>
-            <Grid container direction="row" justify="flex-start" alignItems="left">
+            <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start">
               <Typography variant="body2" color="textPrimary" className={"mr-8 " + classes.tags}>
                 {tags}
               </Typography>
@@ -89,14 +89,14 @@ const CardComponent = ({
           </Grid>
         </CardContent>
         <CardActions disableSpacing className={classes.cardAction}>
-          <Grid container xs={6} justify="left" direction="row" data-testId="codelabzCardButtonGroup">
-            <Grid item direction="row">
+          <Grid container justifyContent="flex-start" direction="row" data-testId="codelabzCardButtonGroup">
+            <Grid item style={{ display : "flex", flexDirection : "row"}}> 
               {!org ? (
                 <Grid item style={{ height: "2rem" }}>
                   <IconButton style={{ color: "red" }}>
                     <FavoriteIcon />
                   </IconButton>
-                  <Typography variant="body" color="textPrimary">
+                  <Typography variant="button" color="textPrimary">
                     222
                   </Typography>
                 </Grid>
@@ -109,19 +109,18 @@ const CardComponent = ({
                 <ChatIcon />
               </IconButton>
               {org ? (
-                <Typography variant="body" color="textPrimary">
+                <Typography variant="button" color="textPrimary">
                   comment
                 </Typography>
               ) : (
-                <Typography variant="body" color="textPrimary">
+                <Typography variant="button" color="textPrimary">
                   20
                 </Typography>
               )}
             </Grid>
-          </Grid>
-          <Grid xs={6} container direction="row" justify="flex-end" alignItems="center">
+          <Grid container direction="row" justifyContent="flex-end" alignItems="center">
             <Grid item xs={3}>
-              <Typography variant="body2" color="textSecondary" alignItems="flex-end" className={classes.readTime}>
+              <Typography variant="subtitle1" color="textSecondary" className={classes.readTime}>
                 10 min read
               </Typography>
             </Grid>
@@ -131,6 +130,7 @@ const CardComponent = ({
               </Button>
             </Grid>
           </Grid>
+        </Grid>
         </CardActions>
       </Card>
     </>

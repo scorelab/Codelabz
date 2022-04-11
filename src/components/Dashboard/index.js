@@ -218,7 +218,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 
   return (
     <div className="home-row" style={{ background: background }}>
-      <Grid container alignItems="center" justify="space-between">
+      <Grid container alignItems="center" justifyContent="space-between">
         <Grid xs={12} className="col-pad-24 pt-32" item={true}>
           <h2 className="mb-0 center" style={{ color: textColor }}>
             Welcome to CodeLabz!
@@ -230,7 +230,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
         <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6} item={true}>
           {error && (
             <Grid container>
-              <Grid xs={12} className="col-pad-24 pr-12 pb-0">
+              <Grid item xs={12} className="col-pad-24 pr-12 pb-0">
                 <Alert variant="outlined" severity="error">
                   {error}
                 </Alert>

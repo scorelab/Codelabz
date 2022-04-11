@@ -105,7 +105,7 @@ const NotFound = ({ background = "white", textColor = "black" }) => {
         </ul>
       </Grid>
       <Grid item style={{ marginTop: "0" }}>
-        <Typography variant="body" style={{ color: textColor }}>
+        <Typography variant="body1" style={{ color: textColor }}>
           We can't seem to find the page you are looking for
         </Typography>
       </Grid>
