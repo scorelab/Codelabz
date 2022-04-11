@@ -101,7 +101,7 @@ const Login = ({ loginButton = "blue", background = "white", loginText = "Welcom
   };
 
   return (
-    <Card raised className={`${classes.card}   `} style={{ background: background }} data-testId="login">
+    <Card raised className={`${classes.card}   `} style={{ background: background }} data-testid="login">
       <CardContent>
         <Typography variant="h4" style={{ textAlign: "center", marginBottom: "40px" }}>
           {loginText}
@@ -171,7 +171,7 @@ const Login = ({ loginButton = "blue", background = "white", loginText = "Welcom
             </Grid>
             <Grid>
               <Link
-                data-testId="forgotPassoword"
+                data-testid="forgotPassoword"
                 to="/forgotpassword"
                 className="login-form-forgot"
                 style={{ float: "right" }}

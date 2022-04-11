@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 const TutorialCard = ({ tutorialData: { tutorial_id, title, summary, icon, owner }, loading }) => {
   return (
-    <Card style={{ height: "100%" }} data-testId="tutorialCard">
+    <Card style={{ height: "100%" }} data-testid="tutorialCard">
       <CardActionArea>
         <CardMedia
           component="img"

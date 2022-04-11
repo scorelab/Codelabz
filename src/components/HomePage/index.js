@@ -19,7 +19,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     setValue(newValue);
   };
   return (
-    <Card className={classes.wrapper} style={{ background: background }} data-testId="homepage">
+    <Card className={classes.wrapper} style={{ background: background }} data-testid="homepage">
       <div className={classes.sideBody}>
         <Grid
           container
@@ -31,7 +31,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             overflow: "auto",
             maxHeight: "25rem",
           }}
-          data-testId="homepageTagSidebar"
+          data-testid="homepageTagSidebar"
         >
           <Grid item>
             <br />
@@ -68,7 +68,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             overflow: "auto",
             maxHeight: "25rem",
           }}
-          data-testId="homepagePopularEventSidebar"
+          data-testid="homepagePopularEventSidebar"
         >
           <Grid item>
             <br />
@@ -97,7 +97,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.mainBody} data-testId="homepageMainBody">
+      <div className={classes.mainBody} data-testid="homepageMainBody">
         <Grid container className={classes.sort}>
           <Typography
             variant="h6"
@@ -115,7 +115,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             className={classes.sortedList}
             value={value}
             onChange={handleChange}
-            data-testId="sortByTime"
+            data-testid="sortByTime"
           >
             <BottomNavigationAction label="Week" />
             <BottomNavigationAction label="Month" style={{ fontSize: "2rem" }} />
@@ -135,7 +135,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
-          data-testId="homepageUpcomingEventSidebar"
+          data-testid="homepageUpcomingEventSidebar"
         >
           <Grid item>
             <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
@@ -175,7 +175,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           alignContent="center"
           direction="column"
           style={{ padding: "1rem" }}
-          data-testId="homepageDiscussionSidebar"
+          data-testid="homepageDiscussionSidebar"
         >
           <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
             Discussion

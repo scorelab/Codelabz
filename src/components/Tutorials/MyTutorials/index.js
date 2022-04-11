@@ -74,7 +74,7 @@ const MyTutorials = () => {
   };
 
   return (
-    <div className="row-footer-below" data-testId="tutorialMainBody">
+    <div className="row-footer-below" data-testid="tutorialMainBody">
       <Grid container>
         <Grid item xs={12} className="mb-24">
           <SearchComponent />

@@ -267,7 +267,7 @@ const OrgUsersCard = () => {
             )
           }
         />{" "}
-        <Box mt={2} mb={2} m={3} data-testId="orgUserCard">
+        <Box mt={2} mb={2} m={3} data-testid="orgUserCard">
           <Grid xs={12} md={12} lg={12} item={true}>
             <List
               subheader={

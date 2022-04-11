@@ -41,7 +41,7 @@ const OrgTutorialsComponent = ({ organizations, user }) => {
     });
 
     return (
-      <TabPanel data-testId="tutorialOrgComponent">
+      <TabPanel data-testid="tutorialOrgComponent">
         <Tabs onSelect={onSelectTab}>
           {arr.map((org) => (
             <Tab label={org.name} key={0} icon={<Avatar alt={org.name} src={org.image} />}></Tab>

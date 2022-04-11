@@ -14,7 +14,7 @@ const SmButtons = () => {
   const firebase = useFirebase();
   const classes = useStyles();
   return (
-    <Grid container className={classes.root} data-testId="smButtons">
+    <Grid container className={classes.root} data-testid="smButtons">
       <Grid item>
         <img
           src={GoogleImg}

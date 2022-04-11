@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 const SignUp = ({ background = "white" }) => {
   const classes = useStyles();
   return (
-    <Card raised className={`${classes.card}   `} data-testId="signUp" style={{ background: background }}>
+    <Card raised className={`${classes.card}   `} data-testid="signUp" style={{ background: background }}>
     
       <CardContent>
         <Typography
@@ -30,7 +30,7 @@ const SignUp = ({ background = "white" }) => {
           justifyContent="center"
           alignItems="center"
           className="mt-24"
-          data-testId="signUpHaveAccount"
+          data-testid="signUpHaveAccount"
         >
           <Grid item={true} sm={12} className="center">
             Already have a{" "}

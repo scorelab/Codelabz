@@ -141,7 +141,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       }}
     >
       <div
-        data-testId="tutorialNewModal"
+        data-testid="tutorialNewModal"
         style={{
           height: "auto",
           width: "auto",

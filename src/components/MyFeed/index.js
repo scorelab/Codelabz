@@ -23,7 +23,7 @@ const MyFeed = ({
           alignItems="center"
           justifyContent="center"
           style={{ padding: "15px" }}
-          data-testId="codefeedTitle"
+          data-testid="codefeedTitle"
         >
           <Typography variant="h2" style={{ color: textcolor }}>
             {heading}
