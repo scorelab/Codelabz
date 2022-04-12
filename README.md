@@ -56,8 +56,8 @@ Visit [localhost:3000](http://localhost:3000) to browse.
    1. Log in to the Firebase Console. In the lower left, you will see that your project is listed on the Spark plan. Click the upgrade button.
    2. Select the Blaze plan
    3. Select a billing account. Then click Continue and Purchase. And there you go on the Blaze plan.
-   3. You should have installed Firebase CLI tool in your machine
-   4. To install Firebase CLI machine you can use the command **npm install -g firebase-tools**
+2. You should have installed Firebase CLI tool in your machine
+   To install Firebase CLI machine you can use the command **npm install -g firebase-tools**
 
 Run `npm install` in `CodeLabz/functions ` folder.
 
