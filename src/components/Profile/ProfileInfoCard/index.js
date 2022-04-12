@@ -194,7 +194,7 @@ const ProfileInfoCard = () => {
         >
           <Box
             xs={12}
-            ml={{ xs: 0, md: "80px" }}
+            ml={{ xs: 0, md: "20px" }}
             display="flex"
             flexDirection="row"
             justifyContent="space-around"
@@ -239,11 +239,12 @@ const ProfileInfoCard = () => {
               )}
               <Box mx={12} mt="20px">
                 {checkAvailable(profileData.description) && (
-                  <p className="text-justified">{profileData.description}</p>
+                  <article className="text-justified">
+                    {profileData.description}
+                  </article>
                 )}
               </Box>
-              <Box></Box>
-              {imageUploading ? <LinearProgress /> : null}
+              <Box>{imageUploading ? <LinearProgress /> : null}</Box>
             </Box>
           </Box>
           <Grid xs={12} md={9} lg={9} item={true}>
@@ -263,7 +264,7 @@ const ProfileInfoCard = () => {
                 alignItems="center"
               >
                 {checkAvailable(profileData.link_facebook) && (
-                  <Grid item xs={6}>
+                  <Grid item>
                     <a
                       href={facebookURI.concat(profileData.link_facebook)}
                       target="_blank"
@@ -287,7 +288,7 @@ const ProfileInfoCard = () => {
                   </Grid>
                 )}
                 {checkAvailable(profileData.link_twitter) && (
-                  <Grid item xs={6}>
+                  <Grid item>
                     <a
                       href={twitterURI.concat(profileData.link_twitter)}
                       target="_blank"
@@ -311,7 +312,7 @@ const ProfileInfoCard = () => {
                   </Grid>
                 )}
                 {checkAvailable(profileData.link_github) && (
-                  <Grid item xs={6}>
+                  <Grid item>
                     <a
                       href={githubURI.concat(profileData.link_github)}
                       target="_blank"
@@ -332,7 +333,7 @@ const ProfileInfoCard = () => {
                   </Grid>
                 )}
                 {checkAvailable(profileData.link_linkedin) && (
-                  <Grid item xs={6}>
+                  <Grid item>
                     <a
                       href={linkedinURI.concat(profileData.link_linkedin)}
                       target="_blank"
@@ -356,7 +357,7 @@ const ProfileInfoCard = () => {
                   </Grid>
                 )}
                 {checkAvailable(profileData.website) && (
-                  <Grid item xs={6}>
+                  <Grid item>
                     <a
                       href={profileData.website}
                       target="_blank"
@@ -375,7 +376,7 @@ const ProfileInfoCard = () => {
                   </Grid>
                 )}
                 {checkAvailable(profileData.country) && (
-                  <Grid item xs={6}>
+                  <Grid item>
                     <a
                       href={googleURI.concat(profileData.country)}
                       target="_blank"
@@ -403,7 +404,7 @@ const ProfileInfoCard = () => {
         fullWidth
         maxWidth="sm"
         open={showImageDialog}
-        onClose={!showImageDialog}
+        onClose={() => setShowImageDialog(false)}
       >
         <DialogTitle id="alert-dialog-title">
           <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
@@ -498,7 +499,7 @@ const ProfileInfoCard = () => {
         fullWidth
         maxWidth="md"
         open={profileEditModalVisible}
-        onClose={!profileEditModalVisible}
+        onClose={() => setProfileEditModalVisible(false)}
         id="editProfileModal"
       >
         <DialogTitle id="alert-dialog-title">
