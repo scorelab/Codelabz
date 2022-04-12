@@ -9,9 +9,10 @@ const BasicImage = (src, alt) => {
   return (
     <Img
       style={{
-        width: "100%",
+        width: "75%",
+        maxWidth: "280px",
         height: "auto",
-        borderRadius: "8px",
+        borderRadius: "100%",
       }}
       src={src}
       alt={alt}
