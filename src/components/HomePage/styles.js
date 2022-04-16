@@ -38,6 +38,15 @@ const useStyles = makeStyles((theme) => ({
     width: "80%",
     marginBottom: "10px",
   },
+  card: {
+    margin: ".5rem",
+    width: "50vw",
+    minHeight: "20vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "20px",
+  },
   cardBody: {
     display: "flex",
     justifyContent: "space-between",
