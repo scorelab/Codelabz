@@ -28,7 +28,6 @@ const CardComponent = ({
       const tagSplit = tags.split("#").filter((element) => element);
       const finalTagsArray = await tagSplit.map((item) => {
         if (item) {
-          console.log(item,"this is item");
           return item.trim();
         }
       });
