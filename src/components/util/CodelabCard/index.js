@@ -24,9 +24,19 @@ const CardComponent = ({
   org = false,
   background = "white",
 }) => {
-  const tagsArray = tags.split(" #");
   const classes = useStyles();
   const [logoPath, setLogoPath] = React.useState("");
+  const [tagsArray, setTagsArray] = React.useState([]);
+  React.useEffect(() => {
+    const createTagArray = async () => {
+      const tagSplit = tags.split("#").filter((element) => element);
+      const finalTagsArray = await tagSplit.map((item) => {
+        return item.trim();
+      });
+      setTagsArray(finalTagsArray);
+    };
+    createTagArray();
+  }, []);
   React.useEffect(() => {
     setLogoPath(org);
   }, [org]);
@@ -74,7 +84,7 @@ const CardComponent = ({
             title={
               <Typography variant="body">
                 <ul>
-                  <li>3 days ago</li>
+                  <li>25 May, 2021(3 days ago)</li>
                 </ul>
               </Typography>
             }
