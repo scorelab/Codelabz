@@ -110,11 +110,12 @@ const RightMenu = ({ mode }) => {
         className={classes.menu}
       >
         {allowDashboard && (
-          <MenuItem key="setting:2">
-            <Link to={"/tutorials"}>
-              <CodeOutlinedIcon /> My Tutorials
+          <Link to={"/tutorials"}>
+            <MenuItem key="setting:2">
+              <CodeOutlinedIcon />&nbsp;My Tutorials
+              </MenuItem>
             </Link>
-          </MenuItem>
+          
         )}
         {allowDashboard && allowOrgs && (
           <Menu
@@ -124,27 +125,27 @@ const RightMenu = ({ mode }) => {
               </>
             }
           >
+             <Link to={`/organization`}>
             <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
-              <Link to={`/organization`}>
                 <SettingsOutlinedIcon /> Manage All
-              </Link>
-            </MenuItem>
+              </MenuItem>
+            </Link>
             <Divider></Divider>
             {orgList}
           </Menu>
+          
         )}
 
         {profile.displayName && profile.displayName.length > 0 && (
           <MenuItem style={{ color: "gray" }}>{profile.displayName}</MenuItem>
         )}
         {allowDashboard && (
-          <MenuItem key="setting:1">
-            <Link to={"/profile"}>
-              <div style={{ color: "#455A64" }}>
-                <PersonOutlineOutlinedIcon /> My Profile
-              </div>
-            </Link>
-          </MenuItem>
+          <Link to={"/profile"}>
+            <MenuItem key="setting:1">
+                  <PersonOutlineOutlinedIcon color="#455A64" />
+                  <span style={{ color: "#455A64"}}>&nbsp;My Profile</span>
+            </MenuItem>
+          </Link>
         )}
         <MenuItem
           key="setting:4"
@@ -152,7 +153,7 @@ const RightMenu = ({ mode }) => {
           id={"log-out"}
           style={{ color: "#455A64" }}
         >
-          <ExitToAppOutlinedIcon /> Log Out
+          <ExitToAppOutlinedIcon />&nbsp;Log Out
         </MenuItem>
       </Menu>
     </Grid>
