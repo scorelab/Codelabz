@@ -129,14 +129,6 @@ const CardComponent = ({
             data-testId="codelabzCardButtonGroup"
           >
             <Grid item direction="row">
-              <Grid item style={{ height: "2rem" }}>
-                <IconButton style={{ color: "red" }}></IconButton>
-                <Typography variant="body" color="textPrimary">
-                  222
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item direction="row">
               {!org ? (
                 <Grid item style={{ height: "2rem" }}>
                   <IconButton style={{ color: "red" }}>
@@ -172,17 +164,23 @@ const CardComponent = ({
             justify="flex-end"
             alignItems="center"
           >
+            <Grid item xs={3}>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                alignItems="flex-end"
+                className={classes.readTime}
+              >
+                10 min read
+              </Typography>
+            </Grid>
             <Grid item>
               <Button
                 variant="contained"
                 color="primary"
-                style={{
-                  backgroundColor: "royalblue",
-                  margin: "16px",
-                  borderRadius: "10px",
-                }}
+                style={{ backgroundColor: "royalblue", margin: "16px" }}
               >
-                10 min read
+                Save
               </Button>
             </Grid>
           </Grid>
