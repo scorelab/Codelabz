@@ -112,7 +112,9 @@ const RightMenu = ({ mode }) => {
         {allowDashboard && (
           <MenuItem key="setting:2">
             <Link to={"/tutorials"}>
-              <CodeOutlinedIcon /> My Tutorials
+              <Grid container direction="row" alignItems="center">
+                <CodeOutlinedIcon /> My Tutorials
+              </Grid>
             </Link>
           </MenuItem>
         )}
@@ -126,7 +128,9 @@ const RightMenu = ({ mode }) => {
           >
             <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
               <Link to={`/organization`}>
-                <SettingsOutlinedIcon /> Manage All
+                <Grid container direction="row" alignItems="center">
+                  <SettingsOutlinedIcon /> Manage All
+                </Grid>
               </Link>
             </MenuItem>
             <Divider></Divider>
@@ -141,7 +145,9 @@ const RightMenu = ({ mode }) => {
           <MenuItem key="setting:1">
             <Link to={"/profile"}>
               <div style={{ color: "#455A64" }}>
-                <PersonOutlineOutlinedIcon /> My Profile
+                <Grid container direction="row" alignItems="center">
+                  <PersonOutlineOutlinedIcon /> My Profile
+                </Grid>
               </div>
             </Link>
           </MenuItem>
