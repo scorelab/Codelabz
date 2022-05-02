@@ -98,14 +98,16 @@ function HomePage({ background = "white", textColor = "black" }) {
         </Grid>
       </div>
       <div className={classes.mainBody} data-testId="homepageMainBody">
-        <Grid container className={classes.sort}>
+              <Grid container className={classes.sort}> style={{
+                  padding: "0rem 0.5rem"
+              }}>
           <Typography
-            variant="h6"
-            style={{
-              padding: ".5rem 1rem",
-              fontWeight: "bold",
-              color: textColor,
-            }}
+                      variant="h6"
+                      style={{
+                          padding: "1rem 0rem",
+                          fontWeight: "bold",
+                          color: textColor,
+                      }}
           >
             Posts
           </Typography>
