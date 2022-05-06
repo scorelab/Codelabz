@@ -145,10 +145,10 @@ const ProfileInfoCard = () => {
       <Card className="p-0" variant="outlined">
         <Box mt={2} mb={2} m={3}>
           <Grid container>
-            <Grid xs={6} md={11} lg={11} item={true}>
+            <Grid xs={10} md={11} lg={11} item={true}>
               <span style={{ fontSize: "1.3em", fontWeight: "480" }}>Profile Details</span>
             </Grid>
-            <Grid xs={6} md={1} lg={1} item={true}>
+            <Grid xs={2} md={1} lg={1} item={true}>
               <div>
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                   <SettingsOutlinedIcon /> Options
