@@ -11,13 +11,26 @@ import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
 import { userList } from "./userList";
 import useStyles from "./styles";
+import HomeRounded from '@mui/icons-material/HomeRounded';
+import { Link } from "react-router-dom";
+import { AutoStoriesTwoTone} from "@mui/icons-material";
+import GavelIcon from '@mui/icons-material/Gavel';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
+import ContactsIcon from '@mui/icons-material/Contacts';
+
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
   const [value, setValue] = useState(2);
+  const [posts, setPosts] = useState(userList);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleClick = (e) => {
+    let updatedPosts = userList.persons;
+    updatedPosts = updatedPosts.filter(post => post.tags.includes(e.target.innerHTML));
+    setPosts({persons:updatedPosts});
+  }
   return (
     <Card className={classes.wrapper} style={{ background: background }} data-testId="homepage">
       <div className={classes.sideBody}>
@@ -35,25 +48,29 @@ function HomePage({ background = "white", textColor = "black" }) {
         >
           <Grid item>
             <br />
-            <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
-              Popular Tags
+            <Typography variant="h6" gutterBottom style={{fontWeight: 600 , marginBottom: "1rem", color: textColor }}>
+              Main Menu
             </Typography>
           </Grid>
           <Grid container alignItems="left">
             <List component="nav" aria-label="mailbox folders" style={{ width: "100%" }}>
               <ListItem button>
-                <ListItemText primary="#javascript" />
+              <Link to={""}><Typography  align="center"><HomeRounded />Home</Typography></Link>
               </ListItem>
               <Divider />
               <ListItem button divider>
-                <ListItemText primary="#react" />
+                <Link><Typography  align="center"><AutoStoriesTwoTone/> Reading List</Typography></Link>
               </ListItem>
               <ListItem button>
-                <ListItemText primary="#html" />
+                <Link><Typography  align="center"><LiveHelpIcon/> FAQ</Typography></Link>
               </ListItem>
               <Divider light />
+
               <ListItem button>
-                <ListItemText primary="#css" />
+                <Link><Typography  align="center"><GavelIcon/> Terms of use</Typography></Link>
+              </ListItem>
+              <ListItem button>
+                <Link><Typography  align="center"><ContactsIcon/> Contact Us</Typography></Link>
               </ListItem>
             </List>
           </Grid>
@@ -72,26 +89,34 @@ function HomePage({ background = "white", textColor = "black" }) {
         >
           <Grid item>
             <br />
-            <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
-              Popular Events
+            <Typography variant="h6" gutterBottom style={{fontWeight: 600,marginBottom: "1rem", color: textColor }}>
+              Popular Tags
+              <br/>
             </Typography>
           </Grid>
           <Grid container alignItems="left">
             <List component="nav" aria-label="mailbox folders" style={{ width: "100%" }}>
-              <ListItem button>
-                <ListItemText primary="Lorem Pervious Text" />
+              <ListItem button onClick={(e)=>handleClick(e)}>
+                <ListItemText primary="#javascript" />
               </ListItem>
               <Divider />
-              <ListItem button divider>
-                <ListItemText primary="Lorem Pervious Text Event" />
+              <ListItem button  divider  onClick={(e)=>handleClick(e)}>
+                <ListItemText primary="#react" />
               </ListItem>
-              <ListItem button>
-                <ListItemText primary="Lorem Pervious Text" />
+              <ListItem button onClick={(e)=>handleClick(e)}>
+                <ListItemText style={{ fontWeight: 600 }} primary="#html" />
               </ListItem>
               <Divider light />
-
-              <ListItem button>
-                <ListItemText primary="Lorem Pervious Text Previous Event" />
+              <ListItem button onClick={(e)=>handleClick(e)}>
+                <ListItemText primary="#css" />
+              </ListItem>
+              <Divider />
+              <ListItem button onClick={(e)=>handleClick(e)}>
+                <ListItemText primary="#webdev" />
+              </ListItem>
+              <Divider />
+              <ListItem button onClick={(e)=>handleClick(e)}>
+                <ListItemText primary="#beginners" />
               </ListItem>
             </List>
           </Grid>
@@ -153,18 +178,18 @@ function HomePage({ background = "white", textColor = "black" }) {
               }}
             >
               <ListItem button>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="Go/JS/PHP Software engineer looking for new opportunities" />
               </ListItem>
               <Divider />
               <ListItem button divider>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="FREE COURSE, this weekend only: Ship better code faster" />
               </ListItem>
               <ListItem button>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="Live-Coding on YouTube continues tomorrow" />
               </ListItem>
               <Divider light />
               <ListItem button>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="MEAN / MERN Stack 100+ Learning Resources {FREE}" />
               </ListItem>
             </List>
           </Grid>
@@ -177,8 +202,8 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{ padding: "1rem" }}
           data-testId="homepageDiscussionSidebar"
         >
-          <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
-            Discussion
+          <Typography variant="h6" gutterBottom style={{fontWeight: 600,marginBottom: "1rem", color: textColor }}>
+            Discussions & NewsFeed
           </Typography>
           <Grid container alignItems="left">
             <List
@@ -192,19 +217,19 @@ function HomePage({ background = "white", textColor = "black" }) {
               }}
             >
               <ListItem button>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="Game Dev Digest — Issue #83 - How and Why" />
               </ListItem>
               <Divider light />
               <ListItem button>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="What's new and special in Create Go App CLI v1.7.0?" />
               </ListItem>
               <Divider light />
               <ListItem button>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="Google’s Termination of Dr. Mitchell, Clubhouse Security, Low-Code Tools, & more on DevNews!" />
               </ListItem>
               <Divider light />
               <ListItem button>
-                <ListItemText primary="lorem lorem text lorem text text lorem text lorem text" />
+                <ListItemText primary="How to start a programming blog?" />
               </ListItem>
             </List>
           </Grid>
