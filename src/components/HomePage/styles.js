@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "top",
     justifyContent: "center",
     height: "100%",
-
     background: "#f2f2f2",
   },
   mainBody: {

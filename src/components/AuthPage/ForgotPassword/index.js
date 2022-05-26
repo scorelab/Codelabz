@@ -14,6 +14,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
 import PropTypes from "prop-types";
+import useStyles from "./style.js";
 
 const ForgotPassword = ({
   rootBackground = "rgba(0,0,0,.01)",
@@ -55,17 +56,19 @@ const ForgotPassword = ({
     setError("");
     await sendPasswordResetEmail(email)(firebase, dispatch);
   };
-
   const useStyles = makeStyles({
-    root: {
-      padding: "2rem",
-      background: rootBackground,
-      border: "none",
-      boxShadow: "none",
+    link:{
+      padding:"0.8em",
+      textDecoration: "none",
+      backgroundColor:"#1DB954",
+      width:"100%",
+      color:"black",
+      borderRadius:"5px",
     },
-    heading: {
-      fontWeight: 600,
-    },
+    vam:{
+      marginTop:"1em",
+      marginLeft:"20em",
+    }
   });
   const classes = useStyles();
 
@@ -74,10 +77,11 @@ const ForgotPassword = ({
       <Typography
         variant="h4"
         className={"mb-24 text-center " + classes.heading}
+        align="center"
       >
         Trouble logging in?
       </Typography>
-      <p className="mb-24 text-center">
+      <p className="mb-24 text-center" style={{textAlign: "center"}}>
         Don't worry, we got it covered. <br />
         Enter the email address registered with us and
         <br /> we will send you a link to reset your password.
@@ -112,6 +116,8 @@ const ForgotPassword = ({
           </Alert>
         </Collapse>
       )}
+  
+
 
       <form onSubmit={onSubmit}>
         <OutlinedInput
@@ -134,29 +140,35 @@ const ForgotPassword = ({
           color="primary"
           style={{ background: buttonColor }}
           loading={loading}
-          className="mt-10"
+          fullwidth
           type="submit"
-          fullWidth
           data-testId="forgotPasswordButton"
+          className={classes.vam}
         >
           {loading ? "Sending..." : "Send me the link"}
         </Button>
       </form>
+      
+
+
       <Grid justify="center" align="center" className="mt-16">
         or
       </Grid>
       <Grid justify="center" align="center" className="mt-24">
-        <Grid sm={24} className="center">
-          <Link to={"/login"}>Back to Sign in</Link>
+        <Grid sm={24} className={classes.roo}>
+          <Link to={"/login"} className={classes.link}>Back to Sign in</Link>
         </Grid>
       </Grid>
-      <Grid justify="center" align="center" className="mt-24">
+
+      
+      <Grid justify="center" align="center" className="mt-24" style={{paddingTop:"3em"}}>
         <Grid sm={24} className="center">
           New to <span className="brand-font text-bold">CodeLabz</span>?{" "}
           <Link to={"/signup"}>Create an account</Link>
         </Grid>
       </Grid>
     </Card>
+
   );
 };
 
