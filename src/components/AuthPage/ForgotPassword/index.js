@@ -75,11 +75,12 @@ const ForgotPassword = ({
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} data-testId="forgotPassword">
+    <Card className={classes.root} data-testId="forgotPassword" style={{maxWidth:450,margin:'100px auto',padding:'20px 5px',boxShadow: "0 7px 30px -10px"}}>
       <Typography
         variant="h4"
         className={"mb-24 text-center " + classes.heading}
         align="center"
+        fontFamily= "Century Gothic"
       >
         Trouble logging in?
       </Typography>
@@ -122,33 +123,39 @@ const ForgotPassword = ({
 
 
       <form onSubmit={onSubmit}>
-        <OutlinedInput
+      <Grid container>
+      <Grid lg={12} sm={12} xs={12}  align="center" item>
+      <OutlinedInput
           placeholder="Email"
           autoComplete="email"
           onChange={(e) => setEmail(e.target.value)}
           className="mb-32"
-          fullWidth
           height="10rem"
           data-testId="forgotPasswordEmail"
           startAdornment={
             <InputAdornment sposition="start">
               <MailOutlineOutlinedIcon style={{ color: "rgba(0,0,0,.25)" }} />
-              &nbsp;
             </InputAdornment>
           }
         />
-        <Button
+      </Grid>
+      <Grid xs={12} item style={{ marginTop:"1em"}}>
+      <Button
           variant="contained"
           color="primary"
-          style={{ background: buttonColor }}
+          style={{margin: '0 auto', display: "flex",background: buttonColor}}
           loading={loading}
           fullwidth
           type="submit"
           data-testId="forgotPasswordButton"
           className={classes.vam}
+
         >
           {loading ? "Sending..." : "Send me the link"}
         </Button>
+     
+        </Grid>
+      </Grid>
       </form>
       
 
