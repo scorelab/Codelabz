@@ -90,9 +90,6 @@ const ForgotPassword = ({
         <br /> we will send you a link to reset your password.
       </p>
 
-
-      
-
       {error && (
         <Collapse in={open}>
           <Alert
