@@ -5,11 +5,11 @@ import {
   InputBase,
   makeStyles,
   Paper,
-} from "@material-ui/core";
-import React from "react";
-import Headroom from "react-headroom";
-import BrandName from "../../../../helpers/brandName";
-import SearchIcon from "@material-ui/icons/Search";
+} from '@material-ui/core';
+import React from 'react';
+import Headroom from 'react-headroom';
+import BrandName from '../../../../helpers/brandName';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -18,19 +18,19 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     backgroundColor: theme.palette.grey[100],
-    padding: "2px",
-    border: "1px solid #ced4da",
+    padding: '2px',
+    border: '1px solid #ced4da',
   },
   icon: {
-    padding: "1px",
+    padding: '1px',
   },
   grid: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
     },
   },
   button: {
-    borderRadius: "10px",
+    borderRadius: '10px',
   },
 }));
 
@@ -49,7 +49,7 @@ function MiniNavbar() {
             <BrandName />
           </Grid>
           <Grid item>
-            <Paper component={"form"} className={classes.root} elevation={0}>
+            <Paper component={'form'} className={classes.root} elevation={0}>
               <IconButton
                 type='submit'
                 aria-label='search'
@@ -66,8 +66,8 @@ function MiniNavbar() {
               variant='contained'
               color='primary'
               style={{
-                boxShadow: "none",
-                color: "white",
+                boxShadow: 'none',
+                color: 'white',
               }}
               className={classes.button}
             >
@@ -77,7 +77,7 @@ function MiniNavbar() {
               variant='outlined'
               color='primary'
               style={{
-                boxShadow: "none",
+                boxShadow: 'none',
               }}
               className={classes.button}
             >
