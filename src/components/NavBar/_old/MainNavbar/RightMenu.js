@@ -1,15 +1,15 @@
 import React from "react";
 import { useFirebase } from "react-redux-firebase";
-import { signOut } from "../../../store/actions";
+import { signOut } from "../../../../store/actions";
 import Avatar from "@material-ui/core/Avatar";
-import { useAllowDashboard } from "../../../helpers/customHooks";
+import { useAllowDashboard } from "../../../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
 import BlockOutlinedIcon from "@material-ui/icons/BlockOutlined";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
-import { avatarName } from "../../../helpers/avatarName";
+import { avatarName } from "../../../../helpers/avatarName";
 import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";

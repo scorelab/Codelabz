@@ -5,7 +5,7 @@ import Navbar from "../../components/NavBar";
 import ProviderWrapper from "../../helpers/providerWrapper";
 
 export default {
-  title: "Navbar",
+  title: "Topbar/Navbar",
   component: Navbar,
 };
 
