@@ -1,19 +1,15 @@
-import React from "react";
-import { Router } from "react-router";
-import { Provider } from "react-redux";
-import store, { rrfProps } from "../store";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
-import { ThemeProvider } from "@material-ui/core";
-import { theme } from "./themes";
+import React from 'react';
+import { Router } from 'react-router';
+import { Provider } from 'react-redux';
+import store, { rrfProps } from '../store';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 
 const ProviderWrapper = ({ children }) => {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <ReactReduxFirebaseProvider {...rrfProps}>
-          {children}
-        </ReactReduxFirebaseProvider>
-      </ThemeProvider>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        {children}
+      </ReactReduxFirebaseProvider>
     </Provider>
   );
 };
