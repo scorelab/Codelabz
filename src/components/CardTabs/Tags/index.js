@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     "& > *": {
       margin: theme.spacing(0.5),
-    },
+        },
+    marginBottom: "2rem",
   },
   chip: {
     margin: "0px 10px 10px 0px",

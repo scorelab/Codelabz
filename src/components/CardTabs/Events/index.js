@@ -8,9 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(0.5),
-    },
+    marginBottom: "2rem",
     flex: 1,
   },
   logo: {

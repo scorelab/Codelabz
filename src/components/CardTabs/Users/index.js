@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(0.5),
     },
-    flex: 1,
+        flex: 1,
+    marginBottom:"2rem"
   },
   userImg: {
     width: "2rem",
