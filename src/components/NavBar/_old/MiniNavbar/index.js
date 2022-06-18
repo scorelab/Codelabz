@@ -17,11 +17,11 @@ const MiniNavbar = ({ type }) => {
   return (
     <Headroom>
       <Grid
-        data-testId='miniNavbar'
+        data-testId="miniNavbar"
         container
-        direction='row'
-        justify='space-between'
-        alignItems='center'
+        direction="row"
+        justify="space-between"
+        alignItems="center"
       >
         <Grid item>
           <h3
@@ -31,7 +31,7 @@ const MiniNavbar = ({ type }) => {
               marginTop: "1.2rem",
               marginLeft: "1rem",
             }}
-            className='brand-font mb-0'
+            className="brand-font mb-0"
           >
             <Link to={"/"}>
               <BrandName />
@@ -41,13 +41,13 @@ const MiniNavbar = ({ type }) => {
         <Grid item>
           {authed
             ? [
-                <Button key='2' type='link'>
+                <Button key="2" type="link">
                   <Link to={"/dashboard"}>Dashboard</Link>
                 </Button>,
                 <Button
                   onClick={() => signOut()(firebase, dispatch)}
-                  key='1'
-                  type='dashed'
+                  key="1"
+                  type="dashed"
                 >
                   Log out
                 </Button>,
@@ -55,15 +55,15 @@ const MiniNavbar = ({ type }) => {
             : [
                 <Grid item style={{ position: "absolute", right: "2rem" }}>
                   <Button
-                    key='2'
+                    key="2"
                     type={type && type === "/login" ? "primary" : "link"}
-                    variant='outlined'
+                    variant="outlined"
                   >
                     <Link to={"/login"}>Log In</Link>
                   </Button>
 
                   <Button
-                    key='1'
+                    key="1"
                     type={
                       type && type === "/signup"
                         ? "primary"

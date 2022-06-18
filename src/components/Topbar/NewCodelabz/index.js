@@ -4,26 +4,26 @@ import {
   makeStyles,
   Paper,
   Typography,
-} from '@material-ui/core';
-import React from 'react';
-import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
+} from "@material-ui/core";
+import React from "react";
+import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: theme.spacing(40),
     height: theme.spacing(8),
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    cursor: 'pointer',
-    '&:hover': {},
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    cursor: "pointer",
+    "&:hover": {},
   },
   iconDiv: {
     padding: theme.spacing(1),
     marginLeft: theme.spacing(1),
   },
   title: {
-    fontWeight: 'normal',
+    fontWeight: "normal",
     fontSize: theme.spacing(2),
   },
   description: {
@@ -40,24 +40,24 @@ function NewCodelabz() {
         <Grid
           container
           spacing={0}
-          justifyContent='flex-start'
-          alignItems='center'
+          justifyContent="flex-start"
+          alignItems="center"
         >
           <Grid
             item
             container
             sm={2}
             className={classes.iconDiv}
-            justifyContent='center'
-            alignContent='center'
+            justifyContent="center"
+            alignContent="center"
           >
-            <AddBoxRoundedIcon color='primary' fontSize='large' />
+            <AddBoxRoundedIcon color="primary" fontSize="large" />
           </Grid>
-          <Grid item container sm={9} direction='column'>
-            <Typography variant='h6' className={classes.title}>
+          <Grid item container sm={9} direction="column">
+            <Typography variant="h6" className={classes.title}>
               New Codelabz
             </Typography>
-            <Typography variant='body2' className={classes.description}>
+            <Typography variant="body2" className={classes.description}>
               Share a tutorial
             </Typography>
           </Grid>

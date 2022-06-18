@@ -1,10 +1,10 @@
-import React from 'react';
-import { MemoryRouter } from 'react-router';
-import Navbar from '../../../components/NavBar';
-import ProviderWrapper from '../../../helpers/providerWrapper';
+import React from "react";
+import { MemoryRouter } from "react-router";
+import Navbar from "../../../components/NavBar";
+import ProviderWrapper from "../../../helpers/providerWrapper";
 
 const story = {
-  title: 'Topbar/Navbar',
+  title: "Topbar/Navbar",
   component: Navbar,
 };
 

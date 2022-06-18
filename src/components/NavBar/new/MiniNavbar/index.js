@@ -5,11 +5,11 @@ import {
   InputBase,
   makeStyles,
   Paper,
-} from '@material-ui/core';
-import React from 'react';
-import Headroom from 'react-headroom';
-import BrandName from '../../../../helpers/brandName';
-import SearchIcon from '@material-ui/icons/Search';
+} from "@material-ui/core";
+import React from "react";
+import Headroom from "react-headroom";
+import BrandName from "../../../../helpers/brandName";
+import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -18,19 +18,19 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     backgroundColor: theme.palette.grey[100],
-    padding: '2px',
-    border: '1px solid #ced4da',
+    padding: "2px",
+    border: "1px solid #ced4da",
   },
   icon: {
-    padding: '1px',
+    padding: "1px",
   },
   grid: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
   button: {
-    borderRadius: '10px',
+    borderRadius: "10px",
   },
 }));
 
@@ -41,43 +41,43 @@ function MiniNavbar() {
       <nav>
         <Grid
           container
-          direction='row'
-          justifyContent='space-between'
-          alignItems='center'
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
         >
           <Grid item>
             <BrandName />
           </Grid>
           <Grid item>
-            <Paper component={'form'} className={classes.root} elevation={0}>
+            <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
-                type='submit'
-                aria-label='search'
+                type="submit"
+                aria-label="search"
                 disableRipple
                 className={classes.icon}
               >
                 <SearchIcon />
               </IconButton>
-              <InputBase className={classes.input} placeholder='Search' />
+              <InputBase className={classes.input} placeholder="Search" />
             </Paper>
           </Grid>
           <Grid item className={classes.grid}>
             <Button
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               style={{
-                boxShadow: 'none',
-                color: 'white',
+                boxShadow: "none",
+                color: "white",
               }}
               className={classes.button}
             >
               Login
             </Button>
             <Button
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               style={{
-                boxShadow: 'none',
+                boxShadow: "none",
               }}
               className={classes.button}
             >

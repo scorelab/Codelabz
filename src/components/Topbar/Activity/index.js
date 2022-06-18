@@ -1,9 +1,9 @@
-import { Grid, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
-import ActivityList from './ActivityList';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import { Grid, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import ActivityList from "./ActivityList";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 
 function Activity() {
   const [List, setList] = useState(1);
@@ -12,17 +12,17 @@ function Activity() {
     {
       id: 1,
       icon: LocalOfferIcon,
-      text: 'Featured',
+      text: "Featured",
     },
     {
       id: 2,
       icon: StarBorderIcon,
-      text: 'New',
+      text: "New",
     },
     {
       id: 3,
       icon: EmojiEventsIcon,
-      text: 'Top',
+      text: "Top",
     },
   ];
 
@@ -30,7 +30,7 @@ function Activity() {
     <React.Fragment>
       <Grid container>
         <Grid item sm={7}>
-          <Typography variant='h6'>Activity</Typography>
+          <Typography variant="h6">Activity</Typography>
         </Grid>
         <Grid item sm={5}>
           <ActivityList

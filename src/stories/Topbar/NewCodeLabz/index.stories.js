@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { MemoryRouter } from 'react-router';
-import NewCodelabz from '../../../components/Topbar/NewCodelabz';
-import ProviderWrapper from '../../../helpers/providerWrapper';
+import React, { useState } from "react";
+import { MemoryRouter } from "react-router";
+import NewCodelabz from "../../../components/Topbar/NewCodelabz";
+import ProviderWrapper from "../../../helpers/providerWrapper";
 
 const story = {
-  title: 'Topbar/NewCodeLabz',
+  title: "Topbar/NewCodeLabz",
   component: NewCodelabz,
 };
 

@@ -1,17 +1,17 @@
-import React from 'react';
-import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
+import React from "react";
+import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   defaultButton: {
     padding: `${theme.spacing(1)} ${theme.spacing(3)}`,
-    textDecoration: 'none',
-    textTransform: 'none',
+    textDecoration: "none",
+    textTransform: "none",
     margin: `${theme.spacing(0)}px ${theme.spacing(1)}px`,
-    border: 'none',
+    border: "none",
 
-    '&:hover': {
-      border: 'none',
+    "&:hover": {
+      border: "none",
       backgroundColor: theme.palette.grey[100],
     },
   },
@@ -32,8 +32,8 @@ function ActivityList({ value, toggle, acitvitylist }) {
       <Grid container spacing={1}>
         {acitvitylist.map((item, index) => (
           <Button
-            variant='outlined'
-            color='primary'
+            variant="outlined"
+            color="primary"
             className={`
                     ${classes.defaultButton}
                     ${
@@ -48,13 +48,13 @@ function ActivityList({ value, toggle, acitvitylist }) {
           >
             {item.icon && (
               <item.icon
-                fontSize='small'
+                fontSize="small"
                 style={{
-                  marginRight: '6px',
+                  marginRight: "6px",
                 }}
               />
             )}
-            <Typography variant='body1'>{item.text}</Typography>
+            <Typography variant="body1">{item.text}</Typography>
           </Button>
         ))}
       </Grid>

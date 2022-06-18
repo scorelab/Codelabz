@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { MemoryRouter } from 'react-router';
-import ActivityList from '../../../components/Topbar/Activity/ActivityList';
-import ProviderWrapper from '../../../helpers/providerWrapper';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import React, { useState } from "react";
+import { MemoryRouter } from "react-router";
+import ActivityList from "../../../components/Topbar/Activity/ActivityList";
+import ProviderWrapper from "../../../helpers/providerWrapper";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 
 const story = {
-  title: 'Topbar/ActivityList',
+  title: "Topbar/ActivityList",
   component: ActivityList,
 };
 
@@ -20,17 +20,17 @@ const Template = (args) => {
     {
       id: 1,
       icon: LocalOfferIcon,
-      text: 'Featured',
+      text: "Featured",
     },
     {
       id: 2,
       icon: StarBorderIcon,
-      text: 'New',
+      text: "New",
     },
     {
       id: 3,
       icon: EmojiEventsIcon,
-      text: 'Top',
+      text: "Top",
     },
   ];
 

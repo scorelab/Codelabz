@@ -1,10 +1,10 @@
-import React from 'react';
-import { MemoryRouter } from 'react-router';
-import Activity from '../../../components/Topbar/Activity';
-import ProviderWrapper from '../../../helpers/providerWrapper';
+import React from "react";
+import { MemoryRouter } from "react-router";
+import Activity from "../../../components/Topbar/Activity";
+import ProviderWrapper from "../../../helpers/providerWrapper";
 
 const story = {
-  title: 'Topbar/Activity',
+  title: "Topbar/Activity",
   component: Activity,
 };
 

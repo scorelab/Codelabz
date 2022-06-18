@@ -1,17 +1,17 @@
-import React from 'react';
-import { MemoryRouter } from 'react-router';
-import Organization from '../../components/Organization/index';
-import ProviderWrapper from '../../helpers/providerWrapper';
+import React from "react";
+import { MemoryRouter } from "react-router";
+import Organization from "../../components/Organization/index";
+import ProviderWrapper from "../../helpers/providerWrapper";
 
 export default {
-  title: 'Organization/Organization',
+  title: "Organization/Organization",
   component: Organization,
   argTypes: {
     backgroundcolor: {
-      control: 'color',
+      control: "color",
     },
     textcolor: {
-      control: 'color',
+      control: "color",
     },
   },
 };
