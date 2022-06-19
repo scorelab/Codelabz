@@ -1,10 +1,10 @@
-import { createTheme } from '@material-ui/core/styles';
+import { createTheme } from "@material-ui/core/styles";
 
 export const basicTheme = createTheme({
-  shadows: ['none'],
+  shadows: ["none"],
   palette: {
     primary: {
-      main: '#455a64',
+      main: "#455a64",
     },
   },
 });
@@ -12,7 +12,7 @@ export const basicTheme = createTheme({
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#03AAFA',
+      main: "#03AAFA",
     },
   },
 });
