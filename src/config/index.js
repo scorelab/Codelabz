@@ -37,5 +37,4 @@ if (firebase.messaging.isSupported()) {
 }
 
 export const messaging = firebase_messaging;
-
 export default firebase;
