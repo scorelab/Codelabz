@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 
 
 import dp from "../../../assets/images/demoperson1.jpeg";
+import BannerDemo from "../../../assets/images/OrgBannerDemo.png";
 import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
 
 export default function Banner() {
@@ -13,7 +14,11 @@ export default function Banner() {
     <>
       <div className={classes.profileRightTop}>
         <div className={classes.profileCover}>
-          <img className={classes.profileCoverImg} src={dp} alt='Profile Banner'/>
+          <img
+            className={classes.profileCoverImg}
+            src={BannerDemo}
+            alt="Profile Banner"
+          />
           <div className={classes.profileInfo}>
             <img className={classes.profileUserImg} src={dp} alt="Avatar" />
             <Typography className={classes.profileInfoName}>
@@ -47,10 +52,9 @@ export default function Banner() {
                 </Grid>
               </div>
               <div item xs={3}>
-                
                 <Grid container>
                   <button className={classes.profileIconButton}>
-                    <img src={iconbuttonImage} alt='iconbutton'/>
+                    <img src={iconbuttonImage} alt="iconbutton" />
                   </button>
                   <button className={classes.profileSubscribeButton}>
                     SUBSCIBE

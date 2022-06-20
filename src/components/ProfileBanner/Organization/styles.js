@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     zIndex: "-1000",
     width: "100%",
-    height: "380px",
-    objectFit: "cover",
+    height: "280px",
+    // objectFit: "cover",
   },
 
   profileUserImg: {
