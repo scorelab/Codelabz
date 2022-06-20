@@ -1,22 +1,24 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-    profileCover: {
-        width: '100vw',
-    height: "580px",
+  profileCover: {
+    width: "100vw",
+    height: "fit-content",
+    minHeight: "10rem",
     position: "relative",
-    background: "url(`../../../assets/images/demoperson1.jpeg`)",
   },
 
   profileCoverImg: {
+    position: "absolute",
+    zIndex: "-1000",
     width: "100%",
-    height: "520px",
+    height: "380px",
     objectFit: "cover",
   },
 
   profileUserImg: {
-    width: "214px",
-    height: "214px",
+    width: "10rem",
+    height: "10rem",
     borderRadius: "50%",
     objectFit: "cover",
     border: "3px solid white",
@@ -24,8 +26,10 @@ const useStyles = makeStyles((theme) => ({
 
   profileInfo: {
     position: "relative",
-    // left: "35px",
-    top: "150px",
+    left: "2rem",
+    top: "4rem",
+    width: "calc(100% -35px)",
+    padding: 0,
     display: "flex",
     flexDirection: "column",
     alignItems: "left",
@@ -57,8 +61,9 @@ const useStyles = makeStyles((theme) => ({
   profileInfoDesc: {
     display: "flex",
     flexDirection: "row",
-      alignItems: "space-between",
-    width:'100%'
+    alignItems: "space-between",
+    justifyContent:'space-between',
+    width: "95%",
   },
   profileInfoData: {
     fontFamily: "Roboto",
@@ -67,24 +72,33 @@ const useStyles = makeStyles((theme) => ({
     color: "#000000",
     fontWeight: "400",
     fontSize: "20px",
-    marginTop: "0",
-    paddingTop: "0",
   },
   profileSubscribeButton: {
-    width: "217px",
-    height: "63px",
+    width: "167px",
+    height: "48px",
+    minHeight: "2rem",
     background: "#FF0000",
     borderRadius: "10px",
     fontFamily: "Roboto",
     fontStyle: "normal",
-    fontWeight: "400",
-    fontSize: "28px",
-    lineHeight: "33px",
+    fontWeight: "500",
+    fontSize: "22px",
+    lineHeight: "28px",
     color: "#FFFFFF",
+    border: "none",
   },
-
-  profileRightBottom: {
-    display: "flex",
+  profileIconButton: {
+    width: "100px",
+    height: "48px",
+    minHeight: "2rem",
+    background: "none",
+    borderRadius: "10px",
+    fontFamily: "Roboto",
+    fontStyle: "normal",
+    fontSize: "22px",
+    lineHeight: "28px",
+    color: "#FFFFFF",
+    border: "none",
   },
 }));
 
