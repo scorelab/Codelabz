@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   profileInfo: {
-    background: "#F5F5F5",
+    background: "#ffffff",
     display: "flex",
     flexDirection: "row",
     alignItems: "space-between",
