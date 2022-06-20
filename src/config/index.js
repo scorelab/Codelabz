@@ -19,8 +19,19 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 };
 
+console.log("firebaseConfig", firebaseConfig);
+
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
+
+if (window.location.hostname === "localhost") {
+  firebase.firestore().useEmulator("localhost",8080);
+  firebase.auth().useEmulator("http://localhost:9099", {
+    disableWarnings: true,
+  });
+  firebase.database().useEmulator("localhost",9000);
+  firebase.functions().useEmulator("localhost",5001);
+}
 
 // Initialize other services on firebase instance
 firebase.firestore(); // <- needed if using firestore
@@ -35,6 +46,8 @@ if (firebase.messaging.isSupported()) {
     process.env.REACT_APP_FIREBASE_FCM_VAPID_KEY
   );
 }
+
+
 
 export const messaging = firebase_messaging;
 
