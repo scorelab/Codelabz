@@ -160,7 +160,7 @@ Note:-(***Recommended***)If you don't configure these settings, the emulators wi
 ```
 firebase emulators:start
 ```
-- You need to run `firebase emulators:start` irst and then run `npm start` inorder to run the codelabz webpage.
+- You need to run `firebase emulators:start` first and then run `npm start` inorder to run the codelabz webpage.
 - You can check/open Emulator suite by visiting [localhost:4000](http://localhost:4000).
   
 
