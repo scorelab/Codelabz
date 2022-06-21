@@ -18,26 +18,26 @@ export default function ProfileCard2() {
               <Typography className={classes.profileInfoName}>
                 Safak Kocaoglu
               </Typography>
-                <Typography className={classes.profileInfoStory}>
-                  Add Profile Credentials
-                </Typography>
-                <Grid container>
-                  <span
-                    className={classes.profileInfoData}
-                    style={{ marginRight: "20px" }}
-                  >
-                    5 Contributors
-                  </span>
-                  <span
-                    className={classes.profileInfoData}
-                    style={{ marginRight: "2px" }}
-                  >
-                    • 40.2k followers
-                  </span>
-                </Grid>
-                <Typography className={classes.profileInfoData}>
-                  Write a description about yourself
-                </Typography>
+              <Typography className={classes.profileInfoStory}>
+                Add Profile Credentials
+              </Typography>
+              <Grid container>
+                <span
+                  className={classes.profileInfoData}
+                  style={{ marginRight: "20px" }}
+                >
+                  5 Contributors
+                </span>
+                <span
+                  className={classes.profileInfoData}
+                  style={{ marginRight: "2px" }}
+                >
+                  • 40.2k followers
+                </span>
+              </Grid>
+              <Typography className={classes.profileInfoStory}>
+                Write a description about yourself
+              </Typography>
             </div>
           </div>
         </div>

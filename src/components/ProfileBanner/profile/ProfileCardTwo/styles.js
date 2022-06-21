@@ -40,10 +40,10 @@ const useStyles = makeStyles((theme) => ({
   profileInfoStory: {
     fontFamily: "Roboto",
     fontStyle: "normal",
-    lineHeight: "25px",
-    color: "#000000",
+    lineHeight: "22px",
+    fontSize: "19px",
+    color: "#878787",
     fontWeight: "400",
-    fontSize: "21px",
   },
 
   profileInfoData: {
@@ -51,10 +51,9 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
     lineHeight: "22px",
     fontSize: "19px",
-    color: "#878787",
+    color: "#000000",
     fontWeight: "400",
   },
-
 }));
 
 export default useStyles;
