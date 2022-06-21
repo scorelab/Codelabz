@@ -1,15 +1,15 @@
 import React from "react";
 
-import ProfileCard3 from "../../../components/ProfileBanner/profile/ProfileCard3/index";
+import ProfileCardTwo from "../../../components/ProfileBanner/profile/ProfileCardTwo/index";
 import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
-  title: "ProfileBanner/ProfileCard3",
-  component: ProfileCard3,
+  title: "ProfileBanner/ProfileCardTwo",
+  component: ProfileCardTwo,
 };
 
 export const profile = () => (
   <ProviderWrapper>
-    <ProfileCard3 />
+    <ProfileCardTwo />
   </ProviderWrapper>
 );
