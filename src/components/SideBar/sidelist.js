@@ -49,8 +49,8 @@ const SideList = (props) => {
           return (
           <>
               {
-                  item.link && <MenuItem key={"" + item.link}>
-                          <NavLink to={"" + item.link} className={classes.navLink }>
+                  item.link && <MenuItem key={item.link}>
+                          <NavLink to={item.link} className={classes.navLink }>
                               {item.img && <ListItemIcon className={classes.listIcon}>
                               <img src={item.img} className={classes.icons} />
                           </ListItemIcon>}
