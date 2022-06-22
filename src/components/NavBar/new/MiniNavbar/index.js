@@ -10,6 +10,7 @@ import React from "react";
 import Headroom from "react-headroom";
 import BrandName from "../../../../helpers/brandName";
 import SearchIcon from "@material-ui/icons/Search";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[100],
     padding: "2px",
     border: "1px solid #ced4da",
+    width: "100%",
   },
   icon: {
     padding: "1px",
@@ -36,9 +38,17 @@ const useStyles = makeStyles((theme) => ({
 
 function MiniNavbar() {
   const classes = useStyles();
+
+  const history = useHistory();
+
   return (
     <Headroom>
-      <nav>
+      <nav
+        style={{
+          padding: "10px",
+          background: "white",
+        }}
+      >
         <Grid
           container
           direction="row"
@@ -46,9 +56,15 @@ function MiniNavbar() {
           alignItems="center"
         >
           <Grid item>
-            <BrandName />
+            <div
+              onClick={() => {
+                history.push("/");
+              }}
+            >
+              <BrandName />
+            </div>
           </Grid>
-          <Grid item>
+          <Grid item xs={5}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -70,6 +86,7 @@ function MiniNavbar() {
                 color: "white",
               }}
               className={classes.button}
+              onClick={() => history.push("/login")}
             >
               Login
             </Button>
@@ -80,6 +97,7 @@ function MiniNavbar() {
                 boxShadow: "none",
               }}
               className={classes.button}
+              onClick={() => history.push("/signup")}
             >
               Sign Up
             </Button>

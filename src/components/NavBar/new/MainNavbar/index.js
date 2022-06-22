@@ -36,11 +36,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MiniNavbar() {
+function MainNavbar() {
   const classes = useStyles();
   return (
     <Headroom>
-      <nav>
+      <nav
+        style={{
+          padding: "10px",
+          background: "white",
+        }}
+      >
         <Grid
           container
           direction="row"
@@ -50,7 +55,7 @@ function MiniNavbar() {
           <Grid item>
             <BrandName />
           </Grid>
-          <Grid item>
+          <Grid item xs={5}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -83,4 +88,4 @@ function MiniNavbar() {
   );
 }
 
-export default MiniNavbar;
+export default MainNavbar;
