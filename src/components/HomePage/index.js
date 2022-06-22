@@ -14,12 +14,27 @@ import useStyles from "./styles";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
+  const trendingTags = ["javascript", "react", "html", "css"];
   const [value, setValue] = useState(2);
+  const [posts, setPosts] = useState(userList);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleClick = (e) => {
+    let updatedPosts = userList.persons;
+    updatedPosts = updatedPosts.filter((post) =>
+      post.tags.includes(e.target.innerHTML)
+    );
+    setPosts({ persons: updatedPosts });
+  };
+
   return (
-    <Card className={classes.wrapper} style={{ background: background }} data-testId="homepage">
+    <Card
+      className={classes.wrapper}
+      style={{ background: background }}
+      data-testId="homepage"
+    >
       <div className={classes.sideBody}>
         <Grid
           container
@@ -35,26 +50,31 @@ function HomePage({ background = "white", textColor = "black" }) {
         >
           <Grid item>
             <br />
-            <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "1rem", color: textColor }}
+            >
               Popular Tags
             </Typography>
           </Grid>
           <Grid container alignItems="left">
-            <List component="nav" aria-label="mailbox folders" style={{ width: "100%" }}>
-              <ListItem button>
-                <ListItemText primary="#javascript" />
-              </ListItem>
-              <Divider />
-              <ListItem button divider>
-                <ListItemText primary="#react" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="#html" />
-              </ListItem>
-              <Divider light />
-              <ListItem button>
-                <ListItemText primary="#css" />
-              </ListItem>
+            <List
+              component="nav"
+              aria-label="mailbox folders"
+              style={{ width: "100%" }}
+            >
+              {trendingTags.map((item) => {
+                return (
+                  <ListItem
+                    button
+                    className={classes.TagsListitem}
+                    onClick={(e) => handleClick(e)}
+                  >
+                    <ListItemText primary={item} />
+                  </ListItem>
+                );
+              })}
             </List>
           </Grid>
         </Grid>
@@ -72,12 +92,20 @@ function HomePage({ background = "white", textColor = "black" }) {
         >
           <Grid item>
             <br />
-            <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "1rem", color: textColor }}
+            >
               Popular Events
             </Typography>
           </Grid>
           <Grid container alignItems="left">
-            <List component="nav" aria-label="mailbox folders" style={{ width: "100%" }}>
+            <List
+              component="nav"
+              aria-label="mailbox folders"
+              style={{ width: "100%" }}
+            >
               <ListItem button>
                 <ListItemText primary="Lorem Pervious Text" />
               </ListItem>
@@ -118,15 +146,34 @@ function HomePage({ background = "white", textColor = "black" }) {
             data-testId="sortByTime"
           >
             <BottomNavigationAction label="Week" />
-            <BottomNavigationAction label="Month" style={{ fontSize: "2rem" }} />
+            <BottomNavigationAction
+              label="Month"
+              style={{ fontSize: "2rem" }}
+            />
             <BottomNavigationAction label="Year" />
             <BottomNavigationAction label="Latest" />
           </BottomNavigation>
         </Grid>
 
-        {userList.persons.map((person) => (
-          <CardComponent title={person.title} tags={person.tags} profilePic={person.profilePic} org={person.org} />
-        ))}
+        {posts.persons.length > 0 ? (
+          posts.persons.map((person) => (
+            <CardComponent
+              title={person.title}
+              tags={person.tags}
+              profilePic={person.profilePic}
+              org={person.org}
+            />
+          ))
+        ) : (
+          <Card
+            maxWidth="sm"
+            className={classes.card}
+            style={{ background: background }}
+            data-testId="codelabzCard"
+          >
+            <div>Currently, there are no posts with this tag.</div>
+          </Card>
+        )}
       </div>
       <div className={classes.sideBody}>
         <Grid
@@ -138,7 +185,11 @@ function HomePage({ background = "white", textColor = "black" }) {
           data-testId="homepageUpcomingEventSidebar"
         >
           <Grid item>
-            <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "1rem", color: textColor }}
+            >
               Upcoming Events
             </Typography>
           </Grid>
@@ -177,7 +228,11 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{ padding: "1rem" }}
           data-testId="homepageDiscussionSidebar"
         >
-          <Typography variant="h6" gutterBottom style={{ marginBottom: "1rem", color: textColor }}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{ marginBottom: "1rem", color: textColor }}
+          >
             Discussion
           </Typography>
           <Grid container alignItems="left">
