@@ -6,16 +6,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     boxShadow: "none",
     border: "1px solid rgba(0, 0, 0, 0.1)",
-    '@media (max-width: 950px)' : {
+    '@media (max-width: 1050px)' : {
       width: "80%",
     },
-    '@media (max-width: 600px)' : {
+    '@media (max-width: 650px)' : {
       width: "100%",
     }
   },
   content: {
     paddingBottom: "15px !important",
     paddingTop: 15,
+    '@media (max-width: 600px)' : {
+      padding: "15px 5px",
+    }
   },
   row: {
     display: "flex", 
@@ -26,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex", 
     justifyContent: "center", 
     alignItems: "center", 
-    width: 225,
+    width: 245,
   },
   button: {
     height: 26,
@@ -53,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   tw: {
     color: "#03A9F4",
     fontSize: 30,
-    marginLeft: -1,
+    marginLeft: -3,
     marginRight: 18,
     '@media (max-width: 500px)' : {
       marginRight: 6,
@@ -69,9 +72,10 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   text: {
+    fontFamily: "Poppins",
     color: "#000",
     '@media (max-width: 500px)' : {
-      fontSize: 13
+      fontSize: 12
     }
   }
 }));
