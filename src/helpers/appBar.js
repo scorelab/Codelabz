@@ -105,48 +105,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CodeLabzAppBar = () => {
   const authed = useAuthStatus();
-  const permissions = useGetPermissions();
-  const allowDashboard = useAllowDashboard();
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const menuId = "primary-search-account-menu";
-
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem key="/tutorials">
-        <NavLink to="/tutorials">Tutorials</NavLink>
-      </MenuItem>
-
-      {allowDashboard && (
-        <MenuItem key="my-code-feed">
-          <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
-        </MenuItem>
-      )}
-
-      {allowDashboard && permissions.length > 0 && (
-        <MenuItem key="/organization">
-          <NavLink to="/organization">Organizations</NavLink>
-        </MenuItem>
-      )}
-    </Menu>
-  );
 
   if (authed) {
     return (
@@ -154,144 +113,12 @@ const CodeLabzAppBar = () => {
         <MainNavbar />
       </div>
     );
-    // return (
-    //   <div className={classes.grow} data-testId="navbarloggedIn">
-    //     <AppBar position="static" color="white">
-    //       <Toolbar className={classes.toolbar}>
-    //         <Typography
-    //           className={classes.title}
-    //           variant="h6"
-    //           noWrap
-    //           data-testId="navbarBrand"
-    //         >
-    //           <Link to={"/"}>
-    //             <BrandName />
-    //           </Link>
-    //         </Typography>
-
-    //         <div className={classes.search}>
-    //           <div className={classes.searchIcon}>
-    //             <SearchIcon />
-    //           </div>
-
-    //           <InputBase
-    //             data-testId="navbarSearch"
-    //             placeholder="Search"
-    //             classes={{
-    //               root: classes.inputRoot,
-    //               input: classes.inputInput,
-    //             }}
-    //             inputProps={{ "aria-label": "search" }}
-    //           />
-    //         </div>
-
-    //         <div className={classes.grow} />
-
-    //         <div className={classes.newButtonDesktop}>
-    //           <Button
-    //             variant="contained"
-    //             color="primary"
-    //             style={{ backgroundColor: "royalblue" }}
-    //             endIcon={<AddIcon />}
-    //           >
-    //             New Codelab
-    //           </Button>
-    //         </div>
-
-    //         <div className={classes.newButtonMobile}>
-    //           <IconButton>
-    //             <AddCircleIcon fontSize="large" />
-    //           </IconButton>
-    //         </div>
-
-    //         <IconButton
-    //           aria-label="appsIcon"
-    //           className={classes.margin}
-    //           onClick={handleMenuOpen}
-    //           data-testId="navbarAppMenu"
-    //         >
-    //           <AppsIcon fontSize="large" />
-    //         </IconButton>
-
-    //         <div className={classes.sectionDesktop}>
-    //           <RightMenu mode={"horizontal"} />
-    //         </div>
-
-    //         <div className={classes.sectionMobile}>
-    //           <RightMenu mode={"horizontal"} />
-    //         </div>
-    //       </Toolbar>
-    //     </AppBar>
-    //     {renderMenu}
-    //   </div>
-    // );
   } else {
     return (
       <div className={classes.grow} data-testId="navbarloggedIn">
         <MiniNavbar />
       </div>
     );
-
-    // return (
-    //   <div className={classes.grow} data-testId="navbarNonloggedIn">
-    //     <AppBar position="static" color="white">
-    //       <Toolbar className={classes.toolbar}>
-    //         <Typography
-    //           className={classes.title}
-    //           variant="h6"
-    //           noWrap
-    //           data-testId="navbarBrand"
-    //         >
-    //           <Link to={"/"}>
-    //             <BrandName />
-    //           </Link>
-    //         </Typography>
-    //         <div className={classes.search}>
-    //           <div className={classes.searchIcon}>
-    //             <SearchIcon />
-    //           </div>
-
-    //           <InputBase
-    //             data-testId="navbarSearch"
-    //             placeholder="Search"
-    //             classes={{
-    //               root: classes.inputRoot,
-    //               input: classes.inputInput,
-    //             }}
-    //             inputProps={{ "aria-label": "search" }}
-    //           />
-    //         </div>
-    //         <div className={classes.grow} />
-    //         <div className={classes.newButtonDesktop}>
-    //           <Button
-    //             variant="contained"
-    //             color="primary"
-    //             style={{ backgroundColor: "royalblue" }}
-    //             endIcon={<AddIcon />}
-    //           >
-    //             New Codelab
-    //           </Button>
-    //         </div>
-    //         <div className={classes.newButtonMobile}>
-    //           <IconButton>
-    //             <AddCircleIcon fontSize="large" />
-    //           </IconButton>
-    //         </div>
-    //         &nbsp; &nbsp;
-    //         <Link to={"/login"}>
-    //           <Button
-    //             variant="contained"
-    //             color="primary"
-    //             style={{ backgroundColor: "royalblue" }}
-    //             data-testId="navbarlogin"
-    //           >
-    //             Log In
-    //           </Button>
-    //         </Link>
-    //       </Toolbar>
-    //     </AppBar>
-    //   </div>
-    // );
   }
 };
 
