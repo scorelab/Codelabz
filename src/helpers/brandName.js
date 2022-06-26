@@ -1,17 +1,18 @@
 import React from "react";
+import Logo from "../assets/images/logo.png";
 
 function BrandName() {
-  const names = [
-    `CodeLabz /`,
-    `<CodeLabz />`,
-    `{CodeLabz}`,
-    `[CodeLabz,]`,
-    `C0d3L@bz`,
-    `CodeLabz.`,
-    `<CodeLabz>`,
-  ];
-
-  return <>{names[new Date().getHours() % names.length]}</>;
+  return (
+    <>
+      <img
+        style={{
+          width: "100px",
+        }}
+        src={Logo}
+        alt="logo"
+      />
+    </>
+  );
 }
 
 export default BrandName;

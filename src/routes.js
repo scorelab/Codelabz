@@ -23,6 +23,7 @@ import ViewTutorial from "./components/Tutorials";
 import MyTutorials from "./components/Tutorials/MyTutorials";
 import Spinner from "./helpers/spinner";
 import CodeLabzAppBar from "./helpers/appBar";
+import MainNavbar from "./components/NavBar/new/MainNavbar";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
