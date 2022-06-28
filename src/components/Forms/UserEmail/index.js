@@ -9,6 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import useStyles from "./styles";
+import data from "./temp.json";
 
 const Input = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -39,15 +40,15 @@ const Input = styled(InputBase)(({ theme }) => ({
 const UserEmail = () => {
   const classes = useStyles();
 
-  const [email1, setEmail1] = React.useState("");
-  const [email2, setEmail2] = React.useState("");
+  const [primaryEmail, setPrimaryEmail] = React.useState(data.primaryEmail);
+  const [backupEmail, setBackupEmail] = React.useState(data.backupEmail);
 
-  const handleChange1 = (event) => {
-    setEmail1(event.target.value);
+  const handleChangePrimary = (event) => {
+    setPrimaryEmail(event.target.value);
   };
 
-  const handleChange2 = (event) => {
-    setEmail2(event.target.value);
+  const handleChangeBackup = (event) => {
+    setBackupEmail(event.target.value);
   };
 
   return (
@@ -61,7 +62,7 @@ const UserEmail = () => {
         }}
       >
         <Typography style={{ margin: "5px 0" }}>
-          thisismyemail@gmail.com -{" "}
+          {data.primaryEmail} -{" "}
           <Typography variant="span" style={{ color: "#039500" }}>
             Primary
           </Typography>
@@ -84,18 +85,13 @@ const UserEmail = () => {
           </Typography>
           <FormControl>
             <Select
-              value={email1}
-              onChange={handleChange1}
+              value={primaryEmail}
+              onChange={handleChangePrimary}
               input={<OutlinedInput style={{ height: 40, width: 250 }} />}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              <MenuItem value="">
-                <Typography>thisismyemail@gmail.com</Typography>
-              </MenuItem>
-              <MenuItem value={"email1@gmail.com"}>email1@gmail.com</MenuItem>
-              <MenuItem value={"email2@gmail.com"}>email2@gmail.com</MenuItem>
-              <MenuItem value={"email3@gmail.com"}>email3@gmail.com</MenuItem>
+              {data.primaryEmailOptions.map(email => <MenuItem value={email}>{email}</MenuItem>)}
             </Select>
           </FormControl>
         </Box>
@@ -103,21 +99,15 @@ const UserEmail = () => {
           <Typography className={classes.text} style={{ marginRight: 30 }}>
             Backup email address
           </Typography>
-          {/* <Input type="password" className={classes.input} /> */}
           <FormControl>
             <Select
-              value={email2}
-              onChange={handleChange2}
+              value={backupEmail}
+              onChange={handleChangeBackup}
               input={<OutlinedInput style={{ height: 40, width: 250 }} />}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              <MenuItem value="">
-                <Typography>thisismyemail@gmail.com</Typography>
-              </MenuItem>
-              <MenuItem value={"email1@gmail.com"}>email1@gmail.com</MenuItem>
-              <MenuItem value={"email2@gmail.com"}>email2@gmail.com</MenuItem>
-              <MenuItem value={"email3@gmail.com"}>email3@gmail.com</MenuItem>
+              {data.backupEmailOptions.map(email => <MenuItem value={email}>{email}</MenuItem>)}
             </Select>
           </FormControl>
         </Box>
