@@ -1,3 +1,5 @@
+import React from "react";
+
 const Tab = ({ icon, label }) => {
   return (
     <div className="child">

@@ -1,3 +1,4 @@
+import React from "react";
 import { Img } from "react-image";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";

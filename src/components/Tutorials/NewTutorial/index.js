@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { avatarName } from "../../../helpers/avatarName";
 import { createTutorial } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useHistory } from "react-router-dom";
@@ -10,7 +9,6 @@ import Alert from "@material-ui/lab/Alert";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-import Avatar from "@material-ui/core/Avatar";
 import Modal from "@material-ui/core/Modal";
 
 const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
@@ -78,24 +76,16 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
 
   const orgList =
     allowOrgs > 0
-      ? organizations.map((org, i) => {
-          if (org.permissions.includes(3) || org.permissions.includes(2)) {
-            return (
-              <Select.Option value={org.org_handle} key={i}>
-                <Avatar src={org.org_image} size="small" className="mr-8 ml-0" style={{ size: "1rem" }}>
-                  {avatarName(org.org_name)}
-                </Avatar>
-                {org.org_name}
-              </Select.Option>
-            );
-          } else {
-            return null;
-          }
-        })
+      ? organizations
+          .map((org, i) => {
+            if (org.permissions.includes(3) || org.permissions.includes(2)) {
+              return org;
+            } else {
+              return null;
+            }
+          })
+          .filter(Boolean)
       : null;
-
-  const list = [];
-  orgList && orgList.map((org) => list.push(org.props.value));
 
   useEffect(() => {
     setVisible(viewModal);
@@ -128,6 +118,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       [name]: value,
     }));
   };
+
   return (
     <Modal
       open={visible}
@@ -157,7 +148,9 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
         )}
         <form id="tutorialNewForm">
           <TextField
-            prefix={<AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={
+              <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+            }
             placeholder="Title of the Tutorial"
             autoComplete="title"
             name="title"
@@ -169,7 +162,9 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
           />
 
           <TextField
-            prefix={<AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={
+              <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+            }
             fullWidth
             variant="outlined"
             name="summary"
@@ -187,14 +182,20 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             id="newTutorialSelect"
           >
             <MenuItem value={userHandle}>{displayName}</MenuItem>
-            {list?.map((item) => {
-              return <MenuItem value={item}>{item}</MenuItem>;
+            {orgList?.map((item) => {
+              return (
+                <MenuItem value={item.org_handle}>{item.org_name}</MenuItem>
+              );
             })}
           </Select>
 
           <div className="mb-0">
             <div style={{ float: "right", marginTop: "-1rem" }}>
-              <Button key="back" onClick={onSidebarClick} id="cancelAddTutorial">
+              <Button
+                key="back"
+                onClick={onSidebarClick}
+                id="cancelAddTutorial"
+              >
                 Cancel
               </Button>
               <Button

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import navbarPaths from "./navbarPaths";
-import MiniNavbar from "./MiniNavbar";
-import MainNavbar from "./MainNavbar";
 import { useAuthStatus } from "../../helpers/customHooks";
 import { useSelector } from "react-redux";
+import MainNavbar from "./new/MainNavbar";
+import MiniNavbar from "./new/MiniNavbar";
+import { useFirebase } from "react-redux-firebase";
 
 const Navbar = () => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -35,7 +36,7 @@ const Navbar = () => {
   if (render === "main" && authed) {
     return <MainNavbar />;
   } else {
-    return <MiniNavbar type={location} />;
+    return <MiniNavbar />;
   }
 };
 
