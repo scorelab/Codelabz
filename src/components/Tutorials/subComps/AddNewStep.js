@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Modal from '@material-ui/core/Modal';
-import Input from '@material-ui/core/Input';
-import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
-import Button from '@material-ui/core/Button';
+import Modal from "@material-ui/core/Modal";
+import Input from "@material-ui/core/Input";
+import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
+import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,8 +26,8 @@ const AddNewStepModal = ({
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [title,setTitle]=useState("");
-  const [time,setTime]=useState(0);
+  const [title, setTitle] = useState("");
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     clearCreateTutorials()(dispatch);
@@ -70,12 +70,13 @@ const AddNewStepModal = ({
     }
   }, [loading, error, dispatch]);
 
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-  const onSubmit = () => {
-    const formData={
-     title,
-     time
-   }
+    const formData = {
+      title,
+      time,
+    };
     const set_data = {
       ...formData,
       id: `${tutorial_id}_${new Date().getTime()}`,
@@ -86,7 +87,6 @@ const AddNewStepModal = ({
   };
 
   const handleCancel = () => {
-    
     setVisible(false);
   };
 
@@ -99,48 +99,59 @@ const AddNewStepModal = ({
       footer={false}
       destroyOnClose={true}
       maskClosable={false}
-       style={{
+      style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      <Grid style={{background:"white",padding:"2rem"}}>
-      {error && (
-        <Alert
-          message={""}
-          description={"Tutorial Creation Failed"}
-          type="error"
-          closable
-          className="mb-24"
-        />
-      )}
-      <form onSubmit={onSubmit} >
+      <Grid style={{ background: "white", padding: "2rem" }}>
+        {error && (
+          <Alert
+            message={""}
+            description={"Tutorial Creation Failed"}
+            type="error"
+            closable
+            className="mb-24"
+          />
+        )}
+        <form onSubmit={onSubmit}>
           <Input
             prefix={
               <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
             }
-            onChange={e=>setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="Title of the Step"
             autoComplete="title"
-            style={{marginBottom:"2rem"}}
+            style={{ marginBottom: "2rem" }}
           />
-        <TextField type="number" onChange={e=>setTime(e.target.value)} placeholder="Time (minutes)" style={{ width: "100%" }} />
-            <Button  style={{marginTop:"2rem"}} variant="contained" color="secondary" key="back" onClick={handleCancel}>
-              Cancel
-            </Button>
-            <Button
-            style={{marginTop:"2rem"}}
-              key="submit"
-              type="primary"
-              htmlType="submit"
-              variant="contained"
-              color="primary"
-              loading={loading}
-            >
-              {loading ? "Creating..." : "Create"}
-            </Button>
-      </form>
+          <TextField
+            type="number"
+            onChange={(e) => setTime(e.target.value)}
+            placeholder="Time (minutes)"
+            style={{ width: "100%" }}
+          />
+          <Button
+            style={{ marginTop: "2rem" }}
+            variant="contained"
+            color="secondary"
+            key="back"
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+          <Button
+            style={{ marginTop: "2rem" }}
+            key="submit"
+            type="primary"
+            htmlType="submit"
+            variant="contained"
+            color="primary"
+            loading={loading}
+          >
+            {loading ? "Creating..." : "Create"}
+          </Button>
+        </form>
       </Grid>
     </Modal>
   );

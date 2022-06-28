@@ -75,7 +75,7 @@
     "css-loader": "^5.2.6",
     "cypress": "^4.12.1",
     "cypress-xpath": "^1.6.0",
-    "less-loader": "^9.0.0",
+    "less-loader": "^7.3.0",
     "style-loader": "^2.0.0"
   }
 }

@@ -6,20 +6,24 @@ import * as serviceWorker from "./serviceWorker";
 import store, { rrfProps } from "./store";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { Provider } from "react-redux";
+import { ThemeProvider } from "@material-ui/core";
+import { theme } from "./helpers/themes";
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/firebase-messaging-sw.js")
-    .catch(function(err) {
+    .catch(function (err) {
       console.log("Service worker registration failed, error:", err);
     });
 }
 
 ReactDOM.render(
   <Provider store={store}>
-    <ReactReduxFirebaseProvider {...rrfProps}>
-      <App />
-    </ReactReduxFirebaseProvider>
+    <ThemeProvider theme={theme}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
+    </ThemeProvider>
   </Provider>,
   document.getElementById("root")
 );

@@ -1,3 +1,5 @@
+import React from "react";
+
 const Contents = ({ children, active }) => {
   return (
     <div className="contents">

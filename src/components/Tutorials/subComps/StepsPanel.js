@@ -11,7 +11,6 @@ const StepsPanel = ({
   onClick,
   hideButton,
 }) => {
-  
   return (
     <div className="tutorial-steps-sider">
       {!hideButton &&
