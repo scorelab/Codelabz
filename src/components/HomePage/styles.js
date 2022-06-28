@@ -69,7 +69,24 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0 2rem 0",
     background: "white",
     boxShadow: ".5px 2px 5px gray",
-  },
+    },
+
+  leftSideCard: {
+        display: "flex",
+        alignItems: "left",
+        justifyContent: "center",
+        flexDirection: "column",
+        maxHeight: "35rem",
+        margin: "0 0 2rem 0",
+        background: "white",
+        boxShadow: ".5px 2px 5px gray",
+    },
+
+    outerSideBar: {
+        minWidth:"100%"
+    }
+
+
 }));
 
 export default useStyles;
