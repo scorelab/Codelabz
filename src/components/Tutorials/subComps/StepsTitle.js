@@ -15,6 +15,9 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   const [step_title, set_step_title] = useState(null);
   const [step_time, set_step_time] = useState(null);
 
+  const [newStepTitle, setNewStepTitle] = useState(step_title);
+  const [newStepTime, setNewStepTime] = useState(step_time);
+
   const current_step_no = useSelector(
     ({
       tutorials: {
@@ -36,12 +39,13 @@ const StepsTitle = ({ owner, tutorial_id }) => {
       const current_step_data = steps[current_step_no];
       set_step_id(current_step_data.id);
       set_step_title(current_step_data.title);
+      setNewStepTitle(current_step_data.title);
       set_step_time(current_step_data.time);
+      setNewStepTime(current_step_data.time);
     }
   }, [
     step_title,
     step_time,
-
     current_data,
     set_step_id,
     set_step_title,
@@ -50,7 +54,6 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   ]);
 
   const setStepTitle = () => {
-    const newStepTitle = "step_title";
     if (step_title !== newStepTitle && newStepTitle.length > 0) {
       <Snackbar
         anchorOrigin={{
@@ -81,9 +84,7 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   };
 
   const setStepTime = () => {
-    const newStepTime = "step_time";
-    if (step_time !== newStepTime && newStepTime.length > 0) {
-      
+    if (step_time !== newStepTime) {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
@@ -119,8 +120,9 @@ const StepsTitle = ({ owner, tutorial_id }) => {
           <Grid style={{ width: "100%" }}>
             <Grid xs={24} md={19}>
               <Input
+                onChange={(e) => setNewStepTitle(e.target.value)}
+                value={newStepTitle}
                 onBlur={setStepTitle}
-                onPressEnter={setStepTitle}
                 placeholder="Title of the step"
                 className="tutorial-title-input"
                 size="large"
@@ -129,8 +131,9 @@ const StepsTitle = ({ owner, tutorial_id }) => {
             </Grid>
             <Grid xs={24} md={5}>
               <Input
+                onChange={(e) => setNewStepTime(parseInt(e.target.value) || 1)}
+                value={newStepTime}
                 onBlur={setStepTime}
-                onPressEnter={setStepTime}
                 placeholder="Time"
                 style={{ width: "100%" }}
                 className="tutorial-title-input"
