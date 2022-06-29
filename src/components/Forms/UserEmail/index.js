@@ -73,7 +73,7 @@ const UserEmail = () => {
             style={{ display: "flex", alignItems: "center", margin: "10px 0" }}
           >
             <Input
-              placeholder="thisismyemail@gmail.com"
+              placeholder="email"
               className={classes.input}
             />
             <Typography>Add</Typography>
