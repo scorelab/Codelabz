@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import dp from "../../../../assets/images/demoperson1.jpeg";
 
-export default function ProfileCard2({ profileImage, name, followers, contributors }) {
+export default function ProfileCardTwo({ profileImage, name, followers, contributors }) {
   const classes = useStyles();
   return (
     <>
