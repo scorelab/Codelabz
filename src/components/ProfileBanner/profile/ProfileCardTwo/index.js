@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import dp from "../../../../assets/images/demoperson1.jpeg";
 
-export default function ProfileCard2() {
+export default function ProfileCard2({ profileImage, name, followers, contributors }) {
   const classes = useStyles();
   return (
     <>
@@ -12,11 +12,11 @@ export default function ProfileCard2() {
         <div className={classes.profileCover}>
           <div className={classes.profileInfo}>
             <div>
-              <img className={classes.profileUserImg} src={dp} />
+              <img className={classes.profileUserImg} src={profileImage} />
             </div>
             <div style={{ width: "fit-content", marginLeft: "2.5rem" }}>
               <Typography className={classes.profileInfoName}>
-                Safak Kocaoglu
+                {name}
               </Typography>
               <Typography className={classes.profileInfoStory}>
                 Add Profile Credentials
@@ -26,13 +26,13 @@ export default function ProfileCard2() {
                   className={classes.profileInfoData}
                   style={{ marginRight: "20px" }}
                 >
-                  5 Contributors
+                  {contributors} Contributors
                 </span>
                 <span
                   className={classes.profileInfoData}
                   style={{ marginRight: "2px" }}
                 >
-                  • 40.2k followers
+                  • {followers} followers
                 </span>
               </Grid>
               <Typography className={classes.profileInfoStory}>
