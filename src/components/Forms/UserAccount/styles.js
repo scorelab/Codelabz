@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
       padding: "10px 15px",
     },
   },
+  row: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: 10,
+  },
   text: {
     "@media (max-width: 400px)": {
       fontSize: 13,

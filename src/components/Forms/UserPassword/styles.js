@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
     width: 175,
     margin: "15px 0",
   },
+  row: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   text: {
     margin: "5px 0",
     "@media (max-width: 400px)": {

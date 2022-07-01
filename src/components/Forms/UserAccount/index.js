@@ -1,7 +1,5 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
+import { Box, Card, Typography } from "@material-ui/core";
 import useStyles from "./styles";
 
 const UserAccount = () => {
@@ -9,7 +7,7 @@ const UserAccount = () => {
 
   return (
     <Card className={classes.card}>
-      <Box style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
+      <Box className={classes.row}>
         <Typography className={classes.text} style={{ width: "56%" }}>
           Export account data
         </Typography>
@@ -17,7 +15,7 @@ const UserAccount = () => {
           Start export
         </Typography>
       </Box>
-      <Box style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
+      <Box className={classes.row}>
         <Typography className={classes.text} style={{ width: "56%" }}>
           Successor settings
         </Typography>

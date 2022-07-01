@@ -1,41 +1,7 @@
 import React from "react";
 import useStyles from "./styles";
-import {
-  Box,
-  Card,
-  InputBase,
-  Typography,
-  Button,
-  alpha,
-  styled,
-  Switch,
-} from "@material-ui/core";
-
-const Input = styled(InputBase)(({ theme }) => ({
-  "label + &": {
-    marginTop: theme.spacing(3),
-  },
-  "& .MuiInputBase-input": {
-    borderRadius: 4,
-    position: "relative",
-    backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#F9F9F9",
-    border: "1px solid #ced4da",
-    borderRadius: 6,
-    fontSize: 16,
-    width: "100%",
-    padding: "10px 12px",
-    transition: theme.transitions.create([
-      "border-color",
-      "background-color",
-      "box-shadow",
-    ]),
-    fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
-    "&:focus": {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-}));
+import { Box, Card, Typography, Button, Switch } from "@material-ui/core";
+import { Input } from "../../ui-helpers/Inputs/SecondaryInput";
 
 const UserPassword = () => {
   const classes = useStyles();
@@ -63,13 +29,7 @@ const UserPassword = () => {
           <Input type="password" className={classes.input} />
         </Box>
         <Button className={classes.button}>Update Password</Button>
-        <Box
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <Box className={classes.row}>
           <Typography className={classes.text}>Logout</Typography>
           <Typography
             className={classes.text}
@@ -78,13 +38,7 @@ const UserPassword = () => {
             Logout of all other browsers
           </Typography>
         </Box>
-        <Box
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <Box className={classes.row}>
           <Typography className={classes.text}>Login security</Typography>
           <Box style={{ display: "flex", alignItems: "center" }}>
             <Typography className={classes.text}>
