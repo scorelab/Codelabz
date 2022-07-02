@@ -15,34 +15,44 @@ import SideBar from "../SideBar/index";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
-    const [value, setValue] = useState(2);
-    const [footerContent, setFooterContent] = useState([
-        { name: "Help", link: "https://dev.codelabz.io/" },
-        { name: "About", link: "https://dev.codelabz.io/" },
-        { name: "Content Policy", link: "https://dev.codelabz.io/" },
-        { name: "Terms", link: "https://dev.codelabz.io/" },
-        { name: "Privacy Policy", link: "https://dev.codelabz.io/" },
-        { name: "CodeLabz @2022", link: "https://dev.codelabz.io/" },
+  const [value, setValue] = useState(2);
+  const [footerContent, setFooterContent] = useState([
+    { name: "Help", link: "https://dev.codelabz.io/" },
+    { name: "About", link: "https://dev.codelabz.io/" },
+    { name: "Content Policy", link: "https://dev.codelabz.io/" },
+    { name: "Terms", link: "https://dev.codelabz.io/" },
+    { name: "Privacy Policy", link: "https://dev.codelabz.io/" },
+    { name: "CodeLabz @2022", link: "https://dev.codelabz.io/" },
+  ]);
 
-    ])
+  const [openMenu, setOpen] = useState(true);
+  const toggleSlider = () => {
+    setOpen(!openMenu);
+  };
 
-    const [openMenu, setOpen] = useState(true);
-    const toggleSlider = () => {
-        setOpen(!openMenu);
-        
-    }
-
-    const notification = () => {
-
-    }
+  const notification = () => {};
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
-      <Card className={classes.wrapper} style={{ background: background }} data-testId="homepage" onClick={() => { toggleSlider() }}>
-          {window.innerWidth <= 750 && openMenu && <SideBar open={openMenu} toggleSlider={toggleSlider} notification={notification}/>}
-          <div className={classes.sideBody}>
-       
+    <Card
+      className={classes.wrapper}
+      style={{ background: background }}
+      data-testId="homepage"
+      onClick={() => {
+        toggleSlider();
+      }}
+    >
+      {window.innerWidth <= 750 && openMenu && (
+        <div data-testId="homepageSidebarSmall">
+          <SideBar
+            open={openMenu}
+            toggleSlider={toggleSlider}
+            notification={notification}
+          />
+        </div>
+      )}
+      <div className={classes.sideBody}>
         <Grid
           container
           className={classes.sideCard}
@@ -54,8 +64,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             maxHeight: "25rem",
           }}
           data-testId="homepageTagSidebar"
-              >
-          
+        >
           <Grid item>
             <br />
             <Typography
@@ -86,29 +95,34 @@ function HomePage({ background = "white", textColor = "black" }) {
               <ListItem button>
                 <ListItemText primary="#css" />
               </ListItem>
-                        </List>
-                   
-                  </Grid>
-                </Grid>
+            </List>
+          </Grid>
+        </Grid>
 
-              {window.innerWidth > 750 && <Grid
-                  container
-                  className={classes.leftSideCard}
-                  direction="column"
-                  style={{
-                      width: "100%",
-                      overflow: "auto",
-                      maxHeight: "25rem",
-                      backgroundColor: "transparent",
-                      border: "none",
-                      boxShadow: "none"
-                  }}
-              >
-
-                  <Grid item className={classes.outerSideBar}>
-                      <SideBar open={openMenu} toggleSlider={toggleSlider} />
-                  </Grid>
-              </Grid>}
+        {window.innerWidth > 750 && (
+          <Grid
+            container
+            className={classes.leftSideCard}
+            direction="column"
+            style={{
+              width: "100%",
+              overflow: "auto",
+              maxHeight: "25rem",
+              backgroundColor: "transparent",
+              border: "none",
+              boxShadow: "none",
+            }}
+            data-testId="homepageSidebarGrid"
+          >
+            <Grid
+              item
+              className={classes.outerSideBar}
+              data-testId="homepageSidebar"
+            >
+              <SideBar open={openMenu} toggleSlider={toggleSlider} />
+            </Grid>
+          </Grid>
+        )}
         <Grid
           container
           className={classes.sideCard}
