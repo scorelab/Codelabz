@@ -15,17 +15,17 @@ import Bookmark from './../../assets/images/bookmark.svg';
 const SideBar = (props) => {
     const [menuItems, setItems] = useState([{ name: "Home", img: Home, link: "/" }, { name: "Notifications", img: Notification, onClick:`${props.notification}` }, {
         name: "Settings", img: Setting, link: "/settings"
-    }, { name: "Organizations", img: Org, link: "/organizations" }, { name: " Profile", img: Profile, link: "/profile" }, , {
+    }, { name: "Organizations", img: Org, link: "/organizations" }, { name: "Profile", img: Profile, link: "/profile" }, , {
         name: "Bookmarks", img: Bookmark, link: "/bookmarks" }]);
     return (
         <>
-            {window.innerWidth <= 750 && <Drawer open={props.open} anchor="right" onClose={props.toggleSlider}>
+            {window.innerWidth <= 750 && <Drawer open={ props.open } anchor="right" onClose={ props.toggleSlider } data-testId="drawerMenu">
                <SideList menuItems={menuItems} />
             </Drawer>
             }
 
             {window.innerWidth > 750 &&
-               <SideList menuItems={menuItems} />
+              <div data-testId="normalMenu"> <SideList menuItems={menuItems} /></div>
             }
     </>
     )

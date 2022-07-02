@@ -28,44 +28,6 @@ describe("Error Page Test | CodeLabz", () => {
     cy.get("[data-testId=homepageTagSidebar");
     cy.get("[data-testId=homepageDiscussionSidebar");
     cy.get("[data-testId=homepagePopularEventSidebar");
-    cy.get( "[data-testId=homepageUpcomingEventSidebar" );
-      
-  } );
-} );
-
-describe( "Sidebar | CodeLabz",() =>
-{
-
-    context( '<750p resolution',() =>
-    {
-        beforeEach( () =>
-        {
-            cy.viewport( 720,751 )
-        } )
-
-        it( 'displays toggle sidebar',() =>
-        {
-            cy.visit( "http://localhost:3000" );
-            cy.wait( 2000 );
-            cy.get( '[data-testId=homepageSidebar]' ).should( 'not.exist' )
-            cy.get( '[data-testId=homepageSidebarSmall]' ).should( 'exist' )
-        } )
-    } )
-    context( '>750p resolution',() =>
-    {
-        beforeEach( () =>
-        {
-            cy.viewport( 1280,751 )
-        } )
-
-        it( 'displays desktop sidebar',() =>
-        {
-            cy.visit( "http://localhost:3000" );
-            cy.wait( 2000 );
-            cy.get( '[data-testId=homepageSidebar]' ).should( 'exist' )
-            cy.get( '[data-testId=homepageSidebarSmall]' ).should( 'not.exist' )
-        } )
-
-    } )
-
-} );
+    cy.get("[data-testId=homepageUpcomingEventSidebar");
+  });
+});
