@@ -3,12 +3,19 @@ import useStyles from "./styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
-
 import dp from "../../../assets/images/demoperson1.jpeg";
 import BannerDemo from "../../../assets/images/OrgBannerDemo.png";
 import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
 
-export default function Banner({ bannerImage, profileImage, name, story, followers, contributors, feed }) {
+export default function Banner({
+  bannerImage,
+  profileImage,
+  name,
+  story,
+  followers,
+  contributors,
+  feed,
+}) {
   const classes = useStyles();
   return (
     <>

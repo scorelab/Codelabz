@@ -8,7 +8,7 @@ export default {
   component: ProfileCardTwo,
 };
 
- const Template = (args) => (
+const Template = (args) => (
   <ProviderWrapper>
     <ProfileCardTwo {...args} />
   </ProviderWrapper>

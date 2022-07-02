@@ -20,7 +20,11 @@ export default function ProfileCardOne({
         <div className={classes.profileCover}>
           <div className={classes.profileInfo}>
             <div>
-              <img className={classes.profileUserImg} src={profileImage} alt="Avatar" />
+              <img
+                className={classes.profileUserImg}
+                src={profileImage}
+                alt="Avatar"
+              />
             </div>
             <div style={{ width: "fit-content", marginLeft: "2.5rem" }}>
               <Typography className={classes.profileInfoName}>

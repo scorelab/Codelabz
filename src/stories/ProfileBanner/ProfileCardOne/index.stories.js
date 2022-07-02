@@ -21,5 +21,5 @@ ProfileCard.args = {
   name: "Apple",
   story: "Think Different",
   followers: 402,
-  following:40,
+  following: 40,
 };

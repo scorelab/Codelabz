@@ -6,7 +6,14 @@ import IconButton from "@material-ui/core/IconButton";
 import CheckOutlinedIcon from "@material-ui/icons/CheckOutlined";
 import dp from "../../../../assets/images/demoperson1.jpeg";
 import Box from "@material-ui/core/Box";
-export default function ProfileCardThree({ profileImage, name,story, work, location, joiningDate }) {
+export default function ProfileCardThree({
+  profileImage,
+  name,
+  story,
+  work,
+  location,
+  joiningDate,
+}) {
   const classes = useStyles();
   return (
     <>

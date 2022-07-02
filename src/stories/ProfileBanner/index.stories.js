@@ -8,7 +8,7 @@ export default {
   component: Banner,
 };
 
- const Template = (args) => (
+const Template = (args) => (
   <ProviderWrapper>
     <Banner {...args} />
   </ProviderWrapper>
