@@ -41,7 +41,6 @@ cypress/screenshots
 cypress/videos
 
 # firebase
-.firebaserc
 firebase.json
 database-debug.log
 firebase-debug.log
