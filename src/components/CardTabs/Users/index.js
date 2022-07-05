@@ -38,10 +38,15 @@ const UserCard = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testId="UsersCard">
       <Card sx={{ minWidth: 275 }} className={(classes.card, classes.root)}>
         <CardContent className={classes.cardContent}>
-          <Typography variant="h5" component="div" gutterBottom>
+          <Typography
+            variant="h5"
+            component="div"
+            gutterBottom
+            data-testId="UsersCardTitle"
+          >
             {props.title}
           </Typography>
           {props.users.map(function (user, index) {
@@ -63,17 +68,30 @@ const UserCard = (props) => {
                     alignItems: "center",
                   }}
                 >
-                  <img src={user.img[0]} className={classes.userImg} />
+                  <img
+                    src={user.img[0]}
+                    className={classes.userImg}
+                    data-testId={index == 0 ? "UsersCardImg" : ""}
+                  />
                   <Box sx={{ flexGrow: 1 }}>
-                    <Box sx={{ fontWeight: 600, fontSize: "1rem" }}>
+                    <Box
+                      sx={{ fontWeight: 600, fontSize: "1rem" }}
+                      data-testId={index == 0 ? "UserName" : ""}
+                    >
                       {user.name}
                     </Box>
-                    <Box sx={{ fontWeight: 400, fontSize: "0.8rem" }}>
+                    <Box
+                      sx={{ fontWeight: 400, fontSize: "0.8rem" }}
+                      data-testId={index == 0 ? "UserDesg" : ""}
+                    >
                       {user.desg}
                     </Box>
                   </Box>
                 </Box>
-                <Box onClick={() => user.onClick}>
+                <Box
+                  onClick={() => user.onClick}
+                  data-testId={index == 0 ? "UserAdd" : ""}
+                >
                   <img src={AddUser} />
                 </Box>
               </Box>

@@ -25,10 +25,15 @@ const TagCard = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testId="TagsCard">
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
+          <Typography
+            variant="h5"
+            component="div"
+            gutterBottom
+            data-testId="TagsCardTitle"
+          >
             Popular Tags
           </Typography>
           {props.tags.map(function (tag, index) {
@@ -38,6 +43,7 @@ const TagCard = (props) => {
                 label={tag}
                 id={index}
                 className={classes.chip}
+                data-testId={index == 0 ? "TagsChip" : ""}
               />
             );
           })}

@@ -33,7 +33,11 @@ const EventsCard = (props) => {
 
   return (
     <div className={classes.root}>
-      <Card sx={{ minWidth: 275 }} className={(classes.card, classes.root)}>
+      <Card
+        sx={{ minWidth: 275 }}
+        className={(classes.card, classes.root)}
+        data-testId="upcomingEventCard"
+      >
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
             {props.title}
@@ -49,13 +53,24 @@ const EventsCard = (props) => {
                   mb: 1.5,
                 }}
                 gutterBottom
+                data-testId={index == 0 ? "upEventBox" : ""}
               >
-                <img src={event.img[0]} className={classes.logo} />
+                <img
+                  src={event.img[0]}
+                  className={classes.logo}
+                  data-testId={index == 0 ? "upEventImg" : ""}
+                />
                 <Box sx={{ flexGrow: 1 }}>
-                  <Box sx={{ fontWeight: 400, fontSize: "0.8rem" }}>
+                  <Box
+                    sx={{ fontWeight: 400, fontSize: "0.8rem" }}
+                    data-testId={index == 0 ? "upEventDate" : ""}
+                  >
                     {event.date}
                   </Box>
-                  <Box sx={{ fontWeight: 600, fontSize: "1rem" }}>
+                  <Box
+                    sx={{ fontWeight: 600, fontSize: "1rem" }}
+                    data-testId={index == 0 ? "upEventName" : ""}
+                  >
                     {event.name}
                   </Box>
                 </Box>
