@@ -8,8 +8,17 @@ export default {
   component: ProfileCardTwo,
 };
 
-export const profile = () => (
+const Template = (args) => (
   <ProviderWrapper>
-    <ProfileCardTwo />
+    <ProfileCardTwo {...args} />
   </ProviderWrapper>
 );
+
+export const ProfileCard = Template.bind({});
+
+ProfileCard.args = {
+  profileImage: "https://i.pravatar.cc/300",
+  name: "Salvick",
+  followers: 402,
+  contributors: 40,
+};
