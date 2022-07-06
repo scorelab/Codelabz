@@ -26,7 +26,10 @@ function HomePage({ background = "white", textColor = "black" }) {
     { name: "Content Policy", link: "https://dev.codelabz.io/" },
     { name: "Terms", link: "https://dev.codelabz.io/" },
     { name: "Privacy Policy", link: "https://dev.codelabz.io/" },
-    { name: "CodeLabz @2022", link: "https://dev.codelabz.io/" },
+    {
+      name: `CodeLabz @${new Date().getFullYear()}`,
+      link: "https://dev.codelabz.io/",
+    },
   ]);
 
   const [openMenu, setOpen] = useState(true);
