@@ -43,6 +43,7 @@ Admin.args = {
   title: "Admin",
   description: "Admins can manage submissions, content, and settings",
   AddUser: false,
+  DataTestId: 'org-admin-list'
 };
 
 const ContributersUsers = [
@@ -79,6 +80,7 @@ Contributers.args = {
   title: "Contributers",
   description: "Contributers can contribute to the project",
   AddUser: true,
+  DataTestId: 'org-contributor-list'
 };
 
 const SubscribeUsers = [
@@ -124,4 +126,5 @@ Subscribers.args = {
   description: "Subscribers can view the project",
   AddUser: true,
   isViewMore: true,
+  DataTestId: 'org-subscriber-list'
 };
