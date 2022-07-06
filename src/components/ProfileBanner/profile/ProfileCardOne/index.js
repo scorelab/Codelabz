@@ -3,10 +3,16 @@ import useStyles from "./styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
-import dp from "../../../../assets/images/demoperson1.jpeg";
+// import dp from "../../../../assets/images/demoperson1.jpeg";
 import iconbuttonImage from "../../../../assets/images/Filled3dots.svg";
 
-export default function ProfileCard1() {
+export default function ProfileCardOne({
+  profileImage,
+  name,
+  story,
+  followers,
+  following,
+}) {
   const classes = useStyles();
   return (
     <>
@@ -14,28 +20,32 @@ export default function ProfileCard1() {
         <div className={classes.profileCover}>
           <div className={classes.profileInfo}>
             <div>
-              <img className={classes.profileUserImg} src={dp} alt="Avatar" />
+              <img
+                className={classes.profileUserImg}
+                src={profileImage}
+                alt="Avatar"
+              />
             </div>
             <div style={{ width: "fit-content", marginLeft: "2.5rem" }}>
               <Typography className={classes.profileInfoName}>
-                Safak Kocaoglu
+                {name}
               </Typography>
 
               <Typography className={classes.profileInfoStory}>
-                Safak Kocaoglu
+                {story}
               </Typography>
               <Grid container>
                 <span
                   className={classes.profileInfoData}
                   style={{ marginRight: "20px" }}
                 >
-                  25 followers
+                  {followers} followers
                 </span>
                 <span
                   className={classes.profileInfoData}
                   style={{ marginRight: "2px" }}
                 >
-                  • 5 following
+                  • {following} following
                 </span>
               </Grid>
               <Grid container style={{ marginTop: "15px" }}>

@@ -3,12 +3,19 @@ import useStyles from "./styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
-
 import dp from "../../../assets/images/demoperson1.jpeg";
 import BannerDemo from "../../../assets/images/OrgBannerDemo.png";
 import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
 
-export default function Banner() {
+export default function Banner({
+  bannerImage,
+  profileImage,
+  name,
+  story,
+  followers,
+  contributors,
+  feed,
+}) {
   const classes = useStyles();
   return (
     <>
@@ -20,34 +27,36 @@ export default function Banner() {
             alt="Profile Banner"
           />
           <div className={classes.profileInfo}>
-            <img className={classes.profileUserImg} src={dp} alt="Avatar" />
-            <Typography className={classes.profileInfoName}>
-              Safak Kocaoglu
-            </Typography>
+            <img
+              className={classes.profileUserImg}
+              src={profileImage}
+              alt="Avatar"
+            />
+            <Typography className={classes.profileInfoName}>{name}</Typography>
 
             <div className={classes.profileInfoDesc}>
               <div item xs={5} spacing={4}>
                 <Typography className={classes.profileInfoStory}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  {story}
                 </Typography>
                 <Grid container>
                   <span
                     className={classes.profileInfoData}
                     style={{ marginRight: "20px" }}
                   >
-                    5 Contributors
+                    {contributors} Contributors
                   </span>
                   <span
                     className={classes.profileInfoData}
                     style={{ marginRight: "20px" }}
                   >
-                    40.2k followers
+                    {followers} followers
                   </span>
                   <span
                     className={classes.profileInfoData}
                     style={{ marginRight: "20px" }}
                   >
-                    40 feeds in the last week
+                    {feed} feeds in the last week
                   </span>
                 </Grid>
               </div>

@@ -6,7 +6,14 @@ import IconButton from "@material-ui/core/IconButton";
 import CheckOutlinedIcon from "@material-ui/icons/CheckOutlined";
 import dp from "../../../../assets/images/demoperson1.jpeg";
 import Box from "@material-ui/core/Box";
-export default function ProfileCard3() {
+export default function ProfileCardThree({
+  profileImage,
+  name,
+  story,
+  work,
+  location,
+  joiningDate,
+}) {
   const classes = useStyles();
   return (
     <>
@@ -15,11 +22,11 @@ export default function ProfileCard3() {
           <div className={classes.profileInfo}>
             <Grid container spacing={2}>
               <Grid item>
-                <img className={classes.profileUserImg} src={dp} />
+                <img className={classes.profileUserImg} src={profileImage} />
               </Grid>
               <Grid item>
                 <Typography className={classes.profileInfoName}>
-                  Safak Kocaoglu
+                  {name}
                 </Typography>
               </Grid>
             </Grid>
@@ -27,10 +34,7 @@ export default function ProfileCard3() {
             <Grid container className={classes.profileInfoDesc}>
               <div className={classes.profileInfoText}>
                 <Typography className={classes.profileInfoStory}>
-                  Lorem ipsum dolor sit amet, consectur aipcing elit. In
-                  tristique pharetra mi eu tesque. In tique pharetra mi eu
-                  pellentesque adipiscing elit.elit. In tristique pharetra mi eu
-                  tesque.
+                  {story}
                 </Typography>
               </div>
               <div className={classes.profileInfoText}>
@@ -38,7 +42,7 @@ export default function ProfileCard3() {
                   Work
                 </Typography>
                 <Typography className={classes.profileInfoAboutInfo}>
-                  Lorem ipsum
+                  {work}
                 </Typography>
               </div>
               <div className={classes.profileInfoText}>
@@ -46,7 +50,7 @@ export default function ProfileCard3() {
                   Location
                 </Typography>
                 <Typography className={classes.profileInfoAboutInfo}>
-                  Lorem ipsum
+                  {location}
                 </Typography>
               </div>
               <div className={classes.profileInfoText}>
@@ -54,7 +58,7 @@ export default function ProfileCard3() {
                   Joined
                 </Typography>
                 <Typography className={classes.profileInfoAboutInfo}>
-                  Lorem ipsum
+                  {joiningDate}
                 </Typography>
               </div>
             </Grid>

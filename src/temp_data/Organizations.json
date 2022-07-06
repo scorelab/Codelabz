@@ -1,0 +1,14 @@
+[
+  {
+    "organization": "Google",
+    "role": "Owner"
+  },
+  {
+    "organization": "Github",
+    "role": "Admin"
+  },
+  {
+    "organization": "Twitter",
+    "role": "Contributor"
+  }
+]
