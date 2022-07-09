@@ -30,8 +30,6 @@ const AuthIsLoaded = ({ children }) => {
   const data = useSelector(({ profile: { data } }) => data);
   const general = useSelector(({ org: { general } }) => general);
 
-  console.log("profile", profile);
-
   //case for not logged in user
   if (
     isLoaded(profile) &&
