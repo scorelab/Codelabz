@@ -50,29 +50,29 @@ const SideList = (props) => {
           <>
               {
                   item.link && <MenuItem key={item.link}>
-                          <NavLink to={item.link} className={classes.navLink }>
+                          <NavLink to={item.link} className={classes.navLink}>
                               {item.img && <ListItemIcon className={classes.listIcon}>
-                              <img src={item.img} className={classes.icons} />
+                              <img src={item.img} className={classes.icons}/>
                           </ListItemIcon>}
-                          <ListItemText>{item.name}</ListItemText>
+                              <ListItemText data-testId={item.name}>{item.name}</ListItemText>
                       </NavLink>
                   </MenuItem>
               }
                   {
                       !item.link && !item.onClick &&<MenuItem key={item.name}>
                           {item.img && <ListItemIcon className={classes.listIcon}>
-                                  <img src={item.img} className={classes.icons} />
+                                  <img src={item.img} className={classes.icons}/>
                               </ListItemIcon>}
-                              <ListItemText>{item.name}</ListItemText>
+                          <ListItemText data-testId={item.name}>{item.name}</ListItemText>
                       </MenuItem>
 
                   }
                   {
                       !item.link && item.onClick && <MenuItem key={item.name} onClick={()=>item.onClick}>
                           {item.img && <ListItemIcon className={classes.listIcon}>
-                              <img src={item.img} className={classes.icons} />
+                              <img src={item.img} className={classes.icons}/>
                           </ListItemIcon>}
-                          <ListItemText>{item.name}</ListItemText>
+                          <ListItemText data-testId={item.name}>{item.name}</ListItemText>
                       </MenuItem>
 
                   }

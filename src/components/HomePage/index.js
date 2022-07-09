@@ -36,6 +36,7 @@ function HomePage({ background = "white", textColor = "black" }) {
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
+
   const [upcomingEvents, setUpEvents] = useState([
     {
       name: "Google Summer of Code",
@@ -151,13 +152,61 @@ function HomePage({ background = "white", textColor = "black" }) {
       }}
     >
       {window.innerWidth <= 750 && openMenu && (
-        <SideBar
-          open={openMenu}
-          toggleSlider={toggleSlider}
-          notification={notification}
-        />
+        <div data-testId="homepageSidebarSmall">
+          <SideBar
+            open={openMenu}
+            toggleSlider={toggleSlider}
+            notification={notification}
+          />
+        </div>
       )}
       <div className={classes.sideBody}>
+        <Grid
+          container
+          className={classes.sideCard}
+          alignContent="center"
+          direction="column"
+          style={{
+            width: "100%",
+            overflow: "auto",
+            maxHeight: "25rem",
+          }}
+          data-testId="homepageTagSidebar"
+        >
+          <Grid item>
+            <br />
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ marginBottom: "1rem", color: textColor }}
+            >
+              Popular Tags
+            </Typography>
+          </Grid>
+          <Grid container alignItems="left">
+            <List
+              component="nav"
+              aria-label="mailbox folders"
+              style={{ width: "100%" }}
+            >
+              <ListItem button>
+                <ListItemText primary="#javascript" />
+              </ListItem>
+              <Divider />
+              <ListItem button divider>
+                <ListItemText primary="#react" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="#html" />
+              </ListItem>
+              <Divider light />
+              <ListItem button>
+                <ListItemText primary="#css" />
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+
         {window.innerWidth > 750 && (
           <Grid
             container
@@ -171,11 +220,16 @@ function HomePage({ background = "white", textColor = "black" }) {
               border: "none",
               boxShadow: "none",
             }}
+            data-testId="homepageSidebarGrid"
           >
-            <Grid item className={classes.outerSideBar}>
+            <Grid
+              item
+              className={classes.outerSideBar}
+              data-testId="homepageSidebar"
+            >
               <SideBar open={openMenu} toggleSlider={toggleSlider} />
             </Grid>
-          </Grid>
+          </Grid> 
         )}
         <Grid
           container
