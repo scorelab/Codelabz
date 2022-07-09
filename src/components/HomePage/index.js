@@ -12,6 +12,10 @@ import List from "@material-ui/core/List";
 import { userList } from "./userList";
 import useStyles from "./styles";
 import SideBar from "../SideBar/index";
+import TagCard from "../CardTabs/Tags/index";
+import EventsCard from "../CardTabs/Events/index";
+import OrgUser from "../../assets/images/org-user.svg";
+import UserCard from "../CardTabs/Users/index";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
@@ -22,13 +26,117 @@ function HomePage({ background = "white", textColor = "black" }) {
     { name: "Content Policy", link: "https://dev.codelabz.io/" },
     { name: "Terms", link: "https://dev.codelabz.io/" },
     { name: "Privacy Policy", link: "https://dev.codelabz.io/" },
-    { name: "CodeLabz @2022", link: "https://dev.codelabz.io/" },
+    {
+      name: `CodeLabz @${new Date().getFullYear()}`,
+      link: "https://dev.codelabz.io/",
+    },
   ]);
 
   const [openMenu, setOpen] = useState(true);
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
+
+  const [upcomingEvents, setUpEvents] = useState([
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022",
+    },
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022",
+    },
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022",
+    },
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022",
+    },
+  ]);
+  const [tags, setTags] = useState([
+    "HTML",
+    "JavaScript",
+    "Css",
+    "Python",
+    "React",
+    "Java",
+    "HTML",
+    "JavaScript",
+    "Css",
+    "Python",
+    "React",
+    "HTML",
+    "JavaScript",
+    "Css",
+    "Python",
+    "React",
+    "Java",
+    "HTML",
+    "JavaScript",
+    "Css",
+    "Python",
+    "React",
+  ]);
+
+  const [usersToFollow, setUsersToFollow] = useState([
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+  ]);
+
+  const [contributors, setContributors] = useState([
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {},
+    },
+  ]);
 
   const notification = () => {};
   const handleChange = (event, newValue) => {
@@ -121,7 +229,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             >
               <SideBar open={openMenu} toggleSlider={toggleSlider} />
             </Grid>
-          </Grid>
+          </Grid> 
         )}
         <Grid
           container
@@ -210,6 +318,66 @@ function HomePage({ background = "white", textColor = "black" }) {
         ))}
       </div>
       <div className={classes.sideBody}>
+        <Grid
+          container
+          alignContent="center"
+          direction="column"
+          style={{
+            width: "100%",
+            overflow: "auto",
+            maxHeight: "25rem",
+          }}
+          data-testId="homepageTagSidebar"
+        >
+          <Grid item style={{ minWidth: "100%" }}>
+            <TagCard tags={tags} />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          alignContent="center"
+          direction="column"
+          style={{
+            width: "100%",
+            overflow: "auto",
+            maxHeight: "25rem",
+          }}
+          data-testId="homepageUpcomingEvents"
+        >
+          <Grid item style={{ minWidth: "100%" }}>
+            <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          alignContent="center"
+          direction="column"
+          style={{
+            width: "100%",
+            overflow: "auto",
+            maxHeight: "25rem",
+          }}
+          data-testId="homepageUsersToFollow"
+        >
+          <Grid item style={{ minWidth: "100%" }}>
+            <UserCard title={"Who to Follow"} users={usersToFollow} />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          alignContent="center"
+          direction="column"
+          style={{
+            width: "100%",
+            overflow: "auto",
+            maxHeight: "25rem",
+          }}
+          data-testId="homepageContributors"
+        >
+          <Grid item style={{ minWidth: "100%" }}>
+            <UserCard title={"Contributors"} users={contributors} />
+          </Grid>
+        </Grid>
         <Grid
           container
           className={classes.sideCard}
