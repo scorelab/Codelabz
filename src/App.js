@@ -17,11 +17,6 @@ const App = () => {
   );
 
   useEffect(() => {
-    console.log(
-      "getting Profile Data",
-      organizations,
-      firebase.auth().currentUser
-    );
     getProfileData(organizations)(firebase, dispatch);
   }, [organizations, firebase, dispatch]);
   return <Routes />;
