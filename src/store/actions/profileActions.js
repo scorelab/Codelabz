@@ -27,11 +27,6 @@ export const setCurrentOrgUserPermissions = (org_handle, permissions) => (
 
 export const getProfileData = (organizations) => async (firebase, dispatch) => {
   try {
-    console.log(
-      "getting Profile Data",
-      organizations,
-      firebase.auth().currentUser
-    );
     let orgs = [];
     if (organizations && organizations.length > 0) {
       dispatch({ type: actions.GET_PROFILE_DATA_START });
@@ -48,11 +43,9 @@ export const getProfileData = (organizations) => async (firebase, dispatch) => {
         payload: { organizations: _.orderBy(orgs, ["org_handle"], ["asc"]) },
       });
     } else {
-      console.log("profile data end");
       dispatch({ type: actions.GET_PROFILE_DATA_END });
     }
   } catch (e) {
-    console.log("can't get profile data", e);
     dispatch({ type: actions.GET_PROFILE_DATA_FAIL, payload: e.message });
   }
 };
