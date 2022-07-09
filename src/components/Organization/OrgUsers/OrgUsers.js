@@ -54,13 +54,24 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     cursor: "pointer",
   },
+  buttonDiv: {
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'flex-start',
+      paddingTop: theme.spacing(2)
+    },
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-end'
+    }
+  }
 }));
 
-function Orgusers({ Users, title, description, AddUser, isViewMore }) {
+function Orgusers({ DataTestId,Users, title, description, AddUser, isViewMore }) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Paper elevation={0} className={classes.root}>
+      <Paper elevation={0} className={classes.root}
+        data-testid={DataTestId}
+      >
         <Grid container className={classes.gridPadding}>
           <Grid container direction="row">
             <Grid item container xs={10} direction="column">
@@ -73,7 +84,9 @@ function Orgusers({ Users, title, description, AddUser, isViewMore }) {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container xs={2} justifyContent="flex-end">
+            <Grid item container md={2}
+              className={classes.buttonDiv}
+            >
               <Button
                 variant="outlined"
                 color="primary"
@@ -100,7 +113,8 @@ function Orgusers({ Users, title, description, AddUser, isViewMore }) {
                   <Grid
                     item
                     container
-                    xs={1}
+                    xs={3}
+                    md={1}
                     justifyContent="center"
                     alignItems="center"
                   >
@@ -112,7 +126,8 @@ function Orgusers({ Users, title, description, AddUser, isViewMore }) {
                   </Grid>
                   <Grid
                     item
-                    xs={11}
+                    xs={9}
+                    md={11}
                     container
                     direction="row"
                     alignItems="center"

@@ -18,12 +18,31 @@ const useStyles = makeStyles((theme) => ({
   gridPadding: {
     padding: theme.spacing(2),
   },
+  buttonDiv: {
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "flex-start",
+      paddingTop: theme.spacing(2),
+    },
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end",
+    },
+  },
   button: {
     boxShadow: "none",
     borderRadius: "10px",
     border: 0,
     backgroundColor: theme.palette.grey[100],
     padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
+  },
+  heading: {
+    [theme.breakpoints.down("md")]: {
+      fontSize: theme.typography.subtitle1.fontSize,
+    },
+  },
+  body: {
+    [theme.breakpoints.down("md")]: {
+      fontSize: theme.typography.subtitle2.fontSize,
+    },
   },
 }));
 
@@ -35,7 +54,7 @@ function OrgDelete() {
       <Paper elevation={0} className={classes.root}>
         <Grid container className={classes.gridPadding}>
           <Grid container direction="row">
-            <Grid item container xs={10} direction="column">
+            <Grid item container xs={12} md={10} direction="column">
               <Grid item>
                 <Typography className={classes.heading}>
                   Delete this organization ?
@@ -50,9 +69,10 @@ function OrgDelete() {
             <Grid
               item
               container
-              xs={2}
+              md={2}
               justifyContent="flex-end"
               alignItems="center"
+              className={classes.buttonDiv}
             >
               <Button
                 color="secondary"
