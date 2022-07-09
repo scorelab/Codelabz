@@ -37,7 +37,6 @@ const ProfileDataReducer = (state = initialState, { type, payload }) => {
       };
 
     case actions.GET_PROFILE_DATA_END:
-      console.log("GET_PROFILE_DATA_END");
       return {
         ...state,
         isLoaded: true,
