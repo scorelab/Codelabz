@@ -7,22 +7,23 @@ export const clearProfileEditError = () => async (dispatch) => {
   dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
 };
 
-export const setCurrentOrgUserPermissions =
-  (org_handle, permissions) => (dispatch) => {
-    try {
-      dispatch({
-        type: actions.SET_CURRENT_ORG_PERMISSIONS_START,
-      });
-      dispatch({
-        type: actions.SET_CURRENT_ORG_PERMISSIONS_SUCCESS,
-        payload: { org_handle, permissions },
-      });
-    } catch (e) {
-      dispatch({
-        type: actions.SET_CURRENT_ORG_PERMISSIONS_FAIL,
-      });
-    }
-  };
+export const setCurrentOrgUserPermissions = (org_handle, permissions) => (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: actions.SET_CURRENT_ORG_PERMISSIONS_START,
+    });
+    dispatch({
+      type: actions.SET_CURRENT_ORG_PERMISSIONS_SUCCESS,
+      payload: { org_handle, permissions },
+    });
+  } catch (e) {
+    dispatch({
+      type: actions.SET_CURRENT_ORG_PERMISSIONS_FAIL,
+    });
+  }
+};
 
 export const getProfileData = (organizations) => async (firebase, dispatch) => {
   try {
