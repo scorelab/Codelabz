@@ -3,7 +3,7 @@
 describe("User Email | CodeLabz", () => {
   it("Check user emails", function () {
     cy.visit("http://localhost:3000/");
-    cy.get("[data-testId=emailInput]").should("exist");
+    cy.get("[data-testId=emailInput]").type("xyz@gmail.com");
     cy.get("[data-testId=addEmail]").should("exist");
 
     cy.get("[data-testId=primaryEmail]").should("exist").click();
