@@ -60,6 +60,7 @@ function MiniNavbar() {
               onClick={() => {
                 history.push("/");
               }}
+              data-testid="navbarBrand"
             >
               <BrandName />
             </div>
@@ -71,6 +72,7 @@ function MiniNavbar() {
                 aria-label="search"
                 disableRipple
                 className={classes.icon}
+                data-testid="navbarSearch"
               >
                 <SearchIcon />
               </IconButton>

@@ -115,7 +115,7 @@ const CodeLabzAppBar = () => {
     );
   } else {
     return (
-      <div className={classes.grow} data-testId="navbarloggedIn">
+      <div className={classes.grow} data-testId="navbarNonloggedIn">
         <MiniNavbar />
       </div>
     );
