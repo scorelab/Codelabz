@@ -35,7 +35,6 @@ function AboutUsers(props) {
         <Card className={classes.root} variant="outlined">
             <CardContent style={{ backgroundColor: props.backgroundColor }}>
                 <ThemeProvider theme={theme}>
-
                     <Typography className={classes.head} variant="h5" component="h2">
                         {props.Heading}
                     </Typography>
