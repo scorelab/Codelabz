@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'block',
         maxWidth: '100%',
         maxHeight: '100%',
-        [theme.breakpoints.down('sx')]: {
+        [theme.breakpoints.down('xs')]: {
             width: '95%',
         },
         [theme.breakpoints.up('md')]: {
