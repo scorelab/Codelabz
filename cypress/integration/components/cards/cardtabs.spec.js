@@ -7,7 +7,7 @@ describe( "Card-Tabs | CodeLabz",() =>
         {
             cy.viewport( 1280,751 );
             cy.visit( "http://localhost:3000" );
-        } );
+        });
 
         it( "displays all card-tabs",() =>
         {

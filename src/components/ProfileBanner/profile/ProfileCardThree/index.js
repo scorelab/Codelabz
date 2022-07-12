@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import useStyles from "./styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import CheckOutlinedIcon from "@material-ui/icons/CheckOutlined";
-import dp from "../../../../assets/images/demoperson1.jpeg";
 import Box from "@material-ui/core/Box";
 export default function ProfileCardThree({
   profileImage,
@@ -17,15 +14,26 @@ export default function ProfileCardThree({
   const classes = useStyles();
   return (
     <>
-      <Box className={classes.profileRightTop}>
+      <Box
+        className={classes.profileRightTop}
+        data-testId="user_profile_card_three"
+      >
         <div className={classes.profileCover}>
           <div className={classes.profileInfo}>
             <Grid container spacing={2}>
               <Grid item>
-                <img className={classes.profileUserImg} src={profileImage} />
+                <img
+                  className={classes.profileUserImg}
+                  src={profileImage}
+                  alt="User Profile Avatar"
+                  data-testId="user_profile_card_three_avatar"
+                />
               </Grid>
               <Grid item>
-                <Typography className={classes.profileInfoName}>
+                <Typography
+                  className={classes.profileInfoName}
+                  data-testId="user_profile_card_three_name"
+                >
                   {name}
                 </Typography>
               </Grid>
@@ -33,7 +41,10 @@ export default function ProfileCardThree({
             <button className={classes.profileSubscribeButton}>Follow</button>
             <Grid container className={classes.profileInfoDesc}>
               <div className={classes.profileInfoText}>
-                <Typography className={classes.profileInfoStory}>
+                <Typography
+                  className={classes.profileInfoStory}
+                  data-testId="user_profile_card_three_story"
+                >
                   {story}
                 </Typography>
               </div>
@@ -41,7 +52,10 @@ export default function ProfileCardThree({
                 <Typography className={classes.profileInfoAboutTitle}>
                   Work
                 </Typography>
-                <Typography className={classes.profileInfoAboutInfo}>
+                <Typography
+                  className={classes.profileInfoAboutInfo}
+                  data-testId="user_profile_card_three_workInfo"
+                >
                   {work}
                 </Typography>
               </div>
@@ -49,7 +63,10 @@ export default function ProfileCardThree({
                 <Typography className={classes.profileInfoAboutTitle}>
                   Location
                 </Typography>
-                <Typography className={classes.profileInfoAboutInfo}>
+                <Typography
+                  className={classes.profileInfoAboutInfo}
+                  data-testId="user_profile_card_three_locationInfo"
+                >
                   {location}
                 </Typography>
               </div>
@@ -57,7 +74,10 @@ export default function ProfileCardThree({
                 <Typography className={classes.profileInfoAboutTitle}>
                   Joined
                 </Typography>
-                <Typography className={classes.profileInfoAboutInfo}>
+                <Typography
+                  className={classes.profileInfoAboutInfo}
+                  data-testId="user_profile_card_three_joiningDateInfo"
+                >
                   {joiningDate}
                 </Typography>
               </div>

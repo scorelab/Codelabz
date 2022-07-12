@@ -19,42 +19,55 @@ export default function Banner({
   const classes = useStyles();
   return (
     <>
-      <div className={classes.profileRightTop}>
+      <div className={classes.profileRightTop} data-testId="orgprofilebanner">
         <div className={classes.profileCover}>
           <img
             className={classes.profileCoverImg}
             src={BannerDemo}
             alt="Profile Banner"
+            data-testId="orgbannerimg"
           />
           <div className={classes.profileInfo}>
             <img
               className={classes.profileUserImg}
               src={profileImage}
               alt="Avatar"
+              data-testId="orgbanneravatar"
             />
-            <Typography className={classes.profileInfoName}>{name}</Typography>
+            <Typography
+              className={classes.profileInfoName}
+              data-testId="orgbannername"
+            >
+              {name}
+            </Typography>
 
             <div className={classes.profileInfoDesc}>
               <div item xs={5} spacing={4}>
-                <Typography className={classes.profileInfoStory}>
+                <Typography
+                  className={classes.profileInfoStory}
+                  data-testId="orgbannerstory"
+                >
                   {story}
                 </Typography>
                 <Grid container>
                   <span
                     className={classes.profileInfoData}
                     style={{ marginRight: "20px" }}
+                    data-testId="orgbannercontributorCount"
                   >
                     {contributors} Contributors
                   </span>
                   <span
                     className={classes.profileInfoData}
                     style={{ marginRight: "20px" }}
+                    data-testId="orgbannerfollowerCount"
                   >
                     {followers} followers
                   </span>
                   <span
                     className={classes.profileInfoData}
                     style={{ marginRight: "20px" }}
+                    data-testId="orgbannerfeedCount"
                   >
                     {feed} feeds in the last week
                   </span>
@@ -65,7 +78,10 @@ export default function Banner({
                   <button className={classes.profileIconButton}>
                     <img src={iconbuttonImage} alt="iconbutton" />
                   </button>
-                  <button className={classes.profileSubscribeButton}>
+                  <button
+                    className={classes.profileSubscribeButton}
+                    data-testId="orgbannersubscribeButton"
+                  >
                     SUBSCIBE
                   </button>
                 </Grid>
