@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     margin: "0px 10px 10px 0px",
     borderRadius: "5px",
+    cursor:"pointer",
   },
 }));
 
