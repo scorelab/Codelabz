@@ -66,6 +66,7 @@ const UserCard = (props) => {
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "center",
+                    cursor:"pointer",
                   }}
                 >
                   <img

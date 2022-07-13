@@ -51,6 +51,7 @@ const EventsCard = (props) => {
                   alignItems: "center",
                   key: "up" + { index },
                   mb: 1.5,
+                  cursor: "pointer",
                 }}
                 gutterBottom
                 data-testId={index == 0 ? "upEventBox" : ""}
