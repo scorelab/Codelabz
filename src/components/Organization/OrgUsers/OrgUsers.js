@@ -54,6 +54,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     cursor: "pointer",
   },
+  buttonDiv: {
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'flex-start',
+      paddingTop: theme.spacing(2)
+    },
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-end'
+    }
+  }
 }));
 
 function Orgusers({
@@ -86,7 +95,9 @@ function Orgusers({
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container xs={2} justifyContent="flex-end">
+            <Grid item container md={2}
+              className={classes.buttonDiv}
+            >
               <Button
                 variant="outlined"
                 color="primary"
@@ -118,7 +129,8 @@ function Orgusers({
                   <Grid
                     item
                     container
-                    xs={1}
+                    xs={3}
+                    md={1}
                     justifyContent="center"
                     alignItems="center"
                   >
@@ -130,7 +142,8 @@ function Orgusers({
                   </Grid>
                   <Grid
                     item
-                    xs={11}
+                    xs={9}
+                    md={11}
                     container
                     direction="row"
                     alignItems="center"

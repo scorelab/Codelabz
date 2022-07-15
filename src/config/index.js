@@ -23,14 +23,19 @@ const firebaseConfig = {
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore(); // <- needed if using firestor
 
 if (window.location.hostname === "localhost") {
-  firebase.firestore().useEmulator("localhost",8080);
+  firebase.firestore().useEmulator("localhost", 8080);
   firebase.auth().useEmulator("http://localhost:9099", {
     disableWarnings: true,
   });
-  firebase.database().useEmulator("localhost",9000);
-  firebase.functions().useEmulator("localhost",5001);
+  firebase.database().useEmulator("localhost", 9000);
+  firebase.functions().useEmulator("localhost", 5001);
+  db.settings({
+    experimentalForceLongPolling: true,
+    merge: true,
+  });
 }
 
 // Initialize other services on firebase instance

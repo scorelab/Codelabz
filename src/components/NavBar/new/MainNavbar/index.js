@@ -13,6 +13,7 @@ import BrandName from "../../../../helpers/brandName";
 import SearchIcon from "@material-ui/icons/Search";
 import RightMenu from "./RightMenu";
 import LeftMenu from "./LeftMenu";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -38,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
 function MainNavbar() {
   const classes = useStyles();
+
+  const history = useHistory();
   return (
     <Headroom>
       <nav
@@ -53,7 +56,14 @@ function MainNavbar() {
           alignItems="center"
         >
           <Grid item>
-            <BrandName />
+            <div
+              onClick={() => {
+                history.push("/");
+              }}
+              data-testid="navbarBrand"
+            >
+              <BrandName />
+            </div>
           </Grid>
           <Grid item xs={5}>
             <Paper component={"form"} className={classes.root} elevation={0}>
@@ -62,6 +72,7 @@ function MainNavbar() {
                 aria-label="search"
                 disableRipple
                 className={classes.icon}
+                data-testid="navbarSearch"
               >
                 <SearchIcon />
               </IconButton>

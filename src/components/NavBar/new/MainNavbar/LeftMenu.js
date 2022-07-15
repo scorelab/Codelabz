@@ -38,7 +38,7 @@ const LeftMenu = ({ mode }) => {
 
   return (
     <React.Fragment>
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={handleClick} data-testid="navbarAppMenu">
         <AppsIcon />
       </IconButton>
       <Menu
