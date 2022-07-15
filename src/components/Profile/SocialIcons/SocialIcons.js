@@ -17,6 +17,18 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         justifyContent: 'space-around',
     },
+    facebookIcon: {
+        color: '#4267B2',
+    },
+    twitterIcon: {
+        color: '#1DA1F2',
+    },
+    linkedInIcon: {
+        color: '0077B5',
+    },
+    blackIcon: {
+        color: '#212121',
+    },
 }));
 
 export default function SocialIcons(props) {
@@ -25,19 +37,19 @@ export default function SocialIcons(props) {
         <Card className={classes.root}>
             <CardActions className={classes.icon} disableSpacing>
                 <IconButton color="primary" aria-label="share">
-                    <FacebookIcon />
+                    <FacebookIcon className={classes.facebookIcon} />
                 </IconButton>
                 <IconButton color="primary" aria-label="share">
-                    <LinkedInIcon />
+                    <LinkedInIcon className={classes.linkedInIcon} />
                 </IconButton>
                 <IconButton aria-label="share">
-                    <GitHubIcon />
+                    <GitHubIcon className={classes.blackIcon} />
                 </IconButton>
                 <IconButton color="primary" aria-label="add to favorites">
-                    <TwitterIcon />
+                    <TwitterIcon className={classes.twitterIcon} />
                 </IconButton>
                 <IconButton aria-label="share">
-                    <LinkIcon />
+                    <LinkIcon className={classes.blackIcon} />
                 </IconButton>
             </CardActions>
         </Card>
