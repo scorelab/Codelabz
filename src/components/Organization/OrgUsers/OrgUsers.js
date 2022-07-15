@@ -56,19 +56,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Orgusers({ Users, title, description, AddUser, isViewMore }) {
+function Orgusers({
+  Users,
+  title,
+  description,
+  AddUser,
+  isViewMore,
+  dataTestId,
+}) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Paper elevation={0} className={classes.root}>
+      <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
         <Grid container className={classes.gridPadding}>
           <Grid container direction="row">
             <Grid item container xs={10} direction="column">
               <Grid item>
-                <Typography className={classes.heading}>{title}</Typography>
+                <Typography className={classes.heading} data-testid="org-title">
+                  {title}
+                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body1" className={classes.body}>
+                <Typography
+                  variant="body1"
+                  className={classes.body}
+                  data-testid="org-description"
+                >
                   {description}
                 </Typography>
               </Grid>
@@ -87,7 +100,11 @@ function Orgusers({ Users, title, description, AddUser, isViewMore }) {
               </Button>
             </Grid>
           </Grid>
-          <Grid container className={classes.userList}>
+          <Grid
+            container
+            className={classes.userList}
+            data-testid="org-userlist"
+          >
             {Users.map((user, index) => (
               <React.Fragment key={index}>
                 <Grid
@@ -96,6 +113,7 @@ function Orgusers({ Users, title, description, AddUser, isViewMore }) {
                   justifyContent="center"
                   alignItems="center"
                   className={classes.userCard}
+                  data-testid="org-user-card"
                 >
                   <Grid
                     item
