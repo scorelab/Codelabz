@@ -47,15 +47,19 @@ const UserEmail = () => {
           <Box
             style={{ display: "flex", alignItems: "center", margin: "10px 0" }}
           >
-            <Input placeholder="email" className={classes.input} />
-            <Typography>Add</Typography>
+            <Input
+              placeholder="email"
+              className={classes.input}
+              data-testId="emailInput"
+            />
+            <Typography data-testId="addEmail">Add</Typography>
           </Box>
         </Box>
         <Box className={classes.email}>
           <Typography className={classes.text} style={{ marginRight: 30 }}>
             Primary email address
           </Typography>
-          <FormControl>
+          <FormControl data-testId="primaryEmail">
             <Select
               value={primaryEmail}
               onChange={handleChangePrimaryEmail}
@@ -64,7 +68,9 @@ const UserEmail = () => {
               inputProps={{ "aria-label": "Without label" }}
             >
               {data.primaryEmailOptions.map((email) => (
-                <MenuItem value={email}>{email}</MenuItem>
+                <MenuItem value={email} data-testId="primaryEmailItem">
+                  {email}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -73,7 +79,7 @@ const UserEmail = () => {
           <Typography className={classes.text} style={{ marginRight: 30 }}>
             Backup email address
           </Typography>
-          <FormControl>
+          <FormControl data-testId="backupEmail">
             <Select
               value={backupEmail}
               onChange={handleChangeBackupEmail}
@@ -82,7 +88,9 @@ const UserEmail = () => {
               inputProps={{ "aria-label": "Without label" }}
             >
               {data.backupEmailOptions.map((email) => (
-                <MenuItem value={email}>{email}</MenuItem>
+                <MenuItem value={email} data-testId="backupEmailItem">
+                  {email}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>

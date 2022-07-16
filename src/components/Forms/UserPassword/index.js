@@ -18,33 +18,52 @@ const UserPassword = () => {
       >
         <Box style={{ marginBottom: "5px" }}>
           <Typography className={classes.text}>Old password</Typography>
-          <Input type="password" className={classes.input} />
+          <Input
+            type="password"
+            className={classes.input}
+            data-testId="oldPassword"
+          />
         </Box>
         <Box style={{ margin: "5px 0" }}>
           <Typography className={classes.text}>New password</Typography>
-          <Input type="password" className={classes.input} />
+          <Input
+            type="password"
+            className={classes.input}
+            data-testId="newPassword"
+          />
         </Box>
         <Box style={{ margin: "5px 0" }}>
           <Typography className={classes.text}>Confirm new password</Typography>
-          <Input type="password" className={classes.input} />
+          <Input
+            type="password"
+            className={classes.input}
+            data-testId="confirmPassword"
+          />
         </Box>
-        <Button className={classes.button}>Update Password</Button>
+        <Button className={classes.button} data-testId="updatePassword">
+          Update Password
+        </Button>
         <Box className={classes.row}>
-          <Typography className={classes.text}>Logout</Typography>
+          <Typography className={classes.text} data-testId="logout">
+            Logout
+          </Typography>
           <Typography
             className={classes.text}
             style={{ marginRight: 40, color: "#0075AD" }}
+            data-testId="logoutOfOtherBrowsers"
           >
             Logout of all other browsers
           </Typography>
         </Box>
         <Box className={classes.row}>
-          <Typography className={classes.text}>Login security</Typography>
+          <Typography className={classes.text} data-testId="loginSecurity">
+            Login security
+          </Typography>
           <Box style={{ display: "flex", alignItems: "center" }}>
             <Typography className={classes.text}>
               Require email verification
             </Typography>
-            <Switch color="primary" />
+            <Switch color="primary" data-testId="emailVerification" />
           </Box>
         </Box>
       </Box>
