@@ -13,7 +13,7 @@ const Organizations = () => {
     <Card className={classes.card}>
       <CardContent className={classes.content}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box className={classes.left}>
+          <Box className={classes.left} data-testId="organizations">
             <Box className={classes.column}>
               <img
                 src={GoogleImg}
@@ -42,12 +42,12 @@ const Organizations = () => {
             </Box>
           </Box>
           <Box className={classes.right}>
-            <Box className={classes.column}>
+            <Box className={classes.column} data-testId="settings">
               <Button className={classes.button}>Settings</Button>
               <Button className={classes.button}>Settings</Button>
               <Button className={classes.button}>Settings</Button>
             </Box>
-            <Box className={classes.column}>
+            <Box className={classes.column} data-testId="leave">
               <Button className={classes.button}>Leave</Button>
               <Button className={classes.button}>Leave</Button>
               <Button className={classes.button}>Leave</Button>
