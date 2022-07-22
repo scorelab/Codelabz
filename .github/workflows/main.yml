@@ -54,7 +54,7 @@ jobs:
           path: ./build
     
       - name: GitHub Action for Firebase
-        uses: Niweera/firebase-action@master
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
