@@ -59,4 +59,5 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
           PROJECT_PATH: ./
