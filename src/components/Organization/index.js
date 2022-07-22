@@ -7,69 +7,72 @@ import OrgInfoCard from "./OrgInfoCard/orgInfoCard";
 import OrgUsersCard from "./OrgUsersCard/orgUsersCard";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
+import SwitchAccount from "../Profile/SwitchAccount/SwitchAccount";
+import { Container, makeStyles } from "@material-ui/core";
+import SideList from "../SideBar/sidelist";
+import SideBar from "../SideBar";
 
 const Organizations = () => {
   window.scrollTo(0, 0);
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [SettingsMenu, setSettingsMenu] = useState(1);
   const classes = useStyles();
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)",
   });
 
   return (
-    <Grid
-      className="row-footer-below"
-      style={{ display: "flex", flexDirection: "row" }}
-    >
-      {isDesktop && (
-        <div className="mini-sidebar-column">
-          <OrgSidebar onOrgChange={() => {}} />
-        </div>
-      )}
-      {!isDesktop && (
-        <Drawer
-          anchor="bottom"
-          open={drawerVisible}
-          height={"60%"}
-          onClose={() => setDrawerVisible(false)}
-        >
-          <Grid>
-            <Grid xs={24} className="col-pad-24-s pt-0">
-              <OrgSidebar
-                onOrgChange={() => {
-                  setDrawerVisible(false);
-                }}
-              />
-            </Grid>
+    <Container maxWidth="xl">
+      <Grid container className={classes.root} direction="column">
+        <Grid item>
+          <SwitchAccount
+            Heading="Switch Account"
+            name="Shahaab Manzar"
+            secondaryMail="shahaabmanzar@gmail.com"
+            avatar={{
+              type: "char",
+              value: "S",
+            }}
+          />
+        </Grid>
+        <Grid item container direction="row">
+          <Grid item xs={2}>
+            <SideBar
+              menuItems={[
+                {
+                  id: 1,
+                  name: "General",
+                },
+                {
+                  id: 2,
+                  name: "Users",
+                },
+                {
+                  id: 3,
+                  name: "Passwords",
+                },
+                {
+                  id: 4,
+                  name: "Social media",
+                },
+              ]}
+              value={SettingsMenu}
+              onStateChange={(item) => {
+                setSettingsMenu(item.id);
+              }}
+            />
           </Grid>
-        </Drawer>
-      )}
-
-      <Grid>
-        {!isDesktop && (
-          <Grid>
-            <Grid xs={24} className="col-pad-24-s pb-0">
-              <Button
-                onClick={() => setDrawerVisible(true)}
-                block
-                type="primary"
-                variant="outlined"
-              >
-                Switch organization
-              </Button>
-            </Grid>
-          </Grid>
-        )}
-        <Grid className={classes.cardBody}>
-          <Grid xs={24} sm={24} md={14} className="col-pad-24-s pr-12">
-            <OrgInfoCard />
-          </Grid>
-          <Grid xs={24} sm={24} md={10} className="col-pad-24-s pl-12">
-            <OrgUsersCard />
+          <Grid item xs={10}>
+            {SettingsMenu === 1 && <React.Fragment>General</React.Fragment>}
+            {SettingsMenu === 2 && <React.Fragment>Users</React.Fragment>}
+            {SettingsMenu === 3 && <React.Fragment>Passwords</React.Fragment>}
+            {SettingsMenu === 4 && (
+              <React.Fragment>Social media</React.Fragment>
+            )}
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 };
 
