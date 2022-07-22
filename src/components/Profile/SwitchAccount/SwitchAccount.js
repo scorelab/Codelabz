@@ -101,18 +101,17 @@ export default function SwitchAccount(props) {
                         )}
                     </Grid>
                     <div className={classes.margin}>
-                        <Typography className={classes.name} variant="h5" >
+                        <Typography className={classes.name} variant="h5" data-testId="AccountUserName">
                             {props.name}
                         </Typography>
                         <div className={classes.divDetails}>
-
-                            <Typography variant="subtitle2" >
+                            <Typography variant="subtitle2" data-testId="AccountType">
                                 Personal account
                             </Typography>
-                            <IconButton aria-label="share">
+                            <IconButton aria-label="share" data-testId="AccountSwapIcon">
                                 <SwapHorizIcon />
                             </IconButton>
-                            <FormControl className={classes.formControl}>
+                            <FormControl className={classes.formControl} data-testId="AccountSwap">
                                 <NativeSelect
                                     className={classes.selectEmpty}
                                     value={state.age}
@@ -130,7 +129,7 @@ export default function SwitchAccount(props) {
                     </div>
                 </ThemeProvider>
             </CardContent>
-            <Button className={classes.marginR} variant="outlined">Go to your personal profile</Button>
+            <Button className={classes.marginR} variant="outlined" data-testId="PersonalProfileButton">Go to your personal profile</Button>
         </Card>
     );
 }
