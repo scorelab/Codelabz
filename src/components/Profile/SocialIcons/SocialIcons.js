@@ -36,19 +36,19 @@ export default function SocialIcons(props) {
     return (
         <Card className={classes.root}>
             <CardActions className={classes.icon} disableSpacing>
-                <IconButton color="primary" aria-label="share">
+                <IconButton color="primary" aria-label="share" data-testId="FacebookIcon">
                     <FacebookIcon className={classes.facebookIcon} />
                 </IconButton>
-                <IconButton color="primary" aria-label="share">
+                <IconButton color="primary" aria-label="share" data-testId="LinkedInIcon">
                     <LinkedInIcon className={classes.linkedInIcon} />
                 </IconButton>
-                <IconButton aria-label="share">
+                <IconButton aria-label="share" data-testId="GithubIcon">
                     <GitHubIcon className={classes.blackIcon} />
                 </IconButton>
-                <IconButton color="primary" aria-label="add to favorites">
+                <IconButton color="primary" aria-label="add to favorites" data-testId="TwitterIcon">
                     <TwitterIcon className={classes.twitterIcon} />
                 </IconButton>
-                <IconButton aria-label="share">
+                <IconButton aria-label="share" data-testId="LinkIcon">
                     <LinkIcon className={classes.blackIcon} />
                 </IconButton>
             </CardActions>
