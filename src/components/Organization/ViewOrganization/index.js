@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
 import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import { createMuiTheme } from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -23,19 +22,30 @@ import {
   addFollower,
   removeFollower,
 } from "../../../store/actions";
+import Banner from "../../ProfileBanner/Organization";
+import ActivityList from "../../Topbar/Activity/ActivityList";
+import { Container, makeStyles } from "@material-ui/core";
+import About from "./About";
+import Feeds from "./Feeds";
 
-const theme = createMuiTheme({
-  shadows: ["none"],
-  palette: {
-    primary: {
-      main: "#455a64",
-    },
+const useStyles = makeStyles((theme) => ({
+  acitvitylist: {
+    padding: theme.spacing(1),
+    backgroundColor: "#FFF",
+    borderRadius: "4px",
+    boxShadow: theme.shadows[3],
   },
-});
+  feedGrid: {
+    paddingTop: theme.spacing(5),
+  },
+}));
+
 const ViewOrganization = () => {
+  const classes = useStyles();
   const { handle } = useParams();
   const [people, setPeople] = useState([]);
   const [orgFollowed, setOrgFollowed] = useState([]);
+  const [Activity, setActivity] = useState(1);
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
@@ -113,6 +123,7 @@ const ViewOrganization = () => {
     }) => organizations
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     getOrgData(handle, organizations)(firebase, firestore, dispatch);
     setImageLoading(true);
@@ -126,268 +137,76 @@ const ViewOrganization = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <div
+      style={{
+        width: "100%",
+        backgroundColor: "#F9F9F9",
+        minHeight: "100vh",
+      }}>
       {loading || !currentOrgData ? (
-        <LinearProgress theme={theme} />
+        <React.Fragment>Loading..</React.Fragment>
       ) : (
-        <Card className="p-0">
-          {currentOrgData && (
-            <div>
-              <Box mt={2} mb={2} m={3}>
-                <Grid container>
-                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
-                    Organization Details
-                  </span>
-                </Grid>
-              </Box>
-              <Divider></Divider>
-              <Box mt={2} mb={2} m={3}>
-                <Grid container>
-                  <Grid xs={12} md={3} lg={3} item={true}>
-                    {currentOrgData.org_image ? (
-                      <>
-                        <img
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "8px",
-                            display: imageLoading ? "none" : "block",
-                          }}
-                          src={currentOrgData.org_image}
-                          alt={currentOrgData.org_name}
-                          className="org-image"
-                          onLoad={() => {
-                            setImageLoading(false);
-                          }}
-                        />
-                      </>
-                    ) : (
-                      <img
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "8px",
-                        }}
-                        src={noImageAvailable}
-                        alt={"Not Available"}
-                        className="org-image"
-                      />
+        <React.Fragment>
+          <div>
+            {currentOrgData && (
+              <React.Fragment>
+                <Banner
+                  bannerImage="https://postimg.cc/6ystr9mw"
+                  contributors={402}
+                  feed={40}
+                  followers={402}
+                  name="Apple"
+                  profileImage="https://i.pravatar.cc/300"
+                  story="Think Different"
+                />
+                <Container maxWidth="xl">
+                  <Grid container justifyContent="center" alignItems="center">
+                    <Grid
+                      item
+                      container
+                      xs={12}
+                      sm={12}
+                      md={8}
+                      className={classes.feedGrid}>
+                      <Grid item xs={12} container direction="column">
+                        <Grid item xs={12}>
+                          <ActivityList
+                            acitvitylist={[
+                              {
+                                id: 1,
+                                text: "About",
+                              },
+                              {
+                                id: 2,
+                                text: "Feeds",
+                              },
+                            ]}
+                            toggle={(item) => {
+                              setActivity(item.id);
+                            }}
+                            value={Activity}
+                            classname={classes.acitvitylist}
+                          />
+                          {Activity === 1 && <About />}
+                          {Activity === 2 && <Feeds />}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {Activity === 2 && (
+                      <Grid item xs={12} md={4}>
+                        Sidebar
+                      </Grid>
                     )}
                   </Grid>
-
-                  <Grid
-                    xs={12}
-                    md={9}
-                    lg={9}
-                    className="pl-24-d pt-24-m"
-                    item={true}
-                  >
-                    <p>
-                      <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
-                        {currentOrgData.org_name}
-                      </span>
-                    </p>
-                    {checkAvailable(currentOrgData.org_description) && (
-                      <p className="text-justified">
-                        {currentOrgData.org_description}
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_facebook) && (
-                      <p>
-                        <a
-                          href={
-                            "https://www.facebook.com/" +
-                            currentOrgData.org_link_facebook
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <FacebookIcon
-                              fontSize="small"
-                              className="facebook-color"
-                            />{" "}
-                            {currentOrgData.org_link_facebook}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_twitter) && (
-                      <p>
-                        <a
-                          href={
-                            "https://twitter.com/" +
-                            currentOrgData.org_link_twitter
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <TwitterIcon
-                              fontSize="small"
-                              className="twitter-color"
-                            />{" "}
-                            {currentOrgData.org_link_twitter}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_github) && (
-                      <p>
-                        <a
-                          href={
-                            "https://github.com/" +
-                            currentOrgData.org_link_github
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <GitHubIcon
-                              fontSize="small"
-                              className="github-color"
-                            />{" "}
-                            {currentOrgData.org_link_github}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_linkedin) && (
-                      <p>
-                        <a
-                          href={
-                            "https://www.linkedin.com/in/" +
-                            currentOrgData.org_link_linkedin
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <LinkedInIcon
-                              fontSize="small"
-                              className="linkedin-color"
-                            />{" "}
-                            {currentOrgData.org_link_linkedin}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_website) && (
-                      <p>
-                        <a
-                          href={currentOrgData.org_website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <LinkIcon
-                              fontSize="small"
-                              className="website-color"
-                            />{" "}
-                            {currentOrgData.org_website}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_country) && (
-                      <p className="mb-0">
-                        <a
-                          href={
-                            "https://www.google.com/search?q=" +
-                            currentOrgData.org_country
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <FlagIcon
-                              fontSize="small"
-                              className="website-color"
-                            />{" "}
-                            {currentOrgData.org_country}
-                          </div>
-                          <div>
-                            {!people ? (
-                              <Button
-                                variant="contained"
-                                style={{ marginTop: "1rem" }}
-                                onClick={(e) =>
-                                  addfollower(e, people, handle, orgFollowed)
-                                }
-                              >
-                                follow
-                              </Button>
-                            ) : !people.includes(profileData.handle) ? (
-                              <Button
-                                variant="contained"
-                                style={{ marginTop: "1rem" }}
-                                onClick={(e) =>
-                                  addfollower(e, people, handle, orgFollowed)
-                                }
-                              >
-                                follow
-                              </Button>
-                            ) : (
-                              <Button
-                                onClick={(e) =>
-                                  removefollower(
-                                    e,
-                                    profileData.handle,
-                                    people,
-                                    handle,
-                                    orgFollowed
-                                  )
-                                }
-                                variant="contained"
-                                style={{ marginTop: "1rem" }}
-                              >
-                                unfollow
-                              </Button>
-                            )}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                  </Grid>
-                </Grid>
-              </Box>
-            </div>
-          )}
+                </Container>
+              </React.Fragment>
+            )}
+          </div>
           {currentOrgData === false &&
             "No organization with the provided handle"}
-        </Card>
+        </React.Fragment>
       )}
-    </ThemeProvider>
+    </div>
   );
 };
 
