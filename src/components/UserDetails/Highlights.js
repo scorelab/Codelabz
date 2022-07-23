@@ -40,19 +40,19 @@ function Highlights(props) {
     <Card className={classes.root} variant="outlined">
       <CardContent style={{ backgroundColor: props.backgroundColor }}>
         <ThemeProvider theme={theme}>
-          <Typography className={classes.head} variant="h5" component="h2">
+          <Typography className={classes.head} variant="h5" component="h2" data-testId="HighlightsHeading">
             {props.Heading}
           </Typography>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="p" data-testId="HighlightsCurrentJob">
             {props.CurrentJob}
           </Typography>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="p" data-testId="HighlightsEducation">
             {props.Education}
           </Typography>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="p" data-testId="HighlightsLanguages">
             {props.Languages}
           </Typography>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="p" data-testId="HighlightsJoinedDate">
             {props.JoinedDate}
           </Typography>
         </ThemeProvider>
