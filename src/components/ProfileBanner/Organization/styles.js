@@ -1,6 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  profileRightTop: {
+    width: "100vw",
+    height: "fit-content",
+  },
   profileCover: {
     width: "100vw",
     height: "fit-content",
@@ -62,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "space-between",
-    justifyContent:'space-between',
+    justifyContent: "space-between",
     width: "95%",
   },
   profileInfoData: {

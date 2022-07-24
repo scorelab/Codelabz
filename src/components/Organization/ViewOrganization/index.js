@@ -24,6 +24,14 @@ import {
   removeFollower,
 } from "../../../store/actions";
 
+import Banner from "../../ProfileBanner/Organization/index";
+import ActivityList from "../../Topbar/Activity/ActivityList";
+import CardComponent from "../../util/CodelabCard/index";
+import { userList } from "../../HomePage/userList";
+import Orgusers from "../../Organization/OrgUsers/OrgUsers";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 const theme = createMuiTheme({
   shadows: ["none"],
   palette: {
@@ -32,6 +40,7 @@ const theme = createMuiTheme({
     },
   },
 });
+
 const ViewOrganization = () => {
   const { handle } = useParams();
   const [people, setPeople] = useState([]);
@@ -43,6 +52,65 @@ const ViewOrganization = () => {
   const profileData = useSelector(({ firebase: { profile } }) => profile);
 
   const [imageLoading, setImageLoading] = useState(true);
+
+  const [FeedList, setFeedList] = useState(1);
+  const [List, setList] = useState(1);
+  const [tab, setTab] = useState(1);
+  const aboutfeedlist = [
+    {
+      id: 1,
+      text: "About",
+    },
+    {
+      id: 2,
+      text: "Feeds",
+    },
+  ];
+
+  const acitvitylist = [
+    {
+      id: 1,
+      icon: LocalOfferIcon,
+      text: "Featured",
+    },
+    {
+      id: 2,
+      icon: StarBorderIcon,
+      text: "New",
+    },
+    {
+      id: 3,
+      icon: EmojiEventsIcon,
+      text: "Top",
+    },
+  ];
+
+  const ContributersUsers = [
+    {
+      name: "Sarfraz Alam",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300",
+      },
+    },
+    {
+      name: "Jhanvi Thakkar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300",
+      },
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300",
+      },
+    },
+  ];
 
   useEffect(() => {
     const unsubscribe = db
@@ -132,16 +200,77 @@ const ViewOrganization = () => {
       ) : (
         <Card className="p-0">
           {currentOrgData && (
-            <div>
-              <Box mt={2} mb={2} m={3}>
-                <Grid container>
-                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
-                    Organization Details
-                  </span>
-                </Grid>
+            <div sx={{ height: "80vh", width: "70%", margin: "auto" }}>
+              <Banner></Banner>
+              <Box sx={{ width: "90%", margin: "auto" }}>
+                <Box mt={2} mb={2} m={3} sx={{ marginTop: "80px" }}></Box>
+                <Box>
+                  <Grid container direction="row">
+                    <Grid item xs={8}>
+                      <Box sx={{ marginBottom: "20px" }}>
+                        <ActivityList
+                          value={FeedList}
+                          toggle={(item) => {
+                            setFeedList(item.id);
+                            setTab(item.id);
+                          }}
+                          acitvitylist={aboutfeedlist}
+                        />
+                      </Box>
+                      {tab == 1 && <>this is about page</>}
+                      {tab == 2 && (
+                        <>
+                          <Divider width={"90%"}></Divider>
+                          <Box sx={{ marginBottom: "20px", marginTop: "20px" }}>
+                            <ActivityList
+                              value={List}
+                              toggle={(item) => {
+                                setList(item.id);
+                              }}
+                              acitvitylist={acitvitylist}
+                            />
+                          </Box>
+                          {userList.persons.map((person) => (
+                            <CardComponent
+                              title={person.title}
+                              tags={person.tags}
+                              profilePic={person.profilePic}
+                              org={person.org}
+                            />
+                          ))}
+                        </>
+                      )}
+                    </Grid>
+                    {tab == 2 && (
+                      <>
+                        <Grid item xs={4}>
+                          <Box sx={{ marginTop: "100px" }}></Box>
+                          <Box marginBottom={"50px"}>
+                            <Orgusers
+                              Users={ContributersUsers}
+                              title={"Contributors"}
+                            ></Orgusers>
+                          </Box>
+                          <Box marginBottom={"50px"}>
+                            <Orgusers
+                              Users={ContributersUsers}
+                              title={"Contributors"}
+                            ></Orgusers>
+                          </Box>
+                          <Box marginBottom={"50px"}>
+                            <Orgusers
+                              Users={ContributersUsers}
+                              title={"Contributors"}
+                            ></Orgusers>
+                          </Box>
+                        </Grid>
+                      </>
+                    )}
+                  </Grid>
+                </Box>
               </Box>
-              <Divider></Divider>
-              <Box mt={2} mb={2} m={3}>
+              {/* <Divider></Divider> */}
+              {/* <Box mt={2} mb={2} m={3}>
                 <Grid container>
                   <Grid xs={12} md={3} lg={3} item={true}>
                     {currentOrgData.org_image ? (
@@ -380,7 +509,7 @@ const ViewOrganization = () => {
                     )}
                   </Grid>
                 </Grid>
-              </Box>
+              </Box> */}
             </div>
           )}
           {currentOrgData === false &&
