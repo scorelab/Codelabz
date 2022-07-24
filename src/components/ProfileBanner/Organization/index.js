@@ -10,13 +10,13 @@ import { Button, IconButton, Paper } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 export default function Banner({
-  bannerImage,
-  profileImage,
-  name,
-  story,
-  followers,
-  contributors,
-  feed,
+  bannerImage="https://postimg.cc/6ystr9mw",
+  profileImage= "https://i.pravatar.cc/300",
+  name= "Apple",
+  story= "Think Different",
+  followers= 402,
+  contributors= 402,
+  feed=40,
 }) {
   const classes = useStyles();
   return (

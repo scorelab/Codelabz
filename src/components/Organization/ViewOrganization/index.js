@@ -27,6 +27,7 @@ import ActivityList from "../../Topbar/Activity/ActivityList";
 import { Container, makeStyles } from "@material-ui/core";
 import About from "./About";
 import Feeds from "./Feeds";
+import Orgusers from "../OrgUsers/OrgUsers";
 
 const useStyles = makeStyles((theme) => ({
   acitvitylist: {
@@ -37,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   feedGrid: {
     paddingTop: theme.spacing(5),
+  },
+  sideBar: {
+    padding: theme.spacing(1),
   },
 }));
 
@@ -52,7 +56,43 @@ const ViewOrganization = () => {
   const db = firebase.firestore();
   const profileData = useSelector(({ firebase: { profile } }) => profile);
 
-  const [imageLoading, setImageLoading] = useState(true);
+  const aboutfeedlist = [
+    {
+      id: 1,
+      text: "About",
+    },
+    {
+      id: 2,
+      text: "Feeds",
+    },
+  ];
+
+  const ContributersUsers = [
+    {
+      name: "Sarfraz Alam",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300",
+      },
+    },
+    {
+      name: "Jhanvi Thakkar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300",
+      },
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300",
+      },
+    },
+  ];
 
   useEffect(() => {
     const unsubscribe = db
@@ -126,7 +166,6 @@ const ViewOrganization = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     getOrgData(handle, organizations)(firebase, firestore, dispatch);
-    setImageLoading(true);
     return () => {
       clearOrgData()(dispatch);
     };
@@ -146,66 +185,78 @@ const ViewOrganization = () => {
       {loading || !currentOrgData ? (
         <React.Fragment>Loading..</React.Fragment>
       ) : (
-        <React.Fragment>
-          <div>
-            {currentOrgData && (
-              <React.Fragment>
-                <Banner
-                  bannerImage="https://postimg.cc/6ystr9mw"
-                  contributors={402}
-                  feed={40}
-                  followers={402}
-                  name="Apple"
-                  profileImage="https://i.pravatar.cc/300"
-                  story="Think Different"
-                />
-                <Container maxWidth="xl">
-                  <Grid container justifyContent="center" alignItems="center">
-                    <Grid
-                      item
-                      container
-                      xs={12}
-                      sm={12}
-                      md={8}
-                      className={classes.feedGrid}>
-                      <Grid item xs={12} container direction="column">
-                        <Grid item xs={12}>
-                          <ActivityList
-                            acitvitylist={[
-                              {
-                                id: 1,
-                                text: "About",
-                              },
-                              {
-                                id: 2,
-                                text: "Feeds",
-                              },
-                            ]}
-                            toggle={(item) => {
-                              setActivity(item.id);
-                            }}
-                            value={Activity}
-                            classname={classes.acitvitylist}
-                          />
-                          {Activity === 1 && <About />}
-                          {Activity === 2 && <Feeds />}
-                        </Grid>
+        <div>
+          {currentOrgData && (
+            <React.Fragment>
+              <Banner
+                bannerImage="https://postimg.cc/6ystr9mw"
+                contributors={402}
+                feed={40}
+                followers={402}
+                name="Apple"
+                profileImage="https://i.pravatar.cc/300"
+                story="Think Different"
+              />
+              <Container maxWidth="xl">
+                <Grid container justifyContent="center">
+                  <Grid
+                    item
+                    container
+                    xs={12}
+                    sm={12}
+                    md={8}
+                    className={classes.feedGrid}>
+                    <Grid item xs={12} container direction="column">
+                      <Grid item xs={12}>
+                        <ActivityList
+                          acitvitylist={[
+                            {
+                              id: 1,
+                              text: "About",
+                            },
+                            {
+                              id: 2,
+                              text: "Feeds",
+                            },
+                          ]}
+                          toggle={(item) => {
+                            setActivity(item.id);
+                          }}
+                          value={Activity}
+                          classname={classes.acitvitylist}
+                        />
+                        {Activity === 1 && <About />}
+                        {Activity === 2 && <Feeds />}
                       </Grid>
                     </Grid>
-                    {Activity === 2 && (
-                      <Grid item xs={12} md={4}>
-                        Sidebar
-                      </Grid>
-                    )}
                   </Grid>
-                </Container>
-              </React.Fragment>
-            )}
-          </div>
-          {currentOrgData === false &&
-            "No organization with the provided handle"}
-        </React.Fragment>
+                  {Activity === 2 && (
+                    <Grid item xs={12} md={4} className={classes.sideBar}>
+                      <Box marginTop={10} />
+                      <Box marginBottom={"50px"}>
+                        <Orgusers
+                          Users={ContributersUsers}
+                          title={"Contributors"}></Orgusers>
+                      </Box>
+                      <Box marginBottom={"50px"}>
+                        <Orgusers
+                          Users={ContributersUsers}
+                          title={"Contributors"}></Orgusers>
+                      </Box>
+                      <Box marginBottom={"50px"}>
+                        <Orgusers
+                          Users={ContributersUsers}
+                          title={"Contributors"}></Orgusers>
+                      </Box>
+                    </Grid>
+                  )}
+                </Grid>
+              </Container>
+            </React.Fragment>
+          )}
+        </div>
       )}
+      {currentOrgData === false && "No organization with the provided handle"}
     </div>
   );
 };
