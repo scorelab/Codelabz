@@ -11,6 +11,8 @@ import SwitchAccount from "../Profile/SwitchAccount/SwitchAccount";
 import { Container, makeStyles } from "@material-ui/core";
 import SideList from "../SideBar/sidelist";
 import SideBar from "../SideBar";
+import Users from "./pages/Users";
+import Passwords from "./pages/Passwords";
 
 const Organizations = () => {
   window.scrollTo(0, 0);
@@ -64,8 +66,8 @@ const Organizations = () => {
           </Grid>
           <Grid item xs={10}>
             {SettingsMenu === 1 && <React.Fragment>General</React.Fragment>}
-            {SettingsMenu === 2 && <React.Fragment>Users</React.Fragment>}
-            {SettingsMenu === 3 && <React.Fragment>Passwords</React.Fragment>}
+            {SettingsMenu === 2 && <Users />}
+            {SettingsMenu === 3 && <Passwords />}
             {SettingsMenu === 4 && (
               <React.Fragment>Social media</React.Fragment>
             )}
