@@ -16,38 +16,38 @@ const SideBar = ({
   value,
   onStateChange,
 }) => {
-  //   const [menuItems, setItems] = useState([
-  //     {
-  //       name: "Home",
-  //       img: Home,
-  //       link: "/",
-  //     },
-  //     {
-  //       name: "Notifications",
-  //       img: Notification,
-  //       onClick: `${notification}`,
-  //     },
-  //     {
-  //       name: "Settings",
-  //       img: Setting,
-  //       link: "/settings",
-  //     },
-  //     {
-  //       name: "Organizations",
-  //       img: Org,
-  //       link: "/organizations",
-  //     },
-  //     {
-  //       name: "Profile",
-  //       img: Profile,
-  //       link: "/profile",
-  //     },
-  //     {
-  //       name: "Bookmarks",
-  //       img: Bookmark,
-  //       link: "/bookmarks",
-  //     },
-  //   ]);
+  const defaultMenu = [
+    {
+      name: "Home",
+      img: Home,
+      link: "/",
+    },
+    {
+      name: "Notifications",
+      img: Notification,
+      onClick: `${notification}`,
+    },
+    {
+      name: "Settings",
+      img: Setting,
+      link: "/settings",
+    },
+    {
+      name: "Organizations",
+      img: Org,
+      link: "/organizations",
+    },
+    {
+      name: "Profile",
+      img: Profile,
+      link: "/profile",
+    },
+    {
+      name: "Bookmarks",
+      img: Bookmark,
+      link: "/bookmarks",
+    },
+  ];
 
   console.log(menuItems);
   return (
@@ -59,7 +59,7 @@ const SideBar = ({
           onClose={toggleSlider}
           data-testId="drawerMenu">
           <SideList
-            menuItems={menuItems}
+            menuItems={menuItems ? menuItems : defaultMenu}
             value={value}
             onStateChange={onStateChange}
           />
@@ -69,7 +69,7 @@ const SideBar = ({
       {window.innerWidth > 750 && (
         <div data-testId="normalMenu">
           <SideList
-            menuItems={menuItems}
+            menuItems={menuItems ? menuItems : defaultMenu}
             value={value}
             onStateChange={onStateChange}
           />
