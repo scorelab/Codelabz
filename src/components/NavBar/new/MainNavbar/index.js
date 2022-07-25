@@ -1,52 +1,70 @@
 import {
   Avatar,
   Button,
+  Drawer,
   Grid,
   IconButton,
   InputBase,
   makeStyles,
   Paper,
+  Typography
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import Headroom from "react-headroom";
 import BrandName from "../../../../helpers/brandName";
 import SearchIcon from "@material-ui/icons/Search";
 import RightMenu from "./RightMenu";
 import LeftMenu from "./LeftMenu";
 import { useHistory } from "react-router-dom";
+import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
-    flex: 1,
+    flex: 1
   },
   root: {
     backgroundColor: theme.palette.grey[100],
     padding: "2px",
-    border: "1px solid #ced4da",
+    border: "1px solid #ced4da"
   },
   icon: {
-    padding: "1px",
+    padding: "1px"
   },
   grid: {
     width: "auto",
     "& > *": {},
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
   },
   button: {
-    borderRadius: "10px",
+    borderRadius: "10px"
   },
+  hamburger: {
+    [theme.breakpoints.up("md")]: {
+      display: "none"
+    }
+  },
+  drawer: {
+    width: 257
+  }
 }));
 
 function MainNavbar() {
   const classes = useStyles();
 
   const history = useHistory();
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   return (
     <Headroom>
       <nav
         style={{
           padding: "10px",
-          background: "white",
+          background: "white"
         }}
       >
         <Grid
@@ -55,17 +73,32 @@ function MainNavbar() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Grid item>
-            <div
-              onClick={() => {
-                history.push("/");
+          <Grid item container xs={12} md={2} alignItems="center">
+            <Grid
+              style={{
+                flexGrow: "1"
               }}
-              data-testid="navbarBrand"
             >
-              <BrandName />
-            </div>
+              <div
+                onClick={() => {
+                  history.push("/");
+                }}
+                data-testid="navbarBrand"
+              >
+                <BrandName />
+              </div>
+            </Grid>
+            <Grid item className={classes.hamburger}>
+              <IconButton
+                onClick={() => {
+                  setOpenDrawer(true);
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Grid>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={12} md={5}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -94,6 +127,58 @@ function MainNavbar() {
             </Grid>
           </Grid>
         </Grid>
+        <Drawer
+          open={openDrawer}
+          onClose={() => {
+            setOpenDrawer(false);
+          }}
+          anchor="right"
+        >
+          <Grid
+            container
+            style={{
+              width: 200,
+              overflowX: "hidden"
+            }}
+            direction="column"
+          >
+            <Grid item>
+              <IconButton
+                onClick={() => {
+                  setOpenDrawer(false);
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Grid>
+            <Grid item container direction="column">
+              <Grid
+                item
+                style={{
+                  marginLeft: "10px",
+                  opacity: "0.5"
+                }}
+              >
+                <Typography>App Menu</Typography>
+              </Grid>
+              <Grid item>
+                <LeftMenu onClick={() => setOpenDrawer(false)} />
+              </Grid>
+              <Grid
+                item
+                style={{
+                  marginLeft: "10px",
+                  opacity: "0.5"
+                }}
+              >
+                <Typography>Profile</Typography>
+              </Grid>
+              <Grid item>
+                <RightMenu onClick={() => setOpenDrawer(false)} />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Drawer>
       </nav>
     </Headroom>
   );

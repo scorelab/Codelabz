@@ -16,13 +16,43 @@ import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
-import { Typography } from "@material-ui/core";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  List,
+  ListItem,
+  Typography
+} from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-const RightMenu = ({ mode }) => {
+const useStyles = makeStyles(theme => ({
+  menu: {
+    [theme.breakpoints.down(767)]: {
+      marginLeft: "1rem",
+      marginTop: "1rem"
+    }
+  },
+  secondaryColor: {
+    color: theme.palette.secondary.main
+  },
+  orgicon: {
+    width: "1.5rem",
+    height: "1.5rem",
+    fontSize: "1rem"
+  }
+}));
+
+const RightMenu = ({ mode, onClick }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -38,8 +68,8 @@ const RightMenu = ({ mode }) => {
   const organizations = useSelector(
     ({
       profile: {
-        data: { organizations },
-      },
+        data: { organizations }
+      }
     }) => organizations
   );
 
@@ -60,23 +90,129 @@ const RightMenu = ({ mode }) => {
           );
         })
       : null;
-  const useStyles = makeStyles((theme) => ({
-    menu: {
-      [theme.breakpoints.down(767)]: {
-        marginLeft: "1rem",
-        marginTop: "1rem",
-      },
-    },
-    secondaryColor: {
-      color: theme.palette.secondary.main,
-    },
-  }));
+
   const classes = useStyles();
+
+  if (matches) {
+    return (
+      <React.Fragment>
+        <List>
+          {allowDashboard && (
+            <ListItem key="setting:2">
+              <Link to={"/tutorials"} onClick={onClick}>
+                <Grid container spacing={1}>
+                  <Grid item>
+                    <CodeOutlinedIcon
+                      style={{
+                        width: "1rem",
+                        height: "1rem"
+                      }}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2">My Tutorials</Typography>
+                  </Grid>
+                </Grid>
+              </Link>
+            </ListItem>
+          )}
+
+          {allowDashboard && allowOrgs && (
+            <Accordion
+              style={{
+                width: "98%"
+              }}
+              elevation={0}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="body2">My Organizations</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Grid container direction="column" spacing={1}>
+                  <Grid item>
+                    <Link to={`/organization`}>
+                      <Grid container spacing={3}>
+                        <Grid item>
+                          <SettingsOutlinedIcon className={classes.orgicon} />
+                        </Grid>
+                        <Grid item>Manage All</Grid>
+                      </Grid>
+                    </Link>
+                  </Grid>
+                  <Divider
+                    style={{
+                      marginTop: "4px",
+                      marginBottom: "4px"
+                    }}
+                  />
+                  {allowOrgs > 0
+                    ? organizations.map((org, i) => (
+                        <Grid item>
+                          <Link to={`/org/${org.org_handle}`}>
+                            <Grid
+                              container
+                              spacing={3}
+                              direction="row"
+                              alignItems="center"
+                            >
+                              <Grid item>
+                                <Avatar
+                                  src={org.org_image}
+                                  className={classes.orgicon}
+                                >
+                                  {avatarName(org.org_name)}
+                                </Avatar>
+                              </Grid>
+                              <Grid item>{org.org_name}</Grid>
+                            </Grid>
+                          </Link>
+                        </Grid>
+                      ))
+                    : null}
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+          )}
+
+          {profile.displayName && profile.displayName.length > 0 && (
+            <ListItem style={{ color: "gray" }} disableRipple>
+              {profile.displayName}
+            </ListItem>
+          )}
+          {allowDashboard && (
+            <ListItem key="setting:1">
+              <Link to={"/profile"}>
+                <div className={classes.secondaryColor}>
+                  <PersonOutlineOutlinedIcon /> My Profile
+                </div>
+              </Link>
+            </ListItem>
+          )}
+          <ListItem
+            key="setting:4"
+            onClick={() => signOut()(firebase, dispatch)}
+            id={"log-out"}
+          >
+            <ExitToAppOutlinedIcon />
+            <Typography
+              variant="p"
+              style={{
+                paddingLeft: "0.5rem"
+              }}
+            >
+              Log Out
+            </Typography>
+          </ListItem>
+        </List>
+      </React.Fragment>
+    );
+  }
+
   return (
     <Grid
       container
       style={{
-        marginRight: "2rem",
+        marginRight: "2rem"
       }}
     >
       <Avatar
@@ -86,7 +222,7 @@ const RightMenu = ({ mode }) => {
               ? "#fffff"
               : "#3AAFA9",
           marginLeft: "1rem",
-          marginBottom: ".2rem",
+          marginBottom: ".2rem"
         }}
         size={mode === "inline" ? "default" : "medium"}
         src={profile.photoURL}
@@ -109,7 +245,7 @@ const RightMenu = ({ mode }) => {
         onClose={handleClose}
         style={{
           marginTop: "3rem",
-          zIndex: 999999,
+          zIndex: 999999
         }}
         className={classes.menu}
         elevation={1}
@@ -117,26 +253,66 @@ const RightMenu = ({ mode }) => {
         {allowDashboard && (
           <MenuItem key="setting:2">
             <Link to={"/tutorials"}>
-              <CodeOutlinedIcon /> My Tutorials
+              <Grid container>
+                <Grid item>
+                  <CodeOutlinedIcon />
+                </Grid>
+                <Grid item>My Tutorials</Grid>
+              </Grid>
             </Link>
           </MenuItem>
         )}
         {allowDashboard && allowOrgs && (
-          <Menu
-            title={
-              <>
-                <BlockOutlinedIcon /> My Organizations
-              </>
-            }
-          >
-            <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
-              <Link to={`/organization`}>
-                <SettingsOutlinedIcon /> Manage All
-              </Link>
-            </MenuItem>
-            <Divider></Divider>
-            {orgList}
-          </Menu>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <BlockOutlinedIcon />
+              <Typography>My Organizations</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container direction="column" spacing={1}>
+                <Grid item>
+                  <Link to={`/organization`}>
+                    <Grid container spacing={3}>
+                      <Grid item>
+                        <SettingsOutlinedIcon className={classes.orgicon} />
+                      </Grid>
+                      <Grid item>Manage All</Grid>
+                    </Grid>
+                  </Link>
+                </Grid>
+                <Divider
+                  style={{
+                    marginTop: "4px",
+                    marginBottom: "4px"
+                  }}
+                />
+                {allowOrgs > 0
+                  ? organizations.map((org, i) => (
+                      <Grid item>
+                        <Link to={`/org/${org.org_handle}`}>
+                          <Grid
+                            container
+                            spacing={3}
+                            direction="row"
+                            alignItems="center"
+                          >
+                            <Grid item>
+                              <Avatar
+                                src={org.org_image}
+                                className={classes.orgicon}
+                              >
+                                {avatarName(org.org_name)}
+                              </Avatar>
+                            </Grid>
+                            <Grid item>{org.org_name}</Grid>
+                          </Grid>
+                        </Link>
+                      </Grid>
+                    ))
+                  : null}
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
         )}
 
         {profile.displayName && profile.displayName.length > 0 && (
@@ -162,7 +338,7 @@ const RightMenu = ({ mode }) => {
           <Typography
             variant="p"
             style={{
-              paddingLeft: "0.5rem",
+              paddingLeft: "0.5rem"
             }}
           >
             Log Out
