@@ -4,17 +4,16 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 import dp from "../../../assets/images/demoperson1.jpeg";
-import BannerDemo from "../../../assets/images/OrgBannerDemo.png";
 import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
 
 export default function Banner({
-  bannerImage="https://postimg.cc/6ystr9mw",
-  profileImage= "https://i.pravatar.cc/300",
-  name= "Apple",
-  story= "Think Different",
-  followers= 402,
-  contributors= 402,
-  feed=40,
+  bannerImage = "https://www.vnurture.in/aspiring-minds/",
+  profileImage = "https://i.pravatar.cc/300",
+  name = "Apple",
+  story = "Think Different",
+  followers = 402,
+  contributors = 402,
+  feed = 40,
 }) {
   const classes = useStyles();
   return (
@@ -23,7 +22,7 @@ export default function Banner({
         <div className={classes.profileCover}>
           <img
             className={classes.profileCoverImg}
-            src={BannerDemo}
+            src={bannerImage}
             alt="Profile Banner"
             data-testId="orgbannerimg"
           />

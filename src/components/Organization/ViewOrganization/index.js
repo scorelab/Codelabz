@@ -32,6 +32,7 @@ import Orgusers from "../../Organization/OrgUsers/OrgUsers";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
+import CardWithoutPicture from "../../Card/CardWithoutPicture";
 const theme = createMuiTheme({
   shadows: ["none"],
   palette: {
@@ -206,7 +207,7 @@ const ViewOrganization = () => {
                 <Box mt={2} mb={2} m={3} sx={{ marginTop: "80px" }}></Box>
                 <Box>
                   <Grid container direction="row">
-                    <Grid item xs={8}>
+                    <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
                       <Box sx={{ marginBottom: "20px" }}>
                         <ActivityList
                           value={FeedList}
@@ -231,11 +232,15 @@ const ViewOrganization = () => {
                             />
                           </Box>
                           {userList.persons.map((person) => (
-                            <CardComponent
+                            <CardWithoutPicture
+                              name={person.name}
                               title={person.title}
+                              contentDescription={person.description}
                               tags={person.tags}
                               profilePic={person.profilePic}
-                              org={person.org}
+                              organizationName={person.org}
+                              date={person.date}
+                              time={person.time}
                             />
                           ))}
                         </>
@@ -243,7 +248,7 @@ const ViewOrganization = () => {
                     </Grid>
                     {tab == 2 && (
                       <>
-                        <Grid item xs={4}>
+                        <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                           <Box sx={{ marginTop: "100px" }}></Box>
                           <Box marginBottom={"50px"}>
                             <Orgusers
