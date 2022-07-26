@@ -7,6 +7,7 @@ import { userList } from "../../HomePage/userList";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
+import CardWithoutPicture from "../../Card/CardWithoutPicture";
 
 function Feeds() {
   const [List, setList] = useState(1);
@@ -41,11 +42,15 @@ function Feeds() {
         />
       </Box>
       {userList.persons.map((person) => (
-        <CardComponent
+        <CardWithoutPicture
+          name={person.name}
           title={person.title}
+          contentDescription={person.description}
           tags={person.tags}
           profilePic={person.profilePic}
-          org={person.org}
+          organizationName={person.org}
+          date={person.date}
+          time={person.time}
         />
       ))}
     </>
