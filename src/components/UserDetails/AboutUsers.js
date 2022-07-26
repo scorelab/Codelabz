@@ -35,7 +35,7 @@ function AboutUsers({ backgroundColor, Heading, Content, className }) {
   theme = responsiveFontSizes(theme);
 
   return (
-    <Card className={className ? className : classes.root} variant="outlined">
+    <Card className={className || classes.root} variant="outlined">
       <CardContent style={{ backgroundColor: backgroundColor }}>
         <ThemeProvider theme={theme}>
           <Typography className={classes.head} variant="h5" component="h2">
