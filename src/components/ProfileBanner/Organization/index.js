@@ -82,7 +82,7 @@ export default function Banner({
                     className={classes.profileSubscribeButton}
                     data-testId="orgbannersubscribeButton"
                   >
-                    SUBSCIBE
+                    SUBSCRIBE
                   </button>
                 </Grid>
               </div>
