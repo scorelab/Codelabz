@@ -1,4 +1,4 @@
-import { Box, Divider } from "@material-ui/core";
+import { Box, Divider, Grid, makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
 
 import ActivityList from "../../Topbar/Activity/ActivityList";
@@ -9,8 +9,16 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import CardWithoutPicture from "../../Card/CardWithoutPicture";
 
+const useStyles = makeStyles((theme) => ({
+  postCard: {
+    width: "100%",
+  },
+}));
+
 function Feeds() {
   const [List, setList] = useState(1);
+
+  const classes = useStyles();
 
   const acitvitylist = [
     {
@@ -41,18 +49,23 @@ function Feeds() {
           acitvitylist={acitvitylist}
         />
       </Box>
-      {userList.persons.map((person) => (
-        <CardWithoutPicture
-          name={person.name}
-          title={person.title}
-          contentDescription={person.description}
-          tags={person.tags}
-          profilePic={person.profilePic}
-          organizationName={person.org}
-          date={person.date}
-          time={person.time}
-        />
-      ))}
+      <Grid container spacing={3}>
+        {userList.persons.map((person) => (
+          <Grid item>
+            <CardWithoutPicture
+              className={classes.postCard}
+              name={person.name}
+              title={person.title}
+              contentDescription={person.description}
+              tags={person.tags}
+              profilePic={person.profilePic}
+              organizationName={person.org}
+              date={person.date}
+              time={person.time}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 }

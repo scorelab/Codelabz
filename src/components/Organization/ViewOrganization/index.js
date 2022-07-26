@@ -177,7 +177,7 @@ const ViewOrganization = () => {
           {currentOrgData && (
             <React.Fragment>
               <Banner
-                bannerImage="https://postimg.cc/6ystr9mw"
+                bannerImage="https://i.postimg.cc/zXvv1vwL/Org-Banner-Demo.png"
                 contributors={402}
                 feed={40}
                 followers={402}
