@@ -20,47 +20,47 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import {
   createTheme,
   responsiveFontSizes,
-  ThemeProvider,
+  ThemeProvider
 } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "45%",
     borderRadius: "10px",
     [theme.breakpoints.down("md")]: {
-      width: "80%",
+      width: "80%"
     },
     [theme.breakpoints.down("xs")]: {
-      width: "99%",
-    },
+      width: "99%"
+    }
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   margin: {
-    marginRight: "5px",
+    marginRight: "5px"
   },
   expandOpen: {
-    transform: "rotate(180deg)",
+    transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: red[500]
   },
   inline: {
-    fontWeight: 600,
+    fontWeight: 600
   },
   contentPadding: {
-    padding: "0 16px",
+    padding: "0 16px"
   },
   icon: {
-    padding: "5px",
+    padding: "5px"
   },
   time: {
-    lineHeight: "1",
+    lineHeight: "1"
   },
   small: {
-    padding: "4px",
-  },
+    padding: "4px"
+  }
 }));
 
 export default function CardWithoutPicture(props) {
@@ -86,7 +86,11 @@ export default function CardWithoutPicture(props) {
       <ThemeProvider theme={theme}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              data-testId="UserAvatar"
+            >
               S
             </Avatar>
           }
@@ -96,7 +100,9 @@ export default function CardWithoutPicture(props) {
                 component="span"
                 variant="h7"
                 className={classes.inline}
-                color="textPrimary">
+                color="textPrimary"
+                data-testId="UserName"
+              >
                 {props.name}
               </Typography>
               {" for "}
@@ -104,7 +110,9 @@ export default function CardWithoutPicture(props) {
                 component="span"
                 variant="h7"
                 className={classes.inline}
-                color="textPrimary">
+                color="textPrimary"
+                data-testId="UserOrgName"
+              >
                 {props.organizationName}
               </Typography>
             </React.Fragment>
@@ -112,14 +120,16 @@ export default function CardWithoutPicture(props) {
           subheader={props.date}
         />
         <CardContent className={classes.contentPadding}>
-          <Typography variant="h5" color="text.primary">
+          <Typography variant="h5" color="text.primary" data-testId="Title">
             {props.title}
           </Typography>
           <Typography
             variant="body2"
             color="textSecondary"
             component="p"
-            paragraph>
+            paragraph
+            data-testId="Description"
+          >
             {props.contentDescription}
           </Typography>
         </CardContent>
@@ -135,7 +145,9 @@ export default function CardWithoutPicture(props) {
           <Typography
             variant="overline"
             display="block"
-            className={classes.time}>
+            className={classes.time}
+            data-testId="Time"
+          >
             {props.time}
           </Typography>
           <div className={classes.grow} />
@@ -145,12 +157,14 @@ export default function CardWithoutPicture(props) {
             value={alignment}
             exclusive
             onChange={handleAlignment}
-            aria-label="text alignment">
+            aria-label="text alignment"
+          >
             <ToggleButton
               className={classes.small}
               onClick={handleIncrement}
               value="left"
-              aria-label="left aligned">
+              aria-label="left aligned"
+            >
               <KeyboardArrowUpIcon />
               <span>{count}</span>
             </ToggleButton>
@@ -158,20 +172,21 @@ export default function CardWithoutPicture(props) {
               className={classes.small}
               onClick={handleDecrement}
               value="center"
-              aria-label="centered">
+              aria-label="centered"
+            >
               <KeyboardArrowDownIcon />
             </ToggleButton>
           </ToggleButtonGroup>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" data-testId="CommentIcon">
             <ChatOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" data-testId="ShareIcon">
             <ShareOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" data-testId="NotifIcon">
             <TurnedInNotOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" data-testId="MoreIcon">
             <MoreVertOutlinedIcon />
           </IconButton>
         </CardActions>

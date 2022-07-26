@@ -6,10 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import {
   createTheme,
   responsiveFontSizes,
-  ThemeProvider,
+  ThemeProvider
 } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(1),
     margin: "auto",
@@ -17,16 +17,16 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     maxHeight: "100%",
     [theme.breakpoints.down("xs")]: {
-      width: "95%",
+      width: "95%"
     },
     [theme.breakpoints.up("md")]: {
-      width: "50%",
-    },
+      width: "50%"
+    }
   },
   head: {
     fontWeight: "medium",
-    marginBottom: "5px",
-  },
+    marginBottom: "5px"
+  }
 }));
 
 function AboutUsers({ backgroundColor, Heading, Content, className }) {
