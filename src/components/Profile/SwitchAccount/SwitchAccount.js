@@ -13,63 +13,63 @@ import {
   createTheme,
   responsiveFontSizes,
   ThemeProvider,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "80%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     [theme.breakpoints.down("md")]: {
-      width: "95%",
+      width: "95%"
     },
     [theme.breakpoints.down("xs")]: {
       width: "95%",
-      flexDirection: "column",
-    },
+      flexDirection: "column"
+    }
   },
   formControl: {
-    minWidth: 120,
+    minWidth: 120
   },
   large: {
     width: theme.spacing(7),
-    height: theme.spacing(7),
+    height: theme.spacing(7)
   },
   details: {
     display: "flex",
     flexDirection: "row",
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
-      alignItems: "center",
-    },
+      alignItems: "center"
+    }
   },
   divDetails: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-    },
+      flexDirection: "column"
+    }
   },
   name: {
     [theme.breakpoints.down("xs")]: {
-      textAlign: "center",
-    },
+      textAlign: "center"
+    }
   },
   margin: {
     marginLeft: "15px",
     [theme.breakpoints.down("xs")]: {
-      marginLeft: "0px",
-    },
+      marginLeft: "0px"
+    }
   },
   marginR: {
     marginRight: "20px",
     [theme.breakpoints.down("xs")]: {
-      marginRight: "0px",
-    },
-  },
+      marginRight: "0px"
+    }
+  }
 }));
 
 export default function SwitchAccount({ avatar, name, secondaryMail }) {
@@ -78,14 +78,14 @@ export default function SwitchAccount({ avatar, name, secondaryMail }) {
   theme = responsiveFontSizes(theme);
   const [state, setState] = React.useState({
     email: "",
-    name: "",
+    name: ""
   });
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const name = event.target.name;
     setState({
       ...state,
-      [name]: event.target.value,
+      [name]: event.target.value
     });
   };
 
@@ -115,7 +115,8 @@ export default function SwitchAccount({ avatar, name, secondaryMail }) {
                   value={state.age}
                   name="age"
                   onChange={handleChange}
-                  inputProps={{ "aria-label": "age" }}>
+                  inputProps={{ "aria-label": "age" }}
+                >
                   <option value="" disabled color="primary">
                     Switch to another account
                   </option>

@@ -35,10 +35,10 @@ function AboutUsers(props) {
         <Card className={classes.root} variant="outlined">
             <CardContent style={{ backgroundColor: props.backgroundColor }}>
                 <ThemeProvider theme={theme}>
-                    <Typography className={classes.head} variant="h5" component="h2">
+                    <Typography className={classes.head} variant="h5" component="h2" data-testId="AboutUsersHeading">
                         {props.Heading}
                     </Typography>
-                    <Typography variant="body2" component="p">
+                    <Typography variant="body2" component="p" data-testId="AboutUsersContent">
                         {props.Content}
                     </Typography>
                 </ThemeProvider>

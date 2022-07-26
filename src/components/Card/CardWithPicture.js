@@ -89,11 +89,12 @@ export default function CardWithPicture(props) {
         className={classes.media}
         image={cardImage}
         title="code"
+        data-testId="Image"
       />
       <ThemeProvider theme={theme}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar aria-label="recipe" className={classes.avatar} data-testId="UserAvatar">
               S
             </Avatar>
           }
@@ -104,6 +105,7 @@ export default function CardWithPicture(props) {
                 variant="h7"
                 className={classes.inline}
                 color="textPrimary"
+                data-testId="UserName"
               >
                 {props.name}
               </Typography>
@@ -113,6 +115,7 @@ export default function CardWithPicture(props) {
                 variant="h7"
                 className={classes.inline}
                 color="textPrimary"
+                data-testId="UserOrgName"
               >
                 {props.organizationName}
               </Typography>
@@ -121,16 +124,16 @@ export default function CardWithPicture(props) {
           subheader={props.date}
         />
         <CardContent className={classes.contentPadding} >
-          <Typography variant="h5" color="text.primary">
+          <Typography variant="h5" color="text.primary" data-testId="Title">
             {props.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" paragraph>
+          <Typography variant="body2" color="textSecondary" component="p" paragraph data-testId="Description">
             {props.contentDescription}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
           <Chip label="HTML" component="a" href="#chip" clickable variant="outlined" className={classes.margin} />
-          <Typography variant="overline" display="block" className={classes.time}>
+          <Typography variant="overline" display="block" className={classes.time} data-testId="Time">
             {props.time}
           </Typography>
           <div className={classes.grow} />
@@ -150,16 +153,16 @@ export default function CardWithPicture(props) {
               <KeyboardArrowDownIcon />
             </ToggleButton>
           </ToggleButtonGroup>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" data-testId="CommentIcon">
             <ChatOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" data-testId="ShareIcon">
             <ShareOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" data-testId="NotifIcon">
             <TurnedInNotOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" data-testId="MoreIcon">
             <MoreVertOutlinedIcon />
           </IconButton>
         </CardActions>
