@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideList = ({ menuItems, value, onStateChange }) => {
-  console.log("SideList", menuItems, typeof menuItems);
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
