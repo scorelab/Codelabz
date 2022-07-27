@@ -69,7 +69,7 @@ const SideBar = ({
       {window.innerWidth > 750 && (
         <div data-testId="normalMenu">
           <SideList
-            menuItems={menuItems ? menuItems : defaultMenu}
+            menuItems={menuItems || defaultMenu}
             value={value}
             onStateChange={onStateChange}
           />
