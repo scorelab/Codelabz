@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ActivityList({ value, toggle, acitvitylist }) {
+function ActivityList({ value, toggle, acitvitylist, classname }) {
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} className={classname}>
         {acitvitylist.map((item, index) => (
           <Button
             variant="outlined"
@@ -44,8 +44,7 @@ function ActivityList({ value, toggle, acitvitylist }) {
                 `}
             disableRipple
             disableElevation
-            onClick={() => toggle(item)}
-          >
+            onClick={() => toggle(item)}>
             {item.icon && (
               <item.icon
                 fontSize="small"
