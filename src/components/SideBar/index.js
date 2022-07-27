@@ -8,45 +8,71 @@ import Org from "./../../assets/images/org.svg";
 import Profile from "./../../assets/images/profile.svg";
 import Bookmark from "./../../assets/images/bookmark.svg";
 
-const SideBar = props => {
-  const [menuItems, setItems] = useState([
-    { name: "Home", img: Home, link: "/" },
+const SideBar = ({
+  open,
+  toggleSlider,
+  notification,
+  menuItems,
+  value,
+  onStateChange,
+}) => {
+  const defaultMenu = [
+    {
+      name: "Home",
+      img: Home,
+      link: "/",
+    },
     {
       name: "Notifications",
       img: Notification,
-      onClick: `${props.notification}`
+      onClick: `${notification}`,
     },
     {
       name: "Settings",
       img: Setting,
-      link: "/settings"
+      link: "/settings",
     },
-    { name: "Organizations", img: Org, link: "/organizations" },
-    { name: "Profile", img: Profile, link: "/profile" },
-    ,
+    {
+      name: "Organizations",
+      img: Org,
+      link: "/organizations",
+    },
+    {
+      name: "Profile",
+      img: Profile,
+      link: "/profile",
+    },
     {
       name: "Bookmarks",
       img: Bookmark,
-      link: "/bookmarks"
-    }
-  ]);
+      link: "/bookmarks",
+    },
+  ];
+
+  console.log(menuItems);
   return (
     <>
       {window.innerWidth <= 750 && (
         <Drawer
-          open={props.open}
+          open={open}
           anchor="right"
-          onClose={props.toggleSlider}
-          data-testId="drawerMenu"
-        >
-          <SideList menuItems={menuItems} />
+          onClose={toggleSlider}
+          data-testId="drawerMenu">
+          <SideList
+            menuItems={menuItems || defaultMenu}
+            value={value}
+            onStateChange={onStateChange}
+          />
         </Drawer>
       )}
 
       {window.innerWidth > 750 && (
         <div data-testId="normalMenu">
-          {" "}
-          <SideList menuItems={menuItems} />
+          <SideList
+            menuItems={menuItems || defaultMenu}
+            value={value}
+            onStateChange={onStateChange}
+          />
         </div>
       )}
     </>
