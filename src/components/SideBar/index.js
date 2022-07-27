@@ -59,7 +59,7 @@ const SideBar = ({
           onClose={toggleSlider}
           data-testId="drawerMenu">
           <SideList
-            menuItems={menuItems ? menuItems : defaultMenu}
+            menuItems={menuItems || defaultMenu}
             value={value}
             onStateChange={onStateChange}
           />
