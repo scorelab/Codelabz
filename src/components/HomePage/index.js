@@ -28,8 +28,8 @@ function HomePage({ background = "white", textColor = "black" }) {
     { name: "Privacy Policy", link: "https://dev.codelabz.io/" },
     {
       name: `CodeLabz @${new Date().getFullYear()}`,
-      link: "https://dev.codelabz.io/",
-    },
+      link: "https://dev.codelabz.io/"
+    }
   ]);
 
   const [openMenu, setOpen] = useState(true);
@@ -41,23 +41,23 @@ function HomePage({ background = "white", textColor = "black" }) {
     {
       name: "Google Summer of Code",
       img: [OrgUser],
-      date: "25 March, 2022",
+      date: "25 March, 2022"
     },
     {
       name: "Google Summer of Code",
       img: [OrgUser],
-      date: "25 March, 2022",
+      date: "25 March, 2022"
     },
     {
       name: "Google Summer of Code",
       img: [OrgUser],
-      date: "25 March, 2022",
+      date: "25 March, 2022"
     },
     {
       name: "Google Summer of Code",
       img: [OrgUser],
-      date: "25 March, 2022",
-    },
+      date: "25 March, 2022"
+    }
   ]);
   const [tags, setTags] = useState([
     "HTML",
@@ -81,7 +81,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     "JavaScript",
     "Css",
     "Python",
-    "React",
+    "React"
   ]);
 
   const [usersToFollow, setUsersToFollow] = useState([
@@ -89,26 +89,26 @@ function HomePage({ background = "white", textColor = "black" }) {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
+      onClick: {}
     },
     {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
+      onClick: {}
     },
     {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
+      onClick: {}
     },
     {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
-    },
+      onClick: {}
+    }
   ]);
 
   const [contributors, setContributors] = useState([
@@ -116,26 +116,26 @@ function HomePage({ background = "white", textColor = "black" }) {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
+      onClick: {}
     },
     {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
+      onClick: {}
     },
     {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
+      onClick: {}
     },
     {
       name: "Janvi Thakkar",
       img: [OrgUser],
       desg: "Software Engineer",
-      onClick: {},
-    },
+      onClick: {}
+    }
   ]);
 
   const notification = () => {};
@@ -169,7 +169,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{
             width: "100%",
             overflow: "auto",
-            maxHeight: "25rem",
+            maxHeight: "25rem"
           }}
           data-testId="homepageTagSidebar"
         >
@@ -218,7 +218,7 @@ function HomePage({ background = "white", textColor = "black" }) {
               maxHeight: "25rem",
               backgroundColor: "transparent",
               border: "none",
-              boxShadow: "none",
+              boxShadow: "none"
             }}
             data-testId="homepageSidebarGrid"
           >
@@ -229,7 +229,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             >
               <SideBar open={openMenu} toggleSlider={toggleSlider} />
             </Grid>
-          </Grid> 
+          </Grid>
         )}
         <Grid
           container
@@ -239,7 +239,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{
             width: "100%",
             overflow: "auto",
-            maxHeight: "25rem",
+            maxHeight: "25rem"
           }}
           data-testId="homepagePopularEventSidebar"
         >
@@ -285,7 +285,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               padding: ".5rem 1rem",
               fontWeight: "bold",
-              color: textColor,
+              color: textColor
             }}
           >
             Posts
@@ -308,7 +308,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           </BottomNavigation>
         </Grid>
 
-        {userList.persons.map((person) => (
+        {userList.persons.map(person => (
           <CardComponent
             title={person.title}
             tags={person.tags}
@@ -325,7 +325,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{
             width: "100%",
             overflow: "auto",
-            maxHeight: "25rem",
+            maxHeight: "25rem"
           }}
           data-testId="homepageTagSidebar"
         >
@@ -340,7 +340,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{
             width: "100%",
             overflow: "auto",
-            maxHeight: "25rem",
+            maxHeight: "25rem"
           }}
           data-testId="homepageUpcomingEvents"
         >
@@ -355,7 +355,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{
             width: "100%",
             overflow: "auto",
-            maxHeight: "25rem",
+            maxHeight: "25rem"
           }}
           data-testId="homepageUsersToFollow"
         >
@@ -370,7 +370,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           style={{
             width: "100%",
             overflow: "auto",
-            maxHeight: "25rem",
+            maxHeight: "25rem"
           }}
           data-testId="homepageContributors"
         >
@@ -402,7 +402,7 @@ function HomePage({ background = "white", textColor = "black" }) {
               style={{
                 width: "100%",
                 overflow: "auto",
-                maxHeight: "25rem",
+                maxHeight: "25rem"
               }}
             >
               <ListItem button>
@@ -445,7 +445,7 @@ function HomePage({ background = "white", textColor = "black" }) {
                 width: "100%",
                 overflow: "auto",
                 maxHeight: "25rem",
-                color: textColor,
+                color: textColor
               }}
             >
               <ListItem button>
