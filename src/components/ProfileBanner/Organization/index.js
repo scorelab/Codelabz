@@ -15,7 +15,7 @@ export default function Banner({
   story = "Think Different",
   followers = 402,
   contributors = 402,
-  feed = 40,
+  feed = 40
 }) {
   const classes = useStyles();
   return (
@@ -23,7 +23,8 @@ export default function Banner({
       <Paper
         className={classes.profileRightTop}
         elevation={0}
-        data-testId="orgprofilebanner">
+        data-testId="orgprofilebanner"
+      >
         <div className={classes.profileCover}>
           <img
             className={classes.profileCoverImg}
@@ -40,7 +41,8 @@ export default function Banner({
             />
             <Typography
               className={classes.profileInfoName}
-              data-testId="orgbannername">
+              data-testId="orgbannername"
+            >
               {name}
             </Typography>
 
@@ -48,7 +50,8 @@ export default function Banner({
               <div item xs={5} spacing={4}>
                 <Typography
                   className={classes.profileInfoStory}
-                  data-testId="orgbannerstory">
+                  data-testId="orgbannerstory"
+                >
                   {story}
                 </Typography>
                 <Grid container>
@@ -56,27 +59,30 @@ export default function Banner({
                     className={classes.profileInfoData}
                     style={{
                       marginRight: "20px",
-                      fontSize: 20,
+                      fontSize: 20
                     }}
-                    data-testId="orgbannercontributorCount">
+                    data-testId="orgbannercontributorCount"
+                  >
                     {contributors} Contributors
                   </Typography>
                   <Typography
                     className={classes.profileInfoData}
                     style={{
                       marginRight: "20px",
-                      fontSize: 20,
+                      fontSize: 20
                     }}
-                    data-testId="orgbannerfollowerCount">
+                    data-testId="orgbannerfollowerCount"
+                  >
                     {followers} followers
                   </Typography>
                   <Typography
                     className={classes.profileInfoData}
                     style={{
                       marginRight: "20px",
-                      fontSize: 20,
+                      fontSize: 20
                     }}
-                    data-testId="orgbannerfeedCount">
+                    data-testId="orgbannerfeedCount"
+                  >
                     {feed} feeds in the last week
                   </Typography>
                 </Grid>
@@ -88,8 +94,9 @@ export default function Banner({
                   </IconButton>
                   <Button
                     className={classes.profileSubscribeButton}
-                    data-testId="orgbannersubscribeButton">
-                    SUBSCIBE
+                    data-testId="orgbannersubscribeButton"
+                  >
+                    SUBSCRIBE
                   </Button>
                 </Grid>
               </div>
