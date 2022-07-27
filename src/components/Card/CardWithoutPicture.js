@@ -82,7 +82,7 @@ export default function CardWithoutPicture(props) {
   };
 
   return (
-    <Card className={props.className ? props.className : classes.root}>
+    <Card className={props.className || classes.root}>
       <ThemeProvider theme={theme}>
         <CardHeader
           avatar={
