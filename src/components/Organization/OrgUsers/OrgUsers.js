@@ -5,62 +5,62 @@ import {
   Hidden,
   makeStyles,
   Paper,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import React from "react";
 import AddIcon from "@material-ui/icons/Add";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     border: `1px solid ${theme.palette.divider}`,
-    borderRadius: "10px",
+    borderRadius: "10px"
   },
   gridPadding: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2)
   },
   button: {
     boxShadow: "none",
-    borderRadius: "10px",
+    borderRadius: "10px"
   },
   heading: {
     fontSize: theme.typography.pxToRem(17),
-    fontWeight: theme.typography.fontWeightMedium,
+    fontWeight: theme.typography.fontWeightMedium
   },
   body: {
-    fontSize: theme.typography.pxToRem(12),
+    fontSize: theme.typography.pxToRem(12)
   },
   userCard: {
     padding: theme.spacing(1),
     "&:hover": {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.background.default
     },
-    borderRadius: "10px",
+    borderRadius: "10px"
   },
   userList: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(2)
   },
   userName: {
     fontSize: theme.typography.pxToRem(14),
-    fontWeight: theme.typography.fontWeightMedium,
+    fontWeight: theme.typography.fontWeightMedium
   },
   userDesignation: {
     fontSize: theme.typography.pxToRem(14),
     paddingLeft: theme.spacing(0.5),
-    fontWeight: theme.typography.fontWeightLight,
+    fontWeight: theme.typography.fontWeightLight
   },
   viewMore: {
     borderTop: `1px solid ${theme.palette.divider}`,
     padding: theme.spacing(1),
-    cursor: "pointer",
+    cursor: "pointer"
   },
   buttonDiv: {
-    [theme.breakpoints.down('md')]: {
-      justifyContent: 'flex-start',
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "flex-start",
       paddingTop: theme.spacing(2)
     },
-    [theme.breakpoints.up('md')]: {
-      justifyContent: 'flex-end'
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end"
     }
   }
 }));
@@ -71,7 +71,7 @@ function Orgusers({
   description,
   AddUser,
   isViewMore,
-  dataTestId,
+  dataTestId
 }) {
   const classes = useStyles();
   return (
@@ -95,15 +95,13 @@ function Orgusers({
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container md={2}
-              className={classes.buttonDiv}
-            >
+            <Grid item container md={2} className={classes.buttonDiv}>
               <Button
                 variant="outlined"
                 color="primary"
                 className={classes.button}
                 style={{
-                  display: AddUser ? "flex" : "none",
+                  display: AddUser ? "flex" : "none"
                 }}
               >
                 <AddIcon />
@@ -125,6 +123,7 @@ function Orgusers({
                   alignItems="center"
                   className={classes.userCard}
                   data-testid="org-user-card"
+                  spacing={2}
                 >
                   <Grid
                     item
@@ -168,7 +167,7 @@ function Orgusers({
           alignItems="center"
           className={classes.viewMore}
           style={{
-            display: isViewMore ? "flex" : "none",
+            display: isViewMore ? "flex" : "none"
           }}
         >
           <ExpandMoreIcon />
