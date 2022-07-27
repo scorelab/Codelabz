@@ -1,50 +1,84 @@
 export const userList = {
   persons: [
     {
-      title: "I made 100 more CSS loaders for your next project",
-      tags: "#css #webdev #beginners #html",
-      profilePic: "demoperson4.jpeg",
-    },
-    {
+      Heading: "CardWithoutPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
       title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
-      tags: "#js #css",
-      profilePic: "demoperson1.jpeg",
-      org: true,
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
     },
     {
-      title:
-        "HOW WOULD YOU  LEARNING RESOURCES AND CERTIFICATIONS WITHOUT THE INTERNET",
-      tags: "#js #css",
-      profilePic: "demoperson1.jpeg",
-    },
-    {
-      title:
-        "Creating your React project from scratch without create-react-app: The Complete Guide",
-      tags: "#js #css",
-      profilePic: "demoperson4.jpeg",
-      org: true,
-    },
-    {
-      title: "I made 100 more CSS loaders for your next project",
-      tags: "#css #webdev #beginners #html",
-      profilePic: "demoperson1.jpeg",
-    },
-    {
+      Heading: "CardWithoutPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
       title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
-      tags: "#js #css",
-      profilePic: "demoperson4.jpeg",
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
     },
     {
-      title:
-        "HOW WOULD YOU LIKE TO BE ESOURCES AND CERTIFICATIONS WITHOUT THE INTERNET",
-      tags: "#js #css",
-      profilePic: "demoperson1.jpeg",
+      Heading: "CardWithoutPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
+      title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
     },
     {
-      title:
-        "Creating your React project from scratch without create-react-app: The Complete Guide",
-      tags: "#js #css",
-      profilePic: "demoperson1.jpeg",
+      Heading: "CardWithPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
+      title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
     },
-  ],
+    {
+      Heading: "CardWithPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
+      title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
+    },
+    {
+      Heading: "CardWithoutPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
+      title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
+    },
+    {
+      Heading: "CardWithoutPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
+      title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
+    },
+    {
+      Heading: "CardWithoutPicture",
+      name: "Shahaab",
+      organizationName: "Codelabz",
+      date: "Dec 3, 2022",
+      title: "FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access",
+      contentDescription:
+        "Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...",
+      time: "10 min read"
+    }
+  ]
 };
