@@ -1,4 +1,8 @@
 const functions = require("firebase-functions");
+const dotenv = require("dotenv");
+dotenv.config({
+  path: "../.env"
+});
 
 /**
  * +++++++++++++++++++CLOUD FUNCTIONS+++++++++++++++++++++++++++++
