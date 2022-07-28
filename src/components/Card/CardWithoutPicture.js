@@ -25,13 +25,15 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "45%",
+    margin: "0.5rem",
     borderRadius: "10px",
+    boxSizing: "border-box",
     [theme.breakpoints.down("md")]: {
-      width: "80%"
+      width: "auto",
+      maxWidth: "30rem"
     },
     [theme.breakpoints.down("xs")]: {
-      width: "99%"
+      width: "auto"
     }
   },
   grow: {
@@ -82,7 +84,7 @@ export default function CardWithoutPicture(props) {
   };
 
   return (
-    <Card className={props.className || classes.root}>
+    <Card className={classes.root}>
       <ThemeProvider theme={theme}>
         <CardHeader
           avatar={

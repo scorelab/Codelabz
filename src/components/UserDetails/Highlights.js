@@ -7,20 +7,9 @@ import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/co
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '320px',
-    margin: 'auto',
+    width: "100%",
     display: 'block',
-    maxWidth: '100%',
     maxHeight: '100%',
-    [theme.breakpoints.down('xs')]: {
-      width: '95%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      width: '35%',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '30%',
-    },
   },
   info: {
     display: 'block',
