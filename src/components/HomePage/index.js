@@ -16,6 +16,10 @@ import TagCard from "../CardTabs/Tags/index";
 import EventsCard from "../CardTabs/Events/index";
 import OrgUser from "../../assets/images/org-user.svg";
 import UserCard from "../CardTabs/Users/index";
+import NewCodelabz from "../Topbar/NewCodelabz";
+import CardWithPicture from "../Card/CardWithPicture";
+import CardWithoutPicture from "../Card/CardWithoutPicture";
+import Activity from "../Topbar/Activity";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
@@ -36,7 +40,6 @@ function HomePage({ background = "white", textColor = "black" }) {
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
-
   const [upcomingEvents, setUpEvents] = useState([
     {
       name: "Google Summer of Code",
@@ -151,66 +154,97 @@ function HomePage({ background = "white", textColor = "black" }) {
         toggleSlider();
       }}
     >
-      {window.innerWidth <= 750 && openMenu && (
-        <div data-testId="homepageSidebarSmall">
+      <Grid className={classes.contentPart}>
+        {window.innerWidth <= 750 && openMenu && (
           <SideBar
             open={openMenu}
             toggleSlider={toggleSlider}
             notification={notification}
           />
+        )}
+        <div className={classes.sideBody}>
+          {window.innerWidth > 750 && (
+            <Grid
+              item
+              container
+              className={classes.leftSideCard}
+              direction="column"
+              style={{
+                width: "100%",
+                overflow: "auto",
+                maxHeight: "25rem",
+                backgroundColor: "transparent",
+                border: "none",
+                boxShadow: "none"
+              }}
+            >
+              <Grid item className={classes.outerSideBar}>
+                <SideBar open={openMenu} toggleSlider={toggleSlider} />
+              </Grid>
+            </Grid>
+          )}
         </div>
-      )}
-      <div className={classes.sideBody}>
         <Grid
-          container
-          className={classes.sideCard}
-          alignContent="center"
-          direction="column"
-          style={{
-            width: "100%",
-            overflow: "auto",
-            maxHeight: "25rem"
-          }}
-          data-testId="homepageTagSidebar"
+          item
+          className={classes.mainBody}
+          data-testId="homepageMainBody"
+          xs={10}
         >
-          <Grid item>
-            <br />
-            <Typography
-              variant="h6"
-              gutterBottom
-              style={{ marginBottom: "1rem", color: textColor }}
-            >
-              Popular Tags
-            </Typography>
-          </Grid>
-          <Grid container alignItems="left">
-            <List
-              component="nav"
-              aria-label="mailbox folders"
-              style={{ width: "100%" }}
-            >
-              <ListItem button>
-                <ListItemText primary="#javascript" />
-              </ListItem>
-              <Divider />
-              <ListItem button divider>
-                <ListItemText primary="#react" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="#html" />
-              </ListItem>
-              <Divider light />
-              <ListItem button>
-                <ListItemText primary="#css" />
-              </ListItem>
-            </List>
-          </Grid>
+          <NewCodelabz />
+          <Activity />
+          {userList.persons.map(person => {
+            return person.Heading == "CardWithoutPicture" ? (
+              <CardWithoutPicture {...person} />
+            ) : (
+              <CardWithPicture {...person} />
+            );
+          })}
         </Grid>
 
-        {window.innerWidth > 750 && (
+        <Grid item className={classes.sideBody}>
+          <Grid
+            item
+            container
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%"
+            }}
+            data-testId="homepageTagSidebar"
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <TagCard tags={tags} />
+            </Grid>
+          </Grid>
           <Grid
             container
-            className={classes.leftSideCard}
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%"
+            }}
+            data-testId="homepageUpcomingEvents"
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%"
+            }}
+            data-testId="homepageUsersToFollow"
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <UserCard title={"Who to Follow"} users={usersToFollow} />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            alignContent="center"
             direction="column"
             style={{
               width: "100%",
@@ -220,64 +254,60 @@ function HomePage({ background = "white", textColor = "black" }) {
               border: "none",
               boxShadow: "none"
             }}
-            data-testId="homepageSidebarGrid"
+            data-testId="homepageContributors"
           >
-            <Grid
-              item
-              className={classes.outerSideBar}
-              data-testId="homepageSidebar"
-            >
-              <SideBar open={openMenu} toggleSlider={toggleSlider} />
+            <Grid item style={{ minWidth: "100%" }}>
+              <UserCard title={"Contributors"} users={contributors} />
             </Grid>
           </Grid>
-        )}
-        <Grid
-          container
-          className={classes.sideCard}
-          alignContent="center"
-          direction="column"
-          style={{
-            width: "100%",
-            overflow: "auto",
-            maxHeight: "25rem"
-          }}
-          data-testId="homepagePopularEventSidebar"
-        >
-          <Grid item>
-            <br />
-            <Typography
-              variant="h6"
-              gutterBottom
-              style={{ marginBottom: "1rem", color: textColor }}
-            >
-              Popular Events
-            </Typography>
-          </Grid>
-          <Grid container alignItems="left">
-            <List
-              component="nav"
-              aria-label="mailbox folders"
-              style={{ width: "100%" }}
-            >
-              <ListItem button>
-                <ListItemText primary="Lorem Pervious Text" />
-              </ListItem>
-              <Divider />
-              <ListItem button divider>
-                <ListItemText primary="Lorem Pervious Text Event" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="Lorem Pervious Text" />
-              </ListItem>
-              <Divider light />
+          <Grid
+            container
+            className={classes.sideCard}
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%",
+              overflow: "auto",
+              maxHeight: "25rem"
+            }}
+            data-testId="homepagePopularEventSidebar"
+          >
+            <Grid item>
+              <br />
+              <Typography
+                variant="h6"
+                gutterBottom
+                style={{ marginBottom: "1rem", color: textColor }}
+              >
+                Popular Events
+              </Typography>
+            </Grid>
+            <Grid container alignItems="left">
+              <List
+                component="nav"
+                aria-label="mailbox folders"
+                style={{ width: "100%" }}
+              >
+                <ListItem button>
+                  <ListItemText primary="Lorem Pervious Text" />
+                </ListItem>
+                <Divider />
+                <ListItem button divider>
+                  <ListItemText primary="Lorem Pervious Text Event" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemText primary="Lorem Pervious Text" />
+                </ListItem>
+                <Divider light />
 
-              <ListItem button>
-                <ListItemText primary="Lorem Pervious Text Previous Event" />
-              </ListItem>
-            </List>
+                <ListItem button>
+                  <ListItemText primary="Lorem Pervious Text Previous Event" />
+                </ListItem>
+              </List>
+            </Grid>
           </Grid>
         </Grid>
-      </div>
+      </Grid>
       <div className={classes.mainBody} data-testId="homepageMainBody">
         <Grid container className={classes.sort}>
           <Typography
