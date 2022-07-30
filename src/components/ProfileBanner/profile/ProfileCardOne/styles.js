@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
   profileCover: {
     width: "fit-content",
     height: "fit-content",
-    minHeight: "20rem",
+    // minHeight: "20rem",
     position: "relative",
   },
 
