@@ -1,18 +1,19 @@
 import { red } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   profileRightTop: {
-    backgroundColor: "transparent",
+    backgroundColor: "transparent"
   },
   profileCover: {
-    height: "100%",
+    height: "100%"
   },
 
   profileCoverImg: {
     zIndex: "-1000",
     width: "100%",
     height: "280px",
+    objectFit: "contain"
   },
 
   profileUserImg: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     height: "10rem",
     borderRadius: "50%",
     objectFit: "cover",
-    border: "3px solid white",
+    border: "3px solid white"
   },
 
   profileInfo: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "left",
     justifyContent: "center",
+    [theme.breakpoints.down("md")]: {
+      alignItems: "center"
+    }
   },
 
   profileInfoName: {
@@ -42,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "50px",
     marginTop: "0",
-    paddingTop: "0",
+    paddingTop: "0"
   },
 
   profileInfoStory: {
@@ -52,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "30px",
     marginTop: "0",
-    paddingTop: "0",
+    paddingTop: "0"
   },
 
   profileInfoDesc: {
@@ -61,10 +65,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "space-between",
     justifyContent: "space-between",
     width: "95%",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center"
+    }
   },
   profileInfoData: {
     lineHeight: "23px",
-    color: "#000000",
+    color: "#000000"
   },
   profileSubscribeButton: {
     width: "167px",
@@ -76,21 +85,35 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
     color: "#FFFFFF",
     "&:hover": {
-      background: red[800],
+      background: red[800]
     },
-    border: "none",
+    border: "none"
   },
   moreDiv: {
     minHeight: "2rem",
     background: "none",
     borderRadius: "10px",
     border: "none",
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   moreButton: {
     width: "50px",
-    height: "30px",
+    height: "30px"
   },
+  profileInfoContainer: {
+    [theme.breakpoints.down("md")]: {
+      alignItems: "center",
+      textAlign: "center"
+    }
+  },
+  buttonContainer: {
+    [theme.breakpoints.down("md")]: {
+      marginTop: "2rem"
+    },
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center"
+  }
 }));
 
 export default useStyles;

@@ -9,10 +9,10 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import CardWithoutPicture from "../../Card/CardWithoutPicture";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   postCard: {
-    width: "100%",
-  },
+    width: "100%"
+  }
 }));
 
 function Feeds() {
@@ -24,18 +24,18 @@ function Feeds() {
     {
       id: 1,
       icon: LocalOfferIcon,
-      text: "Featured",
+      text: "Featured"
     },
     {
       id: 2,
       icon: StarBorderIcon,
-      text: "New",
+      text: "New"
     },
     {
       id: 3,
       icon: EmojiEventsIcon,
-      text: "Top",
-    },
+      text: "Top"
+    }
   ];
   return (
     <>
@@ -43,15 +43,15 @@ function Feeds() {
       <Box sx={{ marginBottom: "20px", marginTop: "20px" }}>
         <ActivityList
           value={List}
-          toggle={(item) => {
+          toggle={item => {
             setList(item.id);
           }}
           acitvitylist={acitvitylist}
         />
       </Box>
       <Grid container spacing={3}>
-        {userList.persons.map((person) => (
-          <Grid item>
+        {userList.persons.map(person => (
+          <Grid item xs={12}>
             <CardWithoutPicture
               className={classes.postCard}
               name={person.name}

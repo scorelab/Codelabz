@@ -17,6 +17,7 @@ import About from "./About";
 import Feeds from "./Feeds";
 import Orgusers from "../OrgUsers/OrgUsers";
 import Description from "../../UserDetails/Description";
+import Spinner from "../../../helpers/spinner";
 
 const useStyles = makeStyles(theme => ({
   acitvitylist: {
@@ -173,7 +174,9 @@ const ViewOrganization = () => {
       }}
     >
       {loading || !currentOrgData ? (
-        <React.Fragment>Loading..</React.Fragment>
+        <React.Fragment>
+          <Spinner />
+        </React.Fragment>
       ) : (
         <div>
           {currentOrgData && (
