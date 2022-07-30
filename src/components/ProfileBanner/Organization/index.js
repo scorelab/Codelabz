@@ -73,9 +73,7 @@ export default function Banner({
                       }}
                       data-testId="orgbannercontributorCount"
                     >
-                      
-                      {contributors}
-                      Contributors
+                      {contributors} Contributors
                     </Typography>
                   </Grid>
                   <Grid item xs={12} sm={6}>
