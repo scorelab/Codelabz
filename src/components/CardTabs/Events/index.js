@@ -5,30 +5,30 @@ import Typography from "@material-ui/core/Typography";
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
     "& > *": {
-      margin: theme.spacing(0.5),
+      margin: theme.spacing(0.5)
     },
     marginBottom: "2rem",
-    flex: 1,
+    flex: 1
   },
   logo: {
     width: "2rem",
     height: "2rem",
     borderRadius: "50%",
-    marginRight: "10px",
+    marginRight: "10px"
   },
 
   card: {
     display: "flex",
-    minWidth: "100%",
-  },
+    width: "100%"
+  }
 }));
 
-const EventsCard = (props) => {
+const EventsCard = props => {
   const classes = useStyles();
 
   return (
@@ -51,7 +51,7 @@ const EventsCard = (props) => {
                   alignItems: "center",
                   key: "up" + { index },
                   mb: 1.5,
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
                 gutterBottom
                 data-testId={index == 0 ? "upEventBox" : ""}

@@ -3,32 +3,35 @@ import {
   IconButton,
   makeStyles,
   Paper,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import React from "react";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    width: theme.spacing(40),
     height: theme.spacing(8),
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     display: "flex",
     cursor: "pointer",
-    "&:hover": {},
+    margin: "0.5rem",
+    "&:hover": {}
+  },
+  flex: {
+    display: "flex",
+    flexDirection: "row"
   },
   iconDiv: {
-    padding: theme.spacing(1),
-    marginLeft: theme.spacing(1),
+    padding: theme.spacing(1)
   },
   title: {
     fontWeight: "normal",
-    fontSize: theme.spacing(2),
+    fontSize: theme.spacing(2)
   },
   description: {
-    fontSize: theme.spacing(1.5),
-  },
+    fontSize: theme.spacing(1.5)
+  }
 }));
 
 function NewCodelabz() {
@@ -36,17 +39,15 @@ function NewCodelabz() {
 
   return (
     <React.Fragment>
-      <Paper className={classes.root} elevation={0}>
+      <Paper className={classes.root}>
         <Grid
-          container
           spacing={0}
           justifyContent="flex-start"
           alignItems="center"
+          className={classes.flex}
         >
           <Grid
             item
-            container
-            sm={2}
             className={classes.iconDiv}
             justifyContent="center"
             alignContent="center"
