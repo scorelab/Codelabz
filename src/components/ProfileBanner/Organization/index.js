@@ -46,61 +46,80 @@ export default function Banner({
               {name}
             </Typography>
 
-            <div className={classes.profileInfoDesc}>
-              <div item xs={5} spacing={4}>
-                <Typography
-                  className={classes.profileInfoStory}
-                  data-testId="orgbannerstory"
+            <Grid className={classes.profileInfoDesc}>
+              <Grid
+                item
+                xs={12}
+                md={5}
+                spacing={4}
+                container
+                className={classes.profileInfoContainer}
+              >
+                <Grid item xs={12}>
+                  <Typography
+                    className={classes.profileInfoStory}
+                    data-testId="orgbannerstory"
+                  >
+                    {story}
+                  </Typography>
+                </Grid>
+                <Grid item container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <Typography
+                      className={classes.profileInfoData}
+                      style={{
+                        marginRight: "20px",
+                        fontSize: 20
+                      }}
+                      data-testId="orgbannercontributorCount"
+                    >
+                      {contributors} Contributors
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography
+                      className={classes.profileInfoData}
+                      style={{
+                        marginRight: "20px",
+                        fontSize: 20
+                      }}
+                      data-testId="orgbannerfollowerCount"
+                    >
+                      {followers} followers
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography
+                      className={classes.profileInfoData}
+                      style={{
+                        marginRight: "20px",
+                        fontSize: 20
+                      }}
+                      data-testId="orgbannerfeedCount"
+                    >
+                      {feed} feeds in the last week
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={3}
+                container
+                className={classes.buttonContainer}
+              >
+                <IconButton className={classes.moreDiv}>
+                  <MoreHorizIcon className={classes.moreButton} />
+                </IconButton>
+                <Button
+                  className={classes.profileSubscribeButton}
+                  data-testId="orgbannersubscribeButton"
                 >
-                  {story}
-                </Typography>
-                <Grid container>
-                  <Typography
-                    className={classes.profileInfoData}
-                    style={{
-                      marginRight: "20px",
-                      fontSize: 20
-                    }}
-                    data-testId="orgbannercontributorCount"
-                  >
-                    {contributors} Contributors
-                  </Typography>
-                  <Typography
-                    className={classes.profileInfoData}
-                    style={{
-                      marginRight: "20px",
-                      fontSize: 20
-                    }}
-                    data-testId="orgbannerfollowerCount"
-                  >
-                    {followers} followers
-                  </Typography>
-                  <Typography
-                    className={classes.profileInfoData}
-                    style={{
-                      marginRight: "20px",
-                      fontSize: 20
-                    }}
-                    data-testId="orgbannerfeedCount"
-                  >
-                    {feed} feeds in the last week
-                  </Typography>
-                </Grid>
-              </div>
-              <div item xs={3}>
-                <Grid container>
-                  <IconButton className={classes.moreDiv}>
-                    <MoreHorizIcon className={classes.moreButton} />
-                  </IconButton>
-                  <Button
-                    className={classes.profileSubscribeButton}
-                    data-testId="orgbannersubscribeButton"
-                  >
-                    SUBSCRIBE
-                  </Button>
-                </Grid>
-              </div>
-            </div>
+                  SUBSCRIBE
+                </Button>
+              </Grid>
+            </Grid>
           </div>
         </div>
       </Paper>

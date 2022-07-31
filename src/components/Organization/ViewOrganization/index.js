@@ -11,12 +11,13 @@ import {
   removeFollower
 } from "../../../store/actions";
 import Banner from "../../ProfileBanner/Organization";
-import ActivityList from "../../Topbar/Activity/ActivityList";
+import List from "../../Topbar/Activity/ActivityList";
 import { Container, makeStyles } from "@material-ui/core";
 import About from "./About";
 import Feeds from "./Feeds";
 import Orgusers from "../OrgUsers/OrgUsers";
 import Description from "../../UserDetails/Description";
+import Spinner from "../../../helpers/spinner";
 
 const useStyles = makeStyles(theme => ({
   acitvitylist: {
@@ -26,10 +27,17 @@ const useStyles = makeStyles(theme => ({
     // boxShadow: theme.shadows[3]
   },
   feedGrid: {
-    paddingTop: theme.spacing(5)
+    paddingTop: theme.spacing(5),
+    width: "100%"
   },
   sideBar: {
     padding: theme.spacing(1)
+  },
+  grid: {
+    width: "100%"
+  },
+  activity: {
+    padding: theme.spacing(3)
   }
 }));
 
@@ -173,7 +181,9 @@ const ViewOrganization = () => {
       }}
     >
       {loading || !currentOrgData ? (
-        <React.Fragment>Loading..</React.Fragment>
+        <React.Fragment>
+          <Spinner />
+        </React.Fragment>
       ) : (
         <div>
           {currentOrgData && (
@@ -193,7 +203,11 @@ const ViewOrganization = () => {
                   marginTop: "2rem"
                 }}
               >
-                <Grid container justifyContent="center" spacing={5}>
+                <Grid
+                  container
+                  justifyContent="center"
+                  className={classes.grid}
+                >
                   <Grid
                     item
                     container
@@ -235,6 +249,7 @@ const ViewOrganization = () => {
                       justifyContent="flex-start"
                       direction="column"
                       spacing={5}
+                      className={classes.activity}
                     >
                       <Grid item>
                         <Description

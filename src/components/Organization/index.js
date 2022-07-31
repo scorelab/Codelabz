@@ -22,7 +22,7 @@ const Organizations = () => {
   const [SettingsMenu, setSettingsMenu] = useState(1);
   const classes = useStyles();
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
+    query: "(min-device-width: 767px)"
   });
 
   return (
@@ -35,7 +35,7 @@ const Organizations = () => {
             secondaryMail="shahaabmanzar@gmail.com"
             avatar={{
               type: "char",
-              value: "S",
+              value: "S"
             }}
           />
         </Grid>
@@ -45,32 +45,32 @@ const Organizations = () => {
               menuItems={[
                 {
                   id: 1,
-                  name: "General",
+                  name: "General"
                 },
                 {
                   id: 2,
-                  name: "Users",
+                  name: "Users"
                 },
                 {
                   id: 3,
-                  name: "Passwords",
+                  name: "Passwords"
                 },
                 {
                   id: 4,
-                  name: "Social media",
-                },
+                  name: "Social media"
+                }
               ]}
               value={SettingsMenu}
-              onStateChange={(item) => {
+              onStateChange={item => {
                 setSettingsMenu(item.id);
               }}
             />
           </Grid>
           <Grid item xs={10}>
-            {SettingsMenu === 1 && <General/>}
+            {SettingsMenu === 1 && <General />}
             {SettingsMenu === 2 && <Users />}
             {SettingsMenu === 3 && <Passwords />}
-            {SettingsMenu === 4 && <Socialmedia/>}
+            {SettingsMenu === 4 && <Socialmedia />}
           </Grid>
         </Grid>
       </Grid>
