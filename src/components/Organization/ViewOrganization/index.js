@@ -11,7 +11,7 @@ import {
   removeFollower
 } from "../../../store/actions";
 import Banner from "../../ProfileBanner/Organization";
-import ActivityList from "../../Topbar/Activity/ActivityList";
+import List from "../../Topbar/Activity/ActivityList";
 import { Container, makeStyles } from "@material-ui/core";
 import About from "./About";
 import Feeds from "./Feeds";
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   grid: {
     width: "100%"
   },
-  Activity: {
+  activity: {
     padding: theme.spacing(3)
   }
 }));
@@ -249,7 +249,7 @@ const ViewOrganization = () => {
                       justifyContent="flex-start"
                       direction="column"
                       spacing={5}
-                      className={classes.Activity}
+                      className={classes.activity}
                     >
                       <Grid item>
                         <Description
