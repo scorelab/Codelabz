@@ -27,10 +27,17 @@ const useStyles = makeStyles(theme => ({
     // boxShadow: theme.shadows[3]
   },
   feedGrid: {
-    paddingTop: theme.spacing(5)
+    paddingTop: theme.spacing(5),
+    width: "100%"
   },
   sideBar: {
     padding: theme.spacing(1)
+  },
+  grid: {
+    width: "100%"
+  },
+  Activity: {
+    padding: theme.spacing(3)
   }
 }));
 
@@ -196,7 +203,11 @@ const ViewOrganization = () => {
                   marginTop: "2rem"
                 }}
               >
-                <Grid container justifyContent="center" spacing={5}>
+                <Grid
+                  container
+                  justifyContent="center"
+                  className={classes.grid}
+                >
                   <Grid
                     item
                     container
@@ -238,6 +249,7 @@ const ViewOrganization = () => {
                       justifyContent="flex-start"
                       direction="column"
                       spacing={5}
+                      className={classes.Activity}
                     >
                       <Grid item>
                         <Description
