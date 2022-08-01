@@ -5,7 +5,7 @@ import Home from "../../components/HomePage/index";
 import { MemoryRouter } from "react-router-dom";
 
 export default {
-  title: "Home",
+  title: "Home/HomePage",
   component: Home,
   argTypes: {
     background: {

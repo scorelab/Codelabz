@@ -12,7 +12,7 @@ import Profile from "../../assets/images/profile.svg";
 import Bookmark from "../../assets/images/bookmark.svg";
 
 export default {
-  title: "SideBar",
+  title: "Home/SideBar",
   component: SideBar,
   argType: {
     open: { type: "boolean" },
