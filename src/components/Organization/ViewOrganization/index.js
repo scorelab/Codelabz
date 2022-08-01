@@ -18,6 +18,7 @@ import Feeds from "./Feeds";
 import Orgusers from "../OrgUsers/OrgUsers";
 import Description from "../../UserDetails/Description";
 import Spinner from "../../../helpers/spinner";
+import ActivityList from "../../Topbar/Activity/ActivityList";
 
 const useStyles = makeStyles(theme => ({
   acitvitylist: {

@@ -30,7 +30,7 @@ const ConnectSocials = () => {
               <span className="sm-text">Facebook</span>
             </FacebookIcon>
             <Typography className={classes.text}>
-              Connect with Facebook
+              Connect
             </Typography>
           </Box>
           <Box
@@ -42,7 +42,7 @@ const ConnectSocials = () => {
               <span className="sm-text">Github</span>
             </GitHubIcon>
             <Typography className={classes.text}>
-              Connect with Github
+              Connect
             </Typography>
           </Box>
         </Box>
@@ -54,7 +54,7 @@ const ConnectSocials = () => {
           >
             <img src={GoogleImg} alt="google" className={classes.button} />
             <Typography className={classes.text}>
-              Connect with Google
+              Connect
             </Typography>
           </Box>
           <Box
@@ -66,7 +66,7 @@ const ConnectSocials = () => {
               <span className="sm-text">Twitter</span>
             </TwitterIcon>
             <Typography className={classes.text}>
-              Connect with Twitter
+              Connect
             </Typography>
           </Box>
         </Box>

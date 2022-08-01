@@ -3,22 +3,23 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   card: {
     boxShadow: "none",
-    padding: "10px 20px",
-    border: "1px solid #cccccc",
+    padding: "15px 30px",
+    border: "1px solid #e8e8e8",
     borderRadius: 15,
-    width: "40%",
-    "@media (max-width: 1200px)": {
-      width: "60%",
-    },
-    "@media (max-width: 700px)": {
-      width: "90%",
-    },
+    width: "95%",
+    "@media (max-width: 960px)": {
+      width: "100%",
+      padding: "10px 15px"
+    }
   },
   input: {
     marginRight: 10,
     width: 250,
     backgroundColor: "#F9F9F9",
     borderRadius: 6,
+    "& input": {
+      padding: "18px !important"
+    }
   },
   text: {
     "@media (max-width: 490px)": {
