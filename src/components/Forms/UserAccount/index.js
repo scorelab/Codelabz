@@ -7,6 +7,7 @@ const UserAccount = () => {
 
   return (
     <Card className={classes.card}>
+      <Box style={{ xs: {maxWidth: "100%"}, md: {maxWidth: "60%"} }}>
       <Box className={classes.row}>
         <Typography
           className={classes.text}
@@ -53,6 +54,7 @@ const UserAccount = () => {
       >
         Delete account
       </Typography>
+      </Box>
     </Card>
   );
 };

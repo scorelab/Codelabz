@@ -11,14 +11,14 @@ import {
   Typography,
   OutlinedInput,
   Select,
-  MenuItem,
+  MenuItem
 } from "@material-ui/core";
 import useStyles from "./styles";
 import data from "./countries.json";
 
 const Input = styled(InputBase)(({ theme }) => ({
   "label + &": {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   "& .MuiInputBase-input": {
     borderRadius: 4,
@@ -31,15 +31,15 @@ const Input = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create([
       "border-color",
       "background-color",
-      "box-shadow",
+      "box-shadow"
     ]),
     // Use the system font instead of the default Roboto font.
     fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
     "&:focus": {
       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
+      borderColor: theme.palette.primary.main
+    }
+  }
 }));
 
 const UserForm = () => {
@@ -47,18 +47,18 @@ const UserForm = () => {
 
   const [country, setCountry] = useState("");
 
-  const handleChangeCountry = (event) => {
+  const handleChangeCountry = event => {
     setCountry(event.target.value);
   };
 
   return (
-    <Card style={{ padding: "20px" }} className={classes.root}>
+    <Card className={classes.root}>
       <Box
         component="form"
         noValidate
         sx={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "column"
         }}
       >
         <Box>
@@ -66,38 +66,45 @@ const UserForm = () => {
             <InputLabel
               shrink
               htmlFor="bootstrap-input"
-              style={{ color: "#000", fontWeight: "bold", fontSize: "17px" }}
+              style={{ color: "#000", fontSize: "20px" }}
             >
               Name
             </InputLabel>
-            <Input placeholder="name" id="bootstrap-input" data-testId="name" />
+            <Input
+              placeholder="name"
+              id="bootstrap-input"
+              className={classes.input}
+              data-testId="name"
+            />
           </FormControl>
           <FormControl variant="standard" className={classes.usernameField}>
             <InputLabel
               shrink
               htmlFor="bootstrap-input"
-              style={{ color: "#000", fontWeight: "bold", fontSize: "17px" }}
+              style={{ color: "#000", fontSize: "20px" }}
             >
               Username
             </InputLabel>
             <Input
               placeholder="@username"
               id="bootstrap-input"
+              className={classes.input}
               data-testId="username"
             />
           </FormControl>
         </Box>
-        <FormControl variant="standard" style={{ marginTop: "10px" }}>
+        <FormControl variant="standard" style={{ marginTop: "15px" }}>
           <InputLabel
             shrink
             htmlFor="bootstrap-input"
-            style={{ color: "#000", fontWeight: "bold", fontSize: "17px" }}
+            style={{ color: "#000", fontSize: "20px" }}
           >
             Email (Primary)
           </InputLabel>
           <Input
             placeholder="xyz@gmail.com"
             id="bootstrap-input"
+            className={classes.input}
             data-testId="userEmail"
           />
           <Typography
@@ -107,11 +114,11 @@ const UserForm = () => {
             Add another Email address
           </Typography>
         </FormControl>
-        <Box variant="standard" style={{ marginTop: "10px" }}>
+        <Box variant="standard" style={{ marginTop: "15px" }}>
           <InputLabel
             shrink
             htmlFor="bootstrap-input"
-            style={{ color: "#000", fontWeight: "bold", fontSize: "17px" }}
+            style={{ color: "#000", fontSize: "20px" }}
           >
             Country of residence
           </InputLabel>
@@ -126,7 +133,7 @@ const UserForm = () => {
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              {data.map((country) => (
+              {data.map(country => (
                 <MenuItem value={country} data-testId="selectCountryItem">
                   {country}
                 </MenuItem>

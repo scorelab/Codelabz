@@ -1,19 +1,21 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   card: {
-    width: "60%",
+    width: "95%",
+    padding: "10px 20px",
     boxShadow: "none",
-    border: "1px solid #cccccc",
+    border: "1px solid #e8e8e8",
     borderRadius: 15,
-    "@media (max-width: 780px)": {
+    "@media (max-width: 960px)": {
       width: "100%",
-    },
+      padding: "10px 0"
+    }
   },
   content: {
     "@media (max-width: 380px)": {
-      padding: 10,
-    },
+      padding: 10
+    }
   },
   left: {
     display: "flex",
@@ -22,66 +24,66 @@ const useStyles = makeStyles((theme) => ({
     height: 135,
     width: 210,
     "@media (max-width: 380px)": {
-      width: 150,
-    },
+      width: 150
+    }
   },
   googleIcon: {
     height: 30,
     width: 30,
     "&:hover": {
-      transform: "scale(1.2)",
+      transform: "scale(1.2)"
     },
     "@media (max-width: 780px)": {
       height: 27,
-      width: 27,
-    },
+      width: 27
+    }
   },
   fb: {
     fontSize: 42,
     color: "#5269a4",
     "@media (max-width: 780px)": {
-      width: "100%",
-    },
+      width: "100%"
+    }
   },
   tw: {
     color: "#03A9F4",
     fontSize: 33,
     "@media (max-width: 780px)": {
-      fontSize: 30,
-    },
+      fontSize: 30
+    }
   },
   git: {
     fontSize: 30,
     "@media (max-width: 780px)": {
-      fontSize: 28,
-    },
+      fontSize: 28
+    }
   },
   organizations: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     "@media (max-width: 380px)": {
-      height: 130,
-    },
+      height: 130
+    }
   },
   column: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
   organization: {
     fontSize: 17,
     color: "#0969DA",
     "@media (max-width: 380px)": {
-      fontSize: 13,
-    },
+      fontSize: 13
+    }
   },
   role: {
     fontSize: 13,
     color: "#767676",
     "@media (max-width: 380px)": {
-      fontSize: 11,
-    },
+      fontSize: 11
+    }
   },
   right: {
     display: "flex",
@@ -90,8 +92,8 @@ const useStyles = makeStyles((theme) => ({
     height: 135,
     width: 180,
     "@media (max-width: 380px)": {
-      width: 140,
-    },
+      width: 140
+    }
   },
   button: {
     fontSize: 14,
@@ -104,9 +106,9 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width: 380px)": {
       fontSize: 11,
       margin: "0 2px",
-      padding: "3px 0",
-    },
-  },
+      padding: "3px 0"
+    }
+  }
 }));
 
 export default useStyles;
