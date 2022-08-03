@@ -2,23 +2,23 @@ import React from "react";
 import ErrorPage from "../../components/ErrorPages/404";
 
 export default {
-  title: "ErrorPage",
+  title: "General/ErrorPage",
   component: ErrorPage,
   argTypes: {
     background: {
-      control: "color",
+      control: "color"
     },
     textColor: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => <ErrorPage {...args} />;
+const Template = args => <ErrorPage {...args} />;
 
 export const Default = Template.bind({});
 
 Default.args = {
   background: "white",
-  textColor: "black",
+  textColor: "black"
 };

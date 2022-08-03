@@ -3,7 +3,7 @@ import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearRecoverPasswordError,
-  verifyPasswordResetCode,
+  verifyPasswordResetCode
 } from "../../../store/actions";
 import Alert from "@material-ui/lab/Alert";
 import Card from "@material-ui/core/Card";
@@ -81,7 +81,7 @@ const ResetPassword = ({ queryParams = "test" }) => {
                 </Grid>
               </>
             )}
-            <PasswordResetForm />
+
             {success && <PasswordResetForm actionCode={actionCode} />}
           </Card>
         </Grid>

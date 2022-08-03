@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import OrgUser from "../../assets/images/org-user.svg";
 
 export default {
-  title: "Cards",
+  title: "Card/Card-Tabs",
   component: { TagCard, EventsCard, UserCard },
   argType: {
     tags: { type: "array" },
@@ -19,7 +19,7 @@ export default {
   },
 };
 
-export const cards = (args) => (
+export const Default = (args) => (
   <ProviderWrapper>
     <MemoryRouter>
       <Grid

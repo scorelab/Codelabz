@@ -1,19 +1,22 @@
 import React from "react";
 import ProviderWrapper from "../../../helpers/providerWrapper";
 import ResetPassword from "../../../components/ManageUsers/ResetPassword/index";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 
-export default {
+const story = {
   title: "ManageUsers/ResetPassword",
-  component: ResetPassword,
+  component: ResetPassword
 };
+export default story;
 
-const Template = () => (
-  <ProviderWrapper>
-    <MemoryRouter>
-      <ResetPassword />
-    </MemoryRouter>
-  </ProviderWrapper>
-);
+const Template = args => {
+  return (
+    <ProviderWrapper>
+      <MemoryRouter>
+        <ResetPassword {...args} />
+      </MemoryRouter>
+    </ProviderWrapper>
+  );
+};
 
 export const Default = Template.bind({});
