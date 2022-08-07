@@ -16,5 +16,5 @@ firebase emulators:export file_name
 # import data from your own file to Emulators:-
 - you import that specific data file while starting emulators only using the following command:-
 ```
-firebase emulators:start -import file_name
+firebase emulators:start --import file_name
 ```
