@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OrgSidebar from "./OrgSidebar/orgSidebar";
 import { useMediaQuery } from "react-responsive";
 import Button from "@material-ui/core/Button";
@@ -15,6 +15,9 @@ import General from "./pages/General";
 import Users from "./pages/Users";
 import Passwords from "./pages/Passwords";
 import Socialmedia from "./pages/Socialmedia";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { unPublishOrganization } from "../../store/actions";
 
 const Organizations = () => {
   window.scrollTo(0, 0);
@@ -24,6 +27,45 @@ const Organizations = () => {
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)"
   });
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
+  const firestore = useFirestore();
+
+  const [currentOrgUpdate, setCurrentOrgUpdate] = useState(true);
+  const [currentOrgData, setCurrentOrgData] = useState({});
+
+  const current = useSelector(
+    ({
+      org: {
+        general: { current }
+      }
+    }) => current
+  );
+
+  const orgs = useSelector(
+    ({
+      profile: {
+        data: { organizations }
+      }
+    }) => organizations
+  );
+
+  useEffect(() => {
+    let orgDetails = orgs.find(element => {
+      return element.org_handle === current;
+    });
+    setCurrentOrgData(orgDetails);
+    setCurrentOrgUpdate(false);
+  }, [current, orgs]);
+
+  const unpublishOrganization = () => {
+    setCurrentOrgUpdate(true);
+    unPublishOrganization(current, currentOrgData.org_published, orgs)(
+      firebase,
+      firestore,
+      dispatch
+    );
+  };
 
   return (
     <Container maxWidth="xl">
@@ -37,6 +79,14 @@ const Organizations = () => {
               type: "char",
               value: "S"
             }}
+            buttonText={
+              currentOrgUpdate
+                ? "Loading.."
+                : currentOrgData.org_published
+                ? "Unpublish"
+                : "Publish"
+            }
+            buttonClick={unpublishOrganization}
           />
         </Grid>
         <Grid item container direction="row">

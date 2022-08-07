@@ -72,7 +72,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SwitchAccount({ avatar, name, secondaryMail }) {
+export default function SwitchAccount({
+  avatar,
+  name,
+  secondaryMail,
+  buttonClick,
+  buttonText
+}) {
   const classes = useStyles();
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
@@ -127,9 +133,15 @@ export default function SwitchAccount({ avatar, name, secondaryMail }) {
           </div>
         </ThemeProvider>
       </CardContent>
-      <Button className={classes.marginR} variant="outlined">
-        Go to your personal profile
-      </Button>
+      {buttonText && (
+        <Button
+          className={classes.marginR}
+          variant="outlined"
+          onClick={buttonClick || (() => {})}
+        >
+          {buttonText}
+        </Button>
+      )}
     </Card>
   );
 }
