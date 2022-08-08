@@ -13,9 +13,9 @@
 # Import Data to Emulators
 - To import data to emulators there should be a pre-exisiting data file which contains data about respective Emulators.
 - we can get the data file by exporting it fron the database emualators(if your are using for first time the must be created).
-- To import data we can use the command in terminal while starting the emulators `firebase emulators:start --import file_name`, the file name can be any thing if the file exist in the project folder then the data from it is imported to the firebase local emulators.
+- To import data we can use the command in terminal while starting the emulators `firebase emulators:start --import=file_name`, the file name can be any thing if the file exist in the project folder then the data from it is imported to the firebase local emulators.
 
-![image](https://user-images.githubusercontent.com/80961448/176616458-2d4c0aa6-e3fe-4ce0-966f-a07703ab2c24.png)
+![image](![image](https://user-images.githubusercontent.com/80961448/183344475-bd45326a-3cac-4057-a33e-97218b64c875.png)
 
 # Export Data From Emulators
 - To export data from Local Emulators use the command `firebase emulators:export file_name`
