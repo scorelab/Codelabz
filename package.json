@@ -45,7 +45,7 @@
   "scripts": {
     "start": "craco start",
     "emulator":"firebase emulators:start",
-    "emulator-import":"firebase emulators:start --import testdata",
+    "emulator-import":"firebase emulators:start --import=testdata",
     "emulator-export":"firebase emulators:export testdata",
     "build": "craco build",
     "test": "craco test",
