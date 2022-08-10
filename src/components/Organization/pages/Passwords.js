@@ -4,29 +4,29 @@ import {
   Typography,
   makeStyles,
   InputBase,
-  Button,
+  Button
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    padding: 20,
+    padding: 20
   },
   heading: {
     fontSize: "1.5rem",
-    fontWeight: 100,
+    fontWeight: 100
   },
   input: {
     padding: 10,
     border: "1px solid #ccc",
     borderRadius: "10px",
     marginTop: "10px",
-    width: "50%",
+    width: "50%"
   },
   button: {
     border: "1px solid #ccc",
     borderRadius: "10px",
-    padding: "10px",
-  },
+    padding: "10px"
+  }
 }));
 
 function Passwords() {
@@ -34,7 +34,13 @@ function Passwords() {
 
   return (
     <React.Fragment>
-      <Grid container direction="column" className={classes.root} spacing={3}>
+      <Grid
+        container
+        direction="column"
+        className={classes.root}
+        spacing={3}
+        data-testid="organization-passwords-page"
+      >
         <Grid item xs={12}>
           <Typography className={classes.heading}>Passwords</Typography>
         </Grid>

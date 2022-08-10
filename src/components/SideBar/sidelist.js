@@ -5,18 +5,18 @@ import {
   MenuList,
   ListItemIcon,
   ListItemText,
-  Paper,
+  Paper
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   icons: {
     width: "20px",
-    height: "20px",
+    height: "20px"
   },
 
   listIcon: {
-    minWidth: "30px",
+    minWidth: "30px"
   },
 
   paper: {
@@ -24,19 +24,19 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "100%",
     border: "none",
     backgrounColor: "transparent",
-    boxShadow: "none",
+    boxShadow: "none"
   },
 
   navLink: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "center"
   },
 
   menuList: {
     border: "none",
-    boxShadow: "none",
-  },
+    boxShadow: "none"
+  }
 }));
 
 const SideList = ({ menuItems, value, onStateChange }) => {
@@ -49,7 +49,11 @@ const SideList = ({ menuItems, value, onStateChange }) => {
             return (
               <>
                 {item.link && (
-                  <MenuItem key={item.link} onClick={() => onStateChange(item)}>
+                  <MenuItem
+                    key={item.link}
+                    onClick={() => onStateChange(item)}
+                    data-testid={item.datatestid}
+                  >
                     <NavLink to={item.link} className={classes.navLink}>
                       {item.img && (
                         <ListItemIcon className={classes.listIcon}>
@@ -64,16 +68,21 @@ const SideList = ({ menuItems, value, onStateChange }) => {
                         data-testId={item.name}
                         style={{
                           fontWeight:
-                            item?.id && value === item?.id ? "bold" : "normal",
+                            item?.id && value === item?.id ? "bold" : "normal"
                         }}
-                        disableTypography>
+                        disableTypography
+                      >
                         {item.name}
                       </ListItemText>
                     </NavLink>
                   </MenuItem>
                 )}
                 {!item.link && !item.onClick && (
-                  <MenuItem key={item.name} onClick={() => onStateChange(item)}>
+                  <MenuItem
+                    key={item.name}
+                    onClick={() => onStateChange(item)}
+                    data-testid={item.datatestid}
+                  >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
                         <img
@@ -87,9 +96,10 @@ const SideList = ({ menuItems, value, onStateChange }) => {
                       data-testId={item.name}
                       style={{
                         fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal",
+                          item?.id && value === item?.id ? "bold" : "normal"
                       }}
-                      disableTypography>
+                      disableTypography
+                    >
                       {item.name}
                     </ListItemText>
                   </MenuItem>
@@ -100,7 +110,9 @@ const SideList = ({ menuItems, value, onStateChange }) => {
                     onClick={() => {
                       item.onClick(item);
                       onStateChange(item);
-                    }}>
+                    }}
+                    data-testid={item.datatestid}
+                  >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
                         <img
@@ -114,9 +126,10 @@ const SideList = ({ menuItems, value, onStateChange }) => {
                       data-testId={item.name}
                       style={{
                         fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal",
+                          item?.id && value === item?.id ? "bold" : "normal"
                       }}
-                      disableTypography>
+                      disableTypography
+                    >
                       {item.name}
                     </ListItemText>
                   </MenuItem>

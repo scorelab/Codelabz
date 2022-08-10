@@ -2,14 +2,14 @@ import { Grid, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import Orgusers from "../OrgUsers/OrgUsers";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    padding: 20,
+    padding: 20
   },
   heading: {
     fontWeight: 100,
-    fontSize: "1.6rem",
-  },
+    fontSize: "1.6rem"
+  }
 }));
 
 function Users() {
@@ -21,17 +21,17 @@ function Users() {
       designation: "GSoC 22'",
       avatar: {
         type: "char",
-        value: "A",
-      },
+        value: "A"
+      }
     },
     {
       name: "Sarfraz Alam",
       designation: "GSoC 22'",
       avatar: {
         type: "image",
-        value: "https://i.pravatar.cc/300",
-      },
-    },
+        value: "https://i.pravatar.cc/300"
+      }
+    }
   ];
 
   const ContributersUsers = [
@@ -40,38 +40,44 @@ function Users() {
       designation: "GSoC 22'",
       avatar: {
         type: "image",
-        value: "https://i.pravatar.cc/300",
-      },
+        value: "https://i.pravatar.cc/300"
+      }
     },
     {
       name: "Jhanvi Thakkar",
       designation: "GSoC 22'",
       avatar: {
         type: "image",
-        value: "https://i.pravatar.cc/300",
-      },
+        value: "https://i.pravatar.cc/300"
+      }
     },
     {
       name: "Saksham Sharma",
       designation: "GSoC 22'",
       avatar: {
         type: "image",
-        value: "https://i.pravatar.cc/300",
-      },
+        value: "https://i.pravatar.cc/300"
+      }
     },
     {
       name: "Mehender boi",
       designation: "GSoC 22'",
       avatar: {
         type: "image",
-        value: "https://i.pravatar.cc/300",
-      },
-    },
+        value: "https://i.pravatar.cc/300"
+      }
+    }
   ];
 
   return (
     <React.Fragment>
-      <Grid container className={classes.root} direction="column" spacing={3}>
+      <Grid
+        container
+        className={classes.root}
+        direction="column"
+        spacing={3}
+        data-testid="organization-users-page"
+      >
         <Grid item>
           <Typography className={classes.heading}>Users</Typography>
         </Grid>

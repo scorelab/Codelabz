@@ -96,7 +96,9 @@ export default function SwitchAccount({
   };
 
   return (
-    <Card className={classes.root} elevation={0}>
+    <Card className={classes.root} elevation={0}
+          data-test-id="switch-account-card"
+    >
       <CardContent className={classes.details}>
         <ThemeProvider theme={theme}>
           <Grid item container xs={1} justifyContent="center">

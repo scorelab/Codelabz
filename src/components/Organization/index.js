@@ -95,19 +95,23 @@ const Organizations = () => {
               menuItems={[
                 {
                   id: 1,
-                  name: "General"
+                  name: "General",
+                  datatestid: "general-menu-item"
                 },
                 {
                   id: 2,
-                  name: "Users"
+                  name: "Users",
+                  datatestid: "users-menu-item"
                 },
                 {
                   id: 3,
-                  name: "Passwords"
+                  name: "Passwords",
+                  datatestid: "passwords-menu-item"
                 },
                 {
                   id: 4,
-                  name: "Social media"
+                  name: "Social media",
+                  datatestid: "socialmedia-menu-item"
                 }
               ]}
               value={SettingsMenu}
