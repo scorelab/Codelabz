@@ -110,7 +110,7 @@ It will redirect to 6006 port.Find detailed information [here](https://storybook
 To run cypress tests:
 `npx cypress run`
 It will open a promt displaying all the tests.You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
-# Firebase Base Emulator Flow
+# Firebase Emulator Flow
 ```mermaid
 flowchart TB
      sougatarmail("Email Pass Login \n \n sougatariju13@gmail.com \n\n Pass : 123456 ")
