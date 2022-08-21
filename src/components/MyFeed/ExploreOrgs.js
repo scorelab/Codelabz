@@ -23,23 +23,23 @@ const ExploreOrgs = ({
   cardWidth = 345,
   mediaHeight = 320,
   mediaWidth = 320,
-  cardColor = "white",
+  cardColor = "white"
 }) => {
   const useStyles = makeStyles({
     root: {
-      paddingBottom: 10,
+      paddingBottom: 10
     },
 
     card: {
       height: cardHeight,
       maxWidth: cardWidth,
-      background: cardColor,
+      background: cardColor
     },
 
     media: {
       height: mediaHeight,
-      margin: "auto",
-    },
+      margin: "auto"
+    }
   });
 
   const classes = useStyles();
@@ -73,11 +73,11 @@ const ExploreOrgs = ({
             <>
               {launchedOrgs &&
                 launchedOrgs
-                  .map((a) => ({ sort: Math.random(), value: a }))
+                  .map(a => ({ sort: Math.random(), value: a }))
                   .sort((a, b) => a.sort - b.sort)
-                  .map((a) => a.value)
+                  .map(a => a.value)
                   .slice(0, 5)
-                  .map((org) => (
+                  .map(org => (
                     <Grid
                       item
                       xs={12}
