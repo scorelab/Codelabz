@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   slides: {
     height: "100%",
     width: "100%",
@@ -9,25 +9,32 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     position: "relative",
     zIndex: "2",
-    boxSizing: "border-box",
+    boxSizing: "border-box"
   },
   image: {
     height: "20rem",
-    width: "20rem",
+    width: "20rem"
   },
   slide: {},
+  slideActive: {},
+  slideContainer: {
+    width: 900,
+    overflow: "hidden",
+    display: "flex",
+    height: 500
+  },
   root: {
-    maxWidth: 300,
     boxShadow: "0rem 2rem 2rem gray",
-    animation: "$myEffectRoot 1000ms",
-    minHeight: 445,
+    height: 445,
     zIndex: "2",
-    minWidth: 280,
-    margin: "1rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
     flexDirection: "column",
+    transform: "scale(0.8)"
+  },
+  rootAnim: {
+    animation: "$myEffectRoot 1000ms"
   },
   rootLeft: {
     maxWidth: 300,
@@ -40,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
-    filter: "brightness(0.74) blur(2px)",
+    filter: "brightness(0.74) blur(2px)"
   },
   rootRight: {
     maxWidth: 300,
@@ -53,38 +60,38 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
-    filter: "brightness(0.74) blur(2px)",
+    filter: "brightness(0.74) blur(2px)"
   },
   media: {
-    height: 140,
+    height: 140
   },
   arrow: {
     "&:hover": {
-      transform: "scale(1.2,1.2)",
-    },
+      transform: "scale(1.2,1.2)"
+    }
   },
   "@keyframes myEffect": {
     "0%": {
       opacity: 1,
 
-      transform: "scale(.6,.6) ",
+      transform: "scale(.6,.6) "
     },
     "100%": {
       opacity: 1,
-      transform: "scale(1,1) rotateY(0)",
-    },
+      transform: "scale(1,1) rotateY(0)"
+    }
   },
   "@keyframes myEffectRoot": {
     "0%": {
       opacity: 1,
 
-      transform: "scale(.6,.6) rotateY(-100deg)",
+      transform: "scale(.6,.6) rotateY(-100deg)"
     },
     "100%": {
       opacity: 1,
-      transform: "scale(1,1) rotateY(0)",
-    },
-  },
+      transform: "scale(1,1) rotateY(0)"
+    }
+  }
 }));
 
 export default useStyles;

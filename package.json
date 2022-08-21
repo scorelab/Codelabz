@@ -44,9 +44,9 @@
   },
   "scripts": {
     "start": "craco start",
-    "emulator":"firebase emulators:start",
-    "emulator-import":"firebase emulators:start --import=testdata",
-    "emulator-export":"rm -rf testdata && firebase emulators:export testdata",
+    "emulator": "firebase emulators:start",
+    "emulator-import": "firebase emulators:start --import=testdata",
+    "emulator-export": "rm -rf testdata && firebase emulators:export testdata",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
