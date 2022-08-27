@@ -14,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add'
 import Box from "@material-ui/core/Box";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import CardContent from "@material-ui/core/CardContent";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import TextField from "@material-ui/core/TextField";
 import OrgDelete from "../OrgUsers/OrgDelete";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       width: '99%',
     },
+    marginTop:"20px",
   },
   save: {
     border: `1px solid ${theme.palette.divider}`,
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #ccc",
     borderRadius: "10px",
     marginTop: "10px",
-    width: "90%",
+    width: "100%",
   },
   button: {
     boxShadow: "none",
@@ -58,6 +59,25 @@ const useStyles = makeStyles((theme) => ({
     border: 0,
     backgroundColor: theme.palette.grey[200],
     padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
+  },
+  hashbutton: {
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: "10px",
+    padding: 5,
+    [theme.breakpoints.down('md')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '99%',
+    },
+  },
+  hashtag:{
+      boxShadow: "none",
+      borderRadius: "25px",
+    border: 0,
+      direction:"column",
+      backgroundColor: theme.palette.grey[200],
+      padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
   },
 }));
 
@@ -105,40 +125,46 @@ function General() {
                   </center>
                 </Box>
               )}
-
                 </Box>
               </Grid>
         </div>
         <div className={classes.root}>
           <Grid item xs={6} >
           <CardContent>
-            <Typography>Brief description</Typography>
-            <TextareaAutosize minRows={8} style={{ width: 1100}} />
-            <Grid item xs={16}>
+              <Typography>Brief description</Typography>
+              <div>
+              <TextField
+                  id="outlined-multiline-flexible"
+                  multiline
+                  rows={4}
+                  fullWidth={true}
+                  variant="filled"
+                />
+                </div>
                 <Typography>Select tags</Typography>
-                <div className={classes.root}>
+                <Grid item xs={16} className={classes.hashbutton}>
                 <Button
                 color="grey"
-                className={classes.button}
+                className={classes.hashtag}
                 disableRipple
               >
                 #python
-              </Button><Button
+                </Button>
+                <Button
                 color="grey"
-                className={classes.button}
-                disableRipple
-              >
+                className={classes.hashtag}
+                disableRipple >
                 #javascript
               </Button>
                 <Fab size="small" color="primary" aria-label="add">
                   <AddIcon />
                 </Fab>
-                </div>
+
             </Grid>
           </CardContent>
         </Grid>
         </div>
-        <Grid className={classes.save}>
+        <Grid className={classes.root}>
             <Box mt={4} mb={6} m={0}>
                   <center>
                     <Button
@@ -152,13 +178,11 @@ function General() {
                   </center>
                 </Box>
             </Grid>
-        <Grid item xs={12}>
+        <Grid className={classes.root} >
             <OrgDelete/>
         </Grid>
 
       </React.Fragment>
     );
   }
-
-
 export default General;

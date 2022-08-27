@@ -1,6 +1,7 @@
 import { Grid, makeStyles,Button, Typography } from "@material-ui/core";
 import React from "react";
-import OrganizationSocials from "../OrganizationSocials";
+import Orgsocial from "../Orgsocial";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +21,7 @@ function Socialmedia() {
         <React.Fragment>
             <Grid item spacing={3}>
                 <Typography className={classes.heading}>Social Media</Typography>
-                <OrganizationSocials/>
+                <Orgsocial/>
             </Grid>
         </React.Fragment>
     );
