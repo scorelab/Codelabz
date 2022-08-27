@@ -51,7 +51,9 @@ const SideList = ({ menuItems, value, onStateChange }) => {
                 {item.link && (
                   <MenuItem
                     key={item.link}
-                    onClick={() => onStateChange(item)}
+                    onClick={() => {
+                      if (onStateChange) onStateChange(item);
+                    }}
                     data-testid={item.datatestid}
                   >
                     <NavLink to={item.link} className={classes.navLink}>
@@ -80,7 +82,9 @@ const SideList = ({ menuItems, value, onStateChange }) => {
                 {!item.link && !item.onClick && (
                   <MenuItem
                     key={item.name}
-                    onClick={() => onStateChange(item)}
+                    onClick={() => {
+                      if (onStateChange) onStateChange(item);
+                    }}
                     data-testid={item.datatestid}
                   >
                     {item.img && (
@@ -109,7 +113,7 @@ const SideList = ({ menuItems, value, onStateChange }) => {
                     key={item.name}
                     onClick={() => {
                       item.onClick(item);
-                      onStateChange(item);
+                      if (onStateChange) onStateChange(item);
                     }}
                     data-testid={item.datatestid}
                   >
