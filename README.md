@@ -1,3 +1,23 @@
+# Table of Content
+
+- [CodeLabz](#codelabz)
+- [Deployed on](#deployed-on)
+  * [User Guide](#user-guide)
+      - [How to Setup](#how-to-setup)
+      - [How to Use](#how-to-use)
+  * [Set-up-Firebase](#set-up-firebase)
+      - [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
+- [Firebase Emulator Flow](#firebase-emulator-flow)
+- [Install, Configure and Integrate Firebase Emulator Suite](#install--configure-and-integrate-firebase-emulator-suite)
+  * [**How to install**](#--how-to-install--)
+      - [Before installing the Emulator Suite you will need:-](#before-installing-the-emulator-suite-you-will-need--)
+      - [To install the Emulator Suite:](#to-install-the-emulator-suite-)
+  * [**How to Configure**](#--how-to-configure--)
+      - [Configure Emulator Suite:-](#configure-emulator-suite--)
+      - [Port Configuration - These are the Default Ports Provided you can change them while initializing(if needed)](#port-configuration---these-are-the-default-ports-provided-you-can-change-them-while-initializing-if-needed-)
+  * [Integrate With your CI System.](#integrate-with-your-ci-system)
+      - [To Start the Emulators:-](#to-start-the-emulators--)
+      - [Import and Export:-](#import-and-export--)
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS front end library and the back end will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
