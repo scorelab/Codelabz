@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Card from "@material-ui/core/Card";
-import CardComponent from "../util/CodelabCard/index";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -20,8 +18,9 @@ import ConnectSocials from "../Profile/ConnectSocials";
 import UserEmail from "../Forms/UserEmail";
 import UserPassword from "../Forms/UserPassword";
 import Organizations from "../Forms/Organizations";
-import { Route, Switch, useHistory, useParams } from "react-router-dom";
+import { Link, Route, Switch, useParams } from "react-router-dom";
 import { Avatar, Button } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 function UserDashboard() {
   const classes = useStyles();
@@ -31,7 +30,6 @@ function UserDashboard() {
     setOpen(!openMenu);
   };
 
-  const history = useHistory();
   const params = useParams();
 
   const navlinks = [
@@ -74,6 +72,10 @@ function UserDashboard() {
 
   const notification = () => {};
 
+  const getData = prop => (Boolean(prop) ? prop : "");
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
+  const [name, setName] = useState(getData(profileData.displayName));
+
   return (
     <Box className={classes.root}>
       <Box style={{ xs: { padding: 0 }, md: { padding: "0 30px" } }}>
@@ -93,23 +95,24 @@ function UserDashboard() {
               S
             </Avatar>
             <Box marginLeft={1}>
-              <Typography className={classes.name} >
-                Saksham Sharma
-              </Typography>
+              <Typography className={classes.name}>{name}</Typography>
               <Box style={{ display: "flex", alignItems: "center" }}>
-                <Typography className={classes.account}>Personal account</Typography>
-                <img
-                  src={SwitchImg}
-                  className={classes.image}
-                  alt="profile"
-                />
-                <Typography className={classes.account} style={{ color: "#0969DA" }}>
+                <Typography className={classes.account}>
+                  Personal account
+                </Typography>
+                <img src={SwitchImg} className={classes.image} alt="profile" />
+                <Typography
+                  className={classes.account}
+                  style={{ color: "#0969DA" }}
+                >
                   Switch
                 </Typography>
               </Box>
             </Box>
           </Box>
-          <Button className={classes.button}>Go to profile</Button>
+          <Link to="/profile">
+            <Button className={classes.button}>Go to profile</Button>
+          </Link>
         </Box>
       </Box>
       <Box
@@ -141,9 +144,7 @@ function UserDashboard() {
           md={9}
           style={{ xs: { padding: 0 }, md: { padding: "0 20px" } }}
         >
-          <Typography
-            className={classes.heading}
-          >
+          <Typography className={classes.heading}>
             {params.page.charAt(0).toUpperCase() + params.page.substr(1)}
           </Typography>
           <Switch>
