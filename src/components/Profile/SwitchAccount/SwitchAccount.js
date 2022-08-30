@@ -87,6 +87,8 @@ export default function SwitchAccount({
     name: ""
   });
 
+  console.log(avatar);
+
   const handleChange = event => {
     const name = event.target.name;
     setState({
@@ -96,8 +98,10 @@ export default function SwitchAccount({
   };
 
   return (
-    <Card className={classes.root} elevation={0}
-          data-test-id="switch-account-card"
+    <Card
+      className={classes.root}
+      elevation={0}
+      data-test-id="switch-account-card"
     >
       <CardContent className={classes.details}>
         <ThemeProvider theme={theme}>
