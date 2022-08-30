@@ -87,8 +87,6 @@ export default function SwitchAccount({
     name: ""
   });
 
-  console.log(avatar);
-
   const handleChange = event => {
     const name = event.target.name;
     setState({
