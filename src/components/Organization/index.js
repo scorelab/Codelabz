@@ -20,7 +20,6 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import { unPublishOrganization } from "../../store/actions";
 
 const Organizations = () => {
-  window.scrollTo(0, 0);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [SettingsMenu, setSettingsMenu] = useState(1);
   const classes = useStyles();
@@ -73,11 +72,10 @@ const Organizations = () => {
         <Grid item>
           <SwitchAccount
             Heading="Switch Account"
-            name="Shahaab Manzar"
-            secondaryMail="shahaabmanzar@gmail.com"
+            name={currentOrgData.org_handle}
+            secondaryMail=""
             avatar={{
-              type: "char",
-              value: "S"
+              value: currentOrgData.org_image
             }}
             buttonText={
               currentOrgUpdate
