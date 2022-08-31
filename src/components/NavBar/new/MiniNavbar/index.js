@@ -7,7 +7,7 @@ import {
   makeStyles,
   Paper
 } from "@material-ui/core";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Headroom from "react-headroom";
 import BrandName from "../../../../helpers/brandName";
 import SearchIcon from "@material-ui/icons/Search";
@@ -52,9 +52,12 @@ function MiniNavbar() {
   const classes = useStyles();
 
   const history = useHistory();
-
+  const notification = () => {};
   const [openDrawer, setOpenDrawer] = React.useState(false);
-
+  const [openMenu, setOpen] = useState(false);
+  const toggleSlider = () => {
+    setOpen(!openMenu);
+  };
   const toggleDrawer = useCallback(state => {
     setOpenDrawer(state);
   }, []);
@@ -88,11 +91,16 @@ function MiniNavbar() {
             </Grid>
             <Grid item className={classes.hamburger}>
               <IconButton>
-                <MenuIcon onClick={() => toggleDrawer(true)} />
+                {window.innerWidth > 750 && (
+                  <MenuIcon onClick={() => toggleDrawer(true)} />
+                )}
+                {window.innerWidth <= 750 && (
+                  <MenuIcon onClick={() => toggleSlider()} />
+                )}
               </IconButton>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={3}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -133,71 +141,74 @@ function MiniNavbar() {
           </Grid>
         </Grid>
       </nav>
-      <Drawer
-        anchor="right"
-        open={openDrawer}
-        onClose={() => toggleDrawer(false)}
-      >
-        <Grid
-          container
-          style={{
-            width: 200
-          }}
-          direction="column"
-        >
-          <Grid item>
-            <IconButton>
-              <CloseIcon onClick={() => toggleDrawer(false)} />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <SideBar />
-          </Grid>
+      {window.innerWidth > 750 && (
+        <Drawer anchor="right" open={openDrawer} onClose={() => toggleDrawer()}>
           <Grid
-            item
+            container
             style={{
-              padding: 10
+              width: 200
             }}
+            direction="column"
           >
-            <Button
-              variant="contained"
-              color="primary"
+            <Grid item>
+              <IconButton>
+                <CloseIcon onClick={() => toggleDrawer(false)} />
+              </IconButton>
+            </Grid>
+
+            <Grid
+              item
               style={{
-                boxShadow: "none",
-                color: "white"
-              }}
-              className={classes.button}
-              onClick={() => {
-                toggleDrawer(false);
-                history.push("/login");
+                padding: 10
               }}
             >
-              Login
-            </Button>
-          </Grid>
-          <Grid
-            item
-            style={{
-              padding: 10
-            }}
-          >
-            <Button
-              variant="outlined"
-              color="primary"
+              <Button
+                variant="contained"
+                color="primary"
+                style={{
+                  boxShadow: "none",
+                  color: "white"
+                }}
+                className={classes.button}
+                onClick={() => {
+                  toggleDrawer(false);
+                  history.push("/login");
+                }}
+              >
+                Login
+              </Button>
+            </Grid>
+            <Grid
+              item
               style={{
-                boxShadow: "none"
-              }}
-              className={classes.button}
-              onClick={() => {
-                toggleDrawer(false);
-                history.push("/signup");
+                padding: 10
               }}
             >
-              Sign Up
-            </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{
+                  boxShadow: "none"
+                }}
+                className={classes.button}
+                onClick={() => {
+                  toggleDrawer(false);
+                  history.push("/signup");
+                }}
+              >
+                Sign Up
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </Drawer>
+        </Drawer>
+      )}
+      {window.innerWidth <= 750 && (
+        <SideBar
+          open={openMenu}
+          toggleSlider={toggleSlider}
+          notification={notification}
+        />
+      )}
     </Headroom>
   );
 }

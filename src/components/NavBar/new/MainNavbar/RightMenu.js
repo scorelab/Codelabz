@@ -188,6 +188,7 @@ const RightMenu = ({ mode, onClick }) => {
               </Link>
             </ListItem>
           )}
+
           <ListItem
             key="setting:4"
             onClick={() => signOut()(firebase, dispatch)}
