@@ -3,7 +3,7 @@ const admin = require("firebase-admin");
 const serviceAccount = require("./private/cl-dev-pk.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://codelabz-58d31-default-rtdb.asia-southeast1.firebasedatabase.app",
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
 });
 
 const db = admin.firestore();
