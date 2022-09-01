@@ -1,4 +1,4 @@
-export const userList = {
+export const  userList = {
   persons: [
     {
       Heading: "CardWithPicture",
