@@ -19,6 +19,8 @@ import { useHistory } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 
+import SideBar from "../../../SideBar/index";
+
 const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
@@ -58,7 +60,11 @@ function MainNavbar() {
   const history = useHistory();
 
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const [openMenu, setOpen] = useState(true);
+  const toggleSlider = () => {
+    setOpen(!openMenu);
+  };
+  const notification = () => {};
   return (
     <Headroom>
       <nav
@@ -91,7 +97,7 @@ function MainNavbar() {
             <Grid item className={classes.hamburger}>
               <IconButton
                 onClick={() => {
-                  setOpenDrawer(true);
+                  toggleSlider();
                 }}
               >
                 <MenuIcon />
@@ -127,58 +133,13 @@ function MainNavbar() {
             </Grid>
           </Grid>
         </Grid>
-        <Drawer
-          open={openDrawer}
-          onClose={() => {
-            setOpenDrawer(false);
-          }}
-          anchor="right"
-        >
-          <Grid
-            container
-            style={{
-              width: 200,
-              overflowX: "hidden"
-            }}
-            direction="column"
-          >
-            <Grid item>
-              <IconButton
-                onClick={() => {
-                  setOpenDrawer(false);
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-            </Grid>
-            <Grid item container direction="column">
-              <Grid
-                item
-                style={{
-                  marginLeft: "10px",
-                  opacity: "0.5"
-                }}
-              >
-                <Typography>App Menu</Typography>
-              </Grid>
-              <Grid item>
-                <LeftMenu onClick={() => setOpenDrawer(false)} />
-              </Grid>
-              <Grid
-                item
-                style={{
-                  marginLeft: "10px",
-                  opacity: "0.5"
-                }}
-              >
-                <Typography>Profile</Typography>
-              </Grid>
-              <Grid item>
-                <RightMenu onClick={() => setOpenDrawer(false)} />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Drawer>
+        {window.innerWidth <= 750 && openMenu && (
+          <SideBar
+            open={openMenu}
+            toggleSlider={toggleSlider}
+            notification={notification}
+          />
+        )}
       </nav>
     </Headroom>
   );

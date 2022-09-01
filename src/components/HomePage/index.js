@@ -155,13 +155,6 @@ function HomePage({ background = "white", textColor = "black" }) {
       }}
     >
       <Grid className={classes.contentPart}>
-        {window.innerWidth <= 750 && openMenu && (
-          <SideBar
-            open={openMenu}
-            toggleSlider={toggleSlider}
-            notification={notification}
-          />
-        )}
         <div className={classes.sideBody}>
           {window.innerWidth > 750 && (
             <Grid
