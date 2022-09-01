@@ -253,50 +253,18 @@ function HomePage({ background = "white", textColor = "black" }) {
               <UserCard title={"Contributors"} users={contributors} />
             </Grid>
           </Grid>
+
           <Grid
             container
-            className={classes.sideCard}
             alignContent="center"
             direction="column"
             style={{
-              width: "100%",
-              overflow: "auto",
-              maxHeight: "25rem"
+              width: "100%"
             }}
             data-testId="homepagePopularEventSidebar"
           >
-            <Grid item>
-              <br />
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{ marginBottom: "1rem", color: textColor }}
-              >
-                Popular Events
-              </Typography>
-            </Grid>
-            <Grid container alignItems="left">
-              <List
-                component="nav"
-                aria-label="mailbox folders"
-                style={{ width: "100%" }}
-              >
-                <ListItem button>
-                  <ListItemText primary="Lorem Pervious Text" />
-                </ListItem>
-                <Divider />
-                <ListItem button divider>
-                  <ListItemText primary="Lorem Pervious Text Event" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemText primary="Lorem Pervious Text" />
-                </ListItem>
-                <Divider light />
-
-                <ListItem button>
-                  <ListItemText primary="Lorem Pervious Text Previous Event" />
-                </ListItem>
-              </List>
+            <Grid item style={{ minWidth: "100%" }}>
+              <EventsCard title={"Popular Events"} events={upcomingEvents} />
             </Grid>
           </Grid>
         </Grid>
