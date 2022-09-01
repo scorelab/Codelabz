@@ -119,16 +119,20 @@ export default function CardWithPicture(props) {
               >
                 {props.name}
               </Typography>
-              {" for "}
-              <Typography
-                component="span"
-                variant="h7"
-                className={classes.inline}
-                color="textPrimary"
-                data-testId="UserOrgName"
-              >
-                {props.organizationName}
-              </Typography>
+              {props.organizationName && (
+                <>
+                  {" for "}
+                  <Typography
+                    component="span"
+                    variant="h7"
+                    className={classes.inline}
+                    color="textPrimary"
+                    data-testId="UserOrgName"
+                  >
+                    {props.organizationName}
+                  </Typography>
+                </>
+              )}
             </React.Fragment>
           }
           subheader={props.date}
