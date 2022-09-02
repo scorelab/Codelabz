@@ -49,7 +49,7 @@ const SideList = ({
   menuItems,
   value,
   onStateChange = () => {},
-    toggleSlider = () => { },
+  toggleSlider = () => {},
   style
 }) => {
   const classes = useStyles();
@@ -58,9 +58,7 @@ const SideList = ({
   const dispatch = useDispatch();
   const history = useHistory();
   return (
-      <Paper className={classes.paper}
-        style={style}
-      >
+    <Paper className={classes.paper} style={style}>
       <MenuList className={classes.menuList}>
         {typeof menuItems == "object" &&
           menuItems.map(function (item, index) {
@@ -132,7 +130,7 @@ const SideList = ({
                   <MenuItem
                     key={item.name}
                     onClick={() => {
-                      item.onClick(item);
+                      if (item.onClick) item.onClick(item);
                       onStateChange(item);
                     }}
                   >

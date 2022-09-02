@@ -17,13 +17,10 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: 250,
     flexShrink: 0,
-    display: theme.breakpoints.down("md") ? "block" : "none"
+    display: theme.breakpoints.down("md") ? null : "none"
   },
   drawerPaper: {
     width: 250
-  },
-  normalMenu: {
-    display: theme.breakpoints.up("md") ? "block" : "none"
   }
 }));
 
@@ -45,8 +42,7 @@ const SideBar = ({
     },
     {
       name: "Notifications",
-      img: Notification,
-      onClick: `${notification}`
+      img: Notification
     },
     {
       name: "Settings",
@@ -109,7 +105,7 @@ const SideBar = ({
           />
         </Drawer>
       ) : (
-        <div data-testId="normalMenu" className={classes.normalMenu}>
+        <div data-testId="normalMenu">
           <SideList
             menuItems={menuItems || defaultMenu}
             value={value}

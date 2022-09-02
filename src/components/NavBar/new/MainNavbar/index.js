@@ -134,7 +134,7 @@ function MainNavbar() {
             </Grid>
           </Grid>
         </Grid>
-        {WindowSize.width <= 750 && openMenu && (
+        {WindowSize.width <= 750 && (
           <SideBar
             open={openMenu}
             toggleSlider={toggleSlider}
