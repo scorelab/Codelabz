@@ -72,9 +72,6 @@ const LeftMenu = ({ mode, onClick }) => {
 
   return (
     <React.Fragment>
-      <IconButton onClick={handleClick} data-testid="navbarAppMenu">
-        <AppsIcon />
-      </IconButton>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

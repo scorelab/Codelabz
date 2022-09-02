@@ -5,11 +5,11 @@ import { checkOrgHandleExists } from "./authActions";
 
 const elasticlunr = new Elasticlunr("handle", "handle", "name");
 
-export const searchFromIndex = (query) => {
+export const searchFromIndex = query => {
   return elasticlunr.searchFromIndex(query);
 };
 
-export const getOrgUserData = (org_handle) => async (firestore, dispatch) => {
+export const getOrgUserData = org_handle => async (firestore, dispatch) => {
   try {
     dispatch({ type: actions.GET_ORG_USER_DATA_START });
     const usersDoc = await firestore
@@ -20,21 +20,21 @@ export const getOrgUserData = (org_handle) => async (firestore, dispatch) => {
       .get();
     const usersData = usersDoc.data();
     const users = _.omit(usersData, ["createdAt", "updatedAt"]);
-    const promises = Object.keys(users).map(async (uid) => {
+    const promises = Object.keys(users).map(async uid => {
       let userDoc = await firestore.collection("cl_user").doc(uid).get();
       return {
         name: userDoc.get("displayName"),
         handle: userDoc.get("handle"),
         image: userDoc.get("photoURL"),
-        permission_level: users[uid],
+        permission_level: users[uid]
       };
     });
     const userData = await Promise.all(promises);
     dispatch({
       type: actions.GET_ORG_USER_DATA_SUCCESS,
-      payload: _.orderBy(userData, ["permission_level"], ["desc"]),
+      payload: _.orderBy(userData, ["permission_level"], ["desc"])
     });
-    userData.forEach((doc) => {
+    userData.forEach(doc => {
       elasticlunr.addDocToIndex(doc);
     });
   } catch (e) {
@@ -60,7 +60,7 @@ export const addOrgUser =
           .doc("users")
           .update({
             [uid]: [permissions],
-            updatedAt: firestore.FieldValue.serverTimestamp(),
+            updatedAt: firestore.FieldValue.serverTimestamp()
           });
 
         await getOrgUserData(org_handle)(firestore, dispatch);
@@ -68,7 +68,7 @@ export const addOrgUser =
       } else {
         dispatch({
           type: actions.ADD_ORG_USER_FAIL,
-          payload: `User [${handle}] is not registered with CodeLabz`,
+          payload: `User [${handle}] is not registered with CodeLabz`
         });
       }
     } catch (e) {
@@ -94,7 +94,7 @@ export const removeOrgUser =
           .doc("users")
           .update({
             [uid]: firestore.FieldValue.delete(),
-            updatedAt: firestore.FieldValue.serverTimestamp(),
+            updatedAt: firestore.FieldValue.serverTimestamp()
           });
 
         await getOrgUserData(org_handle)(firestore, dispatch);
@@ -102,7 +102,7 @@ export const removeOrgUser =
       } else {
         dispatch({
           type: actions.ADD_ORG_USER_FAIL,
-          payload: `User [${handle}] is not registered with CodeLabz`,
+          payload: `User [${handle}] is not registered with CodeLabz`
         });
       }
     } catch (e) {
@@ -110,11 +110,11 @@ export const removeOrgUser =
     }
   };
 
-export const getOrgBasicData = (org_handle) => async (firebase) => {
+export const getOrgBasicData = org_handle => async firebase => {
   try {
     const firestore = firebase.firestore();
     const {
-      currentUser: { uid },
+      currentUser: { uid }
     } = firebase.auth();
     const orgDoc = await firestore
       .collection("cl_org_general")
@@ -159,7 +159,7 @@ export const getOrgBasicData = (org_handle) => async (firebase) => {
       org_description,
       org_country,
       org_image: org_image ? org_image : "",
-      permissions: user_permissions,
+      permissions: user_permissions
     };
   } catch (e) {
     throw e;
@@ -170,24 +170,21 @@ export const editGeneralData =
   (orgData, currentOrgData) => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.EDIT_ORG_GENERAL_START });
-
       const { org_handle } = orgData;
-
       const org_Data = _.pickBy(orgData, _.identity);
-
       await firestore
         .collection("cl_org_general")
         .doc(org_handle)
         .update({
           ...org_Data,
-          updatedAt: firestore.FieldValue.serverTimestamp(),
+          updatedAt: firestore.FieldValue.serverTimestamp()
         });
 
       const newData = await getOrgBasicData(org_handle)(firebase);
       const update = _.unionBy([newData], currentOrgData, "org_handle");
       dispatch({
         type: actions.GET_PROFILE_DATA_SUCCESS,
-        payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) },
+        payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) }
       });
 
       dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
