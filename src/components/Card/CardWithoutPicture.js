@@ -29,8 +29,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "10px",
     boxSizing: "border-box",
     [theme.breakpoints.down("md")]: {
-      width: "auto",
-      maxWidth: "30rem"
+      width: "auto"
     },
     [theme.breakpoints.down("xs")]: {
       width: "auto"
@@ -62,6 +61,9 @@ const useStyles = makeStyles(theme => ({
   },
   small: {
     padding: "4px"
+  },
+  settings: {
+    flexWrap: "wrap"
   }
 }));
 
@@ -139,7 +141,7 @@ export default function CardWithoutPicture(props) {
             {props.contentDescription}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions className={classes.settings} disableSpacing>
           <Chip
             label="HTML"
             component="a"
