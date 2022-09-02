@@ -19,7 +19,15 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(5)
   },
   leftBody: {
-    width: "60%"
+    width: "60%",
+    [theme.breakpoints.down(750)]: {
+      width: "98%",
+    }
+  },
+  rightBody: {
+    [theme.breakpoints.down(750)]: {
+      display: "none"
+    }
   },
   bottomMargin: {
     marginBottom: "10px"
