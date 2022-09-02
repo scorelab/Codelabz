@@ -7,7 +7,7 @@ import {
   makeStyles,
   Paper
 } from "@material-ui/core";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Headroom from "react-headroom";
 import BrandName from "../../../../helpers/brandName";
 import SearchIcon from "@material-ui/icons/Search";
@@ -15,6 +15,7 @@ import { useHistory } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import SideBar from "../../../SideBar";
+import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -58,12 +59,15 @@ function MiniNavbar() {
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
+
+  const WindowSize = useWindowSize();
+
   const toggleDrawer = useCallback(state => {
     setOpenDrawer(state);
   }, []);
 
   return (
-    <Headroom>
+    <Headroom disableInlineStyles>
       <nav
         style={{
           padding: "10px",
@@ -141,7 +145,7 @@ function MiniNavbar() {
           </Grid>
         </Grid>
       </nav>
-      {window.innerWidth > 750 && (
+      {WindowSize.width > 750 && (
         <Drawer anchor="right" open={openDrawer} onClose={() => toggleDrawer()}>
           <Grid
             container
@@ -202,7 +206,7 @@ function MiniNavbar() {
           </Grid>
         </Drawer>
       )}
-      {window.innerWidth <= 750 && (
+      {WindowSize.width <= 750 && (
         <SideBar
           open={openMenu}
           toggleSlider={toggleSlider}

@@ -20,6 +20,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 
 import SideBar from "../../../SideBar/index";
+import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -58,7 +59,7 @@ function MainNavbar() {
   const classes = useStyles();
 
   const history = useHistory();
-
+  const WindowSize = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpen] = useState(true);
   const toggleSlider = () => {
@@ -133,7 +134,7 @@ function MainNavbar() {
             </Grid>
           </Grid>
         </Grid>
-        {window.innerWidth <= 750 && openMenu && (
+        {WindowSize.width <= 750 && openMenu && (
           <SideBar
             open={openMenu}
             toggleSlider={toggleSlider}

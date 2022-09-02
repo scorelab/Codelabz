@@ -20,6 +20,7 @@ import NewCodelabz from "../Topbar/NewCodelabz";
 import CardWithPicture from "../Card/CardWithPicture";
 import CardWithoutPicture from "../Card/CardWithoutPicture";
 import Activity from "../Topbar/Activity";
+import useWindowSize from "../../helpers/customHooks/useWindowSize";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
@@ -36,6 +37,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     }
   ]);
 
+  const WindowSize = useWindowSize();
   const [openMenu, setOpen] = useState(true);
   const toggleSlider = () => {
     setOpen(!openMenu);
@@ -156,7 +158,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     >
       <Grid className={classes.contentPart}>
         <div className={classes.sideBody}>
-          {window.innerWidth > 750 && (
+          {WindowSize.width > 750 && (
             <Grid
               item
               container
