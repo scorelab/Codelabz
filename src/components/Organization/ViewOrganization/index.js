@@ -56,7 +56,7 @@ const ViewOrganization = () => {
 
   const db = firebase.firestore();
   const profileData = useSelector(({ firebase: { profile } }) => profile);
-  // console.log(firebase);
+
   const CurrentOrg = useSelector(
     ({
       profile: {
@@ -68,10 +68,7 @@ const ViewOrganization = () => {
     }) => organizations[0]
   );
 
-  console.log(CurrentOrg);
-  // const [OrgData, setOrgData] = useState(CurrentOrg);
 
-  console.log(profileData);
   const aboutfeedlist = [
     {
       id: 1,
@@ -171,7 +168,6 @@ const ViewOrganization = () => {
     }) => data
   );
 
-  // console.log(currentOrgData);
 
   const organizations = useSelector(
     ({
