@@ -48,12 +48,30 @@ const ViewOrganization = () => {
   const [people, setPeople] = useState([]);
   const [orgFollowed, setOrgFollowed] = useState([]);
   const [Activity, setActivity] = useState(1);
+
+  // Firebase Hooks
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
+
   const db = firebase.firestore();
   const profileData = useSelector(({ firebase: { profile } }) => profile);
+  // console.log(firebase);
+  const CurrentOrg = useSelector(
+    ({
+      profile: {
+        data: { organizations }
+      },
+      org: {
+        general: { current }
+      }
+    }) => organizations[0]
+  );
 
+  console.log(CurrentOrg);
+  // const [OrgData, setOrgData] = useState(CurrentOrg);
+
+  console.log(profileData);
   const aboutfeedlist = [
     {
       id: 1,
@@ -153,6 +171,8 @@ const ViewOrganization = () => {
     }) => data
   );
 
+  // console.log(currentOrgData);
+
   const organizations = useSelector(
     ({
       firebase: {
@@ -190,11 +210,11 @@ const ViewOrganization = () => {
           {currentOrgData && (
             <React.Fragment>
               <Banner
-                bannerImage="https://i.postimg.cc/zXvv1vwL/Org-Banner-Demo.png"
+                bannerImage={CurrentOrg.org_image}
                 contributors={402}
                 feed={40}
                 followers={402}
-                name="Apple"
+                name={CurrentOrg.org_name}
                 profileImage="https://i.pravatar.cc/300"
                 story="Think Different"
               />
@@ -255,9 +275,7 @@ const ViewOrganization = () => {
                       <Grid item>
                         <Description
                           Heading={"Description"}
-                          Content={
-                            "Lorem ipsum dolor sit amet,  elit consectetur adipiscing elit. In nec tristique pharetra mi eu pellente. Morbi nec metus vel sem tristique porttitor. porta mauris ac odio nec suscipit pretium. Suspendisse maximus nunc ipsum, at gravida nunc posuere in."
-                          }
+                          Content={CurrentOrg.org_description}
                         />
                       </Grid>
                       <Grid item>

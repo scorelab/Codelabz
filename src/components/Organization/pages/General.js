@@ -147,6 +147,8 @@ function General() {
       }
     }) => organizations.find(element => element.org_handle === current)
   );
+
+  console.log(CurrentOrg);
   const profileOrganizations = useSelector(
     ({
       profile: {
