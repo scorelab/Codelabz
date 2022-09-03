@@ -1,3 +1,18 @@
+# Table of Content
+1. [CodeLabz](#codelabz)
+2. [Deployed on](#deployed-on)
+3. [User Guide](#user-guide)
+    1. [How to Setup](#how-to-setup)
+    2. [How to Use](#how-to-use)
+4. [Set-up-Firebase](#set-up-firebase)
+    1. [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
+5. [Firebase Emulator Flow](#firebase-emulator-flow)
+6. [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
+   1. [<strong>How to install</strong>](#how-to-install)
+   2. [<strong>How to Configure</strong>](#how-to-configure)
+7. [Integrate With your CI System.](#integrate-with-your-ci-system)
+    1. [To Start the Emulators:-](#to-start-the-emulators-)
+    2. [Import and Export:-](#import-and-export-)
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS front end library and the back end will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
