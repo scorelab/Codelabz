@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Drawer, Grid, IconButton, Close } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Drawer, Grid, IconButton, Close, useTheme } from "@material-ui/core";
 import SideList from "../SideBar/sidelist";
 import Home from "./../../assets/images/home.svg";
 import Notification from "./../../assets/images/notification.svg";
@@ -11,11 +11,13 @@ import Logout from "./../../assets/images/logout.svg";
 import Tutorials from "./../../assets/images/tutorial.svg";
 import { signOut } from "../../store/actions";
 import { makeStyles } from "@material-ui/core/styles";
+import useWindowSize from "../../helpers/customHooks/useWindowSize";
 
 const useStyles = makeStyles(theme => ({
   drawer: {
     width: 250,
-    flexShrink: 0
+    flexShrink: 0,
+    display: theme.breakpoints.down("md") ? null : "none"
   },
   drawerPaper: {
     width: 250
@@ -30,6 +32,8 @@ const SideBar = ({
   value,
   onStateChange
 }) => {
+  const windowSize = useWindowSize();
+
   const defaultMenu = [
     {
       name: "Home",
@@ -38,8 +42,7 @@ const SideBar = ({
     },
     {
       name: "Notifications",
-      img: Notification,
-      onClick: `${notification}`
+      img: Notification
     },
     {
       name: "Settings",
@@ -72,10 +75,11 @@ const SideBar = ({
       onClick: `${signOut}`
     }
   ];
+
   const classes = useStyles();
   return (
     <>
-      {window.innerWidth <= 750 && (
+      {windowSize.width <= 750 ? (
         <Drawer
           closable="true"
           open={open}
@@ -84,6 +88,7 @@ const SideBar = ({
           data-testId="drawerMenu"
           style={{ zIndex: 99999 }}
           classes={{
+            root: classes.drawer,
             paper: classes.drawerPaper
           }}
           xs={12}
@@ -94,11 +99,12 @@ const SideBar = ({
             value={value}
             onStateChange={onStateChange}
             toggleSlider={toggleSlider}
+            style={{
+              position: "absolute"
+            }}
           />
         </Drawer>
-      )}
-
-      {window.innerWidth > 750 && (
+      ) : (
         <div data-testId="normalMenu">
           <SideList
             menuItems={menuItems || defaultMenu}
