@@ -60,7 +60,7 @@ function MiniNavbar() {
     setOpen(!openMenu);
   };
 
-  const WindowSize = useWindowSize();
+  const windowSize = useWindowSize();
 
   const toggleDrawer = useCallback(state => {
     setOpenDrawer(state);
@@ -145,7 +145,7 @@ function MiniNavbar() {
           </Grid>
         </Grid>
       </nav>
-      {WindowSize.width > 750 && (
+      {windowSize.width > 750 && (
         <Drawer anchor="right" open={openDrawer} onClose={() => toggleDrawer()}>
           <Grid
             container
@@ -206,7 +206,7 @@ function MiniNavbar() {
           </Grid>
         </Drawer>
       )}
-      {WindowSize.width <= 750 && (
+      {windowSize.width <= 750 && (
         <SideBar
           open={openMenu}
           toggleSlider={toggleSlider}

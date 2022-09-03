@@ -37,7 +37,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     }
   ]);
 
-  const WindowSize = useWindowSize();
+  const windowSize = useWindowSize();
   const [openMenu, setOpen] = useState(true);
   const toggleSlider = () => {
     setOpen(!openMenu);
@@ -158,7 +158,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     >
       <Grid className={classes.contentPart}>
         <div className={classes.sideBody}>
-          {WindowSize.width > 750 && (
+          {windowSize.width > 750 && (
             <Grid
               item
               container

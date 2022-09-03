@@ -32,7 +32,7 @@ const SideBar = ({
   value,
   onStateChange
 }) => {
-  const WindowSize = useWindowSize();
+  const windowSize = useWindowSize();
 
   const defaultMenu = [
     {
@@ -79,7 +79,7 @@ const SideBar = ({
   const classes = useStyles();
   return (
     <>
-      {WindowSize.width <= 750 ? (
+      {windowSize.width <= 750 ? (
         <Drawer
           closable="true"
           open={open}

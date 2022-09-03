@@ -59,7 +59,7 @@ function MainNavbar() {
   const classes = useStyles();
 
   const history = useHistory();
-  const WindowSize = useWindowSize();
+  const windowSize = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpen] = useState(true);
   const toggleSlider = () => {
@@ -134,7 +134,7 @@ function MainNavbar() {
             </Grid>
           </Grid>
         </Grid>
-        {WindowSize.width <= 750 && (
+        {windowSize.width <= 750 && (
           <SideBar
             open={openMenu}
             toggleSlider={toggleSlider}
