@@ -215,7 +215,7 @@ const ViewOrganization = () => {
                 feed={40}
                 followers={402}
                 name={CurrentOrg.org_name}
-                profileImage="https://i.pravatar.cc/300"
+                profileImage={CurrentOrg.org_image}
                 story="Think Different"
               />
               <Container
@@ -281,9 +281,7 @@ const ViewOrganization = () => {
                       <Grid item>
                         <Description
                           Heading={"CodeLabz you may like"}
-                          Content={
-                            "Lorem ipsum dolor sit amet,  elit consectetur adipiscing elit. In nec tristique pharetra mi eu pellente. Morbi nec metus vel sem tristique porttitor. porta mauris ac odio nec suscipit pretium. Suspendisse maximus nunc ipsum, at gravida nunc posuere in."
-                          }
+                          Content={CurrentOrg.org_description}
                         />
                       </Grid>
                       <Grid item>
