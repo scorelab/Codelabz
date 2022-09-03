@@ -19,7 +19,7 @@ import Orgusers from "../OrgUsers/OrgUsers";
 import Description from "../../UserDetails/Description";
 import Spinner from "../../../helpers/spinner";
 import ActivityList from "../../Topbar/Activity/ActivityList";
-
+import { BasicImage, NoImage } from "../../../helpers/images";
 const useStyles = makeStyles(theme => ({
   acitvitylist: {
     padding: theme.spacing(1),
@@ -215,7 +215,9 @@ const ViewOrganization = () => {
                 feed={40}
                 followers={402}
                 name={CurrentOrg.org_name}
-                profileImage={CurrentOrg.org_image}
+                profileImage={
+                  CurrentOrg.org_image ? CurrentOrg.org_image : NoImage
+                }
                 story="Think Different"
               />
               <Container
