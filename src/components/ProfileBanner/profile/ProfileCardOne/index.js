@@ -30,7 +30,7 @@ export default function ProfileCardOne({
                 data-testId="user_profile_card_one_avatar"
               />
             </div>
-            <div style={{ width: "fit-content", marginLeft: "2.5rem" }}>
+            <div className={classes.profileUserConnect}>
               <Typography
                 className={classes.profileInfoName}
                 data-testId="user_profile_card_one_name"
