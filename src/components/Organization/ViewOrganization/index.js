@@ -19,7 +19,7 @@ import Orgusers from "../OrgUsers/OrgUsers";
 import Description from "../../UserDetails/Description";
 import Spinner from "../../../helpers/spinner";
 import ActivityList from "../../Topbar/Activity/ActivityList";
-
+import { BasicImage, NoImage } from "../../../helpers/images";
 const useStyles = makeStyles(theme => ({
   acitvitylist: {
     padding: theme.spacing(1),
@@ -48,11 +48,26 @@ const ViewOrganization = () => {
   const [people, setPeople] = useState([]);
   const [orgFollowed, setOrgFollowed] = useState([]);
   const [Activity, setActivity] = useState(1);
+
+  // Firebase Hooks
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
+
   const db = firebase.firestore();
   const profileData = useSelector(({ firebase: { profile } }) => profile);
+
+  const CurrentOrg = useSelector(
+    ({
+      profile: {
+        data: { organizations }
+      },
+      org: {
+        general: { current }
+      }
+    }) => organizations[0]
+  );
+
 
   const aboutfeedlist = [
     {
@@ -153,6 +168,7 @@ const ViewOrganization = () => {
     }) => data
   );
 
+
   const organizations = useSelector(
     ({
       firebase: {
@@ -194,8 +210,10 @@ const ViewOrganization = () => {
                 contributors={402}
                 feed={40}
                 followers={402}
-                name="Apple"
-                profileImage="https://i.pravatar.cc/300"
+                name={CurrentOrg.org_name}
+                profileImage={
+                  CurrentOrg.org_image ? CurrentOrg.org_image : NoImage
+                }
                 story="Think Different"
               />
               <Container
@@ -255,17 +273,13 @@ const ViewOrganization = () => {
                       <Grid item>
                         <Description
                           Heading={"Description"}
-                          Content={
-                            "Lorem ipsum dolor sit amet,  elit consectetur adipiscing elit. In nec tristique pharetra mi eu pellente. Morbi nec metus vel sem tristique porttitor. porta mauris ac odio nec suscipit pretium. Suspendisse maximus nunc ipsum, at gravida nunc posuere in."
-                          }
+                          Content={CurrentOrg.org_description}
                         />
                       </Grid>
                       <Grid item>
                         <Description
                           Heading={"CodeLabz you may like"}
-                          Content={
-                            "Lorem ipsum dolor sit amet,  elit consectetur adipiscing elit. In nec tristique pharetra mi eu pellente. Morbi nec metus vel sem tristique porttitor. porta mauris ac odio nec suscipit pretium. Suspendisse maximus nunc ipsum, at gravida nunc posuere in."
-                          }
+                          Content={CurrentOrg.org_description}
                         />
                       </Grid>
                       <Grid item>
