@@ -23,7 +23,7 @@ const ConnectSocials = () => {
         <Box className={classes.row} sx={{ marginBottom: 15 }}>
           <Box
             className={classes.link}
-            onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
+            // onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
             data-testId="facebookButton"
           >
             <FacebookIcon className={classes.fb}>
@@ -35,7 +35,7 @@ const ConnectSocials = () => {
           </Box>
           <Box
             className={classes.link}
-            onClick={() => signInWithProviderID("github")(firebase, dispatch)}
+            // onClick={() => signInWithProviderID("github")(firebase, dispatch)}
             data-testId="githubButton"
           >
             <GitHubIcon className={classes.git}>
@@ -49,7 +49,7 @@ const ConnectSocials = () => {
         <Box className={classes.row}>
           <Box
             className={classes.link}
-            onClick={() => signInWithGoogle()(firebase, dispatch)}
+            // onClick={() => signInWithGoogle()(firebase, dispatch)}
             data-testId="googleButton"
           >
             <img src={GoogleImg} alt="google" className={classes.button} />
@@ -59,7 +59,7 @@ const ConnectSocials = () => {
           </Box>
           <Box
             className={classes.link}
-            onClick={() => signInWithProviderID("twitter")(firebase, dispatch)}
+            // onClick={() => signInWithProviderID("twitter")(firebase, dispatch)}
             data-testId="twitterButton"
           >
             <TwitterIcon className={classes.tw}>
