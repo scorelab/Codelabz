@@ -155,8 +155,8 @@ const Routes = () => {
             component={UserIsAllowedUserDashboard(Editor)}
           />
           <Route
-            path={"/userdashboard/:page"}
-            component={UserDashboard}
+            path={"/user-dashboard/:page"}
+            component={UserIsAllowedUserDashboard(UserDashboard)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>

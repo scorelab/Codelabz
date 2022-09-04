@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     width: 245,
+    '&:hover': {
+      cursor: 'pointer'
+   },
   },
   button: {
     height: 26,

@@ -17,7 +17,7 @@ import UserAccount from "../Forms/UserAccount";
 import ConnectSocials from "../Profile/ConnectSocials";
 import UserEmail from "../Forms/UserEmail";
 import UserPassword from "../Forms/UserPassword";
-import Organizations from "../Forms/Organizations";
+import Organizations from "../Profile/Organizations";
 import { Link, Route, Switch, useParams } from "react-router-dom";
 import { Avatar, Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
@@ -36,37 +36,37 @@ function UserDashboard() {
     {
       name: "Profile",
       img: Profile,
-      link: "/userdashboard/profile"
+      link: "/user-dashboard/profile"
     },
     {
       name: "Settings",
       img: Settings,
-      link: "/userdashboard/settings"
+      link: "/user-dashboard/settings"
     },
     {
       name: "Notifications",
       img: Notification,
-      link: "/userdashboard/notifications"
+      link: "/user-dashboard/notifications"
     },
     {
       name: "Social Media",
       img: SocialMedia,
-      link: "/userdashboard/socials"
+      link: "/user-dashboard/socials"
     },
     {
       name: "Emails",
       img: Email,
-      link: "/userdashboard/email"
+      link: "/user-dashboard/email"
     },
     {
       name: "Password",
       img: Password,
-      link: "/userdashboard/password"
+      link: "/user-dashboard/password"
     },
     {
       name: "Organizations",
       img: Org,
-      link: "/userdashboard/organizations"
+      link: "/user-dashboard/organizations"
     }
   ];
 
@@ -92,7 +92,7 @@ function UserDashboard() {
               className={classes.avatar}
               data-testId="UserAvatar"
             >
-              S
+              {name.charAt(0).toUpperCase()}
             </Avatar>
             <Box marginLeft={1}>
               <Typography className={classes.name}>{name}</Typography>
@@ -148,26 +148,26 @@ function UserDashboard() {
             {params.page.charAt(0).toUpperCase() + params.page.substr(1)}
           </Typography>
           <Switch>
-            <Route exact path={"/userdashboard/profile"} component={UserForm} />
+            <Route exact path={"/user-dashboard/profile"} component={UserForm} />
             <Route
               exact
-              path={"/userdashboard/settings"}
+              path={"/user-dashboard/settings"}
               component={UserAccount}
             />
             <Route
               exact
-              path={"/userdashboard/socials"}
+              path={"/user-dashboard/socials"}
               component={ConnectSocials}
             />
-            <Route exact path={"/userdashboard/email"} component={UserEmail} />
+            <Route exact path={"/user-dashboard/email"} component={UserEmail} />
             <Route
               exact
-              path={"/userdashboard/password"}
+              path={"/user-dashboard/password"}
               component={UserPassword}
             />
             <Route
               exact
-              path={"/userdashboard/organizations"}
+              path={"/user-dashboard/organizations"}
               component={Organizations}
             />
           </Switch>

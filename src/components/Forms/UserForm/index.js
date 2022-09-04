@@ -109,7 +109,7 @@ const UserForm = () => {
   const children = [];
   for (let i = 0; i < countryList.length; i++) {
     children.push(
-      <MenuItem key={countryList[i].code} value={countryList[i].name}>
+      <MenuItem key={countryList[i].code} value={countryList[i].name} data-testId="selectCountryItem">
         {countryList[i].name}
       </MenuItem>
     );
@@ -292,7 +292,7 @@ const UserForm = () => {
               value={website}
               id="bootstrap-input"
               className={classes.input}
-              data-testId="userEmail"
+              data-testId="website"
               onChange={event => onChangeOrgWebsite(event.target.value)}
             />
             <Typography className={classes.errorMessage}>
@@ -311,7 +311,7 @@ const UserForm = () => {
               value={description}
               id="bootstrap-input"
               className={classes.input}
-              data-testId="userEmail"
+              data-testId="description"
               onChange={event => onChangeDescription(event.target.value)}
             />
             <Typography className={classes.errorMessage}>

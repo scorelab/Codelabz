@@ -8,9 +8,10 @@ import {
   Typography,
   MenuItem,
   Select,
-  OutlinedInput,
+  OutlinedInput
 } from "@material-ui/core";
 import { Input } from "../../ui-helpers/Inputs/PrimaryInput";
+import { useSelector } from "react-redux";
 
 const UserEmail = () => {
   const classes = useStyles();
@@ -18,11 +19,13 @@ const UserEmail = () => {
   const [primaryEmail, setPrimaryEmail] = useState(data.primaryEmail);
   const [backupEmail, setBackupEmail] = useState(data.backupEmail);
 
-  const handleChangePrimaryEmail = (event) => {
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
+
+  const handleChangePrimaryEmail = event => {
     setPrimaryEmail(event.target.value);
   };
 
-  const handleChangeBackupEmail = (event) => {
+  const handleChangeBackupEmail = event => {
     setBackupEmail(event.target.value);
   };
 
@@ -33,7 +36,7 @@ const UserEmail = () => {
         noValidate
         sx={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "column"
         }}
       >
         <Typography style={{ margin: "5px 0" }}>
@@ -61,17 +64,18 @@ const UserEmail = () => {
           </Typography>
           <FormControl data-testId="primaryEmail">
             <Select
-              value={primaryEmail}
+              value={profileData.email || primaryEmail}
               onChange={handleChangePrimaryEmail}
               input={<OutlinedInput style={{ height: 40, width: 250 }} />}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              {data.primaryEmailOptions.map((email) => (
-                <MenuItem value={email} data-testId="primaryEmailItem">
-                  {email}
-                </MenuItem>
-              ))}
+              <MenuItem
+                value={profileData.email}
+                data-testId="primaryEmailItem"
+              >
+                {profileData.email}
+              </MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -87,7 +91,7 @@ const UserEmail = () => {
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              {data.backupEmailOptions.map((email) => (
+              {data.backupEmailOptions.map(email => (
                 <MenuItem value={email} data-testId="backupEmailItem">
                   {email}
                 </MenuItem>
