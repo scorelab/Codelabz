@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   leftBody: {
     width: "60%",
     [theme.breakpoints.down(750)]: {
-      width: "98%",
+      width: "98%"
     }
   },
   rightBody: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function UserProfile() {
+function UserProfile(props) {
   const classes = useStyles();
 
   const [contributors, setContributors] = useState([
@@ -81,8 +81,12 @@ function UserProfile() {
           <Grid>
             <Card>
               <ProfileCardOne
-                profileImage={"https://i.pravatar.cc/300"}
-                name={"Shahaab Manzar"}
+                profileImage={
+                  props.profileData.photoURL
+                    ? props.profileData.photoURL
+                    : "https://i.pravatar.cc/300"
+                }
+                name={props.profileData.displayName}
                 story={
                   "Lorem ipsum dolor sit amet, consectetuer adipiscing elit"
                 }
