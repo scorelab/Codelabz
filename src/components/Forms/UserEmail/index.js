@@ -64,7 +64,7 @@ const UserEmail = () => {
           </Typography>
           <FormControl data-testId="primaryEmail">
             <Select
-              value={profileData.email || primaryEmail}
+              value={profileData.email}
               onChange={handleChangePrimaryEmail}
               input={<OutlinedInput style={{ height: 40, width: 250 }} />}
               displayEmpty
