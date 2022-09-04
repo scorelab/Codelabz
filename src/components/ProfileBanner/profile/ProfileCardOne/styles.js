@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     objectFit: "cover",
     border: "3px solid white",
+    maxWidth: "fit-content"
   },
   profileInfo: {
     display: "flex",
@@ -23,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     padding: "5%",
     justifyContent: "center",
+    [theme.breakpoints.down(850)]: {
+      flexWrap: "wrap",
+    },
+    [theme.breakpoints.down(550)]: {
+      padding: "1%",
+      justifyContent: "flex-start",
+    }
   },
 
   profileInfoName: {
@@ -58,7 +66,13 @@ const useStyles = makeStyles((theme) => ({
     color: "#878787",
     fontWeight: "400",
   },
-
+  profileUserConnect: {
+    // width: "fit-content", 
+    marginLeft: "2.5rem",
+    [theme.breakpoints.down(550)]: {
+      marginLeft: "0.5rem",
+    }
+  },
   profileSubscribeButton: {
     width: "127px",
     height: "38px",
@@ -72,6 +86,9 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "28px",
     color: "#FFFFFF",
     border: "none",
+    [theme.breakpoints.down(400)]: {
+      width: "90px",
+    }
   },
 
   profileShareButton: {
