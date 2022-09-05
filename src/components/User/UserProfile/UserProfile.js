@@ -5,7 +5,7 @@ import CardWithPicture from "../../Card/CardWithPicture";
 import CardWithoutPicture from "../../Card/CardWithoutPicture";
 import Highlights from "../../UserDetails/Highlights";
 import SocialIcons from "../../Profile/SocialIcons/SocialIcons";
-import UserCard from "../../CardTabs/Users";
+import EventsCard from "../../CardTabs/Events/index";
 import { Grid, makeStyles } from "@material-ui/core";
 import OrgUser from "../../../assets/images/org-user.svg";
 import { userList } from "../../HomePage/userList";
@@ -44,35 +44,25 @@ const useStyles = makeStyles(theme => ({
 function UserProfile(props) {
   const classes = useStyles();
 
-  const [contributors, setContributors] = useState([
+  const [organizations, setUpOrganizations] = useState([
     {
-      name: "Janvi Thakkar",
+      name: "Google Summer of Code",
       img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {},
-      onClick: {}
     },
     {
-      name: "Janvi Thakkar",
+      name: "Google Summer of Code",
       img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {},
-      onClick: {}
     },
     {
-      name: "Janvi Thakkar",
+      name: "Google Summer of Code",
       img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {},
-      onClick: {}
     },
     {
-      name: "Janvi Thakkar",
+      name: "Google Summer of Code",
       img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
     }
   ]);
+
 
   return (
     <>
@@ -123,8 +113,17 @@ function UserProfile(props) {
           <Grid className={classes.bottomMargin}>
             <SocialIcons />
           </Grid>
-          <Grid>
-            <UserCard title={"Contributors"} users={contributors} />
+          <Grid
+            container
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%"
+            }}
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <EventsCard title={"Organizations"} events={organizations} />
+            </Grid>
           </Grid>
         </div>
       </div>
