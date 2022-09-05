@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import { Grid } from "@material-ui/core";
 
-const OrgSocial= () => {
+const Orgsocial= () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const firebase = useFirebase();
@@ -77,4 +77,4 @@ const OrgSocial= () => {
   );
 };
 
-export default OrgSocial;
+export default Orgsocial;
