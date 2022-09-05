@@ -167,7 +167,6 @@ function HomePage({ background = "white", textColor = "black" }) {
               style={{
                 width: "100%",
                 overflow: "auto",
-                maxHeight: "25rem",
                 backgroundColor: "transparent",
                 border: "none",
                 boxShadow: "none"
