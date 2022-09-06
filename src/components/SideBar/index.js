@@ -9,6 +9,7 @@ import Profile from "./../../assets/images/profile.svg";
 import Bookmark from "./../../assets/images/bookmark.svg";
 import Logout from "./../../assets/images/logout.svg";
 import Tutorials from "./../../assets/images/tutorial.svg";
+import MyFeed from "./../../assets/images/MyFeed.svg";
 import { signOut } from "../../store/actions";
 import { makeStyles } from "@material-ui/core/styles";
 import useWindowSize from "../../helpers/customHooks/useWindowSize";
@@ -53,6 +54,11 @@ const SideBar = ({
       name: "Organizations",
       img: Org,
       link: "/organization"
+    },
+    {
+      name: "My Feed",
+      img: MyFeed,
+      link: "/dashboard/my_feed"
     },
     {
       name: "Profile",
