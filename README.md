@@ -15,7 +15,7 @@
     2. [Import and Export:-](#import-and-export-)
 # CodeLabz
 
-CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS front end library and the back end will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
+CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
 
 # Deployed on
 
@@ -98,7 +98,7 @@ Run `npm install` in `CodeLabz/functions ` folder.
 
 Then you have to generate a private key file for your service account.To get the key file go to this link and follow the instructions https://firebase.google.com/docs/admin/setup#initialize-sdk.
 
-Once you have obtaions the key create folder name as **'private'** in this folder **'CodeLabz/functions'**.Then copy and paste the key file in private folder.
+Once you have obtained the key, create a folder named as **'private'** in the directory **'CodeLabz/functions'**. Then copy and paste the key file in private folder.
 Rename the key file as **'cl-dev-pk.json'**
 
 After that change the database url to your project database url in **'CodeLabz/functions/auth.js'**
@@ -111,7 +111,7 @@ Move to the root directory and open a command prompt and type following commands
  firebase projects:list
 ```
 
-Find the project ID form the project list that you want to deploy the cloud functions
+Find the project ID from the project list that you want to deploy the cloud functions
 
 ```
 firebase use <project_id>
@@ -120,11 +120,11 @@ firebase deploy
 
 To run storybook :
 ` npm run storybook`
-It will redirect to 6006 port.Find detailed information [here](https://storybook.js.org/docs/react/get-started/introduction)
+It will redirect to 6006 port. Find detailed information [here](https://storybook.js.org/docs/react/get-started/introduction)
 
 To run cypress tests:
 `npx cypress run`
-It will open a promt displaying all the tests.You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
+It will open a prompt displaying all the tests. You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
 # Firebase Emulator Flow
 ```mermaid
 flowchart TB
