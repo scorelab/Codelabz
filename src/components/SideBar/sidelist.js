@@ -45,28 +45,36 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
+/**
+ * @description - This component renders the side bar menu
+ * @returns 
+ */
 const SideList = ({
-  menuItems,
+  menuItems = [],
   value,
   onStateChange = () => {},
   toggleSlider = () => {},
-  style
+  style,
+  children
 }) => {
   const classes = useStyles();
-  const allowDashboard = useAllowDashboard();
-  const firebase = useFirebase();
-  const dispatch = useDispatch();
-  const history = useHistory();
+
+  /**
+   * * Cases for rendering the menu items
+   * 
+   * ? 1. item.link - If the item has a link, render a NavLink
+   * ? 2. item.onClick - If the item has an onClick, render a button
+   * ? if the item has neither, render a MenuItem with no onClick
+   * 
+   */
   return (
     <Paper className={classes.paper} style={style}>
       <MenuList className={classes.menuList}>
-        {typeof menuItems == "object" &&
-          menuItems.map(function (item, index) {
+        {menuItems.map(function (item, index) {
             return (
               <div key="menu-items">
                 {item.link &&
-                  ((allowDashboard && item.name === "Profile") ||
-                    item.name !== "Profile") && (
                     <MenuItem
                       key={item.link}
                       onClick={() => {
@@ -96,12 +104,14 @@ const SideList = ({
                         </ListItemText>
                       </NavLink>
                     </MenuItem>
-                  )}
+                }
                 {!item.link && !item.onClick && (
                   <MenuItem
                     key={item.name}
                     onClick={() => {
-                      onStateChange(item);
+                      if (onStateChange !== undefined) 
+                        onStateChange(item);
+
                       toggleSlider();
                     }}
                   >
@@ -126,7 +136,7 @@ const SideList = ({
                     </ListItemText>
                   </MenuItem>
                 )}
-                {!item.link && item.onClick && item.name !== "Logout" && (
+                {!item.link && item.onClick && (
                   <MenuItem
                     key={item.name}
                     onClick={() => {
@@ -155,84 +165,10 @@ const SideList = ({
                     </ListItemText>
                   </MenuItem>
                 )}
-                {item.name === "Logout" && allowDashboard && (
-                  <MenuItem
-                    key={item.name}
-                    onClick={() => {
-                      signOut()(firebase, dispatch);
-                      toggleSlider();
-                    }}
-                  >
-                    {item.img && (
-                      <ListItemIcon className={classes.listIcon}>
-                        <img
-                          alt={"..."}
-                          src={item.img}
-                          className={classes.icons}
-                        />
-                      </ListItemIcon>
-                    )}
-                    <ListItemText
-                      data-testId={item.name}
-                      style={{
-                        fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal"
-                      }}
-                      disableTypography
-                    >
-                      {item.name}
-                    </ListItemText>
-                  </MenuItem>
-                )}
               </div>
             );
-          })}
-        {!allowDashboard && window.innerWidth <= 750 && (
-          <>
-            {" "}
-            <Grid
-              item
-              style={{
-                padding: 10
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                style={{
-                  boxShadow: "none",
-                  color: "white"
-                }}
-                className={classes.button}
-                onClick={() => {
-                  history.push("/login");
-                }}
-              >
-                Login
-              </Button>
-            </Grid>
-            <Grid
-              item
-              style={{
-                padding: 10
-              }}
-            >
-              <Button
-                variant="outlined"
-                color="primary"
-                style={{
-                  boxShadow: "none"
-                }}
-                className={classes.button}
-                onClick={() => {
-                  history.push("/signup");
-                }}
-              >
-                Sign Up
-              </Button>
-            </Grid>
-          </>
-        )}
+        })}
+        {children}
       </MenuList>
     </Paper>
   );
