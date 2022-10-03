@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { useMediaQuery } from "react-responsive";
 import StepsPanel from "./subComps/StepsPanel";
 import ReactMarkdown from "react-markdown";
-import { CodeBlock, ImageRenderer } from "../../helpers/CustomRenderers";
 import { TutorialTimeRemaining } from "../../helpers/tutorialTime";
 import ControlButtons from "./subComps/ControlButtons";
 import TutorialTitle from "./subComps/TutorialTitle";
@@ -21,7 +20,6 @@ import {
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
-
 
 const ViewTutorial = () => {
   const firebase = useFirebase();
@@ -174,10 +172,7 @@ const ViewTutorial = () => {
                 {!isDesktop && stepPanelVisible ? null : (
                   <>
                     {mode === "view" && (
-                      <ReactMarkdown
-                        source={currentStepContent}
-                        renderers={{ code: CodeBlock, image: ImageRenderer }}
-                      />
+                      <ReactMarkdown children={currentStepContent} />
                     )}
                     {mode === "edit" && (
                       <>

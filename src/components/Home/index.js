@@ -22,7 +22,7 @@ import { useAuthStatus } from "../../helpers/customHooks";
 const Home = () => {
   const authed = useAuthStatus();
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 767px)",
+    query: "(min-device-width: 767px)"
   });
 
   useEffect(() => {
@@ -31,14 +31,14 @@ const Home = () => {
         Notification.permission !== "granted" &&
         Notification.permission !== "denied"
       ) {
-        Notification.requestPermission().then((permission) => {
+        Notification.requestPermission().then(permission => {
           if (permission === "granted") {
             messaging
               .getToken()
-              .then((refreshedToken) => {
+              .then(refreshedToken => {
                 console.log(refreshedToken);
               })
-              .catch((e) => console.log(e));
+              .catch(e => console.log(e));
           }
         });
       }
@@ -48,10 +48,10 @@ const Home = () => {
   useEffect(() => {
     if (messaging) {
       const unsubscribe = messaging.onMessage(
-        (payload) => {
+        payload => {
           console.log(payload);
         },
-        (error) => console.log(error)
+        error => console.log(error)
       );
 
       return () => {
@@ -66,14 +66,14 @@ const Home = () => {
         () => {
           messaging
             .getToken()
-            .then((refreshedToken) => {
+            .then(refreshedToken => {
               console.log(refreshedToken);
             })
-            .catch((e) => {
+            .catch(e => {
               console.log(e);
             });
         },
-        (error) => console.log(error)
+        error => console.log(error)
       );
 
       return () => {

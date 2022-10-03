@@ -1,3 +1,4 @@
+const { lessOptions } = require('../less.config');
 const path = require('path');
 
 module.exports = {
@@ -5,8 +6,17 @@ module.exports = {
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   webpackFinal: async (config, { configType }) => {
     config.module.rules.push({
-      test: /\.sass$/,
-      use: ['style-loader', 'css-loader', 'less-loader'],
+      test: /\.(sass|less)$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: 'less-loader',
+          options: {
+            ...lessOptions,
+          },
+        },
+      ],
       include: path.resolve(__dirname, '../'),
     });
 

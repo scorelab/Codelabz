@@ -1,4 +1,4 @@
-import "../src/css/spacing.css";
+import "../src/App.less";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

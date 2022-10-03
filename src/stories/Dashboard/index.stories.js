@@ -2,7 +2,7 @@ import React from "react";
 import Dashboard from "../../components/Dashboard";
 import ProviderWrapper from "../../helpers/providerWrapper";
 export default {
-  title: "Dashboard",
+  title: "General/Dashboard",
   component: Dashboard,
   argTypes: {
     background: {

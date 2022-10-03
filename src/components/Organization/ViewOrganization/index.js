@@ -1,19 +1,6 @@
 import React, { useEffect, useState } from "react";
-import noImageAvailable from "../../../assets/images/no-image-available.svg";
-import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Box from "@material-ui/core/Box";
-import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import { createMuiTheme } from "@material-ui/core/styles";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import LinkIcon from "@material-ui/icons/Link";
-import FlagIcon from "@material-ui/icons/Flag";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useParams } from "react-router-dom";
@@ -21,34 +8,110 @@ import {
   clearOrgData,
   getOrgData,
   addFollower,
-  removeFollower,
+  removeFollower
 } from "../../../store/actions";
-
-const theme = createMuiTheme({
-  shadows: ["none"],
-  palette: {
-    primary: {
-      main: "#455a64",
-    },
+import Banner from "../../ProfileBanner/Organization";
+import List from "../../Topbar/Activity/ActivityList";
+import { Container, makeStyles } from "@material-ui/core";
+import About from "./About";
+import Feeds from "./Feeds";
+import Orgusers from "../OrgUsers/OrgUsers";
+import Description from "../../UserDetails/Description";
+import Spinner from "../../../helpers/spinner";
+import ActivityList from "../../Topbar/Activity/ActivityList";
+import { BasicImage, NoImage } from "../../../helpers/images";
+const useStyles = makeStyles(theme => ({
+  acitvitylist: {
+    padding: theme.spacing(1),
+    backgroundColor: "#FFF",
+    borderRadius: "4px"
+    // boxShadow: theme.shadows[3]
   },
-});
+  feedGrid: {
+    paddingTop: theme.spacing(5),
+    width: "100%"
+  },
+  sideBar: {
+    padding: theme.spacing(1)
+  },
+  grid: {
+    width: "100%"
+  },
+  activity: {
+    padding: theme.spacing(3)
+  }
+}));
+
 const ViewOrganization = () => {
+  const classes = useStyles();
   const { handle } = useParams();
   const [people, setPeople] = useState([]);
   const [orgFollowed, setOrgFollowed] = useState([]);
+  const [Activity, setActivity] = useState(1);
+
+  // Firebase Hooks
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
+
   const db = firebase.firestore();
   const profileData = useSelector(({ firebase: { profile } }) => profile);
 
-  const [imageLoading, setImageLoading] = useState(true);
+  const CurrentOrg = useSelector(
+    ({
+      profile: {
+        data: { organizations }
+      },
+      org: {
+        general: { current }
+      }
+    }) => organizations[0]
+  );
+
+
+  const aboutfeedlist = [
+    {
+      id: 1,
+      text: "About"
+    },
+    {
+      id: 2,
+      text: "Feeds"
+    }
+  ];
+
+  const ContributersUsers = [
+    {
+      name: "Sarfraz Alam",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Jhanvi Thakkar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    }
+  ];
 
   useEffect(() => {
     const unsubscribe = db
       .collection("cl_org_general")
       .doc(handle)
-      .onSnapshot((snap) => {
+      .onSnapshot(snap => {
         const data = snap.data();
         setPeople(data.followers);
       });
@@ -60,7 +123,7 @@ const ViewOrganization = () => {
     const unsubscribe = db
       .collection("cl_user")
       .doc(profileData.uid)
-      .onSnapshot((snap) => {
+      .onSnapshot(snap => {
         const data = snap.data();
         setOrgFollowed(data.orgFollowed);
       });
@@ -92,302 +155,155 @@ const ViewOrganization = () => {
   const loading = useSelector(
     ({
       org: {
-        data: { loading },
-      },
+        data: { loading }
+      }
     }) => loading
   );
 
   const currentOrgData = useSelector(
     ({
       org: {
-        data: { data },
-      },
+        data: { data }
+      }
     }) => data
   );
+
 
   const organizations = useSelector(
     ({
       firebase: {
-        profile: { organizations },
-      },
+        profile: { organizations }
+      }
     }) => organizations
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     getOrgData(handle, organizations)(firebase, firestore, dispatch);
-    setImageLoading(true);
     return () => {
       clearOrgData()(dispatch);
     };
   }, [handle, firebase, firestore, dispatch, organizations]);
 
-  const checkAvailable = (data) => {
+  const checkAvailable = data => {
     return !!(data && data.length > 0);
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <div
+      style={{
+        width: "100%",
+        backgroundColor: "#F9F9F9",
+        minHeight: "100vh"
+      }}
+    >
       {loading || !currentOrgData ? (
-        <LinearProgress theme={theme} />
+        <React.Fragment>
+          <Spinner />
+        </React.Fragment>
       ) : (
-        <Card className="p-0">
+        <div>
           {currentOrgData && (
-            <div>
-              <Box mt={2} mb={2} m={3}>
-                <Grid container>
-                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
-                    Organization Details
-                  </span>
-                </Grid>
-              </Box>
-              <Divider></Divider>
-              <Box mt={2} mb={2} m={3}>
-                <Grid container>
-                  <Grid xs={12} md={3} lg={3} item={true}>
-                    {currentOrgData.org_image ? (
-                      <>
-                        <img
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            borderRadius: "8px",
-                            display: imageLoading ? "none" : "block",
-                          }}
-                          src={currentOrgData.org_image}
-                          alt={currentOrgData.org_name}
-                          className="org-image"
-                          onLoad={() => {
-                            setImageLoading(false);
-                          }}
-                        />
-                      </>
-                    ) : (
-                      <img
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: "8px",
-                        }}
-                        src={noImageAvailable}
-                        alt={"Not Available"}
-                        className="org-image"
-                      />
-                    )}
-                  </Grid>
-
+            <React.Fragment>
+              <Banner
+                bannerImage="https://i.postimg.cc/zXvv1vwL/Org-Banner-Demo.png"
+                contributors={402}
+                feed={40}
+                followers={402}
+                name={CurrentOrg.org_name}
+                profileImage={
+                  CurrentOrg.org_image ? CurrentOrg.org_image : NoImage
+                }
+                story="Think Different"
+              />
+              <Container
+                maxWidth="xl"
+                style={{
+                  marginTop: "2rem"
+                }}
+              >
+                <Grid
+                  container
+                  justifyContent="center"
+                  className={classes.grid}
+                >
                   <Grid
+                    item
+                    container
                     xs={12}
-                    md={9}
-                    lg={9}
-                    className="pl-24-d pt-24-m"
-                    item={true}
+                    sm={12}
+                    md={8}
+                    className={classes.feedGrid}
                   >
-                    <p>
-                      <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
-                        {currentOrgData.org_name}
-                      </span>
-                    </p>
-                    {checkAvailable(currentOrgData.org_description) && (
-                      <p className="text-justified">
-                        {currentOrgData.org_description}
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_facebook) && (
-                      <p>
-                        <a
-                          href={
-                            "https://www.facebook.com/" +
-                            currentOrgData.org_link_facebook
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <FacebookIcon
-                              fontSize="small"
-                              className="facebook-color"
-                            />{" "}
-                            {currentOrgData.org_link_facebook}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_twitter) && (
-                      <p>
-                        <a
-                          href={
-                            "https://twitter.com/" +
-                            currentOrgData.org_link_twitter
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <TwitterIcon
-                              fontSize="small"
-                              className="twitter-color"
-                            />{" "}
-                            {currentOrgData.org_link_twitter}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_github) && (
-                      <p>
-                        <a
-                          href={
-                            "https://github.com/" +
-                            currentOrgData.org_link_github
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <GitHubIcon
-                              fontSize="small"
-                              className="github-color"
-                            />{" "}
-                            {currentOrgData.org_link_github}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_link_linkedin) && (
-                      <p>
-                        <a
-                          href={
-                            "https://www.linkedin.com/in/" +
-                            currentOrgData.org_link_linkedin
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <LinkedInIcon
-                              fontSize="small"
-                              className="linkedin-color"
-                            />{" "}
-                            {currentOrgData.org_link_linkedin}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_website) && (
-                      <p>
-                        <a
-                          href={currentOrgData.org_website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <LinkIcon
-                              fontSize="small"
-                              className="website-color"
-                            />{" "}
-                            {currentOrgData.org_website}
-                          </div>
-                        </a>
-                      </p>
-                    )}
-                    {checkAvailable(currentOrgData.org_country) && (
-                      <p className="mb-0">
-                        <a
-                          href={
-                            "https://www.google.com/search?q=" +
-                            currentOrgData.org_country
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "10px",
-                            }}
-                          >
-                            <FlagIcon
-                              fontSize="small"
-                              className="website-color"
-                            />{" "}
-                            {currentOrgData.org_country}
-                          </div>
-                          <div>
-                            {!people ? (
-                              <Button
-                                variant="contained"
-                                style={{ marginTop: "1rem" }}
-                                onClick={(e) =>
-                                  addfollower(e, people, handle, orgFollowed)
-                                }
-                              >
-                                follow
-                              </Button>
-                            ) : !people.includes(profileData.handle) ? (
-                              <Button
-                                variant="contained"
-                                style={{ marginTop: "1rem" }}
-                                onClick={(e) =>
-                                  addfollower(e, people, handle, orgFollowed)
-                                }
-                              >
-                                follow
-                              </Button>
-                            ) : (
-                              <Button
-                                onClick={(e) =>
-                                  removefollower(
-                                    e,
-                                    profileData.handle,
-                                    people,
-                                    handle,
-                                    orgFollowed
-                                  )
-                                }
-                                variant="contained"
-                                style={{ marginTop: "1rem" }}
-                              >
-                                unfollow
-                              </Button>
-                            )}
-                          </div>
-                        </a>
-                      </p>
-                    )}
+                    <Grid item xs={12} container direction="column">
+                      <Grid item xs={12}>
+                        <ActivityList
+                          acitvitylist={[
+                            {
+                              id: 1,
+                              text: "About"
+                            },
+                            {
+                              id: 2,
+                              text: "Feeds"
+                            }
+                          ]}
+                          toggle={item => {
+                            setActivity(item.id);
+                          }}
+                          value={Activity}
+                          classname={classes.acitvitylist}
+                        />
+                        {Activity === 1 && <About />}
+                        {Activity === 2 && <Feeds />}
+                      </Grid>
+                    </Grid>
                   </Grid>
+                  {Activity === 2 && (
+                    <Grid
+                      item
+                      container
+                      xs={12}
+                      md={4}
+                      justifyContent="flex-start"
+                      direction="column"
+                      spacing={5}
+                      className={classes.activity}
+                    >
+                      <Grid item>
+                        <Description
+                          Heading={"Description"}
+                          Content={CurrentOrg.org_description}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Description
+                          Heading={"CodeLabz you may like"}
+                          Content={CurrentOrg.org_description}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Orgusers
+                          Users={ContributersUsers}
+                          title={"Contributors"}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Orgusers
+                          Users={ContributersUsers}
+                          title={"Contributors"}
+                        />
+                      </Grid>
+                    </Grid>
+                  )}
                 </Grid>
-              </Box>
-            </div>
+              </Container>
+            </React.Fragment>
           )}
-          {currentOrgData === false &&
-            "No organization with the provided handle"}
-        </Card>
+        </div>
       )}
-    </ThemeProvider>
+      {currentOrgData === false && "No organization with the provided handle"}
+    </div>
   );
 };
 

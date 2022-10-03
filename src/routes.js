@@ -23,6 +23,8 @@ import ViewTutorial from "./components/Tutorials";
 import MyTutorials from "./components/Tutorials/MyTutorials";
 import Spinner from "./helpers/spinner";
 import CodeLabzAppBar from "./helpers/appBar";
+import MainNavbar from "./components/NavBar/new/MainNavbar";
+import UserDashboard from "./components/UserDashboard";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -151,6 +153,10 @@ const Routes = () => {
             exact
             path={"/editor"}
             component={UserIsAllowedUserDashboard(Editor)}
+          />
+          <Route
+            path={"/user-dashboard/:page"}
+            component={UserIsAllowedUserDashboard(UserDashboard)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>

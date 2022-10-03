@@ -44,11 +44,15 @@
   },
   "scripts": {
     "start": "craco start",
+    "emulator": "firebase emulators:start",
+    "emulator-import": "firebase emulators:start --import=testdata",
+    "emulator-export": "rm -rf testdata && firebase emulators:export testdata",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prettier:write": "npx prettier --write ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -75,7 +79,7 @@
     "css-loader": "^5.2.6",
     "cypress": "^4.12.1",
     "cypress-xpath": "^1.6.0",
-    "less-loader": "^9.0.0",
+    "less-loader": "^7.3.0",
     "style-loader": "^2.0.0"
   }
 }

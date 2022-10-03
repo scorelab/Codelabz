@@ -7,18 +7,22 @@ on:
 
 jobs:
   build:
-    name: Build
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Install Dependencies
-        working-directory: ./
-        run: npm install
-      - name: Build
-        working-directory: ./
-        run: npm run build
-        env:
+    
+    - name: Checkout Repo
+      uses: actions/checkout@master
+    
+    - name: Install dependencies
+      working-directory: ./
+      run: npm install --legacy-peer-deps
+    
+    - name: Build
+      working-directory: ./
+      run: npm run build
+      env:
           REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
           REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
           REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
@@ -27,12 +31,15 @@ jobs:
           REACT_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.REACT_APP_FIREBASE_FCM_VAPID_KEY }}
           REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
           REACT_APP_DATABASE_URL: ${{secrets.REACT_APP_DATABASE_URL}}
+          SKIP_PREFLIGHT_CHECK: true
+          CI: false
           
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
+      with:
           name: build
           path: ./build
+    
   deploy:
     name: Deploy
     needs: build
@@ -45,8 +52,9 @@ jobs:
         with:
           name: build
           path: ./build
-      - name: Deploy to Firebase
-        uses: Niweera/firebase-action@master
+    
+      - name: GitHub Action for Firebase
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
