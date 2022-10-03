@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Drawer, Grid, IconButton, Close, useTheme } from "@material-ui/core";
 import SideList from "../SideBar/sidelist";
 import Home from "./../../assets/images/home.svg";
@@ -81,6 +81,8 @@ const SideBar = ({
       onClick: `${signOut}`
     }
   ];
+  
+  defaultMenu = useMemo(menuItems);
 
   const classes = useStyles();
   return (
@@ -101,7 +103,7 @@ const SideBar = ({
           md={3}
         >
           <SideList
-            menuItems={menuItems || defaultMenu}
+            menuItems={defaultMenu}
             value={value}
             onStateChange={onStateChange}
             toggleSlider={toggleSlider}
@@ -113,7 +115,7 @@ const SideBar = ({
       ) : (
         <div data-testId="normalMenu">
           <SideList
-            menuItems={menuItems || defaultMenu}
+            menuItems={defaultMenu}
             value={value}
             onStateChange={onStateChange}
           />

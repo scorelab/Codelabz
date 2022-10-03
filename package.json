@@ -40,7 +40,8 @@
     "redux-auth-wrapper": "^3.0.0",
     "redux-firestore": "^0.15.0",
     "redux-thunk": "^2.3.0",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start": "craco start",
@@ -79,6 +80,7 @@
     "css-loader": "^5.2.6",
     "cypress": "^4.12.1",
     "cypress-xpath": "^1.6.0",
+    "file-loader": "^6.2.0",
     "less-loader": "^7.3.0",
     "style-loader": "^2.0.0"
   }

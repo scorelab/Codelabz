@@ -65,8 +65,7 @@ const SideList = ({
             return (
               <div key="menu-items">
                 {item.link &&
-                  ((allowDashboard && item.name === "Profile") ||
-                    item.name !== "Profile") && (
+                  (
                     <MenuItem
                       key={item.link}
                       onClick={() => {
@@ -155,7 +154,7 @@ const SideList = ({
                     </ListItemText>
                   </MenuItem>
                 )}
-                {item.name === "Logout" && allowDashboard && (
+                {(
                   <MenuItem
                     key={item.name}
                     onClick={() => {
