@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import useStyles from "./styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import { Button, Menu, MenuItem } from "@material-ui/core";
 
 // import dp from "../../../../assets/images/demoperson1.jpeg";
 import iconbuttonImage from "../../../../assets/images/Filled3dots.svg";
+import { Link } from "react-router-dom";
 
 export default function ProfileCardOne({
   profileImage,
@@ -14,6 +16,14 @@ export default function ProfileCardOne({
   following,
 }) {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <>
       <div
@@ -73,9 +83,36 @@ export default function ProfileCardOne({
                 </button>
                 <button className={classes.profileShareButton}>Share</button>
                 <button className={classes.profileReportButton}>Report</button>
-                <button className={classes.profileIconButton}>
+                <button
+                  className={classes.profileIconButton}
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}>
                   <img src={iconbuttonImage} alt="iconbutton" />
                 </button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                >
+                  <Link to="/user-dashboard/settings">
+                    <MenuItem onClick={handleClose}>User Settings</MenuItem>
+                  </Link>
+                </Menu>
               </Grid>
             </div>
           </div>
