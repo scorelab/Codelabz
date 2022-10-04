@@ -211,7 +211,54 @@ function MiniNavbar() {
           open={openMenu}
           toggleSlider={toggleSlider}
           notification={notification}
-        />
+        >
+          {window.innerWidth <= 750 && (
+            <>
+              <Grid
+                item
+                style={{
+                  padding: 10
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    boxShadow: "none",
+                    color: "white"
+                  }}
+                  className={classes.button}
+                  onClick={() => {
+                    history.push("/login");
+                  }}
+                >
+                  Login
+                </Button>
+              </Grid>
+              <Grid
+                item
+                style={{
+                  padding: 10
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  style={{
+                    boxShadow: "none"
+                  }}
+                  className={classes.button}
+                  onClick={() => {
+                    history.push("/signup");
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Grid>
+            </>
+          )}
+
+        </SideBar>
       )}
     </Headroom>
   );

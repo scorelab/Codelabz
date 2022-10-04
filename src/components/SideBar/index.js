@@ -13,6 +13,9 @@ import MyFeed from "./../../assets/images/MyFeed.svg";
 import { signOut } from "../../store/actions";
 import { makeStyles } from "@material-ui/core/styles";
 import useWindowSize from "../../helpers/customHooks/useWindowSize";
+import { useFirebase } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
+import { useAllowDashboard } from "../../helpers/customHooks";
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -25,15 +28,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 const SideBar = ({
   open,
   toggleSlider,
   notification,
   menuItems,
   value,
-  onStateChange
+  onStateChange,
+  children
 }) => {
   const windowSize = useWindowSize();
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
+  const allowDashboard = useAllowDashboard();
 
   const defaultMenu = [
     {
@@ -75,11 +83,13 @@ const SideBar = ({
       img: Tutorials,
       link: "/tutorials"
     },
-    {
+    (
+      allowDashboard &&
+      {
       name: "Logout",
       img: Logout,
-      onClick: `${signOut}`
-    }
+        onClick: () => signOut()(firebase, dispatch)
+      })
   ];
 
   const classes = useStyles();
@@ -108,7 +118,9 @@ const SideBar = ({
             style={{
               position: "absolute"
             }}
-          />
+          >
+            {children}
+          </SideList>
         </Drawer>
       ) : (
         <div data-testId="normalMenu">
@@ -116,7 +128,9 @@ const SideBar = ({
             menuItems={menuItems || defaultMenu}
             value={value}
             onStateChange={onStateChange}
-          />
+            >
+              {children}
+            </SideList>
         </div>
       )}
     </>
