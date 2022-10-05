@@ -25,6 +25,7 @@ https://dev.codelabz.io/
 # Community 
 
 Join and communicate with other members on our community. We communicate on gitter
+
 [![Gitter](https://badges.gitter.im/scorelab/CodeLabz.svg)](https://gitter.im/scorelab/CodeLabz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## User Guide
