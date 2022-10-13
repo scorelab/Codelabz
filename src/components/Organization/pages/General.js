@@ -171,6 +171,8 @@ function General() {
     setOrgData({ ...OrgData, [name]: event.target.value });
   };
 
+  console.log(OrgData);
+
   const saveImage = (canvas, crop) => {
     if (!crop || !canvas) {
       return;
@@ -276,6 +278,42 @@ function General() {
                 placeholder="https://Website URL"
                 value={OrgData.org_website}
                 onChange={handleChange("org_website")}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>FaceBook URL</Typography>
+              <InputBase
+                className={classes.input}
+                placeholder="https://Facebook URL"
+                value={OrgData.org_link_facebook}
+                onChange={handleChange("org_link_facebook")}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>Github URL</Typography>
+              <InputBase
+                className={classes.input}
+                placeholder="https://github.com/ Github Handle"
+                value={OrgData.org_link_github}
+                onChange={handleChange("org_link_github")}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>Linkeldin URL</Typography>
+              <InputBase
+                className={classes.input}
+                placeholder="https://LInkeldin URL"
+                value={OrgData.org_link_linkedin}
+                onChange={handleChange("org_link_linkedin")}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>Twitter URL</Typography>
+              <InputBase
+                className={classes.input}
+                placeholder="https://Twitter URL"
+                value={OrgData.org_link_twitter}
+                onChange={handleChange("org_link_twitter")}
               />
             </Grid>
             <Grid item xs={12}>
