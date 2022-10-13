@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import { Grid } from "@material-ui/core";
 
-const Orgsocial = () => {
+const Orgsocial = props => {
+  console.log(props.toOpen);
   const classes = useStyles();
 
   const CurrentOrg = useSelector(
@@ -45,15 +46,17 @@ const Orgsocial = () => {
           <Grid
             className={classes.link}
             // onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
+            onClick={() =>
+              props.toOpen
+                ? openSocialMedialLink(OrgData.org_link_facebook)
+                : console.log("clicked")
+            }
             data-testId="facebookButton"
           >
             <FacebookIcon className={classes.fb}>
               <span className="sm-text">Facebook</span>
             </FacebookIcon>
-            <Typography
-              className={classes.text}
-              onClick={() => openSocialMedialLink(OrgData.org_link_facebook)}
-            >
+            <Typography className={classes.text}>
               Organization's Facebook Page
             </Typography>
           </Grid>
@@ -61,15 +64,17 @@ const Orgsocial = () => {
           <Grid
             className={classes.link}
             // onClick={() => signInWithProviderID("github")(firebase, dispatch)}
+            onClick={() =>
+              props.toOpen
+                ? openSocialMedialLink(OrgData.org_link_github)
+                : console.log("clicked")
+            }
             data-testId="githubButton"
           >
             <GitHubIcon className={classes.git}>
               <span className="sm-text">Github</span>
             </GitHubIcon>
-            <Typography
-              className={classes.text}
-              onClick={() => openSocialMedialLink(OrgData.org_link_facebook)}
-            >
+            <Typography className={classes.text}>
               Organization's Github Account
             </Typography>
           </Grid>
@@ -78,28 +83,32 @@ const Orgsocial = () => {
           <Grid
             className={classes.link}
             // onClick={() => signInWithGoogle()(firebase, dispatch)}
+            onClick={() =>
+              props.toOpen
+                ? openSocialMedialLink(OrgData.org_link_linkedin)
+                : console.log("clicked")
+            }
             data-testId="googleButton"
           >
             <img src={GoogleImg} alt="google" className={classes.button} />
-            <Typography
-              className={classes.text}
-              onClick={() => openSocialMedialLink(OrgData.org_link_facebook)}
-            >
+            <Typography className={classes.text}>
               Organization's Google Account
             </Typography>
           </Grid>
           <Grid
             className={classes.link}
             // onClick={() => signInWithProviderID("twitter")(firebase, dispatch)}
+            onClick={() =>
+              props.toOpen
+                ? openSocialMedialLink(OrgData.org_link_twitter)
+                : console.log("clicked")
+            }
             data-testId="twitterButton"
           >
             <TwitterIcon className={classes.tw}>
               <span className="sm-text">Twitter</span>
             </TwitterIcon>
-            <Typography
-              className={classes.text}
-              onClick={() => openSocialMedialLink(OrgData.org_link_github)}
-            >
+            <Typography className={classes.text}>
               Organization's Twitter Account
             </Typography>
           </Grid>

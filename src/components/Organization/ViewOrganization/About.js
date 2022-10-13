@@ -2,15 +2,15 @@ import { Divider, Grid, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import AboutUsers from "../../UserDetails/AboutUsers";
 import Orgusers from "../OrgUsers/OrgUsers";
-
-const useStyles = makeStyles((theme) => ({
+import Orgsocial from "../Orgsocial/index";
+const useStyles = makeStyles(theme => ({
   heading: {
-    fontWeight: 600,
+    fontWeight: 600
   },
   description: {
     width: "100%",
-    marginTop: 10,
-  },
+    marginTop: 10
+  }
 }));
 
 const AdminUsers = [
@@ -19,17 +19,17 @@ const AdminUsers = [
     designation: "GSoC 22'",
     avatar: {
       type: "char",
-      value: "A",
-    },
+      value: "A"
+    }
   },
   {
     name: "Sarfraz Alam",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
-  },
+      value: "https://i.pravatar.cc/300"
+    }
+  }
 ];
 
 const ContributersUsers = [
@@ -38,25 +38,25 @@ const ContributersUsers = [
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Jhanvi Thakkar",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Saksham Sharma",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
-  },
+      value: "https://i.pravatar.cc/300"
+    }
+  }
 ];
 
 const SubscribeUsers = [
@@ -65,33 +65,33 @@ const SubscribeUsers = [
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Jhanvi Thakkar",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Saksham Sharma",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Ayush Bansal",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
-  },
+      value: "https://i.pravatar.cc/300"
+    }
+  }
 ];
 
 function About() {
@@ -101,8 +101,9 @@ function About() {
     <React.Fragment>
       <div
         style={{
-          marginTop: "1rem",
-        }}>
+          marginTop: "1rem"
+        }}
+      >
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Divider />
@@ -151,6 +152,14 @@ function About() {
               DataTestId="org-subscriber-list"
               isViewMore={true}
             />
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" className={classes.heading}>
+              Follow us on Social Media
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Orgsocial toOpen={true}/>
           </Grid>
         </Grid>
       </div>
