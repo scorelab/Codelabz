@@ -1,4 +1,4 @@
-import { red } from "@material-ui/core/colors";
+import { blue, red } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -88,6 +88,21 @@ const useStyles = makeStyles(theme => ({
       background: red[800]
     },
     border: "none"
+  },
+  profileEditButton: {
+    width: "167px",
+    height: "48px",
+    minHeight: "2rem",
+    background: blue[600],
+    borderRadius: "10px",
+    fontWeight: "500",
+    fontSize: "22px",
+    color: "#FFFFFF",
+    "&:hover": {
+      background: red[800]
+    },
+    border: "none",
+    marginRight : "30px"
   },
   moreDiv: {
     minHeight: "2rem",

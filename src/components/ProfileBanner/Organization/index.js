@@ -105,10 +105,16 @@ export default function Banner({
               <Grid
                 item
                 xs={12}
-                md={3}
+                md={6}
                 container
                 className={classes.buttonContainer}
               >
+                <Button
+                  className={classes.profileEditButton}
+                  data-testId="orgbannereditButton"
+                >
+                  Edit Org
+                </Button>
                 <IconButton className={classes.moreDiv}>
                   <MoreHorizIcon className={classes.moreButton} />
                 </IconButton>
