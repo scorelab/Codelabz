@@ -93,6 +93,7 @@ const useStyles = makeStyles(theme => ({
     width: "167px",
     height: "48px",
     minHeight: "2rem",
+    paddingTop : "8px",
     background: blue[600],
     borderRadius: "10px",
     fontWeight: "500",

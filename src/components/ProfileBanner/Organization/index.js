@@ -7,6 +7,7 @@ import dp from "../../../assets/images/demoperson1.jpeg";
 import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
 import { Button, IconButton, Paper } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import {Link} from "react-router-dom";
 
 export default function Banner({
   bannerImage = "https://postimg.cc/6ystr9mw",
@@ -109,12 +110,13 @@ export default function Banner({
                 container
                 className={classes.buttonContainer}
               >
-                <Button
+                <Link
                   className={classes.profileEditButton}
                   data-testId="orgbannereditButton"
+                  to={"/organization"}
                 >
                   Edit Org
-                </Button>
+                </Link>
                 <IconButton className={classes.moreDiv}>
                   <MoreHorizIcon className={classes.moreButton} />
                 </IconButton>
