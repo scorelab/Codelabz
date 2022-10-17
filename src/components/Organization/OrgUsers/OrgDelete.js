@@ -1,14 +1,14 @@
 import {
-  Avatar,
   Button,
+  Dialog,
   Grid,
-  Hidden,
   makeStyles,
   Paper,
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import AddIcon from "@material-ui/icons/Add";
+import { useState } from "react";
+import OrgDeleteModal from "./OrgDeleteModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
 function OrgDelete() {
   const classes = useStyles();
 
+  const [open, setOpen] = useState(false);
+
   return (
     <React.Fragment>
       <Paper elevation={0} className={classes.root} data-testid="org-delete">
@@ -77,7 +79,8 @@ function OrgDelete() {
               <Button
                 color="secondary"
                 className={classes.button}
-                disableRipple
+                onClick={() => setOpen(true)}
+
                 data-testid="org-delete-button"
               >
                 Delete
@@ -86,6 +89,14 @@ function OrgDelete() {
           </Grid>
         </Grid>
       </Paper>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="org-delete-modal-title"
+        aria-describedby="org-delete-modal-description"
+      >
+        <OrgDeleteModal />
+      </Dialog >
     </React.Fragment>
   );
 }

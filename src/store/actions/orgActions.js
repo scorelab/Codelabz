@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { useFirebase } from "react-redux-firebase";
 import Elasticlunr from "../../helpers/elasticlunr";
 import * as actions from "./actionTypes";
 import { checkOrgHandleExists } from "./authActions";
@@ -349,3 +350,18 @@ export const addFollower =
       console.log(e);
     }
   };
+
+export const deleteOrganization = (org_handle) => async (firebase = useFirebase(), dispatch) => {
+  try {
+    const auth = firebase.auth().currentUser;
+    await firebase.firestore().collection("cl_org_general").doc(org_handle).delete();
+
+    await firebase.firestore().collection('cl_user').doc(auth.uid).update({
+      organizations: firebase.firestore.FieldValue.arrayRemove(org_handle)
+    });
+    dispatch({ type: actions.CLEAR_ORG_GENERAL_STATE });
+    dispatch({ type: actions.CLEAR_ORG_USER_STATE });
+  } catch (e) {
+    console.log(e);
+  }
+}
