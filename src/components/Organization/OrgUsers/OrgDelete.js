@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * @description Delete organization component
+ */
 function OrgDelete() {
   const classes = useStyles();
 

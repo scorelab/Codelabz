@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+/**
+ * @description Delete organization modal
+ */
 function OrgDeleteModal() {
     const history = useHistory('/');
     const firebase = useFirebase();
