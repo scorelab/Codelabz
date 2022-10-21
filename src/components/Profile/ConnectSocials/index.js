@@ -8,7 +8,6 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import useStyles from "./styles";
-import { signInWithGoogle, signInWithProviderID } from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 
@@ -17,7 +16,7 @@ const SocialButton = ({ Icon, isLinked, ...props }) => {
   return (
     <Box
       {...props}
-      className={`${classes.link} ${isLinked ? classes.linkDisabled : ""}`}
+      className={`${classes.link} ${isLinked ? classes.isLinked : ""}`}
     >
       {Icon}
       <Typography className={classes.text}>

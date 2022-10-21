@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer"
     }
   },
-  linkDisabled: {
+  isLinked: {
     backgroundColor: "lightgray",
     cursor: "not-allowed"
   },
