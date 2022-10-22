@@ -84,7 +84,7 @@ const OrgInfoCard = () => {
           variant="contained"
           color="primary"
           style={{ backgroundColor: "royalblue", margin: "4px" }}
-          onClick={unpublishOrganization}
+          onClick={_unpublishOrganization}
         >
           {currentOrgData.org_published ? <>Unpublish</> : <>Publish</>}
         </Button>
@@ -146,7 +146,7 @@ const OrgInfoCard = () => {
     return !!(data && data.length > 0);
   };
 
-  const unpublishOrganization = () => {
+  const _unpublishOrganization = () => {
     unPublishOrganization(current, currentOrgData.org_published, orgs)(firebase, firestore, dispatch);
   };
 
