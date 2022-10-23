@@ -10,13 +10,14 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
+import { useHistory } from "react-router-dom";
 
 const SocialButton = ({ Icon, isLinked, ...props }) => {
   const classes = useStyles();
   return (
     <Box
       {...props}
-      className={`${classes.link} ${isLinked ? classes.isLinked : ""}`}
+      className={`${classes.link} ${isLinked && classes.isLinked}`}
     >
       {Icon}
       <Typography className={classes.text}>
@@ -28,8 +29,8 @@ const SocialButton = ({ Icon, isLinked, ...props }) => {
 
 const ConnectSocials = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const firebase = useFirebase();
+  const history = useHistory();
 
   const providerData = useSelector(
     ({
@@ -46,8 +47,11 @@ const ConnectSocials = () => {
     firebase
       .auth()
       .currentUser.linkWithPopup(provider)
-      .then(() => firebase.reloadAuth())
-      .catch(console.log);
+      .then(() => {
+        firebase.reloadAuth();
+        history.go(0);
+      })
+      .catch(console.error);
 
   return (
     <Card className={classes.root}>
