@@ -216,6 +216,7 @@ function General() {
     CurrentOrg
   ]);
 
+  console.log(OrgData);
   return (
     <React.Fragment>
       <div data-testid="organization-general-page">
