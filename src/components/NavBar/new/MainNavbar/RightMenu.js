@@ -32,17 +32,19 @@ const useStyles = makeStyles(theme => ({
   menu: {
     [theme.breakpoints.down(767)]: {
       marginLeft: "1rem",
-      marginTop: "1rem"
+      marginTop: "1rem",
     }
   },
   secondaryColor: {
-    color: theme.palette.secondary.main
+    color: theme.palette.secondary.main,
+    display:"inline-flex"
   },
   orgicon: {
     width: "1.5rem",
     height: "1.5rem",
     fontSize: "1rem"
-  }
+  },
+
 }));
 
 const RightMenu = ({ mode, onClick }) => {
@@ -325,7 +327,8 @@ const RightMenu = ({ mode, onClick }) => {
           <MenuItem key="setting:1">
             <Link to={"/profile"}>
               <div className={classes.secondaryColor}>
-                <PersonOutlineOutlinedIcon /> My Profile
+                <PersonOutlineOutlinedIcon /> 
+                <span>My Profile</span>
               </div>
             </Link>
           </MenuItem>
