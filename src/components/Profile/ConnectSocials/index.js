@@ -8,67 +8,104 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import useStyles from "./styles";
-import { signInWithGoogle, signInWithProviderID } from "../../../store/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
+import { useHistory } from "react-router-dom";
+
+const SocialButton = ({ Icon, isLinked, ...props }) => {
+  const classes = useStyles();
+  return (
+    <Box
+      {...props}
+      className={`${classes.link} ${isLinked && classes.isLinked}`}
+    >
+      {Icon}
+      <Typography className={classes.text}>
+        {isLinked ? "Connected" : "Connect"}
+      </Typography>
+    </Box>
+  );
+};
 
 const ConnectSocials = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const firebase = useFirebase();
+  const history = useHistory();
+
+  const providerData = useSelector(
+    ({
+      firebase: {
+        auth: { providerData }
+      }
+    }) => providerData
+  );
+
+  const isProviderLinked = provider =>
+    providerData.some(item => item.providerId.includes(provider));
+
+  const linkWithProvider = provider =>
+    firebase
+      .auth()
+      .currentUser.linkWithPopup(provider)
+      .then(() => {
+        firebase.reloadAuth();
+        history.go(0);
+      })
+      .catch(console.error);
 
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <Box className={classes.row} sx={{ marginBottom: 15 }}>
-          <Box
-            className={classes.link}
-            // onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
+          <SocialButton
+            isLinked={isProviderLinked("facebook")}
+            onClick={() =>
+              linkWithProvider(new firebase.auth.FacebookAuthProvider())
+            }
+            Icon={
+              <FacebookIcon className={classes.fb}>
+                <span className="sm-text">Facebook</span>
+              </FacebookIcon>
+            }
             data-testId="facebookButton"
-          >
-            <FacebookIcon className={classes.fb}>
-              <span className="sm-text">Facebook</span>
-            </FacebookIcon>
-            <Typography className={classes.text}>
-              Connect
-            </Typography>
-          </Box>
-          <Box
-            className={classes.link}
-            // onClick={() => signInWithProviderID("github")(firebase, dispatch)}
+          />
+
+          <SocialButton
+            isLinked={isProviderLinked("github")}
+            onClick={() =>
+              linkWithProvider(new firebase.auth.GithubAuthProvider())
+            }
+            Icon={
+              <GitHubIcon className={classes.git}>
+                <span className="sm-text">Github</span>
+              </GitHubIcon>
+            }
             data-testId="githubButton"
-          >
-            <GitHubIcon className={classes.git}>
-              <span className="sm-text">Github</span>
-            </GitHubIcon>
-            <Typography className={classes.text}>
-              Connect
-            </Typography>
-          </Box>
+          />
         </Box>
         <Box className={classes.row}>
-          <Box
-            className={classes.link}
-            // onClick={() => signInWithGoogle()(firebase, dispatch)}
+          <SocialButton
+            isLinked={isProviderLinked("google")}
+            onClick={() =>
+              linkWithProvider(new firebase.auth.GoogleAuthProvider())
+            }
+            Icon={
+              <img src={GoogleImg} alt="google" className={classes.button} />
+            }
             data-testId="googleButton"
-          >
-            <img src={GoogleImg} alt="google" className={classes.button} />
-            <Typography className={classes.text}>
-              Connect
-            </Typography>
-          </Box>
-          <Box
-            className={classes.link}
-            // onClick={() => signInWithProviderID("twitter")(firebase, dispatch)}
+          />
+          <SocialButton
+            isLinked={isProviderLinked("twitter")}
+            onClick={() =>
+              linkWithProvider(new firebase.auth.TwitterAuthProvider())
+            }
+            Icon={
+              <TwitterIcon className={classes.tw}>
+                <span className="sm-text">Twitter</span>
+              </TwitterIcon>
+            }
             data-testId="twitterButton"
-          >
-            <TwitterIcon className={classes.tw}>
-              <span className="sm-text">Twitter</span>
-            </TwitterIcon>
-            <Typography className={classes.text}>
-              Connect
-            </Typography>
-          </Box>
+          />
         </Box>
       </CardContent>
     </Card>

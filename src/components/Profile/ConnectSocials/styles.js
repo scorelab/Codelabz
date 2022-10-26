@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "95%",
     borderRadius: 15,
@@ -16,35 +16,41 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "15px !important",
     paddingTop: 15,
     "@media (max-width: 600px)": {
-      padding: "15px 5px",
-    },
+      padding: "15px 5px"
+    }
   },
   row: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "center"
   },
   link: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 5,
+    padding: "3px 0",
     width: 245,
-    '&:hover': {
-      cursor: 'pointer'
-   },
+    "&:hover": {
+      cursor: "pointer"
+    }
+  },
+  isLinked: {
+    backgroundColor: "lightgray",
+    cursor: "not-allowed"
   },
   button: {
     height: 26,
     "&:hover": {
-      transform: "scale(1.2)",
+      transform: "scale(1.2)"
     },
     marginLeft: 2,
     marginRight: 23,
     "@media (max-width: 500px)": {
       marginLeft: 2,
       marginRight: 10,
-      height: 20,
-    },
+      height: 20
+    }
   },
   fb: {
     fontSize: 31,
@@ -52,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 19,
     "@media (max-width: 500px)": {
       marginRight: 7,
-      fontSize: 24,
-    },
+      fontSize: 24
+    }
   },
   tw: {
     color: "#03A9F4",
@@ -62,24 +68,24 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 18,
     "@media (max-width: 500px)": {
       marginRight: 6,
-      fontSize: 23,
-    },
+      fontSize: 23
+    }
   },
   git: {
     fontSize: 26,
     marginRight: 19,
     "@media (max-width: 500px)": {
       marginRight: 7,
-      fontSize: 19,
-    },
+      fontSize: 19
+    }
   },
   text: {
     fontFamily: "Poppins",
     color: "#000",
     "@media (max-width: 500px)": {
-      fontSize: 12,
-    },
-  },
+      fontSize: 12
+    }
+  }
 }));
 
 export default useStyles;
