@@ -1,19 +1,24 @@
 # Table of Content
-1. [CodeLabz](#codelabz)
-2. [Deployed on](#deployed-on)
-3. [Community](#community)
-4. [User Guide](#user-guide)
-    1. [How to Setup](#how-to-setup)
-    2. [How to Use](#how-to-use)
-5. [Set-up-Firebase](#set-up-firebase)
-    1. [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
-6. [Firebase Emulator Flow](#firebase-emulator-flow)
-7. [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
-   1. [<strong>How to install</strong>](#how-to-install)
-   2. [<strong>How to Configure</strong>](#how-to-configure)
-8. [Integrate With your CI System.](#integrate-with-your-ci-system)
-    1. [To Start the Emulators:-](#to-start-the-emulators-)
-    2. [Import and Export:-](#import-and-export-)
+- [Table of Content](#table-of-content)
+- [CodeLabz](#codelabz)
+- [Deployed on](#deployed-on)
+- [Community](#community)
+  - [User Guide](#user-guide)
+      - [How to Setup](#how-to-setup)
+      - [How to Use](#how-to-use)
+  - [Set-up-Firebase](#set-up-firebase)
+      - [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
+- [Firebase Emulator Flow](#firebase-emulator-flow)
+- [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
+  - [**How to install**](#how-to-install)
+      - [Before installing the Emulator Suite you will need:-](#before-installing-the-emulator-suite-you-will-need-)
+      - [To install the Emulator Suite:](#to-install-the-emulator-suite)
+  - [**How to Configure**](#how-to-configure)
+      - [Configure Emulator Suite:-](#configure-emulator-suite-)
+      - [Port Configuration - These are the Default Ports Provided you can change them while initializing(if needed)](#port-configuration---these-are-the-default-ports-provided-you-can-change-them-while-initializingif-needed)
+  - [Integrate With your CI System.](#integrate-with-your-ci-system)
+      - [To Start the Emulators:-](#to-start-the-emulators-)
+      - [Import and Export:-](#import-and-export-)
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
@@ -137,12 +142,27 @@ It will open a prompt displaying all the tests. You can find detailed informatio
 flowchart TB
      sougatarmail("Email Pass Login \n \n sougatariju13@gmail.com \n\n Pass : 123456 ")
     codelabzusermail("Google Login \n \n Codelabz User")
+    shivanandamail("Email Pass Login \n \n shivananda@gmail.com \n\n Pass : codelabz ")
+    mahendarmail("Google Login \n \n Mahendar Goud")
+    sarfarazmail("Google Login \n \n sarfaraz")
+
     org[(Organization)]-->sougataijuorg
     org[(Organization)]-->codelabzorg
+    org[(Organization)]-->google
+    org[(Organization)]-->github
+    org[(Organization)]-->youtube
+
     ft[(Firestore)]---sougatariju1---id1(organization)-->sougataijuorg
     ft[(Firestore)]---codelabzuser---id2(organization)-->codelabzorg
+    ft[(Firestore)]---shivananda---id3(organization)-->google
+    ft[(Firestore)]---mahendar---id4(organization)-->github
+    ft[(Firestore)]---sarfaraz---id5(organization)-->youtube
+
     auth[(Authentication)]--->sougatarmail--->sougatariju1
     auth[(Authentication)]--->codelabzusermail--->codelabzuser
+    auth[(Authentication)]--->shivanandamail--->shivananda
+    auth[(Authentication)]--->mahendarmail--->mahendar
+    auth[(Authentication)]--->sarfarazmail--->sarfaraz
 ```
 # Install, Configure and Integrate Firebase Emulator Suite
 ## **How to install**
