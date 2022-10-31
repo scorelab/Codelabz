@@ -63,7 +63,7 @@ First you need to create a `.env` file in `CodeLabz` folder following the templa
 7. You can find your **<FIREBASE_DATABASE_URL>** in the Realtime Database section of the Firebase console. Depending on the location of the database, the database URL  will be in one of the following forms:
     - https://DATABASE_NAME.firebaseio.com (for databases in us-central1)
     - https://DATABASE_NAME.REGION.firebasedatabase.app (for databases in all other locations)
-8. You can get your <FIREBASE_VAPID_KEY> from cloud-messaaging tab
+8. You can get your <FIREBASE_VAPID_KEY> from Cloud-Messaging tab
     - navigate to the setting of your project Open the Cloud Messaging tab.
     - scroll to the Web configuration section.
     - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
