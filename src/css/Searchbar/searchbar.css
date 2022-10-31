@@ -1,12 +1,12 @@
 .dataOutput {
     position: sticky;
-    /* width: 70% !important; */
     max-width: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
     max-height: 150px;
     z-index: 100;
-    background-color: #101729;
+    color:#101729;
+    background-color: #fff;
 }
 
 .dataOutput::-webkit-scrollbar {
@@ -21,7 +21,8 @@
 }
 
 .dataOutput div:hover {
-    background: #171E32;
+    background: #cccdd1;
+    color: #fff;
 }
 
 .dataOutput div span {
@@ -29,9 +30,6 @@
 }
 
 .dataOutput div span:last-child {
-    color: rgba(255, 255, 255, 0.5);
     font-size: 14px;
 }
-.dataOutput div span:last-child:hover {
-    color: #fff;
-}
+

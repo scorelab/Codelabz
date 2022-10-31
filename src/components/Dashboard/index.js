@@ -34,6 +34,7 @@ import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
 import profileUser from "../../assets/images/profile-user.svg";
 import Fade from "react-reveal/Fade";
+import "../../css/Searchbar/searchbar.css";
 
 import {
   validateName,
@@ -76,62 +77,11 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   const [orgWebsite, setOrgWebsite] = useState("");
   const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
 
-  const [collegedata, setCollegedata] = useState(countryList);
   const [filteredData, setFilteredData] = useState([]);
-  const [search, setSearch] = useState("");
+  const [countrySearch, setCountrySearch] = useState("");
 
   const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] =
     useState("");
-
-  //   const useStyles = makeStyles({
-  //     dataOutput :{
-  //     position: 'sticky',
-  //     maxWidth: '100%',
-  //     boxSizing: "border-box",
-  //     overflowX: 'hidden',
-  //     maxHeight: '150px',
-  //     zIndex: 100,
-  //     backgroundColor: '#101729',
-  // }
-
-  // .dataOutput::-webkit-scrollbar {
-  //     display: none;
-  // }
-
-  // dataOutput div {
-  //     padding: 10px;
-  //     display: flex;
-  //     flex-direction: column;
-  //     cursor: pointer;
-  // }
-
-  // .dataOutput div:hover {
-  //     background: #171E32;
-  // }
-
-  // .dataOutput div span {
-  //     line-height: 140%;
-  // }
-
-  // .dataOutput div span:last-child {
-  //     color: rgba(255, 255, 255, 0.5);
-  //     font-size: 14px;
-  // }
-  // .dataOutput div span:last-child:hover {
-  //     color: #fff;
-  // }
-
-  // root: {
-  //   padding: "2rem",
-  //   background: rootBackground,
-  //   border: "none",
-  //   boxShadow: "none"
-  // },
-  // heading: {
-  //   fontWeight: 600
-  // }
-  // });
-  // const classes = useStyles();
 
   const displayName = useSelector(
     ({
@@ -141,14 +91,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     }) => displayName
   );
   const children = [];
-
-  for (let i = 0; i < countryList.length; i++) {
-    children.push(
-      <MenuItem key={countryList[i].code} value={countryList[i].name}>
-        {countryList[i].name}
-      </MenuItem>
-    );
-  }
 
   useEffect(() => {
     setShowImage(false);
@@ -223,8 +165,8 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 
   useEffect(() => {
     const handleSearch = () => {
-      const searchInput = search;
-      const newFilteredData = collegedata.filter(
+      const searchInput = countrySearch;
+      const newFilteredData = countryList.filter(
         value =>
           value.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1 ||
           value.code.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
@@ -237,7 +179,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
       console.log(newFilteredData);
     };
     handleSearch();
-  }, [search]);
+  }, [countrySearch]);
 
   const onSubmit = async () => {
     validateHandle(
@@ -401,23 +343,19 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       )
                     }}
                   />
-                  <div>
+                  <div width="100%">
                     <TextField
                       error={countryValidateError}
                       label="User Country"
                       variant="outlined"
                       placeholder="User Country"
                       value={country}
-                      // onChange={event => onChangeHandle(event.target.value)}
-                      // helperText={
-                      //   countryValidateError ? countryValidateErrorMessage : null
-                      // }
                       onChange={e => {
                         setCountry(e.target.value);
-                        setSearch(e.target.value);
+                        setCountrySearch(e.target.value);
                       }}
                       onFocus={() => {
-                        setSearch(country);
+                        setCountrySearch(country);
                         onFocusHandle();
                       }}
                       fullWidth
@@ -442,11 +380,12 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                             return (
                               <div
                                 onClick={e => {
-                                  setCountry(item.Name);
-                                  setSearch("");
+                                  setCountry(item.name);
+                                  setCountrySearch("");
                                 }}
+                                style={{ color: textColor }}
                               >
-                                <span>{item.Name}</span>
+                                <span>{item.name}</span>
                               </div>
                             );
                           })}
@@ -455,22 +394,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     </div>
                   </div>
 
-                  {/* <FormControl
-                    variant="outlined"
-                    error={countryValidateError}
-                    fullWidth
-                  >
-                    <InputLabel style={{ color: textColor }}>
-                      User Country
-                    </InputLabel>
-                    <Select
-                      label="User Country"
-                      children={children}
-                      style={{ width: "100%" }}
-                      value={country}
-                      onChange={event => onChangeCountry(event.target.value)}
-                    ></Select>
-                  </FormControl> */}
                 </Box>
                 <Divider></Divider>
                 <Box m={3}>
