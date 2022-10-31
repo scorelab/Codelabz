@@ -1,5 +1,4 @@
 # Table of Content
-- [Table of Content](#table-of-content)
 - [CodeLabz](#codelabz)
 - [Deployed on](#deployed-on)
 - [Community](#community)
