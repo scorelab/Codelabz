@@ -29,11 +29,12 @@ import {
   clearProfileEditError,
   setUpInitialData
 } from "../../store/actions";
-
+import { makeStyles } from "@material-ui/core/styles";
 import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
 import profileUser from "../../assets/images/profile-user.svg";
 import Fade from "react-reveal/Fade";
+import "../../css/Searchbar/searchbar.css";
 
 import {
   validateName,
@@ -75,6 +76,10 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
   const [orgWebsite, setOrgWebsite] = useState("");
   const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
+
+  const [filteredData, setFilteredData] = useState([]);
+  const [countrySearch, setCountrySearch] = useState("");
+
   const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] =
     useState("");
 
@@ -94,7 +99,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
       </MenuItem>
     );
   }
-
+  
   useEffect(() => {
     setShowImage(false);
     setTimeout(() => {
@@ -166,6 +171,24 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     }
   };
 
+  useEffect(() => {
+    const handleSearch = () => {
+      const searchInput = countrySearch;
+      const newFilteredData = countryList.filter(
+        value =>
+          value.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1 ||
+          value.code.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
+      );
+      if (searchInput === "") {
+        setFilteredData([]);
+      } else {
+        setFilteredData(newFilteredData);
+      }
+      console.log(newFilteredData);
+    };
+    handleSearch();
+  }, [countrySearch]);
+
   const onSubmit = async () => {
     validateHandle(
       checkUserHandleExists,
@@ -233,6 +256,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     setHandleValidateError(false);
     setHandleValidateErrorMessage("");
   };
+  console.log(country);
 
   return (
     <div className="home-row" style={{ background: background }}>
@@ -327,22 +351,56 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       )
                     }}
                   />
-                  <FormControl
-                    variant="outlined"
-                    error={countryValidateError}
-                    fullWidth
-                  >
-                    <InputLabel style={{ color: textColor }}>
-                      User Country
-                    </InputLabel>
-                    <Select
+                  <div width="100%">
+                    <TextField
+                      error={countryValidateError}
                       label="User Country"
-                      children={children}
-                      style={{ width: "100%" }}
+                      variant="outlined"
+                      placeholder="User Country"
                       value={country}
-                      onChange={event => onChangeCountry(event.target.value)}
-                    ></Select>
-                  </FormControl>
+                      onChange={e => {
+                        setCountry(e.target.value);
+                        setCountrySearch(e.target.value);
+                      }}
+                      onFocus={() => {
+                        setCountrySearch(country);
+                        onFocusHandle();
+                      }}
+                      fullWidth
+                      autoComplete="country"
+                      required
+                      // onFocus={onFocusHandle}
+                      style={{ marginBottom: "15px" }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PersonOutlineIcon
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                    <div>
+                      {filteredData.length !== 0 && (
+                        <div className="dataOutput">
+                          {filteredData.map(item => {
+                            return (
+                              <div
+                                onClick={e => {
+                                  setCountry(item.name);
+                                  setCountrySearch("");
+                                }}
+                                style={{ color: textColor }}
+                              >
+                                <span>{item.name}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </Box>
                 <Divider></Divider>
                 <Box m={3}>
