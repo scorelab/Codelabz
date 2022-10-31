@@ -80,6 +80,9 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [countrySearch, setCountrySearch] = useState("");
 
+  const [orgFilteredData, setOrgFilteredData] = useState([]);
+  const [orgCountrySearch, setOrgCountrySearch] = useState("");
+
   const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] =
     useState("");
 
@@ -99,7 +102,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
       </MenuItem>
     );
   }
-  
+
   useEffect(() => {
     setShowImage(false);
     setTimeout(() => {
@@ -184,10 +187,30 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
       } else {
         setFilteredData(newFilteredData);
       }
-      console.log(newFilteredData);
     };
     handleSearch();
   }, [countrySearch]);
+
+  useEffect(() => {
+    const handleOrgCountrySearch = () => {
+      const searchOrgCountryInput = orgCountrySearch;
+      const newFilteredData = countryList.filter(
+        value =>
+          value.name
+            .toLowerCase()
+            .indexOf(searchOrgCountryInput.toLowerCase()) > -1 ||
+          value.code
+            .toLowerCase()
+            .indexOf(searchOrgCountryInput.toLowerCase()) > -1
+      );
+      if (searchOrgCountryInput === "") {
+        setOrgFilteredData([]);
+      } else {
+        setOrgFilteredData(newFilteredData);
+      }
+    };
+    handleOrgCountrySearch();
+  }, [orgCountrySearch]);
 
   const onSubmit = async () => {
     validateHandle(
@@ -369,7 +392,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       fullWidth
                       autoComplete="country"
                       required
-                      // onFocus={onFocusHandle}
                       style={{ marginBottom: "15px" }}
                       InputProps={{
                         startAdornment: (
@@ -495,25 +517,55 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                         )
                       }}
                     />
-                    <FormControl
-                      variant="outlined"
-                      error={orgCountryValidateError}
-                      fullWidth
-                    >
-                      <InputLabel style={{ color: textColor }}>
-                        Organization Country
-                      </InputLabel>
-                      <Select
+                    <div width="100%">
+                      <TextField
+                        error={orgCountryValidateError}
                         label="Organization Country"
-                        children={children}
-                        style={{ width: "100%" }}
-                        showSearch={true}
+                        variant="outlined"
+                        placeholder="Organization Country"
                         value={orgCountry}
-                        onChange={event =>
-                          onChangeOrgCountry(event.target.value)
-                        }
-                      ></Select>
-                    </FormControl>
+                        onChange={e => {
+                          setOrgCountry(e.target.value);
+                          setOrgCountrySearch(e.target.value);
+                        }}
+                        onFocus={() => {
+                          setOrgCountrySearch(orgCountry);
+                          onFocusHandle();
+                        }}
+                        fullWidth
+                        autoComplete="orgCountry"
+                        required
+                        style={{ marginBottom: "15px" }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonOutlineIcon
+                                style={{ color: "rgba(0,0,0,.25)" }}
+                              />
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                      <div>
+                        {orgFilteredData.length !== 0 && (
+                          <div className="dataOutput">
+                            {orgFilteredData.map(item => {
+                              return (
+                                <div
+                                  onClick={e => {
+                                    setOrgCountry(item.name);
+                                    setOrgCountrySearch("");
+                                  }}
+                                  style={{ color: textColor }}
+                                >
+                                  <span>{item.name}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </Box>
 
                   <Box m={3}>
