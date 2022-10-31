@@ -1,0 +1,37 @@
+.dataOutput {
+    position: sticky;
+    /* width: 70% !important; */
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    max-height: 150px;
+    z-index: 100;
+    background-color: #101729;
+}
+
+.dataOutput::-webkit-scrollbar {
+    display: none;
+}
+
+.dataOutput div {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.dataOutput div:hover {
+    background: #171E32;
+}
+
+.dataOutput div span {
+    line-height: 140%;
+}
+
+.dataOutput div span:last-child {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+.dataOutput div span:last-child:hover {
+    color: #fff;
+}
