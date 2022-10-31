@@ -92,6 +92,14 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   );
   const children = [];
 
+  for (let i = 0; i < countryList.length; i++) {
+    children.push(
+      <MenuItem key={countryList[i].code} value={countryList[i].name}>
+        {countryList[i].name}
+      </MenuItem>
+    );
+  }
+  
   useEffect(() => {
     setShowImage(false);
     setTimeout(() => {
@@ -393,7 +401,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       )}
                     </div>
                   </div>
-
                 </Box>
                 <Divider></Divider>
                 <Box m={3}>

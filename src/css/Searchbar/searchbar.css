@@ -9,10 +9,6 @@
     background-color: #fff;
 }
 
-.dataOutput::-webkit-scrollbar {
-    display: none;
-}
-
 .dataOutput div {
     padding: 10px;
     display: flex;
