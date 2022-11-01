@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
 import SideBar from "../SideBar";
 import Profile from "../../assets/images/profile.svg";
-import Settings from "../../assets/images/setting.svg";
+import UserSettings from "../../assets/images/user-settings.svg"
+import OrganizationSettings from "../../assets/images/organization-settings.svg"
 import SocialMedia from "../../assets/images/social-media.svg";
 import Notification from "../../assets/images/notification.svg";
 import Email from "../../assets/images/email.svg";
@@ -39,9 +40,14 @@ function UserDashboard() {
       link: "/user-dashboard/profile"
     },
     {
-      name: "Settings",
-      img: Settings,
-      link: "/user-dashboard/settings"
+      name: "User Settings",
+      img: UserSettings,
+      link: "/user-dashboard/user-settings"
+    },
+    {
+      name: "Organization Settings",
+      img: OrganizationSettings,
+      link: "/user-dashboard/organization-settings"
     },
     {
       name: "Notifications",
