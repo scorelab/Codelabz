@@ -1,5 +1,5 @@
-import Grid from "@material-ui/core/Grid";
 import React from "react";
+import { Grid, IconButton, Icon } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import GoogleImg from "../../../assets/orgs/google.png";
@@ -16,36 +16,44 @@ const SmButtons = () => {
   return (
     <Grid container className={classes.root} data-testId="smButtons">
       <Grid item>
-        <img
-          src={GoogleImg}
-          alt="google"
-          onClick={() => signInWithGoogle()(firebase, dispatch)}
-          className={classes.button}
-        />
+        <IconButton className={classes.button}>
+          <Icon
+            onClick={() => signInWithGoogle()(firebase, dispatch)}
+            className={classes.google}
+          >
+            <img className={classes.imageIcon} src={GoogleImg} alt="google" />
+          </Icon>
+        </IconButton>
       </Grid>
-      <Grid>
-        <FacebookIcon
-          className={` ${classes.button} ${classes.fb} `}
+      <Grid item>
+        <IconButton
           onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
+          className={classes.button}
         >
-          <span className="sm-text">Facebook</span>
-        </FacebookIcon>
+          <FacebookIcon className={classes.fb}>
+            <span className="sm-text">Facebook</span>
+          </FacebookIcon>
+        </IconButton>
       </Grid>
-      <Grid className={classes.button}>
-        <TwitterIcon
+      <Grid item>
+        <IconButton
           onClick={() => signInWithProviderID("twitter")(firebase, dispatch)}
-          className={classes.tw}
+          className={classes.button}
         >
-          <span className="sm-text">Twitter</span>
-        </TwitterIcon>
+          <TwitterIcon className={classes.tw}>
+            <span className="sm-text">Twitter</span>
+          </TwitterIcon>
+        </IconButton>
       </Grid>
-      <Grid className={classes.button}>
-        <GitHubIcon
-          className={classes.git}
+      <Grid item>
+        <IconButton
           onClick={() => signInWithProviderID("github")(firebase, dispatch)}
+          className={classes.button}
         >
-          <span className="sm-text">Github</span>
-        </GitHubIcon>
+          <GitHubIcon className={classes.git}>
+            <span className="sm-text">Github</span>
+          </GitHubIcon>
+        </IconButton>
       </Grid>
     </Grid>
   );
