@@ -51,6 +51,7 @@ const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
 
   const handleClick = event => {
@@ -65,6 +66,15 @@ const RightMenu = ({ mode, onClick }) => {
   const dispatch = useDispatch();
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym = avatarName(profile.displayName);
+
+  //Taking out the current organization handle of the user
+  const currentOrg = useSelector(
+    ({
+      org:{
+        general:{current}
+      }
+    })=>current
+    );
 
   const organizations = useSelector(
     ({
@@ -130,31 +140,16 @@ const RightMenu = ({ mode, onClick }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
-                {allowOrgs > 0
-                  ? organizations.map((org, i) => (
-                      <Grid item>
-                        <Link to={`/org/settings/${org.org_handle}`}>
-                          <Grid
-                            container
-                            spacing={3}
-                            direction="row"
-                            alignItems="center"
-                          >
-                            <Grid item>
-                              <Avatar
-                                src={org.org_image}
-                                className={classes.orgicon}
-                              >
-                                {avatarName(org.org_name)}
-                              </Avatar>
-                            </Grid>
-                            <Grid item>{org.org_name}</Grid>
-                          </Grid>
-                        </Link>
+                <Grid item>
+                    <Link to={`/org/settings/${currentOrg}`}>
+                      <Grid container spacing={3}>
+                        <Grid item>
+                          <SettingsOutlinedIcon className={classes.orgicon} />
+                        </Grid>
+                        <Grid item>Manage All</Grid>
                       </Grid>
-                    ))
-                  : null}
-                  
+                    </Link>
+                  </Grid>
                   <Divider
                     style={{
                       marginTop: "4px",
@@ -289,30 +284,16 @@ const RightMenu = ({ mode, onClick }) => {
               <Grid container direction="column" spacing={1}>
 
                 {/* Issue490: We will be connecting organizations to their settings page here*/}
-              {allowOrgs > 0
-                  ? organizations.map((org, i) => (
-                      <Grid item>
-                        <Link to={`/org/settings/${org.org_handle}`}>
-                          <Grid
-                            container
-                            spacing={3}
-                            direction="row"
-                            alignItems="center"
-                          >
-                            <Grid item>
-                              <Avatar
-                                src={org.org_image}
-                                className={classes.orgicon}
-                              >
-                                {avatarName(org.org_name)}
-                              </Avatar>
-                            </Grid>
-                            <Grid item>{org.org_name}</Grid>
-                          </Grid>
-                        </Link>
+                <Grid item>
+                    <Link to={`/org/settings/${currentOrg}`}>
+                      <Grid container spacing={3}>
+                        <Grid item>
+                          <SettingsOutlinedIcon className={classes.orgicon} />
+                        </Grid>
+                        <Grid item>Manage All</Grid>
                       </Grid>
-                    ))
-                  : null}
+                    </Link>
+                  </Grid>
                
                 <Divider
                   style={{
