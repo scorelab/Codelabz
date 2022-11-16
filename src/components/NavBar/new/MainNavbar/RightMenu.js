@@ -76,6 +76,9 @@ const RightMenu = ({ mode, onClick }) => {
     })=>current
     );
 
+    //Check if this current user is attached to some organization
+    const isOrgPresent = currentOrg == null ? false : true;
+  
   const organizations = useSelector(
     ({
       profile: {
@@ -140,7 +143,7 @@ const RightMenu = ({ mode, onClick }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
-                <Grid item>
+                {isOrgPresent && <Grid item>
                     <Link to={`/org/settings/${currentOrg}`}>
                       <Grid container spacing={3}>
                         <Grid item>
@@ -149,7 +152,7 @@ const RightMenu = ({ mode, onClick }) => {
                         <Grid item>Manage All</Grid>
                       </Grid>
                     </Link>
-                  </Grid>
+                  </Grid>}
                   <Divider
                     style={{
                       marginTop: "4px",
@@ -284,7 +287,7 @@ const RightMenu = ({ mode, onClick }) => {
               <Grid container direction="column" spacing={1}>
 
                 {/* Issue490: We will be connecting organizations to their settings page here*/}
-                <Grid item>
+                {isOrgPresent && <Grid item>
                     <Link to={`/org/settings/${currentOrg}`}>
                       <Grid container spacing={3}>
                         <Grid item>
@@ -293,7 +296,7 @@ const RightMenu = ({ mode, onClick }) => {
                         <Grid item>Manage All</Grid>
                       </Grid>
                     </Link>
-                  </Grid>
+                  </Grid>}
                
                 <Divider
                   style={{
