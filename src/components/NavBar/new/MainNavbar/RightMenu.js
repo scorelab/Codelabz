@@ -50,7 +50,6 @@ const useStyles = makeStyles(theme => ({
 const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -74,7 +73,7 @@ const RightMenu = ({ mode, onClick }) => {
       }
     }) => organizations
   );
-
+  
   const allowOrgs = organizations && organizations.length > 0;
 
   const orgList =
@@ -131,16 +130,31 @@ const RightMenu = ({ mode, onClick }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
-                  <Grid item>
-                    <Link to={`/organization`}>
-                      <Grid container spacing={3}>
-                        <Grid item>
-                          <SettingsOutlinedIcon className={classes.orgicon} />
-                        </Grid>
-                        <Grid item>Manage All</Grid>
+                {allowOrgs > 0
+                  ? organizations.map((org, i) => (
+                      <Grid item>
+                        <Link to={`/org/settings/${org.org_handle}`}>
+                          <Grid
+                            container
+                            spacing={3}
+                            direction="row"
+                            alignItems="center"
+                          >
+                            <Grid item>
+                              <Avatar
+                                src={org.org_image}
+                                className={classes.orgicon}
+                              >
+                                {avatarName(org.org_name)}
+                              </Avatar>
+                            </Grid>
+                            <Grid item>{org.org_name}</Grid>
+                          </Grid>
+                        </Link>
                       </Grid>
-                    </Link>
-                  </Grid>
+                    ))
+                  : null}
+                  
                   <Divider
                     style={{
                       marginTop: "4px",
@@ -273,16 +287,33 @@ const RightMenu = ({ mode, onClick }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Grid container direction="column" spacing={1}>
-                <Grid item>
-                  <Link to={`/organization`}>
-                    <Grid container spacing={3}>
+
+                {/* Issue490: We will be connecting organizations to their settings page here*/}
+              {allowOrgs > 0
+                  ? organizations.map((org, i) => (
                       <Grid item>
-                        <SettingsOutlinedIcon className={classes.orgicon} />
+                        <Link to={`/org/settings/${org.org_handle}`}>
+                          <Grid
+                            container
+                            spacing={3}
+                            direction="row"
+                            alignItems="center"
+                          >
+                            <Grid item>
+                              <Avatar
+                                src={org.org_image}
+                                className={classes.orgicon}
+                              >
+                                {avatarName(org.org_name)}
+                              </Avatar>
+                            </Grid>
+                            <Grid item>{org.org_name}</Grid>
+                          </Grid>
+                        </Link>
                       </Grid>
-                      <Grid item>Manage All</Grid>
-                    </Grid>
-                  </Link>
-                </Grid>
+                    ))
+                  : null}
+               
                 <Divider
                   style={{
                     marginTop: "4px",
