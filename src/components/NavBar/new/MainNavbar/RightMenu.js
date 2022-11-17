@@ -60,8 +60,6 @@ const RightMenu = ({ mode, onClick }) => {
     setAnchorEl(null); 
   }, [ pathname ]);
  
-  
-  console.log("i am open ", open)
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
