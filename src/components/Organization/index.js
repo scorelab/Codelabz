@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {getUserProfileData} from './../../store/actions';
 import OrgSidebar from "./OrgSidebar/orgSidebar";
 import { useMediaQuery } from "react-responsive";
 import Button from "@material-ui/core/Button";
@@ -18,8 +19,13 @@ import Socialmedia from "./pages/Socialmedia";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { unPublishOrganization } from "../../store/actions";
+import { useParams } from "react-router-dom";
 
 const Organizations = () => {
+
+  //Set All the organisations for this user
+  const [organisations, setOrganisations] = useState([]);
+
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [SettingsMenu, setSettingsMenu] = useState(1);
   const classes = useStyles();
@@ -42,7 +48,7 @@ const Organizations = () => {
   );
 
   const orgs = useSelector(
-    ({
+ ({
       profile: {
         data: { organizations }
       }
@@ -66,6 +72,12 @@ const Organizations = () => {
     );
   };
 
+  
+  //Firstly I have to find the details of the current user
+  const profileData = useSelector(({firebase})=>firebase.profile);
+  //Then I will fetch the organisations from the document of the current user
+  const orgsOfUser = profileData.organizations;
+
   return (
     <Container maxWidth="xl">
       <Grid container className={classes.root} direction="column">
@@ -73,7 +85,7 @@ const Organizations = () => {
           <SwitchAccount
             Heading="Switch Account"
             name={currentOrgData.org_handle}
-            secondaryMail=""
+            userOrgs = {orgsOfUser}
             avatar={{
               value: currentOrgData.org_image
             }}

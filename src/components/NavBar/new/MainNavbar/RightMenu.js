@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../../store/actions";
 import Avatar from "@material-ui/core/Avatar";
@@ -10,7 +10,7 @@ import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import { avatarName } from "../../../../helpers/avatarName";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
@@ -27,6 +27,7 @@ import {
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 
 const useStyles = makeStyles(theme => ({
   menu: {
@@ -51,9 +52,16 @@ const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const {pathname} = useLocation();
   const open = Boolean(anchorEl);
 
+  //This will be responsible for closing the rightMenu automatically when route Changes 
+  useEffect(() => {
+    setAnchorEl(null); 
+  }, [ pathname ]);
+ 
+  
+  console.log("i am open ", open)
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -61,6 +69,7 @@ const RightMenu = ({ mode, onClick }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const allowDashboard = useAllowDashboard();
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -78,6 +87,7 @@ const RightMenu = ({ mode, onClick }) => {
 
     //Check if this current user is attached to some organization
     const isOrgPresent = currentOrg == null ? false : true;
+   
   
   const organizations = useSelector(
     ({

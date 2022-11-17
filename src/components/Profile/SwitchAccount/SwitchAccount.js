@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { Grid } from "@material-ui/core";
+import InputLabel from '@material-ui/core/InputLabel';
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import {
   createTheme,
   responsiveFontSizes,
@@ -75,24 +79,33 @@ const useStyles = makeStyles(theme => ({
 export default function SwitchAccount({
   avatar,
   name,
-  secondaryMail,
+  userOrgs,
   buttonClick,
   buttonText
 }) {
+
+  //Getting the details of all organizations submitted by current User
+  const organizations = useSelector(
+    ({
+      profile: {
+        data: { organizations }
+      }
+    }) => organizations
+  );
+  //This will be used to move on the organization page based upon the selection in dropdown
+  let history = useHistory();
+ 
   const classes = useStyles();
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
-  const [state, setState] = React.useState({
-    email: "",
-    name: ""
-  });
+  const [organisation, setOrganisation] = useState("");
 
   const handleChange = event => {
     const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value
-    });
+    console.log("Event target is", name, event.target.value);
+    setOrganisation(event.target.value)
+    //This will take you to the selected organiztion home page
+    history.push(`/org/${ event.target.value}`);
   };
 
   return (
@@ -119,20 +132,28 @@ export default function SwitchAccount({
               <IconButton aria-label="share">
                 <SwapHorizIcon />
               </IconButton>
+
+              <div>
               <FormControl className={classes.formControl}>
-                <NativeSelect
-                  className={classes.selectEmpty}
-                  value={state.age}
-                  name="age"
-                  onChange={handleChange}
-                  inputProps={{ "aria-label": "age" }}
-                >
-                  <option value="" disabled color="primary">
-                    Switch to another account
-                  </option>
-                  <option value={10}>{secondaryMail}</option>
-                </NativeSelect>
-              </FormControl>
+        <NativeSelect
+          className={classes.selectEmpty}
+          value={organisation}
+          name="organisation"
+          onChange={handleChange}
+          inputProps={{ 'aria-label': 'Organizations' }}
+        
+        >
+
+          {/* dropdown options for switching organisations */}
+           <option value="">Organisations</option>
+           {
+            userOrgs.map((org)=>(
+             <option value={org}>{org}</option>
+            ))
+           }
+        </NativeSelect>
+      </FormControl>
+      </div>
             </div>
           </div>
         </ThemeProvider>
