@@ -6,7 +6,8 @@ import ProviderWrapper from "../../helpers/providerWrapper";
 import Grid from "@material-ui/core/Grid";
 import Home from "./../../assets/images/home.svg";
 import Notification from "../../assets/images/notification.svg";
-import Setting from "../../assets/images/setting.svg";
+import UserSettings from "../../assets/images/user-settings.svg"
+import OrganizationSettings from "../../assets/images/organization-settings.svg"
 import Org from "../../assets/images/org.svg";
 import Profile from "../../assets/images/profile.svg";
 import Bookmark from "../../assets/images/bookmark.svg";
@@ -79,9 +80,14 @@ Default.args = {
       img: Notification,
     },
     {
-      name: "Settings",
-      img: Setting,
-      link: "/settings",
+      name: "User Settings",
+      img: UserSettings,
+      link: "/user-settings",
+    },
+    {
+      name: "Organization Settings",
+      img: OrganizationSettings,
+      link: "/organization-settings",
     },
     {
       name: "Organizations",

@@ -3,7 +3,8 @@ import { Drawer, Grid, IconButton, Close, useTheme } from "@material-ui/core";
 import SideList from "../SideBar/sidelist";
 import Home from "./../../assets/images/home.svg";
 import Notification from "./../../assets/images/notification.svg";
-import Setting from "./../../assets/images/setting.svg";
+import UserSettings from "./../../assets/images/user-settings.svg"
+import OrganizationSettings from "./../../assets/images/organization-settings.svg"
 import Org from "./../../assets/images/org.svg";
 import Profile from "./../../assets/images/profile.svg";
 import Bookmark from "./../../assets/images/bookmark.svg";
@@ -54,9 +55,14 @@ const SideBar = ({
       img: Notification
     },
     {
-      name: "Settings",
-      img: Setting,
-      link: "/user-dashboard/profile"
+      name: "User Settings",
+      img: UserSettings,
+      link: "/user-dashboard/user-settings"
+    },
+    {
+      name: "Organization Settings",
+      img: OrganizationSettings,
+      link: "/user-dashboard/organization-settings"
     },
     {
       name: "Organizations",
