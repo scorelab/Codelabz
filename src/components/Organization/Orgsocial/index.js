@@ -42,7 +42,7 @@ const Orgsocial = props => {
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
-        <Box className={classes.row} sx={{ marginBottom: 15 }}>
+        <Box className={classes.row}>
           <Grid
             className={classes.link}
             // onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
