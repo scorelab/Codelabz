@@ -35,6 +35,7 @@ const SideBar = ({
   toggleSlider,
   notification,
   menuItems,
+  drawWidth,
   value,
   onStateChange,
   children
@@ -43,7 +44,6 @@ const SideBar = ({
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
-
   const defaultMenu = [
     {
       name: "Home",
@@ -97,11 +97,11 @@ const SideBar = ({
         onClick: () => signOut()(firebase, dispatch)
       })
   ];
-
+    console.log((drawWidth || 750),windowSize.width <=(drawWidth || 750));
   const classes = useStyles();
   return (
     <>
-      {windowSize.width <= 750 ? (
+      {(windowSize.width <= (drawWidth || 750)) ? (
         <Drawer
           closable="true"
           open={open}
