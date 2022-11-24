@@ -97,7 +97,6 @@ const SideBar = ({
         onClick: () => signOut()(firebase, dispatch)
       })
   ];
-    console.log((drawWidth || 750),windowSize.width <=(drawWidth || 750));
   const classes = useStyles();
   return (
     <>
