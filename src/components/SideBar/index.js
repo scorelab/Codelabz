@@ -35,6 +35,7 @@ const SideBar = ({
   toggleSlider,
   notification,
   menuItems,
+  drawWidth,
   value,
   onStateChange,
   children
@@ -101,7 +102,7 @@ const SideBar = ({
   const classes = useStyles();
   return (
     <>
-      {windowSize.width <= 750 ? (
+      {windowSize.width <= (drawWidth || 750) ? (
         <Drawer
           closable="true"
           open={open}
