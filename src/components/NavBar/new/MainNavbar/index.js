@@ -134,11 +134,12 @@ function MainNavbar() {
             </Grid>
           </Grid>
         </Grid>
-        {windowSize.width <= 750 && (
+        {windowSize.width <= 960 && (
           <SideBar
             open={openMenu}
             toggleSlider={toggleSlider}
             notification={notification}
+            drawWidth = {960}
           />
         )}
       </nav>
