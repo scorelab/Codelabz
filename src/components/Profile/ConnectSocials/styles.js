@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   row: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center"
   },
   link: {
@@ -36,8 +36,14 @@ const useStyles = makeStyles(theme => ({
     }
   },
   isLinked: {
-    backgroundColor: "lightgray",
+    opacity:"0.8",
     cursor: "not-allowed"
+  },
+  isLinkedImg: {
+    height:18,
+    width:18,
+    margin: "9px 0 0 5px",
+    color:"green",
   },
   button: {
     height: 26,

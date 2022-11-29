@@ -45,11 +45,13 @@ const useStyles = makeStyles((theme) => ({
 
   profileInfoStory: {
     fontFamily: "Roboto",
+    width:"97%",
     fontStyle: "normal",
-    lineHeight: "25px",
+    lineHeight: "1.2",
     color: "#000000",
     fontWeight: "400",
-    fontSize: "21px",
+    opacity:"0.9",
+    fontSize: "4vmin",
   },
 
   profileInfoDesc: {
@@ -87,7 +89,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#FFFFFF",
     border: "none",
     [theme.breakpoints.down(400)]: {
-      width: "90px",
+      width: "80px",
+      fontSize:"18px",
     }
   },
 
@@ -105,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "28px",
     color: "#000",
     border: "none",
+    [theme.breakpoints.down(400)]: {
+      width: "80px",
+      fontSize:"18px"
+    }
   },
 
   profileReportButton: {
@@ -121,6 +128,11 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "28px",
     color: "#000",
     border: "none",
+    [theme.breakpoints.down(400)]: {
+      width: "90px",
+      fontSize:"18px",
+      width:"",
+    }
   },
 
   profileIconButton: {

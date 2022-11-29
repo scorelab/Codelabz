@@ -41,20 +41,25 @@ export default function ProfileCardOne({
               />
             </div>
             <div className={classes.profileUserConnect}>
+              <Grid container spacing={1}>
+                <Grid item>
               <Typography
                 className={classes.profileInfoName}
                 data-testId="user_profile_card_one_name"
               >
                 {name}
               </Typography>
-
+              </Grid>
+              <Grid item>
               <Typography
                 className={classes.profileInfoStory}
                 data-testId="user_profile_card_one_story"
               >
                 {story}
               </Typography>
-              <Grid container>
+              </Grid>
+              <Grid item container direction="row">
+                <Grid item>
                 <span
                   className={classes.profileInfoData}
                   style={{ marginRight: "20px" }}
@@ -62,15 +67,19 @@ export default function ProfileCardOne({
                 >
                   {followers} followers
                 </span>
+                </Grid>
+                <Grid item>
                 <span
                   className={classes.profileInfoData}
                   style={{ marginRight: "2px" }}
                   data-testId="user_profile_card_one_followingCount"
                 >
-                  • {following} following
+                  {following} following
                 </span>
+                </Grid>
               </Grid>
               <Grid
+                item
                 container
                 style={{ marginTop: "15px" }}
                 data-testId="user_profile_card_one_buttonGroup"
@@ -113,6 +122,7 @@ export default function ProfileCardOne({
                     <MenuItem onClick={handleClose}>User Settings</MenuItem>
                   </Link>
                 </Menu>
+              </Grid>
               </Grid>
             </div>
           </div>
