@@ -9,6 +9,7 @@ import Org from "./../../assets/images/org.svg";
 import Profile from "./../../assets/images/profile.svg";
 import Bookmark from "./../../assets/images/bookmark.svg";
 import Logout from "./../../assets/images/logout.svg";
+import {useSelector } from "react-redux";
 import Tutorials from "./../../assets/images/tutorial.svg";
 import MyFeed from "./../../assets/images/MyFeed.svg";
 import { signOut } from "../../store/actions";
@@ -45,6 +46,15 @@ const SideBar = ({
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
 
+    //Taking out the current organization handle of the user
+    const currentOrg = useSelector(
+      ({
+        org:{
+          general:{current}
+        }
+      })=>current
+      );
+
   const defaultMenu = [
     {
       name: "Home",
@@ -68,7 +78,7 @@ const SideBar = ({
     {
       name: "Organizations",
       img: Org,
-      link: "/organization"
+      link: `/org/settings/${currentOrg}`
     },
     {
       name: "My Feed",

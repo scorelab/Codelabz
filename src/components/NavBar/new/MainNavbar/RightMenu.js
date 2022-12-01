@@ -50,8 +50,8 @@ const useStyles = makeStyles(theme => ({
 const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
 
   const handleClick = event => {
@@ -67,6 +67,18 @@ const RightMenu = ({ mode, onClick }) => {
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym = avatarName(profile.displayName);
 
+  //Taking out the current organization handle of the user
+  const currentOrg = useSelector(
+    ({
+      org:{
+        general:{current}
+      }
+    })=>current
+    );
+
+    //Check if this current user is attached to some organization
+    const isOrgPresent = currentOrg == null ? false : true;
+  
   const organizations = useSelector(
     ({
       profile: {
@@ -74,7 +86,7 @@ const RightMenu = ({ mode, onClick }) => {
       }
     }) => organizations
   );
-
+  
   const allowOrgs = organizations && organizations.length > 0;
 
   const orgList =
@@ -131,8 +143,8 @@ const RightMenu = ({ mode, onClick }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
-                  <Grid item>
-                    <Link to={`/organization`}>
+                {isOrgPresent && <Grid item>
+                    <Link to={`/org/settings/${currentOrg}`}>
                       <Grid container spacing={3}>
                         <Grid item>
                           <SettingsOutlinedIcon className={classes.orgicon} />
@@ -140,7 +152,7 @@ const RightMenu = ({ mode, onClick }) => {
                         <Grid item>Manage All</Grid>
                       </Grid>
                     </Link>
-                  </Grid>
+                  </Grid>}
                   <Divider
                     style={{
                       marginTop: "4px",
@@ -273,16 +285,19 @@ const RightMenu = ({ mode, onClick }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Grid container direction="column" spacing={1}>
-                <Grid item>
-                  <Link to={`/organization`}>
-                    <Grid container spacing={3}>
-                      <Grid item>
-                        <SettingsOutlinedIcon className={classes.orgicon} />
+
+                {/* Issue490: We will be connecting organizations to their settings page here*/}
+                {isOrgPresent && <Grid item>
+                    <Link to={`/org/settings/${currentOrg}`}>
+                      <Grid container spacing={3}>
+                        <Grid item>
+                          <SettingsOutlinedIcon className={classes.orgicon} />
+                        </Grid>
+                        <Grid item>Manage All</Grid>
                       </Grid>
-                      <Grid item>Manage All</Grid>
-                    </Grid>
-                  </Link>
-                </Grid>
+                    </Link>
+                  </Grid>}
+               
                 <Divider
                   style={{
                     marginTop: "4px",

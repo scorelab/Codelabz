@@ -124,9 +124,10 @@ const Routes = () => {
             path={"/profile"}
             component={UserIsAllowedUserDashboard(Profile)}
           />
+         
           <Route
             exact
-            path={"/organization"}
+            path={"/org/settings/:handle"}
             component={UserIsAllowOrgManager(Organization)}
           />
           <Route
