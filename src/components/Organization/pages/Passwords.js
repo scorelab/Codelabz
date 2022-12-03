@@ -44,14 +44,14 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "10px",
     padding: "10px"
   },
-  responsiveHeading:{
+  heading:{
     fontSize: "1.5rem",
     fontWeight: 100,
     [theme.breakpoints.between('xs', 'sm')]: {
       textAlign: 'center'
     }
   },
-  responsiveInput:{
+  inputContainer:{
     [theme.breakpoints.between('xs', 'sm')]: {
       textAlign: 'center'
     },
@@ -71,24 +71,24 @@ function Passwords() {
         data-testid="organization-passwords-page"
       >
         <Grid item xs={12}>
-          <Typography className={classes.responsiveHeading}>Passwords</Typography>
+          <Typography className={classes.heading}>Passwords</Typography>
         </Grid>
-        <Grid className={classes.responsiveInput} item xs={12}>
+        <Grid className={classes.inputContainer} item xs={12}>
           <Typography>Old Password</Typography>
           <InputBase className={classes.input} placeholder="Old Password" />
         </Grid>
-        <Grid className={classes.responsiveInput} item xs={12}>
+        <Grid className={classes.inputContainer} item xs={12}>
           <Typography>New Password</Typography>
           <InputBase className={classes.input} placeholder="New Password" />
         </Grid>
-        <Grid className={classes.responsiveInput} item xs={12}>
+        <Grid className={classes.inputContainer} item xs={12}>
           <Typography>Confirm new password</Typography>
           <InputBase
             className={classes.input}
             placeholder="Confirm new password"
           />
         </Grid>
-        <Grid className={classes.responsiveInput} item xs={12}>
+        <Grid className={classes.inputContainer} item xs={12}>
           <Button className={classes.button}>Update Password</Button>
         </Grid>
       </Grid>
