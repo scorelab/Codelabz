@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../../store/actions";
 import Avatar from "@material-ui/core/Avatar";
@@ -10,7 +10,7 @@ import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import { avatarName } from "../../../../helpers/avatarName";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
@@ -50,9 +50,14 @@ const useStyles = makeStyles(theme => ({
 const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const {pathname} = useLocation();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
+  //This will be responsible for closing the rightMenu automatically when route Changes 
+  useEffect(() => {
+    setAnchorEl(null);
+  }, [pathname]);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
