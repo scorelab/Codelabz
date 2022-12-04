@@ -7,6 +7,7 @@ import GoogleImg from "../../../assets/orgs/google.png";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import FacebookIcon from "@material-ui/icons/Facebook";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
@@ -21,7 +22,7 @@ const SocialButton = ({ Icon, isLinked, ...props }) => {
     >
       {Icon}
       <Typography className={classes.text}>
-        {isLinked ? "Connected" : "Connect"}
+        {isLinked ? <CheckCircleIcon className={classes.isLinkedImg} /> :null}
       </Typography>
     </Box>
   );
@@ -62,10 +63,10 @@ const ConnectSocials = () => {
             onClick={() =>
               linkWithProvider(new firebase.auth.FacebookAuthProvider())
             }
-            Icon={
-              <FacebookIcon className={classes.fb}>
-                <span className="sm-text">Facebook</span>
-              </FacebookIcon>
+            Icon={<>
+              <FacebookIcon className={classes.fb}></FacebookIcon>
+                <span className={classes.text}>Facebook</span>
+            </>
             }
             data-testId="facebookButton"
           />
@@ -75,10 +76,11 @@ const ConnectSocials = () => {
             onClick={() =>
               linkWithProvider(new firebase.auth.GithubAuthProvider())
             }
-            Icon={
+            Icon={<>
               <GitHubIcon className={classes.git}>
-                <span className="sm-text">Github</span>
               </GitHubIcon>
+              <span className={classes.text}>Github</span>
+              </>
             }
             data-testId="githubButton"
           />
@@ -89,8 +91,10 @@ const ConnectSocials = () => {
             onClick={() =>
               linkWithProvider(new firebase.auth.GoogleAuthProvider())
             }
-            Icon={
+            Icon={<>
               <img src={GoogleImg} alt="google" className={classes.button} />
+              <span className={classes.text}>Google</span>
+              </>
             }
             data-testId="googleButton"
           />
@@ -99,10 +103,12 @@ const ConnectSocials = () => {
             onClick={() =>
               linkWithProvider(new firebase.auth.TwitterAuthProvider())
             }
-            Icon={
+            Icon={<>
               <TwitterIcon className={classes.tw}>
-                <span className="sm-text">Twitter</span>
               </TwitterIcon>
+              
+              <span className={classes.text}>Twitter</span>
+              </>
             }
             data-testId="twitterButton"
           />

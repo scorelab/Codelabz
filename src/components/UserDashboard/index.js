@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
+import { IconButton } from "@material-ui/core"
+import MenuIcon from "@material-ui/icons/Menu";
 import useStyles from "./styles";
 import SideBar from "../SideBar";
 import Profile from "../../assets/images/profile.svg";
-import Settings from "../../assets/images/setting.svg";
+import UserSettings from "../../assets/images/user-settings.svg"
+import OrganizationSettings from "../../assets/images/organization-settings.svg"
 import SocialMedia from "../../assets/images/social-media.svg";
 import Notification from "../../assets/images/notification.svg";
 import Email from "../../assets/images/email.svg";
@@ -21,6 +24,7 @@ import Organizations from "../Profile/Organizations";
 import { Link, Route, Switch, useParams } from "react-router-dom";
 import { Avatar, Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
+import useWindowSize from "../../helpers/customHooks/useWindowSize";
 
 function UserDashboard() {
   const classes = useStyles();
@@ -31,6 +35,7 @@ function UserDashboard() {
   };
 
   const params = useParams();
+  const windowSize = useWindowSize();
 
   const navlinks = [
     {
@@ -39,9 +44,14 @@ function UserDashboard() {
       link: "/user-dashboard/profile"
     },
     {
-      name: "Settings",
-      img: Settings,
-      link: "/user-dashboard/settings"
+      name: "User Settings",
+      img: UserSettings,
+      link: "/user-dashboard/user-settings"
+    },
+    {
+      name: "Organization Settings",
+      img: OrganizationSettings,
+      link: "/user-dashboard/organization-settings"
     },
     {
       name: "Notifications",
@@ -75,7 +85,6 @@ function UserDashboard() {
   const getData = prop => (Boolean(prop) ? prop : "");
   const profileData = useSelector(({ firebase: { profile } }) => profile);
   const [name, setName] = useState(getData(profileData.displayName));
-
   return (
     <Box className={classes.root}>
       <Box style={{ xs: { padding: 0 }, md: { padding: "0 30px" } }}>
@@ -87,6 +96,17 @@ function UserDashboard() {
           }}
         >
           <Box style={{ display: "flex", alignItems: "center" }}>
+            {
+              windowSize.width <= 960 &&
+              (
+                <IconButton>
+                  <MenuIcon onClick ={() => {
+                        toggleSlider();
+                      }}>
+                  </MenuIcon>
+                </IconButton>
+              )
+            }
             <Avatar
               aria-label="recipe"
               className={classes.avatar}
@@ -118,16 +138,15 @@ function UserDashboard() {
       <Box
         className={classes.wrapper}
         data-testId="homepage"
-        onClick={() => {
-          toggleSlider();
-        }}
       >
-        {window.innerWidth <= 750 && openMenu && (
+        {windowSize.width <= 960 && (
           <div data-testId="homepageSidebarSmall">
             <SideBar
               open={openMenu}
+              menuItems = {navlinks}
               toggleSlider={toggleSlider}
               notification={notification}
+              drawWidth = {960}
             />
           </div>
         )}

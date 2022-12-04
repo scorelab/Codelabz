@@ -26,6 +26,7 @@ import {
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import ChangeProfile from "../../Profile/ChangeProfile/ChangeProfile";
 import { useDebouncedEffect } from "../../../helpers/customHooks/useDebounce";
+import useWindowSize from "../../../helpers/customHooks/useWindowSize";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     gap: 10,
     [theme.breakpoints.down("md")]: {
-      width: "80%"
+      width: "99%"
     },
     [theme.breakpoints.down("xs")]: {
       width: "99%"
@@ -136,7 +137,7 @@ function General() {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const firestore = useFirestore();
-
+  const windowSize = useWindowSize();
   const CurrentOrg = useSelector(
     ({
       profile: {
@@ -253,7 +254,7 @@ function General() {
         </Grid>
         <div className={classes.root}>
           <Grid item container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={windowSize.width <= 500 ? 12 : 6}>
               <Typography>Organization Name</Typography>
               <InputBase
                 className={classes.input}
@@ -262,7 +263,7 @@ function General() {
                 onChange={handleChange("org_name")}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={windowSize.width <= 500 ? 12 : 6}>
               <Typography>Organization Handle</Typography>
               <InputBase
                 className={classes.input}
@@ -357,7 +358,7 @@ function General() {
           </Grid>
         </div>
         <div className={classes.root}>
-          <Grid item xs={6}>
+          <Grid item xs={windowSize.width <= 500 ? 12 : 6}>
             <CardContent>
               <Typography>Brief description</Typography>
               <div>

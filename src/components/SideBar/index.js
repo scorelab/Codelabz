@@ -3,11 +3,13 @@ import { Drawer, Grid, IconButton, Close, useTheme } from "@material-ui/core";
 import SideList from "../SideBar/sidelist";
 import Home from "./../../assets/images/home.svg";
 import Notification from "./../../assets/images/notification.svg";
-import Setting from "./../../assets/images/setting.svg";
+import UserSettings from "./../../assets/images/user-settings.svg"
+import OrganizationSettings from "./../../assets/images/organization-settings.svg"
 import Org from "./../../assets/images/org.svg";
 import Profile from "./../../assets/images/profile.svg";
 import Bookmark from "./../../assets/images/bookmark.svg";
 import Logout from "./../../assets/images/logout.svg";
+import {useSelector } from "react-redux";
 import Tutorials from "./../../assets/images/tutorial.svg";
 import MyFeed from "./../../assets/images/MyFeed.svg";
 import { signOut } from "../../store/actions";
@@ -34,6 +36,7 @@ const SideBar = ({
   toggleSlider,
   notification,
   menuItems,
+  drawWidth,
   value,
   onStateChange,
   children
@@ -42,6 +45,15 @@ const SideBar = ({
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
+
+    //Taking out the current organization handle of the user
+    const currentOrg = useSelector(
+      ({
+        org:{
+          general:{current}
+        }
+      })=>current
+      );
 
   const defaultMenu = [
     {
@@ -54,14 +66,19 @@ const SideBar = ({
       img: Notification
     },
     {
-      name: "Settings",
-      img: Setting,
-      link: "/user-dashboard/profile"
+      name: "User Settings",
+      img: UserSettings,
+      link: "/user-dashboard/user-settings"
+    },
+    {
+      name: "Organization Settings",
+      img: OrganizationSettings,
+      link: "/user-dashboard/organization-settings"
     },
     {
       name: "Organizations",
       img: Org,
-      link: "/organization"
+      link: `/org/settings/${currentOrg}`
     },
     {
       name: "My Feed",
@@ -95,7 +112,7 @@ const SideBar = ({
   const classes = useStyles();
   return (
     <>
-      {windowSize.width <= 750 ? (
+      {windowSize.width <= (drawWidth || 750) ? (
         <Drawer
           closable="true"
           open={open}

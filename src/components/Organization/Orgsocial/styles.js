@@ -28,8 +28,14 @@ const useStyles = makeStyles((theme) => ({
   },
   row: {
     display: "flex",
-    
     alignItems: "center",
+    justifyContent: "center",
+    marginBottom:15,
+    "@media (max-width: 500px)": {
+      flexDirection : "column",
+    justifyContent: "center",
+    margin:0,
+    },
   },
   link: {
     display: "flex",
@@ -44,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
     },
     marginRight: 19,
     backgroundColor:"#D3D3D3",
+    "@media (max-width: 500px)": {
+    margin:"none",
+    marginBottom:15,
+    },
   },
   button: {
     height: 26,
@@ -89,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Poppins",
     color: "#000",
     "@media (max-width: 500px)": {
-      fontSize: 30,
+      fontSize: "4vmin",
       marginRight: 19,
     },
   },

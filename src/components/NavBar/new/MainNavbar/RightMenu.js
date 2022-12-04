@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../../store/actions";
 import Avatar from "@material-ui/core/Avatar";
@@ -10,7 +10,7 @@ import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import { avatarName } from "../../../../helpers/avatarName";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
@@ -50,9 +50,14 @@ const useStyles = makeStyles(theme => ({
 const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const {pathname} = useLocation();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
+  //This will be responsible for closing the rightMenu automatically when route Changes 
+  useEffect(() => {
+    setAnchorEl(null);
+  }, [pathname]);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -67,6 +72,18 @@ const RightMenu = ({ mode, onClick }) => {
   const profile = useSelector(({ firebase }) => firebase.profile);
   const acronym = avatarName(profile.displayName);
 
+  //Taking out the current organization handle of the user
+  const currentOrg = useSelector(
+    ({
+      org:{
+        general:{current}
+      }
+    })=>current
+    );
+
+    //Check if this current user is attached to some organization
+    const isOrgPresent = currentOrg == null ? false : true;
+  
   const organizations = useSelector(
     ({
       profile: {
@@ -74,7 +91,7 @@ const RightMenu = ({ mode, onClick }) => {
       }
     }) => organizations
   );
-
+  
   const allowOrgs = organizations && organizations.length > 0;
 
   const orgList =
@@ -131,8 +148,8 @@ const RightMenu = ({ mode, onClick }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
-                  <Grid item>
-                    <Link to={`/organization`}>
+                {isOrgPresent && <Grid item>
+                    <Link to={`/org/settings/${currentOrg}`}>
                       <Grid container spacing={3}>
                         <Grid item>
                           <SettingsOutlinedIcon className={classes.orgicon} />
@@ -140,7 +157,7 @@ const RightMenu = ({ mode, onClick }) => {
                         <Grid item>Manage All</Grid>
                       </Grid>
                     </Link>
-                  </Grid>
+                  </Grid>}
                   <Divider
                     style={{
                       marginTop: "4px",
@@ -273,16 +290,19 @@ const RightMenu = ({ mode, onClick }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Grid container direction="column" spacing={1}>
-                <Grid item>
-                  <Link to={`/organization`}>
-                    <Grid container spacing={3}>
-                      <Grid item>
-                        <SettingsOutlinedIcon className={classes.orgicon} />
+
+                {/* Issue490: We will be connecting organizations to their settings page here*/}
+                {isOrgPresent && <Grid item>
+                    <Link to={`/org/settings/${currentOrg}`}>
+                      <Grid container spacing={3}>
+                        <Grid item>
+                          <SettingsOutlinedIcon className={classes.orgicon} />
+                        </Grid>
+                        <Grid item>Manage All</Grid>
                       </Grid>
-                      <Grid item>Manage All</Grid>
-                    </Grid>
-                  </Link>
-                </Grid>
+                    </Link>
+                  </Grid>}
+               
                 <Divider
                   style={{
                     marginTop: "4px",
