@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
-import { Link } from "react-router-dom";
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: theme.spacing(8),
@@ -53,14 +53,14 @@ function NewCodelabz({setVisibleModal}) {
             alignContent="center"
             onClick={() => setVisibleModal(true)}
           >
-            <AddBoxRoundedIcon color="primary" fontSize="large"  />
+            <AddBoxRoundedIcon color="primary" fontSize="large" />
           </Grid>
           <Grid item container sm={9} direction="column">
             <Typography variant="h6" className={classes.title}>
               New Codelabz
             </Typography>
             <Typography variant="body2" className={classes.description}>
-             Share a tutorial 
+              Share a tutorial 
             </Typography>
           </Grid>
         </Grid>

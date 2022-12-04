@@ -152,8 +152,6 @@ function HomePage({ background = "white", textColor = "black" }) {
   const closeModal = () => {
     setVisibleModal((prev) => !prev);
   };
-
-  
   return (
     <Card
       className={classes.wrapper}
