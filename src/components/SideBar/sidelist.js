@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import {
   MenuItem,
   MenuList,
@@ -59,7 +59,9 @@ const SideList = ({
   children
 }) => {
   const classes = useStyles();
-
+  const location = useLocation();
+  
+  
   /**
    * * Cases for rendering the menu items
    * 
@@ -73,7 +75,9 @@ const SideList = ({
       <MenuList className={classes.menuList}>
         {menuItems.map(function (item, index) {
             return (
-              <div key="menu-items">
+              <div key="menu-items"
+               style={item.link == location.pathname ?{background:"lightgrey"}:{}}
+               >
                 {item.link &&
                     <MenuItem
                       key={item.link}
