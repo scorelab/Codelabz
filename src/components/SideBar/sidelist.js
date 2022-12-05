@@ -59,7 +59,7 @@ const SideList = ({
   children
 }) => {
   const classes = useStyles();
-  const lk = useLocation();
+  const location = useLocation();
   
   
   /**
@@ -76,7 +76,7 @@ const SideList = ({
         {menuItems.map(function (item, index) {
             return (
               <div key="menu-items"
-               style={item.link == lk.pathname ?{background:"lightgrey"}:{}}
+               style={item.link == location.pathname ?{background:"lightgrey"}:{}}
                >
                 {item.link &&
                     <MenuItem
