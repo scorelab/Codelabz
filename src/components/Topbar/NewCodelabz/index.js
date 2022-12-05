@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function NewCodelabz() {
+function NewCodelabz({setVisibleModal}) {
   const classes = useStyles();
 
   return (
@@ -51,6 +51,7 @@ function NewCodelabz() {
             className={classes.iconDiv}
             justifyContent="center"
             alignContent="center"
+            onClick={() => setVisibleModal(true)}
           >
             <AddBoxRoundedIcon color="primary" fontSize="large" />
           </Grid>
@@ -59,7 +60,7 @@ function NewCodelabz() {
               New Codelabz
             </Typography>
             <Typography variant="body2" className={classes.description}>
-              Share a tutorial
+              Share a tutorial 
             </Typography>
           </Grid>
         </Grid>

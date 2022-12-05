@@ -21,10 +21,12 @@ import CardWithPicture from "../Card/CardWithPicture";
 import CardWithoutPicture from "../Card/CardWithoutPicture";
 import Activity from "../Topbar/Activity";
 import useWindowSize from "../../helpers/customHooks/useWindowSize";
+import NewTutorial from "../Tutorials/NewTutorial";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
   const [value, setValue] = useState(2);
+  const [visibleModal, setVisibleModal] = useState(false);
   const [footerContent, setFooterContent] = useState([
     { name: "Help", link: "https://dev.codelabz.io/" },
     { name: "About", link: "https://dev.codelabz.io/" },
@@ -147,6 +149,9 @@ function HomePage({ background = "white", textColor = "black" }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const closeModal = () => {
+    setVisibleModal((prev) => !prev);
+  };
   return (
     <Card
       className={classes.wrapper}
@@ -184,7 +189,8 @@ function HomePage({ background = "white", textColor = "black" }) {
           data-testId="homepageMainBody"
           xs={10}
         >
-          <NewCodelabz />
+          <NewCodelabz setVisibleModal = {setVisibleModal} />
+          <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
           <Activity />
           {userList.persons.map(person => {
             return person.Heading == "CardWithoutPicture" ? (
