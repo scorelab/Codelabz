@@ -100,6 +100,13 @@ const Login = ({ loginButton = "blue", background = "white", loginText = "Welcom
     setPasswordValidateErrorMessage("");
   };
 
+  const handleMouseEnter = (e) =>{
+    e.target.style.color='royalblue'
+  }
+  const handleMouseLeave = (e)=>{
+    e.target.style.color='#03AAFA'
+  }
+
   return (
     <Card raised className={`${classes.card}   `} style={{ background: background }} data-testId="login">
       <CardContent>
@@ -197,7 +204,7 @@ const Login = ({ loginButton = "blue", background = "white", loginText = "Welcom
         <SmButtons />
         <Grid container justify="center" alignItems="center" className="mt-24">
           <Grid item={true} sm={12} className="center">
-            New to <span className="brand-font text-bold">CodeLabz</span>? <Link to={"/signup"}>Create an account</Link>
+            New to <span className="brand-font text-bold">CodeLabz</span>? <Link to={"/signup"}><span style={{color:'#03AAFA'}} onMouseEnter={(e)=>{handleMouseEnter(e)}} onMouseLeave={(e)=>{handleMouseLeave(e)}}>Create an account</span></Link>
           </Grid>
         </Grid>
       </CardContent>

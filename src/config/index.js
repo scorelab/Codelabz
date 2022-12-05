@@ -19,6 +19,19 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 };
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyB09lXQTe9movK_78lNcHs3SEhJosEZpGY",
+//   authDomain: "codelabz-e5297.firebaseapp.com",
+//   databaseURL: "https://codelabz-e5297-default-rtdb.firebaseio.com",
+//   projectId: "codelabz-e5297",
+//   storageBucket: "codelabz-e5297.appspot.com",
+//   messagingSenderId: "785437347180",
+//   appId: "1:785437347180:web:065b6cb2ec4ed8da3c7749",
+//   measurementId: "G-M9GGVPRR5R"
+// };
+
+
+
 //console.log("firebaseConfig", firebaseConfig);
 
 // Initialize firebase instance
