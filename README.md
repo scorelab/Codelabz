@@ -42,7 +42,7 @@ Run `npm install` in `CodeLabz` folder.
  cd CodeLabz/
  npm install
 ```
-> **NOTE**: If `npm install` is not executing successfully, then use node v14 and try again.
+> **NOTE**: If `npm install` is not executing successfully, then use node v14 and `npm install --legacy-peer-deps` and try again.
 
 First you need to create a `.env` file in `CodeLabz` folder following the template provided in the file `.env.sample`.<br/> <br/>
 
