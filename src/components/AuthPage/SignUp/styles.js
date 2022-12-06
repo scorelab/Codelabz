@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
       border: "none",
       boxShadow: "none",
     },
-  }
+  },
 }));
 
 export default useStyles;
