@@ -15,10 +15,9 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
     padding: "8px",
     alignItems: "center",
-    fontSize:'0.5vw'
   },
   card: {
-    margin: "0.25vw"
+    margin: "0.5rem"
   }
 }));
 
