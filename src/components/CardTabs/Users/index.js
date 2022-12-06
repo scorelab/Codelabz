@@ -2,9 +2,10 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AddUser from "../../../assets/images/add-user.svg";
+import CheckUser from "../../../assets/images/square-check-regular.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,16 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 }));
+
+const handleOnClick = (e)=>{
+  e.target.src=CheckUser;
+  let z = e.target.parentElement.classList;
+  for(let i= 0; i<z.length;i++){
+    if(z[i].includes("MuiBox-root-")){
+      e.target.parentElement.classList.remove(z[i])
+    }
+  }
+}
 
 const UserCard = (props) => {
   const classes = useStyles();
@@ -90,10 +101,13 @@ const UserCard = (props) => {
                   </Box>
                 </Box>
                 <Box
-                  onClick={() => user.onClick}
+                  onClick={(e)=>{handleOnClick(e);}}
                   data-testId={index == 0 ? "UserAdd" : ""}
+                  sx={{
+                    cursor:"pointer"
+                  }}
                 >
-                  <img src={AddUser} />
+                  <img src={AddUser}/>
                 </Box>
               </Box>
             );

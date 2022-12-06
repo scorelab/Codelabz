@@ -14,10 +14,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     flex: 1,
     padding: "8px",
-    alignItems: "center"
+    alignItems: "center",
+    fontSize:'0.5vw'
   },
   card: {
-    margin: "0.5rem"
+    margin: "0.25vw"
   }
 }));
 
