@@ -5,37 +5,47 @@ import Typography from "@material-ui/core/Typography";
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AddUser from "../../../assets/images/add-user.svg";
+import CheckUser from "../../../assets/images/square-check-regular.svg";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
     "& > *": {
-      margin: theme.spacing(0.5),
+      margin: theme.spacing(0.5)
     },
     flex: 1,
-    marginBottom: "2rem",
+    marginBottom: "2rem"
   },
   userImg: {
     width: "2rem",
     height: "2rem",
     borderRadius: "50%",
-    marginRight: "10px",
+    marginRight: "10px"
   },
 
   card: {
     display: "flex",
     minWidth: "100%",
-    width: "100%",
+    width: "100%"
   },
 
   cardContent: {
-    width: "100%",
-  },
+    width: "100%"
+  }
 }));
 
-const UserCard = (props) => {
+const UserCard = props => {
   const classes = useStyles();
+  const handleOnClick = e => {
+    e.target.src = CheckUser;
+    let z = e.target.parentElement.classList;
+    for (let i = 0; i < z.length; i++) {
+      if (z[i].includes("MuiBox-root-")) {
+        e.target.parentElement.classList.remove(z[i]);
+      }
+    }
+  };
 
   return (
     <div className={classes.root} data-testId="UsersCard">
@@ -57,7 +67,7 @@ const UserCard = (props) => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   key: "user" + { index },
-                  mb: 1.5,
+                  mb: 1.5
                 }}
                 gutterBottom
               >
@@ -66,7 +76,7 @@ const UserCard = (props) => {
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "center",
-                    cursor:"pointer",
+                    cursor: "pointer"
                   }}
                 >
                   <img
@@ -90,8 +100,13 @@ const UserCard = (props) => {
                   </Box>
                 </Box>
                 <Box
-                  onClick={() => user.onClick}
+                  onClick={e => {
+                    handleOnClick(e);
+                  }}
                   data-testId={index == 0 ? "UserAdd" : ""}
+                  sx={{
+                    cursor: "pointer"
+                  }}
                 >
                   <img src={AddUser} />
                 </Box>
