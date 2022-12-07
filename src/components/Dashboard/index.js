@@ -266,6 +266,13 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     });
   };
 
+  //If display Name is present then show that as value inside user name input
+  useEffect(()=>{
+    if(displayName){
+      setName(displayName)
+    }
+  }, [displayName])
+
   //OnChange
   const onChangeName = name => setName(name);
   const onChangeOrgName = orgName => setOrgName(orgName);
@@ -333,7 +340,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     error={nameValidateError}
                     label="User Name"
                     variant="outlined"
-                    placeholder={displayName ? displayName : "User Name"}
+                    placeholder={displayName || "User Name"}
                     value={name}
                     onChange={event => onChangeName(event.target.value)}
                     helperText={
