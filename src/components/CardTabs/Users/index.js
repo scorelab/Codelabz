@@ -1,11 +1,9 @@
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import AddUser from "../../../assets/images/add-user.svg";
-import CheckUser from "../../../assets/images/square-check-regular.svg";
+import UserElement from "./UserElement";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,16 +35,6 @@ const useStyles = makeStyles(theme => ({
 
 const UserCard = props => {
   const classes = useStyles();
-  const handleOnClick = e => {
-    e.target.src = CheckUser;
-    let z = e.target.parentElement.classList;
-    for (let i = 0; i < z.length; i++) {
-      if (z[i].includes("MuiBox-root-")) {
-        e.target.parentElement.classList.remove(z[i]);
-      }
-    }
-  };
-
   return (
     <div className={classes.root} data-testId="UsersCard">
       <Card sx={{ minWidth: 275 }} className={(classes.card, classes.root)}>
@@ -61,56 +49,7 @@ const UserCard = props => {
           </Typography>
           {props.users.map(function (user, index) {
             return (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  key: "user" + { index },
-                  mb: 1.5
-                }}
-                gutterBottom
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    cursor: "pointer"
-                  }}
-                >
-                  <img
-                    src={user.img[0]}
-                    className={classes.userImg}
-                    data-testId={index == 0 ? "UsersCardImg" : ""}
-                  />
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Box
-                      sx={{ fontWeight: 600, fontSize: "1rem" }}
-                      data-testId={index == 0 ? "UserName" : ""}
-                    >
-                      {user.name}
-                    </Box>
-                    <Box
-                      sx={{ fontWeight: 400, fontSize: "0.8rem" }}
-                      data-testId={index == 0 ? "UserDesg" : ""}
-                    >
-                      {user.desg}
-                    </Box>
-                  </Box>
-                </Box>
-                <Box
-                  onClick={e => {
-                    handleOnClick(e);
-                  }}
-                  data-testId={index == 0 ? "UserAdd" : ""}
-                  sx={{
-                    cursor: "pointer"
-                  }}
-                >
-                  <img src={AddUser} />
-                </Box>
-              </Box>
+              <UserElement user={user} index={index} useStyles={useStyles} />
             );
           })}
         </CardContent>
