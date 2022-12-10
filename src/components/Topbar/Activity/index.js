@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     flex: 1,
     padding: "8px",
-    alignItems: "center"
+    alignItems: "center",
   },
   card: {
     margin: "0.5rem"

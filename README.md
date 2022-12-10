@@ -42,8 +42,9 @@ Run `npm install` in `CodeLabz` folder.
  cd CodeLabz/
  npm install
 ```
+> **NOTE**: If `npm install` is not executing successfully, then use node v14 and `npm install --legacy-peer-deps` and try again.
 
-First you need to create a `.env` file in `CodeLabz` folder following the template provided in the file `env.example`<br/> <br/>
+First you need to create a `.env` file in `CodeLabz` folder following the template provided in the file `.env.sample`.<br/> <br/>
 
 ## Set-up-Firebase
 1. Sign in to https://console.firebase.google.com/.
@@ -80,7 +81,7 @@ If you failed to run the project do the following steps :
 - re run `npm install `
   If error still exists add `SKIP_PREFLIGHT_CHECK=true` in your .env file
 
-> **NOTE**: Before starting the server create a file named `.env` same as `.env.example` and add your **Firebase Configurations** in the file.
+> **NOTE**: Before starting the server create a file named `.env` same as `.env.sample` and add your **Firebase Configurations** in the file.
 
 Visit [localhost:3000](http://localhost:3000) to browse.
 

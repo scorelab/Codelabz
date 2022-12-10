@@ -91,6 +91,15 @@ const SignupForm = () => {
       setPasswordValidateErrorMessage("Please enter your password!");
       return false;
     }
+    if (!validator.isStrongPassword(password, {
+      minLength: 8, minLowercase: 1,
+      minUppercase: 1, minNumbers: 1, minSymbols: 1
+    })) {
+      setPasswordValidateError(true);
+      setPasswordValidateErrorMessage("Your password must be at least 8 characters including a lowercase letter, an uppercase letter, a number & a symbol.");
+      return false;
+    }
+
     return true;
   };
 
