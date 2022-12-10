@@ -266,6 +266,13 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     });
   };
 
+  //If display Name is present then show that as value inside user name input
+  useEffect(()=>{
+    if(displayName){
+      setName(displayName)
+    }
+  }, [displayName])
+
   //OnChange
   const onChangeName = name => setName(name);
   const onChangeOrgName = orgName => setOrgName(orgName);
@@ -284,6 +291,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   return (
     <div className="home-row" style={{ background: background }}>
       <Grid container alignItems="center" justify="space-between">
+
         <Grid xs={12} className="col-pad-24 pt-32" item={true}>
           <h2 className="mb-0 center" style={{ color: textColor }}>
             Welcome to CodeLabz!
@@ -292,6 +300,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
             Let's complete your profile before we dive in.
           </h3>
         </Grid>
+        
         <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6} item={true}>
           {error && (
             <Grid container>
@@ -331,7 +340,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     error={nameValidateError}
                     label="User Name"
                     variant="outlined"
-                    placeholder={displayName ? displayName : ""}
+                    placeholder={displayName || "User Name"}
                     value={name}
                     onChange={event => onChangeName(event.target.value)}
                     helperText={
@@ -443,15 +452,17 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                 </Box>
               </Card>
             </Grid>
+            {/* col-pad-24 pr-12 pt-8 pb-24 div-transition */}
             <Grid
               xs={showOrgForm ? 12 : null}
               md={showOrgForm ? 6 : null}
-              className="col-pad-24 pl-12 pr-12 pt-8"
+              style={{paddingLeft:'24px'}}
+              className="col-pad-24 pr-12 pr-12 pt-8 div-transition"
               onFocus={() => setFocusLeft(false)}
               item={true}
             >
               {showOrgForm && (
-                <Card>
+                <Card className="auth-form-col" style={{ margin: "0 auto" }}>
                   <Box mt={2} mb={2} m={3}>
                     <Typography>
                       <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
@@ -535,7 +546,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                         fullWidth
                         autoComplete="orgCountry"
                         required
-                        style={{ marginBottom: "15px" }}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">

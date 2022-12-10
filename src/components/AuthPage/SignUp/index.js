@@ -12,9 +12,19 @@ import PropTypes from "prop-types";
 
 const SignUp = ({ background = "white" }) => {
   const classes = useStyles();
+  const handleMouseEnter = e => {
+    e.target.style.color = "royalblue";
+  };
+  const handleMouseLeave = e => {
+    e.target.style.color = "#03AAFA";
+  };
   return (
-    <Card raised className={`${classes.card}   `} data-testId="signUp" style={{ background: background }}>
-    
+    <Card
+      raised
+      className={`${classes.card}   `}
+      data-testId="signUp"
+      style={{ background: background }}
+    >
       <CardContent>
         <Typography
           variant="h4"
@@ -35,7 +45,19 @@ const SignUp = ({ background = "white" }) => {
           <Grid item={true} sm={12} className="center">
             Already have a{" "}
             <span className="brand-font text-bold">CodeLabz</span> account?{" "}
-            <Link to="/login">Log In</Link>
+            <Link to="/login">
+              <span
+                style={{ color: "#03AAFA" }}
+                onMouseEnter={e => {
+                  handleMouseEnter(e);
+                }}
+                onMouseLeave={e => {
+                  handleMouseLeave(e);
+                }}
+              >
+                Log In
+              </span>
+            </Link>
           </Grid>
         </Grid>
       </CardContent>
@@ -43,7 +65,7 @@ const SignUp = ({ background = "white" }) => {
   );
 };
 SignUp.prototype = {
-  background: PropTypes.string,
+  background: PropTypes.string
 };
 
 export default SignUp;
