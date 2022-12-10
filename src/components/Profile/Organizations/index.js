@@ -48,9 +48,9 @@ const Organizations = () => {
               <Button className={classes.button}>Settings</Button>
             </Box>
             <Box className={classes.column} data-testId="leave">
-              <Button className={classes.button}>Leave</Button>
-              <Button className={classes.button}>Leave</Button>
-              <Button className={classes.button}>Leave</Button>
+              <Button className={classes.button} style={{"background":"red","color":"white"}} >Leave</Button>
+              <Button className={classes.button} style={{"background":"red","color":"white"}}>Leave</Button>
+              <Button className={classes.button} style={{"background":"red","color":"white"}}>Leave</Button>
             </Box>
           </Box>
         </Box>
