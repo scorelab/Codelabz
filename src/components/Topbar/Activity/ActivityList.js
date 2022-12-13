@@ -34,7 +34,7 @@ function ActivityList({ value, toggle, acitvitylist, classname }) {
       <Grid container spacing={1} className={classname}>
         {acitvitylist.map((item, index) => (
           <Button
-            // variant="outlined"
+            variant="outlined"
             color="primary"
             className={`
                     ${classes.defaultButton}
