@@ -14,6 +14,7 @@ import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
 import { useAllowDashboard } from "../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   icons: {
@@ -42,7 +43,13 @@ const useStyles = makeStyles(theme => ({
   menuList: {
     border: "none",
     boxShadow: "none"
-  }
+  },
+
+  menuItem: {
+    width: "100%",
+    height: "100%",
+
+  },
 }));
 
 
@@ -79,14 +86,15 @@ const SideList = ({
                style={item.link == location.pathname ?{background:"lightgrey"}:{}}
                >
                 {item.link &&
+                    <NavLink to={item.link} className={classes.navLink}>
                     <MenuItem
                       key={item.link}
                       onClick={() => {
                         toggleSlider();
                         onStateChange(index);
                       }}
+                      className={classes.menuItem}
                     >
-                      <NavLink to={item.link} className={classes.navLink}>
                         {item.img && (
                           <ListItemIcon className={classes.listIcon}>
                             <img
@@ -106,8 +114,8 @@ const SideList = ({
                         >
                           {item.name}
                         </ListItemText>
-                      </NavLink>
                     </MenuItem>
+                      </NavLink>
                 }
                 {!item.link && !item.onClick && (
                   <MenuItem
