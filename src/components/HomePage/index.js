@@ -40,7 +40,7 @@ function HomePage({ background = "white", textColor = "black" }) {
   ]);
 
   const windowSize = useWindowSize();
-  const [openMenu, setOpen] = useState(true);
+  const [openMenu, setOpen] = useState(false);
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
