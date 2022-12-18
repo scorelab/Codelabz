@@ -95,10 +95,10 @@ function MiniNavbar() {
             </Grid>
             <Grid item className={classes.hamburger}>
               <IconButton>
-                {window.innerWidth > 750 && (
+                {window.innerWidth > 960 && (
                   <MenuIcon onClick={() => toggleDrawer(true)} />
                 )}
-                {window.innerWidth <= 750 && (
+                {window.innerWidth <= 960 && (
                   <MenuIcon onClick={() => toggleSlider()} />
                 )}
               </IconButton>
@@ -145,7 +145,7 @@ function MiniNavbar() {
           </Grid>
         </Grid>
       </nav>
-      {windowSize.width > 750 && (
+      {windowSize.width > 960 && (
         <Drawer anchor="right" open={openDrawer} onClose={() => toggleDrawer()}>
           <Grid
             container
@@ -206,13 +206,13 @@ function MiniNavbar() {
           </Grid>
         </Drawer>
       )}
-      {windowSize.width <= 750 && (
+      {windowSize.width <= 960 && (
         <SideBar
           open={openMenu}
           toggleSlider={toggleSlider}
           notification={notification}
         >
-          {window.innerWidth <= 750 && (
+          {window.innerWidth <= 960 && (
             <>
               <Grid
                 item
