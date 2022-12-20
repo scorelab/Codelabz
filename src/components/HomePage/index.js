@@ -162,7 +162,9 @@ function HomePage({ background = "white", textColor = "black" }) {
       }}
     >
       <Grid className={classes.contentPart}>
-        <div className={classes.sideBody}>
+        <div 
+          className={`${(windowSize.width > 960 && windowSize.width < 1280) && classes.leftSideBody} + ${classes.sideBody}`}
+        >
           {windowSize.width > 750 && (
             <Grid
               item
@@ -201,7 +203,10 @@ function HomePage({ background = "white", textColor = "black" }) {
           })}
         </Grid>
 
-        <Grid item className={classes.sideBody}>
+        <Grid 
+          item 
+          className={`${(windowSize.width > 960 && windowSize.width < 1280) && classes.rightSideBody} + ${classes.sideBody}`}
+        >
           <Grid
             item
             container
