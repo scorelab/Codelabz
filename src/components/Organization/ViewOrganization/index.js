@@ -215,6 +215,8 @@ const ViewOrganization = () => {
                   CurrentOrg.org_image ? CurrentOrg.org_image : NoImage
                 }
                 story="Think Different"
+                handle={handle}
+                isOrgBelongsToUser = {organizations.includes(handle)}
               />
               <Container
                 maxWidth="xl"
