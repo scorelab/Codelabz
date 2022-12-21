@@ -61,6 +61,7 @@ const SideList = ({
   menuItems = [],
   value,
   onStateChange = () => {},
+  isRenderTitle,
   toggleSlider = () => {},
   style,
   children
@@ -104,6 +105,7 @@ const SideList = ({
                             />
                           </ListItemIcon>
                         )}
+                        {isRenderTitle && (
                         <ListItemText
                           data-testId={item.name}
                           style={{
@@ -113,7 +115,7 @@ const SideList = ({
                           disableTypography
                         >
                           {item.name}
-                        </ListItemText>
+                        </ListItemText>)}
                     </MenuItem>
                       </NavLink>
                 }
@@ -136,6 +138,7 @@ const SideList = ({
                         />
                       </ListItemIcon>
                     )}
+                    {isRenderTitle && (
                     <ListItemText
                       data-testId={item.name}
                       style={{
@@ -145,7 +148,7 @@ const SideList = ({
                       disableTypography
                     >
                       {item.name}
-                    </ListItemText>
+                    </ListItemText>)}
                   </MenuItem>
                 )}
                 {!item.link && item.onClick && (
@@ -165,7 +168,7 @@ const SideList = ({
                         />
                       </ListItemIcon>
                     )}
-                    <ListItemText
+                    {isRenderTitle && (<ListItemText
                       data-testId={item.name}
                       style={{
                         fontWeight:
@@ -174,7 +177,7 @@ const SideList = ({
                       disableTypography
                     >
                       {item.name}
-                    </ListItemText>
+                    </ListItemText>)}
                   </MenuItem>
                 )}
               </div>

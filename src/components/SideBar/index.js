@@ -45,7 +45,8 @@ const SideBar = ({
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
-
+  const isRenderTitle = windowSize.width >= 1280 || windowSize.width <= 960;
+  
     //Taking out the current organization handle of the user
     const currentOrg = useSelector(
       ({
@@ -131,6 +132,7 @@ const SideBar = ({
             menuItems={menuItems || defaultMenu}
             value={value}
             onStateChange={onStateChange}
+            isRenderTitle={isRenderTitle}
             toggleSlider={toggleSlider}
             style={{
               position: "absolute"
@@ -145,6 +147,7 @@ const SideBar = ({
             menuItems={menuItems || defaultMenu}
             value={value}
             onStateChange={onStateChange}
+            isRenderTitle={isRenderTitle}
             >
               {children}
             </SideList>
