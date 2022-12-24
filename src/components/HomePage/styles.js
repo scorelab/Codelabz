@@ -31,14 +31,6 @@ const useStyles = makeStyles(theme => ({
     },
     maxWidth: "300px"
   },
-  // For making left sidebar small for screen width range (960, 1280) 
-  leftSideBody: {
-    maxWidth: "80px"
-  },
-  // For making right sidebar small for screen width range (960, 1280) 
-  rightSideBody: {
-    maxWidth: "250px"
-  },
   cardBody: {
     display: "flex",
     justifyContent: "space-between",
