@@ -10,6 +10,14 @@ import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Modal from "@material-ui/core/Modal";
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import {deepPurple } from '@mui/material/colors';
+import ImageIcon from '@mui/icons-material/Image';
+import DescriptionIcon from '@mui/icons-material/Description';
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
+import Divider from '@mui/material/Divider';
+import { IconButton } from '@mui/material';
 
 const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const firebase = useFirebase();
@@ -71,7 +79,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       },
     }) => displayName
   );
-
+  //This name should be replaced by displayName when implementing backend
+  const sampleName = "User Name Here"; 
   const allowOrgs = organizations && organizations.length > 0;
 
   const orgList =
@@ -138,6 +147,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
           width: "auto",
           background: "white",
           padding: "2rem",
+          paddingTop: "1rem",
           maxWidth: "80%",
         }}
       >
@@ -146,73 +156,87 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             description={"Tutorial Creation Failed"}/
           </Alert>
         )}
-        <form id="tutorialNewForm">
-          <TextField
-            prefix={
-              <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-            }
-            placeholder="Title of the Tutorial"
-            autoComplete="title"
-            name="title"
-            variant="outlined"
-            fullWidth
-            id="newTutorialTitle"
-            style={{ marginBottom: "2rem" }}
-            onChange={(e) => handleChange(e)}
-          />
+        <h2>Create a Tutorial</h2>
+        <Divider/>
+        <br/>
+        <Stack direction="column" spacing={2}>
+          <Stack direction="row" spacing={2}>
+            <Avatar sx={{ bgcolor: deepPurple[500] }}>{sampleName[0]}</Avatar>
+            <p>{sampleName}</p>
+          </Stack>
+          <form id="tutorialNewForm">
+            <TextField
+              prefix={
+                <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+              }
+              placeholder="Title of the Tutorial"
+              autoComplete="title"
+              name="title"
+              variant="outlined"
+              fullWidth
+              id="newTutorialTitle"
+              style={{ marginBottom: "2rem" }}
+              onChange={(e) => handleChange(e)}
+            />
 
-          <TextField
-            prefix={
-              <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
-            }
-            fullWidth
-            variant="outlined"
-            name="summary"
-            placeholder="Summary of the Tutorial"
-            autoComplete="summary"
-            id="newTutorialSummary"
-            onChange={(e) => handleChange(e)}
-            style={{ marginBottom: "2rem" }}
-          />
-          <Select
-            onChange={onOwnerChange}
-            fullWidth
-            style={{ marginBottom: "2rem" }}
-            value={formValue.owner}
-            id="newTutorialSelect"
-          >
-            <MenuItem value={userHandle}>{displayName}</MenuItem>
-            {orgList?.map((item) => {
-              return (
-                <MenuItem value={item.org_handle}>{item.org_name}</MenuItem>
-              );
-            })}
-          </Select>
-
-          <div className="mb-0">
-            <div style={{ float: "right", marginTop: "-1rem" }}>
-              <Button
-                key="back"
-                onClick={onSidebarClick}
-                id="cancelAddTutorial"
-              >
-                Cancel
-              </Button>
-              <Button
-                key="submit"
-                type="primary"
-                variant="contained"
-                color="primary"
-                htmlType="submit"
-                loading={loading}
-                onClick={(e) => onSubmit(e)}
-                style={{ backgroundColor: "royalblue" }}
-              >
-                {loading ? "Creating..." : "Create"}
-              </Button>
+            <TextField
+              prefix={
+                <AppstoreAddOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+              }
+              fullWidth
+              variant="outlined"
+              name="summary"
+              placeholder="Summary of the Tutorial"
+              autoComplete="summary"
+              id="newTutorialSummary"
+              onChange={(e) => handleChange(e)}
+              style={{ marginBottom: "2rem" }}
+            />
+            {/* <Select
+              onChange={onOwnerChange}
+              fullWidth
+              style={{ marginBottom: "2rem" }}
+              value={formValue.owner}
+              id="newTutorialSelect"
+            >
+              <MenuItem value={userHandle}>{displayName}</MenuItem>
+              {orgList?.map((item) => {
+                return (
+                  <MenuItem value={item.org_handle}>{item.org_name}</MenuItem>
+                );
+              })}
+            </Select> */}
+            <Stack direction="row" >
+              <IconButton><ImageIcon/></IconButton>
+              <IconButton><SmartDisplayIcon/></IconButton>
+              <IconButton><DescriptionIcon/></IconButton>
+            </Stack>
+            
+            <div className="mb-0">
+              <div style={{ float: "right" }}>
+                <Button
+                  key="back"
+                  onClick={onSidebarClick}
+                  id="cancelAddTutorial"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  key="submit"
+                  type="primary"
+                  variant="contained"
+                  color="secondary"
+                  htmlType="submit"
+                  loading={loading}
+                  onClick={(e) => onSubmit(e)}
+                  style={{ backgroundColor: "#03AAFA", borderRadius: "30px" }}
+                >
+                  {loading ? "Creating..." : "Create"}
+                </Button>
+              </div>
             </div>
-          </div>
         </form>
+        </Stack>
       </div>
     </Modal>
   );
