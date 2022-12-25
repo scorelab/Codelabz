@@ -7,17 +7,16 @@ import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
 import TextField from "@material-ui/core/TextField";
-import Select from "@material-ui/core/Select/Select";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import Divider from '@material-ui/core/Divider';
+import { IconButton } from '@material-ui/core';
 import Modal from "@material-ui/core/Modal";
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import {deepPurple } from '@mui/material/colors';
-import ImageIcon from '@mui/icons-material/Image';
-import DescriptionIcon from '@mui/icons-material/Description';
-import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
-import Divider from '@mui/material/Divider';
-import { IconButton } from '@mui/material';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+import {deepPurple} from '@material-ui/core/colors';
+import {Typography } from "@material-ui/core";
+import ImageIcon from '@material-ui/icons/Image';
+import DescriptionIcon from '@material-ui/icons/Description';
+import MovieIcon from '@material-ui/icons/Movie';;
 
 const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const firebase = useFirebase();
@@ -128,6 +127,21 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }));
   };
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+      paddingTop: "8px",
+      paddingBottom: "10px",
+    },
+    item:{
+      margin: "10px"
+    },
+    purple: {
+      color: theme.palette.getContrastText(deepPurple[500]),
+      backgroundColor: deepPurple[500],
+    },
+  }));
+  const classes = useStyles();
   return (
     <Modal
       open={visible}
@@ -159,11 +173,12 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
         <h2>Create a Tutorial</h2>
         <Divider/>
         <br/>
-        <Stack direction="column" spacing={2}>
-          <Stack direction="row" spacing={2}>
-            <Avatar sx={{ bgcolor: deepPurple[500] }}>{sampleName[0]}</Avatar>
-            <p>{sampleName}</p>
-          </Stack>
+        
+          <div className={classes.root}>
+            <Avatar className={classes.purple}>{sampleName[0]}</Avatar>
+            <Typography className={classes.item}>{sampleName}</Typography>
+          </div>
+            
           <form id="tutorialNewForm">
             <TextField
               prefix={
@@ -206,11 +221,9 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 );
               })}
             </Select> */}
-            <Stack direction="row" >
               <IconButton><ImageIcon/></IconButton>
-              <IconButton><SmartDisplayIcon/></IconButton>
+              <IconButton><MovieIcon/></IconButton>
               <IconButton><DescriptionIcon/></IconButton>
-            </Stack>
             
             <div className="mb-0">
               <div style={{ float: "right" }}>
@@ -236,7 +249,6 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
               </div>
             </div>
         </form>
-        </Stack>
       </div>
     </Modal>
   );
