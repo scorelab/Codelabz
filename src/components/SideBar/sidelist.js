@@ -14,15 +14,18 @@ import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
 import { useAllowDashboard } from "../../helpers/customHooks";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   icons: {
     width: "20px",
-    height: "20px"
+    height: "20px",
+    borderRadius: "50%",
   },
 
   listIcon: {
-    minWidth: "30px"
+    minWidth: "20px",
+    marginRight:"10px"
   },
 
   paper: {
@@ -42,6 +45,15 @@ const useStyles = makeStyles(theme => ({
   menuList: {
     border: "none",
     boxShadow: "none"
+  },
+
+  menuItem: {
+    width: "100%",
+    height: "100%",
+    borderRadius:"100px",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+    margin: "3px 0 3px 0"
   }
 }));
 
@@ -76,17 +88,18 @@ const SideList = ({
         {menuItems.map(function (item, index) {
             return (
               <div key="menu-items"
-               style={item.link == location.pathname ?{background:"lightgrey"}:{}}
+               style={item.link == location.pathname ?{background:"#d9f1fc",borderRadius:"100px"} :{}}
                >
                 {item.link &&
+                    <NavLink to={item.link} className={classes.navLink}>
                     <MenuItem
                       key={item.link}
                       onClick={() => {
                         toggleSlider();
                         onStateChange(index);
                       }}
+                      className={classes.menuItem}
                     >
-                      <NavLink to={item.link} className={classes.navLink}>
                         {item.img && (
                           <ListItemIcon className={classes.listIcon}>
                             <img
@@ -100,14 +113,16 @@ const SideList = ({
                           data-testId={item.name}
                           style={{
                             fontWeight:
-                              item?.id && value === item?.id ? "bold" : "normal"
+                              item?.id && value === item?.id ? "bold" : "normal",
+                            color:
+                              item?.link== location.pathname? "#0293d9" : "black"
                           }}
                           disableTypography
                         >
                           {item.name}
                         </ListItemText>
-                      </NavLink>
                     </MenuItem>
+                      </NavLink>
                 }
                 {!item.link && !item.onClick && (
                   <MenuItem
@@ -118,6 +133,8 @@ const SideList = ({
 
                       toggleSlider();
                     }}
+                   className={classes.menuItem}
+
                   >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
@@ -132,7 +149,9 @@ const SideList = ({
                       data-testId={item.name}
                       style={{
                         fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal"
+                          item?.id && value === item?.id ? "bold" : "normal",
+                          color: 
+                            item?.link== location.pathname? "#0293d9" : "black"
                       }}
                       disableTypography
                     >
@@ -147,6 +166,7 @@ const SideList = ({
                       if (item.onClick) item.onClick(item);
                       onStateChange(item);
                     }}
+                    className={classes.menuItem}
                   >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
@@ -161,7 +181,9 @@ const SideList = ({
                       data-testId={item.name}
                       style={{
                         fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal"
+                          item?.id && value === item?.id ? "bold" : "normal",
+                          color:
+                          item?.link== location.pathname? "#0293d9" : "black"
                       }}
                       disableTypography
                     >

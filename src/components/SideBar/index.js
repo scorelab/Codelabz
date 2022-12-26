@@ -112,7 +112,7 @@ const SideBar = ({
   const classes = useStyles();
   return (
     <>
-      {windowSize.width <= (drawWidth || 750) ? (
+      {windowSize.width <= (drawWidth || 960) ? (
         <Drawer
           closable="true"
           open={open}

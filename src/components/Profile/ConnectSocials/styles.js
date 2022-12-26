@@ -62,6 +62,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: 31,
     color: "#1877F2",
     marginRight: 19,
+    "&:hover": {
+      transform: "scale(1.2)"
+    },
     "@media (max-width: 500px)": {
       marginRight: 7,
       fontSize: 24
@@ -72,6 +75,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: 30,
     marginLeft: -3,
     marginRight: 18,
+    "&:hover": {
+      transform: "scale(1.2)"
+    },
     "@media (max-width: 500px)": {
       marginRight: 6,
       fontSize: 23
@@ -80,6 +86,9 @@ const useStyles = makeStyles(theme => ({
   git: {
     fontSize: 26,
     marginRight: 19,
+    "&:hover": {
+      transform: "scale(1.2)"
+    },
     "@media (max-width: 500px)": {
       marginRight: 7,
       fontSize: 19

@@ -25,7 +25,11 @@ import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
-    flex: 1
+    flex: 1,
+    width:"92%",
+    [theme.breakpoints.down("md")]:{
+      width:"80%"
+    }
   },
   root: {
     backgroundColor: theme.palette.grey[100],
