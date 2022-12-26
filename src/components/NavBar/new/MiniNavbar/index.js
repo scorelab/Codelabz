@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     "& > *": {
       margin: theme.spacing(1)
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "none"
     }
   },
@@ -104,8 +104,8 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper component={"form"} className={classes.root} elevation={0}>
+          {/* <Grid item xs={12} md={4}> */}
+            {/* <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
                 aria-label="search"
@@ -116,8 +116,8 @@ function MiniNavbar() {
                 <SearchIcon />
               </IconButton>
               <InputBase className={classes.input} placeholder="Search" />
-            </Paper>
-          </Grid>
+            </Paper> */}
+          {/* </Grid> */}
           <Grid item className={classes.grid}>
             <Button
               variant="contained"
