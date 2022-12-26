@@ -4,68 +4,69 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
+const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    height: "65vh",
+    display: "flex",
+    alignItems: "center",
+    flexFlow: "column",
+    justifyContent: "center",
+  },
+  image: {
+    height: "10rem",
+    width: "20rem",
+
+    alignItems: "center",
+    [theme.breakpoints.down(750)]: {
+      height: "10rem",
+      width: "15rem",
+    },
+  },
+  oops: {
+    listStyle: "none",
+    flexFlow: "row",
+    display: "flex",
+    marginLeft: "-3rem",
+    fontSize: "1.5rem",
+    color: "#465E66",
+    "& li:nth-child(1)": {
+      transform: "rotate(-190deg) translateY(-20px)",
+    },
+    "& li:nth-child(2)": {
+      transform: "rotate(-10deg)",
+    },
+    "& li:nth-child(3)": {
+      transform: "rotate(0deg)",
+    },
+    "& li:nth-child(4)": {
+      transform: "rotate(10deg)",
+    },
+    "& li:nth-child(5)": {
+      transform: "rotate(10deg)",
+    },
+    "& li:nth-child(6)": {
+      transform: "rotate(-10deg)",
+    },
+    "& li:nth-child(7)": {
+      transform: "rotate(10deg)",
+    },
+    "& li:nth-child(8)": {
+      transform: "rotate(10deg)",
+    },
+    "& li:nth-child(9)": {
+      transform: "rotate(20deg)",
+    },
+    "& li:nth-child(10)": {
+      transform: "rotate(20deg)",
+    },
+    "& li:nth-child(11)": {
+      transform: "rotate(1deg)",
+    },
+  },
+}));
+
 
 const NotFound = ({ background = "white", textColor = "black" }) => {
-  const useStyles = makeStyles((theme) => ({
-    wrapper: {
-      height: "65vh",
-      display: "flex",
-      alignItems: "center",
-      flexFlow: "column",
-      justifyContent: "center",
-    },
-    image: {
-      height: "10rem",
-      width: "20rem",
-
-      alignItems: "center",
-      [theme.breakpoints.down(750)]: {
-        height: "10rem",
-        width: "15rem",
-      },
-    },
-    oops: {
-      listStyle: "none",
-      flexFlow: "row",
-      display: "flex",
-      marginLeft: "-3rem",
-      fontSize: "1.5rem",
-      color: "#465E66",
-      "& li:nth-child(1)": {
-        transform: "rotate(-190deg) translateY(-20px)",
-      },
-      "& li:nth-child(2)": {
-        transform: "rotate(-10deg)",
-      },
-      "& li:nth-child(3)": {
-        transform: "rotate(0deg)",
-      },
-      "& li:nth-child(4)": {
-        transform: "rotate(10deg)",
-      },
-      "& li:nth-child(5)": {
-        transform: "rotate(10deg)",
-      },
-      "& li:nth-child(6)": {
-        transform: "rotate(-10deg)",
-      },
-      "& li:nth-child(7)": {
-        transform: "rotate(10deg)",
-      },
-      "& li:nth-child(8)": {
-        transform: "rotate(10deg)",
-      },
-      "& li:nth-child(9)": {
-        transform: "rotate(20deg)",
-      },
-      "& li:nth-child(10)": {
-        transform: "rotate(20deg)",
-      },
-      "& li:nth-child(11)": {
-        transform: "rotate(1deg)",
-      },
-    },
-  }));
   const classes = useStyles();
 
   return (

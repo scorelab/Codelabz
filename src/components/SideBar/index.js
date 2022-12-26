@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Grid, IconButton, Close, useTheme } from "@material-ui/core";
+import { Drawer } from "@material-ui/core";
 import SideList from "../SideBar/sidelist";
 import Home from "./../../assets/images/home.svg";
 import Notification from "./../../assets/images/notification.svg";

@@ -1,4 +1,4 @@
-module.exports = [
+const countryList = [
   { name: "Afghanistan", code: "AF" },
   { name: "Åland Islands", code: "AX" },
   { name: "Albania", code: "AL" },
@@ -241,3 +241,5 @@ module.exports = [
   { name: "Zambia", code: "ZM" },
   { name: "Zimbabwe", code: "ZW" },
 ];
+
+export default countryList;

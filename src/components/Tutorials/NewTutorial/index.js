@@ -18,6 +18,21 @@ import ImageIcon from '@material-ui/icons/Image';
 import DescriptionIcon from '@material-ui/icons/Description';
 import MovieIcon from '@material-ui/icons/Movie';;
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    paddingTop: "8px",
+    paddingBottom: "10px",
+  },
+  item: {
+    margin: "10px"
+  },
+  purple: {
+    color: deepPurple[700],
+    backgroundColor: deepPurple[500],
+  },
+}));
+
 const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -127,20 +142,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }));
   };
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-      paddingTop: "8px",
-      paddingBottom: "10px",
-    },
-    item:{
-      margin: "10px"
-    },
-    purple: {
-      color: theme.palette.getContrastText(deepPurple[500]),
-      backgroundColor: deepPurple[500],
-    },
-  }));
+
   const classes = useStyles();
   return (
     <Modal
@@ -173,12 +175,12 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
         <h2>Create a Tutorial</h2>
         <Divider/>
         <br/>
-        
+
           <div className={classes.root}>
             <Avatar className={classes.purple}>{sampleName[0]}</Avatar>
             <Typography className={classes.item}>{sampleName}</Typography>
           </div>
-            
+
           <form id="tutorialNewForm">
             <TextField
               prefix={
@@ -207,24 +209,17 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
               onChange={(e) => handleChange(e)}
               style={{ marginBottom: "2rem" }}
             />
-            {/* <Select
-              onChange={onOwnerChange}
-              fullWidth
-              style={{ marginBottom: "2rem" }}
-              value={formValue.owner}
-              id="newTutorialSelect"
-            >
-              <MenuItem value={userHandle}>{displayName}</MenuItem>
-              {orgList?.map((item) => {
-                return (
-                  <MenuItem value={item.org_handle}>{item.org_name}</MenuItem>
-                );
-              })}
-            </Select> */}
-              <IconButton><ImageIcon/></IconButton>
-              <IconButton><MovieIcon/></IconButton>
-              <IconButton><DescriptionIcon/></IconButton>
-            
+
+          <IconButton>
+            <ImageIcon />
+          </IconButton>
+          <IconButton>
+            <MovieIcon />
+          </IconButton>
+          <IconButton>
+            <DescriptionIcon />
+          </IconButton>
+
             <div className="mb-0">
               <div style={{ float: "right" }}>
                 <Button

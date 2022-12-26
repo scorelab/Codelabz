@@ -1,5 +1,4 @@
 import elasticlunr from "elasticlunr";
-
 export default class Elasticlunr {
   constructor(key, ...fields) {
     this.elasticlunr = elasticlunr();
