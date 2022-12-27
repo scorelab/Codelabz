@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignContent: "center",
     justifyContent: "center",
-    width: "100%",
     marginTop: "1rem",
     margin: "0 1rem 2rem 1rem",
     height: "100%",
@@ -29,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down(960)]: {
       display: "none"
     },
-    maxWidth: "300px"
+    maxWidth: "270px"
   },
   cardBody: {
     display: "flex",
@@ -91,7 +90,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    maxWidth: "1400px"
+    maxWidth: "1400px",
   }
 }));
 

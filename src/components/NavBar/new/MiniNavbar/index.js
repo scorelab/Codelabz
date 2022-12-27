@@ -208,6 +208,7 @@ function MiniNavbar() {
       )}
       {windowSize.width <= 960 && (
         <SideBar
+          collapseText={false}
           open={openMenu}
           toggleSlider={toggleSlider}
           notification={notification}

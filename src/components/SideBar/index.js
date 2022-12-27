@@ -21,17 +21,18 @@ import { useAllowDashboard } from "../../helpers/customHooks";
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: 250,
+    width: 230,
     flexShrink: 0,
     display: theme.breakpoints.down("md") ? null : "none"
   },
   drawerPaper: {
-    width: 250
+    width: 230
   }
 }));
 
 
 const SideBar = ({
+  collapseText,
   open,
   toggleSlider,
   notification,
@@ -41,6 +42,7 @@ const SideBar = ({
   onStateChange,
   children
 }) => {
+
   const windowSize = useWindowSize();
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -128,6 +130,7 @@ const SideBar = ({
           md={3}
         >
           <SideList
+            renderTitle={true}
             menuItems={menuItems || defaultMenu}
             value={value}
             onStateChange={onStateChange}
@@ -141,13 +144,26 @@ const SideBar = ({
         </Drawer>
       ) : (
         <div data-testId="normalMenu">
+          {windowSize.width >= 960 && windowSize.width <= 1100 ?
           <SideList
-            menuItems={menuItems || defaultMenu}
-            value={value}
-            onStateChange={onStateChange}
-            >
-              {children}
-            </SideList>
+          renderTitle={!collapseText}
+          menuItems={menuItems || defaultMenu}
+          value={value}
+          onStateChange={onStateChange}
+          >
+            {children}
+          </SideList> :
+          
+          <SideList
+          renderTitle={true}
+          menuItems={menuItems || defaultMenu}
+          value={value}
+          onStateChange={onStateChange}
+          >
+            {children}
+          </SideList>
+          }
+          
         </div>
       )}
     </>

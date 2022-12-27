@@ -142,6 +142,7 @@ function UserDashboard() {
         {windowSize.width <= 960 && (
           <div data-testId="homepageSidebarSmall">
             <SideBar
+              collapseText={false}
               open={openMenu}
               menuItems = {navlinks}
               toggleSlider={toggleSlider}
@@ -150,22 +151,28 @@ function UserDashboard() {
             />
           </div>
         )}
-        <Grid item xs={6} md={3} className={classes.sidebar}>
+        
+        <Grid item xs={4} md={2.8} lg={3} className={classes.sidebar} style={{md:{marginRight: '15px'}}}>
           <SideBar
+            collapseText={false}
             open={openMenu}
             toggleSlider={toggleSlider}
             menuItems={navlinks}
           />
         </Grid>
+
+        {/* Grid containing the component by the side of sideBar */}
         <Grid
           item
           xs={12}
           md={9}
-          style={{ xs: { padding: 0 }, md: { padding: "0 20px" } }}
+          lg = {10}
+          className={classes.formWrapper}
         >
           <Typography className={classes.heading}>
             {params.page.charAt(0).toUpperCase() + params.page.substr(1)}
           </Typography>
+          
           <Switch>
             <Route exact path={"/user-dashboard/profile"} component={UserForm} />
             <Route

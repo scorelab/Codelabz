@@ -24,6 +24,7 @@ import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import NewTutorial from "../Tutorials/NewTutorial";
 
 function HomePage({ background = "white", textColor = "black" }) {
+ 
   const classes = useStyles();
   const [value, setValue] = useState(2);
   const [visibleModal, setVisibleModal] = useState(false);
@@ -162,8 +163,9 @@ function HomePage({ background = "white", textColor = "black" }) {
       }}
     >
       <Grid className={classes.contentPart}>
+        
+        {/* Left Side Bar  */}
         <div className={classes.sideBody}>
-          {windowSize.width > 750 && (
             <Grid
               item
               container
@@ -178,16 +180,18 @@ function HomePage({ background = "white", textColor = "black" }) {
               }}
             >
               <Grid item className={classes.outerSideBar}>
-                <SideBar open={openMenu} toggleSlider={toggleSlider} />
+                {/* Left Side bar will be displayed only till 959 */}
+                <SideBar collapseText={true} open={openMenu} toggleSlider={toggleSlider} drawWidth={959}/>
               </Grid>
-            </Grid>
-          )}
+            </Grid> 
         </div>
+
         <Grid
           item
           className={classes.mainBody}
           data-testId="homepageMainBody"
           xs={10}
+          lg={7}
         >
           <NewCodelabz setVisibleModal = {setVisibleModal} />
           <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
