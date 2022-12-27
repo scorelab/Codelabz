@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     letterSpacing:"0.5px"
   },
   root: {
-    backgroundColor: "#f3f6f9",
+    backgroundColor: theme.palette.grey[50],
     padding: "2px",
     border: "1px solid #ced4da",
     borderRadius: "0.8rem",
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     padding: "2px",
-    color: "#009de8"
+    color: theme.palette.primary.main
   },
   grid: {
     "& > *": {
