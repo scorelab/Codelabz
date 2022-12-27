@@ -48,12 +48,18 @@ const useStyles = makeStyles(theme => ({
   tw: {
     color: "#03A9F4",
     fontSize: 33,
+    "&:hover": {
+      transform: "scale(1.2)"
+    },
     "@media (max-width: 780px)": {
       fontSize: 30
     }
   },
   git: {
     fontSize: 30,
+    "&:hover": {
+      transform: "scale(1.2)"
+    },
     "@media (max-width: 780px)": {
       fontSize: 28
     }

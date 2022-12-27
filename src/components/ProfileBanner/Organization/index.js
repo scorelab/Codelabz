@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useStyles from "./styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import {Link} from "react-router-dom";
 
 import dp from "../../../assets/images/demoperson1.jpeg";
 import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
@@ -15,7 +16,9 @@ export default function Banner({
   story = "Think Different",
   followers = 402,
   contributors = 402,
-  feed = 40
+  feed = 40,
+  handle = "apple",
+  isOrgBelongsToUser = false,
 }) {
   const classes = useStyles();
   return (
@@ -105,10 +108,17 @@ export default function Banner({
               <Grid
                 item
                 xs={12}
-                md={3}
+                md={isOrgBelongsToUser ? 6 : 3}
                 container
                 className={classes.buttonContainer}
               >
+                {isOrgBelongsToUser && <Link
+                  className={classes.profileEditButton}
+                  data-testId="orgbannereditButton"
+                  to={"/org/settings/"+handle}
+                >
+                  Edit Org
+                </Link>}
                 <IconButton className={classes.moreDiv}>
                   <MoreHorizIcon className={classes.moreButton} />
                 </IconButton>
