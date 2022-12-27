@@ -34,14 +34,14 @@ const useStyles = makeStyles(theme => ({
     }
   },
   root: {
-    backgroundColor: "#f3f6f9",
+    backgroundColor: theme.palette.grey[50],
     padding: "2px",
     border: "1px solid #ced4da",
     borderRadius: "0.8rem"
   },
   icon: {
     padding: "2px",
-    color: "#009de8"
+    color: theme.palette.primary.main
   },
   grid: {
     width: "auto",
