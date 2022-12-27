@@ -25,6 +25,8 @@ import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
+    color: "#3e5060",
+    letterSpacing:"0.5px",
     flex: 1,
     width:"92%",
     [theme.breakpoints.down("md")]:{
@@ -32,12 +34,14 @@ const useStyles = makeStyles(theme => ({
     }
   },
   root: {
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: "#f3f6f9",
     padding: "2px",
-    border: "1px solid #ced4da"
+    border: "1px solid #ced4da",
+    borderRadius: "0.8rem"
   },
   icon: {
-    padding: "1px"
+    padding: "2px",
+    color: "#009de8"
   },
   grid: {
     width: "auto",
@@ -120,7 +124,7 @@ function MainNavbar() {
               >
                 <SearchIcon />
               </IconButton>
-              <InputBase className={classes.input} placeholder="Search" />
+              <InputBase className={classes.input} placeholder="Search..." />
             </Paper>
           </Grid>
           <Grid
