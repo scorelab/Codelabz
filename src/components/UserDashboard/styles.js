@@ -61,6 +61,38 @@ const useStyles = makeStyles(theme => ({
       display: "none"
     }
   },
+  formWrapper:{
+    marginLeft:'25px',
+    xs:{
+      padding: 0
+    },
+    md: { padding: "0 10px" },
+    "@media (min-width: 961px)": {
+      marginLeft:60,
+      marginRight:"-40px"
+    },
+    "@media (min-width: 1000px)": {
+      marginLeft: '10px',
+      marginRight: '-40px'
+    },
+    "@media (max-width: 987px)": {
+      marginLeft: '30px',
+      marginRight: '-40px'
+    },
+    "@media (max-width: 960px)": {
+      marginLeft:60,
+      marginRight:60
+    },
+    "@media (max-width: 690px)": {
+      marginLeft:40,
+      marginRight:40
+    },
+    "@media (max-width: 500px)": {
+      marginLeft:15,
+      marginRight:15
+    }, 
+  },
+
   heading: {
     fontSize: 24,
     paddingBottom: 15,
