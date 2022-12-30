@@ -60,8 +60,8 @@ const ConnectSocials = () => {
         <Box className={classes.row} sx={{ marginBottom: 15 }}>
           <SocialButton
             isLinked={isProviderLinked("facebook")}
-            onClick={() =>
-              linkWithProvider(new firebase.auth.FacebookAuthProvider())
+            onClick={() =>{
+              if(!isProviderLinked("facebook"))linkWithProvider(new firebase.auth.FacebookAuthProvider())}
             }
             Icon={<>
               <FacebookIcon className={classes.fb}></FacebookIcon>
@@ -73,8 +73,8 @@ const ConnectSocials = () => {
 
           <SocialButton
             isLinked={isProviderLinked("github")}
-            onClick={() =>
-              linkWithProvider(new firebase.auth.GithubAuthProvider())
+            onClick={() =>{
+              if(!isProviderLinked("github"))linkWithProvider(new firebase.auth.GithubAuthProvider())}
             }
             Icon={<>
               <GitHubIcon className={classes.git}>
@@ -88,8 +88,8 @@ const ConnectSocials = () => {
         <Box className={classes.row}>
           <SocialButton
             isLinked={isProviderLinked("google")}
-            onClick={() =>
-              linkWithProvider(new firebase.auth.GoogleAuthProvider())
+            onClick={() =>{
+              if(!isProviderLinked("google"))linkWithProvider(new firebase.auth.GoogleAuthProvider())}
             }
             Icon={<>
               <img src={GoogleImg} alt="google" className={classes.button} />
@@ -100,8 +100,8 @@ const ConnectSocials = () => {
           />
           <SocialButton
             isLinked={isProviderLinked("twitter")}
-            onClick={() =>
-              linkWithProvider(new firebase.auth.TwitterAuthProvider())
+            onClick={() =>{
+              if(!isProviderLinked("twitter"))linkWithProvider(new firebase.auth.TwitterAuthProvider())}
             }
             Icon={<>
               <TwitterIcon className={classes.tw}>
