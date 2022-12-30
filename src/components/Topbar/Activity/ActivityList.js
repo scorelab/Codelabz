@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       border: "none",
       backgroundColor: theme.palette.grey[100]
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: `${theme.spacing(0)}px`
     }
   },
   activeButton: {

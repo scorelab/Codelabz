@@ -15,6 +15,10 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
     padding: "8px",
     alignItems: "center",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+      gap: "10px"
+    }
   },
   card: {
     margin: "0.5rem"
