@@ -23,12 +23,12 @@ const SignUp = ({ background = "white" }) => {
       raised
       className={`${classes.card}   `}
       data-testId="signUp"
-      style={{ background: background }}
+      style={{ background: background,width:"92%",alignItems:"center",margin:"auto" }}
     >
       <CardContent>
         <Typography
           variant="h4"
-          style={{ textAlign: "center", marginBottom: "40px" }}
+          style={{ textAlign: "center", marginBottom: "40px", marginTop:"10px"}}
         >
           Create an account
         </Typography>
