@@ -62,7 +62,7 @@ const Input = styled(InputBase)(({ theme }) => ({
   }
 }));
 
-const UserForm = () => {
+const UserForm = ({ btnTextColor = "white" }) => {
   const classes = useStyles();
 
   const { handle } = useParams();
@@ -109,7 +109,11 @@ const UserForm = () => {
   const children = [];
   for (let i = 0; i < countryList.length; i++) {
     children.push(
-      <MenuItem key={countryList[i].code} value={countryList[i].name} data-testId="selectCountryItem">
+      <MenuItem
+        key={countryList[i].code}
+        value={countryList[i].name}
+        data-testId="selectCountryItem"
+      >
         {countryList[i].name}
       </MenuItem>
     );
@@ -229,7 +233,10 @@ const UserForm = () => {
         }}
       >
         <Box>
-          <FormControl variant="standard" style={{ marginRight: 25, marginBottom: 10 }}>
+          <FormControl
+            variant="standard"
+            style={{ marginRight: 25, marginBottom: 10 }}
+          >
             <InputLabel
               shrink
               htmlFor="bootstrap-input"
@@ -251,7 +258,10 @@ const UserForm = () => {
               {nameValidateErrorMessage}
             </Typography>
           </FormControl>
-          <Box variant="standard" style={{ display: 'inline-flex', flexDirection: 'column' }}>
+          <Box
+            variant="standard"
+            style={{ display: "inline-flex", flexDirection: "column" }}
+          >
             <InputLabel
               shrink
               htmlFor="bootstrap-input"
@@ -447,6 +457,7 @@ const UserForm = () => {
         color="primary"
         style={{
           backgroundColor: "SeaGreen",
+          color: btnTextColor,
           marginTop: 15
         }}
         data-testId="editProfileSave"

@@ -28,6 +28,7 @@ import PropTypes from "prop-types";
 const Login = ({
   loginButton = "blue",
   background = "white",
+  btnTextColor = "white",
   loginText = "Welcome Back"
 }) => {
   const firebase = useFirebase();
@@ -214,7 +215,11 @@ const Login = ({
             onClick={onSubmit}
             disabled={loading}
             className="loginButton"
-            style={{ background: loginButton, backgroundColor: "royalblue" }}
+            style={{
+              background: loginButton,
+              backgroundColor: "royalblue",
+              color: btnTextColor
+            }}
           >
             {loading ? "Logging in..." : "Log in"}
           </Button>

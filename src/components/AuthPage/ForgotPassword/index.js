@@ -20,6 +20,7 @@ const ForgotPassword = ({
   confirmationText = "We have sent you an email containing the link to reset your password .Please check your inbox including spams",
   fontweight = "800",
   buttonColor = "blue",
+  btnTextColor = "white"
 }) => {
   const firebase = useFirebase();
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,7 @@ const ForgotPassword = ({
     [dispatch]
   );
 
-  const onSubmit = async (values) => {
+  const onSubmit = async values => {
     values.preventDefault();
     setError("");
     await sendPasswordResetEmail(email)(firebase, dispatch);
@@ -61,11 +62,11 @@ const ForgotPassword = ({
       padding: "2rem",
       background: rootBackground,
       border: "none",
-      boxShadow: "none",
+      boxShadow: "none"
     },
     heading: {
-      fontWeight: 600,
-    },
+      fontWeight: 600
+    }
   });
   const classes = useStyles();
 
@@ -117,7 +118,7 @@ const ForgotPassword = ({
         <OutlinedInput
           placeholder="Email"
           autoComplete="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           className="mb-32"
           fullWidth
           height="10rem"
@@ -132,7 +133,7 @@ const ForgotPassword = ({
         <Button
           variant="contained"
           color="primary"
-          style={{ background: buttonColor }}
+          style={{ background: buttonColor, color: btnTextColor }}
           loading={loading}
           className="mt-10"
           type="submit"
@@ -164,7 +165,7 @@ ForgotPassword.propTypes = {
   rootBackground: PropTypes.string,
   confirmationText: PropTypes.string,
   fontweight: PropTypes.string,
-  buttonColor: PropTypes.string,
+  buttonColor: PropTypes.string
 };
 
 export default ForgotPassword;

@@ -44,7 +44,11 @@ import {
 } from "../../helpers/validations";
 import PropTypes from "prop-types";
 
-const Dashboard = ({ background = "white", textColor = "black" }) => {
+const Dashboard = ({
+  background = "white",
+  textColor = "black",
+  btnTextColor = "white"
+}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOrgForm, setShowOrgForm] = useState(null);
@@ -267,11 +271,11 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   };
 
   //If display Name is present then show that as value inside user name input
-  useEffect(()=>{
-    if(displayName){
-      setName(displayName)
+  useEffect(() => {
+    if (displayName) {
+      setName(displayName);
     }
-  }, [displayName])
+  }, [displayName]);
 
   //OnChange
   const onChangeName = name => setName(name);
@@ -291,7 +295,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   return (
     <div className="home-row" style={{ background: background }}>
       <Grid container alignItems="center" justify="space-between">
-
         <Grid xs={12} className="col-pad-24 pt-32" item={true}>
           <h2 className="mb-0 center" style={{ color: textColor }}>
             Welcome to CodeLabz!
@@ -300,7 +303,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
             Let's complete your profile before we dive in.
           </h3>
         </Grid>
-        
+
         <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6} item={true}>
           {error && (
             <Grid container>
@@ -442,6 +445,9 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     color="primary"
                     disableElevation
                     onClick={() => setShowOrgForm(!showOrgForm)}
+                    style={{
+                      color: btnTextColor
+                    }}
                   >
                     {showOrgForm === false
                       ? "I want to create an organization"
@@ -456,7 +462,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
             <Grid
               xs={showOrgForm ? 12 : null}
               md={showOrgForm ? 6 : null}
-              style={{paddingLeft:'24px'}}
+              style={{ paddingLeft: "24px" }}
               className="col-pad-24 pr-12 pr-12 pt-8 div-transition"
               onFocus={() => setFocusLeft(false)}
               item={true}
@@ -476,6 +482,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                   <Divider />
 
                   <Box m={3}>
+                    {/*colorblack */}
                     <TextField
                       error={orgNameValidateError}
                       label="Organization Name"
@@ -616,9 +623,13 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                 color="primary"
                 disableElevation
                 className="auth-form-col"
+                style={{
+                  color: btnTextColor
+                }}
                 onClick={onSubmit}
                 disabled={loading}
               >
+                {/*colorblack */}
                 {loading ? "Saving..." : "Save"}
               </Button>
             </Grid>
@@ -647,6 +658,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 
 Dashboard.prototype = {
   background: PropTypes.string,
-  textColor: PropTypes.string,
+  textColor: PropTypes.string
 };
 export default Dashboard;
