@@ -10,20 +10,20 @@ import {
   Button
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useFirebase } from "react-redux-firebase";
-import { signOut } from "../../store/actions";
-import { useAllowDashboard } from "../../helpers/customHooks";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "@material-ui/icons";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
+
 
 const useStyles = makeStyles(theme => ({
   icons: {
     width: "20px",
-    height: "20px"
+    height: "20px",
+    borderRadius: "50%",
   },
 
   listIcon: {
-    minWidth: "30px"
+    minWidth: "20px",
+    marginRight:"10px",
   },
 
   paper: {
@@ -48,8 +48,19 @@ const useStyles = makeStyles(theme => ({
   menuItem: {
     width: "100%",
     height: "100%",
-
+    borderRadius:"100px",
+    paddingTop: "8px",
+    paddingBottom: "3px",
+    margin: "3px 0 3px 0"
   },
+
+  notification: {
+    color: "#000000"
+  },
+  customBadge:{
+    color: "#ffffff",
+    backgroundColor: "#03AAFA"
+  }
 }));
 
 
@@ -67,7 +78,7 @@ const SideList = ({
 }) => {
   const classes = useStyles();
   const location = useLocation();
-  
+  const notification = 10;
   
   /**
    * * Cases for rendering the menu items
@@ -83,7 +94,7 @@ const SideList = ({
         {menuItems.map(function (item, index) {
             return (
               <div key="menu-items"
-               style={item.link == location.pathname ?{background:"lightgrey"}:{}}
+               style={item.link == location.pathname ?{background:"#d9f1fc",borderRadius:"100px"} :{}}
                >
                 {item.link &&
                     <NavLink to={item.link} className={classes.navLink}>
@@ -108,7 +119,9 @@ const SideList = ({
                           data-testId={item.name}
                           style={{
                             fontWeight:
-                              item?.id && value === item?.id ? "bold" : "normal"
+                              item?.id && value === item?.id ? "bold" : "normal",
+                            color:
+                              item?.link== location.pathname? "#0293d9" : "black"
                           }}
                           disableTypography
                         >
@@ -126,21 +139,23 @@ const SideList = ({
 
                       toggleSlider();
                     }}
+                   className={classes.menuItem}
+
                   >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
-                        <img
-                          alt={"..."}
-                          src={item.img}
-                          className={classes.icons}
-                        />
+                        <Badge badgeContent={notification && (notification>99 ? "99+":notification)} color="primary" classes={{ badge: classes.customBadge }}>
+                          <NotificationsIcon className={classes.notification}/>
+                        </Badge>
                       </ListItemIcon>
                     )}
                     <ListItemText
                       data-testId={item.name}
                       style={{
                         fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal"
+                          item?.id && value === item?.id ? "bold" : "normal",
+                          color: 
+                            item?.link== location.pathname? "#0293d9" : "black"
                       }}
                       disableTypography
                     >
@@ -155,6 +170,7 @@ const SideList = ({
                       if (item.onClick) item.onClick(item);
                       onStateChange(item);
                     }}
+                    className={classes.menuItem}
                   >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
@@ -169,7 +185,9 @@ const SideList = ({
                       data-testId={item.name}
                       style={{
                         fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal"
+                          item?.id && value === item?.id ? "bold" : "normal",
+                          color:
+                          item?.link== location.pathname? "#0293d9" : "black"
                       }}
                       disableTypography
                     >

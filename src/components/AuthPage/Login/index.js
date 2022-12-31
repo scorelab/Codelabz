@@ -215,11 +215,10 @@ const Login = ({
             onClick={onSubmit}
             disabled={loading}
             className="loginButton"
-            style={{
-              background: loginButton,
-              backgroundColor: "royalblue",
-              color: btnTextColor
-            }}
+
+
+            style={{color:btnTextColor,borderRadius:"30px",margin:"auto",padding:"10px"}}
+
           >
             {loading ? "Logging in..." : "Log in"}
           </Button>
