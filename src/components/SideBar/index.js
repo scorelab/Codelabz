@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { useAllowDashboard } from "../../helpers/customHooks";
+import Card from '@material-ui/core/Card';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -25,7 +26,11 @@ const useStyles = makeStyles(theme => ({
     display: theme.breakpoints.down("md") ? null : "none"
   },
   drawerPaper: {
-    width: 230
+    width: 250
+  },
+  card: {
+    margin: "0.1rem",
+    padding: "0.5rem"
   }
 }));
 

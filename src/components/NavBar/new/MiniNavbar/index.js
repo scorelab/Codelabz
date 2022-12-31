@@ -39,6 +39,14 @@ const useStyles = makeStyles(theme => ({
       display: "none"
     }
   },
+  gridButton: {
+    "& > *": {
+      margin: theme.spacing(1)
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  },
   button: {
     borderRadius: "10px"
   },
@@ -118,7 +126,7 @@ function MiniNavbar() {
               <InputBase className={classes.input} placeholder="Search" />
             </Paper>
           </Grid>
-          <Grid item className={classes.grid}>
+          <Grid item className={classes.gridButton}>
             <Button
               variant="contained"
               color="primary"
@@ -258,7 +266,6 @@ function MiniNavbar() {
               </Grid>
             </>
           )}
-
         </SideBar>
       )}
     </Headroom>
