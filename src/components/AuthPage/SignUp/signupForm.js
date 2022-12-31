@@ -274,7 +274,7 @@ const SignupForm = () => {
           }}
         />
         <FormControlLabel
-          control={<Checkbox checked={agreed} onChange={() => setAgreed(!agreed)} name="remember" color="primary" />}
+          control={<Checkbox checked={agreed} onChange={() => setAgreed(!agreed)} name="remember" color="primary" style={{}} />}
           label="By creating an account, you agree to our terms and conditions."
         />
         {agreedText && !agreed ? (
@@ -290,6 +290,7 @@ const SignupForm = () => {
           disabled={loading}
           data-testId="signUpButton"
           onClick={onSubmit}
+          style={{color:"white",borderRadius:"30px",margin:"auto",padding:"10px"}}
         >
           {loading ? "Creating your account..." : "Create an account"}
         </Button>
