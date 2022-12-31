@@ -321,8 +321,8 @@ const SignupForm = ({ btnTextColor = "white" }) => {
         <Button
           variant="contained"
           color="primary"
-          disabled={loading}
           fullWidth
+          disabled={loading}
           data-testId="signUpButton"
           onClick={onSubmit}
           style={{ color: btnTextColor }}
