@@ -14,7 +14,6 @@ import Tutorials from "./../../assets/images/tutorial.svg";
 import MyFeed from "./../../assets/images/MyFeed.svg";
 import { signOut } from "../../store/actions";
 import { makeStyles } from "@material-ui/core/styles";
-import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { useAllowDashboard } from "../../helpers/customHooks";
@@ -43,7 +42,6 @@ const SideBar = ({
   children
 }) => {
 
-  const windowSize = useWindowSize();
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
@@ -114,7 +112,7 @@ const SideBar = ({
   const classes = useStyles();
   return (
     <>
-      {windowSize.width <= (drawWidth || 960) ? (
+      {window.screen.width <= (drawWidth || 960) ? (
         <Drawer
           closable="true"
           open={open}
@@ -144,7 +142,7 @@ const SideBar = ({
         </Drawer>
       ) : (
         <div data-testId="normalMenu">
-          {windowSize.width >= 960 && windowSize.width <= 1100 ?
+          {window.screen.width >= 960 && window.screen.width <= 1100 ?
           <SideList
           renderTitle={!collapseText}
           menuItems={menuItems || defaultMenu}
