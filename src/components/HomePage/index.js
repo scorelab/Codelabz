@@ -191,7 +191,9 @@ function HomePage({ background = "white", textColor = "black" }) {
         >
           <NewCodelabz setVisibleModal = {setVisibleModal} />
           <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
-          <Activity />
+          <Card className={classes.card}>
+            <Activity />
+          </Card>
           {userList.persons.map(person => {
             return person.Heading == "CardWithoutPicture" ? (
               <CardWithoutPicture {...person} />
