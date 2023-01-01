@@ -105,3 +105,14 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
 }
+
+/*Dashboard css*/
+.sm-hidden {
+  display: none;
+}
+
+@media screen and (min-width: 960px) {
+  .sm-hidden {
+    display: block;
+  }
+}
