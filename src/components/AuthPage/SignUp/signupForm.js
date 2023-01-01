@@ -189,6 +189,7 @@ const SignupForm = () => {
         <TextField
           label="Email"
           variant="outlined"
+          autoFocus
           placeholder="mail@codelabz.com"
           value={email}
           onChange={onChangeEmail}
