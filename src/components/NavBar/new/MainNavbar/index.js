@@ -26,11 +26,11 @@ const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     color: "#3e5060",
-    letterSpacing:"0.5px",
+    letterSpacing: "0.5px",
     flex: 1,
-    width:"92%",
-    [theme.breakpoints.down("md")]:{
-      width:"80%"
+    width: "92%",
+    [theme.breakpoints.down("md")]: {
+      width: "80%"
     }
   },
   root: {
@@ -69,7 +69,7 @@ function MainNavbar() {
   const history = useHistory();
   const windowSize = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [openMenu, setOpen] = useState(true);
+  const [openMenu, setOpen] = useState(false);
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
@@ -147,7 +147,7 @@ function MainNavbar() {
             open={openMenu}
             toggleSlider={toggleSlider}
             notification={notification}
-            drawWidth = {960}
+            drawWidth={960}
           />
         )}
       </nav>
