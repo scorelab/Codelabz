@@ -4,6 +4,7 @@ import CardComponent from "../util/CodelabCard/index";
 import Typography from "@material-ui/core/Typography";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -192,6 +193,9 @@ function HomePage({ background = "white", textColor = "black" }) {
           <NewCodelabz setVisibleModal = {setVisibleModal} />
           <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
           <Activity />
+          <Box item sx={{ display: { md: "none" } }}>
+            <TagCard tags={tags} />
+          </Box>
           {userList.persons.map(person => {
             return person.Heading == "CardWithoutPicture" ? (
               <CardWithoutPicture {...person} />
