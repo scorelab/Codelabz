@@ -299,7 +299,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
           </h3>
         </Grid>
 
-        <Grid xs={12} sm={12} md={showOrgForm ? 8 : 6} item={true}>
+        <Grid xs={12} sm={12} md={showOrgForm ? 12 : 6} item={true}>
           {error && (
             <Grid container>
               <Grid xs={12} className="col-pad-24 pr-12 pb-0">
@@ -622,23 +622,25 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          xs={12}
-          sm={12}
-          md={showOrgForm ? 4 : 6}
-          className="col-pad-24 sm-hidden
+        {!showOrgForm && (
+          <Grid
+            xs={12}
+            sm={12}
+            md={showOrgForm ? 4 : 6}
+            className="col-pad-24 sm-hidden 
           pl-12 pt-8" /* sm-hidden css code is writen on codelabz.css*/
-          item={true}
-        >
-          <Fade right={true} when={showImage}>
-            <img
-              src={showImage === "user" ? profileUser : orgUser}
-              alt="Background for auth"
-              width="100%"
-              className="dash-image"
-            />
-          </Fade>
-        </Grid>
+            item={true}
+          >
+            <Fade right={true} when={showImage}>
+              <img
+                src={showImage === "user" ? profileUser : orgUser}
+                alt="Background for auth"
+                width="100%"
+                className="dash-image"
+              />
+            </Fade>
+          </Grid>
+        )}
       </Grid>
     </div>
   );

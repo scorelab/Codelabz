@@ -107,6 +107,11 @@
 }
 
 /*Dashboard css*/
+
+.img-hidden {
+  display: none;
+}
+
 .sm-hidden {
   display: none;
 }
