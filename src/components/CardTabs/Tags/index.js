@@ -14,6 +14,21 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0.5),
     },
     marginBottom: "2rem",
+    [theme.breakpoints.down("md")]: {
+      marginBottom: theme.spacing(0),
+      margin: "0.25rem",
+    }
+  },
+  tagsContainer: {
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "90vw",
+      display: "flex",
+      whiteSpace: "nowrap",
+      overflow: "auto",
+      "&::-webkit-scrollbar": {
+        height: "5px"
+      }
+    }
   },
   chip: {
     margin: "0px 10px 10px 0px",
@@ -30,24 +45,26 @@ const TagCard = (props) => {
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography
-            variant="h5"
+            variant="h6"
             component="div"
             gutterBottom
             data-testId="TagsCardTitle"
           >
             Popular Tags
           </Typography>
-          {props.tags.map(function (tag, index) {
-            return (
-              <Chip
-                size="small"
-                label={tag}
-                id={index}
-                className={classes.chip}
-                data-testId={index == 0 ? "TagsChip" : ""}
-              />
-            );
-          })}
+          <div className={classes.tagsContainer}>
+            {props.tags.map(function (tag, index) {
+              return (
+                <Chip
+                  size="small"
+                  label={tag}
+                  id={index}
+                  className={classes.chip}
+                  data-testId={index === 0 ? "TagsChip" : ""}
+                />
+              );
+            })}
+          </div>
         </CardContent>
       </Card>
     </div>
