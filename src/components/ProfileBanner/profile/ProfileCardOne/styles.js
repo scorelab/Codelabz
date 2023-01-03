@@ -131,8 +131,7 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     [theme.breakpoints.down(400)]: {
       width: "90px",
-      fontSize: "18px",
-      width: ""
+      fontSize: "18px"
     }
   },
 
