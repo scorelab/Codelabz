@@ -47,22 +47,21 @@ function UserProfile(props) {
   const [organizations, setUpOrganizations] = useState([
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     },
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     },
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     },
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     }
   ]);
-
 
   return (
     <>
