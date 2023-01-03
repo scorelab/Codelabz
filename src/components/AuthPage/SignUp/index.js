@@ -18,17 +18,28 @@ const SignUp = ({ background = "white" }) => {
   const handleMouseLeave = e => {
     e.target.style.color = "#03AAFA";
   };
+
   return (
     <Card
       raised
-      className={`${classes.card}   `}
+      className={classes.card}
       data-testId="signUp"
-      style={{ background: background,width:"92%",alignItems:"center",margin:"auto" }}
+      style={{
+        background: background,
+        maxWidth: "520px",
+        alignItems: "center",
+        boxShadow: "none",
+        margin: "auto"
+      }}
     >
       <CardContent>
         <Typography
           variant="h4"
-          style={{ textAlign: "center", marginBottom: "40px", marginTop:"10px"}}
+          style={{
+            textAlign: "center",
+            marginBottom: "40px",
+            marginTop: "10px"
+          }}
         >
           Create an account
         </Typography>
