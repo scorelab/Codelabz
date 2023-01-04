@@ -148,30 +148,7 @@ const UserForm = () => {
       setDescriptionValidateErrorMessage,
       "Please enter a description"
     );
-    // const facebookValid = validateIsEmpty(
-    //   facebook,
-    //   setFacebookValidateError,
-    //   setFacebookValidateErrorMessage,
-    //   "Please enter a Facebook username"
-    // );
-    // const twitterValid = validateIsEmpty(
-    //   twitter,
-    //   setTwitterValidateError,
-    //   setTwitterValidateErrorMessage,
-    //   "Please enter a Twitter username"
-    // );
-    // const linkedinValid = validateIsEmpty(
-    //   linkedin,
-    //   setLinkedinValidateError,
-    //   setLinkedinValidateErrorMessage,
-    //   "Please enter a LinkedIn username"
-    // );
-    // const githubValid = validateIsEmpty(
-    //   github,
-    //   setGithubValidateError,
-    //   setGithubValidateErrorMessage,
-    //   "Please enter a GitHub username"
-    // );
+
     if (nameValid && countryValid && orgWebsiteValid && descriptionValid) {
       return true;
     } else {
