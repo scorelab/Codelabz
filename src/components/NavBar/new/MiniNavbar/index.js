@@ -116,20 +116,27 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper component={"form"} className={classes.root} elevation={0}>
+
+          <Grid style={{display:"flex",alignItems:"center",justifyContent:"center"}} item>
+            <Grid style={{display:"inline-block", marginLeft:"75px"}}item xs={3} md={1}>
               <IconButton
-                type="submit"
+                type="button"
                 aria-label="search"
                 disableRipple
                 className={classes.icon}
                 data-testid="navbarSearch"
               >
-                <SearchIcon />
+              <SearchIcon />
               </IconButton>
-              <InputBase className={classes.input} placeholder="Search..." />
-            </Paper>
+            </Grid>
+
+            <Grid style={{display:"inline-block", width:"35vw", marginRight:"255px"}} xs={12} md={10} Item>
+              <Paper component={"form"} className={classes.root} elevation={0}>
+                  <InputBase inputProps={classes} fullWidth={true} placeholder="Search..." />
+              </Paper>
+            </Grid>
           </Grid>
+
           <Grid item className={classes.gridButton}>
             <Button
               variant="contained"
