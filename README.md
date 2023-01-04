@@ -34,6 +34,10 @@ Join and communicate with other members on our community. We communicate on gitt
 
 Clone the repository.
 
+For cloning this repo: Run `git clone https://github.com/scorelab/Codelabz.git`.
+
+Run the above command in the folder in which you want to make a clone.
+
 #### How to Use
 
 Run `npm install` in `CodeLabz` folder.
