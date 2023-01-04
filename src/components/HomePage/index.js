@@ -192,7 +192,9 @@ function HomePage({ background = "white", textColor = "black" }) {
         >
           <NewCodelabz setVisibleModal = {setVisibleModal} />
           <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
-          <Activity />
+          <Card className={classes.card}>
+            <Activity />
+          </Card>
           <Box item sx={{ display: { md: "none" } }}>
             <TagCard tags={tags} />
           </Box>
