@@ -3,6 +3,7 @@ import {
   Drawer,
   Grid,
   IconButton,
+  Input,
   InputBase,
   makeStyles,
   Paper
@@ -16,6 +17,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import SideBar from "../../../SideBar";
 import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
+import {TextField} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -116,27 +118,20 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-
-          <Grid style={{display:"flex",alignItems:"center",justifyContent:"center"}} item>
-            <Grid style={{display:"inline-block", marginLeft:"75px"}}item xs={3} md={1}>
+          <Grid style={{display:'inline-block', marginRight:"110px"}} item xs={12} md={4}>
+            <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
-                type="button"
+                type="submit"
                 aria-label="search"
                 disableRipple
                 className={classes.icon}
                 data-testid="navbarSearch"
               >
-              <SearchIcon />
+                <SearchIcon />
               </IconButton>
-            </Grid>
-
-            <Grid style={{display:"inline-block", width:"35vw", marginRight:"255px"}} xs={12} md={10} Item>
-              <Paper component={"form"} className={classes.root} elevation={0}>
-                  <InputBase inputProps={classes} fullWidth={true} placeholder="Search..." />
-              </Paper>
-            </Grid>
+              <InputBase style={{display:'inline-block', width:"470px"}} className={classes.InputBase} placeholder="Search..." />
+            </Paper>
           </Grid>
-
           <Grid item className={classes.gridButton}>
             <Button
               variant="contained"
