@@ -3,13 +3,12 @@ import ProfileCardOne from "../../ProfileBanner/profile/ProfileCardOne";
 import Activity from "../../Topbar/Activity";
 import CardWithPicture from "../../Card/CardWithPicture";
 import CardWithoutPicture from "../../Card/CardWithoutPicture";
-import Highlights from "../../UserDetails/Highlights";
-import SocialIcons from "../../Profile/SocialIcons/SocialIcons";
-import EventsCard from "../../CardTabs/Events/index";
 import { Grid, makeStyles } from "@material-ui/core";
 import OrgUser from "../../../assets/images/org-user.svg";
 import { userList } from "../../HomePage/userList";
 import Card from "@material-ui/core/Card";
+import UserHighlights from "./UserHighlights";
+
 
 const useStyles = makeStyles(theme => ({
   parentBody: {
@@ -29,6 +28,14 @@ const useStyles = makeStyles(theme => ({
       display: "none"
     }
   },
+  //styles for userCredential Card on small screen
+  rightSmallBody:{
+    [theme.breakpoints.up(750)]: {
+      display: "none"
+    },
+    marginTop:"11px",
+    marginBottom:'-30px'
+  },
   bottomMargin: {
     marginBottom: "10px"
   },
@@ -47,22 +54,21 @@ function UserProfile(props) {
   const [organizations, setUpOrganizations] = useState([
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     },
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     },
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     },
     {
       name: "Google Summer of Code",
-      img: [OrgUser],
+      img: [OrgUser]
     }
   ]);
-
 
   return (
     <>
@@ -85,11 +91,18 @@ function UserProfile(props) {
               />
             </Card>
           </Grid>
+         
+         {/* Display this card on screen size below 760px */}
+          <Grid className={classes.rightSmallBody}>
+          <UserHighlights organizations={organizations}/>
+          </Grid>
+
           <Grid className={classes.marginActivity}>
             <Card className={classes.paddingActivity}>
               <Activity />
             </Card>
           </Grid>
+
           <Grid>
             {userList.persons.map(person => {
               return person.Heading == "CardWithoutPicture" ? (
@@ -100,32 +113,11 @@ function UserProfile(props) {
             })}
           </Grid>
         </div>
-        <div className={classes.rightBody}>
-          <Grid className={classes.bottomMargin}>
-            <Highlights
-              Heading={"Credentials & Highlights"}
-              CurrentJob={"Software Engineer at Appbeans 2021-Present"}
-              Education={"Studying at Gl bajaj Institute of Technology, Delhi"}
-              Languages={"Tamil, English, Hindi, Malayalam"}
-              JoinedDate={"Joined December 2021"}
-            />
-          </Grid>
-          <Grid className={classes.bottomMargin}>
-            <SocialIcons />
-          </Grid>
-          <Grid
-            container
-            alignContent="center"
-            direction="column"
-            style={{
-              width: "100%"
-            }}
-          >
-            <Grid item style={{ minWidth: "100%" }}>
-              <EventsCard title={"Organizations"} events={organizations} />
-            </Grid>
-          </Grid>
-        </div>
+
+        {/* Credentials and Highlights Card.Display it on screen size above 760px */}
+        <Grid className={classes.rightBody}>
+        <UserHighlights organizations={organizations}/>
+        </Grid>
       </div>
     </>
   );
