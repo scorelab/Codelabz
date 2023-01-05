@@ -3,10 +3,9 @@ import InputBase from "@material-ui/core/InputBase";
 
 export const Input = styled(InputBase)(({ theme }) => ({
   "label + &": {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   "& .MuiInputBase-input": {
-    borderRadius: 4,
     position: "relative",
     backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#F9F9F9",
     border: "1px solid #ced4da",
@@ -17,12 +16,12 @@ export const Input = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create([
       "border-color",
       "background-color",
-      "box-shadow",
+      "box-shadow"
     ]),
     fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
     "&:focus": {
       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
+      borderColor: theme.palette.primary.main
+    }
+  }
 }));
