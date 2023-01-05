@@ -17,7 +17,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import SideBar from "../../../SideBar";
 import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
-import {TextField} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -80,6 +79,25 @@ function MiniNavbar() {
     setOpenDrawer(state);
   }, []);
 
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight
+  });
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight
+    })
+  }
+  
+  useEffect(() => {
+    window.addEventListener('resize', setDimension);
+    
+    return(() => {
+        window.removeEventListener('resize', setDimension);
+    })
+  }, [screenSize])
+
   return (
     <Headroom disableInlineStyles>
       <nav
@@ -118,7 +136,7 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid style={{display:'inline-block', marginRight:"110px"}} item xs={12} md={4}>
+          <Grid style={{display:'inline-block'}} item xs={12} md={4}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -129,7 +147,7 @@ function MiniNavbar() {
               >
                 <SearchIcon />
               </IconButton>
-              <InputBase style={{display:'inline-block', width:"470px"}} className={classes.InputBase} placeholder="Search..." />
+              <InputBase style={{display:'inline-block', width:(screenSize.dynamicWidth<'959' && screenSize.dynamicWidth>'575')?'93.5%':'88.5%'}} className={classes.input} placeholder="Search..." />
             </Paper>
           </Grid>
           <Grid item className={classes.gridButton}>
