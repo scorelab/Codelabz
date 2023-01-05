@@ -20,18 +20,30 @@ import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
-    flex: 1
+    flex: 1,
+    color: "#3e5060",
+    letterSpacing:"0.5px"
   },
   root: {
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: theme.palette.grey[50],
     padding: "2px",
     border: "1px solid #ced4da",
+    borderRadius: "0.8rem",
     width: "100%"
   },
   icon: {
-    padding: "1px"
+    padding: "2px",
+    color: theme.palette.primary.main
   },
   grid: {
+    "& > *": {
+      margin: theme.spacing(1)
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  },
+  gridButton: {
     "& > *": {
       margin: theme.spacing(1)
     },
@@ -119,6 +131,7 @@ function MiniNavbar() {
             </Paper> */}
           {/* </Grid> */}
           <Grid item className={classes.grid}>
+          <Grid item className={classes.gridButton}>
             <Button
               variant="contained"
               color="primary"
@@ -257,7 +270,6 @@ function MiniNavbar() {
               </Grid>
             </>
           )}
-
         </SideBar>
       )}
     </Headroom>
