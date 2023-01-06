@@ -132,6 +132,7 @@ const Login = ({
           <TextField
             error={emailValidateError}
             label="Email"
+            autoFocus
             variant="outlined"
             placeholder="mail@codelabz.com"
             value={email}
