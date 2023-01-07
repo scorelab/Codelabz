@@ -73,76 +73,80 @@ function MainNavbar() {
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
-  const notification = () => {};
+  const notification = () => { };
   return (
-    <Headroom>
-      <nav
-        style={{
-          padding: "10px",
-          background: "white"
-        }}
-      >
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
+    <>
+      <Headroom>
+        <nav
+          style={{
+            padding: "10px",
+            background: "white"
+          }}
         >
-          <Grid item container xs={12} md={2} alignItems="center">
-            <Grid
-              style={{
-                flexGrow: "1"
-              }}
-            >
-              <div
-                onClick={() => {
-                  history.push("/");
-                }}
-                data-testid="navbarBrand"
-              >
-                <BrandName />
-              </div>
-            </Grid>
-            <Grid item className={classes.hamburger}>
-              <IconButton
-                onClick={() => {
-                  toggleSlider();
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={5}>
-            <Paper component={"form"} className={classes.root} elevation={0}>
-              <IconButton
-                type="submit"
-                aria-label="search"
-                disableRipple
-                className={classes.icon}
-                data-testid="navbarSearch"
-              >
-                <SearchIcon />
-              </IconButton>
-              <InputBase className={classes.input} placeholder="Search..." />
-            </Paper>
-          </Grid>
           <Grid
-            item
             container
             direction="row"
+            justifyContent="space-between"
             alignItems="center"
-            className={classes.grid}
           >
-            <Grid item justifyContent="center">
-              <LeftMenu />
+            <Grid item container xs={12} md={2} alignItems="center">
+              <Grid
+                style={{
+                  flexGrow: "1"
+                }}
+              >
+                <div
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                  data-testid="navbarBrand"
+                >
+                  <BrandName />
+                </div>
+              </Grid>
+              <Grid item className={classes.hamburger}>
+                <IconButton
+                  onClick={() => {
+                    toggleSlider();
+                  }}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
             </Grid>
-            <Grid item>
-              <RightMenu />
+            <Grid item xs={12} md={5}>
+              <Paper component={"form"} className={classes.root} elevation={0}>
+                <IconButton
+                  type="submit"
+                  aria-label="search"
+                  disableRipple
+                  className={classes.icon}
+                  data-testid="navbarSearch"
+                >
+                  <SearchIcon />
+                </IconButton>
+                <InputBase className={classes.input} placeholder="Search..." />
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              container
+              direction="row"
+              alignItems="center"
+              className={classes.grid}
+            >
+              <Grid item justifyContent="center">
+                <LeftMenu />
+              </Grid>
+              <Grid item>
+                <RightMenu />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        {windowSize.width <= 960 && (
+        </nav>
+      </Headroom>
+      {
+        windowSize.width <= 960 && (
           <SideBar
             open={openMenu}
             toggleSlider={toggleSlider}
@@ -150,8 +154,8 @@ function MainNavbar() {
             drawWidth={960}
           />
         )}
-      </nav>
-    </Headroom>
+    </>
+
   );
 }
 

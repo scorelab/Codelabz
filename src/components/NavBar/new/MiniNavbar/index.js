@@ -99,6 +99,7 @@ function MiniNavbar() {
   }, [screenSize])
 
   return (
+    <>
     <Headroom disableInlineStyles>
       <nav
         style={{
@@ -238,6 +239,7 @@ function MiniNavbar() {
           </Grid>
         </Drawer>
       )}
+    </Headroom>
       {windowSize.width <= 960 && (
         <SideBar
           open={openMenu}
@@ -291,7 +293,7 @@ function MiniNavbar() {
           )}
         </SideBar>
       )}
-    </Headroom>
+    </>
   );
 }
 
