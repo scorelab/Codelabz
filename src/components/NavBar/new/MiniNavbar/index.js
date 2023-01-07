@@ -261,6 +261,7 @@ function MiniNavbar() {
                   }}
                   className={classes.button}
                   onClick={() => {
+                    toggleSlider();
                     history.push("/login");
                   }}
                 >
@@ -281,6 +282,7 @@ function MiniNavbar() {
                   }}
                   className={classes.button}
                   onClick={() => {
+                    toggleSlider();
                     history.push("/signup");
                   }}
                 >
