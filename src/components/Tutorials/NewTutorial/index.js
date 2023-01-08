@@ -16,7 +16,8 @@ import {deepPurple} from '@material-ui/core/colors';
 import {Typography } from "@material-ui/core";
 import ImageIcon from '@material-ui/icons/Image';
 import DescriptionIcon from '@material-ui/icons/Description';
-import MovieIcon from '@material-ui/icons/Movie';;
+import MovieIcon from '@material-ui/icons/Movie';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 
 const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const firebase = useFirebase();
@@ -166,9 +167,10 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
         }}
       >
         {error && (
-          <Alert message={""} type="error" closable="true" className="mb-24">
-            description={"Tutorial Creation Failed"}/
-          </Alert>
+         <Alert severity="success">
+         <AlertTitle>Success</AlertTitle>
+         Your tutorial has been successfully created
+       </Alert>
         )}
         <h2>Create a Tutorial</h2>
         <Divider/>
