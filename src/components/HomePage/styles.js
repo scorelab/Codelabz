@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignContent: "center",
     justifyContent: "center",
-    width: "100%",
+    width: "fit-content",
     margin: "1rem 1rem 2rem 1rem",
     height: "100%",
     flexDirection: "column",
