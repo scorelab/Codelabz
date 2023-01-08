@@ -105,15 +105,27 @@ const SideBar = ({
       img: Tutorials,
       link: "/tutorials"
     },
-    (
-      allowDashboard &&
-      {
-      name: "Logout",
-      img: Logout,
-        onClick: () => signOut()(firebase, dispatch)
-      })
+    // (
+    //  allowDashboard &&
+    //   {
+    //   name: "Logout",
+    //   img: Logout,
+    //   onClick: () => signOut()(firebase, dispatch)
+    //   }) 
   ];
+    
+  // Checks the user handle and sees if user is allowed to access dashboard showing logout option otherwise not..
 
+    if(allowDashboard){
+      defaultMenu.push({
+        name: "Logout",
+        img: Logout,
+        onClick: () => signOut()(firebase, dispatch)
+        })
+
+    }
+    
+   
   const classes = useStyles();
   return (
     <>
