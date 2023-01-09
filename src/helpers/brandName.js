@@ -7,6 +7,7 @@ function BrandName() {
       <img
         style={{
           width: "100px",
+          cursor: "pointer"
         }}
         src={Logo}
         alt="logo"

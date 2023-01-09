@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: "top",
     justifyContent: "center",
     height: "100%",
-
     background: "#f2f2f2"
   },
   mainBody: {
@@ -21,9 +20,8 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignContent: "center",
     justifyContent: "center",
-    width: "100%",
-    marginTop: "1rem",
-    margin: "0 1rem 2rem 1rem",
+    width: "fit-content",
+    margin: "1rem 1rem 2rem 1rem",
     height: "100%",
     flexDirection: "column",
     [theme.breakpoints.down(960)]: {
@@ -92,6 +90,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "row",
     justifyContent: "center",
     maxWidth: "1400px"
+  },
+  card: {
+    padding:"6px",
+    margin:"0 0.5rem 0 0.5rem"
   }
 }));
 

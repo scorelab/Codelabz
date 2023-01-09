@@ -3,6 +3,7 @@ import {
   Drawer,
   Grid,
   IconButton,
+  Input,
   InputBase,
   makeStyles,
   Paper
@@ -20,22 +21,34 @@ import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
-    flex: 1
+    flex: 1,
+    color: "#3e5060",
+    letterSpacing:"0.5px"
   },
   root: {
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: theme.palette.grey[50],
     padding: "2px",
     border: "1px solid #ced4da",
+    borderRadius: "0.8rem",
     width: "100%"
   },
   icon: {
-    padding: "1px"
+    padding: "2px",
+    color: theme.palette.primary.main
   },
   grid: {
     "& > *": {
       margin: theme.spacing(1)
     },
     [theme.breakpoints.down("md")]: {
+      display: "none"
+    }
+  },
+  gridButton: {
+    "& > *": {
+      margin: theme.spacing(1)
+    },
+    [theme.breakpoints.down("sm")]: {
       display: "none"
     }
   },
@@ -65,6 +78,25 @@ function MiniNavbar() {
   const toggleDrawer = useCallback(state => {
     setOpenDrawer(state);
   }, []);
+
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight
+  });
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight
+    })
+  }
+  
+  useEffect(() => {
+    window.addEventListener('resize', setDimension);
+    
+    return(() => {
+        window.removeEventListener('resize', setDimension);
+    })
+  }, [screenSize])
 
   return (
     <Headroom disableInlineStyles>
@@ -104,7 +136,7 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid style={{display:'inline-block'}} item xs={12} md={4}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -115,10 +147,10 @@ function MiniNavbar() {
               >
                 <SearchIcon />
               </IconButton>
-              <InputBase className={classes.input} placeholder="Search" />
+              <InputBase style={{display:'inline-block', width:(screenSize.dynamicWidth<'959' && screenSize.dynamicWidth>'575')?'93.5%':'88.5%'}} className={classes.input} placeholder="Search..." />
             </Paper>
           </Grid>
-          <Grid item className={classes.grid}>
+          <Grid item className={classes.gridButton}>
             <Button
               variant="contained"
               color="primary"
@@ -229,6 +261,7 @@ function MiniNavbar() {
                   }}
                   className={classes.button}
                   onClick={() => {
+                    toggleSlider();
                     history.push("/login");
                   }}
                 >
@@ -249,6 +282,7 @@ function MiniNavbar() {
                   }}
                   className={classes.button}
                   onClick={() => {
+                    toggleSlider();
                     history.push("/signup");
                   }}
                 >
@@ -257,7 +291,6 @@ function MiniNavbar() {
               </Grid>
             </>
           )}
-
         </SideBar>
       )}
     </Headroom>
