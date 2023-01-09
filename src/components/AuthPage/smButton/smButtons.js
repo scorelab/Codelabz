@@ -14,7 +14,7 @@ const SmButtons = () => {
   const firebase = useFirebase();
   const classes = useStyles();
   return (
-    <Grid container className={classes.root} data-testId="smButtons">
+    <Grid container className={classes.root} data-testId="smButtons" style={{backgroundColor:"#EFF5F5",borderRadius:"30px",padding:"14px",marginTop:"0.4rem"}}>
       <Grid item>
         <IconButton className={classes.button}>
           <Icon

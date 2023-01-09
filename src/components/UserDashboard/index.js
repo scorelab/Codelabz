@@ -150,7 +150,7 @@ function UserDashboard() {
             />
           </div>
         )}
-        <Grid item xs={6} md={3} className={classes.sidebar}>
+        <Grid item className={classes.sidebar}>
           <SideBar
             open={openMenu}
             toggleSlider={toggleSlider}

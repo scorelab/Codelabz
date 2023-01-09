@@ -132,6 +132,7 @@ const Login = ({
           <TextField
             error={emailValidateError}
             label="Email"
+            autoFocus
             variant="outlined"
             placeholder="mail@codelabz.com"
             value={email}
@@ -214,7 +215,7 @@ const Login = ({
             onClick={onSubmit}
             disabled={loading}
             className="loginButton"
-            style={{ background: loginButton, backgroundColor: "royalblue" }}
+            style={{color:"white",borderRadius:"30px",margin:"auto",padding:"10px"}}
           >
             {loading ? "Logging in..." : "Log in"}
           </Button>
