@@ -1,11 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   profileCover: {
     width: "fit-content",
     height: "fit-content",
     // minHeight: "20rem",
-    position: "relative",
+    position: "relative"
   },
 
   profileUserImg: {
@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     padding: "5%",
     justifyContent: "center",
-    [theme.breakpoints.down(850)]: {
-      flexWrap: "wrap",
+    [theme.breakpoints.down(1000)]: {
+      flexWrap: "wrap"
     },
     [theme.breakpoints.down(550)]: {
       padding: "1%",
-      justifyContent: "flex-start",
+      justifyContent: "flex-start"
     }
   },
 
@@ -40,25 +40,26 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "35px",
     color: "#000000",
     fontWeight: "500",
-    fontSize: "30px",
+    fontSize: "30px"
   },
 
   profileInfoStory: {
     fontFamily: "Roboto",
-    width:"97%",
     fontStyle: "normal",
     lineHeight: "1.2",
     color: "#000000",
     fontWeight: "400",
-    opacity:"0.9",
+    width: "24rem",
+    opacity: "0.9",
     fontSize: "4vmin",
+    whiteSpace: "normal"
   },
 
   profileInfoDesc: {
     display: "flex",
     flexDirection: "row",
     alignItems: "space-between",
-    width: "100%",
+    width: "100%"
   },
   profileInfoData: {
     fontFamily: "Roboto",
@@ -66,13 +67,13 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "22px",
     fontSize: "19px",
     color: "#878787",
-    fontWeight: "400",
+    fontWeight: "400"
   },
   profileUserConnect: {
-    // width: "fit-content", 
+    // width: "fit-content",
     marginLeft: "2.5rem",
     [theme.breakpoints.down(550)]: {
-      marginLeft: "0.5rem",
+      marginLeft: "0.5rem"
     }
   },
   profileSubscribeButton: {
@@ -90,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     [theme.breakpoints.down(400)]: {
       width: "80px",
-      fontSize:"18px",
+      fontSize: "18px"
     }
   },
 
@@ -110,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     [theme.breakpoints.down(400)]: {
       width: "80px",
-      fontSize:"18px"
+      fontSize: "18px"
     }
   },
 
@@ -130,8 +131,7 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     [theme.breakpoints.down(400)]: {
       width: "90px",
-      fontSize:"18px",
-      width:"",
+      fontSize: "18px"
     }
   },
 
@@ -148,8 +148,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
     lineHeight: "28px",
     color: "#000",
-    border: "none",
-  },
+    border: "none"
+  }
 }));
 
 export default useStyles;

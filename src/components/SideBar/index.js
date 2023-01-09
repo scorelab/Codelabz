@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     margin: "0.1rem",
-    padding: "0.5rem"
+    padding: "0.5rem 1.5rem 0.5rem 0.5rem"
   }
 }));
 

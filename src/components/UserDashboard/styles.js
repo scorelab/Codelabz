@@ -54,7 +54,8 @@ const useStyles = makeStyles(theme => ({
   wrapper: {
     display: "flex",
     justifyContent: "center",
-    marginTop: 30
+    marginTop: 30,
+    gap: "1rem"
   },
   sidebar: {
     "@media (max-width: 960px)": {

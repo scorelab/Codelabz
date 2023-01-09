@@ -4,11 +4,20 @@ import CardComponent from "../util/CodelabCard/index";
 import Typography from "@material-ui/core/Typography";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import TabContext from "@material-ui/lab/TabContext";
+import TabPanel from "@material-ui/lab/TabPanel";
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
+import EventSeatIcon from "@material-ui/icons/EventSeat";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import { userList } from "./userList";
 import useStyles from "./styles";
 import SideBar from "../SideBar/index";
@@ -27,6 +36,7 @@ function HomePage({ background = "white", textColor = "black" }) {
  
   const classes = useStyles();
   const [value, setValue] = useState(2);
+  const [selectedTab, setSelectedTab] = useState("1");
   const [visibleModal, setVisibleModal] = useState(false);
   const [footerContent, setFooterContent] = useState([
     { name: "Help", link: "https://dev.codelabz.io/" },
@@ -150,6 +160,9 @@ function HomePage({ background = "white", textColor = "black" }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleTabChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
   const closeModal = () => {
     setVisibleModal((prev) => !prev);
   };
@@ -195,7 +208,12 @@ function HomePage({ background = "white", textColor = "black" }) {
         >
           <NewCodelabz setVisibleModal = {setVisibleModal} />
           <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
-          <Activity />
+          <Card className={classes.card}>
+            <Activity />
+          </Card>
+          <Box item sx={{ display: { md: "none" } }}>
+            <TagCard tags={tags} />
+          </Box>
           {userList.persons.map(person => {
             return person.Heading == "CardWithoutPicture" ? (
               <CardWithoutPicture {...person} />
@@ -203,6 +221,61 @@ function HomePage({ background = "white", textColor = "black" }) {
               <CardWithPicture {...person} />
             );
           })}
+          <Box
+            sx={{
+              width: "100%",
+              typography: "subtitle1",
+              display: { md: "none" }
+            }}
+          >
+            <TabContext value={selectedTab}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                scrollButtons="on"
+                indicatorColor="primary"
+                textColor="primary"
+                aria-label="scrollable force tabs example"
+                style={{
+                  borderBottom: "1px solid gray",
+                  margin: "5px"
+                }}
+              >
+                <Tab
+                  icon={<EventAvailableIcon />}
+                  value="1"
+                  style={{ width: "25%" }}
+                />
+                <Tab
+                  icon={<EventSeatIcon />}
+                  value="2"
+                  style={{ width: "25%" }}
+                />
+                <Tab
+                  icon={<ThumbUpAltIcon />}
+                  value="3"
+                  style={{ width: "25%" }}
+                />
+                <Tab
+                  icon={<SupervisorAccountIcon />}
+                  value="4"
+                  style={{ width: "25%" }}
+                />
+              </Tabs>
+              <TabPanel value="1" style={{ padding: 0 }}>
+                <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
+              </TabPanel>
+              <TabPanel value="2" style={{ padding: 0 }}>
+                <EventsCard title={"Popular Events"} events={upcomingEvents} />
+              </TabPanel>
+              <TabPanel value="3" style={{ padding: 0 }}>
+                <UserCard title={"Who to Follow"} users={usersToFollow} />
+              </TabPanel>
+              <TabPanel value="4" style={{ padding: 0 }}>
+                <UserCard title={"Contributors"} users={contributors} />
+              </TabPanel>
+            </TabContext>
+          </Box>
         </Grid>
 
         <Grid item className={classes.sideBody}>

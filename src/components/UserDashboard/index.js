@@ -151,7 +151,7 @@ function UserDashboard() {
             />
           </div>
         )}
-        
+
         <Grid item xs={4} md={2.8} lg={3} className={classes.sidebar} style={{md:{marginRight: '15px'}}}>
           <SideBar
             collapseText={false}

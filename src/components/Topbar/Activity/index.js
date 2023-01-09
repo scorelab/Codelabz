@@ -15,9 +15,6 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
     padding: "8px",
     alignItems: "center",
-  },
-  card: {
-    margin: "0.5rem"
   }
 }));
 
@@ -45,7 +42,6 @@ function Activity() {
 
   return (
     <React.Fragment>
-      <Card className={classes.card}>
         <Grid container>
           <div className={classes.root}>
             <Grid item>
@@ -62,7 +58,6 @@ function Activity() {
             </Grid>
           </div>
         </Grid>
-      </Card>
     </React.Fragment>
   );
 }

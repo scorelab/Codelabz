@@ -82,7 +82,11 @@ function UserForm() {
   const children = [];
   for (let i = 0; i < countryList.length; i++) {
     children.push(
-      <MenuItem key={countryList[i].code} value={countryList[i].name} data-testId="selectCountryItem">
+      <MenuItem
+        key={countryList[i].code}
+        value={countryList[i].name}
+        data-testId="selectCountryItem"
+      >
         {countryList[i].name}
       </MenuItem>
     );
@@ -117,40 +121,8 @@ function UserForm() {
       setDescriptionValidateErrorMessage,
       "Please enter a description"
     );
-    const facebookValid = validateIsEmpty(
-      facebook,
-      setFacebookValidateError,
-      setFacebookValidateErrorMessage,
-      "Please enter a Facebook username"
-    );
-    const twitterValid = validateIsEmpty(
-      twitter,
-      setTwitterValidateError,
-      setTwitterValidateErrorMessage,
-      "Please enter a Twitter username"
-    );
-    const linkedinValid = validateIsEmpty(
-      linkedin,
-      setLinkedinValidateError,
-      setLinkedinValidateErrorMessage,
-      "Please enter a LinkedIn username"
-    );
-    const githubValid = validateIsEmpty(
-      github,
-      setGithubValidateError,
-      setGithubValidateErrorMessage,
-      "Please enter a GitHub username"
-    );
-    if (
-      nameValid &&
-      countryValid &&
-      orgWebsiteValid &&
-      descriptionValid &&
-      facebookValid &&
-      twitterValid &&
-      githubValid &&
-      linkedinValid
-    ) {
+
+    if (nameValid && countryValid && orgWebsiteValid && descriptionValid) {
       return true;
     } else {
       return false;
@@ -331,16 +303,12 @@ function UserForm() {
         {/* Facebook link box */}
         <Box style={{ marginTop: "8px" }}>
           <TextField
-            error={facebookValidateError}
             label="Facebook"
             variant="outlined"
             placeholder="username"
             value={facebook}
             data-testId="editProfileFacebook"
             onChange={event => onChangeFacebook(event.target.value)}
-            helperText={
-              facebookValidateError ? facebookValidateErrorMessage : null
-            }
             fullWidth
             autoComplete="handle"
             required
@@ -364,16 +332,12 @@ function UserForm() {
         {/* Twitter Link Box */}
         <Box style={{ marginTop: "8px" }}>
           <TextField
-            error={twitterValidateError}
             label="Twitter"
             variant="outlined"
             value={twitter}
             placeholder="username"
             data-testId="editProfileTwitter"
             onChange={event => onChangeTwitter(event.target.value)}
-            helperText={
-              twitterValidateError ? twitterValidateErrorMessage : null
-            }
             fullWidth
             autoComplete="handle"
             required
@@ -397,16 +361,12 @@ function UserForm() {
         {/* Linkedin Link Box */}
         <Box style={{ marginTop: "8px" }}>
           <TextField
-            error={linkedinValidateError}
             label="LinkedIn"
             variant="outlined"
             value={linkedin}
             data-testId="editProfileLinkedin"
             placeholder="username"
             onChange={event => onChangeLinkedin(event.target.value)}
-            helperText={
-              linkedinValidateError ? linkedinValidateErrorMessage : null
-            }
             fullWidth
             autoComplete="handle"
             required
@@ -430,13 +390,11 @@ function UserForm() {
         {/* Github Link box */}
         <Box style={{ marginTop: "8px" }}>
           <TextField
-            error={githubValidateError}
             label="GitHub"
             variant="outlined"
             value={github}
             placeholder="username"
             onChange={event => onChangeGithub(event.target.value)}
-            helperText={githubValidateError ? githubValidateErrorMessage : null}
             fullWidth
             data-testId="editProfileGithub"
             autoComplete="handle"

@@ -25,19 +25,23 @@ import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
+    color: "#3e5060",
+    letterSpacing: "0.5px",
     flex: 1,
-    width:"92%",
-    [theme.breakpoints.down("md")]:{
-      width:"80%"
+    width: "92%",
+    [theme.breakpoints.down("md")]: {
+      width: "80%"
     }
   },
   root: {
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: theme.palette.grey[50],
     padding: "2px",
-    border: "1px solid #ced4da"
+    border: "1px solid #ced4da",
+    borderRadius: "0.8rem"
   },
   icon: {
-    padding: "1px"
+    padding: "2px",
+    color: theme.palette.primary.main
   },
   grid: {
     width: "auto",
@@ -65,7 +69,7 @@ function MainNavbar() {
   const history = useHistory();
   const windowSize = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [openMenu, setOpen] = useState(true);
+  const [openMenu, setOpen] = useState(false);
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
@@ -120,7 +124,7 @@ function MainNavbar() {
               >
                 <SearchIcon />
               </IconButton>
-              <InputBase className={classes.input} placeholder="Search" />
+              <InputBase className={classes.input} placeholder="Search..." />
             </Paper>
           </Grid>
           <Grid
@@ -144,7 +148,7 @@ function MainNavbar() {
             open={openMenu}
             toggleSlider={toggleSlider}
             notification={notification}
-            drawWidth = {960}
+            drawWidth={960}
           />
         )}
       </nav>

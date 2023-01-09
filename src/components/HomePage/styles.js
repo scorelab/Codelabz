@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: "top",
     justifyContent: "center",
     height: "100%",
-
     background: "#f2f2f2"
   },
   mainBody: {
@@ -91,6 +90,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "row",
     justifyContent: "center",
     maxWidth: "1400px",
+  },
+  card: {
+    padding:"6px",
+    margin:"0 0.5rem 0 0.5rem"
   }
 }));
 
