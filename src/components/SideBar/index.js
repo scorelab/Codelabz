@@ -18,6 +18,7 @@ import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { useAllowDashboard } from "../../helpers/customHooks";
+import Card from '@material-ui/core/Card';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -27,6 +28,10 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: 250
+  },
+  card: {
+    margin: "0.1rem",
+    padding: "0.5rem 1.5rem 0.5rem 0.5rem"
   }
 }));
 
@@ -140,15 +145,18 @@ const SideBar = ({
           </SideList>
         </Drawer>
       ) : (
-        <div data-testId="normalMenu">
-          <SideList
-            menuItems={menuItems || defaultMenu}
-            value={value}
-            onStateChange={onStateChange}
-            >
-              {children}
+        <Card className={classes.card}>
+          <div data-testId="normalMenu">
+            <SideList
+              menuItems={menuItems || defaultMenu}
+              value={value}
+              onStateChange={onStateChange}
+              >
+                {children}
             </SideList>
-        </div>
+          </div>
+        </Card>
+        
       )}
     </>
   );

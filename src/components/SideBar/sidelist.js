@@ -10,11 +10,9 @@ import {
   Button
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useFirebase } from "react-redux-firebase";
-import { signOut } from "../../store/actions";
-import { useAllowDashboard } from "../../helpers/customHooks";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "@material-ui/icons";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
+
 
 const useStyles = makeStyles(theme => ({
   icons: {
@@ -25,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 
   listIcon: {
     minWidth: "20px",
-    marginRight:"10px"
+    marginRight:"10px",
   },
 
   paper: {
@@ -51,9 +49,17 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     height: "100%",
     borderRadius:"100px",
-    paddingTop: "3px",
+    paddingTop: "8px",
     paddingBottom: "3px",
     margin: "3px 0 3px 0"
+  },
+
+  notification: {
+    color: "#000000"
+  },
+  customBadge:{
+    color: "#ffffff",
+    backgroundColor: "#03AAFA"
   }
 }));
 
@@ -72,7 +78,7 @@ const SideList = ({
 }) => {
   const classes = useStyles();
   const location = useLocation();
-  
+  const notification = 10;
   
   /**
    * * Cases for rendering the menu items
@@ -138,11 +144,9 @@ const SideList = ({
                   >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
-                        <img
-                          alt={"..."}
-                          src={item.img}
-                          className={classes.icons}
-                        />
+                        <Badge badgeContent={notification && (notification>99 ? "99+":notification)} color="primary" classes={{ badge: classes.customBadge }}>
+                          <NotificationsIcon className={classes.notification}/>
+                        </Badge>
                       </ListItemIcon>
                     )}
                     <ListItemText

@@ -17,7 +17,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
-      gap: "10px"
+      gap: "10px",
+      alignItems: "flex-start"
     }
   },
   card: {
@@ -49,24 +50,22 @@ function Activity() {
 
   return (
     <React.Fragment>
-      <Card className={classes.card}>
-        <Grid container>
-          <div className={classes.root}>
-            <Grid item>
-              <Typography variant="h6">Activity</Typography>
-            </Grid>
-            <Grid item>
-              <ActivityList
-                value={List}
-                toggle={item => {
-                  setList(item.id);
-                }}
-                acitvitylist={acitvitylist}
-              />
-            </Grid>
-          </div>
-        </Grid>
-      </Card>
+      <Grid container>
+        <div className={classes.root}>
+          <Grid item>
+            <Typography variant="h6">Activity</Typography>
+          </Grid>
+          <Grid item>
+            <ActivityList
+              value={List}
+              toggle={item => {
+                setList(item.id);
+              }}
+              acitvitylist={acitvitylist}
+            />
+          </Grid>
+        </div>
+      </Grid>
     </React.Fragment>
   );
 }
