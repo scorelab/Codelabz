@@ -68,7 +68,8 @@ const SideBar = ({
     },
     {
       name: "Notifications",
-      img: Notification
+      img: Notification,
+      link: "/user-dashboard/notifications"
     },
     {
       name: "User Settings",
