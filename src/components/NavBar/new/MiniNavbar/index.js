@@ -139,7 +139,6 @@ function MiniNavbar() {
           <Grid style={{display:'inline-block'}} item xs={12} md={4}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
-                type="submit"
                 aria-label="search"
                 disableRipple
                 className={classes.icon}
