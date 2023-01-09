@@ -1,0 +1,57 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+#config
+src/config/index.js
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
+.env
+/.idea
+.vscode/settings.json
+package-lock.json
+INTERNAL.md
+RULES.md
+firebase-debug.log
+
+firebase-sw-private.js
+/.firebase
+.firebaserc
+cypress.json
+cypress/screenshots
+cypress/videos
+
+# firebase
+firebase.json
+database-debug.log
+firebase-debug.log
+firestore.indexes.json
+database.rules.json
+firebase-debug.log
+firestore-rules
+.firebaserc
+firestore-debug.log
+firestore.rules
+pubsub-debug.log
+remoteconfig.template.json
+storage.rules
+ui-debug.log

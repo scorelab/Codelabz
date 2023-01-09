@@ -1,0 +1,6 @@
+.env
+.env.sample
+build
+node_modules
+.storybook
+public

@@ -1,0 +1,123 @@
+body {
+	margin: 0px;
+}
+
+.tab-panel {
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	height: 100%;
+}
+
+.tab-panel .tabs {
+	display: flex;
+	flex-direction: column;
+	width: 15%;
+	margin-right: 5px;
+}
+
+.tab-panel .tabs .tab {
+	padding: 5px;
+	margin: 1px;
+	text-transform: capitalize;
+	transition: 0.3s ease-in;
+	border-right-color: #3f51b5;
+	border-right-width: 5px;
+	border-right-style: none;
+	border-bottom-color: #3f51b5;
+	border-bottom-width: 4px;
+	border-bottom-style: none;
+}
+
+.tab-panel .tabs .tab .child {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.tab-panel .tabs .tab .title {
+	text-align: center;
+}
+
+.tab-panel .tabs .active {
+	border-right-style: solid !important;
+	background-color: aliceblue;
+}
+
+.tab-panel .tabs .tab .icon {
+	margin: 2px 5px;
+}
+
+.tab-panel .contents {
+	flex-grow: 1;
+}
+
+.tab-panel .contents .content {
+	display: none;
+}
+
+.tab-panel .contents .active {
+	display: block;
+	animation: fade_in_show 0.5s;
+}
+
+@keyframes fade_in_show {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	.tab-panel .tabs .tab .child {
+		flex-direction: column;
+	}
+	.tab-panel {
+		flex-direction: column;
+	}
+	.tab-panel .tabs {
+		flex-direction: row;
+	}
+	.tab-panel .tabs .active {
+		border-right-style: none !important;
+		border-bottom-style: solid !important;
+	}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+	.tab-panel .tabs {
+		width: 30%;
+	}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+	.tab-panel .tabs {
+		width: 25%;
+	}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+}
+
+/*Dashboard css*/
+
+.sm-hidden {
+	display: none;
+}
+
+@media screen and (min-width: 960px) {
+	.sm-hidden {
+		display: block;
+	}
+}

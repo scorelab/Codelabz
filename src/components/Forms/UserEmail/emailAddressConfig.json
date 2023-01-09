@@ -1,0 +1,16 @@
+{
+  "primaryEmail": "primaryemail1@gmail.com",
+  "primaryEmailOptions": [
+    "primaryemail1@gmail.com",
+    "primaryemail2@gmail.com",
+    "primaryemail3@gmail.com",
+    "primaryemail4@gmail.com"
+  ],
+  "backupEmail": "backupemail1@gmail.com",
+  "backupEmailOptions": [
+    "backupemail1@gmail.com",
+    "backupemail2@gmail.com",
+    "backupemail3@gmail.com",
+    "backupemail4@gmail.com"
+  ]
+}
