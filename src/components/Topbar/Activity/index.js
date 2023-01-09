@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
-      gap: "10px",
-      alignItems: "flex-start"
+      alignItems: "flex-start",
+      gap: "10px"
     }
   },
   card: {
