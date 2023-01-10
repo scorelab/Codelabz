@@ -11,10 +11,10 @@ Insted of using the pre-existing data file "testdata" you can export the data in
 ```
 firebase emulators:export file_name
 ```
-- you can give the file name with preferred file location(on your local) in the "file_name" flag if you don't mention location ,the file will be created in the current folder itself and  if the file is already existing you are asked to over ride the data in it while performing this task.
-- if the file isn't exist already a new file will be create at the given location with the given file name and data is exported into that file.
-# import data from your own file to Emulators:-
-- you import that specific data file while starting emulators only using the following command:-
+- You can give the file name with preferred file location(on your local) in the "file_name" flag if you don't mention location ,the file will be created in the current folder itself and  if the file is already existing you are asked to over ride the data in it while performing this task.
+- If the file isn't exist already a new file will be create at the given location with the given file name and data is exported into that file.
+# Import data from your own file to Emulators:-
+- You import that specific data file while starting emulators only using the following command:-
 ```
 firebase emulators:start --import=file_name
 ```
