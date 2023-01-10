@@ -7,7 +7,7 @@
   - you can perform export operation if you have performed import operation while starting the emulators so that the data from testdata file will i.e., remain no change or additional data is appended
 # Export the Emulators data in your own file:-
 Insted of using the pre-existing data file "testdata" you can export the data in your own file externally.
--To export the data to any external file you can use the below command in the terminal
+- To export the data to any external file you can use the below command in the terminal
 ```
 firebase emulators:export file_name
 ```
