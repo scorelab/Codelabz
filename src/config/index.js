@@ -25,7 +25,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(); // <- needed if using firestor
 
-if (window.location.hostname === "localhost") {
+if (import.meta.env.VITE_APP_USE_EMULATOR) {
   firebase.firestore().useEmulator("localhost", 8080);
   firebase.auth().useEmulator("http://localhost:9099", {
     disableWarnings: true,
