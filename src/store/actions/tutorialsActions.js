@@ -170,6 +170,7 @@ export const createTutorial =
       }
       dispatch({ type: actions.CREATE_TUTORIAL_SUCCESS });
     } catch (e) {
+      console.error("CREATE_TUTORIAL_FAIL", e)
       dispatch({ type: actions.CREATE_TUTORIAL_FAIL, payload: e.message });
     }
   };
@@ -235,44 +236,44 @@ export const getCurrentTutorialData =
 
 export const addNewTutorialStep =
   ({ owner, tutorial_id, title, time, id }) =>
-  async (firebase, firestore, dispatch) => {
-    try {
-      dispatch({ type: actions.CREATE_TUTORIAL_STEP_START });
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+    async (firebase, firestore, dispatch) => {
+      try {
+        dispatch({ type: actions.CREATE_TUTORIAL_STEP_START });
+        const type = await checkUserOrOrgHandle(owner)(firebase);
 
-      await firestore
-        .collection("cl_codelabz")
-        .doc(type)
-        .collection(owner)
-        .doc(tutorial_id)
-        .update({
-          [`steps.${id}`]: {
-            content: "",
-            id,
-            time,
-            title,
-            visibility: true,
-            deleted: false,
-          },
-          updatedAt: firestore.FieldValue.serverTimestamp(),
+        await firestore
+          .collection("cl_codelabz")
+          .doc(type)
+          .collection(owner)
+          .doc(tutorial_id)
+          .update({
+            [`steps.${id}`]: {
+              content: "",
+              id,
+              time,
+              title,
+              visibility: true,
+              deleted: false,
+            },
+            updatedAt: firestore.FieldValue.serverTimestamp(),
+          });
+
+        await firebase.ref().child("notes").child(tutorial_id).child(id).set({
+          text: "",
+          deleted: false,
         });
 
-      await firebase.ref().child("notes").child(tutorial_id).child(id).set({
-        text: "",
-        deleted: false,
-      });
+        await getCurrentTutorialData(owner, tutorial_id)(
+          firebase,
+          firestore,
+          dispatch
+        );
 
-      await getCurrentTutorialData(owner, tutorial_id)(
-        firebase,
-        firestore,
-        dispatch
-      );
-
-      dispatch({ type: actions.CREATE_TUTORIAL_STEP_SUCCESS });
-    } catch (e) {
-      dispatch({ type: actions.CREATE_TUTORIAL_STEP_FAIL, payload: e.message });
-    }
-  };
+        dispatch({ type: actions.CREATE_TUTORIAL_STEP_SUCCESS });
+      } catch (e) {
+        dispatch({ type: actions.CREATE_TUTORIAL_STEP_FAIL, payload: e.message });
+      }
+    };
 
 export const clearCreateTutorials = () => (dispatch) =>
   dispatch({ type: actions.CLEAR_CREATE_TUTORIALS_STATE });
@@ -292,74 +293,74 @@ export const getCurrentStepContentFromRTDB =
 
 export const hideUnHideStep =
   (owner, tutorial_id, step_id, visibility) =>
-  async (firebase, firestore, dispatch) => {
-    try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
-      await firestore
-        .collection("cl_codelabz")
-        .doc(type)
-        .collection(owner)
-        .doc(tutorial_id)
-        .update({
-          [`steps.${step_id}.visibility`]: !visibility,
-          updatedAt: firestore.FieldValue.serverTimestamp(),
-        });
+    async (firebase, firestore, dispatch) => {
+      try {
+        const type = await checkUserOrOrgHandle(owner)(firebase);
+        await firestore
+          .collection("cl_codelabz")
+          .doc(type)
+          .collection(owner)
+          .doc(tutorial_id)
+          .update({
+            [`steps.${step_id}.visibility`]: !visibility,
+            updatedAt: firestore.FieldValue.serverTimestamp(),
+          });
 
-      await getCurrentTutorialData(owner, tutorial_id)(
-        firebase,
-        firestore,
-        dispatch
-      );
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+        await getCurrentTutorialData(owner, tutorial_id)(
+          firebase,
+          firestore,
+          dispatch
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
 
 export const removeStep =
   (owner, tutorial_id, step_id, current_step_no) =>
-  async (firebase, firestore, dispatch) => {
-    try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
-      await firestore
-        .collection("cl_codelabz")
-        .doc(type)
-        .collection(owner)
-        .doc(tutorial_id)
-        .update({
-          [`steps.${step_id}.deleted`]: true,
-          updatedAt: firestore.FieldValue.serverTimestamp(),
+    async (firebase, firestore, dispatch) => {
+      try {
+        const type = await checkUserOrOrgHandle(owner)(firebase);
+        await firestore
+          .collection("cl_codelabz")
+          .doc(type)
+          .collection(owner)
+          .doc(tutorial_id)
+          .update({
+            [`steps.${step_id}.deleted`]: true,
+            updatedAt: firestore.FieldValue.serverTimestamp(),
+          });
+
+        await firebase
+          .ref()
+          .child("notes")
+          .child(tutorial_id)
+          .child(step_id)
+          .child("deleted")
+          .set(true);
+
+        const delete_step_key = firebase.ref().child("delete_steps").push().key;
+
+        await firebase.ref().child("delete_steps").child(delete_step_key).set({
+          type,
+          owner,
+          tutorial_id,
+          step_id,
         });
 
-      await firebase
-        .ref()
-        .child("notes")
-        .child(tutorial_id)
-        .child(step_id)
-        .child("deleted")
-        .set(true);
+        await setCurrentStepNo(
+          current_step_no > 0 ? current_step_no - 1 : current_step_no
+        )(dispatch);
 
-      const delete_step_key = firebase.ref().child("delete_steps").push().key;
-
-      await firebase.ref().child("delete_steps").child(delete_step_key).set({
-        type,
-        owner,
-        tutorial_id,
-        step_id,
-      });
-
-      await setCurrentStepNo(
-        current_step_no > 0 ? current_step_no - 1 : current_step_no
-      )(dispatch);
-
-      await getCurrentTutorialData(owner, tutorial_id)(
-        firebase,
-        firestore,
-        dispatch
-      );
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+        await getCurrentTutorialData(owner, tutorial_id)(
+          firebase,
+          firestore,
+          dispatch
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
 
 export const setCurrentStep = (data) => async (dispatch) =>
   dispatch({ type: actions.SET_EDITOR_DATA, payload: data });
@@ -448,76 +449,76 @@ export const remoteTutorialImages =
 
 export const updateStepTitle =
   (owner, tutorial_id, step_id, step_title) =>
-  async (firebase, firestore, dispatch) => {
-    try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+    async (firebase, firestore, dispatch) => {
+      try {
+        const type = await checkUserOrOrgHandle(owner)(firebase);
 
-      const dbPath = `cl_codelabz/${type}/${owner}`;
+        const dbPath = `cl_codelabz/${type}/${owner}`;
 
-      await firestore
-        .collection(dbPath)
-        .doc(tutorial_id)
-        .update({
-          [`steps.${step_id}.title`]: step_title,
-          updatedAt: firestore.FieldValue.serverTimestamp(),
-        });
+        await firestore
+          .collection(dbPath)
+          .doc(tutorial_id)
+          .update({
+            [`steps.${step_id}.title`]: step_title,
+            updatedAt: firestore.FieldValue.serverTimestamp(),
+          });
 
-      await getCurrentTutorialData(owner, tutorial_id)(
-        firebase,
-        firestore,
-        dispatch
-      );
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+        await getCurrentTutorialData(owner, tutorial_id)(
+          firebase,
+          firestore,
+          dispatch
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
 
 export const updateStepTime =
   (owner, tutorial_id, step_id, step_time) =>
-  async (firebase, firestore, dispatch) => {
-    try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+    async (firebase, firestore, dispatch) => {
+      try {
+        const type = await checkUserOrOrgHandle(owner)(firebase);
 
-      const dbPath = `cl_codelabz/${type}/${owner}`;
+        const dbPath = `cl_codelabz/${type}/${owner}`;
 
-      await firestore
-        .collection(dbPath)
-        .doc(tutorial_id)
-        .update({
-          [`steps.${step_id}.time`]: step_time,
-          updatedAt: firestore.FieldValue.serverTimestamp(),
-        });
+        await firestore
+          .collection(dbPath)
+          .doc(tutorial_id)
+          .update({
+            [`steps.${step_id}.time`]: step_time,
+            updatedAt: firestore.FieldValue.serverTimestamp(),
+          });
 
-      await getCurrentTutorialData(owner, tutorial_id)(
-        firebase,
-        firestore,
-        dispatch
-      );
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+        await getCurrentTutorialData(owner, tutorial_id)(
+          firebase,
+          firestore,
+          dispatch
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
 
 export const setTutorialTheme =
   ({ tutorial_id, owner, bgColor, textColor }) =>
-  async (firebase, firestore, dispatch) => {
-    try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+    async (firebase, firestore, dispatch) => {
+      try {
+        const type = await checkUserOrOrgHandle(owner)(firebase);
 
-      const dbPath = `cl_codelabz/${type}/${owner}`;
+        const dbPath = `cl_codelabz/${type}/${owner}`;
 
-      await firestore.collection(dbPath).doc(tutorial_id).update({
-        text_color: textColor,
-        background_color: bgColor,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
-      });
+        await firestore.collection(dbPath).doc(tutorial_id).update({
+          text_color: textColor,
+          background_color: bgColor,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+        });
 
-      await getCurrentTutorialData(owner, tutorial_id)(
-        firebase,
-        firestore,
-        dispatch
-      );
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+        await getCurrentTutorialData(owner, tutorial_id)(
+          firebase,
+          firestore,
+          dispatch
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
+    };

@@ -47,6 +47,7 @@
     "react-responsive": "^8.1.0",
     "react-reveal": "^1.2.2",
     "react-router-dom": "^5.2.0",
+    "react-select": "^5.7.0",
     "react-social-login-buttons": "^3.4.0",
     "react-syntax-highlighter": "^15.4.3",
     "redux": "^4.0.5",
