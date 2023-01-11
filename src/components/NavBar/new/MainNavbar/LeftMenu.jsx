@@ -9,6 +9,18 @@ import AppsIcon from "@mui/icons-material/Apps";
 import { IconButton, List, ListItem, Menu } from "@mui/material";
 import { useTheme } from "@mui/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+const useStyles = makeStyles(theme => ({
+  menu: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down(767)]: {
+      flexDirection: "column"
+    },
+    marginTop: theme.spacing(5),
+    borderRadius: "10px"
+  }
+}));
 
 const LeftMenu = ({ mode, onClick }) => {
 	const theme = useTheme();
@@ -20,18 +32,6 @@ const LeftMenu = ({ mode, onClick }) => {
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
-	const useStyles = makeStyles((theme) => ({
-		menu: {
-			width: "100%",
-			display: "flex",
-			flexDirection: "row",
-			[theme.breakpoints.down(767)]: {
-				flexDirection: "column",
-			},
-			marginTop: theme.spacing(5),
-			borderRadius: "10px",
-		},
-	}));
 	const classes = useStyles();
 
 	const handleClick = (event) => {

@@ -5,22 +5,22 @@ import { useAllowDashboard } from "../../../helpers/customHooks";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
+const useStyles = makeStyles(theme => ({
+  menu: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down(767)]: {
+      flexDirection: "column"
+    }
+  }
+}));
 
 const LeftMenu = ({ mode }) => {
 	const permissions = useGetPermissions();
 	const allowDashboard = useAllowDashboard();
 	let { pathname: location } = useLocation();
 
-	const useStyles = makeStyles((theme) => ({
-		menu: {
-			width: "100%",
-			display: "flex",
-			flexDirection: "row",
-			[theme.breakpoints.down(767)]: {
-				flexDirection: "column",
-			},
-		},
-	}));
 	const classes = useStyles();
 	return (
 		<Grid
