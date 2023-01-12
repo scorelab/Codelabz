@@ -14,6 +14,8 @@
 8. [Integrate With your CI System.](#integrate-with-your-ci-system)
     1. [To Start the Emulators:-](#to-start-the-emulators-)
     2. [Import and Export:-](#import-and-export-)
+9. [FAQs(Frequently Asked Questions)](#faqs)    
+    1. [npm install command not executing successfully](#npm-install-command-not-executing-successfully)
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
@@ -245,3 +247,17 @@ npm run emulator
 - To export ```npm run emulator-export```
 - Note:- To understand beforehand about importing data from and to emulators, please see [this](https://github.com/scorelab/Codelabz/blob/master/local-firebase-emulators-import-export.md).
 - **READ THE [RULE-SET](https://github.com/scorelab/Codelabz/blob/master/rule_sets.md) FILE PRIOR TO USING "testdata" FILE.**
+
+# FAQs
+### 1. `npm install` command not executing successfully ?
+<img src="https://files.gitter.im/5eb21f15d73408ce4fe2cb37/OtGT/image.png" width="600">
+
+### Solution :-
+The most common reason for this error is version of node. So use node v14 and try again.
+1. Install nvm( node version manager) in your system and check if it is installed successfully by using command `node -v`.
+2. Install node v14 by using command `nvm install v14.18.0`. Here I have used node v14.18.0, you can use any subversion of node v14.
+3. Check if node version is successfully installed by using `node list` command. It will list all the node version that are installed in your system.
+4. Switch to node v14 by using command `nvm use v14.18.0`. 
+5. Try `npm install` command again.
+
+If the problem still persist try with `npm install --legacy-peer-deps`.
