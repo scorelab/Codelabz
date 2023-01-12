@@ -97,8 +97,8 @@ const RightMenu = ({ mode, onClick }) => {
     allowOrgs > 0
       ? organizations.map((org, i) => {
           return (
-            <Link to={`/org/${org.org_handle}`}>
-              <Menu.Item key={`org:${i}`}>
+            <Link key={`org:${i}`} to={`/org/${org.org_handle}`}>
+              <Menu.Item>
                 <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
                   {avatarName(org.org_name)}
                 </Avatar>{" "}
@@ -116,8 +116,8 @@ const RightMenu = ({ mode, onClick }) => {
       <React.Fragment>
         <List>
           {allowDashboard && (
-            <Link to={"/tutorials"} onClick={onClick}>
-              <ListItem key="setting:2">
+            <Link key="setting:2" to={"/tutorials"} onClick={onClick}>
+              <ListItem>
                 <Grid container spacing={1}>
                   <Grid item>
                     <CodeOutlinedIcon
@@ -200,8 +200,8 @@ const RightMenu = ({ mode, onClick }) => {
             </ListItem>
           )}
           {allowDashboard && (
-            <Link to={"/profile"}>
-              <ListItem key="setting:1">
+            <Link key="setting:1" to={"/profile"}>
+              <ListItem>
                 <div className={classes.secondaryColor}>
                   <PersonOutlineOutlinedIcon /> My Profile
                 </div>
@@ -274,8 +274,8 @@ const RightMenu = ({ mode, onClick }) => {
         elevation={1}
       >
         {allowDashboard && (
-          <Link to={"/tutorials"}>
-            <MenuItem key="setting:2">
+          <Link key="setting:2" to={"/tutorials"}>
+            <MenuItem>
               <Grid container>
                 <Grid item>
                   <CodeOutlinedIcon />
@@ -348,8 +348,8 @@ const RightMenu = ({ mode, onClick }) => {
           </MenuItem>
         )}
         {allowDashboard && (
-          <Link to={"/profile"}>
-            <MenuItem key="setting:1">
+          <Link key="setting:1" to={"/profile"}>
+            <MenuItem>
               <div className={classes.secondaryColor}>
                 <PersonOutlineOutlinedIcon />
                 <span>My Profile</span>
