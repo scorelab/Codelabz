@@ -16,6 +16,7 @@
     2. [Import and Export:-](#import-and-export-)
 9. [FAQs(Frequently Asked Questions)](#faqs)    
     1. [npm install command not executing successfully](#npm-install-command-not-executing-successfully)
+    2. [Login is not working](#login-is-not-working)
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
@@ -261,3 +262,13 @@ The most common reason for this error is version of node. So use node v14 and tr
 5. Try `npm install` command again.
 
 If the problem still persist try with `npm install --legacy-peer-deps`.
+
+### 2. Login is not working ?
+<img src="https://files.gitter.im/5eb21f15d73408ce4fe2cb37/Jl4t/image.png" width="600">
+
+### Solution :-
+This problem generally arises when you have not setuped the Firebase emulators.
+
+1. [<strong>Setup firebase emulator</strong>](#how-to-install). 
+2. [Start the Emulators](#to-start-the-emulators-)
+3. Run the app using `npm start`.
