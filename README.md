@@ -15,8 +15,8 @@
     1. [To Start the Emulators:-](#to-start-the-emulators-)
     2. [Import and Export:-](#import-and-export-)
 9. [FAQs(Frequently Asked Questions)](#faqs)    
-    1. [npm install command not executing successfully](#npm-install-command-not-executing-successfully)
-    2. [Login is not working](#login-is-not-working)
+    1. `npm install` command not executing successfully.
+    2. Login is not working.
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
