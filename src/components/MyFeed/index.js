@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +12,8 @@ const MyFeed = ({
   backgroundcolor = "white",
   textcolor = "black",
 }) => {
+  const launchedOrgs = useSelector(({ org }) => org.launched.data);
+
   return (
     <Box style={{ background: backgroundcolor, color: textcolor }}>
       <Grid container>
@@ -29,6 +32,11 @@ const MyFeed = ({
             {heading}
           </Typography>
           <p>{title}</p>
+          {(!launchedOrgs || !launchedOrgs.length) && (
+            <Typography variant="body1" color="textSecondary" component="p">
+              No Organizations found
+            </Typography>
+          )}
           <div
             style={{
               display: "flex",

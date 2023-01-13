@@ -52,27 +52,31 @@ const Carousel = () => {
 
   return (
     <section className={classes.slides}>
-      <ArrowBackIosIcon
-        onClick={prevSlide}
-        data-testId="codefeedLeftarrow"
-        className={classes.arrow}
-        style={{
-          position: "absolute",
-          left: "-2rem",
-          opacity: length === 1 ? 0.2 : 1
-        }}
-      />
-      <ChevronRightIcon
-        onClick={nextSlide}
-        data-testId="codefeedRightarrow"
-        className={classes.arrow}
-        style={{
-          position: "absolute",
-          right: "-2rem",
-          fontSize: "2.3rem",
-          opacity: length === 1 ? 0.2 : 1
-        }}
-      />
+      {launchedOrgs && launchedOrgs.length > 0 && (
+        <>
+          <ArrowBackIosIcon
+            onClick={prevSlide}
+            data-testId="codefeedLeftarrow"
+            className={classes.arrow}
+            style={{
+              position: "absolute",
+              left: "-2rem",
+              opacity: length === 1 ? 0.2 : 1
+            }}
+          />
+          <ChevronRightIcon
+            onClick={nextSlide}
+            data-testId="codefeedRightarrow"
+            className={classes.arrow}
+            style={{
+              position: "absolute",
+              right: "-2rem",
+              fontSize: "2.3rem",
+              opacity: length === 1 ? 0.2 : 1
+            }}
+          />
+        </>
+      )}
 
       {width > 1000 && (
         <div className={classes.slideContainer}>
