@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../../store/actions";
 import Avatar from "@material-ui/core/Avatar";
@@ -32,29 +32,28 @@ const useStyles = makeStyles(theme => ({
   menu: {
     [theme.breakpoints.down(767)]: {
       marginLeft: "1rem",
-      marginTop: "1rem",
+      marginTop: "1rem"
     }
   },
   secondaryColor: {
     color: theme.palette.secondary.main,
-    display:"inline-flex"
+    display: "inline-flex"
   },
   orgicon: {
     width: "1.5rem",
     height: "1.5rem",
     fontSize: "1rem"
-  },
-
+  }
 }));
 
 const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
-  //This will be responsible for closing the rightMenu automatically when route Changes 
+  //This will be responsible for closing the rightMenu automatically when route Changes
   useEffect(() => {
     setAnchorEl(null);
   }, [pathname]);
@@ -75,15 +74,15 @@ const RightMenu = ({ mode, onClick }) => {
   //Taking out the current organization handle of the user
   const currentOrg = useSelector(
     ({
-      org:{
-        general:{current}
+      org: {
+        general: { current }
       }
-    })=>current
-    );
+    }) => current
+  );
 
-    //Check if this current user is attached to some organization
-    const isOrgPresent = currentOrg == null ? false : true;
-  
+  //Check if this current user is attached to some organization
+  const isOrgPresent = currentOrg == null ? false : true;
+
   const organizations = useSelector(
     ({
       profile: {
@@ -91,21 +90,21 @@ const RightMenu = ({ mode, onClick }) => {
       }
     }) => organizations
   );
-  
+
   const allowOrgs = organizations && organizations.length > 0;
 
   const orgList =
     allowOrgs > 0
       ? organizations.map((org, i) => {
           return (
-            <Menu.Item key={`org:${i}`}>
-              <Link to={`/org/${org.org_handle}`}>
+            <Link key={`org:${i}`} to={`/org/${org.org_handle}`}>
+              <Menu.Item>
                 <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
                   {avatarName(org.org_name)}
                 </Avatar>{" "}
                 {org.org_name}
-              </Link>
-            </Menu.Item>
+              </Menu.Item>
+            </Link>
           );
         })
       : null;
@@ -117,8 +116,8 @@ const RightMenu = ({ mode, onClick }) => {
       <React.Fragment>
         <List>
           {allowDashboard && (
-            <ListItem key="setting:2">
-              <Link to={"/tutorials"} onClick={onClick}>
+            <Link key="setting:2" to={"/tutorials"} onClick={onClick}>
+              <ListItem>
                 <Grid container spacing={1}>
                   <Grid item>
                     <CodeOutlinedIcon
@@ -132,8 +131,8 @@ const RightMenu = ({ mode, onClick }) => {
                     <Typography variant="body2">My Tutorials</Typography>
                   </Grid>
                 </Grid>
-              </Link>
-            </ListItem>
+              </ListItem>
+            </Link>
           )}
 
           {allowDashboard && allowOrgs && (
@@ -148,16 +147,18 @@ const RightMenu = ({ mode, onClick }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
-                {isOrgPresent && <Grid item>
+                  {isOrgPresent && (
                     <Link to={`/org/settings/${currentOrg}`}>
-                      <Grid container spacing={3}>
-                        <Grid item>
-                          <SettingsOutlinedIcon className={classes.orgicon} />
+                      <Grid item>
+                        <Grid container spacing={3}>
+                          <Grid item>
+                            <SettingsOutlinedIcon className={classes.orgicon} />
+                          </Grid>
+                          <Grid item>Manage All</Grid>
                         </Grid>
-                        <Grid item>Manage All</Grid>
                       </Grid>
                     </Link>
-                  </Grid>}
+                  )}
                   <Divider
                     style={{
                       marginTop: "4px",
@@ -166,8 +167,8 @@ const RightMenu = ({ mode, onClick }) => {
                   />
                   {allowOrgs > 0
                     ? organizations.map((org, i) => (
-                        <Grid item>
-                          <Link to={`/org/${org.org_handle}`}>
+                        <Link to={`/org/${org.org_handle}`}>
+                          <Grid item>
                             <Grid
                               container
                               spacing={3}
@@ -184,8 +185,8 @@ const RightMenu = ({ mode, onClick }) => {
                               </Grid>
                               <Grid item>{org.org_name}</Grid>
                             </Grid>
-                          </Link>
-                        </Grid>
+                          </Grid>
+                        </Link>
                       ))
                     : null}
                 </Grid>
@@ -199,13 +200,13 @@ const RightMenu = ({ mode, onClick }) => {
             </ListItem>
           )}
           {allowDashboard && (
-            <ListItem key="setting:1">
-              <Link to={"/profile"}>
+            <Link key="setting:1" to={"/profile"}>
+              <ListItem>
                 <div className={classes.secondaryColor}>
                   <PersonOutlineOutlinedIcon /> My Profile
                 </div>
-              </Link>
-            </ListItem>
+              </ListItem>
+            </Link>
           )}
 
           <ListItem
@@ -242,7 +243,9 @@ const RightMenu = ({ mode, onClick }) => {
               ? "#fffff"
               : "#3AAFA9",
           marginLeft: "1rem",
-          marginBottom: ".2rem"
+          marginBottom: ".2rem",
+
+          cursor: "pointer"
         }}
         size={mode === "inline" ? "default" : "medium"}
         src={profile.photoURL}
@@ -271,16 +274,16 @@ const RightMenu = ({ mode, onClick }) => {
         elevation={1}
       >
         {allowDashboard && (
-          <MenuItem key="setting:2">
-            <Link to={"/tutorials"}>
+          <Link key="setting:2" to={"/tutorials"}>
+            <MenuItem>
               <Grid container>
                 <Grid item>
                   <CodeOutlinedIcon />
                 </Grid>
                 <Grid item>My Tutorials</Grid>
               </Grid>
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
         {allowDashboard && allowOrgs && (
           <Accordion>
@@ -290,19 +293,20 @@ const RightMenu = ({ mode, onClick }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Grid container direction="column" spacing={1}>
-
                 {/* Issue490: We will be connecting organizations to their settings page here*/}
-                {isOrgPresent && <Grid item>
-                    <Link to={`/org/settings/${currentOrg}`}>
+                {isOrgPresent && (
+                  <Link to={`/org/settings/${currentOrg}`}>
+                    <Grid item>
                       <Grid container spacing={3}>
                         <Grid item>
                           <SettingsOutlinedIcon className={classes.orgicon} />
                         </Grid>
                         <Grid item>Manage All</Grid>
                       </Grid>
-                    </Link>
-                  </Grid>}
-               
+                    </Grid>
+                  </Link>
+                )}
+
                 <Divider
                   style={{
                     marginTop: "4px",
@@ -344,14 +348,14 @@ const RightMenu = ({ mode, onClick }) => {
           </MenuItem>
         )}
         {allowDashboard && (
-          <MenuItem key="setting:1">
-            <Link to={"/profile"}>
+          <Link key="setting:1" to={"/profile"}>
+            <MenuItem>
               <div className={classes.secondaryColor}>
-                <PersonOutlineOutlinedIcon /> 
+                <PersonOutlineOutlinedIcon />
                 <span>My Profile</span>
               </div>
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
         <MenuItem
           key="setting:4"
