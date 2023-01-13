@@ -11,9 +11,9 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
 
   it("Login Test - Passing", function () {
     cy.visit(this.base_url);
-    cy.get(".MuiButton-outlined > .MuiButton-label > a").click({
-      multiple: true,
-    });
+    cy.get("[data-test-id=login]").should("exist");
+    cy.get("[data-test-id=login]").contains("Login");
+    cy.get("[data-test-id=login]").click();
     cy.get(".email").type(this.credentials.email);
     cy.get(".password").type(this.credentials.password);
     cy.get(".loginButton").click();
@@ -84,11 +84,11 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   });
 
   it("Visit Organization Page - Passing", function () {
-    cy.visit(`${this.base_url}organization`);
+    cy.visit(`${this.base_url}/org/sougataijuorg`);
     cy.wait(5000);
 
     cy.location().should((loc) => {
-      expect(loc.href).to.eq(`${this.base_url}organization`);
+      expect(loc.href).to.eq(`${this.base_url}/org/sougataijuorg`);
     });
   });
 
@@ -102,10 +102,10 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   });
 
   it("Visit Home Page - Passing", function () {
-    cy.visit(`${this.base_url}homePage`);
+    cy.visit(`${this.base_url}/`);
     cy.wait(5000);
     cy.location().should((loc) => {
-      expect(loc.href).to.eq(`${this.base_url}homePage`);
+      expect(loc.href).to.eq(`${this.base_url}/`);
     });
   });
 });

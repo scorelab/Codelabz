@@ -55,6 +55,7 @@ export const getUserTutorialsBasicData =
     }
   };
 
+// Gets the basic data of all the tutorials of the organizations that the user is a part of
 export const getOrgTutorialsBasicData =
   (organizations) => async (firestore, dispatch) => {
     try {
@@ -91,11 +92,19 @@ export const getOrgTutorialsBasicData =
 
       if (organizations.length > 0) {
         const promises = organizations.map(
-          async (org_handle) => await getFinalData(org_handle)
+          async (org_handle) => {
+            const tutorials = await getFinalData(org_handle)
+            return {
+              owner: org_handle,
+              tutorials
+            }
+          }
         );
 
         index = await Promise.all(promises);
       }
+
+
 
       dispatch({
         type: actions.GET_ORG_TUTORIALS_BASIC_SUCCESS,
@@ -108,6 +117,7 @@ export const getOrgTutorialsBasicData =
       });
     }
   };
+
 
 export const clearTutorialsBasicData = () => (dispatch) =>
   dispatch({ type: actions.CLEAR_TUTORIALS_BASIC_STATE });

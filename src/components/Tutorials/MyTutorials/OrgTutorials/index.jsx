@@ -8,13 +8,7 @@ import BaseTutorialsComponent from "../BaseTutorialsComponent";
 import { Grid, Tab, Tabs, Typography } from "@mui/material";
 
 const OrgTabPanel = ({ orgList, user }) => {
-  const [listData, setListData] = React.useState([
-    {
-      name: user.displayName,
-      image: user.photoURL,
-      handle: user.userHandle
-    }
-  ]);
+  const [listData, setListData] = React.useState([]);
 
   const [selectedTab, setSelectedTab] = React.useState({
     tab: 0,
@@ -63,11 +57,19 @@ const OrgTabPanel = ({ orgList, user }) => {
           </Tabs>
         </Grid>
         <Grid item xs={10}>
-          <BaseTutorialsComponent
-            owner={selectedTab.data.handle}
-            imageURL={selectedTab.data.image}
-            ownerName={selectedTab.data.name}
-          />
+          <Grid container>
+            <Grid item xs={12} justifyContent={"center"}>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  opacity: 0.5,
+                  textAlign: "center"
+                }}
+              >
+                Not Implemented Yet
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
