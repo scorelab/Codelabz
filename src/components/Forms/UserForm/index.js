@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Box from "@material-ui/core/Box";
 import {
   alpha,
@@ -36,35 +36,8 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
-const Input = styled(InputBase)(({ theme }) => ({
-  "label + &": {
-    marginTop: theme.spacing(3)
-  },
-  "& .MuiInputBase-input": {
-    borderRadius: 4,
-    position: "relative",
-    backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#fff",
-    border: "1px solid #ced4da",
-    fontSize: 16,
-    width: "auto",
-    padding: "10px 12px",
-    transition: theme.transitions.create([
-      "border-color",
-      "background-color",
-      "box-shadow"
-    ]),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
-    "&:focus": {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main
-    }
-  }
-}));
-
-const UserForm = () => {
+function UserForm() {
   const classes = useStyles();
-
   const { handle } = useParams();
   const firestore = useFirestore();
   const firebase = useFirebase();
@@ -190,62 +163,84 @@ const UserForm = () => {
     };
   }, [firebase, firestore, dispatch, handle]);
 
+  const Input = styled(InputBase)(({ theme }) => ({
+    "label + &": {
+      marginTop: theme.spacing(3)
+    },
+    "& .MuiInputBase-input": {
+      borderRadius: 4,
+      position: "relative",
+      backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#fff",
+      border: "1px solid #ced4da",
+      fontSize: 16,
+      width: "auto",
+      padding: "10px 12px",
+      transition: theme.transitions.create([
+        "border-color",
+        "background-color",
+        "box-shadow"
+      ]),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
+      "&:focus": {
+        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        borderColor: theme.palette.primary.main
+      }
+    }
+  }));
+
   return (
     <Card className={classes.root}>
-      <Box
-        component="form"
-        noValidate
-        sx={{
-          display: "flex",
-          flexDirection: "column"
-        }}
-      >
-        <Box>
-          <FormControl
-            variant="standard"
-            style={{ marginRight: 25, marginBottom: 10 }}
-          >
+      <form className={classes.form} noValidate>
+
+        {/* First row input boxes */}
+        <Box className={classes.inputFields}>
+
+          {/* name input */}
+          <Box className={classes.inputBox}>
+            <FormControl variant="standard" >
+              <InputLabel
+                shrink
+                htmlFor="bootstrap-input"
+                style={{ color: "#000", fontSize: "20px" }}
+                error={nameValidateError}
+                helperText={nameValidateError ? nameValidateErrorMessage : null}
+              >
+                Name
+              </InputLabel>
+
+              <Input
+                value={name}
+                id="bootstrap-input"
+                className={classes.input}
+                data-testId="name"
+                onChange={event => onChangeName(event.target.value)}
+                helperText={nameValidateError ? nameValidateErrorMessage : null}
+              />
+              <Typography className={classes.errorMessage}>
+                {nameValidateErrorMessage}
+              </Typography>
+            </FormControl>
+          </Box>
+
+          {/* select country input */}
+          <Box className={classes.inputBox}>
             <InputLabel
               shrink
               htmlFor="bootstrap-input"
-              style={{ color: "#000", fontSize: "20px" }}
-              error={nameValidateError}
-              helperText={nameValidateError ? nameValidateErrorMessage : null}
-            >
-              Name
-            </InputLabel>
-            <Input
-              value={name}
-              id="bootstrap-input"
-              className={classes.input}
-              data-testId="name"
-              onChange={event => onChangeName(event.target.value)}
-              helperText={nameValidateError ? nameValidateErrorMessage : null}
-            />
-            <Typography className={classes.errorMessage}>
-              {nameValidateErrorMessage}
-            </Typography>
-          </FormControl>
-          <Box
-            variant="standard"
-            style={{ display: "inline-flex", flexDirection: "column" }}
-          >
-            <InputLabel
-              shrink
-              htmlFor="bootstrap-input"
-              style={{ color: "#000", fontSize: "20px" }}
+              style={{ color: "#000", fontSize: "20px", marginBottom: '4px' }}
               error={countryValidateError}
             >
               Country of residence
             </InputLabel>
+
             <FormControl
               data-testId="selectCountry"
-              style={{ marginTop: "3px" }}
             >
               <Select
                 value={country}
                 onChange={event => onChangeCountry(event.target.value)}
-                input={<OutlinedInput style={{ height: 40, width: 250 }} />}
+                input={<OutlinedInput className={classes.select} style={{ height: 55, minWidth: '180px' }} />}
                 displayEmpty
                 inputProps={{ "aria-label": "Without label" }}
               >
@@ -254,50 +249,59 @@ const UserForm = () => {
             </FormControl>
           </Box>
         </Box>
-        <Box>
-          <FormControl
-            variant="standard"
-            style={{ marginTop: "15px", marginRight: "25px" }}
-          >
-            <InputLabel
-              shrink
-              htmlFor="bootstrap-input"
-              style={{ color: "#000", fontSize: "20px" }}
-            >
-              Website
-            </InputLabel>
-            <Input
-              value={website}
-              id="bootstrap-input"
-              className={classes.input}
-              data-testId="website"
-              onChange={event => onChangeOrgWebsite(event.target.value)}
-            />
-            <Typography className={classes.errorMessage}>
-              {websiteValidateErrorMessage}
-            </Typography>
-          </FormControl>
-          <FormControl variant="standard" style={{ marginTop: "13px" }}>
-            <InputLabel
-              shrink
-              htmlFor="bootstrap-input"
-              style={{ color: "#000", fontSize: "20px" }}
-            >
-              Description
-            </InputLabel>
-            <Input
-              value={description}
-              id="bootstrap-input"
-              className={classes.input}
-              data-testId="description"
-              onChange={event => onChangeDescription(event.target.value)}
-            />
-            <Typography className={classes.errorMessage}>
-              {descriptionValidateErrorMessage}
-            </Typography>
-          </FormControl>
+
+        {/* Second row input boxes */}
+        <Box className={classes.inputFields}>
+          {/* website input */}
+          <Box className={classes.inputBox}>
+            <FormControl variant="standard" >
+              <InputLabel
+                shrink
+                htmlFor="bootstrap-input"
+                style={{ color: "#000", fontSize: "20px" }}
+              >
+                Website
+              </InputLabel>
+              <Input
+                value={website}
+                id="bootstrap-input"
+                className={classes.input}
+                data-testId="website"
+                onChange={event => onChangeOrgWebsite(event.target.value)}
+              />
+              <Typography className={classes.errorMessage}>
+                {websiteValidateErrorMessage}
+              </Typography>
+            </FormControl>
+          </Box>
+
+          {/* Description Input */}
+          <Box className={[classes.inputBox, classes.descBox].join(' ')}>
+            <FormControl variant="standard" >
+              <InputLabel
+                shrink
+                htmlFor="bootstrap-input"
+                style={{ color: "#000", fontSize: "20px" }}
+              >
+                Description
+              </InputLabel>
+              <Input
+                value={description}
+                id="bootstrap-input"
+                className={classes.input}
+                data-testId="description"
+                onChange={event => onChangeDescription(event.target.value)}
+              />
+              <Typography className={classes.errorMessage}>
+                {descriptionValidateErrorMessage}
+              </Typography>
+            </FormControl>
+          </Box>
         </Box>
-        <Box style={{ marginTop: 30 }}>
+
+        {/* Third Row Box */}
+        {/* Facebook link box */}
+        <Box style={{ marginTop: "8px" }}>
           <TextField
             label="Facebook"
             variant="outlined"
@@ -307,7 +311,8 @@ const UserForm = () => {
             onChange={event => onChangeFacebook(event.target.value)}
             fullWidth
             autoComplete="handle"
-            style={{ marginBottom: "15px" }}
+            required
+            className={classes.socialFields}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start" style={{ padding: "25px 0" }}>
@@ -322,7 +327,10 @@ const UserForm = () => {
             }}
           />
         </Box>
-        <Box style={{ marginTop: 15 }}>
+
+        {/* Fourth Row Box */}
+        {/* Twitter Link Box */}
+        <Box style={{ marginTop: "8px" }}>
           <TextField
             label="Twitter"
             variant="outlined"
@@ -332,7 +340,8 @@ const UserForm = () => {
             onChange={event => onChangeTwitter(event.target.value)}
             fullWidth
             autoComplete="handle"
-            style={{ marginBottom: "15px" }}
+            required
+            className={classes.socialFields}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start" style={{ padding: "25px 0" }}>
@@ -348,7 +357,9 @@ const UserForm = () => {
           />
         </Box>
 
-        <Box style={{ marginTop: 15 }}>
+        {/* Fifth Row box */}
+        {/* Linkedin Link Box */}
+        <Box style={{ marginTop: "8px" }}>
           <TextField
             label="LinkedIn"
             variant="outlined"
@@ -358,7 +369,8 @@ const UserForm = () => {
             onChange={event => onChangeLinkedin(event.target.value)}
             fullWidth
             autoComplete="handle"
-            style={{ marginBottom: "15px" }}
+            required
+            className={classes.socialFields}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start" style={{ padding: "25px 0" }}>
@@ -374,7 +386,9 @@ const UserForm = () => {
           />
         </Box>
 
-        <Box style={{ marginTop: 15 }}>
+        {/* Sixth Row Box */}
+        {/* Github Link box */}
+        <Box style={{ marginTop: "8px" }}>
           <TextField
             label="GitHub"
             variant="outlined"
@@ -384,7 +398,8 @@ const UserForm = () => {
             fullWidth
             data-testId="editProfileGithub"
             autoComplete="handle"
-            style={{ marginBottom: "15px" }}
+            required
+            className={classes.socialFields}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start" style={{ padding: "25px 0" }}>
@@ -399,23 +414,28 @@ const UserForm = () => {
             }}
           />
         </Box>
-      </Box>
-      <Button
-        fullWidth
-        size="small"
-        variant="contained"
-        color="primary"
-        style={{
-          backgroundColor: "SeaGreen",
-          marginTop: 15
-        }}
-        data-testId="editProfileSave"
-        onClick={onSubmit}
-      >
-        {loading ? "Saving..." : "Save"}
-      </Button>
-    </Card>
-  );
-};
 
-export default UserForm;
+        {/* Save Button */}
+        <Box style={{ marginTop: "8px" }}>
+          <Button
+            className={classes.socialFields}
+            fullWidth
+            // size="small"
+            variant="contained"
+            color="primary"
+            style={{
+              backgroundColor: "SeaGreen",
+              marginTop: 15
+            }}
+            data-testId="editProfileSave"
+            onClick={onSubmit}
+          >
+            {loading ? "Saving..." : "Save"}
+          </Button>
+        </Box>
+      </form>
+    </Card>
+  )
+}
+
+export default UserForm

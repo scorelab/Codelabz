@@ -164,6 +164,7 @@ const Organizations = () => {
           ) : (
             <Grid item container xs={2}>
               <SideBar
+                collapseText={false}
                 toggleSlider={toggleSlider}
                 open={openMenu}
                 menuItems={[

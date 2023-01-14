@@ -14,7 +14,6 @@ import Tutorials from "./../../assets/images/tutorial.svg";
 import MyFeed from "./../../assets/images/MyFeed.svg";
 import { signOut } from "../../store/actions";
 import { makeStyles } from "@material-ui/core/styles";
-import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { useAllowDashboard } from "../../helpers/customHooks";
@@ -22,7 +21,7 @@ import Card from '@material-ui/core/Card';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: 250,
+    width: 230,
     flexShrink: 0,
     display: theme.breakpoints.down("md") ? null : "none"
   },
@@ -37,6 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const SideBar = ({
+  collapseText,
   open,
   toggleSlider,
   notification,
@@ -46,7 +46,7 @@ const SideBar = ({
   onStateChange,
   children
 }) => {
-  const windowSize = useWindowSize();
+
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
@@ -117,7 +117,7 @@ const SideBar = ({
   const classes = useStyles();
   return (
     <>
-      {windowSize.width <= (drawWidth || 960) ? (
+      {window.screen.width <= (drawWidth || 960) ? (
         <Drawer
           closable="true"
           open={open}
@@ -133,6 +133,7 @@ const SideBar = ({
           md={3}
         >
           <SideList
+            renderTitle={true}
             menuItems={menuItems || defaultMenu}
             value={value}
             onStateChange={onStateChange}
@@ -145,18 +146,28 @@ const SideBar = ({
           </SideList>
         </Drawer>
       ) : (
-        <Card className={classes.card}>
-          <div data-testId="normalMenu">
-            <SideList
-              menuItems={menuItems || defaultMenu}
-              value={value}
-              onStateChange={onStateChange}
-              >
-                {children}
-            </SideList>
-          </div>
-        </Card>
-        
+        <div data-testId="normalMenu">
+          {window.screen.width >= 960 && window.screen.width <= 1100 ?
+          <SideList
+          renderTitle={!collapseText}
+          menuItems={menuItems || defaultMenu}
+          value={value}
+          onStateChange={onStateChange}
+          >
+            {children}
+          </SideList> :
+          
+          <SideList
+          renderTitle={true}
+          menuItems={menuItems || defaultMenu}
+          value={value}
+          onStateChange={onStateChange}
+          >
+            {children}
+          </SideList>
+          }
+          
+        </div>
       )}
     </>
   );

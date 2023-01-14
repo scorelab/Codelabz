@@ -20,14 +20,14 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignContent: "center",
     justifyContent: "center",
-    width: "fit-content",
-    margin: "1rem 1rem 2rem 1rem",
+    marginTop: "1rem",
+    margin: "0 1rem 2rem 1rem",
     height: "100%",
     flexDirection: "column",
     [theme.breakpoints.down(960)]: {
       display: "none"
     },
-    maxWidth: "300px"
+    maxWidth: "270px"
   },
   cardBody: {
     display: "flex",
@@ -89,7 +89,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    maxWidth: "1400px"
+    maxWidth: "1400px",
   },
   card: {
     padding:"6px",

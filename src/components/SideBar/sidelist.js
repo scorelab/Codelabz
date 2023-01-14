@@ -69,6 +69,7 @@ const useStyles = makeStyles(theme => ({
  * @returns 
  */
 const SideList = ({
+  renderTitle,
   menuItems = [],
   value,
   onStateChange = () => {},
@@ -115,7 +116,7 @@ const SideList = ({
                             />
                           </ListItemIcon>
                         )}
-                        <ListItemText
+                        {renderTitle && <ListItemText
                           data-testId={item.name}
                           style={{
                             fontWeight:
@@ -126,7 +127,7 @@ const SideList = ({
                           disableTypography
                         >
                           {item.name}
-                        </ListItemText>
+                        </ListItemText>}
                     </MenuItem>
                       </NavLink>
                 }
@@ -149,7 +150,7 @@ const SideList = ({
                         </Badge>
                       </ListItemIcon>
                     )}
-                    <ListItemText
+                    {renderTitle && <ListItemText
                       data-testId={item.name}
                       style={{
                         fontWeight:
@@ -161,6 +162,7 @@ const SideList = ({
                     >
                       {item.name}
                     </ListItemText>
+                    }
                   </MenuItem>
                 )}
                 {!item.link && item.onClick && (
@@ -181,7 +183,7 @@ const SideList = ({
                         />
                       </ListItemIcon>
                     )}
-                    <ListItemText
+                    {renderTitle && <ListItemText
                       data-testId={item.name}
                       style={{
                         fontWeight:
@@ -193,6 +195,7 @@ const SideList = ({
                     >
                       {item.name}
                     </ListItemText>
+                    }
                   </MenuItem>
                 )}
               </div>
