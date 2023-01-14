@@ -15,7 +15,7 @@
     1. [To Start the Emulators:-](#to-start-the-emulators-)
     2. [Import and Export:-](#import-and-export-)
 9. [FAQs(Frequently Asked Questions)](#faqs)    
-    1. Login/Signup not working.
+    1. Login/Signup is not working.
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
@@ -249,18 +249,18 @@ npm run emulator
 - **READ THE [RULE-SET](https://github.com/scorelab/Codelabz/blob/master/rule_sets.md) FILE PRIOR TO USING "testdata" FILE.**
 
 # FAQs
-### 1. Login is not working ?
+### 1. Login/Signup is not working ?
 <img src="https://files.gitter.im/5eb21f15d73408ce4fe2cb37/Jl4t/image.png" width="600">
 
 ### Solution :-
-This problem generally arises when you have not setuped the Firebase emulators.
+This problem generally arises when you have not setuped/started the Firebase emulators.
 
-1. [<strong>Setup firebase emulator</strong>](#how-to-install). 
+1. [Setup firebase emulator](#how-to-install). 
 2. [Start the Emulators](#to-start-the-emulators-)
 3. Run the app using `npm start`.
 
 >**NOTE** : Remember to start the emulators before running the app. 
 
 - To start emulators - `firebase emulators:start --import=firebase.json --project <your-project-id>`. <br/>
-- In some case all the emulator will not start. <br/>
-So you can execute a separate command for a particular emulator, for example if auth emulator is not starting you can use this command - <br/> `firebase emulators:start --import=firebase.json --project <your-project-id> --only auth`.
+- In some case all the emulator will not start. So you can execute a separate command for a particular emulator<br/>
+  For example if auth emulator is not starting you can use this command - <br/> `firebase emulators:start --import=firebase.json --project <your-project-id> --only auth`.
