@@ -19,18 +19,18 @@ const useStyles = makeStyles(theme => ({
   },
   leftBody: {
     width: "60%",
-    [theme.breakpoints.down(750)]: {
+    [theme.breakpoints.down(900)]: {
       width: "98%"
     }
   },
   rightBody: {
-    [theme.breakpoints.down(750)]: {
+    [theme.breakpoints.down(900)]: {
       display: "none"
     }
   },
   //styles for userCredential Card on small screen
   rightSmallBody:{
-    [theme.breakpoints.up(750)]: {
+    [theme.breakpoints.up(900)]: {
       display: "none"
     },
     marginTop:"11px",
