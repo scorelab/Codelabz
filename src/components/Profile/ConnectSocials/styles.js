@@ -50,10 +50,10 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       transform: "scale(1.2)"
     },
-    marginLeft: 2,
+    marginLeft: -20,
     marginRight: 23,
     "@media (max-width: 500px)": {
-      marginLeft: 2,
+      marginLeft: -10,
       marginRight: 10,
       height: 20
     }
