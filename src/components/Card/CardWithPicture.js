@@ -154,6 +154,7 @@ export default function CardWithPicture(props) {
           </Typography>
         </CardContent>
         <CardActions className={classes.settings} disableSpacing>
+        <CardActions disableSpacing>
           <Chip
             label="HTML"
             component="a"
@@ -170,7 +171,9 @@ export default function CardWithPicture(props) {
           >
             {props.time}
           </Typography>
+          </CardActions>
           <div className={classes.grow} />
+          <CardActions disableSpacing>
           <ToggleButtonGroup
             size="small"
             className={classes.small}
@@ -209,6 +212,7 @@ export default function CardWithPicture(props) {
           <IconButton aria-label="share" data-testId="MoreIcon">
             <MoreVertOutlinedIcon />
           </IconButton>
+          </CardActions>
         </CardActions>
       </ThemeProvider>
     </Card>
