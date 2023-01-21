@@ -252,6 +252,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
           }
         });
       } else {
+        console.log("validated", validated());
         if (validated() && validateUserHandle) {
           setError("");
           await setUpInitialData({
