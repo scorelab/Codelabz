@@ -170,9 +170,9 @@ function HomePage({ background = "white", textColor = "black" }) {
       className={classes.wrapper}
       style={{ background: background }}
       data-testId="homepage"
-      onClick={() => {
-        toggleSlider();
-      }}
+      // onClick={() => {
+      //   toggleSlider();
+      // }}
     >
       <Grid className={classes.contentPart}>
         <div className={classes.sideBody}>
