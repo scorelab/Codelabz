@@ -16,7 +16,7 @@
     2. [Import and Export:-](#import-and-export-)
 # CodeLabz
 
-CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
+CodeLabz is a platform where the users can engage in different online tutorials and the organizations can create tutorials for the users. The platform is being developed using ReactJS frontend library and the backend is being developed using the Google Cloud Firestore and Google Firebase Real-Time database.
 
 # Deployed on
 
@@ -34,7 +34,7 @@ Join and communicate with other members on our community. We communicate on gitt
 
 Clone the repository.
 
-For cloning this repo: Run `git clone https://github.com/scorelab/Codelabz.git`.
+To clone this repo: Run `git clone https://github.com/scorelab/Codelabz.git`.
 
 Run the above command in the folder in which you want to make a clone.
 
@@ -46,7 +46,7 @@ Run `npm install` in `CodeLabz` folder.
  cd CodeLabz/
  npm install
 ```
-> **NOTE**: If `npm install` is not executing successfully, then use node v14 and `npm install --legacy-peer-deps` and try again.
+> **NOTE**: If `npm install` is not executing successfully, then try again using node v14 and `npm install --legacy-peer-deps`.
 
 First you need to create a `.env` file in `CodeLabz` folder following the template provided in the file `.env.sample`.<br/> <br/>
 
@@ -55,11 +55,11 @@ First you need to create a `.env` file in `CodeLabz` folder following the templa
 2. Click **Add Project** and necessary information about the project.(Below mentioned the Steps to add project to firebase) 
     - To add Firebase resources to an existing Google Cloud project, enter its project name or select it from the dropdown menu.
     - To create a new project, enter the desired project name. You can also optionally edit the project ID displayed below the project name
-    - Firebase generates a unique ID for your Firebase project based upon the name you give it. If you want to edit this project ID, you must do it now as it cannot be       altered after Firebase provisions resources for your project. Visit Understand Firebase Projects to learn about how Firebase uses the project ID.
+    - Firebase generates a unique ID for your Firebase project based upon the name you give it. If you want to edit this project ID, you must do it now as it cannot be       altered after Firebase provisions resources for your project. Visit "Understand Firebase Projects" to learn about how Firebase uses the project ID.
 3. Agree to the terms and click **Create Project**.
 4. After creating the project, click **Add Firebase to your web app**.
-    - In the center of the Firebase console's project overview page, click the Web icon  to launch the setup workflow.
-    - If you've already added an app to your Firebase project, click Add app to display the platform options.
+    - At the center of the Firebase console's project overview page, click the Web icon to launch the setup workflow.
+    - If you have already added an app to your Firebase project, click Add app to display the platform options.
     - Enter your app's nickname.
     - This nickname is an internal, convenience identifier and is only visible to you in the Firebase console.
     - Click Register app.
@@ -69,8 +69,8 @@ First you need to create a `.env` file in `CodeLabz` folder following the templa
     - https://DATABASE_NAME.firebaseio.com (for databases in us-central1)
     - https://DATABASE_NAME.REGION.firebasedatabase.app (for databases in all other locations)
 8. You can get your <FIREBASE_VAPID_KEY> from Cloud-Messaging tab
-    - navigate to the setting of your project Open the Cloud Messaging tab.
-    - scroll to the Web configuration section.
+    - navigate to the setting of your project and Open the Cloud Messaging tab.
+    - scroll to the Web Configuration section.
     - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
 
 You should fill in these values in their relevent fields in the `.env` file.
@@ -78,7 +78,7 @@ You should fill in these values in their relevent fields in the `.env` file.
 To run the project:  
  `$ npm start`
 
-If you failed to run the project do the following steps :
+If the project fail to run do the following steps :
 
 - delete node modules
 - delete package-lock.json
@@ -98,7 +98,7 @@ Visit [localhost:3000](http://localhost:3000) to browse.
    1. Log in to the Firebase Console. In the lower left, you will see that your project is listed on the Spark plan. Click the upgrade button.
    2. Select the Blaze plan
    3. Select a billing account. Then click Continue and Purchase. And there you go on the Blaze plan.
-2. You should have installed Firebase CLI tool in your machine
+2. You should have Firebase CLI tool installed in your machine
    To install Firebase CLI machine you can use the command **npm install -g firebase-tools**
 
 Run `npm install` in `CodeLabz/functions ` folder.
@@ -108,14 +108,14 @@ Run `npm install` in `CodeLabz/functions ` folder.
  npm install
 ```
 
-Then you have to generate a private key file for your service account.To get the key file go to this link and follow the instructions https://firebase.google.com/docs/admin/setup#initialize-sdk.
+Then you have to generate a private key file for your service account. To get the key file, go to the below link and follow the instructions https://firebase.google.com/docs/admin/setup#initialize-sdk.
 
 Once you have obtained the key, create a folder named as **'private'** in the directory **'CodeLabz/functions'**. Then copy and paste the key file in private folder.
 Rename the key file as **'cl-dev-pk.json'**
 
-After that change the database url to your project database url in **'CodeLabz/functions/auth.js'**
+After this, change the database url to your project database url in **'CodeLabz/functions/auth.js'**
 
-Move to the root directory and open a command prompt and type following commands
+Move to the root directory and open a command prompt and type the following commands
 
 ```
  npm run-script build
@@ -123,7 +123,7 @@ Move to the root directory and open a command prompt and type following commands
  firebase projects:list
 ```
 
-Find the project ID from the project list that you want to deploy the cloud functions
+Find the project ID which you want to deploy in the cloud functions from the project list
 
 ```
 firebase use <project_id>
@@ -140,7 +140,7 @@ It will open a prompt displaying all the tests. You can find detailed informatio
 # Firebase Emulator Flow
 ```mermaid
 flowchart TB
-     sougatarmail("Email Pass Login \n \n sougatariju13@gmail.com \n\n Pass : 123456 ")
+    sougatarmail("Email Pass Login \n \n sougatariju13@gmail.com \n\n Pass : 123456 ")
     codelabzusermail("Google Login \n \n Codelabz User")
     shivanandamail("Email Pass Login \n \n shivananda@gmail.com \n\n Pass : codelabz ")
     mahendarmail("Google Login \n \n Mahendar Goud")
@@ -193,7 +193,7 @@ firebase --version
 firebase init
 ```
 
--  Now Set up the Emulator Suite. The Below Command Provides you the emultors Like, Authentication,Firestore, Realtime Database,Storage DataBase etc.
+-  Now Set up the Emulator Suite. The Below Command Provides you the emultors Like, Authentication, Firestore, Realtime Database, Storage DataBase etc.
    Select the emulators you needed
     
 ```
@@ -206,8 +206,7 @@ firebase init emulators
 - You can optionally configure the emulators network ports and path to Security Rules definitions in the firebase.json file:
 - Change emulator ports by running `firebase init emulators` or by editing `firebase.json` manually.
     
-Note:-(***Recommended***)If you don't configure these settings, the emulators will listen on their default ports, and the Cloud Firestore, Realtime Database and Cloud Storage 
-        emulators will run with open data security.
+Note:-(***Recommended***)If you don't configure these settings, the emulators will listen on their default ports, and the Cloud Firestore, Realtime Database and Cloud Storage emulators will run with open data security.
 #### Port Configuration - These are the Default Ports Provided you can change them while initializing(if needed)
 
 | Emulator             | Ports|
@@ -228,7 +227,7 @@ Note:-(***Recommended***)If you don't configure these settings, the emulators wi
 - Installation and configuration of the Emulator Suite with containers in a typical CI setup is straightforward.
 
 #### To Start the Emulators:-
-- The Emulators can be start according to the user preferences, .Find detailed information [here](https://github.com/scorelab/Codelabz/blob/master/local-firebase-emulators-import-export.md)
+- The Emulators can start according to the user preferences. Find detailed information [here](https://github.com/scorelab/Codelabz/blob/master/local-firebase-emulators-import-export.md)
 
 ```
 firebase emulators:start
@@ -237,7 +236,7 @@ or
 ```
 npm run emulator
 ```
-- You need to run `firebase emulators:start` or `npm run emulator` first and then run `npm start` inorder to run the codelabz webpage.
+- You need to run `firebase emulators:start` or `npm run emulator` first and then run `npm start` in order to run the codelabz webpage.
 - You can check/open Emulator suite by visiting [localhost:4000](http://localhost:4000).
   
 #### Import and Export:-
