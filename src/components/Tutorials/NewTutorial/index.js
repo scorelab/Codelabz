@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
 import TextField from "@material-ui/core/TextField";
 import Divider from '@material-ui/core/Divider';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Input } from '@material-ui/core';
 import Modal from "@material-ui/core/Modal";
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,9 +16,12 @@ import {deepPurple} from '@material-ui/core/colors';
 import {Typography } from "@material-ui/core";
 import ImageIcon from '@material-ui/icons/Image';
 import DescriptionIcon from '@material-ui/icons/Description';
-import MovieIcon from '@material-ui/icons/Movie';;
+import MovieIcon from '@material-ui/icons/Movie';import { log } from "@craco/craco/lib/logger";
+;
+// import Input from "@material-ui/core";
 
 const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
+  
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -30,6 +33,10 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     title: "",
     summary: "",
     owner: "",
+    display_data:{
+      type:"",
+      data:""
+    }
   });
 
   const loadingProp = useSelector(
@@ -99,8 +106,18 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     setVisible(viewModal);
   }, [viewModal]);
 
-  const onSubmit = (formData) => {
+  const onSubmit = async(formData) => {
+    console.log(formData);
     formData.preventDefault();
+   const url =  await firebase.uploadFile("display_data",formValue.display_data.data)
+   setformValue((prev)=>({
+      ...prev,
+      display_data:{
+        type:formData.display_data.type,
+        data:url
+      }
+   }))
+   console.log(formValue);
     const tutorialData = {
       ...formValue,
       created_by: userHandle,
@@ -118,15 +135,29 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }));
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setformValue((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleChange = (name,e) => {
+    e.persist();
+    if(name =="image" || name=="video"){
+      setformValue((prev)=>({
+        ...prev,
+        display_data:{
+          type:name,
+          data:e.target.value
+        }
+      }))
+    }
+    else {
+      setformValue((prev) => ({
+        ...prev,
+        [name]: e.target.value,
+      }));
+    }
+    console.log(formValue);
+   
   };
-
+  const handleFileChange = (e) => {
+    console.log(e);
+  }
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -166,7 +197,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
         }}
       >
         {error && (
-          <Alert message={""} type="error" closable="true" className="mb-24">
+          <Alert message={""} severity="error" type="error" closable="true" className="mb-24">
             description={"Tutorial Creation Failed"}/
           </Alert>
         )}
@@ -195,7 +226,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
               fullWidth
               id="newTutorialTitle"
               style={{ marginBottom: "2rem" }}
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange("title",e)}
             />
 
             <TextField
@@ -208,7 +239,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
               placeholder="Summary of the Tutorial"
               autoComplete="summary"
               id="newTutorialSummary"
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange("summary",e)}
               style={{ marginBottom: "2rem" }}
             />
             {/* <Select
@@ -225,9 +256,29 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 );
               })}
             </Select> */}
-              <IconButton><ImageIcon/></IconButton>
-              <IconButton><MovieIcon/></IconButton>
-              <IconButton><DescriptionIcon/></IconButton>
+            <div style={{
+              display:"flex",
+            }} 
+            >
+            <div>
+            <IconButton>
+            <label htmlFor="image1">
+              <ImageIcon style={{cursor:"pointer"}}/>
+            </label>
+            </IconButton>
+            <Input type="file" name="image" id="image1" style={{display:"none"}}   accept="image/*" onChange={(e)=>{handleChange("image",e)}}  ></Input>
+            </div>
+            <div>
+            <IconButton>
+            <label htmlFor="video">
+              <MovieIcon style={{cursor:"pointer"}}/>
+            </label>
+            </IconButton>
+            <Input type="file" id="video" style={{display:"none"}} name="image" accept="video/*" onChange={(e)=>{handleChange("video",e)}}></Input>
+            </div>
+            </div>
+            {/* <Input type="file" accept=""><IconButton><MovieIcon/></IconButton></Input> */}
+            {/* <Input type><IconButton><DescriptionIcon/></IconButton></Input> */}
             
             <div className="mb-0">
               <div style={{ float: "right" }}>
