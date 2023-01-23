@@ -117,3 +117,12 @@
     display: block;
   }
 }
+/* Extra small devices (phones, 500px and down) */
+@media only screen and (max-width: 500px) {
+
+html{
+  width: 520px;
+  margin: 0 auto;
+}
+
+}
