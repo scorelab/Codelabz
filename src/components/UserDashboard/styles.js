@@ -9,11 +9,11 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     padding: "0 100px",
     "@media (max-width: 960px)": {
-      padding: "0 10px",
+      padding: "0 0",
       top: 110
     },
     "@media (max-width: 400px)": {
-      padding: "0 5px",
+      padding: "0 0",
     },
   },
   avatar: {
@@ -48,14 +48,18 @@ const useStyles = makeStyles(theme => ({
     padding: 4,
     fontSize: 14,
     "@media (max-width: 960px)": {
-      fontSize: 11
+      fontSize: 11,
+      marginRight:"10px"
     }
   },
   wrapper: {
     display: "flex",
     justifyContent: "center",
     marginTop: 30,
-    gap: "1rem"
+    gap: "1rem",
+    "@media (max-width: 960px)": {
+      gap: 0
+    }
   },
   sidebar: {
     "@media (max-width: 960px)": {

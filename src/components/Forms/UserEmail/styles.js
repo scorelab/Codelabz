@@ -8,8 +8,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     width: "95%",
     "@media (max-width: 960px)": {
-      width: "100%",
-      padding: "10px 15px"
+      width: "90%",
+      padding: "10px 15px",
+      margin:"auto"
     }
   },
   input: {
