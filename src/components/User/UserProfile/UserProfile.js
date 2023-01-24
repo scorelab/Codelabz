@@ -83,9 +83,7 @@ function UserProfile(props) {
                     : "https://i.pravatar.cc/300"
                 }
                 name={props.profileData.displayName}
-                story={
-                  "Lorem ipsum dolor sit amet, consectetuer adipiscing elit"
-                }
+                story={props.profileData.description}
                 followers={402}
                 following={40}
               />
