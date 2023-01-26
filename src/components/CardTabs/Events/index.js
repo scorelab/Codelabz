@@ -54,23 +54,23 @@ const EventsCard = props => {
                   cursor: "pointer"
                 }}
                 gutterBottom
-                data-testId={index == 0 ? "upEventBox" : ""}
+                data-testId={index === 0 ? "upEventBox" : ""}
               >
                 <img
                   src={event.img[0]}
                   className={classes.logo}
-                  data-testId={index == 0 ? "upEventImg" : ""}
+                  data-testId={index === 0 ? "upEventImg" : ""}
                 />
                 <Box sx={{ flexGrow: 1 }}>
                   <Box
                     sx={{ fontWeight: 400, fontSize: "0.8rem" }}
-                    data-testId={index == 0 ? "upEventDate" : ""}
+                    data-testId={index === 0 ? "upEventDate" : ""}
                   >
                     {event.date}
                   </Box>
                   <Box
                     sx={{ fontWeight: 600, fontSize: "1rem" }}
-                    data-testId={index == 0 ? "upEventName" : ""}
+                    data-testId={index === 0 ? "upEventName" : ""}
                   >
                     {event.name}
                   </Box>
