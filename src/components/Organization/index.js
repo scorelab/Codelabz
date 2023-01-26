@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {getUserProfileData} from './../../store/actions';
+import { getUserProfileData } from "./../../store/actions";
 import OrgSidebar from "./OrgSidebar/orgSidebar";
 import { useMediaQuery } from "react-responsive";
 import Button from "@material-ui/core/Button";
@@ -26,8 +26,8 @@ import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import { useParams } from "react-router-dom";
 
 const Organizations = () => {
-   //Set All the organisations for this user
-   const [organisations, setOrganisations] = useState([]);
+  //Set All the organisations for this user
+  const [organisations, setOrganisations] = useState([]);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [SettingsMenu, setSettingsMenu] = useState(1);
   const classes = useStyles();
@@ -99,7 +99,7 @@ const Organizations = () => {
           <SwitchAccount
             Heading="Switch Account"
             name={currentOrgData.org_handle}
-            userOrgs = {orgsOfUser}
+            userOrgs={orgsOfUser}
             avatar={{
               value: currentOrgData.org_image
             }}
@@ -114,7 +114,7 @@ const Organizations = () => {
           />
         </Grid>
         <Grid item container direction="row">
-          {windowSize.width <= 750 ? (
+          {windowSize.width <= 960 ? (
             <Grid item>
               <IconButton onClick={handleClick}>
                 <MenuIcon />
@@ -196,7 +196,7 @@ const Organizations = () => {
             </Grid>
           )}
 
-          <Grid item xs={windowSize.width <= 750 ? 12 : 10}>
+          <Grid item xs={windowSize.width <= 960 ? 12 : 10}>
             {SettingsMenu === 1 && <General />}
             {SettingsMenu === 2 && <Users />}
             {SettingsMenu === 3 && <Passwords />}
