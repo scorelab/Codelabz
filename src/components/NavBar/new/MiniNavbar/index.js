@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     flex: 1,
     color: "#3e5060",
-    letterSpacing:"0.5px"
+    letterSpacing: "0.5px"
   },
   root: {
     backgroundColor: theme.palette.grey[50],
@@ -87,16 +87,16 @@ function MiniNavbar() {
     getDimension({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight
-    })
-  }
-  
+    });
+  };
+
   useEffect(() => {
-    window.addEventListener('resize', setDimension);
-    
-    return(() => {
-        window.removeEventListener('resize', setDimension);
-    })
-  }, [screenSize])
+    window.addEventListener("resize", setDimension);
+
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+  }, [screenSize]);
 
   return (
     <Headroom disableInlineStyles>
@@ -136,7 +136,7 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid style={{display:'inline-block'}} item xs={12} md={4}>
+          <Grid style={{ display: "inline-block" }} item xs={12} md={4}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -147,7 +147,18 @@ function MiniNavbar() {
               >
                 <SearchIcon />
               </IconButton>
-              <InputBase style={{display:'inline-block', width:(screenSize.dynamicWidth<'959' && screenSize.dynamicWidth>'575')?'93.5%':'88.5%'}} className={classes.input} placeholder="Search..." />
+              <InputBase
+                style={{
+                  display: "inline-block",
+                  width:
+                    screenSize.dynamicWidth < "959" &&
+                    screenSize.dynamicWidth > "575"
+                      ? "93.5%"
+                      : "88.5%"
+                }}
+                className={classes.input}
+                placeholder="Search..."
+              />
             </Paper>
           </Grid>
           <Grid item className={classes.gridButton}>
@@ -241,56 +252,54 @@ function MiniNavbar() {
       {windowSize.width <= 960 && (
         <SideBar
           open={openMenu}
+          menuItems={[]}
+          drawWidth={960}
           toggleSlider={toggleSlider}
           notification={notification}
         >
-          {window.innerWidth <= 960 && (
-            <>
-              <Grid
-                item
-                style={{
-                  padding: 10
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{
-                    boxShadow: "none",
-                    color: "white"
-                  }}
-                  className={classes.button}
-                  onClick={() => {
-                    toggleSlider();
-                    history.push("/login");
-                  }}
-                >
-                  Login
-                </Button>
-              </Grid>
-              <Grid
-                item
-                style={{
-                  padding: 10
-                }}
-              >
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  style={{
-                    boxShadow: "none"
-                  }}
-                  className={classes.button}
-                  onClick={() => {
-                    toggleSlider();
-                    history.push("/signup");
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </Grid>
-            </>
-          )}
+          <Grid
+            item
+            style={{
+              padding: 10
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              style={{
+                boxShadow: "none",
+                color: "white"
+              }}
+              className={classes.button}
+              onClick={() => {
+                toggleSlider();
+                history.push("/login");
+              }}
+            >
+              Login
+            </Button>
+          </Grid>
+          <Grid
+            item
+            style={{
+              padding: 10
+            }}
+          >
+            <Button
+              variant="outlined"
+              color="primary"
+              style={{
+                boxShadow: "none"
+              }}
+              className={classes.button}
+              onClick={() => {
+                toggleSlider();
+                history.push("/signup");
+              }}
+            >
+              Sign Up
+            </Button>
+          </Grid>
         </SideBar>
       )}
     </Headroom>
