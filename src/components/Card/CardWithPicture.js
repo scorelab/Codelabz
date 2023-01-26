@@ -78,13 +78,18 @@ export default function CardWithPicture(props) {
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
+
   const handleIncrement = () => {
-    setCount(count + 1);
+    if (count<1) {
+      setCount(count + 1);
+    }
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    if (count > -1) {
+      setCount(count - 1);
+    }
   };
 
   const handleAlignment = (event, newAlignment) => {

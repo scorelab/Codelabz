@@ -7,8 +7,11 @@ import "firebase/functions";
 import "firebase/analytics";
 import "firebase/performance";
 import "firebase/messaging";
+import dotenv from "dotenv";
+dotenv.config();
 
 const firebaseConfig = {
+
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: `https://${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseio.com`,
@@ -17,6 +20,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
+
 };
 
 //console.log("firebaseConfig", firebaseConfig);
