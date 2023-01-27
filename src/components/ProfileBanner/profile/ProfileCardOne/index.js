@@ -121,7 +121,7 @@ export default function ProfileCardOne({
                       horizontal: "left"
                     }}
                   >
-                    <Link to="/user-dashboard/settings">
+                    <Link to="/user-dashboard/user-settings">
                       <MenuItem onClick={handleClose}>User Settings</MenuItem>
                     </Link>
                   </Menu>

@@ -170,7 +170,7 @@ function UserDashboard() {
             <Route exact path={"/user-dashboard/profile"} component={UserForm} />
             <Route
               exact
-              path={"/user-dashboard/settings"}
+              path={"/user-dashboard/user-settings"}
               component={UserAccount}
             />
             <Route
