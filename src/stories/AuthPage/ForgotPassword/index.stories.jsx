@@ -8,15 +8,15 @@ export default {
   component: ForgotPassword,
   argTypes: {
     rootBackground: {
-      control: "color",
+      control: "color"
     },
     buttonColor: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <ForgotPassword {...args} />{" "}
@@ -31,5 +31,5 @@ Default.args = {
   confirmationText:
     "We have sent you an email containing the link to reset your password .Please check your inbox including spams",
   fontweight: "800",
-  buttonColor: "blue",
+  buttonColor: "blue"
 };

@@ -1,10 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import TagCard from "../../components/CardTabs/Tags/index.js";
-import EventsCard from "../../components/CardTabs/Events/index.js";
-import UserCard from "../../components/CardTabs/Users/index.js";
-import ProviderWrapper from "../../helpers/providerWrapper";
+import TagCard from "../../components/CardTabs/Tags/index.jsx";
+import EventsCard from "../../components/CardTabs/Events/index.jsx";
+import UserCard from "../../components/CardTabs/Users/index.jsx";
+import ProviderWrapper from "../../helpers/providerWrapper.jsx";
 import Grid from "@mui/material/Grid";
 import OrgUser from "../../assets/images/org-user.svg";
 

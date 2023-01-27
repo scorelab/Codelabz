@@ -84,11 +84,11 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   });
 
   it("Visit Organization Page - Passing", function () {
-    cy.visit(`${this.base_url}/org/sougataijuorg`);
+    cy.visit(`${this.base_url}org/sougataijuorg`);
     cy.wait(5000);
 
     cy.location().should((loc) => {
-      expect(loc.href).to.eq(`${this.base_url}/org/sougataijuorg`);
+      expect(loc.href).to.eq(`${this.base_url}org/sougataijuorg`);
     });
   });
 
@@ -102,10 +102,10 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   });
 
   it("Visit Home Page - Passing", function () {
-    cy.visit(`${this.base_url}/`);
+    cy.visit(`${this.base_url}`);
     cy.wait(5000);
     cy.location().should((loc) => {
-      expect(loc.href).to.eq(`${this.base_url}/`);
+      expect(loc.href).to.eq(`${this.base_url}`);
     });
   });
 });

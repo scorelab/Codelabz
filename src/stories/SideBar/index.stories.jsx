@@ -1,8 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import SideBar from "../../components/SideBar/index.js";
-import ProviderWrapper from "../../helpers/providerWrapper";
+import SideBar from "../../components/SideBar/index.jsx";
+import ProviderWrapper from "../../helpers/providerWrapper.jsx";
 import Grid from "@mui/material/Grid";
 import Home from "./../../assets/images/home.svg";
 import Notification from "../../assets/images/notification.svg";
