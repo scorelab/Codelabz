@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
-import CardComponent from "../util/CodelabCard/index";
-import Typography from "@material-ui/core/Typography";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import List from "@material-ui/core/List";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import TabContext from "@material-ui/lab/TabContext";
