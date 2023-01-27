@@ -93,7 +93,7 @@ const SideList = ({
       <MenuList className={classes.menuList}>
         {menuItems.map(function (item, index) {
             return (
-              <div key="menu-items"
+              <div key={item.name}
                style={item.link == location.pathname ?{background:"#d9f1fc",borderRadius:"100px"} :{}}
                >
                 {item.link &&
