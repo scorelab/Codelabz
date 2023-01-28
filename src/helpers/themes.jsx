@@ -1,18 +1,22 @@
-import { createTheme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-export const basicTheme = createTheme({
-	shadows: ["none"],
-	palette: {
-		primary: {
-			main: "#455a64",
-		},
-	},
-});
+export const basicTheme = responsiveFontSizes(
+  createTheme({
+    shadows: ["none"],
+    palette: {
+      primary: {
+        main: "#455a64"
+      }
+    }
+  })
+);
 
-export const theme = createTheme({
-	palette: {
-		primary: {
-			main: "#03AAFA",
-		},
-	},
-});
+export const theme = responsiveFontSizes(
+  createTheme({
+    palette: {
+      primary: {
+        main: "#03AAFA"
+      }
+    }
+  })
+);
