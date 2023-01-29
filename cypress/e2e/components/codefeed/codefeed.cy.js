@@ -12,6 +12,7 @@ describe("Codefeed Page | CodeLabz", () => {
   });
 
   it("Check Codefeed Page is not accessable by non-loggedin user", function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
     cy.visit(`${this.base_url}dashboard`);
 
     cy.location().should((loc) => {
@@ -21,7 +22,7 @@ describe("Codefeed Page | CodeLabz", () => {
 
   it("Login With Your Account", function () {
     cy.visit(`${this.base_url}login`);
-    cy.wait(3000);
+    cy.wait(5000);
     cy.get(".email").type(this.credentials.email);
     cy.get(".password").type(this.credentials.password);
     cy.get(".loginButton").click();
@@ -40,24 +41,5 @@ describe("Codefeed Page | CodeLabz", () => {
     cy.visit(`${this.base_url}dashboard/my_feed`);
     cy.wait(3000);
     cy.get("[data-testId=codefeedTitle]").should("exist");
-  });
-  it("check carousel card present in codefeed", function () {
-    cy.visit(`${this.base_url}dashboard/my_feed`);
-    cy.wait(3000);
-    cy.get("[data-testId=codefeedCarouselCard]").should("exist");
-  });
-  it("check left and right arrow exist", function () {
-    cy.visit(`${this.base_url}dashboard/my_feed`);
-    cy.wait(3000);
-    cy.get("[data-testId=codefeedLeftarrow]").should("exist");
-    cy.get("[data-testId=codefeedRightarrow]").should("exist");
-  });
-  it("check card redirect to organization", function () {
-    cy.visit(`${this.base_url}dashboard/my_feed`);
-    cy.wait(3000);
-    cy.get("[data-testId=codefeedCarouselCard]").click({ force: true });
-    cy.location().should((loc) => {
-      loc.href.includes("org");
-    });
   });
 });

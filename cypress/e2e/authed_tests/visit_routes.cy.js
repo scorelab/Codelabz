@@ -10,6 +10,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   });
 
   it("Login Test - Passing", function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
     cy.visit(this.base_url);
     cy.get("[data-test-id=login]").should("exist");
     cy.get("[data-test-id=login]").contains("Login");
@@ -84,11 +85,11 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   });
 
   it("Visit Organization Page - Passing", function () {
-    cy.visit(`${this.base_url}org/sougataijuorg`);
+    cy.visit(`${this.base_url}org/codelabzorg`);
     cy.wait(5000);
 
     cy.location().should((loc) => {
-      expect(loc.href).to.eq(`${this.base_url}org/sougataijuorg`);
+      expect(loc.href).to.eq(`${this.base_url}org/codelabzorg`);
     });
   });
 

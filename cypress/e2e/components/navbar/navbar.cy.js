@@ -11,6 +11,10 @@ describe("Profile Page | CodeLabz", () => {
       cy.visit(this.base_url);
     });
   });
+  before(function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
+  });
+
   it("check only mini navbar is showing to non loggedin user", function () {
     cy.visit(this.base_url);
     cy.wait(1000);
@@ -36,6 +40,6 @@ describe("Profile Page | CodeLabz", () => {
     cy.visit(this.base_url);
     cy.get("[data-testid=navbarBrand]").should("exist");
     cy.get("[data-testid=navbarSearch]").should("exist");
-    cy.get("[data-testid=navbarAppMenu").should("exist");
+    cy.get("[data-testid=nav-user").should("exist");
   });
 });

@@ -26,8 +26,6 @@ const useStyles = makeStyles(theme => ({
 
 function AboutUsers({ backgroundColor, Heading, Content, className }) {
   const classes = useStyles();
-  let theme = createTheme();
-  theme = responsiveFontSizes(theme);
 
   return (
     <Card className={className || classes.root} variant="outlined">

@@ -11,6 +11,10 @@ describe("Forgot Password Page | CodeLabz", () => {
     });
   });
 
+  before(function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
+  });
+
   it("check forgotpassword card exist", function () {
     cy.visit(`${this.base_url}forgotpassword`);
     cy.get("[data-testid=forgotPassword]").should("exist");
@@ -26,7 +30,7 @@ describe("Forgot Password Page | CodeLabz", () => {
     cy.get("[data-testId=forgotPasswordEmail]").type(this.credentials.email);
     cy.get("[data-testId=forgotPasswordButton]").click();
     cy.contains(
-      "We have sent you an email containing the link to reset your password. Please check your inbox including spams."
+      "We have sent you an email containing the link to reset your password"
     );
   });
 });

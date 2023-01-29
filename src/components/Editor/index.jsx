@@ -42,24 +42,26 @@ const Editor = ({ id, data, tutorial_id }) => {
     script.src = "/firepad.js";
     script.async = true;
     script.onload = () => {
-      const firepadRef = ref.child(noteID);
+      try {
+        const firepadRef = ref.child(noteID);
+        firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
+          richTextToolbar: false,
+          richTextShortcuts: true,
+          userId: currentUserHandle
+        });
+        firepad.on("ready", function () {
+          if (firepad.isHistoryEmpty() && data) {
+            firepad.setText(data);
+          }
+        });
 
-      firepad = window.Firepad.fromCodeMirror(firepadRef, codeMirror, {
-        richTextToolbar: false,
-        richTextShortcuts: true,
-        userId: currentUserHandle
-      });
-
-      firepad.on("ready", function () {
-        if (firepad.isHistoryEmpty() && data) {
-          firepad.setText(data);
-        }
-      });
-
-      firepad.on("synced", function (isSynced) {
-        setCurrentStep(firepad.getText())(dispatch);
-        isSynced && firepadRef.child("text").set(firepad.getText());
-      });
+        firepad.on("synced", function (isSynced) {
+          setCurrentStep(firepad.getText())(dispatch);
+          isSynced && firepadRef.child("text").set(firepad.getText());
+        });
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     document.body.appendChild(script);

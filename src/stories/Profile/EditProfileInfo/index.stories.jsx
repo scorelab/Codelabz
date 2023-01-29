@@ -1,15 +1,18 @@
 import React from "react";
 import EditProfileView from "../../../components/Profile/ProfileInfoCard/editProfileDetailsModal";
 import ProviderWrapper from "../../../helpers/providerWrapper";
+import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "Profile/Edit Profile",
-  component: EditProfileView,
+  component: EditProfileView
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
-    <EditProfileView {...args} />
+    <MemoryRouter>
+      <EditProfileView {...args} />
+    </MemoryRouter>
   </ProviderWrapper>
 );
 
@@ -30,6 +33,6 @@ Default.args = {
     link_twitter: "Test twitter",
     orgFollowed: ["Test Org"],
     organizations: (1)["Test Org"],
-    website: "",
-  },
+    website: ""
+  }
 };

@@ -172,7 +172,9 @@ const ViewTutorial = () => {
                 {!isDesktop && stepPanelVisible ? null : (
                   <>
                     {mode === "view" && (
-                      <ReactMarkdown children={currentStepContent} />
+                      <div data-testId="tutorial-content">
+                        <ReactMarkdown children={currentStepContent} />
+                      </div>
                     )}
                     {mode === "edit" && (
                       <>

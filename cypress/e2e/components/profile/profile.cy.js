@@ -11,6 +11,10 @@ describe("Profile Page | CodeLabz", () => {
     });
   });
 
+  before(function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
+  })
+
   it("Login With Your Account", function () {
     cy.visit(`${this.base_url}login`);
     cy.wait(3000);
@@ -29,26 +33,26 @@ describe("Profile Page | CodeLabz", () => {
   });
 
   it("Check for Other Component", function () {
-    cy.visit(`${this.base_url}profile`);
+    cy.visit(`${this.base_url}user-dashboard/profile`);
     cy.get("#changeProfile").contains("Change Proifle Picture");
     cy.get(".MuiChip-labelSmall").contains("Email Verified");
     cy.get("#edit").contains("Edit Profile");
   });
 
   it("Change Profile Picture", function () {
-    cy.visit(`${this.base_url}profile`);
+    cy.visit(`${this.base_url}user-dashboard/profile`);
     cy.get("#changeProfile").click();
     cy.get("#alert-dialog-title");
   });
 
   it("Check Profile Details Component", function () {
-    cy.visit(`${this.base_url}profile`);
+    cy.visit(`${this.base_url}user-dashboard/profile`);
     cy.wait(5000);
     cy.get("#profileData");
   });
 
   it("Check Edit Profile Modal", function () {
-    cy.visit(`${this.base_url}profile`);
+    cy.visit(`${this.base_url}user-dashboard/profile`);
     cy.wait(3000);
     cy.get("#edit").click({ force: true });
     cy.wait(3000);

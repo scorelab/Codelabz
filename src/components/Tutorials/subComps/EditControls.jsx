@@ -201,6 +201,7 @@ const EditControls = ({
                   className="ml-24"
                   onClick={() => setMode("edit")}
                   id="editorMode"
+                  data-testId="editorMode"
                 >
                   <EditIcon /> Editor mode
                 </Button>

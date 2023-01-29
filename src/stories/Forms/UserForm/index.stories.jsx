@@ -1,15 +1,18 @@
 import React from "react";
-import UserForm from "../../../components/Forms/UserForm"
+import UserForm from "../../../components/Forms/UserForm";
 import ProviderWrapper from "../../../helpers/providerWrapper";
+import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "Forms/UserForm",
-  component: UserForm,
+  component: UserForm
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
-    <UserForm />
+    <MemoryRouter>
+      <UserForm />
+    </MemoryRouter>
   </ProviderWrapper>
 );
 

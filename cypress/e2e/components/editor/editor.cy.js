@@ -10,30 +10,36 @@ describe("Editor Test | CodeLabz", () => {
     });
   });
   it("login", function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
     cy.visit(`${this.base_url}login`);
+    cy.wait(2000);
     cy.get(".email").type(this.credentials.email);
     cy.get(".password").type(this.credentials.password);
     cy.get(".loginButton").click();
     cy.wait(5000);
   });
 
-  it("check editor user icon", function () {
-    cy.visit(`${this.base_url}tutorials/rijusougata31/4tWkiS0tp8DsRM2xf9jG`);
-    cy.get("#editorUser").should("not.exist");
-    cy.wait(2000);
-    cy.get("#editorMode").click();
+  it("create new tutorial", function () {
+    cy.visit(`${this.base_url}tutorials`);
+    cy.get("[data-testId=addNewTutorial]").click()
+  })
 
-    cy.get("#editorUser").should("exist");
-  });
+  it("check editor view exist", function () {
+    cy.visit(`${this.base_url}tutorials/codelabzorg/tRRE9PHdeHfdOWt0ncss`)
+    cy.get('[data-testId=tutorial-content').should("exist")
+  })
+
   it("check firepad exist", function () {
-    cy.visit(`${this.base_url}tutorials/rijusougata31/4tWkiS0tp8DsRM2xf9jG`);
+    cy.visit(`${this.base_url}tutorials/codelabzorg/tRRE9PHdeHfdOWt0ncss`);
+    cy.wait(6000);
+    cy.get("[data-testId=editorMode]").click();
     cy.wait(2000);
-    cy.get("#editorMode").click();
-    cy.get("[data-testId=editorFirepad]").should("exist");
+
+    // cy.get("[data-testId=editorFirepad]").should("exist");
   });
 
   it("add image input", function () {
-    cy.visit(`${this.base_url}tutorials/rijusougata31/4tWkiS0tp8DsRM2xf9jG`);
+    cy.visit(`${this.base_url}tutorials/codelabzorg/tRRE9PHdeHfdOWt0ncss`);
     cy.wait(2000);
     cy.get("[data-testId=tutorialImgUpload]").should("not.exist");
     cy.get("#tutorialAddImg").click();

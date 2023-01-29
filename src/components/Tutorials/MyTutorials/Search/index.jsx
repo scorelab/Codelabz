@@ -76,7 +76,7 @@ const Header = () => {
             color: "white"
           }}
           startIcon={<Add />}
-          data-testId="tutorialAddNewButton"
+          data-testId="addNewTutorial"
         >
           Add New CodeLabz
         </Button>

@@ -1,15 +1,18 @@
 import React from "react";
 import Organizations from "../../../components/Profile/Organizations";
 import ProviderWrapper from "../../../helpers/providerWrapper";
+import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "Profile/Organizations",
-  component: Organizations,
+  component: Organizations
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
-    <Organizations />
+    <MemoryRouter>
+      <Organizations />
+    </MemoryRouter>
   </ProviderWrapper>
 );
 

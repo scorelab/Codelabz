@@ -58,6 +58,7 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@storybook/addon-actions": "^6.5.16",
     "@storybook/addon-backgrounds": "^6.5.16",
     "@storybook/addon-docs": "^6.5.16",

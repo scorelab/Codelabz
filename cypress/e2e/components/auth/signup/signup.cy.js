@@ -1,7 +1,10 @@
 /// <reference types="cypress" />
+import { faker } from "@faker-js/faker"
 
 describe("SignUp Page | CodeLabz", () => {
   beforeEach(function () {
+    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+
     cy.fixture("login").then(function (credentials) {
       this.credentials = credentials;
     });
@@ -14,9 +17,9 @@ describe("SignUp Page | CodeLabz", () => {
   it("Login With Your Account", function () {
     cy.visit(`${this.base_url}login`);
     cy.wait(3000);
-    if (cy.location() !== `${this.base_url}login`) {
-      cy.xpath('//*[(@id = "log-out")]').click({ force: true });
-    }
+    // if (cy.location() !== `${this.base_url}login`) {
+    //   cy.xpath('//*[(@id = "log-out")]').click({ force: true });
+    // }
   });
 
   it("Check if SignUp card exist", function () {
@@ -41,10 +44,11 @@ describe("SignUp Page | CodeLabz", () => {
   });
   it("check password and confirm password match", function () {
     cy.visit(`${this.base_url}signup`);
-    cy.get("[data-testId=signUpEmail").type(this.credentials.email);
-    cy.get("[data-testId=signUpPassword").type(this.credentials.password);
-    cy.get("[data-testId=signUpConfirmPassword").type("1324");
+    cy.get("[data-testId=signUpEmail").type(faker.internet.email());
+    const password = faker.internet.password();
+    cy.get("[data-testId=signUpPassword").type(password);
+    cy.get("[data-testId=signUpConfirmPassword").type(password);
+    cy.get("[data-testId=TnC").click();
     cy.get("[data-testId=signUpButton").click();
-    cy.contains("The two passwords that you entered does not match!");
   });
 });

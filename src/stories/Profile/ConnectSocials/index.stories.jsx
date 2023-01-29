@@ -1,15 +1,18 @@
 import React from "react";
-import Connect from "../../../components/Profile/ConnectSocials"
+import Connect from "../../../components/Profile/ConnectSocials";
 import ProviderWrapper from "../../../helpers/providerWrapper";
+import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "Profile/Profile Socials",
-  component: Connect,
+  component: Connect
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
-    <Connect />
+    <MemoryRouter>
+      <Connect />
+    </MemoryRouter>
   </ProviderWrapper>
 );
 
