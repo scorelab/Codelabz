@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: "56.25%" // 16:9
   },
   margin: {
-    marginRight: "5px"
+    marginLeft: "5px"
   },
   expandOpen: {
     transform: "rotate(180deg)"
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600
   },
   contentPadding: {
-    padding: "0 16px"
+    padding: "5px 10px 0 10px"
   },
   icon: {
     padding: "5px"
@@ -70,6 +70,11 @@ const useStyles = makeStyles(theme => ({
   },
   settings: {
     flexWrap: "wrap"
+  },
+  topHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
   }
 }));
 
@@ -93,51 +98,57 @@ export default function CardWithPicture(props) {
 
   return (
     <Card className={classes.root}>
-      <CardMedia
+      <ThemeProvider theme={theme}>
+        <div className={classes.topHeader}>
+          <CardHeader
+            style={{padding: "10px"}}
+            avatar={
+              <Avatar
+                aria-label="recipe"
+                className={classes.avatar}
+                data-testId="UserAvatar"
+              >
+                S
+              </Avatar>
+            }
+            title={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="h7"
+                  className={classes.inline}
+                  color="textPrimary"
+                  data-testId="UserName"
+                >
+                  {props.name}
+                </Typography>
+                {props.organizationName && (
+                  <>
+                    {" for "}
+                    <Typography
+                      component="span"
+                      variant="h7"
+                      className={classes.inline}
+                      color="textPrimary"
+                      data-testId="UserOrgName"
+                    >
+                      {props.organizationName}
+                    </Typography>
+                  </>
+                )}
+              </React.Fragment>
+            }
+            subheader={props.date}
+          />
+          <IconButton aria-label="share" data-testId="MoreIcon">
+              <MoreVertOutlinedIcon />
+          </IconButton>
+        </div>
+        <CardMedia
         className={classes.media}
         image={cardImage}
         title="code"
         data-testId="Image"
-      />
-      <ThemeProvider theme={theme}>
-        <CardHeader
-          avatar={
-            <Avatar
-              aria-label="recipe"
-              className={classes.avatar}
-              data-testId="UserAvatar"
-            >
-              S
-            </Avatar>
-          }
-          title={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="h7"
-                className={classes.inline}
-                color="textPrimary"
-                data-testId="UserName"
-              >
-                {props.name}
-              </Typography>
-              {props.organizationName && (
-                <>
-                  {" for "}
-                  <Typography
-                    component="span"
-                    variant="h7"
-                    className={classes.inline}
-                    color="textPrimary"
-                    data-testId="UserOrgName"
-                  >
-                    {props.organizationName}
-                  </Typography>
-                </>
-              )}
-            </React.Fragment>
-          }
-          subheader={props.date}
         />
         <CardContent className={classes.contentPadding}>
           <Typography variant="h5" color="text.primary" data-testId="Title">
@@ -154,26 +165,6 @@ export default function CardWithPicture(props) {
           </Typography>
         </CardContent>
         <CardActions className={classes.settings} disableSpacing>
-        <CardActions disableSpacing>
-          <Chip
-            label="HTML"
-            component="a"
-            href="#chip"
-            clickable
-            variant="outlined"
-            className={classes.margin}
-          />
-          <Typography
-            variant="overline"
-            display="block"
-            className={classes.time}
-            data-testId="Time"
-          >
-            {props.time}
-          </Typography>
-          </CardActions>
-          <div className={classes.grow} />
-          <CardActions disableSpacing>
           <ToggleButtonGroup
             size="small"
             className={classes.small}
@@ -206,13 +197,27 @@ export default function CardWithPicture(props) {
           <IconButton aria-label="add to favorites" data-testId="ShareIcon">
             <ShareOutlinedIcon />
           </IconButton>
+          <div className={classes.grow} />
+          <Typography
+            variant="overline"
+            display="block"
+            className={classes.time}
+            data-testId="Time"
+          >
+            {props.time}
+          </Typography>
+          <Chip
+            label="HTML"
+            component="a"
+            href="#chip"
+            clickable
+            variant="outlined"
+            className={classes.margin}
+          />
           <IconButton aria-label="share" data-testId="NotifIcon">
             <TurnedInNotOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="share" data-testId="MoreIcon">
-            <MoreVertOutlinedIcon />
-          </IconButton>
-          </CardActions>
+          
         </CardActions>
       </ThemeProvider>
     </Card>
