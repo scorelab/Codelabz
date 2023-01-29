@@ -14,6 +14,7 @@
 8. [Integrate With your CI System.](#integrate-with-your-ci-system)
     1. [To Start the Emulators:-](#to-start-the-emulators-)
     2. [Import and Export:-](#import-and-export-)
+
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
@@ -165,7 +166,7 @@ flowchart TB
     auth[(Authentication)]--->sarfarazmail--->sarfaraz
 ```
 # Install, Configure and Integrate Firebase Emulator Suite
-## **How to install**
+## 1. **How to install**
 #### Before installing the Emulator Suite you will need:-
 
 - Node.js version 8.0 or higher.
@@ -199,7 +200,7 @@ firebase init
 ```
 firebase init emulators
 ``` 
-## **How to Configure** 
+## 2. **How to Configure** 
 
 #### Configure Emulator Suite:-
 
@@ -223,7 +224,7 @@ Note:-(***Recommended***)If you don't configure these settings, the emulators wi
 
 - The emulators will take Security Rules configuration from the database, firestore and storage configuration keys in `firebase.json`.
 
-## Integrate With your CI System.
+## 3. Integrate With your CI System.
 
 - Installation and configuration of the Emulator Suite with containers in a typical CI setup is straightforward.
 
