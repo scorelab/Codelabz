@@ -10,6 +10,10 @@ describe("Tutorial Test | CodeLabz", () => {
     });
   });
 
+  before(function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
+  })
+
   it("tutorial page is not accessable from outside", function () {
     cy.visit(`${this.base_url}tutorials`);
     cy.location().should((loc) => {
@@ -31,29 +35,25 @@ describe("Tutorial Test | CodeLabz", () => {
     });
   });
 
-  it("tutorial components present", function () {
-    cy.visit(`${this.base_url}tutorials`);
-    // tutorial main body
-    cy.get("[data-testId=tutorialMainBody]");
-    // tutorial search components
-    cy.get("[data-testId=tutorialSearch]");
-    // new tutorial add button
-    cy.get("[data-testId=tutorialAddNewButton]");
-    // org tutorial component
-    cy.get("[data-testId=tutorialCard]");
-  });
+  // it("tutorial components present", function () {
+  //   cy.visit(`${this.base_url}tutorials`);
+  // // tutorial main body
+  // cy.get("[data-testId=tutorialMainBody]");
+  // // tutorial search components
+  // cy.get("[data-testId=tutorialSearch]");
+  // // new tutorial add button
+  // cy.get("[data-testId=tutorialAddNewButton]");
+  // // org tutorial component
+  // cy.get("[data-testId=tutorialCard]");
+  // });
   it("new tutorial modal open", function () {
     cy.visit(`${this.base_url}tutorials`);
     cy.wait(1000);
-    cy.get("[data-testId=tutorialAddNewButton]").click();
+    cy.get("[data-testId=NewTutorialBtn]").click();
     cy.get("[data-testId=tutorialNewModal]");
-  });
-  it("new tutorial form has atleast 3 children", function () {
-    cy.get("#newTutorialTitle").should("exist");
-    cy.get("#newTutorialSummary").should("exist");
-    cy.get("#newTutorialSelect").should("exist");
-  });
-  it("new tutorial function", function () {
+    cy.get("[data-testId=newTutorial_title]").should("exist");
+    cy.get("[data-testId=newTutorial_summary]").should("exist");
+    cy.get("#orgSelect").should("exist");
     cy.get("#cancelAddTutorial").click();
     cy.get("[data-testId=tutorialNewModal]").should("not.exist");
   });

@@ -41,37 +41,44 @@ function UserDashboard() {
     {
       name: "Profile",
       img: Profile,
-      link: "/user-dashboard/profile"
+      link: "/user-dashboard/profile",
+      dataTestId: "profile"
     },
     {
       name: "User Settings",
       img: UserSettings,
-      link: "/user-dashboard/settings"
+      link: "/user-dashboard/settings",
+      dataTestId: "userSettings"
     },
-    {
-      name: "Notifications",
-      img: Notification,
-      link: "/user-dashboard/notifications"
-    },
+    // {
+    //   name: "Notifications",
+    //   img: Notification,
+    //   link: "/user-dashboard/notifications",
+    //   dataTestId: "notifications"
+    // },
     {
       name: "Social Media",
       img: SocialMedia,
-      link: "/user-dashboard/socials"
+      link: "/user-dashboard/socials",
+      dataTestId: "socialMedia"
     },
     {
       name: "Emails",
       img: Email,
-      link: "/user-dashboard/email"
+      link: "/user-dashboard/email",
+      dataTestId: "emails"
     },
     {
       name: "Password",
       img: Password,
-      link: "/user-dashboard/password"
+      link: "/user-dashboard/password",
+      dataTestId: "password"
     },
     {
       name: "Organizations",
       img: Org,
-      link: "/user-dashboard/organizations"
+      link: "/user-dashboard/organizations",
+      dataTestId: "organizations"
     }
   ];
 
@@ -107,7 +114,7 @@ function UserDashboard() {
             >
               {name.charAt(0).toUpperCase()}
             </Avatar>
-            <Box marginLeft={1}>
+            <Box marginLeft={1} data-testId="switchAccount">
               <Typography className={classes.name}>{name}</Typography>
               <Box style={{ display: "flex", alignItems: "center" }}>
                 <Typography className={classes.account}>
@@ -116,7 +123,7 @@ function UserDashboard() {
                 <img src={SwitchImg} className={classes.image} alt="profile" />
                 <Typography
                   className={classes.account}
-                  style={{ color: "#0969DA" }}
+                  data-testId="switchAccount_switch"
                 >
                   Switch
                 </Typography>

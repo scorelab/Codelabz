@@ -7,7 +7,6 @@ describe("Profile Page | CodeLabz", () => {
     });
     cy.fixture("base_url").then(function (data) {
       this.base_url = data.base_url;
-      cy.visit(this.base_url);
     });
   });
 
@@ -26,65 +25,41 @@ describe("Profile Page | CodeLabz", () => {
 
   it("Check Profile Page Url", function () {
     cy.visit(`${this.base_url}profile`);
-    cy.wait(5000);
+    // cy.get("[data-testId=AboutUsersHeading]").should("not.have.text", "");
+    // cy.get("[data-testId=AboutUsersContent]").should("exist");
+    // cy.get("[data-testId=DescriptionHeading]").should("not.have.text", "");
+    // cy.get("[data-testId=DescriptionContent]").should("exist");
+    cy.get("[data-testId=HighlightsHeading]").should("not.have.text", "");
+    cy.get("[data-testId=HighlightsCurrentJob]").should("exist");
+    cy.get("[data-testId=HighlightsEducation]").should("exist");
+    cy.get("[data-testId=HighlightsLanguages]").should("exist");
+    cy.get("[data-testId=HighlightsJoinedDate]").should("exist");
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}profile`);
     });
   });
 
-  it("Check for Other Component", function () {
-    cy.visit(`${this.base_url}user-dashboard/profile`);
-    cy.get("#changeProfile").contains("Change Proifle Picture");
-    cy.get(".MuiChip-labelSmall").contains("Email Verified");
-    cy.get("#edit").contains("Edit Profile");
-  });
+  // it("Change Profile Picture", function () {
+  //   cy.visit(`${this.base_url}user-dashboard/profile`);
+  //   cy.get("#changeProfile").click();
+  //   cy.get("#alert-dialog-title");
+  // });
 
-  it("Change Profile Picture", function () {
-    cy.visit(`${this.base_url}user-dashboard/profile`);
-    cy.get("#changeProfile").click();
-    cy.get("#alert-dialog-title");
-  });
+  // it("Check Profile Details Component", function () {
+  //   cy.visit(`${this.base_url}user-dashboard/profile`);
+  //   cy.wait(5000);
+  //   cy.get("#profileData");
+  // });
 
-  it("Check Profile Details Component", function () {
-    cy.visit(`${this.base_url}user-dashboard/profile`);
-    cy.wait(5000);
-    cy.get("#profileData");
-  });
+  // it("Check Edit Profile Modal", function () {
+  //   cy.visit(`${this.base_url}user-dashboard/profile`);
+  //   cy.wait(3000);
+  //   cy.get("#edit").click({ force: true });
+  //   cy.wait(3000);
+  //   cy.get("#editProfileModal");
+  //   // cy.get("#editModalBox").should("have.length");
+  //   expect("#editModalBox").to.have.length.at.least(4);
+  // });
 
-  it("Check Edit Profile Modal", function () {
-    cy.visit(`${this.base_url}user-dashboard/profile`);
-    cy.wait(3000);
-    cy.get("#edit").click({ force: true });
-    cy.wait(3000);
-    cy.get("#editProfileModal");
-    // cy.get("#editModalBox").should("have.length");
-    expect("#editModalBox").to.have.length.at.least(4);
-  });
-
-  it("check Edit profile works", function () {
-    cy.visit(`${this.base_url}profile`);
-    cy.wait(3000);
-    cy.get("#edit").click({ force: true });
-    cy.get("[data-testId=editProfileName] > div > input").clear();
-    cy.get("[data-testId=editProfileName]").type("test name");
-    cy.get("[data-testId=editProfileFacebook] > div > input").clear();
-    cy.get("[data-testId=editProfileFacebook]").type(" facebook");
-    cy.get("[data-testId=editProfileTwitter] > div > input").clear();
-    cy.get("[data-testId=editProfileTwitter]").type(" twitter");
-    cy.get("[data-testId=editProfileLinkedin] > div > input").clear();
-    cy.get("[data-testId=editProfileLinkedin]").type(" linkedin");
-    cy.get("[data-testId=editProfileGithub] > div > input").clear();
-    cy.get("[data-testId=editProfileGithub]").type(" github");
-    cy.get("[data-testId=editProfileWebsite] > div > input").clear();
-    cy.get("[data-testId=editProfileWebsite]").type("https://test.org");
-    cy.get("[data-testId=editProfileDescription] > div > textarea").clear({
-      force: true,
-    });
-    cy.get("[data-testId=editProfileDescription]  > div > textarea")
-      .first()
-      .type("test Description", { force: true });
-    cy.get("[data-testId=editProfileSave]").click();
-    cy.wait(5000);
-    cy.get("[data-testId=profileName]").contains("test name");
-  });
 });

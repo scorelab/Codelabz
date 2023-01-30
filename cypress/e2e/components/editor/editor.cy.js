@@ -25,12 +25,12 @@ describe("Editor Test | CodeLabz", () => {
   })
 
   it("check editor view exist", function () {
-    cy.visit(`${this.base_url}tutorials/codelabzorg/tRRE9PHdeHfdOWt0ncss`)
+    cy.visit(`${this.base_url}tutorials/codelabzorg/OKfLHvn0F8OklPTHFnS0`)
     cy.get('[data-testId=tutorial-content').should("exist")
   })
 
   it("check firepad exist", function () {
-    cy.visit(`${this.base_url}tutorials/codelabzorg/tRRE9PHdeHfdOWt0ncss`);
+    cy.visit(`${this.base_url}tutorials/codelabzorg/OKfLHvn0F8OklPTHFnS0`);
     cy.wait(6000);
     cy.get("[data-testId=editorMode]").click();
     cy.wait(2000);
@@ -39,7 +39,7 @@ describe("Editor Test | CodeLabz", () => {
   });
 
   it("add image input", function () {
-    cy.visit(`${this.base_url}tutorials/codelabzorg/tRRE9PHdeHfdOWt0ncss`);
+    cy.visit(`${this.base_url}tutorials/codelabzorg/OKfLHvn0F8OklPTHFnS0`);
     cy.wait(2000);
     cy.get("[data-testId=tutorialImgUpload]").should("not.exist");
     cy.get("#tutorialAddImg").click();

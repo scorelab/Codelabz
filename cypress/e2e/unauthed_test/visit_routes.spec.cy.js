@@ -1,13 +1,17 @@
 /// <reference types="cypress" />
 
 describe("Unauthenticated Routes Access Test | CodeLabz", () => {
-  beforeEach(function() {
-    cy.fixture("base_url").then(function(data) {
+  beforeEach(function () {
+    cy.fixture("base_url").then(function (data) {
       this.base_url = data.base_url;
     });
   });
 
-  it("Visit Login Page - Passing", function() {
+  before(function () {
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
+  })
+
+  it("Visit Login Page - Passing", function () {
     cy.visit(`${this.base_url}login`);
     cy.wait(5000);
 
@@ -16,7 +20,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Visit Sign Up Page - Passing", function() {
+  it("Visit Sign Up Page - Passing", function () {
     cy.visit(`${this.base_url}signup`);
     cy.wait(5000);
 
@@ -25,7 +29,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Visit Forgot Password Page - Passing", function() {
+  it("Visit Forgot Password Page - Passing", function () {
     cy.visit(`${this.base_url}forgotpassword`);
     cy.wait(5000);
 
@@ -34,7 +38,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Forbid Visit Manage Users Page - Passing", function() {
+  it("Forbid Visit Manage Users Page - Passing", function () {
     cy.visit(`${this.base_url}manageusers`);
     cy.wait(5000);
 
@@ -43,7 +47,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Forbid Visit Dashboard Page - Passing", function() {
+  it("Forbid Visit Dashboard Page - Passing", function () {
     cy.visit(`${this.base_url}dashboard`);
     cy.wait(5000);
 
@@ -52,7 +56,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Forbid Visit My Feed Page - Passing", function() {
+  it("Forbid Visit My Feed Page - Passing", function () {
     cy.visit(`${this.base_url}dashboard/my_feed`);
     cy.wait(5000);
 
@@ -61,7 +65,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Forbid Visit Profile Page - Passing", function() {
+  it("Forbid Visit Profile Page - Passing", function () {
     cy.visit(`${this.base_url}profile`);
     cy.wait(5000);
 
@@ -70,8 +74,8 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Forbid Visit Organization Page - Passing", function() {
-    cy.visit(`${this.base_url}organization`);
+  it("Forbid Visit Organization Page - Passing", function () {
+    cy.visit(`${this.base_url}org/settings/codelabzorg`);
     cy.wait(5000);
 
     cy.location().should(loc => {
@@ -79,7 +83,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
     });
   });
 
-  it("Forbid Visit Tutorials Page - Passing", function() {
+  it("Forbid Visit Tutorials Page - Passing", function () {
     cy.visit(`${this.base_url}tutorials`);
     cy.wait(5000);
 
