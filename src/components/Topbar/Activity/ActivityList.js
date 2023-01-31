@@ -23,6 +23,17 @@ const useStyles = makeStyles(theme => ({
   },
   inactiveButton: {
     color: theme.palette.text.secondary
+  },
+  itemText:{
+    [theme.breakpoints.down("xs")]:{
+      fontSize:"0.75rem",
+    }
+  },
+  itemIcon:{
+    marginRight: "6px",
+    [theme.breakpoints.down("xs")]:{
+      marginRight:"2px",
+    }
   }
 }));
 
@@ -50,12 +61,10 @@ function ActivityList({ value, toggle, acitvitylist, classname }) {
             {item.icon && (
               <item.icon
                 fontSize="small"
-                style={{
-                  marginRight: "6px"
-                }}
+                className={classes.itemIcon}
               />
             )}
-            <Typography variant="body1">{item.text}</Typography>
+            <Typography className={classes.itemText}>{item.text}</Typography>
           </Button>
         ))}
       </Grid>
