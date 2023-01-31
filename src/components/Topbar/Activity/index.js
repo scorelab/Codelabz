@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-between",
     flex: 1,
+    [theme.breakpoints.down("md")]:{
+      flexDirection:"column"
+    },
     padding: "8px",
     alignItems: "center",
   }
