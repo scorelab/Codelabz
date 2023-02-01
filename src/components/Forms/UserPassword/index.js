@@ -40,7 +40,10 @@ const UserPassword = () => {
             data-testId="confirmPassword"
           />
         </Box>
-        <Button className={classes.button} data-testId="updatePassword">
+        <Button 
+          variant="outlined"
+          color="primary"
+          className={classes.button} data-testId="updatePassword">
           Update Password
         </Button>
         <Box className={classes.row}>

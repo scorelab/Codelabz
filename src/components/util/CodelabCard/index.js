@@ -126,7 +126,7 @@ const CardComponent = ({
               </Typography>
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" style={{ backgroundColor: "royalblue", margin: "16px" }}>
+              <Button variant="contained" color="primary" style={{ color: "white", margin: "16px" }}>
                 Save
               </Button>
             </Grid>

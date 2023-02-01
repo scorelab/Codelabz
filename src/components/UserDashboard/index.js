@@ -131,7 +131,12 @@ function UserDashboard() {
             </Box>
           </Box>
           <Link to="/profile">
-            <Button className={classes.button}>Go to profile</Button>
+            <Button 
+              variant="outlined" 
+              color="primary"
+            >
+                Go to profile
+              </Button>
           </Link>
         </Box>
       </Box>

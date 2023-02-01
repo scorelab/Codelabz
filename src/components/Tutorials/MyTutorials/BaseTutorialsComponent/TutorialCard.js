@@ -43,8 +43,8 @@ const TutorialCard = ({ tutorialData: { tutorial_id, title, summary, icon, owner
                 size="small"
                 variant="contained"
                 color="primary"
-                style={{ backgroundColor: "royalblue", margin: "8px" }}
-              >
+                style={{ color: "white", margin: "8px" }}
+                >
                 View
               </Button>
             </Link>

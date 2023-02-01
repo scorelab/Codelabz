@@ -22,8 +22,6 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   button: {
-    backgroundColor: "#F9F9F9",
-    border: "1px solid #D2D2D2",
     textTransform: "none",
     height: 35,
     width: 175,
