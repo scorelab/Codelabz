@@ -246,7 +246,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                   htmlType="submit"
                   loading={loading}
                   onClick={(e) => onSubmit(e)}
-                  style={{ backgroundColor: "#03AAFA", borderRadius: "30px" }}
+                  style={{ color: "white", borderRadius: "5px" }}
                 >
                   {loading ? "Creating..." : "Create"}
                 </Button>

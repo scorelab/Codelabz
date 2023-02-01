@@ -70,7 +70,10 @@ const SearchComponent = () => {
           color="primary"
           startIcon={<Add />}
           data-testId="tutorialAddNewButton"
-          style={{ backgroundColor: "royalblue" }}
+          style={{
+            color: "white",
+            borderRadius: "5px"
+          }}
         >
           Add New CodeLabz
         </Button>

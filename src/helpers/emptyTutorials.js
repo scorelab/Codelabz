@@ -18,7 +18,15 @@ const EmptyTutorials = ({ org, orgHandle }) => {
         description={<span>{org} has no CodeLabz yet</span>}
       >
         <img src={EmptySVG} alt="empty" />
-        <Button onClick={() => setVisibleModal(true)} type="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          style={{
+            color: "white",
+            borderRadius: "5px"
+          }}
+          onClick={() => setVisibleModal(true)}
+        >
           <PlusOutlined /> Add New CodeLabz
         </Button>
       </Grid>

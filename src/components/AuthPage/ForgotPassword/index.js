@@ -132,7 +132,10 @@ const ForgotPassword = ({
         <Button
           variant="contained"
           color="primary"
-          style={{ background: buttonColor }}
+          style={{
+            color: "white",
+            borderRadius: "5px"
+          }}
           loading={loading}
           className="mt-10"
           type="submit"

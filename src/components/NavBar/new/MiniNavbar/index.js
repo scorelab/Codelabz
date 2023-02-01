@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   button: {
-    borderRadius: "10px"
+    borderRadius: "5px"
   },
   hamburger: {
     [theme.breakpoints.up("md")]: {
@@ -155,7 +155,6 @@ function MiniNavbar() {
               variant="contained"
               color="primary"
               style={{
-                boxShadow: "none",
                 color: "white"
               }}
               className={classes.button}
@@ -202,7 +201,6 @@ function MiniNavbar() {
                 variant="contained"
                 color="primary"
                 style={{
-                  boxShadow: "none",
                   color: "white"
                 }}
                 className={classes.button}
@@ -256,7 +254,6 @@ function MiniNavbar() {
                   variant="contained"
                   color="primary"
                   style={{
-                    boxShadow: "none",
                     color: "white"
                   }}
                   className={classes.button}

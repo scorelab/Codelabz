@@ -406,7 +406,7 @@ const UserForm = () => {
         variant="contained"
         color="primary"
         style={{
-          backgroundColor: "SeaGreen",
+          color: "white",
           marginTop: 15
         }}
         data-testId="editProfileSave"

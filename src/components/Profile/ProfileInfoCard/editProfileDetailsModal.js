@@ -437,7 +437,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
               variant="contained"
               color="primary"
               style={{
-                backgroundColor: "SeaGreen",
+                color: "white",
               }}
               data-testId="editProfileSave"
               onClick={onSubmit}

@@ -75,7 +75,7 @@ const OrgInfoCard = () => {
           id="editOrg"
           variant="contained"
           color="primary"
-          style={{ backgroundColor: "royalblue", margin: "4px" }}
+          style={{ color: "white", margin: "4px" }}
         >
           Edit
         </Button>
@@ -83,7 +83,7 @@ const OrgInfoCard = () => {
         <Button
           variant="contained"
           color="primary"
-          style={{ backgroundColor: "royalblue", margin: "4px" }}
+          style={{ color: "white", margin: "4px" }}
           onClick={_unpublishOrganization}
         >
           {currentOrgData.org_published ? <>Unpublish</> : <>Publish</>}
@@ -184,7 +184,9 @@ const OrgInfoCard = () => {
                         size="small"
                         variant="contained"
                         color="primary"
-                        style={{ backgroundColor: "royalblue" }}
+                        style={{
+                          color: "white",
+                        }}
                         id="changeOrgImg"
                         onClick={() => setShowImageDialog(true)}
                       >
@@ -257,7 +259,7 @@ const OrgInfoCard = () => {
                                 size="small"
                                 variant="contained"
                                 color="primary"
-                                style={{ backgroundColor: "royalblue" }}
+                                style={{ color: "white" }}
                                 onClick={() => saveImage(previewCanvasRef.current, completedCrop)}
                               >
                                 Save
@@ -271,7 +273,7 @@ const OrgInfoCard = () => {
                                 size="small"
                                 variant="contained"
                                 color="secondary"
-                                style={{ backgroundColor: "royalblue" }}
+                                style={{ color: "white" }}
                                 onClick={() => setShowImageDialog(false)}
                               >
                                 Close

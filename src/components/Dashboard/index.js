@@ -438,6 +438,10 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     fullWidth
                     variant="contained"
                     color="primary"
+                    style={{
+                      color: "white",
+                      borderRadius: "5px"
+                    }}
                     disableElevation
                     onClick={() => setShowOrgForm(!showOrgForm)}
                   >
@@ -614,6 +618,9 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                 color="primary"
                 disableElevation
                 className="auth-form-col"
+                style={{
+                  color: "white"
+                }}
                 onClick={onSubmit}
                 disabled={loading}
               >
