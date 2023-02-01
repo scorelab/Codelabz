@@ -55,3 +55,4 @@ pubsub-debug.log
 remoteconfig.template.json
 storage.rules
 ui-debug.log
+.env.sample
