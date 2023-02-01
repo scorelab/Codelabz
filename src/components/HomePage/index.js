@@ -163,7 +163,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     setSelectedTab(newValue);
   };
   const closeModal = () => {
-    setVisibleModal((prev) => !prev);
+    setVisibleModal(prev => !prev);
   };
   return (
     <Card
@@ -202,19 +202,22 @@ function HomePage({ background = "white", textColor = "black" }) {
           data-testId="homepageMainBody"
           xs={10}
         >
-          <NewCodelabz setVisibleModal = {setVisibleModal} />
-          <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
+          <NewCodelabz setVisibleModal={setVisibleModal} />
+          <NewTutorial
+            viewModal={visibleModal}
+            onSidebarClick={e => closeModal(e)}
+          />
           <Card className={classes.card}>
             <Activity />
           </Card>
           <Box item sx={{ display: { md: "none" } }}>
             <TagCard tags={tags} />
           </Box>
-          {userList.persons.map(person => {
-            return person.Heading == "CardWithoutPicture" ? (
-              <CardWithoutPicture {...person} />
+          {userList.persons.map((person, i) => {
+            return person.Heading === "CardWithoutPicture" ? (
+              <CardWithoutPicture key={i} {...person} />
             ) : (
-              <CardWithPicture {...person} />
+              <CardWithPicture key={i} {...person} />
             );
           })}
           <Box

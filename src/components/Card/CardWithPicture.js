@@ -78,15 +78,18 @@ export default function CardWithPicture(props) {
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
-  const handleIncrement = () => {
-    setCount(count + 1);
+  const [isUpVoted, setIsUpVoted] = useState(false);
+  const [isDownVoted, setIsDownVoted] = useState(false);
+
+  const handleUpvote = () => {
+    setIsUpVoted(!isUpVoted);
+    isDownVoted && setIsDownVoted(!isDownVoted);
   };
 
-  const handleDecrement = () => {
-    setCount(count - 1);
+  const handleDownVote = () => {
+    setIsDownVoted(!isDownVoted);
+    isUpVoted && setIsUpVoted(!isUpVoted);
   };
-
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
@@ -154,64 +157,65 @@ export default function CardWithPicture(props) {
           </Typography>
         </CardContent>
         <CardActions className={classes.settings} disableSpacing>
-        <CardActions disableSpacing>
-          <Chip
-            label="HTML"
-            component="a"
-            href="#chip"
-            clickable
-            variant="outlined"
-            className={classes.margin}
-          />
-          <Typography
-            variant="overline"
-            display="block"
-            className={classes.time}
-            data-testId="Time"
-          >
-            {props.time}
-          </Typography>
+          <CardActions disableSpacing>
+            <Chip
+              label="HTML"
+              component="a"
+              href="#chip"
+              clickable
+              variant="outlined"
+              className={classes.margin}
+            />
+            <Typography
+              variant="overline"
+              display="block"
+              className={classes.time}
+              data-testId="Time"
+            >
+              {props.time}
+            </Typography>
           </CardActions>
           <div className={classes.grow} />
           <CardActions disableSpacing>
-          <ToggleButtonGroup
-            size="small"
-            className={classes.small}
-            value={alignment}
-            exclusive
-            onChange={handleAlignment}
-            aria-label="text alignment"
-          >
-            <ToggleButton
+            <ToggleButtonGroup
+              size="small"
               className={classes.small}
-              onClick={handleIncrement}
-              value="left"
-              aria-label="left aligned"
+              value={alignment}
+              exclusive
+              onChange={handleAlignment}
+              aria-label="text alignment"
             >
-              <KeyboardArrowUpIcon />
-              <span>{count}</span>
-            </ToggleButton>
-            <ToggleButton
-              className={classes.small}
-              onClick={handleDecrement}
-              value="center"
-              aria-label="centered"
-            >
-              <KeyboardArrowDownIcon />
-            </ToggleButton>
-          </ToggleButtonGroup>
-          <IconButton aria-label="share" data-testId="CommentIcon">
-            <ChatOutlinedIcon />
-          </IconButton>
-          <IconButton aria-label="add to favorites" data-testId="ShareIcon">
-            <ShareOutlinedIcon />
-          </IconButton>
-          <IconButton aria-label="share" data-testId="NotifIcon">
-            <TurnedInNotOutlinedIcon />
-          </IconButton>
-          <IconButton aria-label="share" data-testId="MoreIcon">
-            <MoreVertOutlinedIcon />
-          </IconButton>
+              <ToggleButton
+                className={classes.small}
+                onClick={handleUpvote}
+                value="left"
+                aria-label="left aligned"
+              >
+                <KeyboardArrowUpIcon />
+                <span>{isUpVoted ? 1 : null}</span>
+              </ToggleButton>
+              <ToggleButton
+                className={classes.small}
+                onClick={handleDownVote}
+                value="center"
+                aria-label="centered"
+              >
+                <KeyboardArrowDownIcon />
+                <span>{isDownVoted ? 1 : null}</span>
+              </ToggleButton>
+            </ToggleButtonGroup>
+            <IconButton aria-label="share" data-testId="CommentIcon">
+              <ChatOutlinedIcon />
+            </IconButton>
+            <IconButton aria-label="add to favorites" data-testId="ShareIcon">
+              <ShareOutlinedIcon />
+            </IconButton>
+            <IconButton aria-label="share" data-testId="NotifIcon">
+              <TurnedInNotOutlinedIcon />
+            </IconButton>
+            <IconButton aria-label="share" data-testId="MoreIcon">
+              <MoreVertOutlinedIcon />
+            </IconButton>
           </CardActions>
         </CardActions>
       </ThemeProvider>
