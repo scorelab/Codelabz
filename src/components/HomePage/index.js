@@ -35,6 +35,7 @@ import NewTutorial from "../Tutorials/NewTutorial";
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
   const [value, setValue] = useState(2);
+  const [List, setList] = useState(1);
   const [selectedTab, setSelectedTab] = useState("1");
   const [visibleModal, setVisibleModal] = useState(false);
   const [footerContent, setFooterContent] = useState([
@@ -48,7 +49,8 @@ function HomePage({ background = "white", textColor = "black" }) {
       link: "https://dev.codelabz.io/"
     }
   ]);
-
+  const [bookMarks, setBookMarks] = useState([])
+  // let bookMarks = [];
   const windowSize = useWindowSize();
   const [openMenu, setOpen] = useState(false);
   const toggleSlider = () => {
@@ -165,6 +167,7 @@ function HomePage({ background = "white", textColor = "black" }) {
   const closeModal = () => {
     setVisibleModal((prev) => !prev);
   };
+  console.log("bookMarks", bookMarks)
   return (
     <Card
       className={classes.wrapper}
@@ -205,18 +208,38 @@ function HomePage({ background = "white", textColor = "black" }) {
           <NewCodelabz setVisibleModal = {setVisibleModal} />
           <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
           <Card className={classes.card}>
-            <Activity />
+            <Activity  setList={setList} List={List}/>
           </Card>
           <Box item sx={{ display: { md: "none" } }}>
             <TagCard tags={tags} />
           </Box>
-          {userList.persons.map(person => {
+          {
+            List!=4 &&
+            userList.persons.map(person => {
             return person.Heading == "CardWithoutPicture" ? (
-              <CardWithoutPicture {...person} />
+              <CardWithoutPicture {...person} bookMarks={bookMarks} setBookMarks={setBookMarks}/>
             ) : (
-              <CardWithPicture {...person} />
+              <CardWithPicture {...person} bookMarks={bookMarks}  setBookMarks={setBookMarks} />
             );
-          })}
+          })
+          }
+          {
+            List==4 &&
+            bookMarks==[] ?
+            <Typography  >
+              No Bookmarks
+            </Typography>
+            : 
+    
+            bookMarks.map(person => {
+            return person.Heading == "CardWithoutPicture" ? (
+              <CardWithoutPicture {...person} bookMarks={bookMarks} setBookMarks={setBookMarks} />
+            ) : (
+              <CardWithPicture {...person} bookMarks={bookMarks} setBookMarks={setBookMarks} />
+            )
+                      
+          })
+        }
           <Box
             sx={{
               width: "100%",

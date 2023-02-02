@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ActivityList from "./ActivityList";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { Bookmark } from "@material-ui/icons";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -18,9 +19,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Activity() {
+function Activity({setList,List}) {
   const classes = useStyles();
-  const [List, setList] = useState(1);
+  
 
   const acitvitylist = [
     {
@@ -37,6 +38,11 @@ function Activity() {
       id: 3,
       icon: EmojiEventsIcon,
       text: "Top"
+    },
+    {
+      id:4,
+      icon:Bookmark,
+      text:"Saved"
     }
   ];
 

@@ -142,6 +142,24 @@ export default function CardWithPicture(props) {
     setCommentBool(!commentBool)
     setComment("")
   }
+  const handleBookmark=()=>{
+    // props.setList([...props.List, props.id])
+    const find = props.bookMarks.find((item)=>item.id === props.id)
+    if(find){
+      return
+    }
+    console.log(props.bookMarks)
+    props.setBookMarks(prev =>[...prev,
+      {Heading:props.Heading,
+      name:props.name,
+      organizationName:props.organizationName,
+      date:props.date,
+      title:props.title,
+      contentDescription:props.contentDescription,
+      time:props.time,
+      comments:props.comments}
+    ])
+  }
   return (
     <Card className={classes.root}>
       <CardMedia
@@ -251,13 +269,17 @@ export default function CardWithPicture(props) {
               <KeyboardArrowDownIcon />
             </ToggleButton>
           </ToggleButtonGroup>
-          <IconButton aria-label="share" data-testId="CommentIcon" onClick={handleComment}>
+          <IconButton aria-label="share" data-testId="CommentIcon" 
+          onClick={handleComment}
+          >
             <ChatOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="add to favorites" data-testId="ShareIcon">
+          <IconButton aria-label="add to favorites" data-testId="ShareIcon" >
             <ShareOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="share" data-testId="NotifIcon">
+          <IconButton aria-label="share" data-testId="NotifIcon"
+          onClick={handleBookmark}
+          >
             <TurnedInNotOutlinedIcon />
           </IconButton>
           <IconButton aria-label="share" data-testId="MoreIcon">
