@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import FormControl from "@material-ui/core/FormControl";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -24,6 +25,7 @@ import {
   responsiveFontSizes,
   ThemeProvider
 } from "@material-ui/core/styles";
+import { Button, Input } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -70,6 +72,34 @@ const useStyles = makeStyles(theme => ({
   },
   settings: {
     flexWrap: "wrap"
+  },
+  comment:{
+    width: "100%",
+    padding: "2rem 1rem",
+    display: "flex",
+    alignItems: "center",
+
+  },
+  commentInput:{
+    marginLeft:"auto",
+    width: "50%",
+  },
+  commentDiv:{
+    display: "flex",
+    width: "50%",
+    marginLeft:"auto",
+    alignItems: "center",
+    justifyContent: "end",
+    padding: "0 2rem",
+  },
+  commentBtn:{
+    padding: "0.5rem 1rem",
+    color: "white",
+    backgroundColor: "#44ABFA",
+    borderRadius: "0.8rem",
+    "&:hover": {
+      backgroundColor: "#52A7E8",
+    }
   }
 }));
 
@@ -77,6 +107,7 @@ export default function CardWithPicture(props) {
   const classes = useStyles();
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
+  const [comment, setComment] = useState(false)
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
   const handleIncrement = () => {
@@ -90,7 +121,9 @@ export default function CardWithPicture(props) {
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-
+  const handleComment = () => {
+    setComment(!comment)
+  }
   return (
     <Card className={classes.root}>
       <CardMedia
@@ -200,7 +233,7 @@ export default function CardWithPicture(props) {
               <KeyboardArrowDownIcon />
             </ToggleButton>
           </ToggleButtonGroup>
-          <IconButton aria-label="share" data-testId="CommentIcon">
+          <IconButton aria-label="share" data-testId="CommentIcon" onClick={handleComment}>
             <ChatOutlinedIcon />
           </IconButton>
           <IconButton aria-label="add to favorites" data-testId="ShareIcon">
@@ -215,6 +248,19 @@ export default function CardWithPicture(props) {
           </CardActions>
         </CardActions>
       </ThemeProvider>
+      <div
+      className={classes.comment}
+      style={{display: comment ? "flex" : "none"}}
+      >
+        <FormControl defaultValue="" required className={classes.commentInput}>
+          {/* <FormLabel>Comment</FormLabel> */}
+          <Input   placeholder="Comment on tutorial" />
+        </FormControl>
+        <div className={classes.commentDiv}>
+        <Button className={classes.commentBtn}>Comment</Button>
+        </div>
+      </div>
+
     </Card>
   );
 }
