@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   },
   comment:{
     width: "100%",
-    padding: "2rem 1rem",
+    padding: "0rem 1rem 2rem 1rem",
     display: "flex",
     alignItems: "center",
 
@@ -96,6 +96,15 @@ const useStyles = makeStyles(theme => ({
       // filter: "brightness(1.4)",
     },
   },
+  commentSection:{
+    padding: "1rem 2rem",
+  },
+  commentStyle:{
+    padding: "0.5rem 1rem",
+    borderRadius: "0.8rem",
+    backgroundColor: "#F2F2F2",
+    margin: "0.5rem 0",
+  }
 }));
 
 export default function CardWithoutPicture(props) {
@@ -104,7 +113,8 @@ export default function CardWithoutPicture(props) {
   theme = responsiveFontSizes(theme);
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
-  const [comment, setComment] = useState(false)
+  const [commentBool, setCommentBool] = useState(false)
+  const [comment, setComment] = useState("")
   const handleIncrement = () => {
     setCount(count + 1);
   };
@@ -117,7 +127,15 @@ export default function CardWithoutPicture(props) {
     setAlignment(newAlignment);
   };
   const handleComment = () => {
-    setComment(!comment)
+    setCommentBool(!commentBool)
+  }
+  const handleChange = (e)=>{
+    setComment(e.target.value)
+  }
+  const submitComment = ()=>{
+    props.comments.push(comment);
+    setCommentBool(!commentBool)
+    setComment("")
   }
   return (
     <Card className={classes.root}>
@@ -239,16 +257,38 @@ export default function CardWithoutPicture(props) {
       </ThemeProvider>
       <div
       className={classes.comment}
-      style={{display: comment ? "flex" : "none"}}
+      style={{display: commentBool ? "flex" : "none"}}
       >
         <FormControl defaultValue="" required className={classes.commentInput}>
           {/* <FormLabel>Comment</FormLabel> */}
-          <Input   placeholder="Comment on tutorial" />
+          <Input   placeholder="Comment on tutorial" onChange={handleChange}  value={comment} />
         </FormControl>
         <div className={classes.commentDiv}>
-        <Button className={classes.commentBtn}>Comment</Button>
+        <Button className={classes.commentBtn} onClick={submitComment} >Comment</Button>
         </div>
       </div>
+      <div className={classes.commentSection} 
+      style={{display: commentBool ? "block" : "none"}}
+      // style={{}}
+      >
+        <Typography color="textPrimary" style={{fontWeight:"900",fontSize:"1.5rem"}} component="h1">
+          Comments
+        </Typography>
+          {props.comments.map((comment, index)=>{
+            return (
+              <div key={index} className={classes.commentStyle}>
+                <Typography color="textPrimary" style={{fontWeight:"900"}} component="h4">
+                  {/* {props.name}
+                   */}
+                   Codelabz User
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="h4" >
+                  {comment}
+                </Typography>
+              </div>
+            )
+          })}
+        </div>
     </Card>
   );
 }
