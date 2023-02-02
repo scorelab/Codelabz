@@ -233,7 +233,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     
             bookMarks.map(person => {
             return person.Heading == "CardWithoutPicture" ? (
-              <CardWithoutPicture {...person} bookMarks={bookMarks} setBookMarks={setBookMarks} />
+              <CardWithoutPicture {...person} bookMarks={bookMarks} setBookMarks={setBookMarks}  />
             ) : (
               <CardWithPicture {...person} bookMarks={bookMarks} setBookMarks={setBookMarks} />
             )
