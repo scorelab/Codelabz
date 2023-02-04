@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 14.x
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
       - run: npm install -g firebase-tools
       - name: Run Firebase Emulator
         run: firebase emulators:start --import=testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
