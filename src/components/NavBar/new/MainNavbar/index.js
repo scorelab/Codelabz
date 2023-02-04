@@ -94,7 +94,7 @@ function MainNavbar() {
                 flexGrow: "1"
               }}
             >
-              <div
+              <div style={{border:"2px solid red"}}
                 onClick={() => {
                   history.push("/");
                 }}
@@ -105,9 +105,6 @@ function MainNavbar() {
             </Grid>
             <Grid item className={classes.hamburger}>
               <IconButton
-                onClick={() => {
-                  toggleSlider();
-                }}
               >
                 <MenuIcon />
               </IconButton>
