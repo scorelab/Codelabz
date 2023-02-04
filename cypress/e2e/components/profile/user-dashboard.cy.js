@@ -76,7 +76,7 @@ describe("User Dashboard Test | CodeLabz", () => {
 
     it("Check Social Media", function () {
         cy.visit(`${this.base_url}user-dashboard/profile`);
-
+        cy.wait(2000);
         cy.get("[data-testId=socialMedia]").should("exist").click();
         cy.get("[data-testId=socialMediaPage]").should("exist");
         // cy.wait(2000);

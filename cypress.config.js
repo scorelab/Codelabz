@@ -7,4 +7,5 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
+  projectId: process.env.CYPRESS_PROJECT_ID
 });
