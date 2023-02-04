@@ -44,14 +44,14 @@ cypress/videos
 firebase.json
 database-debug.log
 firebase-debug.log
-firestore.indexes.json
-database.rules.json
+# firestore.indexes.json
+# database.rules.json
 firebase-debug.log
-firestore-rules
+# firestore-rules
 .firebaserc
 firestore-debug.log
-firestore.rules
+# firestore.rules
 pubsub-debug.log
-remoteconfig.template.json
-storage.rules
+# remoteconfig.template.json
+# storage.rules
 ui-debug.log
