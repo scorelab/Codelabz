@@ -42,7 +42,7 @@ cypress/screenshots
 cypress/videos
 
 # firebase
-firebase.json
+# firebase.json
 database-debug.log
 firebase-debug.log
 # firestore.indexes.json
