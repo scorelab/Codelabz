@@ -1,0 +1,1 @@
+exec firebase emulators:start --import=testdata --project $1
