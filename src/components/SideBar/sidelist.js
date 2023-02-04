@@ -12,6 +12,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
+import cross from '../../assets/images/cross.png'
 
 
 const useStyles = makeStyles(theme => ({
@@ -55,6 +56,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   notification: {
+    width:"20px",
     color: "#000000"
   },
   customBadge:{
@@ -88,8 +90,21 @@ const SideList = ({
    * ? if the item has neither, render a MenuItem with no onClick
    * 
    */
+
+
+
+ if(window.screen.width<=960)
+ {
+  
   return (
+  
+    <>
+    
+    // <div>ddd</div>
     <Paper className={classes.paper} style={style}>
+    <div style={{display:"flex",flexDirection:"column"}}>
+    <div onClick={()=>{toggleSlider()}} style={{height:"50px",display:"flex",justifyContent:"center",alignItems:"center"}}><img src={cross} style={{width:"2rem",height:"2rem"}}/></div>
+    <div style={{width:"15rem"}}>
       <MenuList className={classes.menuList}>
         {menuItems.map(function (item, index) {
             return (
@@ -99,6 +114,7 @@ const SideList = ({
                 {item.link &&
                     <NavLink to={item.link} className={classes.navLink}>
                     <MenuItem
+                    style={{marginLeft:"2rem"}}
                       key={item.link}
                       onClick={() => {
                         toggleSlider();
@@ -115,13 +131,14 @@ const SideList = ({
                             />
                           </ListItemIcon>
                         )}
-                        <ListItemText
+                        <ListItemText 
                           data-testId={item.name}
                           style={{
                             fontWeight:
                               item?.id && value === item?.id ? "bold" : "normal",
                             color:
-                              item?.link== location.pathname? "#0293d9" : "black"
+                              item?.link== location.pathname? "#0293d9" : "black",
+                            
                           }}
                           disableTypography
                         >
@@ -131,7 +148,7 @@ const SideList = ({
                       </NavLink>
                 }
                 {!item.link && !item.onClick && (
-                  <MenuItem
+                  <MenuItem style={{marginLeft:"2rem"}}
                     key={item.name}
                     onClick={() => {
                       if (onStateChange !== undefined) 
@@ -200,8 +217,133 @@ const SideList = ({
         })}
         {children}
       </MenuList>
+      </div>
+      </div>
     </Paper>
+    </>
   );
 };
 
+
+
+ if(window.screen.width>960)
+ {
+  return (<>
+    <Paper className={classes.paper} style={style}>
+  <MenuList className={classes.menuList}>
+    {menuItems.map(function (item, index) {
+        return (
+          <div key="menu-items"
+           style={item.link == location.pathname ?{background:"#d9f1fc",borderRadius:"100px"} :{}}
+           >
+            {item.link &&
+                <NavLink to={item.link} className={classes.navLink}>
+                <MenuItem
+                  key={item.link}
+                  onClick={() => {
+                    toggleSlider();
+                    onStateChange(index);
+                  }}
+                  className={classes.menuItem}
+                >
+                    {item.img && (
+                      <ListItemIcon className={classes.listIcon}>
+                        <img
+                          alt={"..."}
+                          src={item.img}
+                          className={classes.icons}
+                        />
+                      </ListItemIcon>
+                    )}
+                    <ListItemText
+                      data-testId={item.name}
+                      style={{
+                        fontWeight:
+                          item?.id && value === item?.id ? "bold" : "normal",
+                        color:
+                          item?.link== location.pathname? "#0293d9" : "black"
+                      }}
+                      disableTypography
+                    >
+                      {item.name}
+                    </ListItemText>
+                </MenuItem>
+                  </NavLink>
+            }
+            {!item.link && !item.onClick && (
+              <MenuItem
+                key={item.name}
+                onClick={() => {
+                  if (onStateChange !== undefined) 
+                    onStateChange(item);
+
+                  toggleSlider();
+                }}
+               className={classes.menuItem}
+
+              >
+                {item.img && (
+                  <ListItemIcon className={classes.listIcon}>
+                    <Badge badgeContent={notification && (notification>99 ? "99+":notification)} color="primary" classes={{ badge: classes.customBadge }}>
+                      <NotificationsIcon className={classes.notification}/>
+                    </Badge>
+                  </ListItemIcon>
+                )}
+                <ListItemText
+                  data-testId={item.name}
+                  style={{
+                    fontWeight:
+                      item?.id && value === item?.id ? "bold" : "normal",
+                      color: 
+                        item?.link== location.pathname? "#0293d9" : "black"
+                  }}
+                  disableTypography
+                >
+                  {item.name}
+                </ListItemText>
+              </MenuItem>
+            )}
+            {!item.link && item.onClick && (
+              <MenuItem
+                key={item.name}
+                onClick={() => {
+                  if (item.onClick) item.onClick(item);
+                  onStateChange(item);
+                }}
+                className={classes.menuItem}
+              >
+                {item.img && (
+                  <ListItemIcon className={classes.listIcon}>
+                    <img
+                      alt={"..."}
+                      src={item.img}
+                      className={classes.icons}
+                    />
+                  </ListItemIcon>
+                )}
+                <ListItemText
+                  data-testId={item.name}
+                  style={{
+                    fontWeight:
+                      item?.id && value === item?.id ? "bold" : "normal",
+                      color:
+                      item?.link== location.pathname? "#0293d9" : "black"
+                  }}
+                  disableTypography
+                >
+                  {item.name}
+                </ListItemText>
+              </MenuItem>
+            )}
+          </div>
+        );
+    })}
+    {children}
+  </MenuList>
+</Paper></>)
+  
+ }
+
+ }
+ 
 export default SideList;

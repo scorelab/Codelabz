@@ -251,11 +251,12 @@ function MiniNavbar() {
                 style={{
                   padding: 10
                 }}
-              >
+              ><div style={{display:"flex",justifyContent:"center"}}>
                 <Button
                   variant="contained"
                   color="primary"
                   style={{
+                    width:"200px",
                     boxShadow: "none",
                     color: "white"
                   }}
@@ -267,17 +268,19 @@ function MiniNavbar() {
                 >
                   Login
                 </Button>
+                </div>
               </Grid>
               <Grid
                 item
                 style={{
                   padding: 10
                 }}
-              >
-                <Button
+              ><div  style={{display:"flex",justifyContent:"center"}}>
+                <Button 
                   variant="outlined"
                   color="primary"
                   style={{
+                    width:"200px",
                     boxShadow: "none"
                   }}
                   className={classes.button}
@@ -288,6 +291,7 @@ function MiniNavbar() {
                 >
                   Sign Up
                 </Button>
+                </div>
               </Grid>
             </>
           )}
