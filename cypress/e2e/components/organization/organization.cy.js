@@ -92,28 +92,5 @@ describe("Organization Page | CodeLabz", () => {
     cy.get("[data-testId=githubButton]").should("exist");
     cy.get("[data-testId=googleButton]").should("exist");
     cy.get("[data-testId=twitterButton]").should("exist");
-
   })
-
-  // it("upload org img dialog open", function () {
-  //   cy.visit(`${this.base_url}organization`);
-  //   cy.wait(5000);
-  //   cy.get("#changeOrgImg").click();
-  //   cy.get("[data-testId=changeOrgImgDialog]").should("exist");
-  // });
-  //
-  // it("edit org details open", function () {
-  //   cy.visit(`${this.base_url}organization`);
-  //   cy.wait(5000);
-  //   cy.get("#editOrg").should("exist");
-  //   cy.get("#editOrg").click();
-  //   cy.get("[data-testId=editOrgForm]").should("exist");
-  // });
-  //
-  // it("add new user modal open", function () {
-  //   cy.visit(`${this.base_url}organization`);
-  //   cy.wait(5000);
-  //   cy.get("#addNewUser").click();
-  //   cy.get("#addNewUserDialog").should("exist");
-  // });
 });
