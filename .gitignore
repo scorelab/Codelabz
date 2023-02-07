@@ -12,7 +12,7 @@
 /build
 
 #config
-src/config/index.js
+# src/config/index.js
 
 # misc
 .DS_Store
