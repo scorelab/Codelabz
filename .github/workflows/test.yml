@@ -59,8 +59,3 @@ jobs:
         run: npm run build
       - name: Run Firebase Emulator and Start Tests
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
-     
-        uses: cypress-io/github-action@v2
-        with:
-          build: npm run build
-          start: npm start
