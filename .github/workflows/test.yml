@@ -1,30 +1,5 @@
 name: Cypress Tests
 
-on:
-  push:
-    branches:
-      - master
-      - vite
-  pull_request:
-    branches:
-      - master
-
-jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          node-version: 14.x
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-      - run: npm install -g firebase-tools
-      - name: Run Firebase Emulator
-        run: firebase emulators:start --import=testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
-
-      - name: Cypress runname: Cypress Tests
-
 env:
   VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
   VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
@@ -59,3 +34,4 @@ jobs:
         run: npm run build
       - name: Run Firebase Emulator and Start Tests
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
+     
