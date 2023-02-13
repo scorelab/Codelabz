@@ -10,7 +10,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -s public",
     "prettier:write": "npx prettier --write .",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run --headless --browser chrome",
+    "cy:open": "cypress open --browser chrome",
+    "test": "start-server-and-test dev http://localhost:5173 cy:run"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -52,6 +54,7 @@
     "redux-auth-wrapper": "^3.0.0",
     "redux-firestore": "^0.15.0",
     "redux-thunk": "^2.3.0",
+    "start-server-and-test": "^1.15.3",
     "url": "^0.11.0",
     "validator": "^13.6.0"
   },

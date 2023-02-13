@@ -23,7 +23,43 @@ jobs:
       - name: Run Firebase Emulator
         run: firebase emulators:start --import=testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
 
-      - name: Cypress run
+      - name: Cypress runname: Cypress Tests
+
+env:
+  VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
+  VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
+  VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
+  VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+  VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
+  VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
+  VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
+  VITE_APP_DATABASE_URL: ${{secrets.VITE_APP_DATABASE_URL}}
+  CYPRESS_PROJECT_ID: oq14r7
+  SKIP_PREFLIGHT_CHECK: true
+  CI: false
+
+on:
+  push:
+    branches:
+      - master
+      - vite
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - run: npm install -g firebase-tools
+      - name: Build the server
+        run: npm run build
+      - name: Run Firebase Emulator and Start Tests
+        run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
+     
         uses: cypress-io/github-action@v2
         with:
           build: npm run build
