@@ -28,11 +28,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
+          VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
+          VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
+          VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+          VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
+          VITE_APP_DATABASE_URL: ${{ secrets.VITE_APP_DATABASE_URL }}
+          VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
+          VITE_APP_USE_EMULATOR: true
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          SKIP_PREFLIGHT_CHECK: true
+          CI: false
+      - run: cd functions && mkdir private && touch private/cl-dev-pk.json
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "cl-dev-pk.json"
+          json: ${{ secrets.CL_DEV_PK }}
+          dir: "functions/private/"
       - name: Install dependencies
         run: npm install --legacy-peer-deps
+      - run: cd functions && npm install --legacy-peer-deps
       - run: npm install -g firebase-tools
       - name: Build the server
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run build'
       - name: Run Firebase Emulator and Start Tests
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
-     
