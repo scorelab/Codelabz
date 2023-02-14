@@ -28,7 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ls
       - run: cd functions && mkdir private && touch private/cl-dev-pk.json
       - name: create-json
         id: create-json
@@ -41,7 +40,6 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Install dependencies
         run: npm install --legacy-peer-deps
       - run: cd functions && npm install --legacy-peer-deps
@@ -50,7 +48,6 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Build the server
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run build'
       - name: Run Firebase Emulator and Start Tests
