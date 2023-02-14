@@ -27,6 +27,7 @@ jobs:
   set-config:
     runs-on: ubuntu-latest
     steps:
+      - run: ls
       - run: cd functions && mkdir private && touch private/cl-dev-pk.json
       - name: create-json
         id: create-json
