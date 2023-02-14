@@ -44,6 +44,7 @@ jobs:
         run: npm install --legacy-peer-deps
       - run: cd functions && npm install --legacy-peer-deps
       - run: npm install -g firebase-tools
+    needs: set-config
   cypress-run:
     runs-on: ubuntu-latest
     steps:
@@ -51,3 +52,4 @@ jobs:
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run build'
       - name: Run Firebase Emulator and Start Tests
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
+    needs: install
