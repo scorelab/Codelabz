@@ -24,15 +24,28 @@ on:
       - master
 
 jobs:
-  cypress-run:
+  set-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "cl-dev-pk.json"
+          json: ${{ secrets.CL_DEV_PK }}
+          dir: "functions/private/"
+
+  install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: npm install --legacy-peer-deps
-
       - run: cd functions && npm install --legacy-peer-deps
       - run: npm install -g firebase-tools
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
       - name: Build the server
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run build'
       - name: Run Firebase Emulator and Start Tests
