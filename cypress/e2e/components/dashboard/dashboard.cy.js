@@ -12,13 +12,13 @@ describe("Dashboard Test | CodeLabz", () => {
   });
 
   it("login", function () {
-    // indexedDB.deleteDatabase("firebaseLocalStorageDb");
-    // cy.visit(`${this.base_url}login`)
-    // cy.get(".email").type(this.credentials.email);
-    // cy.get(".password").type(this.credentials.password);
-    // cy.get(".loginButton").click();
-    // cy.wait(5000);
-    cy.login()
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
+    cy.visit(`${this.base_url}login`)
+    cy.wait(5000)
+    cy.get(".email").type(this.credentials.email);
+    cy.get(".password").type(this.credentials.password);
+    cy.get(".loginButton").click();
+    cy.wait(5000);
   })
 
 

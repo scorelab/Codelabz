@@ -40,7 +40,6 @@ firebase-sw-private.js
 cypress.json
 cypress/screenshots
 cypress/videos
-cypress.env.json
 
 # firebase
 database-debug.log
