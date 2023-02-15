@@ -347,6 +347,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 										required
 										style={{ marginBottom: "15px" }}
 										InputProps={{
+											"data-testid": "userName",
 											startAdornment: (
 												<InputAdornment position="start">
 													<PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
@@ -370,6 +371,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 										onFocus={onFocusHandle}
 										style={{ marginBottom: "15px" }}
 										InputProps={{
+											"data-testid":"userHandle",
 											startAdornment: (
 												<InputAdornment position="start">
 													<PersonOutlineIcon
@@ -399,6 +401,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
+												"data-testid":"userCountry",
 												startAdornment: (
 													<InputAdornment position="start">
 														<PersonOutlineIcon
@@ -431,6 +434,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 								<Divider></Divider>
 								<Box m={3}>
 									<Button
+										data-testid="createOrgBtn"
 										size="small"
 										fullWidth
 										variant="contained"
@@ -486,6 +490,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
+												"data-testid":"orgName",
 												startAdornment: (
 													<InputAdornment position="start">
 														<LocationCityIcon
@@ -514,6 +519,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
+												"data-testid":"orgHandle",
 												startAdornment: (
 													<InputAdornment position="start">
 														<BusinessIcon
@@ -542,6 +548,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 												autoComplete="orgCountry"
 												required
 												InputProps={{
+													"data-testid":"orgCountry",
 													startAdornment: (
 														<InputAdornment position="start">
 															<PersonOutlineIcon
@@ -592,6 +599,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
+												"data-testid":"orgWebsite",
 												startAdornment: (
 													<InputAdornment position="start">
 														<PublicIcon style={{ color: "rgba(0,0,0,.25)" }} />
@@ -606,6 +614,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 
 						<Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8" item={true}>
 							<Button
+								data-testid="submit-button"
 								size="small"
 								fullWidth
 								variant="contained"
