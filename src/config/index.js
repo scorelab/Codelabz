@@ -49,9 +49,9 @@ export const functions = firebase.functions();
 let firebase_messaging;
 if (firebase.messaging.isSupported()) {
   firebase_messaging = firebase.messaging();
-  firebase_messaging.getToken({
-    vapidKey: import.meta.env.VITE_APP_FIREBASE_FCM_VAPID_KEY
-  });
+  firebase_messaging.usePublicVapidKey(
+    import.meta.env.VITE_APP_FIREBASE_FCM_VAPID_KEY
+  );
 }
 
 export const messaging = firebase_messaging;
