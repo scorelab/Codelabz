@@ -7,6 +7,8 @@ export default defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'http://localhost:5173',
+    testIsolation: false,
+    specPattern: ['cypress/e2e/components/dashboard/**/*.cy.js', 'cypress/e2e/**/*.cy.{js,ts}'],
   },
   projectId: process.env.CYPRESS_PROJECT_ID
 });

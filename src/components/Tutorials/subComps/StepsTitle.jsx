@@ -127,6 +127,8 @@ const StepsTitle = ({ owner, tutorial_id }) => {
 								className="tutorial-title-input"
 								size="large"
 								prefix={current_step_no + 1 + "."}
+								type="text"
+								data-testid={"stepTitleInput"}
 							/>
 						</Grid>
 						<Grid xs={24} md={5}>
@@ -141,6 +143,7 @@ const StepsTitle = ({ owner, tutorial_id }) => {
 								type="number"
 								suffix="minutes"
 								name="step_time"
+								data-testid={"stepTimeInput"}
 							/>
 						</Grid>
 					</Grid>

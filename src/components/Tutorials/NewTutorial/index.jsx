@@ -251,6 +251,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 htmlType="submit"
                 loading={loading}
                 onClick={e => onSubmit(e)}
+                data-testid="newTutorialSubmit"
                 style={{ backgroundColor: "#03AAFA", borderRadius: "30px" }}
                 disabled={
                   formValue.title === "" ||

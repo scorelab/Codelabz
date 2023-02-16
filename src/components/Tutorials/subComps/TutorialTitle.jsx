@@ -32,6 +32,7 @@ const TutorialHeading = ({
       }}
     >
       <Typography
+        data-testid="tutorialTitle"
         variant="h5"
         sx={{
           pt: 5

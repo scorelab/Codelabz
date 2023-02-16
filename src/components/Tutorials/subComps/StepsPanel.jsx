@@ -31,6 +31,7 @@ const StepsPanel = ({
         activeStep={currentStep}
         orientation="vertical"
         onChange={onChange}
+        data-testid={"stepsPanel"}
       >
         {stepsData &&
           stepsData.map((step, index) => {
