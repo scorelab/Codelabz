@@ -1,5 +1,19 @@
 name: Cypress Tests
 
+env:
+  VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
+  VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
+  VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
+  VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
+  VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+  VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
+  VITE_APP_DATABASE_URL: ${{ secrets.VITE_APP_DATABASE_URL }}
+  VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
+  VITE_APP_USE_EMULATOR: true
+  CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+  SKIP_PREFLIGHT_CHECK: true
+  CI: false
+
 on:
   push:
     branches:
@@ -13,18 +27,35 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
         with:
-          node-version: 14.x
+          envkey_VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
+          envkey_VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
+          envkey_VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
+          envkey_VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          envkey_VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+          envkey_VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
+          envkey_VITE_APP_DATABASE_URL: ${{ secrets.VITE_APP_DATABASE_URL }}
+          envkey_VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
+          envkey_VITE_APP_USE_EMULATOR: true
+          envkey_CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          envkey_SKIP_PREFLIGHT_CHECK: true
+          envkey_CI: false
+      - run: cd functions && mkdir private && touch private/cl-dev-pk.json
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "cl-dev-pk.json"
+          json: ${{ secrets.CL_DEV_PK }}
+          dir: "functions/private/"
       - name: Install dependencies
         run: npm install --legacy-peer-deps
+      - run: cd functions && npm install --legacy-peer-deps
       - run: npm install -g firebase-tools
-      - name: Run Firebase Emulator
-        run: firebase emulators:start --import=testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          build: npm run build
-          start: npm start
+      - name: Build the server
+        run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run build'
+      - name: Run Firebase Emulator and Start Tests
+        run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
