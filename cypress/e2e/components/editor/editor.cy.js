@@ -42,6 +42,16 @@ describe("Editor Test | CodeLabz", () => {
     cy.get("[data-testId=previewMode]").click();
   });
 
+  it("Check more dropdown menu", function () {
+    cy.get('[data-testid=dropdown-menu-button]').should("exist").click();
+    cy.get('[data-testid=editor-dropdown-menu]').should('exist');
+    const menuItems = ['Edit Description', 'Edit CodeLabz Theme', 'Move to Trash'];
+    cy.get('[data-testid=editor-dropdown-menu]').find('li').each(($el, index, $list) => {
+      expect($el.text().trim()).to.eq(menuItems[index]);
+    });
+    cy.get('[data-testid=editor-dropdown-menu]>[aria-hidden=true]').click();
+  });
+
   it("Should publish tutorial successfully", function () {
     cy.get('[data-testid=tutorialTitle]').contains("test tutorial");
     cy.get("[data-testId=editorMode]").click();
@@ -65,9 +75,18 @@ describe("Editor Test | CodeLabz", () => {
     cy.get('[data-testid=stepsPanel]>div').eq(2).contains("Test step2");
   });
 
+  it("should switch between tutorial steps", function () {
+    cy.get('[data-testId=nextStepButton]').click();
+    cy.get('[data-testId=stepsPanel]>div').eq(2).find('.Mui-active').should('exist');
+    cy.get('[data-testId=previousStepButton]').click();
+    cy.get('[data-testId=stepsPanel]>div').eq(0).find('.Mui-active').should('exist');
+  });
+
   it("add image input", function () {
     cy.get("[data-testId=tutorialImgUpload]").should("not.exist");
     cy.get("#tutorialAddImg").click();
     cy.get("[data-testId=tutorialImgUpload]").should("exist");
+    cy.get("[data-testId=imageDrawer]>div[aria-hidden=true]").click();
+    cy.get("[data-testId=tutorialImgUpload]").should("not.exist");
   });
 });

@@ -129,6 +129,7 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
 	return (
 		<Drawer
 			title="Images"
+			data-testid="imageDrawer"
 			anchor="right"
 			closable={true}
 			onClose={onClose}

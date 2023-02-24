@@ -42,6 +42,7 @@ const EditControls = ({
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
+  const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -52,10 +53,10 @@ const EditControls = ({
     setAnchorEl(null);
   };
 
-  const DropdownMenu = () => {
     return (
       <>
         <Button
+          data-testid="dropdown-menu-button"
           style={{
             border: "none",
             padding: 0
@@ -72,11 +73,13 @@ const EditControls = ({
         </Button>
         <Menu
           id="simple-menu"
+          data-testid="editor-dropdown-menu"
           anchorEl={anchorEl}
           keepMounted
-          style={{ left: "80vw", top: "20%  " }}
           open={Boolean(anchorEl)}
           onClose={handleClose}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
           <MenuItem key="edit_description">
             <FormatAlignLeftIcon /> Edit Description
