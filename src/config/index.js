@@ -1,13 +1,13 @@
 import firebase from 'firebase/compat/app';
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";// <- needed if using firebase rtdb
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore"; // <- needed if using firestore
+import { getFirestore, connectFirestoreEmulator , serverTimestamp } from "firebase/firestore"; // <- needed if using firestore
 import "firebase/storage";
-import { getApp , initializeApp } from "firebase/app";
+import { getApp, initializeApp } from "firebase/app";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 import "firebase/analytics";
 import "firebase/performance";
-import { getMessaging , isSupported , getToken} from 'firebase/messaging';
+import { getMessaging, isSupported, getToken } from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
@@ -39,7 +39,7 @@ if (import.meta.env.VITE_APP_USE_EMULATOR) {
 }
 
 // Initialize other services on firebase instance
-getFirestore() ; // <- needed if using firestore
+getFirestore(); // <- needed if using firestore
 
 export const functions = getFunctions(firebaseApp);
 
@@ -50,18 +50,21 @@ if (isSupported()) {
   // firebase_messaging.usePublicVapidKey(
   //   import.meta.env.VITE_APP_FIREBASE_FCM_VAPID_KEY
   // );
-  const messaging = getMessaging() ;
-  const apiKey = import.meta.env.VITE_APP_FIREBASE_FCM_VAPID_KEY ;
-  getToken({
-    vapidKey: apiKey
-  }).then(() =>{
-
-  });
+  const messaging = getMessaging();
+  const apiKey = import.meta.env.VITE_APP_FIREBASE_FCM_VAPID_KEY;
+  Notification.requestPermission()
+    .then((Permission) => {
+      if (Permission === "granted") {
+        getToken(messaging, {
+          vapidKey: apiKey
+        });
+      }
+    });
 }
 
 export const messaging = firebase_messaging;
 
-export default firebase;
+export  default firebase;
 
 
 

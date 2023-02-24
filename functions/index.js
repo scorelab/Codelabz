@@ -1,4 +1,4 @@
-const functions = require("firebase-functions");
+import { functions } from "firebase/app";
 const dotenv = require("dotenv");
 dotenv.config({
   path: "../.env"
