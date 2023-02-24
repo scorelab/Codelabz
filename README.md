@@ -1,19 +1,24 @@
 # Table of Content
-1. [CodeLabz](#codelabz)
-2. [Deployed on](#deployed-on)
-3. [Community](#community)
-4. [User Guide](#user-guide)
-    1. [How to Setup](#how-to-setup)
-    2. [How to Use](#how-to-use)
-5. [Set-up-Firebase](#set-up-firebase)
-    1. [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
-6. [Firebase Emulator Flow](#firebase-emulator-flow)
-7. [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
-   1. [<strong>How to install</strong>](#how-to-install)
-   2. [<strong>How to Configure</strong>](#how-to-configure)
-8. [Integrate With your CI System.](#integrate-with-your-ci-system)
-    1. [To Start the Emulators:-](#to-start-the-emulators-)
-    2. [Import and Export:-](#import-and-export-)
+- [Table of Content](#table-of-content)
+- [CodeLabz](#codelabz)
+- [Deployed on](#deployed-on)
+- [Community](#community)
+  - [User Guide](#user-guide)
+      - [How to Setup](#how-to-setup)
+      - [How to Use](#how-to-use)
+  - [Set-up-Firebase](#set-up-firebase)
+      - [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
+- [Firebase Emulator Flow](#firebase-emulator-flow)
+- [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
+  - [**How to install**](#how-to-install)
+      - [Before installing the Emulator Suite you will need:-](#before-installing-the-emulator-suite-you-will-need-)
+      - [To install the Emulator Suite:](#to-install-the-emulator-suite)
+  - [**How to Configure**](#how-to-configure)
+      - [Configure Emulator Suite:-](#configure-emulator-suite-)
+      - [Port Configuration - These are the Default Ports Provided you can change them while initializing(if needed)](#port-configuration---these-are-the-default-ports-provided-you-can-change-them-while-initializingif-needed)
+  - [Integrate With your CI System.](#integrate-with-your-ci-system)
+      - [To Start the Emulators:-](#to-start-the-emulators-)
+      - [Import and Export:-](#import-and-export-)
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
@@ -73,10 +78,10 @@ First you need to create a `.env` file in `CodeLabz` folder following the templa
     - scroll to the Web configuration section.
     - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
 
-You should fill in these values in their relevent fields in the `.env` file.
+You should fill in these values in their relevant fields in the `.env` file.
 
 To run the project:  
- `$ npm start`
+ `$ npm run dev`
 
 If you failed to run the project do the following steps :
 
