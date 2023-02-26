@@ -99,6 +99,7 @@ describe("User Dashboard Test | CodeLabz", () => {
     })
     it("Check Organizations", function () {
         cy.visit(`${this.base_url}user-dashboard/profile`);
+        cy.wait(2000)
 
         cy.get("[data-testId=organizations]").should("exist").click();
         cy.get("[data-testId=organizationsPage]").should("exist");

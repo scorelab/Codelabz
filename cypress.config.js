@@ -7,6 +7,7 @@ export default defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'http://localhost:5173',
+    testIsolation: false,
   },
   projectId: process.env.CYPRESS_PROJECT_ID
 });
