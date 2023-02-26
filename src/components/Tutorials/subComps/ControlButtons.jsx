@@ -12,6 +12,7 @@ const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
 						<Button
 							color="secondary"
 							variant="contained"
+							data-testid="previousStepButton"
 							onClick={() => {
 								setCurrentStep(currentStep - 1);
 								window.scrollTo(0, 0);
@@ -24,6 +25,7 @@ const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
 							variant="contained"
 							color="primary"
 							type="primary"
+							data-testid="nextStepButton"
 							onClick={() => {
 								setCurrentStep(currentStep + 1);
 								window.scrollTo(0, 0);

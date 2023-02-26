@@ -93,6 +93,7 @@ const AddNewStepModal = ({
 	return (
 		<Modal
 			title={`Add New Step`}
+			data-testid={"newStepModal"}
 			open={visible}
 			onClose={() => viewCallback()}
 			onOk={() => viewCallback()}
@@ -123,12 +124,14 @@ const AddNewStepModal = ({
 						placeholder="Title of the Step"
 						autoComplete="title"
 						style={{ marginBottom: "2rem" }}
+						data-testid={"newStepTitleInput"}
 					/>
 					<TextField
 						type="number"
 						onChange={(e) => setTime(e.target.value)}
 						placeholder="Time (minutes)"
 						style={{ width: "100%" }}
+						data-testid={"newStepTimeInput"}
 					/>
 					<Button
 						style={{ marginTop: "2rem" }}
@@ -145,6 +148,7 @@ const AddNewStepModal = ({
 						htmlType="submit"
 						variant="contained"
 						color="primary"
+						data-testid={"newStepSubmitButton"}
 						loading={loading}>
 						{loading ? "Creating..." : "Create"}
 					</Button>
