@@ -1,3 +1,5 @@
+> **NOTE**: The Project is undergoing a migration process. Check [#713](https://github.com/scorelab/Codelabz/issues/713) for more details
+
 # Table of Content
 1. [CodeLabz](#codelabz)
 2. [Deployed on](#deployed-on)
