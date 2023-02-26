@@ -1,1 +1,0 @@
-exec firebase emulators:start
