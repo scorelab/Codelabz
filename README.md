@@ -1,4 +1,4 @@
-> **NOTE**: This project is going through migration process and it is done on `vite` branch. Soon the `master` branch will be replaced by `vite` branch. So no additional PRs are being merged and only those related to migration process are merged. Check issue #713 for migration status.
+> **NOTE**: This project is going through migration process and it is done on `vite` branch. Soon the `vite` branch will be merged in `master`. So no additional PRs are being merged and only those related to migration process are merged. Check issue #713 for migration status.
 
 # Table of Content
 1. [CodeLabz](#codelabz)
