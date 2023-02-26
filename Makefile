@@ -6,8 +6,8 @@ emulator:
 
 emulator-import:
 	@echo "Importing Firebase Emulator"
-	firebase emulators:start --import=testdata --project $(FIREBASE_PROJECT_ID)
+	firebase emulators:start --import=testdata --project $(VITE_APP_FIREBASE_PROJECT_ID)
 
 emulator-export:
 	@echo "Exporting Firebase Emulator"
-	firebase emulators:export testdata --project $(FIREBASE_PROJECT_ID)
+	firebase emulators:export testdata --project $(VITE_APP_FIREBASE_PROJECT_ID)
