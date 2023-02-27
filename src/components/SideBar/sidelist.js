@@ -94,7 +94,7 @@ const SideList = ({
         {menuItems.map(function (item, index) {
             return (
               <div key="menu-items"
-               style={item.link == location.pathname ?{background:"#d9f1fc",borderRadius:"100px"} :{}}
+               style={item.link === location.pathname ?{background:"#d9f1fc",borderRadius:"100px"} :{}}
                >
                 {item.link &&
                     <NavLink to={item.link} className={classes.navLink}>
@@ -121,7 +121,7 @@ const SideList = ({
                             fontWeight:
                               item?.id && value === item?.id ? "bold" : "normal",
                             color:
-                              item?.link== location.pathname? "#0293d9" : "black"
+                              item?.link === location.pathname? "#0293d9" : "black"
                           }}
                           disableTypography
                         >
@@ -155,7 +155,7 @@ const SideList = ({
                         fontWeight:
                           item?.id && value === item?.id ? "bold" : "normal",
                           color: 
-                            item?.link== location.pathname? "#0293d9" : "black"
+                            item?.link === location.pathname? "#0293d9" : "black"
                       }}
                       disableTypography
                     >
@@ -187,7 +187,7 @@ const SideList = ({
                         fontWeight:
                           item?.id && value === item?.id ? "bold" : "normal",
                           color:
-                          item?.link== location.pathname? "#0293d9" : "black"
+                          item?.link === location.pathname? "#0293d9" : "black"
                       }}
                       disableTypography
                     >

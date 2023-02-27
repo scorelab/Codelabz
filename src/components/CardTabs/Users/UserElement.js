@@ -28,18 +28,18 @@ const UserElement = ({ user, index, useStyles }) => {
         <img
           src={user.img[0]}
           className={classes.userImg}
-          data-testId={index == 0 ? "UsersCardImg" : ""}
+          data-testId={index === 0 ? "UsersCardImg" : ""}
         />
         <Box sx={{ flexGrow: 1 }}>
           <Box
             sx={{ fontWeight: 600, fontSize: "1rem" }}
-            data-testId={index == 0 ? "UserName" : ""}
+            data-testId={index === 0 ? "UserName" : ""}
           >
             {user.name}
           </Box>
           <Box
             sx={{ fontWeight: 400, fontSize: "0.8rem" }}
-            data-testId={index == 0 ? "UserDesg" : ""}
+            data-testId={index === 0 ? "UserDesg" : ""}
           >
             {user.desg}
           </Box>
@@ -49,7 +49,7 @@ const UserElement = ({ user, index, useStyles }) => {
         onClick={() => {
           setIcon(false);
         }}
-        data-testId={index == 0 ? "UserAdd" : ""}
+        data-testId={index === 0 ? "UserAdd" : ""}
         sx={
           icon && {
             cursor: "pointer"

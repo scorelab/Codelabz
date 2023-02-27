@@ -82,7 +82,7 @@ const RightMenu = ({ mode, onClick }) => {
     );
 
     //Check if this current user is attached to some organization
-    const isOrgPresent = currentOrg == null ? false : true;
+    const isOrgPresent = currentOrg === null ? false : true;
   
   const organizations = useSelector(
     ({
