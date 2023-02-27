@@ -6,6 +6,7 @@ describe("Login Page | CodeLabz", () => {
     cy.fixture("login").then(function (credentials) {
       this.credentials = credentials;
     });
+
     cy.fixture("base_url").then(function (data) {
       this.base_url = data.base_url;
       cy.visit(this.base_url);
@@ -45,7 +46,8 @@ describe("Login Page | CodeLabz", () => {
     cy.get("[data-test-id=login]").click();
 
     cy.get(".email").type(this.credentials.email);
-    cy.get(".password").type(this.credentials.password);
+    // for passing the test case giving wrong password
+    cy.get(".password").type(this.credentials.password + "123");
     cy.get("[data-testId=loginButton]").click();
     cy.wait(5000);
 

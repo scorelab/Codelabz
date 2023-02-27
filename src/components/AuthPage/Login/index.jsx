@@ -89,7 +89,8 @@ const Login = ({
     return true;
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async e => {
+    e.preventDefault();
     setError("");
     if (validateEmail() & validatePassword()) {
       await signIn({ email: email, password: password })(firebase, dispatch);
