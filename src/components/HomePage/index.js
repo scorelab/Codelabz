@@ -211,7 +211,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             <TagCard tags={tags} />
           </Box>
           {userList.persons.map(person => {
-            return person.Heading == "CardWithoutPicture" ? (
+            return person.Heading === "CardWithoutPicture" ? (
               <CardWithoutPicture {...person} />
             ) : (
               <CardWithPicture {...person} />

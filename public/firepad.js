@@ -845,10 +845,10 @@
           var attr1 = attributes1[attr],
             attr2 = attributes2[attr];
           utils.assert(attr1 != null || attr2 != null);
-          if (attr1 == null) {
+          if (attr1 === null) {
             // Only modified by attributes2; keep it.
             attributes2prime[attr] = attr2;
-          } else if (attr2 == null) {
+          } else if (attr2 === null) {
             // only modified by attributes1; keep it
             attributes1prime[attr] = attr1;
           } else if (attr1 === attr2) {
@@ -2901,7 +2901,7 @@
     }
 
     function _arrayLikeToArray(arr, len) {
-      if (len == null || len > arr.length) len = arr.length;
+      if (len === null || len > arr.length) len = arr.length;
       for (var i = 0, arr2 = new Array(len); i < len; i++) {
         arr2[i] = arr[i];
       }
@@ -2956,7 +2956,7 @@
           this.ace.on("focus", this.onFocus);
           this.aceSession.selection.on("changeCursor", this.onCursorActivity);
 
-          if (this.aceRange == null) {
+          if (this.aceRange === null) {
             this.aceRange = ((ref = ace.require) != null ? ref : require)(
               "ace/range"
             ).Range;
@@ -3135,7 +3135,7 @@
             value: function indexFromPos(pos, lines) {
               var i, index, j, ref;
 
-              if (lines == null) {
+              if (lines === null) {
                 lines = this.lastDocLines;
               }
 
@@ -3225,7 +3225,7 @@
 
               var clazz, css, cursorRange, end, justCursor, self, start;
 
-              if (this.otherCursors == null) {
+              if (this.otherCursors === null) {
                 this.otherCursors = {};
               }
 
@@ -3638,7 +3638,7 @@
         }
 
         /** Return if failed to add css */
-        if (ret == false) {
+        if (ret === false) {
           console.log(
             "Monaco Adapter: Failed to add some css style.\n" +
               "Please make sure you're running on supported environment."
@@ -4485,9 +4485,9 @@
         var cm = this.codeMirror;
         var cursor = cm.getCursor();
         var resetCursor =
-          origin == "RTCMADAPTER" &&
+          origin === "RTCMADAPTER" &&
           !cm.somethingSelected() &&
-          index == cm.indexFromPos(cursor);
+          index === cm.indexFromPos(cursor);
         this.replaceText(index, null, text, attributes, origin);
         if (resetCursor) cm.setCursor(cursor);
       };
@@ -4650,10 +4650,10 @@
           while (newNodesLen--) {
             var newNode = newNodes[newNodesLen];
             if (
-              oldNode.pos == newNode.pos &&
-              oldNode.length == newNode.length &&
+              oldNode.pos === newNode.pos &&
+              oldNode.length === newNode.length &&
               oldNode.annotation.attributes["ent"] &&
-              oldNode.annotation.attributes["ent"] ==
+              oldNode.annotation.attributes["ent"] ===
                 newNode.annotation.attributes["ent"]
             ) {
               var entityType = newNode.annotation.attributes["ent"];
@@ -4750,7 +4750,7 @@
                       : dynStyle + ": " + val;
 
                   var selector =
-                    attr == ATTR.LINE_INDENT
+                    attr === ATTR.LINE_INDENT
                       ? "pre." + className
                       : "." + className;
 
@@ -6892,8 +6892,8 @@
             while (listTypeStack.length < indent) {
               var toOpen = listType || LIST_TYPE.UNORDERED; // default to unordered lists for indenting non-list-item lines.
               usesTodo =
-                listType == LIST_TYPE.TODO ||
-                listType == LIST_TYPE.TODOCHECKED ||
+                listType === LIST_TYPE.TODO ||
+                listType === LIST_TYPE.TODOCHECKED ||
                 usesTodo;
               html += open(toOpen);
               listTypeStack.push(toOpen);
@@ -7428,7 +7428,7 @@
         // Hack for IE8 to make font icons work more reliably.
         // http://stackoverflow.com/questions/9809351/ie8-css-font-face-fonts-only-working-for-before-content-on-over-and-sometimes
         if (
-          navigator.appName == "Microsoft Internet Explorer" &&
+          navigator.appName === "Microsoft Internet Explorer" &&
           navigator.userAgent.match(/MSIE 8\./)
         ) {
           window.onload = function () {
