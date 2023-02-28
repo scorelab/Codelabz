@@ -188,6 +188,7 @@ export default function ChangeProfile({ open, saveImage, onClose }) {
 										variant="contained"
 										color="primary"
 										disableElevation
+										data-testid="saveImageBtn"
 										onClick={() =>
 											saveImage(previewCanvasRef.current, completedCrop)
 										}>

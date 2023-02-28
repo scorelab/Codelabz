@@ -17,7 +17,8 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import OrgDelete from "../OrgUsers/OrgDelete";
 import { useDispatch, useSelector } from "react-redux";
-import { BasicImage, NoImage } from "../../../helpers/images";
+import NoImage from "../../../assets/images/no-image-available.svg";
+
 import {
   uploadOrgProfileImage,
   clearEditGeneral,
@@ -228,7 +229,7 @@ function General() {
           <Grid item container xs={4} spacing={2}>
             {isUpdating ? (
               <React.Fragment>
-                <Grid item>
+                <Grid data-testid={"uploadingInfo"} item>
                   <CircularProgress
                     style={{
                       color: "black"
@@ -261,6 +262,7 @@ function General() {
                 placeholder="Organization Name"
                 value={OrgData.org_name}
                 onChange={handleChange("org_name")}
+                data-testid="orgNameInput"
               />
             </Grid>
             <Grid item xs={windowSize.width <= 500 ? 12 : 6}>
@@ -271,6 +273,7 @@ function General() {
                 disabled
                 value={OrgData.org_handle}
                 onChange={handleChange("org_handle")}
+                data-testid="orgHandleInput"
               />
             </Grid>
             <Grid item xs={12}>
@@ -280,6 +283,7 @@ function General() {
                 placeholder="https://Website URL"
                 value={OrgData.org_website}
                 onChange={handleChange("org_website")}
+                data-testid="orgWebsiteInput"
               />
             </Grid>
             <Grid item xs={12}>
@@ -289,6 +293,7 @@ function General() {
                 placeholder="https://Facebook URL"
                 value={OrgData.org_link_facebook}
                 onChange={handleChange("org_link_facebook")}
+                data-testid="orgFacebookInput"
               />
             </Grid>
             <Grid item xs={12}>
@@ -298,6 +303,7 @@ function General() {
                 placeholder="https://github.com/ Github Handle"
                 value={OrgData.org_link_github}
                 onChange={handleChange("org_link_github")}
+                data-testid="orgGithubInput"
               />
             </Grid>
             <Grid item xs={12}>
@@ -307,6 +313,7 @@ function General() {
                 placeholder="https://LInkeldin URL"
                 value={OrgData.org_link_linkedin}
                 onChange={handleChange("org_link_linkedin")}
+                data-testid="orgLinkedinInput"
               />
             </Grid>
             <Grid item xs={12}>
@@ -316,6 +323,7 @@ function General() {
                 placeholder="https://Twitter URL"
                 value={OrgData.org_link_twitter}
                 onChange={handleChange("org_link_twitter")}
+                data-testid="orgTwitterInput"
               />
             </Grid>
             <Grid item xs={12}>
@@ -327,9 +335,10 @@ function General() {
                       <Avatar
                         src={CurrentOrg.org_image}
                         className={classes.ProfilePhotoImage}
+                        data-testid={"orgImage"}
                       />
                     ) : (
-                      BasicImage(NoImage, "Not Available")
+                      <img data-testid={"noImage"} src={NoImage} alt="Not Available" />
                     )}
                   </Grid>
 
@@ -345,6 +354,7 @@ function General() {
                             className={classes.ProfilePhoto}
                             startIcon={<CloudUploadIcon />}
                             onClick={() => setShowImageDialog(true)}
+                            data-testid={"uploadImageBtn"}
                           >
                             Choose File
                           </Button>
@@ -370,6 +380,7 @@ function General() {
                   variant="filled"
                   value={OrgData.org_description}
                   onChange={handleChange("org_description")}
+                  data-testid="orgDescriptionInput"
                 />
               </div>
               <Typography>Select tags</Typography>

@@ -87,6 +87,7 @@ function OrgDelete() {
 				open={open}
 				onClose={() => setOpen(false)}
 				aria-labelledby="org-delete-modal-title"
+				data-testid="orgDeleteDialog"
 				aria-describedby="org-delete-modal-description">
 				<OrgDeleteModal />
 			</Dialog>

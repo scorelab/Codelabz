@@ -70,7 +70,7 @@ function OrgDeleteModal() {
 					style={{
 						marginTop: "20px",
 					}}>
-					Please type <strong>{CurrentOrg?.org_handle}</strong> to confirm.
+					Please type <strong data-testid="orgHandle" >{CurrentOrg?.org_handle}</strong> to confirm.
 				</Typography>
 				<TextField
 					fullWidth
@@ -79,12 +79,14 @@ function OrgDeleteModal() {
 					className={classes.input}
 					value={deleteOrgInput}
 					onChange={(e) => setDeleteOrgInput(e.target.value)}
+					data-testid="deleteOrgInput"
 				/>
 				<Button
 					fullWidth
 					variant="contained"
 					color="primary"
 					disableElevation
+					data-testid="deleteOrgButton"
 					className={classes.deleteButton}
 					onClick={deleteOrganizationHandler}
 					disabled={CurrentOrg?.org_handle !== deleteOrgInput}>
