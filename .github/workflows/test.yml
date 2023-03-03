@@ -56,6 +56,6 @@ jobs:
       - run: cd functions && npm install --legacy-peer-deps
       - run: npm install -g firebase-tools
       - name: Build the server
-        run: make emulator-import && npm run build
+        run: make emulator-import 'npm run build'
       - name: Run Firebase Emulator and Start Tests
-        run: make emulator-import && npm run test
+        run: make emulator-import 'npm run test'
