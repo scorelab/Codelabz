@@ -14,14 +14,7 @@ env:
   SKIP_PREFLIGHT_CHECK: true
   CI: false
 
-on:
-  push:
-    branches:
-      - master
-      - vite
-  pull_request:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
   cypress-run:
