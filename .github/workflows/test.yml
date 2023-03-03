@@ -1,16 +1,16 @@
 name: Cypress Tests
 
 env:
-  VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
-  VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
-  VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
-  VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
-  VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
-  VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
-  VITE_APP_DATABASE_URL: ${{ secrets.VITE_APP_DATABASE_URL }}
-  VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
+  VITE_APP_FIREBASE_API_KEY: AIzaSyASOtRR71J484CcXhvs3BBZByhIII8lNuU
+  VITE_APP_AUTH_DOMAIN: codelabz-966e5.firebaseapp.com
+  VITE_APP_FIREBASE_PROJECT_ID: codelabz-966e5
+  VITE_APP_FIREBASE_MESSAGING_SENDER_ID: 1004651538159
+  VITE_APP_FIREBASE_APP_ID: 1:1004651538159:web:9801af1b5c45c01aec9d1a
+  VITE_APP_FIREBASE_MEASUREMENTID: G-N0P8Q281YB
+  VITE_APP_DATABASE_URL: https://codelabz-966e5-default-rtdb.asia-southeast1.firebasedatabase.app
+  VITE_APP_FIREBASE_FCM_VAPID_KEY: BBcdjIEOfdgGVCbK2-vpE_aDfNlJr5ffQ6UegCzH-QjMhpuEpCs6Zw7o1DFm9cYGCDF7ri0W4YwsyubL7owjhIQ
   VITE_APP_USE_EMULATOR: true
-  CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+  CYPRESS_PROJECT_ID: gjfouu
   SKIP_PREFLIGHT_CHECK: true
   CI: false
 
@@ -31,16 +31,16 @@ jobs:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
         with:
-          envkey_VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
-          envkey_VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
-          envkey_VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
-          envkey_VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
-          envkey_VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
-          envkey_VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
-          envkey_VITE_APP_DATABASE_URL: ${{ secrets.VITE_APP_DATABASE_URL }}
-          envkey_VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
+          envkey_VITE_APP_FIREBASE_API_KEY: AIzaSyASOtRR71J484CcXhvs3BBZByhIII8lNuU
+          envkey_VITE_APP_AUTH_DOMAIN: codelabz-966e5.firebaseapp.com
+          envkey_VITE_APP_FIREBASE_PROJECT_ID: codelabz-966e5
+          envkey_VITE_APP_FIREBASE_MESSAGING_SENDER_ID: 1004651538159
+          envkey_VITE_APP_FIREBASE_APP_ID: 1:1004651538159:web:9801af1b5c45c01aec9d1a
+          envkey_VITE_APP_FIREBASE_MEASUREMENTID: G-N0P8Q281YB
+          envkey_VITE_APP_DATABASE_URL: https://codelabz-966e5-default-rtdb.asia-southeast1.firebasedatabase.app
+          envkey_VITE_APP_FIREBASE_FCM_VAPID_KEY: BBcdjIEOfdgGVCbK2-vpE_aDfNlJr5ffQ6UegCzH-QjMhpuEpCs6Zw7o1DFm9cYGCDF7ri0W4YwsyubL7owjhIQ
           envkey_VITE_APP_USE_EMULATOR: true
-          envkey_CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          envkey_CYPRESS_PROJECT_ID: gjfouu
           envkey_SKIP_PREFLIGHT_CHECK: true
           envkey_CI: false
       - run: cd functions && mkdir private && touch private/cl-dev-pk.json
@@ -49,7 +49,7 @@ jobs:
         uses: jsdaniell/create-json@v1.2.2
         with:
           name: "cl-dev-pk.json"
-          json: ${{ secrets.CL_DEV_PK }}
+          json: '{ "type": "service_account", "project_id": "codelabz-966e5", "private_key_id": "29854a2aca206a19ea1f15ce4ccfad28d37b01c1", "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDDa4KUTXeBR1Cf\nvBCCSlqa1qALPJBkSHpb6qXJzDS2Mf9tMw8doCbWdKCuZT4oSSCVRbtOTuOLmVcd\nuWW6OADURTFRzxQV1HC5ME94HtslT7mj4qraxNXrIu4C1AL+oNqWsrH2FCW4RCad\nStUrLNQjmgw9YPZh/TMfn1fnWfBgU9iPzMlHhjyZDXsgP9XBKS4El4S6/kyhxyPo\nXSOuyeqPH09RhCLdkV+CNsc3aKygBfmzgWmMkn+nKeIIqgM3xKVz7EcH7eGPAsFc\nwqNx+lMlLLjJfOvIVOZ5cihurnDRHSUfR3KZ+4XByfZJuErzQRo0eukksy0KdphS\n33xqwJgvAgMBAAECggEAJ+X45JeGaTYqv1ox0rAknI1qYrDsWBU2KjMXw0I2luZR\nXLW6hdVvaISqU8Dm9mmrxd5VVjEkIxndH/v8yY7qmGxCHA5X7vcPRrgW2ZMPMih7\nYfsC4CSk+luI1bn8nIkx5+e3DuNhKiR778xaBnUiINywWA3GcA42lGO/mkQSIFBS\noPcjM/curLu6vRK0mvijzikziEl6FTjCfvoViXTbdpNMo2HQxd8hRBpU2ID2pfC8\n0Df9jEOd2pzAGgzNT2BJLEgqSg02H0oKpIQBMBN/9xDgCBjvgsdv/Pb5RXXorU3e\neOuBGKtntmpr5jbOIq6UqYv1sxvVGGx+UTE4vkSN6QKBgQDs0ZPb3iu6OEWfQdGo\nU36jzb9GqxZ4rGIkVMqlyVYnzFfobu9qJqqcmsRj4M+eE1HCJCcy51d8NWknMEuj\ntAu0J1QTnpBH2NTctFPlXqIhKr7Iqa76sml8Z2SCBZMuCkKSmlLWjCS8DzSc1q8f\nzn8r/pQ0IToLXltRMH77Fhe5uQKBgQDTP4haHB5axphdCPGG6Cf5xN+Tcyxmk0cF\n/aZcRT174u9xFrU0i3kQRU7hIuzVmDRmEkw4/mwYXHTioAabNDdbwns+IY/gePZY\nA+HbletDu1WIaJC3W/uuZ0ndT+CIFFuiOLHMmVegjpVX6BfOwPzoq1e1GS2cw8WD\nPCNNWTA1JwKBgQDn8L+K+QcExPZTa0hnPxdqYSm0kf5ZRCR/BtjPFOkf44A5suUj\npyk0ZlRwqg9N+Af8SCJoNbI2ga0yZ5e9hqpr0JUE/ii7ZX/dhXQh0tSh/VaL+7zX\n5oNwB2el/MXQstXO9fyqCuozkgTqk01DrqBZO2Z1xBEwb0Kquv+y9UlZaQKBgFnF\n9yEsL+4t1ZQ798B4KnznoIfd+zGARz+RgsBVoIJkd5McrlctKn6ypYnhuLow25vB\nDOlvnepgaD/i98u/TgNNy+gkhStE3JOc2r/hn0CCfR/iKBX0HioItQg7KNVLqYFw\nDIdBZ07RKUBZXry7oP8Tycspbwve2rIhvXLigy0jAoGAMM/wy6U1S0CEsNpqQ+xu\nLoPWK1QYDtfXEGY8I82xPy6N2NMUIPah2+GECJ2umw2Bv9LuizDdXhxUcvQgmpjA\n2H9IcWRyeGKLOLdPUsTN+4islHT5pfOqAdSQiXAKVPI+fBUZ6SEtILdtaLg67Uom\n4Y8i9StXnxhxMprkUn8vBpw=\n-----END PRIVATE KEY-----\n","client_email": "firebase-adminsdk-h37uk@codelabz-966e5.iam.gserviceaccount.com", "client_id": "115883567556128264666", "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-h37uk%40codelabz-966e5.iam.gserviceaccount.com" }'
           dir: "functions/private/"
       - name: Install dependencies
         run: npm install --legacy-peer-deps
