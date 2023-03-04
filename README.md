@@ -93,6 +93,8 @@ Visit [localhost:3000](http://localhost:3000) to browse.
 
 > **NOTE**:To Deploy firebase cloud functions you have to satisfy following requirements
 
+    > **NOTE**:YOU DON'T REALLY NEED TO UPGRADE FIREBASE PLAN TO BLAZE, JUST USE FIREBASE EMULATOR.
+
 1. Your Firebase project should have Blaze plan or higher version
    ##steps to upgrade to blaze plan
    1. Log in to the Firebase Console. In the lower left, you will see that your project is listed on the Spark plan. Click the upgrade button.
