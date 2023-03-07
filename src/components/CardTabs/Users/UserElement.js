@@ -47,11 +47,11 @@ const UserElement = ({ user, index, useStyles }) => {
       </Box>
       <Box
         onClick={() => {
-          setIcon(false);
+          setIcon(!icon);
         }}
         data-testId={index == 0 ? "UserAdd" : ""}
         sx={
-          icon && {
+          {
             cursor: "pointer"
           }
         }
