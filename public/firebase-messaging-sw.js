@@ -1,8 +1,8 @@
 try {
   importScripts("firebase-sw-private.js");
-  importScripts("https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js");
+  importScripts("https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js");
   importScripts(
-    "https://www.gstatic.com/firebasejs/7.15.0/firebase-messaging.js"
+    "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging.js"
   );
   firebase.initializeApp(firebaseConfigObject);
 } catch (e) {
