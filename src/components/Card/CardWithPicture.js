@@ -80,11 +80,15 @@ export default function CardWithPicture(props) {
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
   const handleIncrement = () => {
-    setCount(count + 1);
+    if (count === 1){
+      setCount(count + 1);
+    }
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    if (count === 2){
+      setCount(count - 1);
+    }
   };
 
   const handleAlignment = (event, newAlignment) => {
