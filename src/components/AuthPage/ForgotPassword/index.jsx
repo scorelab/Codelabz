@@ -43,7 +43,13 @@ const ForgotPassword = ({
 	const loadingProps = useSelector(({ auth }) => auth.profile.loading);
 	const dispatch = useDispatch();
 
-	useEffect(() => setError(errorProps), [errorProps]);
+	useEffect(() => {
+		if (errorProps === "Firebase: Error (auth/missing-email).") {
+		  setError("The email address is badly formatted.' but never did.");
+		} else {
+		  setError(errorProps);
+		}
+	  }, [errorProps]);
 	useEffect(() => setLoading(loadingProps), [loadingProps]);
 	useEffect(() => setOpen(true), [loadingProps]);
 
