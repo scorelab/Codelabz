@@ -33,7 +33,7 @@ describe("User Dashboard Test | CodeLabz", () => {
 
     it("Check Profile", function () {
         cy.visit(`${this.base_url}user-dashboard/profile`);
-        cy.get('[data-testid="profile"]').should("exist").as("btn").click();
+        cy.get('[data-testid="profile"] > .makeStyles-navLink-81 > .MuiButtonBase-root').should("exist").click();
         cy.wait(2000);
         cy.get("[data-testId=profilePage]").should("exist");
         cy.get("[data-testid=name]").children().clear().type("testname");
