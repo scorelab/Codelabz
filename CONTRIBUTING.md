@@ -1,0 +1,107 @@
+# Table of Content
+- [Table of Content](#table-of-content)
+- [User Guide](#user-guide)
+  - [How to Setup](#how-to-setup)
+  - [Install Packages](#install-packages)
+  - [Firebase Setup](#firebase-setup)
+    - [Run Firebase Emulator](#run-firebase-emulator)
+  - [Run the Project](#run-the-project)
+  - [Run the Storybook](#run-the-storybook)
+  - [Run the tests](#run-the-tests)
+
+# User Guide
+
+## How to Setup
+
+Clone the repository.
+
+For cloning this repo: Run `git clone https://github.com/scorelab/Codelabz.git`.
+
+Run the above command in the folder in which you want to make a clone.
+
+## Install Packages
+
+To install packages, run
+
+`make install`
+
+> **NOTE:** It is recommended to use node v14
+
+## Firebase Setup
+
+1. Sign in to https://console.firebase.google.com/.
+2. Click **Add Project** and necessary information about the project.(Below mentioned the Steps to add project to firebase) 
+    - To add Firebase resources to an existing Google Cloud project, enter its project name or select it from the dropdown menu.
+    - To create a new project, enter the desired project name. You can also optionally edit the project ID displayed below the project name
+    - Firebase generates a unique ID for your Firebase project based upon the name you give it. If you want to edit this project ID, you must do it now as it cannot be       altered after Firebase provisions resources for your project. Visit Understand Firebase Projects to learn about how Firebase uses the project ID.
+3. Agree to the terms and click **Create Project**.
+4. After creating the project, click **Add Firebase to your web app**.
+    - In the center of the Firebase console's project overview page, click the Web icon  to launch the setup workflow.
+    - If you've already added an app to your Firebase project, click Add app to display the platform options.
+    - Enter your app's nickname.
+    - This nickname is an internal, convenience identifier and is only visible to you in the Firebase console.
+    - Click Register app.
+5. Copy the firebase configuration.
+6. Paste the configuration `.env` file.
+7. You can find your `<FIREBASE_DATABASE_URL>` in the Realtime Database section of the Firebase console. Depending on the location of the database, the database URL  will be in one of the following forms:
+    - `https://DATABASE_NAME.firebaseio.com` **(for databases in us-central1)**
+    - `https://DATABASE_NAME.REGION.firebasedatabase.app`**(for databases in all other locations)**
+8. You can get your `<FIREBASE_VAPID_KEY>` from Cloud-Messaging tab
+    - navigate to the setting of your project Open the Cloud Messaging tab.
+    - scroll to the Web configuration section.
+    - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
+
+You should fill in these values in their relevant fields in the `.env` file.
+
+### Run Firebase Emulator
+
+Run your firebase emulator by running the following command.
+
+```
+make emulator-import
+```
+This will run the emulator with the `testdata`. Check out [TESTDATA.md](./TESTDATA.md) for more info.
+
+if you don't want to import testdata, run
+
+```
+make emulator
+```
+
+If you want to export the emulator, run
+
+```
+make emulator-export
+```
+
+---
+
+## Run the Project
+
+To run the project
+`npm run dev`
+
+If you failed to run the project do the following steps :
+
+- delete node modules
+- delete package-lock.json
+- re run `npm install `
+  If error still exists add `SKIP_PREFLIGHT_CHECK=true` in your .env file
+
+## Run the Storybook
+
+To run storybook :
+` npm run storybook`
+It will redirect to 6006 port. Find detailed information [here](https://storybook.js.org/docs/react/get-started/introduction)
+
+---
+
+## Run the tests
+
+To run cypress tests:
+`npm run cy:run`
+It will open a prompt displaying all the tests. You can find detailed information [here](https://docs.cypress.io/guides/guides/command-line#How-to-run-commands)
+
+**Instead, if you want to open the cypress app**. You can run,
+
+`npm run cy:open`
