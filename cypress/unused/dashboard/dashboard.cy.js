@@ -32,11 +32,12 @@ describe("Dashboard Test | CodeLabz", () => {
     cy.get('[data-testid="submit-button"]').click();
 
     cy.contains("Please enter a handle");
-    
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}dashboard`);
     });
   });
+
 
   it("Check that the user handle only contains lowercase alphanumeric characters ", function () {
     cy.visit(`${this.base_url}dashboard`);
@@ -49,7 +50,7 @@ describe("Dashboard Test | CodeLabz", () => {
     cy.get('[data-testid="submit-button"]').click();
 
     cy.contains("User handle can only contain lowercase alphanumeric characters");
-    
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}dashboard`);
     });
@@ -65,7 +66,7 @@ describe("Dashboard Test | CodeLabz", () => {
     cy.get('[data-testid="submit-button"]').click();
 
     cy.contains("User handle cannot be less than 6 characters");
-    
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}dashboard`);
     });
@@ -84,7 +85,7 @@ describe("Dashboard Test | CodeLabz", () => {
     cy.get('[data-testid="orgHandle"]').type("TESTORG");
     cy.get('[data-testid="submit-button"]').click();
     cy.contains("Organization handle can only contain lowercase alphanumeric characters");
-    
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}dashboard`);
     });
@@ -103,7 +104,7 @@ describe("Dashboard Test | CodeLabz", () => {
     cy.get('[data-testid="orgHandle"]').type("test");
     cy.get('[data-testid="submit-button"]').click();
     cy.contains("Organization handle cannot be less than 6 characters");
-    
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}dashboard`);
     });
@@ -124,7 +125,7 @@ describe("Dashboard Test | CodeLabz", () => {
     // cy.get('[data-testid="orgWebsite"]').type('')
     cy.get('[data-testid="submit-button"]').click();
     cy.contains("Please enter a website");
-    
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}dashboard`);
     });
@@ -145,7 +146,7 @@ describe("Dashboard Test | CodeLabz", () => {
     cy.get('[data-testid="orgWebsite"]').type('testorgwebsite')
     cy.get('[data-testid="submit-button"]').click();
     cy.contains("Please provide a valid URL");
-    
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq(`${this.base_url}dashboard`);
     });

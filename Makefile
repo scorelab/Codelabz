@@ -11,3 +11,7 @@ emulator-import:
 emulator-export:
 	@echo "Exporting Firebase Emulator"
 	firebase emulators:export testdata --project $(VITE_APP_FIREBASE_PROJECT_ID)
+
+install:
+	npm install
+	cd ./functions && npm install
