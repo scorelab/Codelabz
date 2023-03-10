@@ -13,7 +13,7 @@ describe("User Dashboard Test | CodeLabz", () => {
     it("login", function () {
         indexedDB.deleteDatabase("firebaseLocalStorageDb");
         cy.visit(`${this.base_url}login`);
-        cy.wait(2000);
+        cy.wait(10000);
         cy.get(".email").type(this.credentials.email);
         cy.get(".password").type(this.credentials.password);
         cy.get(".loginButton").click();
@@ -33,7 +33,8 @@ describe("User Dashboard Test | CodeLabz", () => {
 
     it("Check Profile", function () {
         cy.visit(`${this.base_url}user-dashboard/profile`);
-        cy.get('[data-testid="profile"]').should("exist").click();
+        cy.get('[data-testid="profile"] > .makeStyles-navLink-81 > .MuiButtonBase-root').should("exist").click();
+        cy.wait(2000);
         cy.get("[data-testId=profilePage]").should("exist");
         cy.get("[data-testid=name]").children().clear().type("testname");
         cy.get("[data-testId=selectCountry]").click();
@@ -83,7 +84,7 @@ describe("User Dashboard Test | CodeLabz", () => {
     })
     it("Check Password", function () {
         cy.visit(`${this.base_url}user-dashboard/profile`);
-
+        cy.wait(2000);
         cy.get("[data-testId=password]").should("exist").click();
         cy.get("[data-testId=passwordPage]").should("exist");
         cy.get("[data-testId=oldPassword]").type("oldPassword");
