@@ -62,28 +62,9 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
     setDescriptionValidateErrorMessage,
   ] = useState("");
   const [facebook, setFacebook] = useState(getData(profileData.link_facebook));
-  const [facebookValidateError, setFacebookValidateError] = useState(false);
-  const [
-    facebookValidateErrorMessage,
-    setFacebookValidateErrorMessage,
-  ] = useState("");
   const [twitter, setTwitter] = useState(getData(profileData.link_twitter));
-  const [twitterValidateError, setTwitterValidateError] = useState(false);
-  const [
-    twitterValidateErrorMessage,
-    setTwitterValidateErrorMessage,
-  ] = useState("");
   const [linkedin, setLinkedin] = useState(getData(profileData.link_linkedin));
-  const [linkedinValidateError, setLinkedinValidateError] = useState(false);
-  const [
-    linkedinValidateErrorMessage,
-    setLinkedinValidateErrorMessage,
-  ] = useState("");
   const [github, setGithub] = useState(getData(profileData.link_github));
-  const [githubValidateError, setGithubValidateError] = useState(false);
-  const [githubValidateErrorMessage, setGithubValidateErrorMessage] = useState(
-    ""
-  );
 
   const children = [];
   for (let i = 0; i < countryList.length; i++) {
@@ -148,39 +129,11 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       setDescriptionValidateErrorMessage,
       "Please enter a description"
     );
-    const facebookValid = validateIsEmpty(
-      facebook,
-      setFacebookValidateError,
-      setFacebookValidateErrorMessage,
-      "Please enter a Facebook username"
-    );
-    const twitterValid = validateIsEmpty(
-      twitter,
-      setTwitterValidateError,
-      setTwitterValidateErrorMessage,
-      "Please enter a Twitter username"
-    );
-    const linkedinValid = validateIsEmpty(
-      linkedin,
-      setLinkedinValidateError,
-      setLinkedinValidateErrorMessage,
-      "Please enter a LinkedIn username"
-    );
-    const githubValid = validateIsEmpty(
-      github,
-      setGithubValidateError,
-      setGithubValidateErrorMessage,
-      "Please enter a GitHub username"
-    );
     if (
       nameValid &&
       countryValid &&
       orgWebsiteValid &&
-      descriptionValid &&
-      facebookValid &&
-      twitterValid &&
-      githubValid &&
-      linkedinValid
+      descriptionValid
     ) {
       return true;
     } else {
@@ -251,7 +204,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
       </Box>
 
       <Box m={2}>
-        <FormControl variant="outlined" error={countryValidateError} fullWidth>
+        <FormControl required variant="outlined" error={countryValidateError} fullWidth>
           <InputLabel>Country</InputLabel>
           <Select
             label="Country"
@@ -274,8 +227,8 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           onChange={(event) => onChangeOrgWebsite(event.target.value)}
           helperText={websiteValidateError ? websiteValidateErrorMessage : null}
           fullWidth
-          autoComplete="orgWebsite"
           required
+          autoComplete="orgWebsite"
           style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
@@ -294,6 +247,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           multiline
           variant="outlined"
           placeholder="Description"
+          required
           data-testId="editProfileDescription"
           value={description}
           onChange={(event) => onChangeDescription(event.target.value)}
@@ -302,7 +256,6 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           }
           fullWidth
           autoComplete="description"
-          required
           style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
@@ -316,19 +269,14 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
 
       <Box m={2}>
         <TextField
-          error={facebookValidateError}
           label="Facebook"
           variant="outlined"
           placeholder="username"
           value={facebook}
           data-testId="editProfileFacebook"
           onChange={(event) => onChangeFacebook(event.target.value)}
-          helperText={
-            facebookValidateError ? facebookValidateErrorMessage : null
-          }
           fullWidth
           autoComplete="handle"
-          required
           style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
@@ -345,17 +293,14 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
 
       <Box m={2}>
         <TextField
-          error={twitterValidateError}
           label="Twitter"
           variant="outlined"
           value={twitter}
           placeholder="username"
           data-testId="editProfileTwitter"
           onChange={(event) => onChangeTwitter(event.target.value)}
-          helperText={twitterValidateError ? twitterValidateErrorMessage : null}
           fullWidth
           autoComplete="handle"
-          required
           style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
@@ -372,19 +317,15 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
 
       <Box m={2}>
         <TextField
-          error={linkedinValidateError}
           label="LinkedIn"
           variant="outlined"
           value={linkedin}
           data-testId="editProfileLinkedin"
           placeholder="username"
           onChange={(event) => onChangeLinkedin(event.target.value)}
-          helperText={
-            linkedinValidateError ? linkedinValidateErrorMessage : null
-          }
           fullWidth
           autoComplete="handle"
-          required
+           
           style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
@@ -401,17 +342,14 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
 
       <Box m={2}>
         <TextField
-          error={githubValidateError}
           label="GitHub"
           variant="outlined"
           value={github}
           placeholder="username"
           onChange={(event) => onChangeGithub(event.target.value)}
-          helperText={githubValidateError ? githubValidateErrorMessage : null}
           fullWidth
           data-testId="editProfileGithub"
           autoComplete="handle"
-          required
           style={{ marginBottom: "15px" }}
           InputProps={{
             startAdornment: (
