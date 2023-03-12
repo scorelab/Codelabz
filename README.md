@@ -1,29 +1,54 @@
+# Table of Content
+1. [CodeLabz](#codelabz)
+2. [Deployment](#deployment)
+3. [Community](#community)
+4. [Environment Setup](#environment-setup)
+    1. [Prerequisites](#prerequisites)
+    2. [Project Setup](#project-setup)
+    3. [Firebase Setup](#firebase-setup)
+5. [Set-up-Firebase](#set-up-firebase)
+    1. [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
+6. [Firebase Emulator Flow](#firebase-emulator-flow)
+7. [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
+   1. [<strong>How to install</strong>](#how-to-install)
+   2. [<strong>How to Configure</strong>](#how-to-configure)
+8. [Integrate With your CI System.](#integrate-with-your-ci-system)
+    1. [To Start the Emulators:-](#to-start-the-emulators-)
+    2. [Import and Export:-](#import-and-export-)
+9. [FAQs(Frequently Asked Questions)](#faqs)    
+    1. Login/Signup is not working.
+
 # CodeLabz
 **CodeLabz** is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
 
-## Deployment
+# Deployment
 You can see the app live at [https://dev.codelabz.io/](https://dev.codelabz.io/)
 
-## Community
+# Community
 Join and communicate with other members on our community. We communicate on gitter.
 
 [![Gitter](https://badges.gitter.im/scorelab/CodeLabz.svg)](https://gitter.im/scorelab/CodeLabz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-## Environment Setup
+# Environment Setup
 
 ### Prerequisites
 - Node.js version 14.
 - Java JDK version 11 or higher. (For running emulators)
 
 ### Project Setup
-
+> **NOTE**: Make sure that you are using version 14 of node.
 1. Fork the repo as your own copy.
-2. Clone the repository by running this command `git clone https://github.com/<YOUR_USERNAME>/Codelabz.git`.
-3. Go to the folder `cd Codelabz`.
-4. Run `npm install` ( this will install all the dependencies in your project)
-> **NOTE**: Make sure that you are using version 14 of node. If `npm install` is still not executing successfully, then try `npm install --legacy-peer-deps`.
-5. Create a `.env` file in root of directory. 
-6. Copy all the key fields from `.env.sample` and place your own set of keys there.
+2. Click on `Code` button and then copy HTTPs link.
+3. Clone the repo by running `git clone https://github.com/<YOUR_USERNAME>/Codelabz.git`
+4. Go to the folder `cd Codelabz`.
+5. Run `npm install` ( this will install all the dependencies in your project)
+6. Create a `.env` file in root of directory. 
+7. Setup firebase and get your own set of keys. ( Follow steps in [Firebase Setup](#firebase-setup) section to setup firebase )
+8. Copy all the key fields from `.env.sample` and place your own set of keys there.
+9. Run `npm run dev`.
+10. Visit  [http://127.0.0.1:5173/](http://127.0.0.1:5173/)  in your preferred browser.
+
+>**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
 
 ### Firebase Setup
 
@@ -49,10 +74,6 @@ Join and communicate with other members on our community. We communicate on gitt
     - scroll to the Web configuration section.
     - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
   
-### Run the project
-
-1. Run `npm run dev`.
-2. Visit [http://127.0.0.1:5173/](http://127.0.0.1:5173/)
 ## Contribute
 
 Contributions are always welcome!
@@ -61,7 +82,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways to get started.
 
 Please adhere to this project's [code of conduct](./code_of_conduct.md).
 
-## FAQs
+# FAQs
 ### 1. Login/Signup is not working ?
 <img src="https://files.gitter.im/5eb21f15d73408ce4fe2cb37/Jl4t/image.png" width="600">
 
