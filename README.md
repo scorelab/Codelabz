@@ -73,7 +73,7 @@ First you need to create a `.env` file in `CodeLabz` folder following the templa
     - scroll to the Web configuration section.
     - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
 
-You should fill in these values in their relevent fields in the `.env` file.
+You should fill in these values in their relevant fields in the `.env` file.
 
 To run the project:  
  `$ npm start`
@@ -193,7 +193,7 @@ firebase --version
 firebase init
 ```
 
--  Now Set up the Emulator Suite. The Below Command Provides you the emultors Like, Authentication,Firestore, Realtime Database,Storage DataBase etc.
+-  Now Set up the Emulator Suite. The Below Command Provides you the emulators Like, Authentication,Firestore, Realtime Database,Storage Database etc.
    Select the emulators you needed
     
 ```
@@ -237,7 +237,7 @@ or
 ```
 npm run emulator
 ```
-- You need to run `firebase emulators:start` or `npm run emulator` first and then run `npm start` inorder to run the codelabz webpage.
+- You need to run `firebase emulators:start` or `npm run emulator` first and then run `npm start` in order to run the codelabz webpage.
 - You can check/open Emulator suite by visiting [localhost:4000](http://localhost:4000).
   
 #### Import and Export:
