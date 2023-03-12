@@ -15,17 +15,17 @@ describe("Testing Logout Functionality | CodeLabz", () => {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
   })
 
-  it("Logout using Navbar", function (){
+  it("Logout using Navbar", function () {
     cy.visit(`${this.base_url}`)
-    if(cy.get("[data-testid=Logout]").should("not.exist")){
-        cy.get("[data-test-id=login]").click();
-        cy.get(".email").type(this.credentials.email);
-        cy.get(".password").type(this.credentials.password);
-        cy.get("[data-testid=loginButton]").click();
-        cy.wait(5000); 
-        cy.location().should((loc) => {
+    if (cy.get("[data-testid=Logout]").should("not.exist")) {
+      cy.get("[data-test-id=login]").click();
+      cy.get(".email").type(this.credentials.email);
+      cy.get(".password").type(this.credentials.password);
+      cy.get("[data-testid=loginButton]").click();
+      cy.wait(5000);
+      cy.location().should((loc) => {
         expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-        });
+      });
     }
     cy.visit(`${this.base_url}`);
     cy.get("[data-testid=Logout]").should("exist");
@@ -33,23 +33,23 @@ describe("Testing Logout Functionality | CodeLabz", () => {
     cy.get("[data-testid=Logout]").should("not.exist");
     cy.visit(`${this.base_url}profile`)
     cy.location().should((loc) => {
-        expect(loc.href).to.not.eq(`${this.base_url}profile`);
-        expect(loc.href).to.eq(`${this.base_url}login`)
-      });
+      expect(loc.href).to.not.eq(`${this.base_url}profile`);
+      expect(loc.href).to.eq(`${this.base_url}login`)
+    });
 
   })
 
-  it("Logout using Profile Dropdown", function (){
+  it("Logout using Profile Dropdown", function () {
     cy.visit(`${this.base_url}`)
-    if(cy.get("[data-testid=nav-user]").should("not.exist")){
-        cy.get("[data-test-id=login]").click();
-        cy.get(".email").type(this.credentials.email);
-        cy.get(".password").type(this.credentials.password);
-        cy.get("[data-testid=loginButton]").click();
-        cy.wait(5000);
-        cy.location().should((loc) => {
+    if (cy.get("[data-testid=nav-user]").should("not.exist")) {
+      cy.get("[data-test-id=login]").click();
+      cy.get(".email").type(this.credentials.email);
+      cy.get(".password").type(this.credentials.password);
+      cy.get("[data-testid=loginButton]").click();
+      cy.wait(5000);
+      cy.location().should((loc) => {
         expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
-        });
+      });
     }
     cy.visit(`${this.base_url}`);
     cy.get("[data-testid=nav-user]").should("exist");
@@ -57,10 +57,11 @@ describe("Testing Logout Functionality | CodeLabz", () => {
     cy.get("#log-out").should("exist");
     cy.get("#log-out").click();
     cy.visit(`${this.base_url}profile`)
+    cy.wait(5000);
     cy.location().should((loc) => {
-        expect(loc.href).to.not.eq(`${this.base_url}profile`);
-        expect(loc.href).to.eq(`${this.base_url}login`)
-      });
+      expect(loc.href).to.not.eq(`${this.base_url}profile`);
+      expect(loc.href).to.eq(`${this.base_url}login`)
+    });
 
   })
 });
