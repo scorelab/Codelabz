@@ -12,8 +12,8 @@
    1. [<strong>How to install</strong>](#how-to-install)
    2. [<strong>How to Configure</strong>](#how-to-configure)
 8. [Integrate With your CI System.](#integrate-with-your-ci-system)
-    1. [To Start the Emulators:-](#to-start-the-emulators-)
-    2. [Import and Export:-](#import-and-export-)
+    1. [To Start the Emulators](#to-start-the-emulators)
+    2. [Import and Export](#import-and-export)
 # CodeLabz
 
 CodeLabz is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
@@ -166,7 +166,7 @@ flowchart TB
 ```
 # Install, Configure and Integrate Firebase Emulator Suite
 ## **How to install**
-#### Before installing the Emulator Suite you will need:-
+#### Before installing the Emulator Suite you will need:
 
 - Node.js version 8.0 or higher.
 
@@ -201,12 +201,12 @@ firebase init emulators
 ``` 
 ## **How to Configure** 
 
-#### Configure Emulator Suite:-
+#### Configure Emulator Suite:
 
 - You can optionally configure the emulators network ports and path to Security Rules definitions in the firebase.json file:
 - Change emulator ports by running `firebase init emulators` or by editing `firebase.json` manually.
     
-Note:-(***Recommended***)If you don't configure these settings, the emulators will listen on their default ports, and the Cloud Firestore, Realtime Database and Cloud Storage 
+Note: (***Recommended***)If you don't configure these settings, the emulators will listen on their default ports, and the Cloud Firestore, Realtime Database and Cloud Storage 
         emulators will run with open data security.
 #### Port Configuration - These are the Default Ports Provided you can change them while initializing(if needed)
 
@@ -227,7 +227,7 @@ Note:-(***Recommended***)If you don't configure these settings, the emulators wi
 
 - Installation and configuration of the Emulator Suite with containers in a typical CI setup is straightforward.
 
-#### To Start the Emulators:-
+#### To Start the Emulators:
 - The Emulators can be start according to the user preferences, .Find detailed information [here](https://github.com/scorelab/Codelabz/blob/master/local-firebase-emulators-import-export.md)
 
 ```
@@ -240,8 +240,8 @@ npm run emulator
 - You need to run `firebase emulators:start` or `npm run emulator` first and then run `npm start` inorder to run the codelabz webpage.
 - You can check/open Emulator suite by visiting [localhost:4000](http://localhost:4000).
   
-#### Import and Export:-
+#### Import and Export:
 - To import ```npm run emulator-import```
 - To export ```npm run emulator-export```
-- Note:- To understand beforehand about importing data from and to emulators, please see [this](https://github.com/scorelab/Codelabz/blob/master/local-firebase-emulators-import-export.md).
+- Note: To understand beforehand about importing data from and to emulators, please see [this](https://github.com/scorelab/Codelabz/blob/master/local-firebase-emulators-import-export.md).
 - **READ THE [RULE-SET](https://github.com/scorelab/Codelabz/blob/master/rule_sets.md) FILE PRIOR TO USING "testdata" FILE.**
