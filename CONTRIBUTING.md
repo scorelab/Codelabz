@@ -50,8 +50,8 @@ To install packages, run
     - navigate to the setting of your project Open the Cloud Messaging tab.
     - scroll to the Web configuration section.
     - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
-9. set `<USE_EMULATOR>` to true 
-10. You can your `<CYPRESS_PROJECT_ID>` as cypress project id from cypress cloud 
+9. As you're using emulator, set <USE_EMULATOR> to "true" 
+10. You can your `<CYPRESS_PROJECT_ID>` as cypress project id from [cypress cloud](https://cloud.cypress.io)
 
 You should fill in these values in their relevant fields in the `.env` file.
 
