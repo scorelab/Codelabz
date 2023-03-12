@@ -267,7 +267,12 @@ This problem generally arises when you have not setuped/started the Firebase emu
 - In some case all the emulator will not start. So you can execute a separate command for a particular emulator<br/>
   For example if auth emulator is not starting you can use this command - <br/> `firebase emulators:start --import=firebase.json --project <your-project-id> --only auth`.
 
-### 3. I want to contribute but don't know where to start.
+### 3. I am creating new account and it says that confirmation mail is sent to my email but I didn't got any mail.
+
+### Answer :-
+This feature is not implemented completely and we are currently working on this. If you still want to login/signup, you can try login/signup with google option.
+
+### 4. I want to contribute but don't know where to start.
 
 ### Answer :-
 1. First of all try to make yourself comfortable with the app and explore its functionalities.
