@@ -42,7 +42,7 @@ To install packages, run
     - This nickname is an internal, convenience identifier and is only visible to you in the Firebase console.
     - Click Register app.
 5. Copy the firebase configuration.
-6. Paste the configuration `.env` file.
+6. Paste the configuration `.env` file. **(this will be found in the project settings section of firebase cloud)**
 7. You can find your `<FIREBASE_DATABASE_URL>` in the Realtime Database section of the Firebase console. Depending on the location of the database, the database URL  will be in one of the following forms:
     - `https://DATABASE_NAME.firebaseio.com` **(for databases in us-central1)**
     - `https://DATABASE_NAME.REGION.firebasedatabase.app`**(for databases in all other locations)**
@@ -50,6 +50,8 @@ To install packages, run
     - navigate to the setting of your project Open the Cloud Messaging tab.
     - scroll to the Web configuration section.
     - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
+9. As you're using emulator, set `<USE_EMULATOR>` to "true" 
+10. You can get your `<CYPRESS_PROJECT_ID>` as cypress project id from [cypress cloud](https://cloud.cypress.io)
 
 You should fill in these values in their relevant fields in the `.env` file.
 
