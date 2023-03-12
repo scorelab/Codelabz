@@ -1,4 +1,4 @@
-# Table of Content
+# Table of Content 📑
 1. [CodeLabz](#codelabz)
 2. [Deployment](#deployment)
 3. [Community](#community)
@@ -7,22 +7,20 @@
     2. [Project Setup](#project-setup)
     3. [Firebase Setup](#firebase-setup)
     4. [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
-5. [Set-up-Firebase](#set-up-firebase)
-    1. [How to Deploy Firebase Cloud Functions](#how-to-deploy-firebase-cloud-functions)
-6. [Firebase Emulator Flow](#firebase-emulator-flow)
-7. [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
+5. [Firebase Emulator Flow](#firebase-emulator-flow)
+6. [Install, Configure and Integrate Firebase Emulator Suite](#install-configure-and-integrate-firebase-emulator-suite)
    1. [<strong>How to install</strong>](#how-to-install)
    2. [<strong>How to Configure</strong>](#how-to-configure)
-8. [Integrate With your CI System.](#integrate-with-your-ci-system)
+7. [Integrate With your CI System.](#integrate-with-your-ci-system)
     1. [To Start the Emulators:-](#to-start-the-emulators-)
     2. [Import and Export:-](#import-and-export-)
-9. [FAQs(Frequently Asked Questions)](#faqs)    
-    1. Login/Signup is not working.
+8. [Contribute](#contribute)
+8. [FAQs (Frequently Asked Questions)](#faqs)  
 
-# CodeLabz
+# CodeLabz 
 **CodeLabz** is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
 
-# Deployment
+# Deployment 
 You can see the app live at [https://dev.codelabz.io/](https://dev.codelabz.io/)
 
 # Community
@@ -37,21 +35,21 @@ Join and communicate with other members on our community. We communicate on gitt
 - Java JDK version 11 or higher. (For running emulators)
 
 ### Project Setup
-> **NOTE**: Make sure that you are using version 14 of node.
+> 📝**NOTE**: Make sure that you are using version 14 of node.
 
-> **Tip**: You can use nvm (node version manager) tool to install multiple node versions and can switch between them easily.
+> ⚡**Tip**: You can use nvm (node version manager) tool to install multiple node versions and can switch between them easily.
 1. Fork the repo as your own copy.
-2. Click on `Code` button and then copy HTTPs link.
+2. Click on `Code` button and then copy HTTPs link. ( it will look like this `https://github.com/<YOUR_USERNAME>/Codelabz.git`)
 3. Clone the repo by running `git clone https://github.com/<YOUR_USERNAME>/Codelabz.git`
 4. Go to the folder `cd Codelabz`.
 5. Run `npm install` ( this will install all the dependencies in your project)
 6. Create a `.env` file in root of directory. 
-7. Setup firebase and get your own set of keys. ( Follow steps in [Firebase Setup](#firebase-setup) section to setup firebase )
-8. Copy all the key fields from `.env.sample` and place your own set of keys there.
+7. Setup firebase and get your own set of keys. ( follow steps in [Firebase Setup](#firebase-setup) section to setup firebase )
+8. Copy all the key fields from `.env.sample` and place your own set of values there.
 9. Run `npm run dev`.
 10. Visit  [http://127.0.0.1:5173/](http://127.0.0.1:5173/)  in your preferred browser.
 
->**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
+>📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
 
 ### Firebase Setup
 
@@ -79,7 +77,7 @@ Join and communicate with other members on our community. We communicate on gitt
   
 ### How to Deploy Firebase Cloud Functions
 
-> **NOTE**:To Deploy firebase cloud functions you have to satisfy following requirements
+> 📝**NOTE**: To Deploy firebase cloud functions you have to satisfy following requirements
 
 1. Your Firebase project should have Blaze plan or higher version
    ##steps to upgrade to blaze plan
@@ -195,7 +193,7 @@ firebase init emulators
 - You can optionally configure the emulators network ports and path to Security Rules definitions in the firebase.json file:
 - Change emulator ports by running `firebase init emulators` or by editing `firebase.json` manually.
     
-Note:-(***Recommended***)If you don't configure these settings, the emulators will listen on their default ports, and the Cloud Firestore, Realtime Database and Cloud Storage 
+📝Note:-(***Recommended***)If you don't configure these settings, the emulators will listen on their default ports, and the Cloud Firestore, Realtime Database and Cloud Storage 
         emulators will run with open data security.
 #### Port Configuration - These are the Default Ports Provided you can change them while initializing(if needed)
 
@@ -244,18 +242,37 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways to get started.
 Please adhere to this project's [code of conduct](./code_of_conduct.md).
 
 # FAQs
-### 1. Login/Signup is not working ?
+
+### 1. Do I need to purchase Blaze plan to run the app ?
+### Answer -
+ No, you don't need to purchase Blaze plan to run the app. You need to purchase it only if you want to deploy firebase cloud functions.
+ 
+ ### 2. `npm install` command is not executing successfully in my system.
+### Answer -
+ First of all make sure that your are using version 14 of node. If the problem still persists try `npm install --legacy-peer-deps`.
+ 
+### 3. Login/Signup is not working.
 <img src="https://files.gitter.im/5eb21f15d73408ce4fe2cb37/Jl4t/image.png" width="600">
 
 ### Solution :-
 This problem generally arises when you have not setuped/started the Firebase emulators.
 
-1. [Setup firebase emulator](#how-to-install). 
+1. [Setup firebase emulator](#install-configure-and-integrate-firebase-emulator-suite). 
 2. [Start the Emulators](#to-start-the-emulators-)
-3. Run the app using `npm start`.
+3. Run the app using `npm run dev`.
 
->**NOTE** : Remember to start the emulators before running the app. 
+>📝**NOTE** : Remember to start the emulators before running the app. 
 
 - To start emulators - `firebase emulators:start --import=firebase.json --project <your-project-id>`. <br/>
 - In some case all the emulator will not start. So you can execute a separate command for a particular emulator<br/>
   For example if auth emulator is not starting you can use this command - <br/> `firebase emulators:start --import=firebase.json --project <your-project-id> --only auth`.
+
+### 3. I want to contribute but don't know where to start.
+
+### Answer :-
+1. First of all try to make yourself comfortable with the app and explore its functionalities.
+2. Have a look into issues that are already raised and are not assigned to anyone and ask the mentors to get it assigned it to you.
+3. If you want to work on a new issue, first try to discuss it in the gitter channel with the mentors and then raise the issue.
+
+
+### ❓ Got more questions, ask it in our [gitter channel](https://matrix.to/#/#scorelab_CodeLabz:gitter.im) and we will love ❤ to answer them.
