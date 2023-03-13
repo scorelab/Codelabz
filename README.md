@@ -80,7 +80,7 @@ Join and communicate with other members on our community. We communicate on gitt
 > 📝**NOTE**: To Deploy firebase cloud functions you have to satisfy following requirements
 
 1. Your Firebase project should have Blaze plan or higher version
-   ##steps to upgrade to blaze plan
+   #### Steps to upgrade to blaze plan
    1. Log in to the Firebase Console. In the lower left, you will see that your project is listed on the Spark plan. Click the upgrade button.
    2. Select the Blaze plan
    3. Select a billing account. Then click Continue and Purchase. And there you go on the Blaze plan.
