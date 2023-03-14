@@ -1,8 +1,8 @@
 # Table of Content
 - [Table of Content](#table-of-content)
 - [User Guide](#user-guide)
-  - [How to Setup](#how-to-setup)
-  - [Install Packages](#install-packages)
+  - [Prerequisites](#prerequisites)
+  - [Project Setup](#project-setup)
   - [Firebase Setup](#firebase-setup)
     - [Run Firebase Emulator](#run-firebase-emulator)
   - [Run the Project](#run-the-project)
@@ -20,21 +20,28 @@
 
 # User Guide
 
-## How to Setup
+### Prerequisites
+- Node.js version 14.
+- Java JDK version 11 or higher. (For running emulators)
+- make command line tool. ( optional )
+> 📝**NOTE** : `make` is optional here. You can open `Makefile` and type the associated command manually also, but it is recommended to use `make` so you don't need to run multiple commands.
 
-Clone the repository.
+### Project Setup
+> 📝**NOTE**: Make sure that you are using version 14 of node.
 
-For cloning this repo: Run `git clone https://github.com/scorelab/Codelabz.git`.
+> ⚡**Tip**: You can use nvm (node version manager) tool to install multiple node versions and can switch between them easily.
+1. Fork the repo as your own copy.
+2. Click on `Code` button and then copy HTTPs link. ( it will look like this `https://github.com/<YOUR_USERNAME>/Codelabz.git`)
+3. Clone the repo by running `git clone https://github.com/<YOUR_USERNAME>/Codelabz.git`
+4. Go to the folder `cd Codelabz`.
+5. Run `npm install` or `make install`( this will install all the dependencies in your project)
+6. Create a `.env` file in root of directory. 
+7. Setup firebase and get your own set of keys. ( follow steps in [Firebase Setup](#firebase-setup) section to setup firebase )
+8. Copy all the key fields from `.env.sample` and place your own set of values there.
+9. Run `npm run dev`.
+10. Visit  [http://127.0.0.1:5173/](http://127.0.0.1:5173/)  in your preferred browser.
 
-Run the above command in the folder in which you want to make a clone.
-
-## Install Packages
-
-To install packages, run
-
-`make install`
-
-> **NOTE:** It is recommended to use node v14
+>📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
 
 ## Firebase Setup
 
