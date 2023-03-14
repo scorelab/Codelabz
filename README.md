@@ -69,11 +69,12 @@ This problem can arise in multiple scenarios :-
 <hr/>
 
 ### 6. make import emulator not found
+![image](https://user-images.githubusercontent.com/88550925/224977291-25101480-608b-41e6-a0b6-f03ff23f66b4.png)
 
 ### Solution :- 
 The Make Command Not Found error indicates that the make utility is either not installed on the system or it’s not present in the PATH variable.
 
-follow this link to fix this issue.
+Follow this link to fix this issue.
 [Click here](https://www.technewstoday.com/fix-make-command-not-found/)
 
 
