@@ -68,7 +68,7 @@ This problem can arise in multiple scenarios :-
 3. In some cases it can also arise due to any active ad-blocker extension in your browser. So make sure to turn it off.
 <hr/>
 
-### 6. make emulator-import command not found
+### 6. make command not found
 ![image](https://user-images.githubusercontent.com/88550925/224977291-25101480-608b-41e6-a0b6-f03ff23f66b4.png)
 
 ### Solution :- 
