@@ -68,7 +68,16 @@ This problem can arise in multiple scenarios :-
 3. In some cases it can also arise due to any active ad-blocker extension in your browser. So make sure to turn it off.
 <hr/>
 
-### 6. I want to contribute but don't know where to start.
+### 6. make import emulator not found
+
+### Solution :- 
+The Make Command Not Found error indicates that the make utility is either not installed on the system or it’s not present in the PATH variable.
+
+follow this link to fix this issue.
+[Click here](https://www.technewstoday.com/fix-make-command-not-found/)
+
+
+### 7. I want to contribute but don't know where to start.
 
 ### Answer :-
 1. First of all try to make yourself comfortable with the app and explore its functionalities.
