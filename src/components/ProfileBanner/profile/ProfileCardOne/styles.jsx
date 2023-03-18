@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
 		border: "3px solid white",
 		maxWidth: "fit-content",
 	},
+
+	
+
 	profileInfo: {
 		display: "flex",
 		flexDirection: "row",
@@ -77,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	profileSubscribeButton: {
+		cursor : "pointer",
 		width: "127px",
 		height: "38px",
 		minHeight: "2rem",
@@ -96,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	profileShareButton: {
+		cursor : "pointer",
 		width: "fit-content",
 		marginLeft: "10px",
 		height: "38px",
@@ -116,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	profileReportButton: {
+		cursor : "pointer",
 		width: "fit-content",
 		marginLeft: "10px",
 		height: "38px",
@@ -136,6 +142,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	profileIconButton: {
+		cursor : "pointer",
 		width: "fit-content",
 		marginLeft: "10px",
 		height: "38px",
