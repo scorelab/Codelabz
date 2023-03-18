@@ -12,7 +12,7 @@
 /build
 
 #config
-src/config/index.js
+# src/config/index.js
 
 # misc
 .DS_Store
@@ -32,6 +32,7 @@ package-lock.json
 INTERNAL.md
 RULES.md
 firebase-debug.log
+pnpm-lock.yaml
 
 firebase-sw-private.js
 /.firebase
@@ -41,17 +42,10 @@ cypress/screenshots
 cypress/videos
 
 # firebase
-firebase.json
 database-debug.log
 firebase-debug.log
-firestore.indexes.json
-database.rules.json
 firebase-debug.log
-firestore-rules
 .firebaserc
 firestore-debug.log
-firestore.rules
 pubsub-debug.log
-remoteconfig.template.json
-storage.rules
 ui-debug.log
