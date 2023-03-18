@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import Card from "@mui/material/Card";
-import CardComponent from "../CodelabCard/index";
-import Typography from "@mui/material/Typography";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import List from "@mui/material/List";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -31,6 +23,7 @@ import CardWithoutPicture from "../Card/CardWithoutPicture";
 import Activity from "../Topbar/Activity";
 import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import NewTutorial from "../Tutorials/NewTutorial";
+import BackToTopButton from "../BackToTop/BackToTop";
 
 function HomePage({ background = "white", textColor = "black" }) {
 	const classes = useStyles();
@@ -341,6 +334,7 @@ function HomePage({ background = "white", textColor = "black" }) {
 						</Grid>
 					</Grid>
 				</Grid>
+		<BackToTopButton/>
 			</Grid>
 		</Card>
 	);
