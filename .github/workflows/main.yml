@@ -7,39 +7,36 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    
-    - name: Checkout Repo
-      uses: actions/checkout@master
-    
-    - name: Install dependencies
-      working-directory: ./
-      run: npm install --legacy-peer-deps
-    
-    - name: Build
-      working-directory: ./
-      run: npm run build
-      env:
-          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
-          REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
-          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
-          REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
-          REACT_APP_FIREBASE_MEASUREMENTID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENTID }}
-          REACT_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.REACT_APP_FIREBASE_FCM_VAPID_KEY }}
-          REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
-          REACT_APP_DATABASE_URL: ${{secrets.REACT_APP_DATABASE_URL}}
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Install dependencies
+        working-directory: ./
+        run: npm install --legacy-peer-deps
+
+      - name: Build
+        working-directory: ./
+        run: npm run build
+        env:
+          VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
+          VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
+          VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+          VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
+          VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
+          VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
+          VITE_APP_DATABASE_URL: ${{secrets.VITE_APP_DATABASE_URL}}
           SKIP_PREFLIGHT_CHECK: true
           CI: false
-          
-    - name: Archive Production Artifact
-      uses: actions/upload-artifact@master
-      with:
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
           name: build
           path: ./build
-    
+
   deploy:
     name: Deploy
     needs: build
@@ -52,12 +49,12 @@ jobs:
         with:
           name: build
           path: ./build
-    
+
       - name: GitHub Action for Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
           PROJECT_PATH: ./

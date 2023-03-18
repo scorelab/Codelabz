@@ -1,10 +1,10 @@
 try {
-  importScripts("firebase-sw-private.js");
-  importScripts("https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js");
+  // importScripts("firebase-sw-private.js");
+  importScripts("https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js");
   importScripts(
-    "https://www.gstatic.com/firebasejs/7.15.0/firebase-messaging.js"
+    "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"
   );
-  firebase.initializeApp(firebaseConfigObject);
+  // firebase.initializeApp(firebaseConfigObject);
 } catch (e) {
   importScripts("/__/firebase/7.15.0/firebase-app.js");
   importScripts("/__/firebase/7.15.0/firebase-messaging.js");
@@ -14,7 +14,7 @@ try {
 if (firebase.messaging.isSupported()) {
   const messaging = firebase.messaging();
 
-  messaging.setBackgroundMessageHandler(function(payload) {
+  messaging.onBackgroundMessage(function (payload) {
     console.log(
       "[firebase-messaging-sw.js] Received background message ",
       payload
