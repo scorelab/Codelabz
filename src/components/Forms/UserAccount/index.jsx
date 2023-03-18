@@ -41,14 +41,16 @@ const UserAccount = () => {
           </Typography>
         </Box>
         <Typography
-          className={classes.text}
+        onClick = {() => {}}
+          className={classes.button}
           style={{ color: "#FF5959", marginBottom: 10 }}
           data-testId="deactivateAccount"
         >
           Deactivate account
         </Typography>
         <Typography
-          className={classes.text}
+        onClick = {() => {}}
+          className={classes.button}
           style={{ color: "#FF5959" }}
           data-testId="deleteAccount"
         >
