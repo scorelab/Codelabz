@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-19T08:57:03.339Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.44" etag="B1p2JGIYFdHCi1MLwNMd" version="21.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-19T09:14:02.273Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.44" etag="0sdga45018JPWpxq6PpH" version="21.0.8" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="993" dy="637" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -17,18 +17,18 @@
           <mxGeometry x="540" y="160" width="150" height="150" as="geometry" />
         </mxCell>
         <mxCell id="keBYOh6yZ6PrSQoJ2qsw-7" value="&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;b&gt;Comment&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="160" y="400" width="180" height="40" as="geometry" />
+          <mxGeometry y="410" width="180" height="40" as="geometry" />
         </mxCell>
         <mxCell id="keBYOh6yZ6PrSQoJ2qsw-8" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Comment_id&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;Content&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;Created_at&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;Post_id&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;User_id&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="160" y="440" width="180" height="180" as="geometry" />
+          <mxGeometry y="450" width="180" height="180" as="geometry" />
         </mxCell>
         <mxCell id="keBYOh6yZ6PrSQoJ2qsw-11" value="&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;b&gt;LIKE&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="550" y="400" width="150" height="40" as="geometry" />
+          <mxGeometry x="310" y="410" width="150" height="40" as="geometry" />
         </mxCell>
         <mxCell id="keBYOh6yZ6PrSQoJ2qsw-12" value="&lt;ul&gt;&lt;li&gt;&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;like_id&lt;/font&gt;&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;&lt;font size=&quot;3&quot;&gt;created_at&lt;/font&gt;&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;&lt;font size=&quot;3&quot;&gt;user_id&lt;/font&gt;&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;&lt;font size=&quot;3&quot;&gt;post_id&lt;/font&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;" vertex="1" parent="1">
-          <mxGeometry x="550" y="440" width="150" height="150" as="geometry" />
+          <mxGeometry x="310" y="450" width="150" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="keBYOh6yZ6PrSQoJ2qsw-13" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="keBYOh6yZ6PrSQoJ2qsw-5">
+        <mxCell id="keBYOh6yZ6PrSQoJ2qsw-13" value="" style="endArrow=none;html=1;rounded=0;entryX=0.807;entryY=1.023;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="keBYOh6yZ6PrSQoJ2qsw-11" target="keBYOh6yZ6PrSQoJ2qsw-6">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="615" y="400" as="sourcePoint" />
             <mxPoint x="450" y="310" as="targetPoint" />
