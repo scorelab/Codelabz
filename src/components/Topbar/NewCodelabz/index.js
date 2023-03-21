@@ -60,7 +60,7 @@ function NewCodelabz({setVisibleModal}) {
               New Codelabz
             </Typography>
             <Typography variant="body2" className={classes.description}>
-              Share a tutorial 
+              Share a tutorial
             </Typography>
           </Grid>
         </Grid>
