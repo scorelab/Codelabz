@@ -114,7 +114,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
 /**
  * @description - This component renders the side bar menu
  * @returns
