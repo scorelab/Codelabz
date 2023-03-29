@@ -13,35 +13,56 @@ import { makeStyles } from "@mui/styles";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Badge from "@mui/material/Badge";
 
+// redesign useStyle sideList
 const useStyles = makeStyles(theme => ({
   icons: {
     width: "20px",
     height: "20px",
-    borderRadius: "50%"
+    borderRadius: "50%",
+    backgroundColor: "#87CEFA",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#ffffff",
+    fontSize: "14px"
   },
 
   listIcon: {
     minWidth: "20px",
-    marginRight: "10px"
+    marginRight: "10px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   paper: {
     display: "flex",
     minWidth: "100%",
     border: "none",
-    backgrounColor: "transparent",
-    boxShadow: "none"
+    backgroundColor: "transparent",
+    boxShadow: "none",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "10px"
   },
 
   navLink: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    textDecoration: "none",
+    color: "#ffffff",
+    fontWeight: "bold",
+    transition: "all 0.2s ease-in-out",
+    "&:hover": {
+      color: "#87CEFA",
+    }
   },
 
   menuList: {
     border: "none",
-    boxShadow: "none"
+    boxShadow: "none",
+    padding: "0"
   },
 
   menuItem: {
@@ -50,17 +71,49 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "100px",
     paddingTop: "8px",
     paddingBottom: "3px",
-    margin: "3px 0 3px 0"
+    margin: "3px 0 3px 0",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    transition: "all 0.2s ease-in-out",
+    "&:hover": {
+      backgroundColor: "#87CEFA",
+    }
   },
 
   notification: {
-    color: "#000000"
+    color: "#000000",
+    marginRight: "10px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    "&::after": {
+      content: "''",
+      position: "absolute",
+      top: "0",
+      right: "0",
+      backgroundColor: "#87CEFA",
+      width: "10px",
+      height: "10px",
+      borderRadius: "50%",
+      border: "2px solid #ffffff"
+    }
   },
+
   customBadge: {
     color: "#ffffff",
-    backgroundColor: "#03AAFA"
+    backgroundColor: "#87CEFA",
+    borderRadius: "50%",
+    width: "20px",
+    height: "20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "12px"
   }
 }));
+
 
 /**
  * @description - This component renders the side bar menu
