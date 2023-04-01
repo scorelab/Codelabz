@@ -9,7 +9,7 @@ import {
   Paper,
   Typography
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Headroom from "react-headroom";
 import BrandName from "../../../../helpers/brandName";
 import SearchIcon from "@material-ui/icons/Search";
@@ -70,16 +70,23 @@ function MainNavbar() {
   const windowSize = useWindowSize();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpen] = useState(false);
+
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
   const notification = () => {};
+
   return (
     <Headroom>
       <nav
         style={{
           padding: "10px",
-          background: "white"
+          background: "white",
+          position: "fixed",
+          zIndex: 999,
+          top: 0,
+          left: 0,
+          right: 0
         }}
       >
         <Grid

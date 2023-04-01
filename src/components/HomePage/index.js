@@ -163,12 +163,12 @@ function HomePage({ background = "white", textColor = "black" }) {
     setSelectedTab(newValue);
   };
   const closeModal = () => {
-    setVisibleModal((prev) => !prev);
+    setVisibleModal(prev => !prev);
   };
   return (
     <Card
       className={classes.wrapper}
-      style={{ background: background }}
+      style={{ background: background, paddingTop: 60 }}
       data-testId="homepage"
       onClick={() => {
         toggleSlider();
@@ -202,8 +202,11 @@ function HomePage({ background = "white", textColor = "black" }) {
           data-testId="homepageMainBody"
           xs={10}
         >
-          <NewCodelabz setVisibleModal = {setVisibleModal} />
-          <NewTutorial viewModal={visibleModal} onSidebarClick={(e) => closeModal(e)} />
+          <NewCodelabz setVisibleModal={setVisibleModal} />
+          <NewTutorial
+            viewModal={visibleModal}
+            onSidebarClick={e => closeModal(e)}
+          />
           <Card className={classes.card}>
             <Activity />
           </Card>

@@ -17,13 +17,14 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import SideBar from "../../../SideBar";
 import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
+import shadows from "@material-ui/core/styles/shadows";
 
 const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
     color: "#3e5060",
-    letterSpacing:"0.5px"
+    letterSpacing: "0.5px"
   },
   root: {
     backgroundColor: theme.palette.grey[50],
@@ -69,6 +70,7 @@ function MiniNavbar() {
   const notification = () => {};
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [openMenu, setOpen] = useState(false);
+
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
@@ -87,23 +89,28 @@ function MiniNavbar() {
     getDimension({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight
-    })
-  }
-  
+    });
+  };
+
   useEffect(() => {
-    window.addEventListener('resize', setDimension);
-    
-    return(() => {
-        window.removeEventListener('resize', setDimension);
-    })
-  }, [screenSize])
+    window.addEventListener("resize", setDimension);
+
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+  }, [screenSize]);
 
   return (
     <Headroom disableInlineStyles>
       <nav
         style={{
           padding: "10px",
-          background: "white"
+          background: "white",
+          position: "fixed",
+          zIndex: 999,
+          top: 0,
+          left: 0,
+          right: 0
         }}
       >
         <Grid
@@ -136,7 +143,7 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid style={{display:'inline-block'}} item xs={12} md={4}>
+          <Grid style={{ display: "inline-block" }} item xs={12} md={4}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -147,7 +154,18 @@ function MiniNavbar() {
               >
                 <SearchIcon />
               </IconButton>
-              <InputBase style={{display:'inline-block', width:(screenSize.dynamicWidth<'959' && screenSize.dynamicWidth>'575')?'93.5%':'88.5%'}} className={classes.input} placeholder="Search..." />
+              <InputBase
+                style={{
+                  display: "inline-block",
+                  width:
+                    screenSize.dynamicWidth < "959" &&
+                    screenSize.dynamicWidth > "575"
+                      ? "93.5%"
+                      : "88.5%"
+                }}
+                className={classes.input}
+                placeholder="Search..."
+              />
             </Paper>
           </Grid>
           <Grid item className={classes.gridButton}>

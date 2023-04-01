@@ -30,15 +30,21 @@ const SignupForm = () => {
   const [errorOpen, setErrorOpen] = useState(true);
   const [email, setEmail] = useState("");
   const [emailValidateError, setEmailValidateError] = useState(false);
-  const [emailValidateErrorMessage, setEmailValidateErrorMessage] = useState("");
+  const [emailValidateErrorMessage, setEmailValidateErrorMessage] =
+    useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
-  const [passwordValidateErrorMessage, setPasswordValidateErrorMessage] = useState("");
+  const [passwordValidateErrorMessage, setPasswordValidateErrorMessage] =
+    useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [confirmPasswordValidateError, setConfirmPasswordValidateError] = useState(false);
-  const [confirmPasswordValidateErrorMessage, setConfirmPasswordValidateErrorMessage] = useState("");
+  const [confirmPasswordValidateError, setConfirmPasswordValidateError] =
+    useState(false);
+  const [
+    confirmPasswordValidateErrorMessage,
+    setConfirmPasswordValidateErrorMessage
+  ] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [agreedText, setAgreedText] = useState(false);
 
@@ -61,13 +67,14 @@ const SignupForm = () => {
   }, [errorProp, loadingProp]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
-  const handleMouseDownPassword = (event) => event.preventDefault();
+  const handleMouseDownPassword = event => event.preventDefault();
 
-  const onChangeEmail = (event) => setEmail(event.target.value);
-  const onChangePassword = (event) => setPassword(event.target.value);
-  const onChangeConfirmPassword = (event) => {
+  const onChangeEmail = event => setEmail(event.target.value);
+  const onChangePassword = event => setPassword(event.target.value);
+  const onChangeConfirmPassword = event => {
     setConfirmPassword(event.target.value);
   };
 
@@ -91,12 +98,19 @@ const SignupForm = () => {
       setPasswordValidateErrorMessage("Please enter your password!");
       return false;
     }
-    if (!validator.isStrongPassword(password, {
-      minLength: 8, minLowercase: 1,
-      minUppercase: 1, minNumbers: 1, minSymbols: 1
-    })) {
+    if (
+      !validator.isStrongPassword(password, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1
+      })
+    ) {
       setPasswordValidateError(true);
-      setPasswordValidateErrorMessage("Your password must be at least 8 characters including a lowercase letter, an uppercase letter, a number & a symbol.");
+      setPasswordValidateErrorMessage(
+        "Your password must be at least 8 characters including a lowercase letter, an uppercase letter, a number & a symbol."
+      );
       return false;
     }
 
@@ -106,7 +120,9 @@ const SignupForm = () => {
   const validateConfirmPassword = () => {
     if (password !== confirmPassword) {
       setConfirmPasswordValidateError(true);
-      setConfirmPasswordValidateErrorMessage("The two passwords that you entered does not match!");
+      setConfirmPasswordValidateErrorMessage(
+        "The two passwords that you entered does not match!"
+      );
       return false;
     }
     setConfirmPasswordValidateError(false);
@@ -115,7 +131,12 @@ const SignupForm = () => {
   };
 
   const onSubmit = async () => {
-    if (validateEmail() && validatePassword() && validateConfirmPassword() && agreed) {
+    if (
+      validateEmail() &&
+      validatePassword() &&
+      validateConfirmPassword() &&
+      agreed
+    ) {
       await signUp({ email, password })(firebase, dispatch);
     } else {
       setAgreedText(true);
@@ -180,7 +201,8 @@ const SignupForm = () => {
             }
             className="mb-16"
           >
-            Successfully registered. Please check your email for the verification link.
+            Successfully registered. Please check your email for the
+            verification link.
           </Alert>
         </Collapse>
       )}
@@ -206,13 +228,15 @@ const SignupForm = () => {
               <InputAdornment position="start">
                 <MailOutlined style={{ color: "rgba(0,0,0,.25)" }} />
               </InputAdornment>
-            ),
+            )
           }}
         />
         <TextField
           label="New password"
           variant="outlined"
-          helperText={passwordValidateError ? passwordValidateErrorMessage : null}
+          helperText={
+            passwordValidateError ? passwordValidateErrorMessage : null
+          }
           error={passwordValidateError}
           fullWidth
           required
@@ -239,13 +263,17 @@ const SignupForm = () => {
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            ),
+            )
           }}
         />
         <TextField
           label="Confirm password"
           variant="outlined"
-          helperText={confirmPasswordValidateError ? confirmPasswordValidateErrorMessage : null}
+          helperText={
+            confirmPasswordValidateError
+              ? confirmPasswordValidateErrorMessage
+              : null
+          }
           error={confirmPasswordValidateError}
           fullWidth
           required
@@ -271,11 +299,19 @@ const SignupForm = () => {
                   {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            ),
+            )
           }}
         />
         <FormControlLabel
-          control={<Checkbox checked={agreed} onChange={() => setAgreed(!agreed)} name="remember" color="primary" style={{}} />}
+          control={
+            <Checkbox
+              checked={agreed}
+              onChange={() => setAgreed(!agreed)}
+              name="remember"
+              color="primary"
+              style={{}}
+            />
+          }
           label="By creating an account, you agree to our terms and conditions."
         />
         {agreedText && !agreed ? (
@@ -291,7 +327,12 @@ const SignupForm = () => {
           disabled={loading}
           data-testId="signUpButton"
           onClick={onSubmit}
-          style={{color:"white",borderRadius:"30px",margin:"auto",padding:"10px"}}
+          style={{
+            color: "white",
+            borderRadius: "30px",
+            margin: "auto",
+            padding: "10px"
+          }}
         >
           {loading ? "Creating your account..." : "Create an account"}
         </Button>
