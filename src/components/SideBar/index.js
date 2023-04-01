@@ -3,13 +3,13 @@ import { Drawer, Grid, IconButton, Close, useTheme } from "@material-ui/core";
 import SideList from "../SideBar/sidelist";
 import Home from "./../../assets/images/home.svg";
 import Notification from "./../../assets/images/notification.svg";
-import UserSettings from "./../../assets/images/user-settings.svg"
-import OrganizationSettings from "./../../assets/images/organization-settings.svg"
+import UserSettings from "./../../assets/images/user-settings.svg";
+import OrganizationSettings from "./../../assets/images/organization-settings.svg";
 import Org from "./../../assets/images/org.svg";
 import Profile from "./../../assets/images/profile.svg";
 import Bookmark from "./../../assets/images/bookmark.svg";
 import Logout from "./../../assets/images/logout.svg";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Tutorials from "./../../assets/images/tutorial.svg";
 import MyFeed from "./../../assets/images/MyFeed.svg";
 import { signOut } from "../../store/actions";
@@ -18,7 +18,7 @@ import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { useAllowDashboard } from "../../helpers/customHooks";
-import Card from '@material-ui/core/Card';
+import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
 const SideBar = ({
   open,
   toggleSlider,
@@ -51,14 +50,14 @@ const SideBar = ({
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
 
-    //Taking out the current organization handle of the user
-    const currentOrg = useSelector(
-      ({
-        org:{
-          general:{current}
-        }
-      })=>current
-      );
+  //Taking out the current organization handle of the user
+  const currentOrg = useSelector(
+    ({
+      org: {
+        general: { current }
+      }
+    }) => current
+  );
 
   const defaultMenu = [
     {
@@ -105,13 +104,11 @@ const SideBar = ({
       img: Tutorials,
       link: "/tutorials"
     },
-    (
-      allowDashboard &&
-      {
+    allowDashboard && {
       name: "Logout",
       img: Logout,
-        onClick: () => signOut()(firebase, dispatch)
-      })
+      onClick: () => signOut()(firebase, dispatch)
+    }
   ];
 
   const classes = useStyles();
@@ -151,12 +148,11 @@ const SideBar = ({
               menuItems={menuItems || defaultMenu}
               value={value}
               onStateChange={onStateChange}
-              >
-                {children}
+            >
+              {children}
             </SideList>
           </div>
         </Card>
-        
       )}
     </>
   );
