@@ -24,7 +24,8 @@ import MiniNavbar from "../components/NavBar/new/MiniNavbar";
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
-		flexGrow: 10,
+		flexGrow: 0,
+		display: "none"//resolved the issue of having additional padding on refresh
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
