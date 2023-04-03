@@ -16,8 +16,7 @@ import Badge from "@mui/material/Badge";
 const useStyles = makeStyles(theme => ({
   icons: {
     width: "20px",
-    height: "20px",
-    borderRadius: "50%"
+    height: "20px"
   },
 
   listIcon: {
