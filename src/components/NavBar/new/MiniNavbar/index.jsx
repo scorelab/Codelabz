@@ -98,7 +98,9 @@ function MiniNavbar() {
   }, [screenSize]);
 
   return (
-    <Headroom disableInlineStyles>
+    <Headroom style={{
+      height: "150px",
+    }}>
       <nav
         style={{
           padding: "10px",
