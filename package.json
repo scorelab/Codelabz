@@ -42,6 +42,7 @@
     "react-image": "^4.0.3",
     "react-image-crop": "^8.6.12",
     "react-markdown": "^6.0.2",
+    "react-quill": "^2.0.0",
     "react-redux": "^7.2.1",
     "react-redux-firebase": "^3.7.0",
     "react-responsive": "^8.1.0",
