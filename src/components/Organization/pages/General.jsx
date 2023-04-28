@@ -17,7 +17,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import OrgDelete from "../OrgUsers/OrgDelete";
 import { useDispatch, useSelector } from "react-redux";
-import { BasicImage, NoImage } from "../../../helpers/images";
+import { NoImage } from "../../../helpers/images";
 import {
   uploadOrgProfileImage,
   clearEditGeneral,
@@ -329,7 +329,7 @@ function General() {
                         className={classes.ProfilePhotoImage}
                       />
                     ) : (
-                      BasicImage(NoImage, "Not Available")
+                      <img src={NoImage} alt="Not Available" />
                     )}
                   </Grid>
 
