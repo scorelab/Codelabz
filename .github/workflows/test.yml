@@ -53,3 +53,11 @@ jobs:
       - run: npm install -g firebase-tools
       - name: Run Firebase Emulator and Start Tests
         run: firebase emulators:exec --import=./testdata --project ${{ env.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Cypress screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Cypress Videos
+          path: packages/examples/cypress/videos      
