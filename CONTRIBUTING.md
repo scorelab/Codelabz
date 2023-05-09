@@ -8,15 +8,6 @@
   - [Run the Project](#run-the-project)
   - [Run the Storybook](#run-the-storybook)
   - [Run the tests](#run-the-tests)
-- [Table of Content](#table-of-content-1)
-- [User Guide](#user-guide-1)
-  - [How to Setup](#how-to-setup-1)
-  - [Install Packages](#install-packages-1)
-  - [Firebase Setup](#firebase-setup-1)
-    - [Run Firebase Emulator](#run-firebase-emulator-1)
-  - [Run the Project](#run-the-project-1)
-  - [Run the Storybook](#run-the-storybook-1)
-  - [Run the tests](#run-the-tests-1)
 
 # User Guide
 
