@@ -26,15 +26,25 @@ const ForgotPassword = ({
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [email, setEmail] = useState("");
+  const [conform, conformemail] = useState(true);
   const [open, setOpen] = React.useState(true);
-  const errorProps = useSelector(({ auth }) => auth.profile.error);
+  const errorProps = useSelector(({ auth }) => {
+  console.log(auth)
+  return auth.profile.error
+});
   const loadingProps = useSelector(({ auth }) => auth.profile.loading);
   const dispatch = useDispatch();
 
   useEffect(() => setError(errorProps), [errorProps]);
   useEffect(() => setLoading(loadingProps), [loadingProps]);
   useEffect(() => setOpen(true), [loadingProps]);
-
+  useEffect(()=>{
+    if(email.includes('@gmail.com') && /[0-9]/.test(email) && /\p{L}/u.test(email)){
+              conformemail(false);
+    } else {
+      conformemail(true);
+    }
+  },[email])
   useEffect(() => {
     if (errorProps === false && loadingProps === false) {
       setSuccess(true);
@@ -68,6 +78,7 @@ const ForgotPassword = ({
     },
   });
   const classes = useStyles();
+ 
 
   return (
     <Card className={classes.root} data-testId="forgotPassword">
@@ -83,6 +94,7 @@ const ForgotPassword = ({
         <br /> we will send you a link to reset your password.
       </p>
 
+        
       {error && (
         <Collapse in={open}>
           <Alert
@@ -117,7 +129,7 @@ const ForgotPassword = ({
         <OutlinedInput
           placeholder="Email"
           autoComplete="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)} // email is set to the state .
           className="mb-32"
           fullWidth
           height="10rem"
@@ -133,8 +145,9 @@ const ForgotPassword = ({
           variant="contained"
           color="primary"
           style={{ background: buttonColor }}
-          loading={loading}
+          loading={loading} // state
           className="mt-10"
+          disabled = {conform}
           type="submit"
           fullWidth
           data-testId="forgotPasswordButton"
