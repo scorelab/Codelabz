@@ -1,4 +1,5 @@
 import { makeStyles } from "@mui/styles";
+import { red } from "@mui/material/colors";
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -29,12 +30,28 @@ const useStyles = makeStyles(theme => ({
     },
     maxWidth: "300px"
   },
-  cardBody: {
+  container: {
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    gap: "20px"
+  },
+  Notification: {
+    display: "flex",
+    justifyContent: "space-around",
     width: "100%",
     alignItems: "center",
-    direction: "column"
+    padding: "15px 20px"
+    // direction: "column"
+  },
+  Avatar: {
+    backgroundColor: red[500]
+  },
+  time: {
+    fontWeight: "600",
+    fontSize: "12px",
+    color: "black",
+    opacity: "0.4",
+    marginTop: "-3px"
   },
   sort: {
     width: "100%",
