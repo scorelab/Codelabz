@@ -3,6 +3,7 @@
 - [User Guide](#user-guide)
   - [Prerequisites](#prerequisites)
   - [Project Setup](#project-setup)
+    - [Using Docker-Compose](#using-docker-compose)
   - [Firebase Setup](#firebase-setup)
     - [Run Firebase Emulator](#run-firebase-emulator)
   - [Run the Project](#run-the-project)
@@ -11,13 +12,15 @@
 
 # User Guide
 
-### Prerequisites
+## Prerequisites
 - Node.js version 14.
 - Java JDK version 11 or higher. (For running emulators)
 - make command line tool. ( optional )
 > 📝**NOTE** : `make` is optional here. You can open `Makefile` and type the associated command manually also, but it is recommended to use `make` so you don't need to run multiple commands.
+>
 
-### Project Setup
+
+## Project Setup
 > 📝**NOTE**: Make sure that you are using version 14 of node.
 
 > ⚡**Tip**: You can use nvm (node version manager) tool to install multiple node versions and can switch between them easily.
@@ -33,6 +36,18 @@
 10. Visit  [http://127.0.0.1:5173/](http://127.0.0.1:5173/)  in your preferred browser.
 
 >📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
+
+### Using Docker-Compose
+You can also use docker-compose to setup your project. Simply create your `.env` file and run 
+```
+docker-compose up
+```
+
+This will setup your project along with firebase emulator in a docker environment.
+
+---
+
+
 
 ## Firebase Setup
 
