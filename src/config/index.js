@@ -35,7 +35,7 @@ if (import.meta.env.VITE_APP_USE_EMULATOR) {
   firebase.database().useEmulator("localhost", 9000);
   firebase.functions().useEmulator("localhost", 5001);
   db.settings({
-    experimentalForceLongPolling: true,
+    // experimentalForceLongPolling: true,
     merge: true
   });
 }
