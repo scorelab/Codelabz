@@ -21,7 +21,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "^5.0.0-alpha.115",
     "@mui/material": "^5.11.4",
-    "@mui/styles": "^5.11.2",
+    "@mui/styles": "^5.13.2",
     "@rollup/plugin-babel": "^6.0.3",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
