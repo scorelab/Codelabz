@@ -26,6 +26,7 @@ import CodeLabzAppBar from "./helpers/appBar";
 import MainNavbar from "./components/NavBar/new/MainNavbar";
 import UserDashboard from "./components/UserDashboard";
 import Notification from "./components/Notification";
+import Post from "./components/PostPage";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -135,6 +136,11 @@ const Routes = () => {
             exact
             path={"/tutorials"}
             component={UserIsAllowedUserDashboard(MyTutorials)}
+          />
+          <Route
+            exact
+            path={"/tutorial"}
+            component={UserIsAllowedUserDashboard(Post)}
           />
           <Route
             exact

@@ -1,13 +1,20 @@
 import { Grid, Card } from "@mui/material";
 import SideBar from "../SideBar";
+import EventsCard from "../CardTabs/Events";
+import UserCard from "../CardTabs/Users";
+import IconButton from "@mui/material/IconButton";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import useStyles from "./styles";
 import { useState } from "react";
-import { userList } from "./userList";
 import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
+import OrgUser from "../../assets/images/org-user.svg";
 import Box from "@mui/material/Box";
 import CardWithoutPicture from "../Card/CardWithoutPicture";
+import { MoreVertOutlined } from "@mui/icons-material";
+import NotificationBox from "./NotificationBox";
+import { notifications } from "./notifications";
 const Notification = ({ background = "white", textColor = "black" }) => {
   const classes = useStyles();
   const [openMenu, setOpen] = useState(false);
@@ -15,6 +22,56 @@ const Notification = ({ background = "white", textColor = "black" }) => {
     setOpen(!openMenu);
   };
   const windowSize = useWindowSize();
+  const [upcomingEvents, setUpEvents] = useState([
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022"
+    },
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022"
+    },
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022"
+    },
+    {
+      name: "Google Summer of Code",
+      img: [OrgUser],
+      date: "25 March, 2022"
+    }
+  ]);
+
+  const [usersToFollow, setUsersToFollow] = useState([
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {}
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {}
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {}
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {}
+    }
+  ]);
+
   return (
     <>
       <section
@@ -60,82 +117,52 @@ const Notification = ({ background = "white", textColor = "black" }) => {
               Notifications
             </Typography>
             <div className={classes.container}>
-              <Card className={classes.Notification}>
-                <Avatar
-                  aria-label="recipe"
-                  className={classes.avatar}
-                  data-testId="UserAvatar"
-                  sx={{
-                    width: "60px",
-                    height: "60px"
-                  }}
-                >
-                  S
-                </Avatar>
-                <Box>
-                  <Typography>
-                    <span style={{ fontWeight: "600" }}>Abhishek</span> from{" "}
-                    <span style={{ fontWeight: "600" }}>Codelabz</span>
-                  </Typography>
-                  <Typography className={classes.time}>10 min ago</Typography>
-                  <Typography>
-                    Posted new Tutorial “5 best Practices to build responsive
-                    web apps” : Learn the best practices followed in the
-                    industry in this tutorial.
-                  </Typography>
-                </Box>
-              </Card>
-              <Card className={classes.Notification}>
-                <Avatar
-                  aria-label="recipe"
-                  className={classes.avatar}
-                  data-testId="UserAvatar"
-                  sx={{
-                    width: "60px",
-                    height: "60px"
-                  }}
-                >
-                  S
-                </Avatar>
-                <Box>
-                  <Typography>
-                    <span style={{ fontWeight: "600" }}>Abhishek</span> from{" "}
-                    <span style={{ fontWeight: "600" }}>Codelabz</span>
-                  </Typography>
-                  <Typography className={classes.time}>10 min ago</Typography>
-                  <Typography>
-                    Posted new Tutorial “5 best Practices to build responsive
-                    web apps” : Learn the best practices followed in the
-                    industry in this tutorial.
-                  </Typography>
-                </Box>
-              </Card>
-              <Card className={classes.Notification}>
-                <Avatar
-                  aria-label="recipe"
-                  className={classes.avatar}
-                  data-testId="UserAvatar"
-                  sx={{
-                    width: "60px",
-                    height: "60px"
-                  }}
-                >
-                  S
-                </Avatar>
-                <Box>
-                  <Typography>
-                    <span style={{ fontWeight: "600" }}>Abhishek</span> from{" "}
-                    <span style={{ fontWeight: "600" }}>Codelabz</span>
-                  </Typography>
-                  <Typography className={classes.time}>10 min ago</Typography>
-                  <Typography>
-                    Posted new Tutorial “5 best Practices to build responsive
-                    web apps” : Learn the best practices followed in the
-                    industry in this tutorial.
-                  </Typography>
-                </Box>
-              </Card>
+              {notifications.map(notification => {
+                return <NotificationBox notification={notification} />;
+              })}
             </div>
+          </Grid>
+          <Grid item className={classes.sideBody}>
+            <Grid
+              container
+              alignContent="center"
+              direction="column"
+              style={{
+                width: "100%"
+              }}
+              data-testId="homepageUpcomingEvents"
+            >
+              <Grid item style={{ minWidth: "100%" }}>
+                <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              alignContent="center"
+              direction="column"
+              style={{
+                width: "100%"
+              }}
+              data-testId="homepageUsersToFollow"
+            >
+              <Grid item style={{ minWidth: "100%" }}>
+                <UserCard title={"Who to Follow"} users={usersToFollow} />
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              alignContent="center"
+              direction="column"
+              style={{
+                width: "100%"
+              }}
+              data-testId="homepagePopularEventSidebar"
+            >
+              <Grid item style={{ minWidth: "100%" }}>
+                <EventsCard title={"Popular Events"} events={upcomingEvents} />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </section>

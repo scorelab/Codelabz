@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     margin: "1rem 0 2rem 0",
     flexDirection: "column"
+    // minWidth: "50%"
   },
   sideBody: {
     display: "flex",
@@ -36,12 +37,25 @@ const useStyles = makeStyles(theme => ({
     gap: "20px"
   },
   Notification: {
+    position: "relative",
+    boxSizing: "border-box",
     display: "flex",
-    justifyContent: "space-around",
     width: "100%",
     alignItems: "center",
-    padding: "15px 20px"
+    padding: "15px 20px",
+    gap: "20px",
+    fontSize: "1.2rem"
     // direction: "column"
+  },
+  unread: {
+    position: "absolute",
+    height: "10px",
+    width: "10px",
+    borderRadius: "50%",
+    backgroundColor: "#5AB1E3",
+    top: "50%",
+    transform: "translateY(-50%)",
+    left: "5px"
   },
   Avatar: {
     backgroundColor: red[500]
