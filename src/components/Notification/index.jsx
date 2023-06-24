@@ -117,8 +117,8 @@ const Notification = ({ background = "white", textColor = "black" }) => {
               Notifications
             </Typography>
             <div className={classes.container}>
-              {notifications.map(notification => {
-                return <NotificationBox notification={notification} />;
+              {notifications.map((notification,key) => {
+                return <NotificationBox key={key} notification={notification} />;
               })}
             </div>
           </Grid>
