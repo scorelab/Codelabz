@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import useStyles from "./styles";
 import { notifications } from "./notifications";
 import { useState, useRef } from "react";
+import { red } from '@mui/material/colors';
+
 const NotificationBox = ({ notification }) => {
   const classes = useStyles();
   const anchorRef = useRef();
@@ -25,7 +27,7 @@ const NotificationBox = ({ notification }) => {
     <>
       <Card
         className={classes.Notification}
-        style={{ backgroundColor: notification.isRead ? "#fff" : "#D9F1FC" }}
+        style={{ backgroundColor: notification.isRead ? "#fff" : red[500] }}
       >
         {!notification.isRead && <Box className={classes.unread}></Box>}
         <Avatar
