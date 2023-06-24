@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     margin: "1rem 0 2rem 0",
     flexDirection: "column"
-    // minWidth: "50%"
   },
   sideBody: {
     display: "flex",
@@ -45,7 +44,6 @@ const useStyles = makeStyles(theme => ({
     padding: "15px 20px",
     gap: "20px",
     fontSize: "1.2rem"
-    // direction: "column"
   },
   unread: {
     position: "absolute",
