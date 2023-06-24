@@ -16,7 +16,7 @@ dependency:
   - "(dependency|dependencies|npm)"
 Urgent:
   - "(Urgent|urgent|important)"
-borken:
+broken:
   - "(broken|Broken|not working)"
 feature:
   - (Feature|feature|add|Add|ADD)
