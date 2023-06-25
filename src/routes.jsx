@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   UserIsAllowedUserDashboard,
   UserIsAllowOrgManager,
-  UserIsNotAllowedUserDashboard,
+  UserIsNotAllowedUserDashboard
 } from "./auth";
 import { AllowManageUser } from "./auth/manageUserAuth";
 import AuthPage from "./components/AuthPage";
@@ -25,6 +25,7 @@ import Spinner from "./helpers/spinner";
 import CodeLabzAppBar from "./helpers/appBar";
 import MainNavbar from "./components/NavBar/new/MainNavbar";
 import UserDashboard from "./components/UserDashboard";
+import Notification from "./components/Notification";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -92,17 +93,17 @@ const Routes = () => {
           <Route
             exact
             path={"/login"}
-            render={(props) => <AuthPage {...props} type={"login"} />}
+            render={props => <AuthPage {...props} type={"login"} />}
           />
           <Route
             exact
             path={"/signup"}
-            render={(props) => <AuthPage {...props} type={"signup"} />}
+            render={props => <AuthPage {...props} type={"signup"} />}
           />
           <Route
             exact
             path={"/forgotpassword"}
-            render={(props) => <AuthPage {...props} type={"forgotpassword"} />}
+            render={props => <AuthPage {...props} type={"forgotpassword"} />}
           />
           <Route
             exact
@@ -124,7 +125,7 @@ const Routes = () => {
             path={"/profile"}
             component={UserIsAllowedUserDashboard(Profile)}
           />
-         
+
           <Route
             exact
             path={"/org/settings/:handle"}
@@ -158,6 +159,11 @@ const Routes = () => {
           <Route
             path={"/user-dashboard/:page"}
             component={UserIsAllowedUserDashboard(UserDashboard)}
+          />
+          <Route
+            exact
+            path={"/notification"}
+            component={UserIsAllowedUserDashboard(Notification)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>
