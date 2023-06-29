@@ -20,6 +20,8 @@ import {
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
+import QuillEditor from "../Editor/quillEditor";
+import RichTextRenderer from "./subComps/RichTextRenderer";
 
 const ViewTutorial = () => {
   const firebase = useFirebase();
@@ -28,7 +30,7 @@ const ViewTutorial = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
-  const [mode, setMode] = useState("view");
+  const [mode, setMode] = useState("edit");
   const [allowEdit, setAllowEdit] = useState(true);
   const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
   const [addNewStepModalVisible, setAddNewStepModalVisible] = useState(false);
@@ -168,12 +170,18 @@ const ViewTutorial = () => {
                 md={20}
                 lg={18}
                 className="col-pad-24-s mt-24-od tutorial-paper"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px"
+                }}
               >
                 {!isDesktop && stepPanelVisible ? null : (
                   <>
                     {mode === "view" && (
                       <div data-testId="tutorial-content">
-                        <ReactMarkdown children={currentStepContent} />
+                        {/* <ReactMarkdown children={currentStepContent} /> */}
+                        <RichTextRenderer delta={currentStepContent} />
                       </div>
                     )}
                     {mode === "edit" && (
@@ -186,7 +194,19 @@ const ViewTutorial = () => {
                           step_title={stepsData[currentStep].title}
                           step_time={stepsData[currentStep].time}
                         />
-                        <Editor
+                        {/* <Editor
+                            data={stepsData[currentStep].content}
+                            tutorial_id={tutorialData.tutorial_id}
+                            id={stepsData[currentStep].id}
+                            key={
+                              stepsData[currentStep].title +
+                              stepsData[currentStep].id
+                            }
+                            mode={mode}
+                          /> */}
+
+                        
+                        <QuillEditor
                           data={stepsData[currentStep].content}
                           tutorial_id={tutorialData.tutorial_id}
                           id={stepsData[currentStep].id}
