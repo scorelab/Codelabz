@@ -38,7 +38,7 @@ describe("Editor Test | CodeLabz", () => {
     cy.get("[data-testId=editorMode]").click();
     cy.get("[data-testId=stepTitleInput]").should("exist");
     cy.get("[data-testId=stepTimeInput]").should("exist");
-    cy.get("#firepad-container").should("exist");
+    cy.get("#quill-editor").should("exist");
     cy.get("[data-testId=previewMode]").click();
   });
 
@@ -56,8 +56,8 @@ describe("Editor Test | CodeLabz", () => {
     cy.get('[data-testid=tutorialTitle]').contains("test tutorial");
     cy.get("[data-testId=editorMode]").click();
     cy.wait(2000);
-    cy.get('.CodeMirror-code').type("{selectall}{backspace}");
-    cy.get('.CodeMirror-code').type("test{enter}line2");
+    cy.get('.ql-editor').type("{selectall}{backspace}");
+    cy.get('.ql-editor').type("test{enter}line2");
     cy.get('[data-testId=stepTitleInput]').type("{selectall}{backspace}Test step1");
     cy.get('[data-testId=stepTimeInput]').type('{uparrow}{uparrow}');
     cy.get('[data-testId=publishTutorial]').click();

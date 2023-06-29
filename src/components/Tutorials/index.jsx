@@ -20,7 +20,7 @@ import {
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
-import QuillEditor from "../Editor/quillEditor";
+import QuillEditor from "../Editor/QuillEditor";
 import RichTextRenderer from "./subComps/RichTextRenderer";
 
 const ViewTutorial = () => {
@@ -30,7 +30,7 @@ const ViewTutorial = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepPanelVisible, setStepPanelVisible] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
-  const [mode, setMode] = useState("edit");
+  const [mode, setMode] = useState("view");
   const [allowEdit, setAllowEdit] = useState(true);
   const [imageDrawerVisible, setImageDrawerVisible] = useState(false);
   const [addNewStepModalVisible, setAddNewStepModalVisible] = useState(false);
