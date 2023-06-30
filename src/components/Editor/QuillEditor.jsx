@@ -12,7 +12,6 @@ import { FirestoreProvider, getColor } from "@gmcfall/yjs-firestore-provider";
 
 import { onlineFirebaseApp } from "../../config";
 
-
 Quill.register("modules/cursors", QuillCursors);
 
 const QuillEditor = ({ id, data, tutorial_id }) => {
@@ -48,48 +47,55 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   }, [id]);
 
   useEffect(() => {
-    if (!ydoc) {
-      ydoc = new Y.Doc();
+    try {
+      if (!ydoc) {
+        ydoc = new Y.Doc();
 
-      // on updating text in editor this gets triggered
-      ydoc.on("update", () => {
-        const deltaText = ydoc.getText("quill").toDelta();
-        setCurrentStep(deltaText)(dispatch);
+        // on updating text in editor this gets triggered
+        ydoc.on("update", () => {
+          const deltaText = ydoc.getText("quill").toDelta();
+          setCurrentStep(deltaText)(dispatch);
+        });
+        provider = new FirestoreProvider(onlineFirebaseApp, ydoc, basePath, {
+          disableAwareness: true
+        });
+      }
+      const ytext = ydoc.getText("quill");
+      const container = containerRef.current;
+
+      // Clear all extra divs except the editor
+      while (
+        container.firstChild &&
+        container.firstChild !== editorRef.current
+      ) {
+        container.removeChild(container.firstChild);
+      }
+
+      const editor = new Quill(editorRef.current, {
+        modules: {
+          cursors: true,
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ["bold", "italic", "underline"],
+            ["image", "code-block"]
+          ],
+          history: {
+            userOnly: true
+          }
+        },
+        placeholder: "Start collaborating...",
+        theme: "snow"
       });
-      provider = new FirestoreProvider(onlineFirebaseApp, ydoc, basePath, {
-        disableAwareness: true
-      });
+
+      // provider.awareness.setLocalStateField("user", {
+      //   name: currentUserHandle,
+      //   color: getColor(currentUserHandle)
+      // });
+
+      binding = new QuillBinding(ytext, editor, provider.awareness);
+    } catch (err) {
+      console.log(err);
     }
-    const ytext = ydoc.getText("quill");
-    const container = containerRef.current;
-
-    // Clear all extra divs except the editor
-    while (container.firstChild && container.firstChild !== editorRef.current) {
-      container.removeChild(container.firstChild);
-    }
-
-    const editor = new Quill(editorRef.current, {
-      modules: {
-        cursors: true,
-        toolbar: [
-          [{ header: [1, 2, false] }],
-          ["bold", "italic", "underline"],
-          ["image", "code-block"]
-        ],
-        history: {
-          userOnly: true
-        }
-      },
-      placeholder: "Start collaborating...",
-      theme: "snow"
-    });
-
-    // provider.awareness.setLocalStateField("user", {
-    //   name: currentUserHandle,
-    //   color: getColor(currentUserHandle)
-    // });
-
-    binding = new QuillBinding(ytext, editor, provider.awareness);
 
     return () => {
       try {
