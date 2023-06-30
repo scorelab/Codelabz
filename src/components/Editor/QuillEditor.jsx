@@ -35,15 +35,6 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
 
   useEffect(() => {
     setAllSaved(true);
-    // const confirmBeforeExit = (e) => {
-    //   e.preventDefault();
-    //   e.returnValue = "";
-    // };
-    // window.addEventListener("beforeunload", confirmBeforeExit);
-
-    return () => {
-      // window.removeEventListener("beforeunload", confirmBeforeExit);
-    };
   }, [id]);
 
   useEffect(() => {

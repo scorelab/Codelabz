@@ -180,7 +180,6 @@ const ViewTutorial = () => {
                   <>
                     {mode === "view" && (
                       <div data-testId="tutorial-content">
-                        {/* <ReactMarkdown children={currentStepContent} /> */}
                         <RichTextRenderer delta={currentStepContent} />
                       </div>
                     )}
@@ -194,18 +193,7 @@ const ViewTutorial = () => {
                           step_title={stepsData[currentStep].title}
                           step_time={stepsData[currentStep].time}
                         />
-                        {/* <Editor
-                            data={stepsData[currentStep].content}
-                            tutorial_id={tutorialData.tutorial_id}
-                            id={stepsData[currentStep].id}
-                            key={
-                              stepsData[currentStep].title +
-                              stepsData[currentStep].id
-                            }
-                            mode={mode}
-                          /> */}
 
-                        
                         <QuillEditor
                           data={stepsData[currentStep].content}
                           tutorial_id={tutorialData.tutorial_id}
