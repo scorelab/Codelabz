@@ -21,7 +21,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const basePath = ["cl_codelabz", "organization", "codelabzorg", tutorial_id];
-  var provider, binding, ydoc;
+  let provider, binding, ydoc;
 
   const currentUserHandle = useSelector(
     ({
