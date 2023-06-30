@@ -7,6 +7,7 @@ import "firebase/compat/functions";
 import "firebase/compat/analytics";
 import "firebase/compat/performance";
 import "firebase/compat/messaging";
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
@@ -22,6 +23,8 @@ const firebaseConfig = {
 };
 
 //console.log("firebaseConfig", firebaseConfig);
+
+export const onlineFirebaseApp = initializeApp(firebaseConfig, "secondary");
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);

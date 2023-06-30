@@ -20,6 +20,8 @@ import {
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
+import QuillEditor from "../Editor/QuillEditor";
+import RichTextRenderer from "./subComps/RichTextRenderer";
 
 const ViewTutorial = () => {
   const firebase = useFirebase();
@@ -168,12 +170,17 @@ const ViewTutorial = () => {
                 md={20}
                 lg={18}
                 className="col-pad-24-s mt-24-od tutorial-paper"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px"
+                }}
               >
                 {!isDesktop && stepPanelVisible ? null : (
                   <>
                     {mode === "view" && (
                       <div data-testId="tutorial-content">
-                        <ReactMarkdown children={currentStepContent} />
+                        <RichTextRenderer delta={currentStepContent} />
                       </div>
                     )}
                     {mode === "edit" && (
@@ -186,7 +193,8 @@ const ViewTutorial = () => {
                           step_title={stepsData[currentStep].title}
                           step_time={stepsData[currentStep].time}
                         />
-                        <Editor
+
+                        <QuillEditor
                           data={stepsData[currentStep].content}
                           tutorial_id={tutorialData.tutorial_id}
                           id={stepsData[currentStep].id}
