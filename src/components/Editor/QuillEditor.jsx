@@ -9,7 +9,6 @@ import { QuillBinding } from "y-quill";
 import Quill from "quill";
 import QuillCursors from "quill-cursors";
 import { FirestoreProvider, getColor } from "@gmcfall/yjs-firestore-provider";
-
 import { onlineFirebaseApp } from "../../config";
 
 Quill.register("modules/cursors", QuillCursors);
@@ -22,8 +21,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const basePath = ["cl_codelabz", "organization", "codelabzorg", tutorial_id];
-  var provider, binding;
-  var ydoc;
+  var provider, binding, ydoc;
 
   const currentUserHandle = useSelector(
     ({
@@ -40,6 +38,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   useEffect(() => {
     try {
       if (!ydoc) {
+        // yjs document
         ydoc = new Y.Doc();
 
         // on updating text in editor this gets triggered

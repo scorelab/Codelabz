@@ -4,8 +4,8 @@ import React from 'react'
 
 const RichTextRenderer = ({ delta }) => {
     // Renders rich text from quill
-    var cfg = {};
-    var converter = new QuillDeltaToHtmlConverter(delta, cfg);
+    var config = {};
+    var converter = new QuillDeltaToHtmlConverter(delta, config);
   
     var html = converter.convert();
   
