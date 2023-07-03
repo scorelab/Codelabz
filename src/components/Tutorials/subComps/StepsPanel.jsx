@@ -2,8 +2,23 @@ import React from "react";
 import Stepper from "@mui/material/Stepper";
 import Button from "@mui/material/Button";
 import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
 import StepLabel from "@mui/material/StepLabel";
 import { borderRadius } from "@mui/system";
+import { Box } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { grey } from "@mui/material/colors";
+
+const useStyles = makeStyles({
+  stepperContainer: {
+    width: "90%"
+  },
+  stepButtonStyle: {
+    padding: "8px 16px",
+    borderRadius: 20,
+    backgroundColor: grey[100]
+  }
+});
 
 const StepsPanel = ({
   currentStep,
@@ -13,8 +28,9 @@ const StepsPanel = ({
   hideButton,
   setCurrentStep
 }) => {
+  const classes = useStyles();
   return (
-    <div className="tutorial-steps-sider">
+    <Box className="tutorial-steps-sider" sx={theme => ({ p: 1 })}>
       {!hideButton &&
         false && ( //remove false to show
           <Button
@@ -32,26 +48,27 @@ const StepsPanel = ({
         orientation="vertical"
         onChange={onChange}
         data-testid={"stepsPanel"}
+        nonLinear
+        className={classes.stepperContainer}
       >
         {stepsData &&
           stepsData.map((step, index) => {
             return (
               <Step key={"step" + step.id}>
-                <StepLabel
-                  sx={theme => ({
-                    p: 2,
-                    borderRadius: 5,
-                    backgroundColor: theme.palette.grey[100]
-                  })}
+                <StepButton
+                  className={classes.stepButtonStyle}
+                  onClick={() => {
+                    setCurrentStep(index);
+                  }}
                 >
                   {step.title}
                   {step.visibility}
-                </StepLabel>
+                </StepButton>
               </Step>
             );
           })}
       </Stepper>
-    </div>
+    </Box>
   );
 };
 
