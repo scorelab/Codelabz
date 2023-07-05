@@ -25,6 +25,7 @@ import Spinner from "./helpers/spinner";
 import CodeLabzAppBar from "./helpers/appBar";
 import MainNavbar from "./components/NavBar/new/MainNavbar";
 import UserDashboard from "./components/UserDashboard";
+import TutorialPage from "./components/TutorialPage";
 import Notification from "./components/Notification";
 
 const AuthIsLoaded = ({ children }) => {
@@ -150,6 +151,11 @@ const Routes = () => {
             exact
             path={"/org/:handle"}
             component={UserIsAllowedUserDashboard(ViewOrganization)}
+          />
+          <Route
+            exact
+            path={"/tutorial/:id"}
+            component={UserIsAllowedUserDashboard(TutorialPage)}
           />
           <Route
             exact

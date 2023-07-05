@@ -13,7 +13,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
   org: orgReducer,
-  tutorials: tutorialsReducer
+  tutorials: tutorialsReducer,
+  tutorialPage: tutorialPageReducers
 });
 
 export default rootReducer;

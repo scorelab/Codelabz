@@ -30,6 +30,7 @@
     "codemirror": "^5.56.0",
     "color-thief-react": "^1.0.2",
     "elasticlunr": "^0.9.5",
+    "emoji-picker-react": "^4.4.9",
     "firebase": "^9.17.2",
     "history": "^4.10.1",
     "lodash": "^4.17.20",
