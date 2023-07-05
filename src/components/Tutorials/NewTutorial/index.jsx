@@ -121,7 +121,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     const tutorialData = {
       ...formValue,
       created_by: userHandle,
-      is_org: userHandle !== formValue.owner
+      is_org: userHandle !== formValue.owner,
+      completed: false,
     };
     console.log(tutorialData);
     createTutorial(tutorialData)(firebase, firestore, dispatch, history);

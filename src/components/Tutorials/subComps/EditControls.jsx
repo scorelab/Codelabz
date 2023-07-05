@@ -116,7 +116,7 @@ const EditControls = ({
           variant="contained"
           sx={{
             boxShadow: "none",
-            borderRadius: 25
+            borderRadius: 1
           }}
           onClick={() => toggleAddNewStep()}
         >
