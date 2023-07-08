@@ -86,7 +86,6 @@ const ControlButtons = ({
                   )
                 );
               }}
-              // style={{ float: "right" }}
             >
               {stepsData[currentStep].completed
                 ? "Reset Step"
