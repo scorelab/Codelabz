@@ -58,7 +58,6 @@ const PostDetails = ({ details }) => {
   );
 
   const getTime = timestamp => {
-    console.log(timestamp);
     return timestamp.toDate().toDateString();
   };
 
@@ -96,7 +95,6 @@ const PostDetails = ({ details }) => {
               </Grid>
             </Box>
             <Box sx={{ width: "100%", marginTop: "10px" }}>
-              {/* <Grid container> */}
               <Grid container justifyContent="space-between" alignItems="end">
                 <Grid
                   item
@@ -111,7 +109,7 @@ const PostDetails = ({ details }) => {
                       {user?.photoURL && user?.photoURL.length > 0 ? (
                         <img src={user?.photoURL} />
                       ) : (
-                        user?.displayName
+                        user?.displayName[0]
                       )}
                     </Avatar>
                   </Grid>
@@ -191,7 +189,6 @@ const PostDetails = ({ details }) => {
                   </CardActions>
                 </Grid>
               </Grid>
-              {/* </Grid> */}
             </Box>
           </Grid>
         </Card>

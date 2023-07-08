@@ -27,7 +27,6 @@ function TutorialPage({ background = "white", textColor = "black" }) {
   const firebase = useFirebase();
   const firestore = useFirestore();
   useEffect(() => {
-    console.log("target");
     getTutorialData(id)(firebase, firestore, dispatch);
   }, []);
   const tutorial = useSelector(
@@ -47,8 +46,6 @@ function TutorialPage({ background = "white", textColor = "black" }) {
     published_on: tutorial?.published_on,
     tag: tutorial?.tut_tags
   };
-
-  console.log(postDetails);
 
   return (
     <Box

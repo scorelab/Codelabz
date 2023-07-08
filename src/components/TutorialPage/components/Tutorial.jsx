@@ -10,12 +10,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Tutorial = ({ steps }) => {
-  //   console.log(steps);
   const classes = useStyles();
-  //   tutorial.map(step => {
-  //     console.log(document.querySelector(`#${step.id} .content`));
-  //     document.querySelector(`#${step.id} .content`).innerHTML = step.content;
-  //   });
   return (
     <>
       <Card className={classes.container}>

@@ -8,7 +8,6 @@ export const getTutorialData =
         .doc(tutorialID)
         .get();
       const tutorial = data.data();
-      console.log("post", tutorial);
       dispatch({ type: actions.GET_POST_DATA_SUCCESS, payload: tutorial });
     } catch (e) {
       console.log(e);
