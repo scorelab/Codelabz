@@ -150,7 +150,7 @@ const ViewTutorial = () => {
         <Grid style={{ display: "flex", flexDirection: "row" }}>
           <Grid
             width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : "0"}
-            style={{ backgroundColor: "white", padding: "2rem" }}
+            style={{ backgroundColor: "white", padding: "0 2rem" }}
           >
             <StepsPanel
               currentStep={currentStep}
@@ -159,6 +159,7 @@ const ViewTutorial = () => {
               onClick={() => setStepPanelVisible(false)}
               hideButton={isDesktop}
               setCurrentStep={setCurrentStep}
+              setStepData={setStepData}
             />
           </Grid>
 
@@ -227,16 +228,6 @@ const ViewTutorial = () => {
                 steps_length={stepsData.length}
                 owner={tutorialData.owner}
               />
-            </Grid>
-            <Grid>
-              <Grid xs={24} sm={24} md={24} className="col-pad-24-s">
-                <ControlButtons
-                  currentStep={currentStep}
-                  setCurrentStep={setCurrentStep}
-                  stepsData={stepsData}
-                  hide={!isDesktop && stepPanelVisible}
-                />
-              </Grid>
             </Grid>
           </Grid>
         </Grid>
