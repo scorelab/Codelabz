@@ -252,7 +252,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 loading={loading}
                 onClick={e => onSubmit(e)}
                 data-testid="newTutorialSubmit"
-                style={{ backgroundColor: "#03AAFA", borderRadius: "30px", color: "white" }}
+                style={{ backgroundColor: "#03AAFA", borderRadius: "30px"}}
                 disabled={
                   formValue.title === "" ||
                   formValue.summary === "" ||
