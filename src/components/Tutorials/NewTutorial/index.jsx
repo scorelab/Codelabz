@@ -18,6 +18,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import DescriptionIcon from "@mui/icons-material/Description";
 import MovieIcon from "@mui/icons-material/Movie";
 import Select from "react-select";
+import { common } from '@mui/material/colors';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -253,7 +254,14 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 loading={loading}
                 onClick={e => onSubmit(e)}
                 data-testid="newTutorialSubmit"
-                style={{ backgroundColor: "#03AAFA", borderRadius: "30px" }}
+                sx={{
+                  bgcolor: '#03AAFA',
+                  borderRadius: '30px',
+                  color: common.white,
+                  '&:hover': {
+                    bgcolor: '#03AAFA', 
+                  },
+                }}
                 disabled={
                   formValue.title === "" ||
                   formValue.summary === "" ||
