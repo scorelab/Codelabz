@@ -39,6 +39,7 @@ const ForgotPassword = ({
 	const [success, setSuccess] = useState(false);
 	const [email, setEmail] = useState("");
 	const [open, setOpen] = React.useState(true);
+	const [isValidEmail, setIsValidEmail] = useState(false);
 	const errorProps = useSelector(({ auth }) => auth.profile.error);
 	const loadingProps = useSelector(({ auth }) => auth.profile.loading);
 	const dispatch = useDispatch();
@@ -68,6 +69,13 @@ const ForgotPassword = ({
 		await sendPasswordResetEmail(email)(firebase, dispatch);
 	};
 
+	const handleChange =(e)=>{
+		const enteredEmail = e.target.value;
+		setEmail(enteredEmail)
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+\s*$/;
+		const isValid = emailRegex.test(enteredEmail);
+		setIsValidEmail(isValid);
+	  }
 	const classes = useStyles();
 
 	return (
@@ -115,7 +123,7 @@ const ForgotPassword = ({
 				<OutlinedInput
 					placeholder="Email"
 					autoComplete="email"
-					onChange={(e) => setEmail(e.target.value)}
+					onChange={handleChange} 
 					className="mb-32"
 					fullWidth
 					height="10rem"
@@ -134,7 +142,8 @@ const ForgotPassword = ({
 					className="mt-10"
 					type="submit"
 					fullWidth
-					data-testId="forgotPasswordButton">
+					data-testId="forgotPasswordButton"
+					disabled={!isValidEmail}>
 					{loading ? "Sending..." : "Send me the link"}
 				</Button>
 			</form>
