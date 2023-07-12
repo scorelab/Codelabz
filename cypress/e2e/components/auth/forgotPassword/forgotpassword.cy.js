@@ -11,6 +11,7 @@ describe("Forgot Password Page | CodeLabz", () => {
     });
   });
 
+  
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
   });
