@@ -88,7 +88,7 @@ const Routes = () => {
     <Router>
       <AuthIsLoaded>
         {/* <Navbar /> */}
-        <Switch>//HomePage
+        <Switch>
           <Route exact path={"/"} component={
             () => (
               <div>
