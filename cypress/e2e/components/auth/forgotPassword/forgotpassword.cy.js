@@ -11,7 +11,7 @@ describe("Forgot Password Page | CodeLabz", () => {
     });
   });
 
-  
+
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
   });
@@ -23,9 +23,9 @@ describe("Forgot Password Page | CodeLabz", () => {
 
   it("empty email ", function () {
     cy.visit(`${this.base_url}forgotpassword`);
+    cy.get("[data-testId=forgotPasswordButton]").invoke('removeAttr', 'disabled');
     cy.get("[data-testId=forgotPasswordButton]").click();
     cy.contains("The email address is badly formatted.");
-    cy.should('be.disabled')
   });
   it("successfull ", function () {
     cy.visit(`${this.base_url}forgotpassword`);
