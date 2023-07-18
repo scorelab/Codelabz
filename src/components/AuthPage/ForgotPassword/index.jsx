@@ -63,7 +63,6 @@ const ForgotPassword = ({
 		[dispatch]
 	);
 
-
 	const onSubmit = async (values) => {
 		values.preventDefault();
 		setError("");
