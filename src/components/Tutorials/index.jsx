@@ -22,6 +22,66 @@ import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
 import QuillEditor from "../Editor/QuillEditor";
 import RichTextRenderer from "./subComps/RichTextRenderer";
+import { Collapse, Button } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(theme => ({
+  flexRow: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  collapseContainer: {
+    minWidth: "100%",
+    "& > div > div": {
+      minWidth: "100%"
+    },
+    overflow: "hidden",
+    transition: theme.transitions.create(["width"])
+  },
+  widthTransition: {
+    overflow: "hidden",
+    transition: theme.transitions.create(["width"])
+  },
+  expandButton: {
+    display: "flex",
+    alignItems: "start",
+    paddingTop: "15px"
+  },
+  rotateChildren: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  ExpandIcon: {
+    fontSize: 50
+  },
+  editorContainer: {
+    width: "100%",
+    padding: "0 10px 10px 10px",
+    overflow: "hidden",
+    background: "white"
+  }
+}));
+
+const ExpandMore = props => {
+  const { expand, children, ...other } = props;
+  const classes = useStyles({ expand });
+
+  return (
+    <Button {...other} className={classes.expandButton}>
+      <div
+        className={classes.rotateChildren}
+        style={{ transform: !expand ? "rotate(270deg)" : "rotate(90deg)" }}
+      >
+        {children}
+      </div>
+    </Button>
+  );
+};
 
 const ViewTutorial = () => {
   const firebase = useFirebase();
@@ -37,10 +97,12 @@ const ViewTutorial = () => {
   const [currentStepContent, setCurrentStepContent] = useState(null);
   const [stepsData, setStepData] = useState(null);
   const [tutorialData, setTutorialData] = useState(null);
+  const [expand, setExpand] = useState(true);
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)"
   });
   const { owner, tutorial_id } = useParams();
+  const classes = useStyles();
 
   useEffect(() => {
     getCurrentTutorialData(owner, tutorial_id)(firebase, firestore, dispatch);
@@ -147,23 +209,44 @@ const ViewTutorial = () => {
             />
           </Grid>
         </Grid>
-        <Grid style={{ display: "flex", flexDirection: "row" }}>
+        <Grid className={classes.flexRow}>
+          <ExpandMore
+            expand={expand}
+            onClick={() => {
+              setExpand(prev => !prev);
+              setStepPanelVisible(prev => !prev);
+            }}
+            aria-expanded={expand}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon className={classes.ExpandIcon} />
+          </ExpandMore>
+
           <Grid
             width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : "0"}
-            style={{ backgroundColor: "white", padding: "0 2rem" }}
+            padding={stepPanelVisible ? "0 2rem" : "0"}
+            className={classes.widthTransition}
           >
-            <StepsPanel
-              currentStep={currentStep}
-              onChange={onChange}
-              stepsData={stepsData}
-              onClick={() => setStepPanelVisible(false)}
-              hideButton={isDesktop}
-              setCurrentStep={setCurrentStep}
-              setStepData={setStepData}
-            />
+            <Collapse
+              in={expand}
+              timeout="auto"
+              unmountOnExit
+              orientation="horizontal"
+              className={classes.collapseContainer}
+            >
+              <StepsPanel
+                currentStep={currentStep}
+                onChange={onChange}
+                stepsData={stepsData}
+                onClick={() => setStepPanelVisible(false)}
+                hideButton={isDesktop}
+                setCurrentStep={setCurrentStep}
+                setStepData={setStepData}
+              />
+            </Collapse>
           </Grid>
 
-          <Grid style={{ width: "90%", background: "#f0f0f0" }}>
+          <Grid className={classes.editorContainer}>
             <Grid className="tutorial-content" justify="center" container>
               <Grid
                 xs={24}

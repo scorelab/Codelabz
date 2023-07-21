@@ -35,7 +35,8 @@ const TutorialHeading = ({
         data-testid="tutorialTitle"
         variant="h5"
         sx={{
-          pt: 5
+          pt: 2,
+          pb: 2
         }}
       >
         {tutorialData.title}
