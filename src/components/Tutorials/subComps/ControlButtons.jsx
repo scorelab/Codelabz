@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      gap: "30px"
     }
   },
   rightButtonsGroup: {
@@ -22,7 +23,11 @@ const useStyles = makeStyles(theme => ({
     borderWidth: "2px",
     "&:hover": {
       borderWidth: "2px"
-    }
+    },
+    minWidth: "fit-content",
+  },
+  completeButton: {
+    minWidth: "fit-content"
   }
 }));
 
@@ -86,6 +91,7 @@ const ControlButtons = ({
                   )
                 );
               }}
+              className={classes.completeButton}
             >
               {stepsData[currentStep].completed
                 ? "Reset Step"
