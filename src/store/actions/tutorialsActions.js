@@ -151,7 +151,7 @@ export const createTutorial =
               id: step_id,
               title: "Step One Title",
               time: 1,
-              content: "Sample tutorial step one",
+              content: "Switch to editor mode to begin your first step",
               visibility: true,
               deleted: false,
             },
@@ -258,7 +258,7 @@ export const addNewTutorialStep =
           .doc(tutorial_id)
           .update({
             [`steps.${id}`]: {
-              content: "",
+              content: `Switch to editor mode to begin <b>${title}</b> step`,
               id,
               time,
               title,
@@ -269,7 +269,7 @@ export const addNewTutorialStep =
           });
 
         await firebase.ref().child("notes").child(tutorial_id).child(id).set({
-          text: "",
+          text: `Switch to editor mode to begin <b>${title}</b> step`,
           deleted: false,
         });
 

@@ -10,6 +10,7 @@ import Quill from "quill";
 import QuillCursors from "quill-cursors";
 import { FirestoreProvider, getColor } from "@gmcfall/yjs-firestore-provider";
 import { onlineFirebaseApp } from "../../config";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 Quill.register("modules/cursors", QuillCursors);
 
@@ -20,9 +21,11 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   let noteID = id || "test_note";
   const firebase = useFirebase();
   const dispatch = useDispatch();
-  const basePath = ["cl_codelabz", "organization", "codelabzorg", tutorial_id];
+  // This path in cloud firestore contains yjs documents storing content of a step
+  // (actual data used to render is present in "steps" collection in the same doc)
+  const basePath = ["tutorials", tutorial_id, "yjsStepDocs", id];
   let provider, binding, ydoc;
-  
+
   const currentUserHandle = useSelector(
     ({
       firebase: {
@@ -43,8 +46,13 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
 
         // on updating text in editor this gets triggered
         ydoc.on("update", () => {
+          // deltaText is quill editor's data structure to store text
           const deltaText = ydoc.getText("quill").toDelta();
-          setCurrentStep(deltaText)(dispatch);
+          var config = {};
+          var converter = new QuillDeltaToHtmlConverter(deltaText, config);
+
+          var html = converter.convert();
+          setCurrentStep(html)(dispatch);
         });
         provider = new FirestoreProvider(onlineFirebaseApp, ydoc, basePath, {
           disableAwareness: true

@@ -21,7 +21,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
 import QuillEditor from "../Editor/QuillEditor";
-import RichTextRenderer from "./subComps/RichTextRenderer";
+import HtmlTextRenderer from "./subComps/HtmlTextRenderer";
 import { Collapse, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@mui/styles";
@@ -264,7 +264,7 @@ const ViewTutorial = () => {
                   <>
                     {mode === "view" && (
                       <div data-testId="tutorial-content">
-                        <RichTextRenderer delta={currentStepContent} />
+                        <HtmlTextRenderer html={currentStepContent} />
                       </div>
                     )}
                     {mode === "edit" && (
