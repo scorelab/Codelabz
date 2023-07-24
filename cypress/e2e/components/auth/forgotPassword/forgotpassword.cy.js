@@ -11,7 +11,7 @@ describe("Forgot Password Page | CodeLabz", () => {
     });
   });
 
-  
+
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
   });
@@ -24,6 +24,7 @@ describe("Forgot Password Page | CodeLabz", () => {
   it("empty email ", function () {
     cy.visit(`${this.base_url}forgotpassword`);
     cy.get("[data-testId=forgotPasswordButton]").should('be.disabled');
+
   });
   it("successfull ", function () {
     cy.visit(`${this.base_url}forgotpassword`);

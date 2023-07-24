@@ -89,7 +89,7 @@ const Routes = () => {
       <AuthIsLoaded>
         <CodeLabzAppBar />
         {/* <Navbar /> */}
-        <Switch>
+         <Switch>
           <Route exact path={"/"} component={HomePage} />
           <Route
             exact
