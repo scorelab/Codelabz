@@ -13,7 +13,7 @@ import StepsTitle from "./subComps/StepsTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-  getCurrentStepContentFromRTDB,
+  getCurrentStepContentFromFirestore,
   getCurrentTutorialData,
   setCurrentStepNo
 } from "../../store/actions";
@@ -152,8 +152,8 @@ const ViewTutorial = () => {
   useEffect(() => {
     if (stepsData) {
       setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
-      getCurrentStepContentFromRTDB(tutorial_id, stepsData[currentStep].id)(
-        firebase,
+      getCurrentStepContentFromFirestore(tutorial_id, stepsData[currentStep].id)(
+        firestore,
         dispatch
       );
     }
