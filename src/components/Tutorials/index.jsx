@@ -179,6 +179,7 @@ const ViewTutorial = () => {
           <Grid>
             <Grid xs={24} sm={24} md={24}>
               <EditControls
+                isPublished={tutorialData.isPublished}
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
                 noteID={stepsData[currentStep].id}

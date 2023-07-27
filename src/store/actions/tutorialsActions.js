@@ -37,6 +37,7 @@ export const getUserTutorialsBasicData =
             summary: doc.get("summary") || "",
             featured_image: doc.get("featured_image") || "",
             icon: doc.get("icon") || "",
+            isPublished: doc.get("isPublished") || false,
           };
 
           tutorials_index.addDocToIndex(new_doc);
@@ -138,6 +139,7 @@ export const createTutorial =
         await document.set({
             created_by,
             editors: [created_by],
+            isPublished: false,
             owner,
             summary,
             title,
@@ -328,6 +330,23 @@ export const hideUnHideStep =
           firestore,
           dispatch
         );
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
+    export const publishUnpublishTutorial =
+  (owner, tutorial_id, isPublished) =>
+    async (firebase, firestore, dispatch) => {
+      try {
+        await firestore
+          .collection("tutorials")
+          .doc(tutorial_id)
+          .update({
+            ["isPublished"]: !isPublished,
+          })
+
+          getCurrentTutorialData(owner, tutorial_id)(firebase, firestore, dispatch);
       } catch (e) {
         console.log(e.message);
       }

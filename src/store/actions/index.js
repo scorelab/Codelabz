@@ -52,6 +52,7 @@ export {
   getOrgTutorialsBasicData,
   getUserTutorialsBasicData,
   hideUnHideStep,
+  publishUnpublishTutorial,
   remoteTutorialImages,
   removeStep,
   searchFromTutorialsIndex,
