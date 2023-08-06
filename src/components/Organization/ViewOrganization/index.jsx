@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 import {
   clearOrgData,
   getOrgData,
-  addFollower,
-  removeFollower
+  subscribeOrg,
+  unSubscribeOrg
 } from "../../../store/actions";
 import Banner from "../../ProfileBanner/Organization";
 import { Container } from "@mui/material";
@@ -108,47 +108,35 @@ const ViewOrganization = () => {
 
   useEffect(() => {
     const unsubscribe = db
-      .collection("cl_org_general")
-      .doc(handle)
-      .onSnapshot(snap => {
-        const data = snap.data();
-        setPeople(data.followers);
-      });
+      .collection("org_subscribers")
+      .where("org_handle", "==", handle)
+      .get()
+      .then(querySnapshot => {
+        setPeople(querySnapshot.map(doc => doc.data()))
+      })
 
     return () => unsubscribe();
   }, [db, handle]);
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection("cl_user")
-      .doc(profileData.uid)
-      .onSnapshot(snap => {
-        const data = snap.data();
-        setOrgFollowed(data.orgFollowed);
-      });
+      const unsubscribe = db
+      .collection("org_subscribers")
+      .where("uid", "==", profileData.uid)
+      .get()
+      .then(querySnapshot => {
+        setOrgFollowed(querySnapshot.map(doc => doc.data()))
+      })
 
     return () => unsubscribe();
   }, [db, profileData.uid]);
 
-  const addfollower = (e, people, handle, orgFollowed) => {
+  const subscribe = (e, org_handle) => {
     e.preventDefault();
-    addFollower(
-      profileData.handle,
-      people,
-      handle,
-      orgFollowed,
-      profileData.uid
-    )(firestore, dispatch);
+    subscribeOrg(org_handle)(firebase, firestore, dispatch);
   };
-  const removefollower = (e, val, people, handle, orgFollowed) => {
+  const unSubscribe = (e, org_handle) => {
     e.preventDefault();
-    removeFollower(
-      val,
-      people,
-      handle,
-      orgFollowed,
-      profileData.uid
-    )(firestore, dispatch);
+    unSubscribeOrg(org_handle)(firebase, firestore, dispatch);
   };
 
   const loading = useSelector(
