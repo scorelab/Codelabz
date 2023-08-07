@@ -107,27 +107,21 @@ const ViewOrganization = () => {
   ];
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection("org_subscribers")
+    db.collection("org_subscribers")
       .where("org_handle", "==", handle)
       .get()
       .then(querySnapshot => {
-        setPeople(querySnapshot.map(doc => doc.data()))
-      })
-
-    return () => unsubscribe();
+        setPeople(querySnapshot.forEach(doc => doc.data()))
+      });
   }, [db, handle]);
 
   useEffect(() => {
-      const unsubscribe = db
-      .collection("org_subscribers")
+    db.collection("org_subscribers")
       .where("uid", "==", profileData.uid)
       .get()
       .then(querySnapshot => {
-        setOrgFollowed(querySnapshot.map(doc => doc.data()))
-      })
-
-    return () => unsubscribe();
+        setOrgFollowed(querySnapshot.forEach(doc => doc.data()))
+      });
   }, [db, profileData.uid]);
 
   const subscribe = (e, org_handle) => {
