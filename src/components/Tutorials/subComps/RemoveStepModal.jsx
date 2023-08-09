@@ -25,7 +25,7 @@ const RemoveStepModal = ({
     setVisible(viewModal);
   }, [viewModal]);
 
-  const handleOnOk = () => {
+  const handleOnOk = event => {
     <Snackbar
       anchorOrigin={{
         vertical: "bottom",
@@ -36,6 +36,7 @@ const RemoveStepModal = ({
       message="Updating...."
     />;
     if (step_length > 1) {
+      event.preventDefault();
       removeStep(
         owner,
         tutorial_id,
@@ -79,14 +80,14 @@ const RemoveStepModal = ({
     >
       <div>
         <Typography>This action is can not be undone!</Typography>
-        <Stack direction="row" spacing={1}>
+        <form onSubmit={handleOnOk}>
           <Button key="back" onClick={handleOnCancel}>
             <Typography>Cancel</Typography>
           </Button>
-          <Button key="submit" onClick={handleOnOk}>
+          <Button key="remove" type="submit">
             <Typography> Remove</Typography>
           </Button>
-        </Stack>
+        </form>
       </div>
     </Modal>
   );
