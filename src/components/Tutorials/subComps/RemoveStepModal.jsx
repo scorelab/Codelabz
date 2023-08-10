@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { removeStep } from "../../../store/actions";
 import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
 
 const RemoveStepModal = ({
   owner,
