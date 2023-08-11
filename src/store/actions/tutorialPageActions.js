@@ -1,16 +1,40 @@
 import * as actions from "./actionTypes";
+
 export const getTutorialData =
   tutorialID => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.GET_POST_DATA_START });
       const data = await firestore
-        .collection("cl_tutorials")
+        .collection("tutorials")
         .doc(tutorialID)
         .get();
       const tutorial = data.data();
       dispatch({ type: actions.GET_POST_DATA_SUCCESS, payload: tutorial });
     } catch (e) {
       dispatch({ type: actions.GET_POST_DATA_FAIL });
+      console.log(e);
+    }
+  };
+
+export const getTutorialSteps =
+  tutorialID => async (firebase, firestore, dispatch) => {
+    try {
+      dispatch({ type: actions.GET_STEPS_DATA_START });
+      const data = await firestore
+        .collection("tutorials")
+        .doc(tutorialID)
+        .collection("steps")
+        .get()
+        .then(querySnapshot => {
+          let steps = [];
+          querySnapshot.forEach(doc => {
+            steps.push(doc.data());
+          });
+          return steps;
+        });
+      dispatch({ type: actions.GET_STEPS_DATA_SUCCESS, payload: data });
+    } catch (e) {
+      dispatch({ type: actions.GET_STEPS_DATA_FAIL, payload: e });
       console.log(e);
     }
   };
