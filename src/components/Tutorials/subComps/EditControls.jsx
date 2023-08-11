@@ -16,7 +16,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import UserList from "../../Editor/UserList";
-import { hideUnHideStep } from "../../../store/actions";
+import { publishUnpublishTutorial } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import RemoveStepModal from "./RemoveStepModal";
@@ -24,6 +24,7 @@ import ColorPickerModal from "./ColorPickerModal";
 import { Box, Stack } from "@mui/system";
 
 const EditControls = ({
+  isPublished,
   stepPanelVisible,
   isDesktop,
   setMode,
@@ -101,6 +102,10 @@ const EditControls = ({
       </>
     );
   };
+
+  const handlePublishTutorial = () => {
+    publishUnpublishTutorial(owner, tutorial_id, isPublished)(firebase, firestore, dispatch);
+  }
 
   return (
     <>
@@ -220,7 +225,7 @@ const EditControls = ({
                   <FileCopyIcon /> Preview mode
                 </Button>
               )}
-              <Button data-testid={"publishTutorial"} type="dashed">
+              <Button data-testid={"publishTutorial"} onClick={handlePublishTutorial} type="dashed">
                 <FileCopyIcon /> Publish
               </Button>
               <DropdownMenu key="more" />

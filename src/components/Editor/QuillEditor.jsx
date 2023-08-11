@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../css/quillEditor.css";
-import { useFirebase } from "react-redux-firebase";
+import { useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { Prompt } from "react-router-dom";
-import { setCurrentStep } from "../../store/actions";
+import { setCurrentStepContent } from "../../store/actions";
 import * as Y from "yjs";
 import { QuillBinding } from "y-quill";
 import Quill from "quill";
 import QuillCursors from "quill-cursors";
 import { FirestoreProvider, getColor } from "@gmcfall/yjs-firestore-provider";
 import { onlineFirebaseApp } from "../../config";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 Quill.register("modules/cursors", QuillCursors);
 
@@ -18,11 +19,13 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   const editorRef = useRef(null);
   const containerRef = useRef(null);
   let noteID = id || "test_note";
-  const firebase = useFirebase();
+  const firestore = useFirestore();
   const dispatch = useDispatch();
-  const basePath = ["cl_codelabz", "organization", "codelabzorg", tutorial_id];
+  // This path in cloud firestore contains yjs documents storing content of a step
+  // (actual data used to render is present in "steps" collection in the same doc)
+  const basePath = ["tutorials", tutorial_id, "yjsStepDocs", id];
   let provider, binding, ydoc;
-  
+
   const currentUserHandle = useSelector(
     ({
       firebase: {
@@ -43,8 +46,13 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
 
         // on updating text in editor this gets triggered
         ydoc.on("update", () => {
+          // deltaText is quill editor's data structure to store text
           const deltaText = ydoc.getText("quill").toDelta();
-          setCurrentStep(deltaText)(dispatch);
+          var config = {};
+          var converter = new QuillDeltaToHtmlConverter(deltaText, config);
+
+          var html = converter.convert();
+          setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
         });
         provider = new FirestoreProvider(onlineFirebaseApp, ydoc, basePath, {
           disableAwareness: true

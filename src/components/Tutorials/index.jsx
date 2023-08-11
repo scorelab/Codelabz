@@ -13,7 +13,7 @@ import StepsTitle from "./subComps/StepsTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-  getCurrentStepContentFromRTDB,
+  getCurrentStepContentFromFirestore,
   getCurrentTutorialData,
   setCurrentStepNo
 } from "../../store/actions";
@@ -21,7 +21,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
 import QuillEditor from "../Editor/QuillEditor";
-import RichTextRenderer from "./subComps/RichTextRenderer";
+import HtmlTextRenderer from "./subComps/HtmlTextRenderer";
 import { Collapse, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@mui/styles";
@@ -152,8 +152,8 @@ const ViewTutorial = () => {
   useEffect(() => {
     if (stepsData) {
       setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
-      getCurrentStepContentFromRTDB(tutorial_id, stepsData[currentStep].id)(
-        firebase,
+      getCurrentStepContentFromFirestore(tutorial_id, stepsData[currentStep].id)(
+        firestore,
         dispatch
       );
     }
@@ -179,6 +179,7 @@ const ViewTutorial = () => {
           <Grid>
             <Grid xs={24} sm={24} md={24}>
               <EditControls
+                isPublished={tutorialData.isPublished}
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
                 noteID={stepsData[currentStep].id}
@@ -264,7 +265,7 @@ const ViewTutorial = () => {
                   <>
                     {mode === "view" && (
                       <div data-testId="tutorial-content">
-                        <RichTextRenderer delta={currentStepContent} />
+                        <HtmlTextRenderer html={currentStepContent} />
                       </div>
                     )}
                     {mode === "edit" && (

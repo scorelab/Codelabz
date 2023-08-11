@@ -29,6 +29,7 @@
     "chalk": "^5.2.0",
     "codemirror": "^5.56.0",
     "color-thief-react": "^1.0.2",
+    "dompurify": "^3.0.5",
     "elasticlunr": "^0.9.5",
     "emoji-picker-react": "^4.4.9",
     "firebase": "^9.17.2",
