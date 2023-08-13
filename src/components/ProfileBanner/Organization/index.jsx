@@ -18,9 +18,12 @@ export default function Banner({
   contributors = 402,
   feed = 40,
   handle = "apple",
-  isOrgBelongsToUser = false
+  isOrgBelongsToUser = false,
+  isUserSubscribed = false,
+  handleOrgSubscription,
 }) {
   const classes = useStyles();
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <Paper
@@ -133,11 +136,18 @@ export default function Banner({
                     sx={{
                       boxShadow: "none",
                       px: 2,
-                      borderRadius: 5
+                      borderRadius: 5,
                     }}
                     data-testId="orgbannersubscribeButton"
+                    onClick={async () => {
+                        setLoading(true);
+                        await handleOrgSubscription()
+                        setLoading(false);
+                      }
+                    }
+                    disabled={loading}
                   >
-                    Subscribe
+                    {!isUserSubscribed ? "Subscribe" : "Unsubscribe"}
                   </Button>
                 )}
                 <IconButton className={classes.moreDiv}>

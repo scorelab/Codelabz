@@ -91,7 +91,7 @@ const RightMenu = ({ mode, onClick }) => {
     }) => organizations
   );
 
-  console.log("Nav Orgs", organizations);
+  // console.log("Nav Orgs", organizations);
 
   const allowOrgs = organizations && organizations.length > 0;
 

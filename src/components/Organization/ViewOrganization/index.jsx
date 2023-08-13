@@ -124,14 +124,12 @@ const ViewOrganization = () => {
       });
   }, [db, profileData.uid]);
 
-  const subscribe = (e, org_handle) => {
-    e.preventDefault();
-    subscribeOrg(org_handle)(firebase, firestore, dispatch);
-  };
-  const unSubscribe = (e, org_handle) => {
-    e.preventDefault();
-    unSubscribeOrg(org_handle)(firebase, firestore, dispatch);
-  };
+  const handleOrgSubscription = async () => {
+    if (!currentOrgData.userSubscription)
+      await subscribeOrg(handle)(firebase, firestore, dispatch);
+    else 
+      await unSubscribeOrg(handle)(firebase, firestore, dispatch);
+  }
 
   const loading = useSelector(
     ({
@@ -187,16 +185,18 @@ const ViewOrganization = () => {
             <React.Fragment>
               <Banner
                 bannerImage="https://i.postimg.cc/zXvv1vwL/Org-Banner-Demo.png"
-                contributors={402}
-                feed={40}
-                followers={402}
-                name={CurrentOrg.org_name}
+                contributors={currentOrgData.contributorsCount}
+                feed={currentOrgData.feedCount}
+                followers={currentOrgData.followerCount}
+                name={currentOrgData.org_name}
                 profileImage={
-                  CurrentOrg.org_image ? CurrentOrg.org_image : NoImage
+                  currentOrgData.org_image ? currentOrgData.org_image : NoImage
                 }
                 story="Think Different"
                 handle={handle}
                 isOrgBelongsToUser={organizations.includes(handle)}
+                isUserSubscribed={currentOrgData.userSubscription}
+                handleOrgSubscription={handleOrgSubscription}
               />
               <Container
                 maxWidth="xl"
@@ -255,13 +255,13 @@ const ViewOrganization = () => {
                       <Grid item>
                         <Description
                           Heading={"Description"}
-                          Content={CurrentOrg.org_description}
+                          Content={currentOrgData.org_description}
                         />
                       </Grid>
                       <Grid item>
                         <Description
                           Heading={"CodeLabz you may like"}
-                          Content={CurrentOrg.org_description}
+                          Content={currentOrgData.org_description}
                         />
                       </Grid>
                       <Grid item>

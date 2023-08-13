@@ -195,7 +195,7 @@ export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
       .doc(orgHandle)
       .get();
 
-    console.log(organizationHandle);
+    // console.log(organizationHandle);
     return organizationHandle.exists;
   } catch (e) {
     throw e.message;
@@ -248,6 +248,10 @@ export const setUpInitialData =
             org_handle,
             org_website,
             org_country,
+            followerCount: 0,
+            contributorsCount: 0,
+            feedCount: 0,
+            org_published: false,
             org_email: userData.email,
             org_created_date: firestore.FieldValue.serverTimestamp(),
             createdAt: firestore.FieldValue.serverTimestamp(),

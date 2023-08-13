@@ -241,7 +241,13 @@ export const getOrgData =
           organizations.includes(org_handle) || doc.get("org_published");
 
         if (isPublished) {
-          dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: doc.data() });
+          dispatch({
+            type: actions.GET_ORG_DATA_SUCCESS,
+            payload: {
+              ...doc.data(),
+              userSubscription: await isUserSubscribed(org_handle, firebase, firestore)
+            }
+          });
         } else {
           dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
         }
@@ -249,6 +255,7 @@ export const getOrgData =
         dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
       }
     } catch (e) {
+      console.log(e)
       dispatch({ type: actions.GET_ORG_DATA_FAIL, payload: e.message });
     }
   };
@@ -273,6 +280,17 @@ export const getLaunchedOrgsData = () => async (firestore, dispatch) => {
   }
 };
 
+const isUserSubscribed = async (org_handle, firebase, firestore) => {
+  const auth = firebase.auth().currentUser;
+
+  const subscription = await firestore
+  .collection("org_subscribers")
+  .doc(`${org_handle}_${auth.uid}`)
+  .get()
+
+  return subscription.exists;
+}
+
 export const subscribeOrg = 
   (org_handle) => async (firebase, firestore, dispatch) => {
     try {
@@ -285,8 +303,17 @@ export const subscribeOrg =
           uid: auth.uid,
           org_handle,
         })
+      
+      await firestore
+        .collection("cl_org_general")
+        .doc(org_handle)
+        .update({
+          followerCount: firebase.firestore.FieldValue.increment(1)
+        })
+
+      getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
 
@@ -298,6 +325,15 @@ export const unSubscribeOrg =
         .collection("org_subscribers")
         .doc(`${org_handle}_${auth.uid}`)
         .delete()
+
+      await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .update({
+        followerCount: firebase.firestore.FieldValue.increment(-1)
+      })
+
+      getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
     } catch (e) {
       console.log(e);
     }
