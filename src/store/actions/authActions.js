@@ -176,12 +176,13 @@ export const resendVerifyEmail = (email) => async (dispatch) => {
  * @param userHandle
  * @returns {function(...[*]=):boolean}
  */
-export const checkUserHandleExists = (userHandle) => async (firebase) => {
+export const checkUserHandleExists = (userHandle) => async (firestore) => {
   try {
-    const handle = await firebase
-      .ref(`/cl_user_handle/${userHandle}`)
-      .once("value");
-    return handle.exists();
+    const handle = await firestore
+      .collection("cl_user")
+      .where("handle", "==", userHandle)
+      .get();
+    return handle.docs.length > 0;
   } catch (e) {
     throw e.message;
   }
@@ -218,7 +219,7 @@ export const setUpInitialData =
         org_country,
       } = data;
 
-      const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
+      const isUserHandleExists = await checkUserHandleExists(handle)(firestore);
 
       if (isUserHandleExists) {
         dispatch({
