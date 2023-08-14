@@ -188,10 +188,9 @@ export const checkUserHandleExists = (userHandle) => async (firestore) => {
   }
 };
 
-export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
+export const checkOrgHandleExists = (orgHandle) => async (firestore) => {
   try {
-    const organizationHandle = await firebase
-      .firestore()
+    const organizationHandle = await firestore
       .collection("cl_org_general")
       .doc(orgHandle)
       .get();
