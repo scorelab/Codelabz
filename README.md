@@ -42,8 +42,8 @@ Please adhere to this project's [code of conduct](./code_of_conduct.md).
 ### Solution :-
 This problem generally arises when you have not setuped/started the Firebase emulators.
 
-1. [Setup firebase emulator](#https://firebase.google.com/docs/emulator-suite/install_and_configure#install_the_local_emulator_suite). 
-2. [Start the Emulators](#https://firebase.google.com/docs/emulator-suite/install_and_configure#startup)
+1. [Setup firebase emulator](https://firebase.google.com/docs/emulator-suite/install_and_configure#install_the_local_emulator_suite). 
+2. [Start the Emulators](https://firebase.google.com/docs/emulator-suite/install_and_configure#startup)
 3. Run the app using `npm run dev`.
 
 >📝**NOTE** : Remember to start the emulators before running the app. 
