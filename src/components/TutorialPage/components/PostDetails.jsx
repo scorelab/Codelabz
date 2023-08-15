@@ -12,6 +12,7 @@ import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import User from "./UserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../../store/actions";
@@ -96,52 +97,11 @@ const PostDetails = ({ details }) => {
             </Box>
             <Box sx={{ width: "100%", marginTop: "10px" }}>
               <Grid container justifyContent="space-between" alignItems="end">
-                <Grid
-                  item
-                  container
-                  justifyContent="start"
-                  alignItems="start"
-                  columnSpacing={1}
-                  xs={6}
-                >
-                  <Grid sx={{ height: "100%", width: "auto" }} item>
-                    <Avatar>
-                      {user?.photoURL && user?.photoURL.length > 0 ? (
-                        <img src={user?.photoURL} />
-                      ) : (
-                        user?.displayName[0]
-                      )}
-                    </Avatar>
-                  </Grid>
-                  <Grid item sx={{ width: "fit-content" }}>
-                    <Typography>
-                      <span className={classes.bold}>{user?.displayName}</span>
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        opacity: "0.4",
-                        fontWeight: "600"
-                      }}
-                    >
-                      {details?.published_on
-                        ? getTime(details?.published_on)
-                        : ""}
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      disabled
-                      sx={{
-                        borderRadius: "50px",
-                        height: "20px",
-                        textTransform: "none",
-                        padding: "1px 10px"
-                      }}
-                    >
-                      Follow +
-                    </Button>
-                  </Grid>
-                </Grid>
+                <User
+                  id={details?.user}
+                  timestamp={details?.published_on}
+                  showFollowButton={true}
+                />
 
                 <Grid item sx={{ width: "fit-content" }}>
                   <CardActions className={classes.settings} disableSpacing>

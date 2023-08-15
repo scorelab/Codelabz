@@ -10,7 +10,7 @@ import EmojiPicker from "emoji-picker-react";
 import { InsertEmoticon, Send } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-const Textbox = ({ type }) => {
+const Textbox = ({ type, handleSubmit }) => {
   const [commentText, setCommentText] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const addEmoji = emoji => {
@@ -67,7 +67,11 @@ const Textbox = ({ type }) => {
           )
         }}
       />
-      <Button variant="contained" disableElevation>
+      <Button
+        variant="contained"
+        disableElevation
+        onClick={() => handleSubmit(commentText)}
+      >
         <Send />
       </Button>
     </Box>
