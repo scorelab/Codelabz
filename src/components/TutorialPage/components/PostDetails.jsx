@@ -44,7 +44,7 @@ const PostDetails = ({ details }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(details.upVote - details.downVote);
+  const [count, setCount] = useState(details.upVote - details.downVote || 0);
 
   useEffect(() => {
     getUserProfileData(details.user)(firebase, firestore, dispatch);

@@ -91,6 +91,14 @@ export const addComment = comment => async (firebase, firestore, dispatch) => {
         firestore.collection("cl_comments").doc(docref.id).update({
           comment_id: docref.id
         });
+        if (comment.replyTo == comment.tutorial_id) {
+          firestore
+            .collection("tutorials")
+            .doc(comment.tutorial_id)
+            .update({
+              comments: firebase.firestore.FieldValue.arrayUnion(docref.id)
+            });
+        }
       })
       .then(() => {
         dispatch({ type: actions.ADD_COMMENT_SUCCESS });
