@@ -230,7 +230,7 @@ export const getOrgData =
     try {
       dispatch({ type: actions.GET_ORG_DATA_START });
 
-      const isOrgExists = await checkOrgHandleExists(org_handle)(firebase);
+      const isOrgExists = await checkOrgHandleExists(org_handle)(firestore);
 
       if (isOrgExists) {
         const doc = await firestore
