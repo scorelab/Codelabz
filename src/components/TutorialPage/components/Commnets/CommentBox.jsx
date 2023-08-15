@@ -1,28 +1,11 @@
-import {
-  Card,
-  Grid,
-  Box,
-  Typography,
-  Avatar,
-  TextField,
-  Button,
-  IconButton,
-  InputAdornment,
-  Paper
-} from "@mui/material";
-import EmojiPicker from "emoji-picker-react";
-import { InsertEmoticon, Send } from "@mui/icons-material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import { Card, Grid, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import CardActions from "@mui/material/CardActions";
-import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import ToggleButton from "@mui/lab/ToggleButton";
-import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import React, { useState } from "react";
 import Textbox from "./Textbox";
 import Comment from "./Comment";
+import { addComment } from "../../../../store/actions/tutorialPageActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -45,26 +28,36 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const CommentBox = () => {
+const CommentBox = ({ comments, tutorialId }) => {
   const classes = useStyles();
+  const firestore = useFirestore();
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
+  const handleSubmit = comment => {
+    const commentData = {
+      content: comment,
+      replyTo: tutorialId,
+      tutorial_id: tutorialId,
+      createdAt: firestore.FieldValue.serverTimestamp(),
+      userId: "codelabzuser"
+    };
+    addComment(commentData)(firebase, firestore, dispatch);
+  };
+
   return (
     <Card className={classes.container}>
       <Typography variant="h5" sx={{ fontWeight: "600" }}>
-        Comments(34)
+        Comments({comments?.length})
       </Typography>
-      <Textbox />
+      <Textbox handleSubmit={handleSubmit} />
       <Grid container rowSpacing={2}>
-        <Grid item xs={12}>
-          <Comment />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Comment />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Comment />
-        </Grid>
+        {comments?.map((id, index) => {
+          return (
+            <Grid item xs={12}>
+              <Comment id={id} key={index} />
+            </Grid>
+          );
+        })}
         <Grid item container justifyContent="center">
           <Button sx={{ textTransform: "none", fontSize: "14px" }}>
             + Load More
