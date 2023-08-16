@@ -1,5 +1,36 @@
 import * as actions from "./actionTypes";
 
+export const getTutorialFeedData =
+  tutorialIdArray => async (firestore, firebase, dispatch) => {
+    try {
+      dispatch({ type: actions.GET_TUTORIAL_FEED_START });
+      const tutorials = await firebase
+        .collection("tutorials")
+        .where("tutorial_id", "in", tutorialIdArray)
+        .get();
+      if (tutorials.empty) {
+        dispatch({ type: actions.GET_TUTORIAL_FEED_SUCCESS, payload: [] });
+      } else {
+        const feed = tutorials.docs.map(doc => {
+          const tutorial = doc.data();
+          const tutorialData = {
+            tutorial_id: tutorial?.tutorial_id,
+            title: tutorial?.title,
+            summary: tutorial?.summary,
+            owner: tutorial?.owner,
+            created_by: tutorial?.created_by,
+            createdAt: tutorial?.createdAt,
+            featured_image: tutorial?.featured_image
+          };
+          return tutorialData;
+        });
+        dispatch({ type: actions.GET_TUTORIAL_FEED_SUCCESS, payload: feed });
+      }
+    } catch (e) {
+      dispatch({ type: actions.GET_TUTORIAL_FEED_FAILED, payload: e });
+    }
+  };
+
 export const getTutorialData =
   tutorialID => async (firebase, firestore, dispatch) => {
     try {
