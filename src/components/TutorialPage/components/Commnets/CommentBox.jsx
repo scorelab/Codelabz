@@ -70,6 +70,13 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
             </Grid>
           );
         })}
+        {comments?.map((id, index) => {
+          return (
+            <Grid item xs={12}>
+              <Comment id={id} key={index} />
+            </Grid>
+          );
+        })}
         <Grid item container justifyContent="center">
           {comments?.length != commentsArray?.length && (
             <Button
