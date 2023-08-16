@@ -63,27 +63,6 @@ module.exports = {
 };
 
 ```
-3.Modify package.json file according to the code given below
-```
-{
-  "name": "your-project-name",
-  "version": "version",
-  "dependencies": {
-    // your dependencies
-  },
-  "scripts": {
-    "lint": "eslint .",                   
-    "format": "prettier --write .",         
-    // ... other scripts
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  }
-}
-
-```
 
 
 ## Firebase Setup
