@@ -11,6 +11,8 @@ import {
   Button
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { HashLink } from "react-router-hash-link";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   icons: {
@@ -72,6 +74,7 @@ const StepList = ({
   children
 }) => {
   const classes = useStyles();
+  const { id } = useParams();
 
   /**
    * * Cases for rendering the menu items
@@ -96,7 +99,11 @@ const StepList = ({
               data-testId={item?.dataTestId}
             >
               {item.id && (
-                <a href={`#${item.id}`} className={classes.navLink}>
+                <HashLink
+                  to={`/tutorial/${id}/#${item.id}`}
+                  smooth
+                  className={classes.navLink}
+                >
                   <MenuItem
                     key={item.id}
                     onClick={() => {
@@ -139,7 +146,7 @@ const StepList = ({
                       {item.title}
                     </ListItemText>
                   </MenuItem>
-                </a>
+                </HashLink>
               )}
               {!item.link && item.onClick && (
                 <MenuItem

@@ -48,7 +48,7 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
 
   useEffect(() => {
     setComments(commentsArray?.slice(0, currCommentCount));
-  }, [currCommentCount]);
+  }, [currCommentCount, commentsArray]);
 
   console.log(commentsArray, comments, currCommentCount);
 
@@ -57,19 +57,12 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
   };
 
   return (
-    <Card className={classes.container}>
+    <Card className={classes.container} id="comments">
       <Typography variant="h5" sx={{ fontWeight: "600" }}>
         Comments({commentsArray?.length || 0})
       </Typography>
       <Textbox handleSubmit={handleSubmit} />
       <Grid container rowSpacing={2}>
-        {comments?.map((id, index) => {
-          return (
-            <Grid item xs={12}>
-              <Comment id={id} key={index} />
-            </Grid>
-          );
-        })}
         {comments?.map((id, index) => {
           return (
             <Grid item xs={12}>
