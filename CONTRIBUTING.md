@@ -32,10 +32,11 @@
 6. Create a `.env` file in root of directory. 
 7. Setup firebase and get your own set of keys. ( follow steps in [Firebase Setup](#firebase-setup) section to setup firebase )
 8. Copy all the key fields from `.env.sample` and place your own set of values there.
-9. Run `npm run dev`.
-10. Visit  [http://127.0.0.1:5173/](http://127.0.0.1:5173/)  in your preferred browser.
+9. Setup husky ( follow steps in [Husky Setup](#husky-setup) section to setup firebase )
+10. Run `npm run dev`.
+11. Visit  [http://127.0.0.1:5173/](http://127.0.0.1:5173/)  in your preferred browser.
 
->📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
+>📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.For setup husky follow [Husky Setup](#husky-setup)
 
 ### Using Docker-Compose
 You can also use docker-compose to setup your project. Simply create your `.env` file and run 
@@ -47,6 +48,42 @@ This will setup your project along with firebase emulator in a docker environmen
 
 ---
 
+
+
+## Husky Setup
+
+1.install Husky and lint-staged by running the following command
+```
+npm install husky lint-staged --save-dev
+```
+2. create lint-staged.config.js file in root directory and add following code
+```
+module.exports = {
+  '**/*': ['npm run lint', 'npm run format', 'git add'],
+};
+
+```
+3.Modify package.json file according to the code given below
+```
+{
+  "name": "your-project-name",
+  "version": "version",
+  "dependencies": {
+    // your dependencies
+  },
+  "scripts": {
+    "lint": "eslint .",                   
+    "format": "prettier --write .",         
+    // ... other scripts
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
+
+```
 
 
 ## Firebase Setup
