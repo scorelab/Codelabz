@@ -155,12 +155,26 @@ export const getUserProfileData =
   handle => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.GET_USER_DATA_START });
-      const docs = await firestore
-        .collection("cl_user")
-        .where("handle", "==", handle)
-        .get();
-      const doc = docs.docs[0].data();
-      dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: doc });
+      const isUserExists = await checkUserHandleExists(handle)(firestore);
+      if (isUserExists) {
+        const docs = await firestore
+          .collection("cl_user")
+          .where("handle", "==", handle)
+          .get();
+        const doc = docs.docs[0].data();
+        const currentUserId = firebase.auth().currentUser.uid;
+        const followingStatus = await isUserFollower(
+          currentUserId,
+          doc.uid,
+          firestore
+        );
+        dispatch({
+          type: actions.GET_USER_DATA_SUCCESS,
+          payload: { ...doc, isFollowing: followingStatus }
+        });
+      } else {
+        dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: false });
+      }
     } catch (e) {
       dispatch({ type: actions.GET_USER_DATA_FAIL, payload: e.message });
     }
@@ -170,41 +184,51 @@ export const clearUserProfile = () => dispatch => {
   dispatch({ type: actions.CLEAR_USER_PROFILE_DATA_STATE });
 };
 
-export const addUserFollower = (
+const isUserFollower = async (followerId, followingId, firestore) => {
+  const followerDoc = await firestore
+    .collection("user_followers")
+    .doc(`${followingId}_${followerId}`)
+    .get();
+  return followerDoc.exists;
+};
+
+export const addUserFollower = async (
   currentProfileData,
-  followers,
-  following,
   profileData,
   firestore,
   dispatch
 ) => {
   try {
-    if (followers && followers.includes(currentProfileData.handle)) {
-    } else if (followers) {
-      const arr = [...followers];
-      arr.push(currentProfileData.handle);
-      firestore.collection("cl_user").doc(profileData.uid).update({
-        followers: arr
-      });
-      var arr2 = [];
-      if (following) arr2 = [...following];
-
-      arr2.push(profileData.handle);
-      firestore.collection("cl_user").doc(currentProfileData.uid).update({
-        following: arr2
-      });
-    } else {
+    const followStatus = await isUserFollower(
+      currentProfileData.uid,
+      profileData.uid,
       firestore
-        .collection("cl_user")
-        .doc(currentProfileData.uid)
-        .update({
-          following: [profileData.handle]
+    );
+    if (followStatus === false) {
+      await firestore
+        .collection("user_followers")
+        .doc(`${profileData.uid}_${currentProfileData.uid}`)
+        .set({
+          followingId: profileData.uid,
+          followerId: currentProfileData.uid
         });
-      firestore
+
+      await firestore
         .collection("cl_user")
         .doc(profileData.uid)
         .update({
-          followers: [currentProfileData.handle]
+          followerCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(1)
+            : 1
+        });
+
+      await firestore
+        .collection("cl_user")
+        .doc(currentProfileData.uid)
+        .update({
+          followingCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(1)
+            : 1
         });
     }
   } catch (e) {
@@ -212,26 +236,43 @@ export const addUserFollower = (
   }
 };
 
-export const removeUserFollower = (
-  followers,
+export const removeUserFollower = async (
   currentProfileData,
-  following,
   profileData,
   firestore,
   dispatch
 ) => {
   try {
-    var filteredFollowers = followers.filter(function (value, index, arr) {
-      return value !== currentProfileData.handle;
-    });
-    firestore.collection("cl_user").doc(profileData.uid).update({
-      followers: filteredFollowers
-    });
-    var currFollowing = following.filter(function (value, index, arr) {
-      return profileData.handle !== value;
-    });
-    firestore.collection("cl_user").doc(currentProfileData.uid).update({
-      following: currFollowing
-    });
-  } catch (e) {}
+    const followStatus = await isUserFollower(
+      currentProfileData.uid,
+      profileData.uid,
+      firestore
+    );
+    if (followStatus === true) {
+      await firestore
+        .collection("user_followers")
+        .doc(`${profileData.uid}_${currentProfileData.uid}`)
+        .delete();
+
+      await firestore
+        .collection("cl_user")
+        .doc(profileData.uid)
+        .update({
+          followerCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(-1)
+            : 0
+        });
+
+      await firestore
+        .collection("cl_user")
+        .doc(currentProfileData.uid)
+        .update({
+          followingCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(-1)
+            : 0
+        });
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };

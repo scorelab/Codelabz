@@ -172,9 +172,9 @@ export const createTutorial =
     }
   };
 
-const checkUserOrOrgHandle = handle => async firebase => {
-  const userHandleExists = await checkUserHandleExists(handle)(firebase);
-  const orgHandleExists = await checkOrgHandleExists(handle)(firebase);
+const checkUserOrOrgHandle = handle => async firestore => {
+  const userHandleExists = await checkUserHandleExists(handle)(firestore);
+  const orgHandleExists = await checkOrgHandleExists(handle)(firestore);
 
   if (userHandleExists && !orgHandleExists) {
     return "user";
@@ -348,7 +348,6 @@ export const removeStep =
   (owner, tutorial_id, step_id, current_step_no) =>
   async (firebase, firestore, dispatch) => {
     try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
       await firestore
         .collection("tutorials")
         .doc(tutorial_id)
@@ -390,7 +389,7 @@ export const uploadTutorialImages =
   (owner, tutorial_id, files) => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.TUTORIAL_IMAGE_UPLOAD_START });
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+      const type = await checkUserOrOrgHandle(owner)(firestore);
 
       const storagePath = `tutorials/${type}/${owner}/${tutorial_id}`;
       const dbPath = `tutorials`;
@@ -432,7 +431,7 @@ export const remoteTutorialImages =
       dispatch({
         type: actions.TUTORIAL_IMAGE_DELETE_START
       });
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+      const type = await checkUserOrOrgHandle(owner)(firestore);
 
       const storagePath = `tutorials/${type}/${owner}/${tutorial_id}/${name}`;
       const dbPath = `tutorials`;
@@ -469,10 +468,7 @@ export const updateStepTitle =
   (owner, tutorial_id, step_id, step_title) =>
   async (firebase, firestore, dispatch) => {
     try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
-
       const dbPath = `tutorials/${tutorial_id}/steps`;
-
       await firestore
         .collection(dbPath)
         .doc(step_id)
@@ -487,7 +483,7 @@ export const updateStepTitle =
         dispatch
       );
     } catch (e) {
-      console.log(e.message);
+      console.log(e);
     }
   };
 
@@ -495,8 +491,6 @@ export const updateStepTime =
   (owner, tutorial_id, step_id, step_time) =>
   async (firebase, firestore, dispatch) => {
     try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
-
       const dbPath = `tutorials/${tutorial_id}/steps`;
 
       await firestore
@@ -521,8 +515,6 @@ export const setTutorialTheme =
   ({ tutorial_id, owner, bgColor, textColor }) =>
   async (firebase, firestore, dispatch) => {
     try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
-
       const dbPath = `tutorials`;
 
       await firestore.collection(dbPath).doc(tutorial_id).update({

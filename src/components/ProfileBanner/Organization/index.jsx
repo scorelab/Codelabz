@@ -18,9 +18,12 @@ export default function Banner({
   contributors = 402,
   feed = 40,
   handle = "apple",
-  isOrgBelongsToUser = false
+  isOrgBelongsToUser = false,
+  isUserSubscribed = false,
+  handleOrgSubscription,
 }) {
   const classes = useStyles();
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <Paper
@@ -108,11 +111,11 @@ export default function Banner({
               <Grid
                 item
                 xs={12}
-                md={isOrgBelongsToUser ? 6 : 3}
+                md={3}
                 container
                 className={classes.buttonContainer}
               >
-                {isOrgBelongsToUser && (
+                {isOrgBelongsToUser ? (
                   <Link
                     data-testId="orgbannereditButton"
                     to={"/org/settings/" + handle}
@@ -126,22 +129,30 @@ export default function Banner({
                       Edit Org
                     </Button>
                   </Link>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="error"
+                    sx={{
+                      boxShadow: "none",
+                      px: 2,
+                      borderRadius: 5,
+                    }}
+                    data-testId="orgbannersubscribeButton"
+                    onClick={async () => {
+                        setLoading(true);
+                        await handleOrgSubscription()
+                        setLoading(false);
+                      }
+                    }
+                    disabled={loading}
+                  >
+                    {!isUserSubscribed ? "Subscribe" : "Unsubscribe"}
+                  </Button>
                 )}
                 <IconButton className={classes.moreDiv}>
                   <MoreHorizIcon className={classes.moreButton} />
                 </IconButton>
-                <Button
-                  variant="contained"
-                  color="error"
-                  sx={{
-                    boxShadow: "none",
-                    px: 2,
-                    borderRadius: 5
-                  }}
-                  data-testId="orgbannersubscribeButton"
-                >
-                  Subscribe
-                </Button>
               </Grid>
             </Grid>
           </div>
