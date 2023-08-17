@@ -29,6 +29,8 @@ export {
   uploadOrgProfileImage,
   addFollower,
   removeFollower,
+  subscribeOrg,
+  unSubscribeOrg
 } from "./orgActions";
 export {
   clearProfileEditError,
