@@ -13,7 +13,7 @@ export {
   signOut,
   signUp,
   verifyEmail,
-  verifyPasswordResetCode,
+  verifyPasswordResetCode
 } from "./authActions";
 export {
   addOrgUser,
@@ -28,7 +28,7 @@ export {
   unPublishOrganization,
   uploadOrgProfileImage,
   addFollower,
-  removeFollower,
+  removeFollower
 } from "./orgActions";
 export {
   clearProfileEditError,
@@ -39,7 +39,7 @@ export {
   updateUserProfile,
   uploadProfileImage,
   addUserFollower,
-  removeUserFollower,
+  removeUserFollower
 } from "./profileActions";
 export {
   addNewTutorialStep,
@@ -62,5 +62,5 @@ export {
   setTutorialTheme,
   updateStepTime,
   updateStepTitle,
-  uploadTutorialImages,
+  uploadTutorialImages
 } from "./tutorialsActions";

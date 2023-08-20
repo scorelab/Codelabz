@@ -5,12 +5,12 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 const story = {
   title: "Topbar/NewCodeLabz",
-  component: NewCodelabz,
+  component: NewCodelabz
 };
 
 export default story;
 
-const Template = (args) => {
+const Template = args => {
   return (
     <ProviderWrapper>
       <MemoryRouter>

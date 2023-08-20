@@ -1,6 +1,6 @@
 import { Grid, Card, Menu, MenuItem } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -27,7 +27,10 @@ const NotificationBox = ({ notification }) => {
     <>
       <Card
         className={classes.Notification}
-        style={{ backgroundColor: notification.isRead ? "#fff" : blue[50],borderRadius: "16px"}}
+        style={{
+          backgroundColor: notification.isRead ? "#fff" : blue[50],
+          borderRadius: "16px"
+        }}
       >
         {!notification.isRead && <Box className={classes.unread}></Box>}
         <Avatar
@@ -61,7 +64,7 @@ const NotificationBox = ({ notification }) => {
             }}
             aria-label="share"
             data-testId="MoreIcon"
-            style={{ position: 'absolute', top: 0, right: 0 }}
+            style={{ position: "absolute", top: 0, right: 0 }}
           >
             <MoreHorizOutlinedIcon />
           </IconButton>

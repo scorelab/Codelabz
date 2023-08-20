@@ -4,10 +4,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "Forms/User",
-  component: UserEmail,
+  component: UserEmail
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <UserEmail />
   </ProviderWrapper>

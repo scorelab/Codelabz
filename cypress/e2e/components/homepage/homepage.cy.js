@@ -13,7 +13,7 @@ describe("Error Page Test | CodeLabz", () => {
 
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-  })
+  });
 
   it("check not logged in user can access homepage", function () {
     cy.visit(this.base_url);
@@ -24,5 +24,4 @@ describe("Error Page Test | CodeLabz", () => {
     cy.get("[data-testId=homepageMainBody");
     cy.get("[data-testId=homepageMainBody").should("have.length.at.least", 1);
   });
-
 });

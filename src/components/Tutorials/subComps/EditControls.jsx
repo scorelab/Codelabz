@@ -44,15 +44,15 @@ const EditControls = ({
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
   const DropdownMenu = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleClick = event => {
+      setAnchorEl(event.currentTarget);
+    };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     return (
       <>
@@ -104,8 +104,12 @@ const EditControls = ({
   };
 
   const handlePublishTutorial = () => {
-    publishUnpublishTutorial(owner, tutorial_id, isPublished)(firebase, firestore, dispatch);
-  }
+    publishUnpublishTutorial(owner, tutorial_id, isPublished)(
+      firebase,
+      firestore,
+      dispatch
+    );
+  };
 
   return (
     <>
@@ -225,7 +229,11 @@ const EditControls = ({
                   <FileCopyIcon /> Preview mode
                 </Button>
               )}
-              <Button data-testid={"publishTutorial"} onClick={handlePublishTutorial} type="dashed">
+              <Button
+                data-testid={"publishTutorial"}
+                onClick={handlePublishTutorial}
+                type="dashed"
+              >
                 <FileCopyIcon /> Publish
               </Button>
               <DropdownMenu key="more" />

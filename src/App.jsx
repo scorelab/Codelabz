@@ -6,20 +6,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfileData } from "./store/actions";
 
 const App = () => {
-	const firebase = useFirebase();
-	const dispatch = useDispatch();
-	const organizations = useSelector(
-		({
-			firebase: {
-				profile: { organizations },
-			},
-		}) => organizations
-	);
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
+  const organizations = useSelector(
+    ({
+      firebase: {
+        profile: { organizations }
+      }
+    }) => organizations
+  );
 
-	useEffect(() => {
-		getProfileData(organizations)(firebase, dispatch);
-	}, [organizations, firebase, dispatch]);
-	return <Routes />;
+  useEffect(() => {
+    getProfileData(organizations)(firebase, dispatch);
+  }, [organizations, firebase, dispatch]);
+  return <Routes />;
 };
 
 export default App;
