@@ -24,22 +24,24 @@ export const setCurrentOrgUserPermissions =
     }
   };
 
-export const getProfileData = organizations => async (firebase, dispatch) => {
+export const getProfileData = () => async (firebase, firestore, dispatch) => {
   try {
-    let orgs = [];
+    dispatch({ type: actions.GET_PROFILE_DATA_START });
+    const userOrgs = await getAllOrgsOfCurrentUser()(firebase, firestore, dispatch);
+    const organizations = userOrgs?.map(org => org.org_handle);
+    // console.log(organizations);
     if (organizations && organizations.length > 0) {
-      dispatch({ type: actions.GET_PROFILE_DATA_START });
       const promises = organizations.map(org_handle =>
         getOrgBasicData(org_handle)(firebase)
       );
-      orgs = await Promise.all(promises);
+      const orgs = await Promise.all(promises);
       setCurrentOrgUserPermissions(
         orgs[0].org_handle,
         orgs[0].permissions
       )(dispatch);
       dispatch({
         type: actions.GET_PROFILE_DATA_SUCCESS,
-        payload: { organizations: _.orderBy(orgs, ["org_handle"], ["asc"]) }
+        payload: { organizations: _.orderBy(orgs, ["permissions"], ["desc"]) }
       });
     } else {
       dispatch({ type: actions.GET_PROFILE_DATA_END });
@@ -276,3 +278,22 @@ export const removeUserFollower = async (
     console.log(e);
   }
 };
+
+const getAllOrgsOfCurrentUser = (uid) => async (firebase, firestore, dispatch) => {
+  try {
+    const auth = firebase.auth().currentUser;
+    if (auth === null) return [];
+    const orgUsersDocs = await firestore
+    .collection("org_users")
+    .where("uid", "==", auth.uid)
+    .get()
+  
+  const userOrgs = orgUsersDocs.docs.map(
+    orgUserDoc => orgUserDoc.data()
+  );
+  
+  return userOrgs;
+  } catch (e) {
+    console.log(e)
+  }
+}
