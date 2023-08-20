@@ -19,4 +19,4 @@ Urgent:
 broken:
   - "(broken|Broken|not working)"
 feature:
-  - (Feature|feature|add|Add|ADD)
+  - "(Feature|feature|add|Add|ADD)"

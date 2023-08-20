@@ -52,7 +52,6 @@ This will setup your project along with firebase emulator in a docker environmen
 ---
 
 
-
 ## Firebase Setup
 
 1. Sign in to https://console.firebase.google.com/.
