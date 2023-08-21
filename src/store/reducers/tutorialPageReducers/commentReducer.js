@@ -3,51 +3,59 @@ import * as actions from "../../actions/actionTypes";
 const initialState = {
   loading: false,
   error: null,
-  data: null,
-  steps: []
+  data: [],
+  replies: []
 };
 
-const PostReducer = (state = initialState, { type, payload }) => {
+const CommentReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actions.CLEAR_POST_DATA_STATE:
-      return initialState;
-
-    case actions.GET_POST_DATA_START:
+    case actions.GET_COMMENT_DATA_START:
       return {
         ...state,
         loading: true
       };
 
-    case actions.GET_POST_DATA_SUCCESS:
+    case actions.GET_COMMENT_DATA_SUCCESS:
       return {
         ...state,
         loading: false,
         error: false,
-        data: payload
+        data: [...state.data, payload]
       };
 
-    case actions.GET_POST_DATA_FAIL:
+    case actions.GET_COMMENT_DATA_FAIL:
       return {
         ...state,
         loading: false,
         error: payload
       };
 
-    case actions.GET_STEPS_DATA_START:
+    case actions.GET_REPLIES_START:
       return {
         ...state,
         loading: true
       };
 
-    case actions.GET_STEPS_DATA_SUCCESS:
+    case actions.GET_REPLIES_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false,
-        steps: payload
+        replies: [...state.replies, payload]
       };
 
-    case actions.GET_STEPS_DATA_FAIL:
+    case actions.ADD_COMMENT_START:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case actions.ADD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
+
+    case actions.ADD_COMMENT_FAILED:
       return {
         ...state,
         loading: false,
@@ -59,4 +67,4 @@ const PostReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default PostReducer;
+export default CommentReducer;

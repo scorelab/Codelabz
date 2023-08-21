@@ -33,6 +33,10 @@ const ProfileView = () => {
   const [followers, setFollowers] = useState([]);
   const [targetUserFollowing, setTargetUserFollowing] = useState(0);
   const [following, setFollowing] = useState([]);
+
+
+  const [followDisable, setFollowDisable] = useState(false);
+
   const db = firebase.firestore();
 
   useEffect(() => {
@@ -107,16 +111,24 @@ const ProfileView = () => {
     );
   }
 
+
   const addFollower = e => {
     e.preventDefault();
     addUserFollower(
       currentProfileData,
       followers,
       following,
+
+  const addFollower = async e => {
+    e.preventDefault();
+	setFollowDisable(true);
+    await addUserFollower(
+      currentProfileData,
       profileData,
       firestore,
       dispatch
     );
+
   };
 
   const removeFollower = e => {
@@ -125,10 +137,21 @@ const ProfileView = () => {
       followers,
       currentProfileData,
       following,
+
+	setFollowDisable(false);
+  };
+
+  const removeFollower = async e => {
+    e.preventDefault();
+	setFollowDisable(true);
+    await removeUserFollower(
+      currentProfileData,
+
       profileData,
       firestore,
       dispatch
     );
+
   };
   return (
     <ThemeProvider theme={basicTheme}>
@@ -319,10 +342,205 @@ const ProfileView = () => {
                     </p>
                   )}
 
+
+	setFollowDisable(false);
+  };
+
+  return (
+    <ThemeProvider theme={basicTheme}>
+      <Card className="p-0">
+        {profileData && (
+          <div>
+            <Box mt={2} mb={2} m={3}>
+              <Grid container>
+                <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+                  Profile Details
+                </span>
+              </Grid>
+            </Box>
+            <Divider></Divider>
+            <Box mt={2} mb={2} m={3}>
+              <Grid container>
+                <Grid xs={12} md={3} lg={3} item={true}>
+                  {profileData.photoURL && profileData.photoURL.length > 0
+                    ? BasicImage(profileData.photoURL, profileData.displayName)
+                    : BasicImage(NoImage, "Not Available")}
+                </Grid>
+                <Grid
+                  xs={12}
+                  md={9}
+                  lg={9}
+                  className="pl-24-d pt-24-m"
+                  item={true}
+                >
+                  <p>
+                    <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
+                      {profileData.displayName}
+                    </span>
+                  </p>
+                  {checkAvailable(profileData.description) && (
+                    <p className="text-justified">{profileData.description}</p>
+                  )}
+                  {checkAvailable(profileData.link_facebook) && (
+                    <p>
+                      <a
+                        href={
+                          "https://www.facebook.com/" +
+                          profileData.link_facebook
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px",
+                          }}
+                        >
+                          <Box mr={1}>
+                            <FacebookIcon
+                              fontSize="small"
+                              className="facebook-color"
+                            />
+                          </Box>{" "}
+                          {profileData.link_facebook}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.link_twitter) && (
+                    <p>
+                      <a
+                        href={"https://twitter.com/" + profileData.link_twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px"
+                          }}
+                        >
+                          <Box mr={1}>
+                            <TwitterIcon
+                              fontSize="small"
+                              className="twitter-color"
+                            />{" "}
+                          </Box>
+                          {profileData.link_twitter}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.link_github) && (
+                    <p>
+                      <a
+                        href={"https://github.com/" + profileData.link_github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px"
+                          }}
+                        >
+                          <Box mr={1}>
+                            <GitHubIcon
+                              fontSize="small"
+                              className="github-color"
+                            />{" "}
+                          </Box>
+                          {profileData.link_github}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.link_linkedin) && (
+                    <p>
+                      <a
+                        href={
+                          "https://www.linkedin.com/in/" +
+                          profileData.link_linkedin
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px"
+                          }}
+                        >
+                          <Box mr={1}>
+                            <LinkedInIcon
+                              fontSize="small"
+                              className="linkedin-color"
+                            />
+                          </Box>{" "}
+                          {profileData.link_linkedin}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.website) && (
+                    <p>
+                      <a
+                        href={profileData.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px"
+                          }}
+                        >
+                          <Box mr={1}>
+                            <LinkIcon
+                              fontSize="small"
+                              className="website-color"
+                            />
+                          </Box>{" "}
+                          {profileData.website}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+                  {checkAvailable(profileData.country) && (
+                    <p className="mb-0">
+                      <a
+                        href={
+                          "https://www.google.com/search?q=" +
+                          profileData.country
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px"
+                          }}
+                        >
+                          <Box mr={1}>
+                            <FlagIcon
+                              fontSize="small"
+                              className="website-color"
+                            />{" "}
+                          </Box>
+                          {profileData.country}
+                        </div>
+                      </a>
+                    </p>
+                  )}
+
+                  
                   <Typography
                     variant="body2"
                     style={{ margin: ".5rem 0 .5rem 0" }}
                   >
+
                     Followers : <span>{followers ? followers.length : 0}</span>{" "}
                     Following :{" "}
                     <span>
@@ -330,10 +548,20 @@ const ProfileView = () => {
                     </span>
                   </Typography>
                   {!following ? (
+
+                    Followers : <span>{profileData.followerCount ? profileData.followerCount : 0}</span>{" "}
+                    Following :{" "}
+                    <span>
+                      {profileData.followingCount ? profileData.followingCount : 0}
+                    </span>
+                  </Typography>
+                  {!profileData.isFollowing ? (
+
                     <Button
                       variant="contained"
                       onClick={e => addFollower(e)}
                       style={{ marginTop: "1rem" }}
+
                     >
                       follow
                     </Button>
@@ -341,11 +569,21 @@ const ProfileView = () => {
                     <Button variant="contained" onClick={e => addFollower(e)}>
                       follow
                     </Button>
+
+					  disabled={followDisable}
+                    >
+                      follow
+                    </Button>
+
                   ) : (
                     <Button
                       onClick={e => removeFollower(e)}
                       variant="contained"
                       style={{ marginTop: "1rem" }}
+
+
+                      disabled={followDisable}
+
                     >
                       unfollow
                     </Button>
