@@ -24,7 +24,6 @@ export const getTutorialFeedIdArray =
       followingUsersTutorials = await firestore
         .collection("tutorials")
         .where("created_by", "in", followings)
-        .orderBy("createdAt", "desc")
         .limit(50)
         .get()
         .then(docs => {
@@ -36,11 +35,11 @@ export const getTutorialFeedIdArray =
           return tutorialsArray;
         });
     }
+    followings.push(uid);
 
     const newTutorials = await firestore
       .collection("tutorials")
       .where("created_by", "not-in", followings)
-      .orderBy("createdAt", "desc")
       .limit(50)
       .get()
       .then(docs => {
@@ -52,7 +51,7 @@ export const getTutorialFeedIdArray =
         return tutorialsArray;
       });
 
-    const tutorials = followingUsersTutorials + newTutorials;
+    const tutorials = followingUsersTutorials.concat(newTutorials);
 
     return tutorials;
   };
