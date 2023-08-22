@@ -1,6 +1,6 @@
 import { Card, Grid, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Textbox from "./Textbox";
 import Comment from "./Comment";
 import { addComment } from "../../../../store/actions/tutorialPageActions";
@@ -28,11 +28,13 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const CommentBox = ({ comments, tutorialId }) => {
+const CommentBox = ({ commentsArray, tutorialId }) => {
   const classes = useStyles();
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const [comments, setComments] = useState([]);
+  const [currCommentCount, setCurrCommentCount] = useState(3);
   const handleSubmit = comment => {
     const commentData = {
       content: comment,
@@ -44,10 +46,20 @@ const CommentBox = ({ comments, tutorialId }) => {
     addComment(commentData)(firebase, firestore, dispatch);
   };
 
+  useEffect(() => {
+    setComments(commentsArray?.slice(0, currCommentCount));
+  }, [currCommentCount, commentsArray]);
+
+  console.log(commentsArray, comments, currCommentCount);
+
+  const increaseCommentCount = () => {
+    setCurrCommentCount(state => state + 3);
+  };
+
   return (
-    <Card className={classes.container}>
+    <Card className={classes.container} id="comments">
       <Typography variant="h5" sx={{ fontWeight: "600" }}>
-        Comments({comments?.length})
+        Comments({commentsArray?.length || 0})
       </Typography>
       <Textbox handleSubmit={handleSubmit} />
       <Grid container rowSpacing={2}>
@@ -59,9 +71,14 @@ const CommentBox = ({ comments, tutorialId }) => {
           );
         })}
         <Grid item container justifyContent="center">
-          <Button sx={{ textTransform: "none", fontSize: "14px" }}>
-            + Load More
-          </Button>
+          {comments?.length != commentsArray?.length && (
+            <Button
+              sx={{ textTransform: "none", fontSize: "14px" }}
+              onClick={increaseCommentCount}
+            >
+              + Load More
+            </Button>
+          )}
         </Grid>
       </Grid>
     </Card>

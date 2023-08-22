@@ -84,8 +84,6 @@ const Comment = ({ id }) => {
 
   const [replies] = repliesArray.filter(replies => replies.comment_id == id);
 
-  console.log(repliesArray);
-
   const handleIncrement = () => {
     setCount(count + 1);
   };

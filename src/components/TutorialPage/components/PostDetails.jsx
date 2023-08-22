@@ -16,6 +16,8 @@ import User from "./UserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../../store/actions";
+import { HashLink } from "react-router-hash-link";
+import { useParams } from "react-router-dom";
 const useStyles = makeStyles(() => ({
   container: {
     padding: "20px",
@@ -44,7 +46,8 @@ const PostDetails = ({ details }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(details.upVote - details.downVote);
+  const [count, setCount] = useState(details.upVote - details.downVote || 0);
+  const { id } = useParams();
 
   useEffect(() => {
     getUserProfileData(details.user)(firebase, firestore, dispatch);
@@ -131,9 +134,11 @@ const PostDetails = ({ details }) => {
                         <KeyboardArrowDownIcon />
                       </ToggleButton>
                     </ToggleButtonGroup>
-                    <IconButton aria-label="share" data-testId="CommentIcon">
-                      <ChatOutlinedIcon />
-                    </IconButton>
+                    <HashLink to={`/tutorial/${id}#comments`}>
+                      <IconButton aria-label="share" data-testId="CommentIcon">
+                        <ChatOutlinedIcon />
+                      </IconButton>
+                    </HashLink>
                     <IconButton
                       aria-label="add to favorites"
                       data-testId="ShareIcon"

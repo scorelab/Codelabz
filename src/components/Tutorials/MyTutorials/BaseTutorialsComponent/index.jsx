@@ -13,59 +13,69 @@ import TutorialCard from "./TutorialCard";
  * @constructor
  */
 const BaseTutorialsComponent = ({ owner = "", ownerName = "", users = [] }) => {
-	let user = useSelector(
-		({
-			tutorials: {
-				data: { user },
-			},
-		}) => user
-	);
-	const org = useSelector(
-		({
-			tutorials: {
-				data: { org },
-			},
-		}) => org
-	);
-	if (!user) user = users;
-	if (user) {
-		const index = [...user, ...org];
+  let user = useSelector(
+    ({
+      tutorials: {
+        data: { user }
+      }
+    }) => user
+  );
+  const org = useSelector(
+    ({
+      tutorials: {
+        data: { org }
+      }
+    }) => org
+  );
+  if (!user) user = users;
+  if (user) {
+    const index = [...user, ...org];
 
-		const index_array = index.filter((e) => e.owner === owner);
-
-		return (
-			<div>
-				<Grid container item>
-					{index_array.map((tutorial, index) => (
-						<Grid
-							xs={12}
-							sm={6}
-							md={3}
-							lg={2}
-							xl={2}
-							className="mb-8 mr-8 mt-8 ml-8">
-							<TutorialCard
-								key={index}
-								tutorialData={tutorial}
-								loading={false}
-							/>
-						</Grid>
-					))}
-					{index_array.length === 0 && (
-						<EmptyTutorials org={ownerName} orgHandle={owner} />
-					)}
-				</Grid>
-			</div>
-		);
-	} else {
-		return (
-			<Grid justify="center" align="center">
-				<Grid xs={12} className="col-pad-24">
-					<Spinner half />
-				</Grid>
-			</Grid>
-		);
-	}
+    const index_array = index.filter(e => e.owner === owner);
+    console.log(index, index_array);
+    return (
+      <div>
+        <Grid container item>
+          {index_array[0]?.tutorials?.map((tutorial, index) => (
+            <Grid
+              xs={12}
+              sm={6}
+              md={3}
+              lg={2}
+              xl={2}
+              className="mb-8 mr-8 mt-8 ml-8"
+            >
+              <TutorialCard
+                key={index}
+                tutorialData={tutorial}
+                loading={false}
+              />
+            </Grid>
+          ))}
+          {index_array.length === 0 && (
+            <Grid
+              xs={12}
+              sm={6}
+              md={3}
+              lg={2}
+              xl={2}
+              className="mb-8 mr-8 mt-8 ml-8"
+            >
+              <EmptyTutorials org={ownerName} orgHandle={owner} />
+            </Grid>
+          )}
+        </Grid>
+      </div>
+    );
+  } else {
+    return (
+      <Grid justify="center" align="center">
+        <Grid xs={12} className="col-pad-24">
+          <Spinner half />
+        </Grid>
+      </Grid>
+    );
+  }
 };
 
 export default BaseTutorialsComponent;
