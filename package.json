@@ -63,6 +63,7 @@
     "redux-thunk": "^2.3.0",
     "simple-peer": "^9.11.1",
     "start-server-and-test": "^1.15.3",
+    "swiper": "^10.2.0",
     "url": "^0.11.0",
     "validator": "^13.6.0",
     "y-quill": "^0.1.5",
