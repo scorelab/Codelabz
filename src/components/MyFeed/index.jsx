@@ -9,7 +9,7 @@ import CodelabzExplore from "./DiscoverCodelabz/CodelabzExplore";
 
 const MyFeed = () => {
   return (
-    <Box style={{ background: "#F9F9F9", color: textcolor, height: "100%" }}>
+    <Box style={{ background: "#F9F9F9", color: "#000000", height: "100%" }}>
       <OrgsExplore />
       <CodelabzExplore />
     </Box>
