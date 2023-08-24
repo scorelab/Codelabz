@@ -27,17 +27,15 @@ const useStyles = makeStyles(theme => ({
     margin: "20px 0"
   },
   root: {
-    // boxShadow: "0rem 2rem 2rem gray",
     height: "100%",
-    // zIndex: "2",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
-    flexDirection: "column",
-    transform: "scale(0.9)"
+    flexDirection: "column"
   },
   media: {
     height: "auto",
+    maxHeight: "180px",
     minHeight: "200px",
     width: "100%"
   }
@@ -45,53 +43,77 @@ const useStyles = makeStyles(theme => ({
 
 const OrgsCarousel = () => {
   const classes = useStyles();
-  const launchedOrgs = useSelector(({ org }) => org.launched.data);
+  const launchedOrgs = useSelector(({ org }) => org.launched.data) || [
+    0, 0, 0, 0, 0
+  ];
   const dispatch = useDispatch();
   const firestore = useFirestore();
   useEffect(() => {
-    console.log("called");
     getLaunchedOrgsData()(firestore, dispatch);
     return () => {
       clearOrgData()(dispatch);
     };
   }, [firestore, dispatch]);
-  console.log(launchedOrgs);
   return (
     <>
       <Paper variant="outlined" className={classes.container}>
         <Grid container alignItems="center">
-          <Swiper modules={[Navigation]} navigation={true} slidesPerView={4}>
-            {launchedOrgs?.map((org, i) => {
-              return (
+          <Swiper
+            modules={[Navigation]}
+            navigation={true}
+            slidesPerView={4}
+            grabCursor={true}
+            loop={true}
+            spaceBetween={20}
+            style={{ padding: "20px 20px" }}
+          >
+            {launchedOrgs.map((org, i) => {
+              return org == 0 ? (
                 <SwiperSlide>
                   <Paper variant="outlined" className={classes.root}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        alt="CodeLabz"
-                        component="img"
-                        title="CodeLabz"
-                        image={org?.org_image ? org?.org_image : Default}
-                      />
-                      <CardContent
-                        style={{
-                          overflow: "hidden",
-                          padding: 10
-                        }}
-                      >
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {org?.org_handle}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          {org?.org_description}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      width={"100%"}
+                      height={180}
+                    />
+                    <Skeleton width={"100%"} height={"25px"} />
+                    <Skeleton width={"60%"} height={"25px"} />
                   </Paper>
+                </SwiperSlide>
+              ) : (
+                <SwiperSlide>
+                  <Link to={`/org/${org?.org_handle}`}>
+                    <Paper variant="outlined" className={classes.root}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.media}
+                          alt="CodeLabz"
+                          component="img"
+                          title="CodeLabz"
+                          height={350}
+                          image={org?.org_image ? org?.org_image : Default}
+                        />
+                        <CardContent
+                          style={{
+                            overflow: "hidden",
+                            padding: 10
+                          }}
+                        >
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {org?.org_handle}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p"
+                          >
+                            {org?.org_description}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Paper>
+                  </Link>
                 </SwiperSlide>
               );
             })}

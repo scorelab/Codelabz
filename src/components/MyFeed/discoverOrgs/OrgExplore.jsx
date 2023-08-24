@@ -96,7 +96,7 @@ const OrgsExplore = () => {
           }}
           data-testId="explorePageTag"
         >
-          <Grid item style={{ maxWidth: "800px" }}>
+          <Grid item>
             <TagCard tags={tags} sx={{ width: "100%" }} />
           </Grid>
         </Grid>
