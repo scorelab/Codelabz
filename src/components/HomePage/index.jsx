@@ -33,7 +33,10 @@ import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import NewTutorial from "../Tutorials/NewTutorial";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
-import { getTutorialFeedData } from "../../store/actions/tutorialPageActions";
+import {
+  getTutorialFeedData,
+  getTutorialFeedIdArray
+} from "../../store/actions/tutorialPageActions";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
@@ -161,10 +164,17 @@ function HomePage({ background = "white", textColor = "black" }) {
     }
   ]);
 
-  const tutorialIdArray = ["9VF7JGNPYmTQe7tdhZfQ"];
-
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
   useEffect(() => {
-    getTutorialFeedData(tutorialIdArray)(firebase, firestore, dispatch);
+    const getFeed = async () => {
+      const tutorialIdArray = await getTutorialFeedIdArray(profileData.uid)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      getTutorialFeedData(tutorialIdArray)(firebase, firestore, dispatch);
+    };
+    getFeed();
   }, []);
   const tutorials = useSelector(
     ({
@@ -173,8 +183,6 @@ function HomePage({ background = "white", textColor = "black" }) {
       }
     }) => homepageFeedArray
   );
-
-  console.log("tutorials array", tutorials);
 
   const notification = () => {};
   const handleChange = (event, newValue) => {
