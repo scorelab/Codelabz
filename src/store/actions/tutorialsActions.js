@@ -137,6 +137,7 @@ export const createTutorial =
           owner,
           summary,
           title,
+          tutorial_id: documentID,
           featured_image: "",
           icon: "",
           url: "",

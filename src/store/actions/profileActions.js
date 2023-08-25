@@ -186,7 +186,7 @@ export const clearUserProfile = () => dispatch => {
   dispatch({ type: actions.CLEAR_USER_PROFILE_DATA_STATE });
 };
 
-const isUserFollower = async (followerId, followingId, firestore) => {
+export const isUserFollower = async (followerId, followingId, firestore) => {
   const followerDoc = await firestore
     .collection("user_followers")
     .doc(`${followingId}_${followerId}`)
