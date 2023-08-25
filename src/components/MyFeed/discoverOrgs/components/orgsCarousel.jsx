@@ -57,68 +57,66 @@ const OrgsCarousel = () => {
   return (
     <>
       <Paper variant="outlined" className={classes.container}>
-        <Grid container alignItems="center">
-          <Swiper
-            modules={[Navigation]}
-            navigation={true}
-            slidesPerView={4}
-            grabCursor={true}
-            loop={true}
-            spaceBetween={20}
-            style={{ padding: "20px 20px" }}
-          >
-            {launchedOrgs.map((org, i) => {
-              return org == 0 ? (
-                <SwiperSlide>
+        <Swiper
+          modules={[Navigation]}
+          navigation={true}
+          slidesPerView={4}
+          grabCursor={true}
+          loop={true}
+          spaceBetween={20}
+          style={{ padding: "20px 20px" }}
+        >
+          {launchedOrgs.map((org, i) => {
+            return org == 0 ? (
+              <SwiperSlide>
+                <Paper variant="outlined" className={classes.root}>
+                  <Skeleton
+                    variant="rectangular"
+                    animation="wave"
+                    width={"100%"}
+                    height={180}
+                  />
+                  <Skeleton width={"100%"} height={"25px"} />
+                  <Skeleton width={"60%"} height={"25px"} />
+                </Paper>
+              </SwiperSlide>
+            ) : (
+              <SwiperSlide>
+                <Link to={`/org/${org?.org_handle}`}>
                   <Paper variant="outlined" className={classes.root}>
-                    <Skeleton
-                      variant="rectangular"
-                      animation="wave"
-                      width={"100%"}
-                      height={180}
-                    />
-                    <Skeleton width={"100%"} height={"25px"} />
-                    <Skeleton width={"60%"} height={"25px"} />
-                  </Paper>
-                </SwiperSlide>
-              ) : (
-                <SwiperSlide>
-                  <Link to={`/org/${org?.org_handle}`}>
-                    <Paper variant="outlined" className={classes.root}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          alt="CodeLabz"
-                          component="img"
-                          title="CodeLabz"
-                          height={350}
-                          image={org?.org_image ? org?.org_image : Default}
-                        />
-                        <CardContent
-                          style={{
-                            overflow: "hidden",
-                            padding: 10
-                          }}
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        alt="CodeLabz"
+                        component="img"
+                        title="CodeLabz"
+                        height={350}
+                        image={org?.org_image ? org?.org_image : Default}
+                      />
+                      <CardContent
+                        style={{
+                          overflow: "hidden",
+                          padding: 10
+                        }}
+                      >
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {org?.org_handle}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
                         >
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {org?.org_handle}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                          >
-                            {org?.org_description}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Paper>
-                  </Link>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </Grid>
+                          {org?.org_description}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Paper>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </Paper>
     </>
   );

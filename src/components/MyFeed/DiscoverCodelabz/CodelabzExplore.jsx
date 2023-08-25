@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Skeleton from "@mui/material/Skeleton";
-import Card from "@mui/material/Card";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Tabs, Tab, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
-import { Link } from "react-router-dom";
 import CodelabzCarousel from "./CodelabzCarousel";
-import TagCard from "../../CardTabs/Tags";
 const useStyles = makeStyles(theme => ({
   container: {
     padding: "30px"

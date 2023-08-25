@@ -17,50 +17,65 @@ import Button from "@mui/material/Button";
 import { Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { useFirestore } from "react-redux-firebase";
+import { useFirestore, useFirebase } from "react-redux-firebase";
 import Default from "../../../assets/images/logo.jpeg";
 import { Link } from "react-router-dom";
 import { clearOrgData, getLaunchedOrgsData } from "../../../store/actions";
+import {
+  getTutorialFeedIdArray,
+  getTutorialFeedData
+} from "../../../store/actions/tutorialPageActions";
 
 const useStyles = makeStyles(theme => ({
   container: {
     margin: "20px 0"
   },
   root: {
-    // boxShadow: "0rem 2rem 2rem gray",
     height: "100%",
-    // zIndex: "2",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
-    flexDirection: "column",
-    transform: "scale(0.9)"
+    flexDirection: "column"
+  },
+  media: {
+    height: "auto",
+    maxHeight: "180px",
+    minHeight: "200px",
+    width: "100%"
   },
   heading: {
     padding: "10px 20px 0",
     fontSize: "1.1rem",
     fontWeight: "600"
-  },
-  media: {
-    height: "auto",
-    minHeight: "100px",
-    width: "100%"
   }
 }));
 
 const CodelabzCarousel = ({ sortBy }) => {
   const classes = useStyles();
-  const launchedOrgs = useSelector(({ org }) => org.launched.data);
+
+  const tutorials = useSelector(
+    ({ tutorialPage }) => tutorialPage.feed.homepageFeedArray
+  ) || [0, 0, 0, 0, 0, 0];
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
   const dispatch = useDispatch();
   const firestore = useFirestore();
+  const firebase = useFirebase();
+
   useEffect(() => {
-    console.log("called");
-    getLaunchedOrgsData()(firestore, dispatch);
-    return () => {
-      clearOrgData()(dispatch);
+    const getFeed = async () => {
+      const tutorialIdArray = await getTutorialFeedIdArray(profileData.uid)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      getTutorialFeedData(tutorialIdArray)(firebase, firestore, dispatch);
     };
+    getFeed();
+    return () => {};
   }, [firestore, dispatch]);
-  console.log(launchedOrgs);
+
+  console.log(tutorials);
+
   const getTitle = () => {
     switch (sortBy) {
       case "trending":
@@ -77,11 +92,32 @@ const CodelabzCarousel = ({ sortBy }) => {
         <Typography variant="h4" className={classes.heading}>
           {getTitle()}
         </Typography>
-        <Grid container alignItems="center">
-          <Swiper modules={[Navigation]} navigation={true} slidesPerView={5}>
-            {launchedOrgs?.map((org, i) => {
-              return (
-                <SwiperSlide>
+        <Swiper
+          modules={[Navigation]}
+          navigation={true}
+          slidesPerView={4}
+          grabCursor={true}
+          loop={true}
+          spaceBetween={20}
+          style={{ padding: "20px 20px" }}
+        >
+          {tutorials.map((tutorial, i) => {
+            return tutorial == 0 ? (
+              <SwiperSlide>
+                <Paper variant="outlined" className={classes.root}>
+                  <Skeleton
+                    variant="rectangular"
+                    animation="wave"
+                    width={"100%"}
+                    height={180}
+                  />
+                  <Skeleton width={"100%"} height={"25px"} />
+                  <Skeleton width={"60%"} height={"25px"} />
+                </Paper>
+              </SwiperSlide>
+            ) : (
+              <SwiperSlide>
+                <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
                   <Paper variant="outlined" className={classes.root}>
                     <CardActionArea>
                       <CardMedia
@@ -89,7 +125,12 @@ const CodelabzCarousel = ({ sortBy }) => {
                         alt="CodeLabz"
                         component="img"
                         title="CodeLabz"
-                        image={org?.org_image ? org?.org_image : Default}
+                        height={350}
+                        image={
+                          tutorial?.featured_image
+                            ? tutorial?.featured_image
+                            : Default
+                        }
                       />
                       <CardContent
                         style={{
@@ -98,23 +139,23 @@ const CodelabzCarousel = ({ sortBy }) => {
                         }}
                       >
                         <Typography gutterBottom variant="h5" component="h2">
-                          {org?.org_handle}
+                          {tutorial?.title}
                         </Typography>
                         <Typography
                           variant="body2"
                           color="textSecondary"
                           component="p"
                         >
-                          {org?.org_description}
+                          {tutorial?.summary}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
                   </Paper>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </Grid>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </Paper>
     </>
   );

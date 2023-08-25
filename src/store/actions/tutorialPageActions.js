@@ -8,6 +8,7 @@ export const getTutorialFeedIdArray =
         followings = await firestore
           .collection("user_followers")
           .where("followerId", "==", uid)
+          .where("isPublished", "==", true)
           .get()
           .then(async docs => {
             const result = [];
@@ -28,6 +29,7 @@ export const getTutorialFeedIdArray =
         followingUsersTutorials = await firestore
           .collection("tutorials")
           .where("created_by", "in", followings)
+          .where("isPublished", "==", true)
           .limit(50)
           .get()
           .then(docs => {
@@ -45,6 +47,7 @@ export const getTutorialFeedIdArray =
         newTutorials = await firestore
           .collection("tutorials")
           .where("created_by", "not-in", followings)
+          .where("isPublished", "==", true)
           .limit(50)
           .get()
           .then(docs => {
@@ -58,6 +61,7 @@ export const getTutorialFeedIdArray =
       } else {
         newTutorials = await firestore
           .collection("tutorials")
+          .where("isPublished", "==", true)
           .limit(50)
           .get()
           .then(docs => {
