@@ -5,15 +5,11 @@ import "swiper/css/bundle";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Skeleton from "@mui/material/Skeleton";
-import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,9 +46,7 @@ const OrgsCarousel = () => {
   const firestore = useFirestore();
   useEffect(() => {
     getLaunchedOrgsData()(firestore, dispatch);
-    return () => {
-      clearOrgData()(dispatch);
-    };
+    return () => {};
   }, [firestore, dispatch]);
   return (
     <>
