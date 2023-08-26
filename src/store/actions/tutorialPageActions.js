@@ -39,9 +39,8 @@ export const getTutorialFeedIdArray =
             return tutorialsArray;
           });
       }
-      followings.push(uid);
       let newTutorials = [];
-      if (uid) {
+      if (followings.length > 0) {
         newTutorials = await firestore
           .collection("tutorials")
           .where("created_by", "not-in", followings)
