@@ -16,11 +16,12 @@ import {
 import { getUserProfileData } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 function TutorialPage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
   const { id } = useParams();
+  const history = useHistory();
   const windowSize = useWindowSize();
   const [openMenu, setOpen] = useState(false);
   const toggleSlider = () => {
@@ -32,6 +33,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
   useEffect(() => {
     getTutorialData(id)(firebase, firestore, dispatch);
     getTutorialSteps(id)(firebase, firestore, dispatch);
+    return () => {};
   }, []);
   const tutorial = useSelector(
     ({
@@ -39,6 +41,13 @@ function TutorialPage({ background = "white", textColor = "black" }) {
         post: { data }
       }
     }) => data
+  );
+  const loading = useSelector(
+    ({
+      tutorialPage: {
+        post: { loading }
+      }
+    }) => loading
   );
 
   const postDetails = {
@@ -58,6 +67,10 @@ function TutorialPage({ background = "white", textColor = "black" }) {
       }
     }) => steps
   );
+  if ((!loading && !tutorial) || (!loading && !tutorial?.isPublished)) {
+    console.log(loading, tutorial);
+    history.push("/not-found");
+  }
 
   return (
     <Box
@@ -94,7 +107,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
         <Grid
           item
           className={classes.mainBody}
-          data-testId="homepageMainBody"
+          data-testId="tutorialpageMainBody"
           xs={6}
         >
           <PostDetails details={postDetails} />
@@ -102,7 +115,12 @@ function TutorialPage({ background = "white", textColor = "black" }) {
           <CommentBox commentsArray={tutorial?.comments} tutorialId={id} />
         </Grid>
 
-        <Grid item className={classes.sideBody} xs={3}>
+        <Grid
+          item
+          className={classes.sideBody}
+          xs={3}
+          data-testId="tutorialpageSideBar"
+        >
           <SideBar />
         </Grid>
       </Grid>
