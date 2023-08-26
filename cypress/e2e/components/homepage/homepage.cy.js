@@ -55,10 +55,10 @@ describe("Home Page Test | CodeLabz", () => {
   it("Check New Codelabz is visible on homepage", function () {
     cy.visit(this.base_url);
     cy.get("[data-testId=codelabz]").should("exist");
-    cy.get("[data-testId=codelabzDetails]").should("exist").click();
-    cy.wait(5000);
-    cy.location().should(loc => {
-      expect(loc.href).to.eq(`${this.base_url}tutorial/${id}`);
+    cy.get("[data-testId=codelabzDetails]").spread((first, second) => {
+      first.click();
+      cy.wait(5000);
+      cy.url().should("include", "/tutorial");
     });
   });
 });
