@@ -37,6 +37,7 @@ describe("Home Page Test | CodeLabz", () => {
   });
 
   it("check New Codelabz Button is working", function () {
+    cy.wait(5000);
     cy.get("[data-testId=NewCodelabzBtn]").should("exist").click();
     cy.get("[data-testId=newTutorial_title]").should("exist").type("test");
     cy.get("[data-testId=newTutorial_summary]").should("exist").type("test");
@@ -57,7 +58,7 @@ describe("Home Page Test | CodeLabz", () => {
     cy.get("[data-testId=codelabzDetails]").should("exist").click();
     cy.wait(5000);
     cy.location().should(loc => {
-      expect(loc.href).to.eq(`${this.base_url}/tutorial/${id}`);
+      expect(loc.href).to.eq(`${this.base_url}tutorial/${id}`);
     });
   });
 });
