@@ -12,9 +12,12 @@ import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import User from "./UserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../../store/actions";
+import { HashLink } from "react-router-hash-link";
+import { useParams } from "react-router-dom";
 const useStyles = makeStyles(() => ({
   container: {
     padding: "20px",
@@ -43,7 +46,8 @@ const PostDetails = ({ details }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(details.upVote - details.downVote);
+  const [count, setCount] = useState(details.upVote - details.downVote || 0);
+  const { id } = useParams();
 
   useEffect(() => {
     getUserProfileData(details.user)(firebase, firestore, dispatch);
@@ -96,52 +100,11 @@ const PostDetails = ({ details }) => {
             </Box>
             <Box sx={{ width: "100%", marginTop: "10px" }}>
               <Grid container justifyContent="space-between" alignItems="end">
-                <Grid
-                  item
-                  container
-                  justifyContent="start"
-                  alignItems="start"
-                  columnSpacing={1}
-                  xs={6}
-                >
-                  <Grid sx={{ height: "100%", width: "auto" }} item>
-                    <Avatar>
-                      {user?.photoURL && user?.photoURL.length > 0 ? (
-                        <img src={user?.photoURL} />
-                      ) : (
-                        user?.displayName[0]
-                      )}
-                    </Avatar>
-                  </Grid>
-                  <Grid item sx={{ width: "fit-content" }}>
-                    <Typography>
-                      <span className={classes.bold}>{user?.displayName}</span>
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        opacity: "0.4",
-                        fontWeight: "600"
-                      }}
-                    >
-                      {details?.published_on
-                        ? getTime(details?.published_on)
-                        : ""}
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      disabled
-                      sx={{
-                        borderRadius: "50px",
-                        height: "20px",
-                        textTransform: "none",
-                        padding: "1px 10px"
-                      }}
-                    >
-                      Follow +
-                    </Button>
-                  </Grid>
-                </Grid>
+                <User
+                  id={details?.user}
+                  timestamp={details?.published_on}
+                  showFollowButton={true}
+                />
 
                 <Grid item sx={{ width: "fit-content" }}>
                   <CardActions className={classes.settings} disableSpacing>
@@ -171,9 +134,11 @@ const PostDetails = ({ details }) => {
                         <KeyboardArrowDownIcon />
                       </ToggleButton>
                     </ToggleButtonGroup>
-                    <IconButton aria-label="share" data-testId="CommentIcon">
-                      <ChatOutlinedIcon />
-                    </IconButton>
+                    <HashLink to={`/tutorial/${id}#comments`}>
+                      <IconButton aria-label="share" data-testId="CommentIcon">
+                        <ChatOutlinedIcon />
+                      </IconButton>
+                    </HashLink>
                     <IconButton
                       aria-label="add to favorites"
                       data-testId="ShareIcon"

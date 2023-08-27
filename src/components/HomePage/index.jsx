@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardComponent from "../CodelabCard/index";
 import Typography from "@mui/material/Typography";
@@ -31,9 +31,21 @@ import CardWithoutPicture from "../Card/CardWithoutPicture";
 import Activity from "../Topbar/Activity";
 import useWindowSize from "../../helpers/customHooks/useWindowSize";
 import NewTutorial from "../Tutorials/NewTutorial";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import {
+  getTutorialFeedData,
+  getTutorialFeedIdArray
+} from "../../store/actions/tutorialPageActions";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
+<<<<<<< HEAD
+=======
+  const dispatch = useDispatch();
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+>>>>>>> 3225631bf90c2b306f0a63e4b5035d7ffef3c770
   const [value, setValue] = useState(2);
   const [selectedTab, setSelectedTab] = useState("1");
   const [visibleModal, setVisibleModal] = useState(false);
@@ -155,6 +167,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     }
   ]);
 
+<<<<<<< HEAD
   const notification = () => {};
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -334,6 +347,207 @@ function HomePage({ background = "white", textColor = "black" }) {
             </Grid>
           </Grid>
 
+=======
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
+  useEffect(() => {
+    const getFeed = async () => {
+      const tutorialIdArray = await getTutorialFeedIdArray(profileData.uid)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      getTutorialFeedData(tutorialIdArray)(firebase, firestore, dispatch);
+    };
+    getFeed();
+  }, []);
+  const tutorials = useSelector(
+    ({
+      tutorialPage: {
+        feed: { homepageFeedArray }
+      }
+    }) => homepageFeedArray
+  );
+
+  const notification = () => {};
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleTabChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
+  const closeModal = () => {
+    setVisibleModal(prev => !prev);
+  };
+  return (
+    <Card
+      className={classes.wrapper}
+      style={{ background: background }}
+      data-testId="homepage"
+    >
+      <Grid container justifyContent="center" className={classes.contentPart}>
+        <Grid item xs={2} className={classes.sideBody}>
+          {windowSize.width > 750 && (
+            <Grid
+              item
+              container
+              className={classes.leftSideCard}
+              direction="column"
+              style={{
+                width: "100%",
+                overflow: "auto",
+                backgroundColor: "transparent",
+                border: "none",
+                boxShadow: "none"
+              }}
+            >
+              <Grid item className={classes.outerSideBar}>
+                <SideBar open={openMenu} toggleSlider={toggleSlider} />
+              </Grid>
+            </Grid>
+          )}
+        </Grid>
+        <Grid
+          item
+          className={classes.mainBody}
+          data-testId="homepageMainBody"
+          xs={6}
+        >
+          <NewCodelabz setVisibleModal={setVisibleModal} />
+          <NewTutorial
+            viewModal={visibleModal}
+            onSidebarClick={e => closeModal(e)}
+          />
+          <Card className={classes.card}>
+            <Activity />
+          </Card>
+          <Box item sx={{ display: { md: "none" } }}>
+            <TagCard tags={tags} />
+          </Box>
+          {tutorials.map(tutorial => {
+            return !tutorial?.featured_image ? (
+              <CardWithoutPicture tutorial={tutorial} />
+            ) : (
+              <CardWithPicture tutorial={tutorial} />
+            );
+          })}
+          <Box
+            sx={{
+              width: "100%",
+              typography: "subtitle1",
+              display: { md: "none" }
+            }}
+          >
+            <TabContext value={selectedTab}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                scrollButtons="on"
+                indicatorColor="primary"
+                textColor="primary"
+                aria-label="scrollable force tabs example"
+                style={{
+                  borderBottom: "1px solid gray",
+                  margin: "5px"
+                }}
+              >
+                <Tab
+                  icon={<EventAvailableIcon />}
+                  value="1"
+                  style={{ width: "25%" }}
+                />
+                <Tab
+                  icon={<EventSeatIcon />}
+                  value="2"
+                  style={{ width: "25%" }}
+                />
+                <Tab
+                  icon={<ThumbUpAltIcon />}
+                  value="3"
+                  style={{ width: "25%" }}
+                />
+                <Tab
+                  icon={<SupervisorAccountIcon />}
+                  value="4"
+                  style={{ width: "25%" }}
+                />
+              </Tabs>
+              <TabPanel value="1" style={{ padding: 0 }}>
+                <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
+              </TabPanel>
+              <TabPanel value="2" style={{ padding: 0 }}>
+                <EventsCard title={"Popular Events"} events={upcomingEvents} />
+              </TabPanel>
+              <TabPanel value="3" style={{ padding: 0 }}>
+                <UserCard title={"Who to Follow"} users={usersToFollow} />
+              </TabPanel>
+              <TabPanel value="4" style={{ padding: 0 }}>
+                <UserCard title={"Contributors"} users={contributors} />
+              </TabPanel>
+            </TabContext>
+          </Box>
+        </Grid>
+
+        <Grid item className={classes.sideBody} xs={3}>
+          <Grid
+            item
+            container
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%"
+            }}
+            data-testId="homepageTagSidebar"
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <TagCard tags={tags} />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%"
+            }}
+            data-testId="homepageUpcomingEvents"
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%"
+            }}
+            data-testId="homepageUsersToFollow"
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <UserCard title={"Who to Follow"} users={usersToFollow} />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            alignContent="center"
+            direction="column"
+            style={{
+              width: "100%",
+              overflow: "auto",
+              maxHeight: "25rem",
+              backgroundColor: "transparent",
+              border: "none",
+              boxShadow: "none"
+            }}
+            data-testId="homepageContributors"
+          >
+            <Grid item style={{ minWidth: "100%" }}>
+              <UserCard title={"Contributors"} users={contributors} />
+            </Grid>
+          </Grid>
+
+>>>>>>> 3225631bf90c2b306f0a63e4b5035d7ffef3c770
           <Grid
             container
             alignContent="center"

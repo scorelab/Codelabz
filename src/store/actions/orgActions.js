@@ -13,29 +13,30 @@ export const searchFromIndex = query => {
 export const getOrgUserData = org_handle => async (firestore, dispatch) => {
   try {
     dispatch({ type: actions.GET_ORG_USER_DATA_START });
-    const usersDoc = await firestore
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .collection("cl_org_users")
-      .doc("users")
+    const orgUsersSnap = await firestore
+      .collection("org_users")
+      .where("org_handle", "==", org_handle)
       .get();
-    const usersData = usersDoc.data();
-    const users = _.omit(usersData, ["createdAt", "updatedAt"]);
-    const promises = Object.keys(users).map(async uid => {
-      let userDoc = await firestore.collection("cl_user").doc(uid).get();
+  
+    const orgUsersDocs = orgUsersSnap.docs.map((doc) => doc.data());
+
+    const orgPromises = orgUsersDocs.map(async (user) => {
+      let userDoc = await firestore.collection("cl_user").doc(user.uid).get();
       return {
         name: userDoc.get("displayName"),
         handle: userDoc.get("handle"),
         image: userDoc.get("photoURL"),
-        permission_level: users[uid]
+        permission_level: user.permissions
       };
     });
-    const userData = await Promise.all(promises);
+    const orgUserData = await Promise.all(orgPromises);
+
+    
     dispatch({
       type: actions.GET_ORG_USER_DATA_SUCCESS,
-      payload: _.orderBy(userData, ["permission_level"], ["desc"])
+      payload: _.orderBy(orgUserData, ["permission_level"], ["desc"])
     });
-    userData.forEach(doc => {
+    orgUserData.forEach(doc => {
       elasticlunr.addDocToIndex(doc);
     });
   } catch (e) {
@@ -43,6 +44,7 @@ export const getOrgUserData = org_handle => async (firestore, dispatch) => {
   }
 };
 
+// adds a user to organization's users list with a set of permissions
 export const addOrgUser =
   ({ org_handle, handle, permissions }) =>
   async (firestore, dispatch) => {
@@ -55,14 +57,13 @@ export const addOrgUser =
       if (userDoc.docs.length === 1) {
         const uid = userDoc.docs[0].get("uid");
         await firestore
-          .collection("cl_org_general")
-          .doc(org_handle)
-          .collection("cl_org_users")
-          .doc("users")
-          .update({
-            [uid]: [permissions],
-            updatedAt: firestore.FieldValue.serverTimestamp()
-          });
+          .collection("org_users")
+          .doc(`${org_handle}_${uid}`)
+          .set({
+            uid: uid,
+            org_handle: org_handle,
+            permissions: permissions
+          })
 
         await getOrgUserData(org_handle)(firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
@@ -73,10 +74,12 @@ export const addOrgUser =
         });
       }
     } catch (e) {
+      console.log(e)
       dispatch({ type: actions.ADD_ORG_USER_FAIL, payload: e.message });
     }
   };
 
+// removes all permissions of a user from an organization
 export const removeOrgUser =
   ({ org_handle, handle }) =>
   async (firestore, dispatch) => {
@@ -89,14 +92,9 @@ export const removeOrgUser =
       if (userDoc.docs.length === 1) {
         const uid = userDoc.docs[0].get("uid");
         await firestore
-          .collection("cl_org_general")
-          .doc(org_handle)
-          .collection("cl_org_users")
-          .doc("users")
-          .update({
-            [uid]: firestore.FieldValue.delete(),
-            updatedAt: firestore.FieldValue.serverTimestamp()
-          });
+          .collection("org_users")
+          .doc(`${org_handle}_${uid}`)
+          .delete();
 
         await getOrgUserData(org_handle)(firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
@@ -107,6 +105,7 @@ export const removeOrgUser =
         });
       }
     } catch (e) {
+      console.log(e);
       dispatch({ type: actions.ADD_ORG_USER_FAIL, payload: e.message });
     }
   };
@@ -124,45 +123,25 @@ export const getOrgBasicData = org_handle => async firebase => {
 
     if (!orgDoc.exists) return null;
 
-    const org_name = orgDoc.get("org_name");
-    const org_image = orgDoc.get("org_image");
-    const org_link_facebook = orgDoc.get("org_link_facebook");
-    const org_link_github = orgDoc.get("org_link_github");
-    const org_link_linkedin = orgDoc.get("org_link_linkedin");
-    const org_link_twitter = orgDoc.get("org_link_twitter");
-    const org_website = orgDoc.get("org_website");
-    const org_published = orgDoc.get("org_published");
-    const org_description = orgDoc.get("org_description");
-    const org_country = orgDoc.get("org_country");
-
     const orgPermissionDoc = await firestore
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .collection("cl_org_users")
-      .doc("users")
+      .collection("org_users")
+      .doc(`${org_handle}_${uid}`)
       .get();
 
     if (!orgPermissionDoc.exists) return null;
 
-    const user_permissions = orgPermissionDoc.get(uid);
+    const user_permissions = orgPermissionDoc.get("permissions");
 
     if (!user_permissions) return null;
 
+    const orgData = orgDoc.data();
     return {
-      org_handle,
-      org_name,
-      org_link_facebook,
-      org_link_github,
-      org_link_linkedin,
-      org_link_twitter,
-      org_website,
-      org_published,
-      org_description,
-      org_country,
-      org_image: org_image ? org_image : "",
+      ...orgData,
+      org_image: orgData.org_image ? orgData.org_image : "",
       permissions: user_permissions
-    };
+    }
   } catch (e) {
+    console.log(e);
     throw e;
   }
 };
@@ -251,7 +230,7 @@ export const getOrgData =
     try {
       dispatch({ type: actions.GET_ORG_DATA_START });
 
-      const isOrgExists = await checkOrgHandleExists(org_handle)(firebase);
+      const isOrgExists = await checkOrgHandleExists(org_handle)(firestore);
 
       if (isOrgExists) {
         const doc = await firestore
@@ -262,7 +241,13 @@ export const getOrgData =
           organizations.includes(org_handle) || doc.get("org_published");
 
         if (isPublished) {
-          dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: doc.data() });
+          dispatch({
+            type: actions.GET_ORG_DATA_SUCCESS,
+            payload: {
+              ...doc.data(),
+              userSubscription: await isUserSubscribed(org_handle, firebase, firestore)
+            }
+          });
         } else {
           dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
         }
@@ -270,6 +255,7 @@ export const getOrgData =
         dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
       }
     } catch (e) {
+      console.log(e)
       dispatch({ type: actions.GET_ORG_DATA_FAIL, payload: e.message });
     }
   };
@@ -293,6 +279,65 @@ export const getLaunchedOrgsData = () => async (firestore, dispatch) => {
     dispatch({ type: actions.GET_LAUNCHED_ORGS_FAIL, payload: e.message });
   }
 };
+
+const isUserSubscribed = async (org_handle, firebase, firestore) => {
+  const auth = firebase.auth().currentUser;
+
+  const subscription = await firestore
+  .collection("org_subscribers")
+  .doc(`${org_handle}_${auth.uid}`)
+  .get()
+
+  return subscription.exists;
+}
+
+export const subscribeOrg = 
+  (org_handle) => async (firebase, firestore, dispatch) => {
+    try {
+      const auth = firebase.auth().currentUser;
+
+      await firestore
+        .collection("org_subscribers")
+        .doc(`${org_handle}_${auth.uid}`)
+        .set({
+          uid: auth.uid,
+          org_handle,
+        })
+      
+      await firestore
+        .collection("cl_org_general")
+        .doc(org_handle)
+        .update({
+          followerCount: firebase.firestore.FieldValue.increment(1)
+        })
+
+      getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+export const unSubscribeOrg = 
+  (org_handle) => async (firebase, firestore, dispatch) => {
+    try {
+      const auth = firebase.auth().currentUser;
+      await firestore
+        .collection("org_subscribers")
+        .doc(`${org_handle}_${auth.uid}`)
+        .delete()
+
+      await firestore
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .update({
+        followerCount: firebase.firestore.FieldValue.increment(-1)
+      })
+
+      getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 export const removeFollower =
   (val, people, handle, orgFollowed, profileId) => (firestore, dispatch) => {
     console.log("test");

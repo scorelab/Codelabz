@@ -24,22 +24,24 @@ export const setCurrentOrgUserPermissions =
     }
   };
 
-export const getProfileData = organizations => async (firebase, dispatch) => {
+export const getProfileData = () => async (firebase, firestore, dispatch) => {
   try {
-    let orgs = [];
+    dispatch({ type: actions.GET_PROFILE_DATA_START });
+    const userOrgs = await getAllOrgsOfCurrentUser()(firebase, firestore, dispatch);
+    const organizations = userOrgs?.map(org => org.org_handle);
+    // console.log(organizations);
     if (organizations && organizations.length > 0) {
-      dispatch({ type: actions.GET_PROFILE_DATA_START });
       const promises = organizations.map(org_handle =>
         getOrgBasicData(org_handle)(firebase)
       );
-      orgs = await Promise.all(promises);
+      const orgs = await Promise.all(promises);
       setCurrentOrgUserPermissions(
         orgs[0].org_handle,
         orgs[0].permissions
       )(dispatch);
       dispatch({
         type: actions.GET_PROFILE_DATA_SUCCESS,
-        payload: { organizations: _.orderBy(orgs, ["org_handle"], ["asc"]) }
+        payload: { organizations: _.orderBy(orgs, ["permissions"], ["desc"]) }
       });
     } else {
       dispatch({ type: actions.GET_PROFILE_DATA_END });
@@ -155,14 +157,23 @@ export const getUserProfileData =
   handle => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.GET_USER_DATA_START });
-      const isUserExists = await checkUserHandleExists(handle)(firebase);
+      const isUserExists = await checkUserHandleExists(handle)(firestore);
       if (isUserExists) {
         const docs = await firestore
           .collection("cl_user")
           .where("handle", "==", handle)
           .get();
         const doc = docs.docs[0].data();
-        dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: doc });
+        const currentUserId = firebase.auth().currentUser.uid;
+        const followingStatus = await isUserFollower(
+          currentUserId,
+          doc.uid,
+          firestore
+        );
+        dispatch({
+          type: actions.GET_USER_DATA_SUCCESS,
+          payload: { ...doc, isFollowing: followingStatus }
+        });
       } else {
         dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: false });
       }
@@ -175,41 +186,51 @@ export const clearUserProfile = () => dispatch => {
   dispatch({ type: actions.CLEAR_USER_PROFILE_DATA_STATE });
 };
 
-export const addUserFollower = (
+export const isUserFollower = async (followerId, followingId, firestore) => {
+  const followerDoc = await firestore
+    .collection("user_followers")
+    .doc(`${followingId}_${followerId}`)
+    .get();
+  return followerDoc.exists;
+};
+
+export const addUserFollower = async (
   currentProfileData,
-  followers,
-  following,
   profileData,
   firestore,
   dispatch
 ) => {
   try {
-    if (followers && followers.includes(currentProfileData.handle)) {
-    } else if (followers) {
-      const arr = [...followers];
-      arr.push(currentProfileData.handle);
-      firestore.collection("cl_user").doc(profileData.uid).update({
-        followers: arr
-      });
-      var arr2 = [];
-      if (following) arr2 = [...following];
-
-      arr2.push(profileData.handle);
-      firestore.collection("cl_user").doc(currentProfileData.uid).update({
-        following: arr2
-      });
-    } else {
+    const followStatus = await isUserFollower(
+      currentProfileData.uid,
+      profileData.uid,
       firestore
-        .collection("cl_user")
-        .doc(currentProfileData.uid)
-        .update({
-          following: [profileData.handle]
+    );
+    if (followStatus === false) {
+      await firestore
+        .collection("user_followers")
+        .doc(`${profileData.uid}_${currentProfileData.uid}`)
+        .set({
+          followingId: profileData.uid,
+          followerId: currentProfileData.uid
         });
-      firestore
+
+      await firestore
         .collection("cl_user")
         .doc(profileData.uid)
         .update({
-          followers: [currentProfileData.handle]
+          followerCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(1)
+            : 1
+        });
+
+      await firestore
+        .collection("cl_user")
+        .doc(currentProfileData.uid)
+        .update({
+          followingCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(1)
+            : 1
         });
     }
   } catch (e) {
@@ -217,26 +238,62 @@ export const addUserFollower = (
   }
 };
 
-export const removeUserFollower = (
-  followers,
+export const removeUserFollower = async (
   currentProfileData,
-  following,
   profileData,
   firestore,
   dispatch
 ) => {
   try {
-    var filteredFollowers = followers.filter(function (value, index, arr) {
-      return value !== currentProfileData.handle;
-    });
-    firestore.collection("cl_user").doc(profileData.uid).update({
-      followers: filteredFollowers
-    });
-    var currFollowing = following.filter(function (value, index, arr) {
-      return profileData.handle !== value;
-    });
-    firestore.collection("cl_user").doc(currentProfileData.uid).update({
-      following: currFollowing
-    });
-  } catch (e) {}
+    const followStatus = await isUserFollower(
+      currentProfileData.uid,
+      profileData.uid,
+      firestore
+    );
+    if (followStatus === true) {
+      await firestore
+        .collection("user_followers")
+        .doc(`${profileData.uid}_${currentProfileData.uid}`)
+        .delete();
+
+      await firestore
+        .collection("cl_user")
+        .doc(profileData.uid)
+        .update({
+          followerCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(-1)
+            : 0
+        });
+
+      await firestore
+        .collection("cl_user")
+        .doc(currentProfileData.uid)
+        .update({
+          followingCount: firestore.FieldValue
+            ? firestore.FieldValue.increment(-1)
+            : 0
+        });
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
+
+const getAllOrgsOfCurrentUser = (uid) => async (firebase, firestore, dispatch) => {
+  try {
+    const auth = firebase.auth().currentUser;
+    if (auth === null) return [];
+    const orgUsersDocs = await firestore
+    .collection("org_users")
+    .where("uid", "==", auth.uid)
+    .get()
+  
+  const userOrgs = orgUsersDocs.docs.map(
+    orgUserDoc => orgUserDoc.data()
+  );
+  
+  return userOrgs;
+  } catch (e) {
+    console.log(e)
+  }
+}

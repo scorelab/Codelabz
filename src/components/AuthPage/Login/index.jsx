@@ -197,12 +197,12 @@ const Login = ({
                 />
               </FormGroup>
             </Grid>
-            <Grid>
+            <Grid style={{fontFamily:"Arial, sans-serif",fontSize:"1.5vh"}}> 
               <Link
                 data-testId="forgotPassoword"
                 to="/forgotpassword"
                 className="login-form-forgot"
-                style={{ float: "right" }}
+                style={{ float: "right"}}
               >
                 Forgot password
               </Link>

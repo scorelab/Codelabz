@@ -9,7 +9,10 @@ import Grid from "@mui/material/Grid";
 import useStyles from "./styles";
 import StepsBar from "./StepBar";
 import useWindowSize from "../../helpers/customHooks/useWindowSize";
-import { getTutorialData } from "../../store/actions/tutorialPageActions";
+import {
+  getTutorialData,
+  getTutorialSteps
+} from "../../store/actions/tutorialPageActions";
 import { getUserProfileData } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -28,6 +31,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
   const firestore = useFirestore();
   useEffect(() => {
     getTutorialData(id)(firebase, firestore, dispatch);
+    getTutorialSteps(id)(firebase, firestore, dispatch);
   }, []);
   const tutorial = useSelector(
     ({
@@ -38,14 +42,22 @@ function TutorialPage({ background = "white", textColor = "black" }) {
   );
 
   const postDetails = {
-    title: tutorial?.tut_title,
-    org: tutorial?.org_handle,
-    user: tutorial?.user_handle,
+    title: tutorial?.title,
+    org: tutorial?.owner,
+    user: tutorial?.created_by,
     upVote: tutorial?.upVotes,
     downVote: tutorial?.downVotes,
-    published_on: tutorial?.published_on,
+    published_on: tutorial?.createdAt,
     tag: tutorial?.tut_tags
   };
+
+  const steps = useSelector(
+    ({
+      tutorialPage: {
+        post: { steps }
+      }
+    }) => steps
+  );
 
   return (
     <Box
@@ -73,7 +85,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
                 <StepsBar
                   open={openMenu}
                   toggleSlider={toggleSlider}
-                  steps={tutorial.steps}
+                  steps={steps}
                 />
               </Grid>
             </Grid>
@@ -86,8 +98,8 @@ function TutorialPage({ background = "white", textColor = "black" }) {
           xs={6}
         >
           <PostDetails details={postDetails} />
-          <Tutorial steps={tutorial?.steps} />
-          <CommentBox />
+          <Tutorial steps={steps} />
+          <CommentBox commentsArray={tutorial?.comments} tutorialId={id} />
         </Grid>
 
         <Grid item className={classes.sideBody} xs={3}>

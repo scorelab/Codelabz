@@ -4,7 +4,10 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import PropTypes from "prop-types";
 import Carousel from "./Carousel/index";
+import OrgsExplore from "./discoverOrgs/OrgExplore";
+import CodelabzExplore from "./DiscoverCodelabz/CodelabzExplore";
 
+<<<<<<< HEAD
 const MyFeed = ({
   heading = "Explore Codelabz",
   title = " Explore top rated Organizations and find the Codelabz you are looking for",
@@ -49,6 +52,15 @@ MyFeed.propTypes = {
   title: PropTypes.string,
   backgroundcolor: PropTypes.string,
   textcolor: PropTypes.string
+=======
+const MyFeed = () => {
+  return (
+    <Box style={{ background: "#F9F9F9", color: "#000000", height: "100%" }}>
+      <OrgsExplore />
+      <CodelabzExplore />
+    </Box>
+  );
+>>>>>>> 3225631bf90c2b306f0a63e4b5035d7ffef3c770
 };
 
 export default MyFeed;

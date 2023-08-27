@@ -1,7 +1,7 @@
 import * as actions from "../../actions/actionTypes";
 
 const initialState = {
-  user: null,
+  user: [],
   org: [],
   loading: false,
   error: null
@@ -23,7 +23,7 @@ const TutorialsDataReducer = (state = initialState, { type, payload }) => {
     case actions.GET_USER_TUTORIALS_BASIC_SUCCESS:
       return {
         ...state,
-        user: payload,
+        user: [payload],
         loading: false,
         error: false
       };

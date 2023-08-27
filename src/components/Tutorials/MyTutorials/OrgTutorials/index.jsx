@@ -16,7 +16,6 @@ const OrgTabPanel = ({ orgList, user }) => {
   });
 
   const onSelectTab = index => setSelectedTab(index);
-
   useEffect(() => {
     setListData([
       {
@@ -59,15 +58,7 @@ const OrgTabPanel = ({ orgList, user }) => {
         <Grid item xs={10}>
           <Grid container>
             <Grid item xs={12} justifyContent={"center"}>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  opacity: 0.5,
-                  textAlign: "center"
-                }}
-              >
-                Not Implemented Yet
-              </Typography>
+              <BaseTutorialsComponent owner={selectedTab?.data?.handle} />
             </Grid>
           </Grid>
         </Grid>
