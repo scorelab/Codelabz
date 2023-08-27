@@ -80,7 +80,7 @@ const StepsBar = ({
           </StepList>
         </Drawer>
       ) : (
-        <Card className={classes.card}>
+        <Card className={classes.card} data-testId="tutorialpageStepsBar">
           <div data-testId="sidebar_desktop">
             <Typography sx={{ fontWeight: "800", textAlign: "center" }}>
               STEPS

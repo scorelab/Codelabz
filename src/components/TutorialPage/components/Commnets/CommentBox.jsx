@@ -57,7 +57,11 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
   };
 
   return (
-    <Card className={classes.container} id="comments">
+    <Card
+      className={classes.container}
+      id="comments"
+      data-testId="tutorialpageComments"
+    >
       <Typography variant="h5" sx={{ fontWeight: "600" }}>
         Comments({commentsArray?.length || 0})
       </Typography>
