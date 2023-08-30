@@ -42,7 +42,7 @@ function Activity() {
 
   return (
     <React.Fragment>
-      <Grid container>
+      <Grid container data-testId="activityCard">
         <div className={classes.root}>
           <Grid item>
             <Typography variant="h6">Activity</Typography>

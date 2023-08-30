@@ -27,6 +27,7 @@ const User = ({ id, timestamp, showFollowButton, size }) => {
   const [isFollowed, setIsFollowed] = useState(true);
   useEffect(() => {
     getUserProfileData(id)(firebase, firestore, dispatch);
+    return () => {};
   }, [id]);
 
   const profileData = useSelector(({ firebase: { profile } }) => profile);
@@ -41,11 +42,17 @@ const User = ({ id, timestamp, showFollowButton, size }) => {
 
   useEffect(() => {
     const checkIsFollowed = async () => {
-      const status = await isUserFollower(profileData.uid, user.uid, firestore);
+      const status = await isUserFollower(
+        profileData?.uid,
+        user?.uid,
+        firestore
+      );
       setIsFollowed(status);
-      console.log(status);
     };
-    checkIsFollowed();
+    if (id && user && profileData) {
+      checkIsFollowed();
+    }
+    return () => {};
   }, [profileData, user]);
 
   const followUser = () => {
@@ -85,7 +92,9 @@ const User = ({ id, timestamp, showFollowButton, size }) => {
               fontSize: size == "sm" ? "14px" : "16px"
             }}
           >
-            <span className={classes.bold}>{user?.displayName}</span>
+            <span className={classes.bold} data-testId="tutorialpageAuthorName">
+              {user?.displayName}
+            </span>
           </Typography>
           <Typography
             sx={{

@@ -101,7 +101,7 @@ export default function CardWithoutPicture({ tutorial }) {
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} data-testId="codelabz">
       <CardHeader
         avatar={
           <Avatar className={classes.avatar}>
@@ -142,7 +142,10 @@ export default function CardWithoutPicture({ tutorial }) {
         subheader={tutorial?.createdAt ? getTime(tutorial?.createdAt) : ""}
       />
       <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
-        <CardContent className={classes.contentPadding}>
+        <CardContent
+          className={classes.contentPadding}
+          data-testId="codelabzDetails"
+        >
           <Typography variant="h5" color="text.primary" data-testId="Title">
             {tutorial?.title}
           </Typography>
