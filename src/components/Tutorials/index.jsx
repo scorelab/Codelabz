@@ -212,6 +212,7 @@ const ViewTutorial = () => {
         </Grid>
         <Grid className={classes.flexRow}>
           <ExpandMore
+            data-testid="tutorial-collapse-button"
             expand={expand}
             onClick={() => {
               setExpand(prev => !prev);
@@ -229,6 +230,7 @@ const ViewTutorial = () => {
             className={classes.widthTransition}
           >
             <Collapse
+              data-testid="tutorial-steps-list"
               in={expand}
               timeout="auto"
               unmountOnExit

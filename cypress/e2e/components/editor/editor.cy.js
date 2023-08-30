@@ -65,6 +65,35 @@ describe("Editor Test | CodeLabz", () => {
     cy.get('[data-testId=stepsPanel]>div').eq(0).contains("Test step1");
   });
 
+  it("Collapsing of sidebar", function (){
+    cy.get("[data-testid=tutorial-steps-list]").should("exist");
+    cy.get("[data-testid=tutorial-collapse-button]").click();
+    cy.get("[data-testid=tutorial-steps-list]").should("not.exist");
+    cy.get("[data-testid=tutorial-collapse-button]").click();
+  });
+
+  it("should publish unpublish successfully", function () {
+    cy.get("[data-testid=publishTutorial]").contains("Unpublish");
+    cy.get("[data-testid=publishTutorial]").click();
+    cy.wait(1000);
+    cy.get("[data-testid=publishTutorial]").contains("Publish");
+  });
+
+  it("should support rich text", function () {
+    cy.get('.ql-editor').type("{selectall}{backspace}");
+    cy.get('.ql-editor').type("{ctrl}b").type("bold").type("{ctrl}b").type("{enter}");
+    cy.get(".ql-italic").click();
+    cy.get('.ql-editor').type("italic");
+    cy.get(".ql-italic").click();
+    cy.get('.ql-editor').type("{rightarrow}{enter}");
+    cy.get('.ql-editor').type("{ctrl}u").type("underlined").type("{ctrl}u");
+    cy.get("[data-testId=previewMode]").click();
+    cy.fixture("editor").then(editorTestData => {
+      cy.get("[data-testid=tutorial-content]").should("have.html", editorTestData.expectedRichTextHTML);
+    })
+
+  });
+
   it("Should add new step", function () {
     cy.get('[data-testId=addNewStep]').click();
     cy.get('[data-testId=newStepModal]').should("exist");
@@ -73,6 +102,13 @@ describe("Editor Test | CodeLabz", () => {
     cy.get('[data-testId=newStepSubmitButton]').click();
     cy.wait(1000);
     cy.get('[data-testid=stepsPanel]>div').eq(2).contains("Test step2");
+  });
+  
+  it("Change active step by clicking on it", function (){
+    cy.get('[data-testid=stepsPanel]>div').eq(2).click();
+    cy.get('[data-testId=stepsPanel]>div').eq(2).find('.Mui-active').should('exist');
+    cy.get('[data-testid=stepsPanel]>div').eq(0).click();
+    cy.get('[data-testId=stepsPanel]>div').eq(0).find('.Mui-active').should('exist');
   });
 
   it("should switch between tutorial steps", function () {
