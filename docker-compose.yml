@@ -14,7 +14,7 @@ services:
   emulator:
     image: spine3/firebase-emulator
     environment:
-      ENABLE_UI: true
+      ENABLE_UI: "true"
       GCP_PROJECT: demo-sampark
     ports:
       - 5001:5001
