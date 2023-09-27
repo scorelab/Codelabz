@@ -40,6 +40,7 @@ function ActivityList({ value, toggle, acitvitylist, classname }) {
               <Button
                 variant="outlined"
                 color="primary"
+                key={index}
                 className={`
                     ${classes.defaultButton}
                     ${
