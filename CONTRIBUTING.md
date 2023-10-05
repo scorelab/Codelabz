@@ -1,4 +1,5 @@
 # Table of Content
+
 - [Table of Content](#table-of-content)
 - [User Guide](#user-guide)
   - [Prerequisites](#prerequisites)
@@ -13,32 +14,35 @@
 # User Guide
 
 ## Prerequisites
+
 - Node.js version 14.
 - Java JDK version 11 or higher. (For running emulators)
 - make command line tool. ( optional )
-> 📝**NOTE** : `make` is optional here. You can open `Makefile` and type the associated command manually also, but it is recommended to use `make` so you don't need to run multiple commands.
->
-
+  > 📝**NOTE** : `make` is optional here. You can open `Makefile` and type the associated command manually also, but it is recommended to use `make` so you don't need to run multiple commands.
 
 ## Project Setup
+
 > 📝**NOTE**: Make sure that you are using version 14 of node.
 
 > ⚡**Tip**: You can use nvm (node version manager) tool to install multiple node versions and can switch between them easily.
+
 1. Fork the repo as your own copy.
 2. Click on `Code` button and then copy HTTPs link. ( it will look like this `https://github.com/<YOUR_USERNAME>/Codelabz.git`)
 3. Clone the repo by running `git clone https://github.com/<YOUR_USERNAME>/Codelabz.git`
 4. Go to the folder `cd Codelabz`.
 5. Run `npm install` or `make install`( this will install all the dependencies in your project)
-6. Create a `.env` file in root of directory. 
+6. Create a `.env` file in root of directory.
 7. Setup firebase and get your own set of keys. ( follow steps in [Firebase Setup](#firebase-setup) section to setup firebase )
 8. Copy all the key fields from `.env.sample` and place your own set of values there.
 9. Run `npm run dev`.
-10. Visit  [http://127.0.0.1:5173/](http://127.0.0.1:5173/)  in your preferred browser.
+10. Visit [http://127.0.0.1:5173/](http://127.0.0.1:5173/) in your preferred browser.
 
->📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
+> 📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
 
 ### Using Docker-Compose
-You can also use docker-compose to setup your project. Simply create your `.env` file and run 
+
+You can also use docker-compose to setup your project. Simply create your `.env` file and run
+
 ```
 docker-compose up
 ```
@@ -47,43 +51,55 @@ This will setup your project along with firebase emulator in a docker environmen
 
 ---
 
-
-
 ## Firebase Setup
 
+Firebase is a whole backend solution which gives provides a REST API as well. It's easy to use and can be used to send requests there, see the changes made through the requests and data can also be stored there.
+Create a google account.
+
 1. Sign in to https://console.firebase.google.com/.
-2. Click **Add Project** and necessary information about the project.(Below mentioned the Steps to add project to firebase) 
-    - To add Firebase resources to an existing Google Cloud project, enter its project name or select it from the dropdown menu.
-    - To create a new project, enter the desired project name. You can also optionally edit the project ID displayed below the project name
-    - Firebase generates a unique ID for your Firebase project based upon the name you give it. If you want to edit this project ID, you must do it now as it cannot be       altered after Firebase provisions resources for your project. Visit Understand Firebase Projects to learn about how Firebase uses the project ID.
-3. Agree to the terms and click **Create Project**.
-4. After creating the project, click **Add Firebase to your web app**.
-    - In the center of the Firebase console's project overview page, click the Web icon  to launch the setup workflow.
-    - If you've already added an app to your Firebase project, click Add app to display the platform options.
-    - Enter your app's nickname.
-    - This nickname is an internal, convenience identifier and is only visible to you in the Firebase console.
-    - Click Register app.
-5. Copy the firebase configuration.
-6. Follow the below steps to setup firebase functions
-    - Go to functions directory (`cd functions`) and install dependencies (`npm install`)
-    - Create a folder `private` inside functions directory
-    - Then you have to generate a private key file for your service account. Follow the below steps to get private key:
-      1. In the Firebase console, open Settings > Service Accounts.
-      2. Click Generate New Private Key, then confirm by clicking Generate Key.
-      3. Securely store the JSON file containing the key and rename it to `cl-dev-pk.json`
-      4. Move the `cl-dev-pk.json` to `Codelabz/functions/private`
-7. Paste the configuration `.env` file. **(this will be found in the project settings section of firebase cloud)**
-8. You can find your `<FIREBASE_DATABASE_URL>` in the Realtime Database section of the Firebase console. Depending on the location of the database, the database URL  will be in one of the following forms:
-    - `https://DATABASE_NAME.firebaseio.com` **(for databases in us-central1)**
-    - `https://DATABASE_NAME.REGION.firebasedatabase.app`**(for databases in all other locations)**
-9. You can get your `<FIREBASE_VAPID_KEY>` from Cloud-Messaging tab
+2. Click **Add Project** and necessary information about the project.(Below mentioned the Steps to add project to firebase)
+   - To add Firebase resources to an existing Google Cloud project, enter its project name or select it from the dropdown menu.
+   - To create a new project, enter the desired project name. You can also optionally edit the project ID displayed below the project name
+   - Firebase generates a unique ID for your Firebase project based upon the name you give it. If you want to edit this project ID, you must do it now as it cannot be altered after Firebase provisions resources for your project. Visit Understand Firebase Projects to learn about how Firebase uses the project ID.
+   - Enable `Google Analytics for your Firebase project` as per your requirements and click on `Continue`.
+   - `Configure Google Analytics` and choose `Default Account for Firebase`.
+3. Agree to the terms and click **Create Project**. This will create a new firebase-project for you and getting started is free. You can check the pricing page of firebase [here](https://firebase.google.com/pricing).
+4. A Dashboard will appear like:<img width="933" alt="firebase" src="https://github.com/umangutkarsh/Codelabz/assets/95426993/9d773042-8c06-4bab-a29a-6dcd0ed77177">
+
+5. After creating the project, click **Get started by adding Firebase to your app -> Web App icon**.
+   - In the center of the Firebase console's project overview page, click the Web icon to launch the setup workflow.
+   - If you've already added an app to your Firebase project, click Add app to display the platform options.
+   - Enter your app's nickname.
+   - Firebase Hosting can also be setup, but don't mark it.
+   - This nickname is an internal, convenience identifier and is only visible to you in the Firebase console.
+   - Click `Register app`.
+6. Add Firebase SDK -> `Use npm` -> Copy the firebase configuration.
+7. Follow the below steps to setup firebase functions
+   - Go to functions directory (`cd functions`) and install dependencies (`npm install`)
+   - Create a folder `private` inside functions directory
+   - Then you have to generate a private key file for your service account. Follow the below steps to get private key:
+     1. In the Firebase console, open Settings > Service Accounts.
+     2. Click `Generate New Private Key`, then confirm by clicking `Generate Key`.
+     3. Securely store the JSON file containing the key and rename it to `cl-dev-pk.json`
+     4. Move the `cl-dev-pk.json` to `Codelabz/functions/private`
+8. Paste the configuration `.env` file. **(this will be found in the project settings section of firebase cloud)**
+9. Now create a realtime database. Click on `Build -> Realtime Database -> Create Database -> Realtime Database location -> Next -> Start in test mode -> Enable (later authentication can be configured)`. (Keep in mind that firebase is a complete backend service and not only an SQL/noSQL database). Depending on the location of the database, the database URL will be in one of the following forms:
+   - `https://DATABASE_NAME.firebaseio.com` **(for databases in us-central1)**
+   - `https://DATABASE_NAME.REGION.firebasedatabase.app`**(for databases in all other locations)**
+10. Firebase API Key can be obtained from `Project Settings -> General -> Web API Key`.
+11. VITE_APP_AUTH_DOMAIN can be filled with the desrired domain id.
+12. FIREBASE_PROJECT_ID can be obtained from `Project Settings -> General -> Project ID`.
+13. FIREBASE_MESSAGING_SENDER_ID can be obtained from `Project Settings -> Cloud Messaging -> Sender ID`.
+14. FIREBASE_APP_ID can be obtained from `Project Settings -> General -> Scroll Down -> Your Apps -> App ID`.
+15. DATABASE_URL can be obtained from `Realtime Database -> Copy URL` and add `/databaseName.json` at the end of URL.
+16. You can get your `<FIREBASE_VAPID_KEY>` from Cloud-Messaging tab
     - navigate to the setting of your project Open the Cloud Messaging tab.
     - scroll to the Web configuration section.
-    - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
-10. As you're using emulator, set `<USE_EMULATOR>` to "true" 
-11. You can get your `<CYPRESS_PROJECT_ID>` as cypress project id from [cypress cloud](https://cloud.cypress.io)
+    - In the Web Push certificates tab, click `Generate Key Pair`. The console displays a notice that the key pair was generated. You get your Vapid key form there.
+17. As you're using emulator, set `<USE_EMULATOR>` to "true in the `.env` file"
+18. You can get your `<CYPRESS_PROJECT_ID>` as cypress project id from [cypress cloud](https://cloud.cypress.io). Just follow the basic steps one-by-one then you will be rediercted to this page: <img width="827" alt="cypress" src="https://github.com/umangutkarsh/Codelabz/assets/95426993/07a2bd0c-5bdd-4bcf-9490-54a1a8f47621">
 
-You should fill in these values in their relevant fields in the `.env` file.
+You should fill in these values in their relevant fields in the `.env` file, or some data can be obtained from `cl-dev-pk.json`.
 
 ### Run Firebase Emulator
 
@@ -92,6 +108,7 @@ Run your firebase emulator by running the following command.
 ```
 make emulator-import
 ```
+
 This will run the emulator with the `testdata`. Check out [TESTDATA.md](./TESTDATA.md) for more info.
 
 if you don't want to import testdata, run
