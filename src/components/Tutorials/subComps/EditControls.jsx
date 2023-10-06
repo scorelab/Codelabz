@@ -43,6 +43,7 @@ const EditControls = ({
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
+  const [publishLoad, setPublishLoad] = useState(false);
   const DropdownMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -102,13 +103,14 @@ const EditControls = ({
       </>
     );
   };
-
-  const handlePublishTutorial = () => {
-    publishUnpublishTutorial(owner, tutorial_id, isPublished)(
+  const handlePublishTutorial = async () => {
+    setPublishLoad(true);
+    await publishUnpublishTutorial(owner, tutorial_id, isPublished)(
       firebase,
       firestore,
       dispatch
     );
+    setPublishLoad(false);
   };
 
   return (
@@ -140,46 +142,7 @@ const EditControls = ({
         >
           Add images
         </Button>
-
-        {/* <Button
-          onClick={() => {
-            <Snackbar
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              open={true}
-              autoHideDuration={6000}
-              message="updating step visibility...."
-            />;
-            hideUnHideStep(
-              owner,
-              tutorial_id,
-              noteID,
-              visibility
-            )(firebase, firestore, dispatch).then(() => {
-              <Snackbar
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left"
-                }}
-                open={true}
-                autoHideDuration={6000}
-                message="updated...."
-              />;
-            });
-          }}
-        >
-          {!visibility ? (
-            <>
-              <VisibilityOffIcon /> Show step
-            </>
-          ) : (
-            <>
-              <VisibilityIcon /> Hide step
-            </>
-          )}
-        </Button> */}
+        
         <Button
           danger
           onClick={() => {
@@ -230,11 +193,12 @@ const EditControls = ({
                 </Button>
               )}
               <Button
-                data-testid={"publishTutorial"}
+                data-testid="publishTutorial"
                 onClick={handlePublishTutorial}
                 type="dashed"
+                disabled={publishLoad}
               >
-                <FileCopyIcon /> Publish
+                <FileCopyIcon /> {isPublished ? "Unpublish" : "Publish"}
               </Button>
               <DropdownMenu key="more" />
             </>

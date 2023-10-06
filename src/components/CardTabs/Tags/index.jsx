@@ -56,6 +56,7 @@ const TagCard = props => {
             {props.tags.map(function (tag, index) {
               return (
                 <Chip
+                  key={index}
                   size="small"
                   label={tag}
                   id={index}
