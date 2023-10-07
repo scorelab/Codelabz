@@ -4,6 +4,8 @@ import Tooltip from "@mui/material/Tooltip";
 import Grid from "@mui/material/Grid";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
+import { useState } from "react";
 import { Typography } from "@mui/material";
 
 const TutorialHeading = ({
@@ -13,9 +15,16 @@ const TutorialHeading = ({
   tutorialData,
   timeRemaining
 }) => {
+  let [Fullscreen, setFullscreen] = useState(false);
+  
   const toggleFullscreen = () => {
+    setFullscreen(true);
     document.documentElement.requestFullscreen();
   };
+  const togglesmallScreen = () => {
+    setFullscreen(false);
+    document.exitFullscreen();
+  }
 
   let styleProps = {
     backgroundColor: tutorialData.background_color || "#ffffff",
@@ -50,16 +59,25 @@ const TutorialHeading = ({
                 {timeRemaining} mins remaining
               </span>
             </Button>
-            <Tooltip placement="left" title={"Go Fullscreen"}>
+            {Fullscreen ? <Tooltip placement="left" title={"exit Fullscreen"}>
               <Button
                 type="dashed"
-                onClick={toggleFullscreen}
+                onClick={togglesmallScreen}
+                className="bp-8"
+                style={{ ...styleProps }}
+              >
+                <FullscreenExitIcon />
+              </Button>
+            </Tooltip>:<Tooltip placement="left" title={"Go Fullscreen"}>
+              <Button
+                type="dashed"
+                onClick={ toggleFullscreen}
                 className="bp-8"
                 style={{ ...styleProps }}
               >
                 <FullscreenIcon />
               </Button>
-            </Tooltip>
+            </Tooltip>}
           </Grid>
         </>
       )}
