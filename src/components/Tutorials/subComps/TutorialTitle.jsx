@@ -7,6 +7,7 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
 import { useState } from "react";
 import { Typography } from "@mui/material";
+import { set } from "lodash";
 
 const TutorialHeading = ({
   stepPanelVisible,
@@ -18,13 +19,15 @@ const TutorialHeading = ({
   let [Fullscreen, setFullscreen] = useState(false);
   
   const toggleFullscreen = () => {
-    setFullscreen(true);
-    document.documentElement.requestFullscreen();
+    if (Fullscreen) {
+      setFullscreen(false);
+      document.exitFullscreen();
+    } else {
+      setFullscreen(true);
+      document.documentElement.requestFullscreen();
+    }
+    setFullscreen(!document.fullscreenElement);
   };
-  const togglesmallScreen = () => {
-    setFullscreen(false);
-    document.exitFullscreen();
-  }
 
   let styleProps = {
     backgroundColor: tutorialData.background_color || "#ffffff",
@@ -62,7 +65,7 @@ const TutorialHeading = ({
             {Fullscreen ? <Tooltip placement="left" title={"exit Fullscreen"}>
               <Button
                 type="dashed"
-                onClick={togglesmallScreen}
+                onClick={toggleFullscreen}
                 className="bp-8"
                 style={{ ...styleProps }}
               >
