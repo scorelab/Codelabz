@@ -455,7 +455,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 							xs={showOrgForm ? 12 : null}
 							md={showOrgForm ? 6 : null}
 							style={{ paddingLeft: "24px" }}
-							className="col-pad-24 pr-12 pr-12 pt-8 div-transition"
+							className="pr-12 pr-12 pt-8 div-transition"
 							onFocus={() => setFocusLeft(false)}
 							item={true}>
 							{showOrgForm && (
