@@ -240,6 +240,7 @@ const RightMenu = ({ mode, onClick }) => {
     >
       <Avatar
         style={{
+          cursor: "pointer",
           backgroundColor:
             profile.photoURL && profile.photoURL.length > 0
               ? "#fffff"
@@ -269,7 +270,8 @@ const RightMenu = ({ mode, onClick }) => {
         onClose={handleClose}
         style={{
           marginTop: "3rem",
-          zIndex: 999999
+          zIndex: 999999,
+          top: "-45px"
         }}
         className={classes.menu}
         elevation={1}
