@@ -26,7 +26,6 @@ const TutorialHeading = ({
       setFullscreen(true);
       document.documentElement.requestFullscreen();
     }
-    setFullscreen(!document.fullscreenElement);
   };
 
   let styleProps = {
