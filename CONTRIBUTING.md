@@ -98,34 +98,34 @@ You should fill in these values in their relevant fields in the `.env` file.
 4. Now lets connect your local firebase to cloud by running command (`firebase login`)
 5. Then authenticate your firebase using browser and set the selected web app for codelabz
 6. Then run the command (`firebase init`)
-7. The command will prompt to ask some questions, follow [firebase-init.txt] to answer the questions.
-8. Replace the contents of `database.rules.json`, `firestore.index.json`, `firestore.rules`, `storage.rules`, `remoteconfig.template.json` with the one in the files in this repository.
-9. Also replace the contents of **Realtime Database**, **Firestore Database**, **Storage** under **Rules** tab with the contents of the files - `database.rules.json`, `firestore.rules`, `storage.rules` to avoid conflicts.
-10. Select all the emulator necessities by pressing a or selecting them manually and pressing space
-11. Answer the commands
-12. Lets set up your credentials of test data
-13. Run your firebase emulator by running the following command.
+   - The command will prompt to ask some questions, follow [firebase-init.txt] to answer the questions.
+   - Replace the contents of `database.rules.json`, `firestore.index.json`, `firestore.rules`, `storage.rules`, `remoteconfig.template.json` with the one in the files in this repository.
+   - Also replace the contents of **Realtime Database**, **Firestore Database**, **Storage** under **Rules** tab with the contents of the files - `database.rules.json`, `firestore.rules`, `storage.rules` to avoid conflicts.
+   - Select all the emulator necessities by pressing a or selecting them manually and pressing space
+   - Answer the commands
+7. Lets set up your credentials of test data
+8. Run your firebase emulator by running the following command.
 
 ```shell
 make emulator
 
 ```
 
-11. If make command isn't installed then run command
+9. If make command isn't installed then run command
 
 ```shell
 firebase emulators:start --import=testdata
 
 ```
 
-12. If you want to start without any testdata , use the following command
+10. If you want to start without any testdata , use the following command
 
 ```shell
 make emulator
 
 ```
 
-14.If make command isn't installed then run
+11. If make command isn't installed then run
 
 ```shell
  firebase emulator:start
