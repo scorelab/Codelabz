@@ -98,37 +98,13 @@ You should fill in these values in their relevant fields in the `.env` file.
 4. Now lets connect your local firebase to cloud by running command (`firebase login`)
 5. Then authenticate your firebase using browser and set the selected web app for codelabz
 6. Then run the command (`firebase init`)
-<!-- 7. The command will prompt to ask some questions - 
-   * File database.rules.json already exists,
-   * File firestore.rules already exists.
-   * File firestore.indexes.json already exists.
-   By default, Select **(N)** for all.
-7. Further questions asked -
-   - What file should be used for Firestore Rules? (firestore.rules)
-   - What file should be used for Firestore indexes? (firestore.indexes.json)
-   - Would you like to initialize a new codebase, or overwrite an existing one? (Overwrite)
-   - What language would you like to use to write Cloud Functions? (JavaScript)
-   - Do you want to use ESLint to catch probable bugs and enforce style? (N)
-   - File functions/package.json already exists. Overwrite? (N)
-   - File functions/package.json already exists. Overwrite? (N)
-   - File functions/index.js already exists. Overwrite? (N)
-   - File functions/.gitignore already exists. Overwrite? (N)
-   - Do you want to install dependencies with npm now? (Y)
-   - What do you want to use as your public directory? (public)
-   - Configure as a single-page app (rewrite all urls to /index.html)? (N)
-   - Set up automatic builds and deploys with GitHub? (N)
-   - File public/index.html already exists. Overwrite? (N)
-   - What file should be used for Storage Rules? (storage.rules)
-   - File storage.rules already exists. Overwrite? (N)
-   - Which Firebase emulators do you want to set up? (All)
-   - Would you like to download the emulators now? (Y)
-   - What file should be used for your Remote Config template? (remoteconfig.template.json)
-   - Create a name for your service (default)
-   - Please select a region (default) -->
-8. Select all the emulator necessities by pressing a or selecting them manually and pressing space
-9. Answer the commands
-10. Lets set up your credentials of test data
-11. Run your firebase emulator by running the following command.
+7. The command will prompt to ask some questions, follow [firebase-init.txt] to answer the questions.
+8. Replace the contents of `database.rules.json`, `firestore.index.json`, `firestore.rules`, `storage.rules`, `remoteconfig.template.json` with the one in the files in this repository.
+9. Also replace the contents of **Realtime Database**, **Firestore Database**, **Storage** under **Rules** tab with the contents of the files - `database.rules.json`, `firestore.rules`, `storage.rules` to avoid conflicts.
+10. Select all the emulator necessities by pressing a or selecting them manually and pressing space
+11. Answer the commands
+12. Lets set up your credentials of test data
+13. Run your firebase emulator by running the following command.
 
 ```shell
 make emulator

@@ -1,0 +1,112 @@
+firebase init
+
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+? Are you ready to proceed? `Yes`
+? Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to      
+confirm your choices. 
+`Realtime Database: Configure a security rules file for Realtime Database and (optionally)        
+provision default instance`, 
+`Firestore: Configure security rules and indexes files for Firestore`, 
+`Functions: Configure a Cloud Functions directory and its files`, 
+`Storage: Configure a security rules file for Cloud Storage`, 
+`Emulators: Set up local emulators for Firebase products`
+
+=== Project Setup
+
+First, let's associate this project directory with a Firebase project. 
+You can create multiple project aliases by running firebase use --add, 
+but for now we'll just set up a default project.
+
+i  Using project <Project ID> (<Project name>)
+
+=== Database Setup
+i  database: ensuring required API firebasedatabase.googleapis.com is enabled...
++  database: required API firebasedatabase.googleapis.com is enabled
+
+
+Firebase Realtime Database Security Rules allow you to define how your data should be
+structured and when your data can be read from and written to.
+
+? File database.rules.json already exists. Do you want to overwrite it with the Realtime Database Security Rules for 
+<Project ID>-default-rtdb from the Firebase console? (N)
+Skipping overwrite of Realtime Database Security Rules.
+The security rules defined in database.rules.json will be published when you run firebase deploy.
+
+=== Firestore Setup
+
+Firestore Security Rules allow you to define how and when to allow
+requests. You can keep these rules in your project directory
+and publish them with firebase deploy.
+
+? What file should be used for Firestore Rules? (firestore.rules)
+? File firestore.rules already exists. Do you want to overwrite it with the Firestore Rules from the Firebase Console? (N)
+
+Firestore indexes allow you to perform complex queries while
+maintaining performance that scales with the size of the result
+set. You can keep index definitions in your project directory
+and publish them with firebase deploy.
+
+? What file should be used for Firestore indexes? (firestore.indexes.json)
+? File firestore.indexes.json already exists. Do you want to overwrite it with the Firestore Indexes from the Firebase Console? (N)
+
+=== Functions Setup
+
+Detected existing codebase(s): default
+
+? Would you like to initialize a new codebase, or overwrite an existing one? (Overwrite)
+
+Overwriting codebase default...
+
+? What language would you like to use to write Cloud Functions? (JavaScript)
+? Do you want to use ESLint to catch probable bugs and enforce style? (N)
+? File functions/package.json already exists. Overwrite? (N)
+i  Skipping write of functions/package.json
+? File functions/index.js already exists. Overwrite? (N)
+i  Skipping write of functions/index.js
+? File functions/.gitignore already exists. Overwrite? (N)
+i  Skipping write of functions/.gitignore
+? Do you want to install dependencies with npm now? (Y)
+**After installing the packages**
+
+=== Storage Setup
+
+Firebase Storage Security Rules allow you to define how and when to allow
+uploads and downloads. You can keep these rules in your project directory
+and publish them with firebase deploy.
+
+? What file should be used for Storage Rules? (storage.rules)
+? File storage.rules already exists. Overwrite? (N)
+i  Skipping write of storage.rules
+
+=== Emulators Setup
+? Which Firebase emulators do you want to set up? Press Space to select emulators, then Enter to confirm your choices. 
+`Authentication Emulator`, 
+`Functions Emulator`, 
+`Firestore Emulator`, 
+`Database Emulator`, 
+`Pub/Sub Emulator`, 
+`Storage Emulator` 
+i  Port for auth already configured: (9099)
+i  Port for functions already configured: (5001)
+i  Port for firestore already configured: (8080)
+i  Port for database already configured: (9000)
+i  Port for pubsub already configured: (8085)
+i  Port for storage already configured: (9199)
+i  Emulator UI already enabled with port: (automatic)
+? Would you like to download the emulators now? (Y)
+
+i  Writing configuration info to firebase.json...
+i  Writing project information to .firebaserc...
+
++  Firebase initialization complete!
