@@ -15,14 +15,14 @@
 
 ## Prerequisites
 
-- Node.js version 14.
+- Node.js version 16.
 - Java JDK version 11 or higher. (For running emulators)
 - make command line tool. ( optional )
   > 📝**NOTE** : `make` is optional here. You can open `Makefile` and type the associated command manually also, but it is recommended to use `make` so you don't need to run multiple commands.
 
 ## Project Setup
 
-> 📝**NOTE**: Make sure that you are using version 14 of node.
+> 📝**NOTE**: Make sure that you are using version 16 of node.
 
 > ⚡**Tip**: You can use nvm (node version manager) tool to install multiple node versions and can switch between them easily.
 
