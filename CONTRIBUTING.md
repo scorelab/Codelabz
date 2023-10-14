@@ -98,10 +98,17 @@ You should fill in these values in their relevant fields in the `.env` file.
 4. Now lets connect your local firebase to cloud by running command (`firebase login`)
 5. Then authenticate your firebase using browser and set the selected web app for codelabz
 6. Then run the command (`firebase init`)
-   - The command will prompt to ask some questions, follow [firebase-init.txt] to answer the questions.
-   - Replace the contents of `database.rules.json`, `firestore.index.json`, `firestore.rules`, `storage.rules`, `remoteconfig.template.json` with the one in the files in this repository.
-   - Also replace the contents of **Realtime Database**, **Firestore Database**, **Storage** under **Rules** tab with the contents of the files - `database.rules.json`, `firestore.rules`, `storage.rules` to avoid conflicts.
-   - Select all the emulator necessities by pressing a or selecting them manually and pressing space
+   - The command will prompt to ask some questions.
+   - Select the following firebase features -
+     * Realtime Database, Firestore, Functions, Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys, Hosting: Set up GitHub Action deploys, Storage, Emulators, Remote Config
+   - Choose the default name of files, and don't overwrite the files, and by default select **(N)** for all the questions.
+   - Select **Overwrite** the existing codebase option, and **JavaScript** as the language to write Cloud Functions.
+   - Choose the following emulators -
+     * Authentication Emulator, Functions Emulator, Firestore Emulator, Database Emulator, Hosting Emulator, Pub/Sub Emulator, Storage Emulator
+   - Download the dependencies and the emulators.
+   - Replace the contents of `database.rules.json`, `firestore.indexes.json`, `firestore.rules`, `storage.rules`, `remoteconfig.template.json` with the one in the files in this repository.
+   - Also replace the contents of rules of **Realtime Database**, **Firestore Database**, **Storage** under **Rules** tab with the contents of the files - `database.rules.json`, `firestore.rules`, `storage.rules` to avoid conflicts.
+   - Select all the emulator necessities by pressing **a** or selecting them manually and pressing space
    - Answer the commands
 7. Lets set up your credentials of test data
 8. Run your firebase emulator by running the following command.
