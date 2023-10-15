@@ -333,144 +333,147 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 
                 <Divider />
 
-								<Box m={3}>
-									<TextField
-										error={nameValidateError}
-										label="User Name"
-										variant="outlined"
-										placeholder={displayName || "User Name"}
-										value={name}
-										onChange={(event) => onChangeName(event.target.value)}
-										helperText={
-											nameValidateError ? nameValidateErrorMessage : null
-										}
-										fullWidth
-										autoComplete="handle"
-										required
-										style={{ marginBottom: "15px" }}
-										InputProps={{
-											"data-testid": "userName",
-											startAdornment: (
-												<InputAdornment position="start">
-													<PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
-												</InputAdornment>
-											),
-										}}
-									/>
-									<TextField
-										error={handleValidateError}
-										label="User Handle"
-										variant="outlined"
-										placeholder="User Handle"
-										value={handle}
-										onChange={(event) => onChangeHandle(event.target.value)}
-										helperText={
-											handleValidateError ? handleValidateErrorMessage : null
-										}
-										fullWidth
-										autoComplete="handle"
-										required
-										onFocus={onFocusHandle}
-										style={{ marginBottom: "15px" }}
-										InputProps={{
-											"data-testid":"userHandle",
-											startAdornment: (
-												<InputAdornment position="start">
-													<PersonOutlineIcon
-														style={{ color: "rgba(0,0,0,.25)" }}
-													/>
-												</InputAdornment>
-											),
-										}}
-									/>
-									<div width="100%">
-										<TextField
-											error={countryValidateError}
-											label="User Country"
-											variant="outlined"
-											placeholder="User Country"
-											value={country}
-											onChange={(e) => {
-												setCountry(e.target.value);
-												setCountrySearch(e.target.value);
-											}}
-											onFocus={() => {
-												setCountrySearch(country);
-												onFocusHandle();
-											}}
-											fullWidth
-											autoComplete="country"
-											required
-											style={{ marginBottom: "15px" }}
-											InputProps={{
-												"data-testid":"userCountry",
-												startAdornment: (
-													<InputAdornment position="start">
-														<PersonOutlineIcon
-															style={{ color: "rgba(0,0,0,.25)" }}
-														/>
-													</InputAdornment>
-												),
-											}}
-										/>
-										<div>
-											{filteredData.length !== 0 && (
-												<div className="dataOutput">
-													{filteredData.map((item) => {
-														return (
-															<div
-																onClick={(e) => {
-																	setCountry(item.name);
-																	setCountrySearch("");
-																}}
-																style={{ color: textColor }}>
-																<span>{item.name}</span>
-															</div>
-														);
-													})}
-												</div>
-											)}
-										</div>
-									</div>
-								</Box>
-								<Divider></Divider>
-								<Box m={3}>
-									<Button
-										data-testid="createOrgBtn"
-										size="small"
-										fullWidth
-										variant="contained"
-										color="primary"
-										disableElevation
-										onClick={() => setShowOrgForm(!showOrgForm)}>
-										{showOrgForm === false
-											? "I want to create an organization"
-											: showOrgForm === true
-											? "I don't want to create an organization"
-											: "I want to create an organization"}
-									</Button>
-								</Box>
-							</Card>
-						</Grid>
-						{/* col-pad-24 pr-12 pt-8 pb-24 div-transition */}
-						<Grid
-							xs={showOrgForm ? 12 : null}
-							md={showOrgForm ? 6 : null}
-							style={{ paddingLeft: "24px" }}
-							className="pr-12 pr-12 pt-8 div-transition"
-							onFocus={() => setFocusLeft(false)}
-							item={true}>
-							{showOrgForm && (
-								<Card className="auth-form-col" style={{ margin: "0 auto" }}>
-									<Box mt={2} mb={2} m={3}>
-										<Typography>
-											<Box fontSize={16} fontWeight="fontWeightBold" m={1}>
-												<p className="mb-0 " style={{ color: textColor }}>
-													Organization Details
-												</p>
-											</Box>
-										</Typography>
-									</Box>
+                <Box m={3}>
+                  <TextField
+                    error={nameValidateError}
+                    label="User Name"
+                    variant="outlined"
+                    placeholder={displayName || "User Name"}
+                    value={name}
+                    onChange={event => onChangeName(event.target.value)}
+                    helperText={
+                      nameValidateError ? nameValidateErrorMessage : null
+                    }
+                    fullWidth
+                    autoComplete="handle"
+                    required
+                    style={{ marginBottom: "15px" }}
+                    InputProps={{
+                      "data-testid": "userName",
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  <TextField
+                    error={handleValidateError}
+                    label="User Handle"
+                    variant="outlined"
+                    placeholder="User Handle"
+                    value={handle}
+                    onChange={event => onChangeHandle(event.target.value)}
+                    helperText={
+                      handleValidateError ? handleValidateErrorMessage : null
+                    }
+                    fullWidth
+                    autoComplete="handle"
+                    required
+                    onFocus={onFocusHandle}
+                    style={{ marginBottom: "15px" }}
+                    InputProps={{
+                      "data-testid": "userHandle",
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonOutlineIcon
+                            style={{ color: "rgba(0,0,0,.25)" }}
+                          />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  <div width="100%">
+                    <TextField
+                      error={countryValidateError}
+                      label="User Country"
+                      variant="outlined"
+                      placeholder="User Country"
+                      value={country}
+                      onChange={e => {
+                        setCountry(e.target.value);
+                        setCountrySearch(e.target.value);
+                      }}
+                      onFocus={() => {
+                        setCountrySearch(country);
+                        onFocusHandle();
+                      }}
+                      fullWidth
+                      autoComplete="country"
+                      required
+                      style={{ marginBottom: "15px" }}
+                      InputProps={{
+                        "data-testid": "userCountry",
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PersonOutlineIcon
+                              style={{ color: "rgba(0,0,0,.25)" }}
+                            />
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                    <div>
+                      {filteredData.length !== 0 && (
+                        <div className="dataOutput">
+                          {filteredData.map(item => {
+                            return (
+                              <div
+                                onClick={e => {
+                                  setCountry(item.name);
+                                  setCountrySearch("");
+                                }}
+                                style={{ color: textColor }}
+                              >
+                                <span>{item.name}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </Box>
+                <Divider></Divider>
+                <Box m={3}>
+                  <Button
+                    data-testid="createOrgBtn"
+                    size="small"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    disableElevation
+                    onClick={() => setShowOrgForm(!showOrgForm)}
+                  >
+                    {showOrgForm === false
+                      ? "I want to create an organization"
+                      : showOrgForm === true
+                      ? "I don't want to create an organization"
+                      : "I want to create an organization"}
+                  </Button>
+                </Box>
+              </Card>
+            </Grid>
+            {/* col-pad-24 pr-12 pt-8 pb-24 div-transition */}
+            <Grid
+              xs={showOrgForm ? 12 : null}
+              md={showOrgForm ? 6 : null}
+              style={{ paddingLeft: "24px" }}
+              className="pr-12 pr-12 pt-8 div-transition"
+              onFocus={() => setFocusLeft(false)}
+              item={true}
+            >
+              {showOrgForm && (
+                <Card className="auth-form-col" style={{ margin: "0 auto" }}>
+                  <Box mt={2} mb={2} m={3}>
+                    <Typography>
+                      <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
+                        <p className="mb-0 " style={{ color: textColor }}>
+                          Organization Details
+                        </p>
+                      </Box>
+                    </Typography>
+                  </Box>
 
                   <Divider />
 

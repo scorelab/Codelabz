@@ -128,7 +128,6 @@ const AddNewStepModal = ({
             style={{ marginBottom: "2rem" }}
             data-testid={"newStepTitleInput"}
             required="true"
-			
           />
           <TextField
             type="number"
@@ -137,7 +136,7 @@ const AddNewStepModal = ({
             style={{ width: "100%" }}
             data-testid={"newStepTimeInput"}
             inputProps={{ min: 0 }}
-			required="true"
+            required="true"
           />
           <Button
             style={{ marginTop: "2rem", marginRight: "7px" }}
