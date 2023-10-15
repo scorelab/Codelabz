@@ -17,10 +17,10 @@ export const getOrgUserData = org_handle => async (firestore, dispatch) => {
       .collection("org_users")
       .where("org_handle", "==", org_handle)
       .get();
-  
-    const orgUsersDocs = orgUsersSnap.docs.map((doc) => doc.data());
 
-    const orgPromises = orgUsersDocs.map(async (user) => {
+    const orgUsersDocs = orgUsersSnap.docs.map(doc => doc.data());
+
+    const orgPromises = orgUsersDocs.map(async user => {
       let userDoc = await firestore.collection("cl_user").doc(user.uid).get();
       return {
         name: userDoc.get("displayName"),
@@ -31,7 +31,6 @@ export const getOrgUserData = org_handle => async (firestore, dispatch) => {
     });
     const orgUserData = await Promise.all(orgPromises);
 
-    
     dispatch({
       type: actions.GET_ORG_USER_DATA_SUCCESS,
       payload: _.orderBy(orgUserData, ["permission_level"], ["desc"])
@@ -63,7 +62,7 @@ export const addOrgUser =
             uid: uid,
             org_handle: org_handle,
             permissions: permissions
-          })
+          });
 
         await getOrgUserData(org_handle)(firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
@@ -74,7 +73,7 @@ export const addOrgUser =
         });
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
       dispatch({ type: actions.ADD_ORG_USER_FAIL, payload: e.message });
     }
   };
@@ -139,7 +138,7 @@ export const getOrgBasicData = org_handle => async firebase => {
       ...orgData,
       org_image: orgData.org_image ? orgData.org_image : "",
       permissions: user_permissions
-    }
+    };
   } catch (e) {
     console.log(e);
     throw e;
@@ -245,7 +244,11 @@ export const getOrgData =
             type: actions.GET_ORG_DATA_SUCCESS,
             payload: {
               ...doc.data(),
-              userSubscription: await isUserSubscribed(org_handle, firebase, firestore)
+              userSubscription: await isUserSubscribed(
+                org_handle,
+                firebase,
+                firestore
+              )
             }
           });
         } else {
@@ -255,7 +258,7 @@ export const getOrgData =
         dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
       dispatch({ type: actions.GET_ORG_DATA_FAIL, payload: e.message });
     }
   };
@@ -284,15 +287,15 @@ const isUserSubscribed = async (org_handle, firebase, firestore) => {
   const auth = firebase.auth().currentUser;
 
   const subscription = await firestore
-  .collection("org_subscribers")
-  .doc(`${org_handle}_${auth.uid}`)
-  .get()
+    .collection("org_subscribers")
+    .doc(`${org_handle}_${auth.uid}`)
+    .get();
 
   return subscription.exists;
-}
+};
 
-export const subscribeOrg = 
-  (org_handle) => async (firebase, firestore, dispatch) => {
+export const subscribeOrg =
+  org_handle => async (firebase, firestore, dispatch) => {
     try {
       const auth = firebase.auth().currentUser;
 
@@ -301,54 +304,54 @@ export const subscribeOrg =
         .doc(`${org_handle}_${auth.uid}`)
         .set({
           uid: auth.uid,
-          org_handle,
-        })
-      
+          org_handle
+        });
+
       await firestore
         .collection("cl_org_general")
         .doc(org_handle)
         .update({
           followerCount: firebase.firestore.FieldValue.increment(1)
-        })
+        });
 
       getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-export const unSubscribeOrg = 
-  (org_handle) => async (firebase, firestore, dispatch) => {
+export const unSubscribeOrg =
+  org_handle => async (firebase, firestore, dispatch) => {
     try {
       const auth = firebase.auth().currentUser;
       await firestore
         .collection("org_subscribers")
         .doc(`${org_handle}_${auth.uid}`)
-        .delete()
+        .delete();
 
       await firestore
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .update({
-        followerCount: firebase.firestore.FieldValue.increment(-1)
-      })
+        .collection("cl_org_general")
+        .doc(org_handle)
+        .update({
+          followerCount: firebase.firestore.FieldValue.increment(-1)
+        });
 
       getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 export const removeFollower =
-  (val, people, handle, orgFollowed, profileId) => (firestore, dispatch) => {
+  (val, people, handle, orgFollowed, profileId) => firestore => {
     console.log("test");
     try {
-      var filteredFollowers = people.filter(function (value, index, arr) {
+      var filteredFollowers = people.filter(function (value) {
         return value !== val;
       });
       firestore.collection("cl_org_general").doc(handle).update({
         followers: filteredFollowers
       });
-      var Orgfiltered = orgFollowed.filter(function (value, index, arr) {
+      var Orgfiltered = orgFollowed.filter(function (value) {
         return handle !== value;
       });
       firestore.collection("cl_user").doc(profileId).update({
@@ -360,7 +363,7 @@ export const removeFollower =
   };
 
 export const addFollower =
-  (value, people, handle, orgFollowed, profileId) => (firestore, dispatch) => {
+  (value, people, handle, orgFollowed, profileId) => firestore => {
     try {
       if (people && people.includes(value)) {
         console.log("already followed");

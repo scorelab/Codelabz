@@ -142,7 +142,7 @@ const EditControls = ({
         >
           Add images
         </Button>
-        
+
         <Button
           danger
           onClick={() => {

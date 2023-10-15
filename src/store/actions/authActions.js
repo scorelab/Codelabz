@@ -228,7 +228,7 @@ export const setUpInitialData =
         return;
       }
 
-      if (Boolean(orgData)) {
+      if (orgData) {
         const isOrgHandleExists = await checkOrgHandleExists(org_handle)(
           firebase
         );

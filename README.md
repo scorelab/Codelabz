@@ -54,8 +54,8 @@ First of all make sure that your are using version 14 of node. If the problem st
 
 This problem generally arises when you have not setuped/started the Firebase emulators.
 
-1. [Setup firebase emulator](https://github.com/scorelab/Codelabz/blob/master/CONTRIBUTING.md#firebase-setup). 
-2. [Start the Emulators]( https://github.com/scorelab/Codelabz/blob/master/CONTRIBUTING.md#run-firebase-emulator)
+1. [Setup firebase emulator](https://github.com/scorelab/Codelabz/blob/master/CONTRIBUTING.md#firebase-setup).
+2. [Start the Emulators](https://github.com/scorelab/Codelabz/blob/master/CONTRIBUTING.md#run-firebase-emulator)
 3. Run the app using `npm run dev`.
 
 > 📝**NOTE** : Remember to start the emulators before running the app.
