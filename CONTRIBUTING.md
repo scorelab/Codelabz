@@ -87,11 +87,49 @@ This will setup your project along with firebase emulator in a docker environmen
 
 You should fill in these values in their relevant fields in the `.env` file.
 
+### Firebase Emulator Setup
+
+ 
+1. Refer this site [https://firebase.google.com/docs/emulator-suite/install_and_configure]
+2. Make sure you have the correct jdk version installed
+3. Make sure you are in the parent directory
+4. Now lets connect your local firebase to cloub by running command (```firebase login```)
+5. Then authenticate your firebase using browser and set the selected web app for codelabz
+6. Then run the command (```firebase init```)
+7. Select all the emulator necessitites by pressing a or selecting them manually and pressing space
+8. Answer the commands
+9. Lets set up your credentials of test data
+10. Run your firebase emulator by running the following command.
+
+``` shell
+make emulator
+
+```
+
+11. If make command isn't installed then run command
+``` shell
+firebase emulators:start --import=testdata
+
+```
+
+
+12. If you want to start without any testdata , use the following command
+``` shell
+make emulator
+
+```
+
+14.If make command isn't installed then run
+``` shell
+ firebase emulator:start
+```
+ You will observe 3 terminals opening
+
 ### Run Firebase Emulator
 
 Run your firebase emulator by running the following command.
 
-```
+``` shell
 make emulator-import
 ```
 
@@ -99,7 +137,7 @@ This will run the emulator with the `testdata`. Check out [TESTDATA.md](./TESTDA
 
 if you don't want to import testdata, run
 
-```
+``` 
 make emulator
 ```
 
