@@ -22,6 +22,7 @@ import { useDispatch } from "react-redux";
 import RemoveStepModal from "./RemoveStepModal";
 import ColorPickerModal from "./ColorPickerModal";
 import { Box, Stack } from "@mui/system";
+import { toast} from 'react-toastify';
 
 const EditControls = ({
   isPublished,
@@ -104,15 +105,24 @@ const EditControls = ({
     );
   };
 
-  const handlePublishTutorial = async () => {
-    setPublishLoad(true);
-    await publishUnpublishTutorial(owner, tutorial_id, isPublished)(
-      firebase,
-      firestore,
-      dispatch
-    );
-    setPublishLoad(false);
-  };
+const handlePublishTutorial = async () => {
+  setPublishLoad(true);
+    try {
+      await publishUnpublishTutorial(owner, tutorial_id, isPublished)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      if(!isPublished)
+        toast.success('🚀 Tutorial published successfully!')
+      else
+        toast.success('Tutorial unpublished!')
+    } catch (error) {
+        toast.error('An error occurred!');
+    } finally {
+      setPublishLoad(false);
+    }
+};
 
   return (
     <>
