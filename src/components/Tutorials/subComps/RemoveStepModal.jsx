@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { removeStep } from "../../../store/actions";
 import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
+import { Paper } from "@mui/material";
 
 const RemoveStepModal = ({
   owner,
@@ -64,30 +65,32 @@ const RemoveStepModal = ({
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       style={{
-        border: "2px solid #000",
-        background: "whitesmoke",
-        boxShadow: "2rem gray",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        height: "10rem",
-        width: "20rem",
-        position: "absolute",
-        top: "40%",
-        left: "40%"
+        justifyContent: "center"
       }}
-    >
+      >
+        <Paper style={{ backgroundColor: "white", padding: "40px", paddingLeft:"50px", paddingRight:"50px" }}>
       <div>
-        <Typography>This action is can not be undone!</Typography>
+        <Typography  style={{ fontFamily: 'Arial', color: 'grey' }}>This action cannot be undone!</Typography>
         <form onSubmit={handleOnOk}>
-          <Button key="back" onClick={handleOnCancel}>
+          <Button
+          style={{ marginTop: "1.6rem", marginRight: "14px" }}
+          variant="contained"
+          color="secondary"
+          key="back"
+           onClick={handleOnCancel}>
             <Typography>Cancel</Typography>
           </Button>
-          <Button key="remove" type="submit">
+          <Button
+          style={{ marginTop: "1.6rem" }}
+          variant="contained"
+          key="remove" type="submit">
             <Typography> Remove</Typography>
           </Button>
         </form>
       </div>
+      </Paper>
     </Modal>
   );
 };
