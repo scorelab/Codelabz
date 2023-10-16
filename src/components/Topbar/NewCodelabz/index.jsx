@@ -2,6 +2,9 @@ import { Grid, IconButton, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import AddBoxRoundedIcon from "@mui/icons-material/AddBoxRounded";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { toast} from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,6 +34,16 @@ const useStyles = makeStyles(theme => ({
 
 function NewCodelabz({ setVisibleModal }) {
   const classes = useStyles();
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
+  const history=useHistory()
+  const SetModalVisibility = () => {
+    if (profileData.isEmpty) {
+      toast.info('Login first to create a tutorial', {position: "top-center"});
+      history.push("/login")
+    } else {
+      setVisibleModal(true)
+    }
+  }
 
   return (
     <React.Fragment>
@@ -47,7 +60,7 @@ function NewCodelabz({ setVisibleModal }) {
             justifyContent="center"
             alignContent="center"
             data-testId="NewCodelabzBtn"
-            onClick={() => setVisibleModal(true)}
+            onClick={SetModalVisibility}
           >
             <AddBoxRoundedIcon color="primary" fontSize="large" />
           </Grid>
