@@ -1,12 +1,21 @@
 {
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint"
-    ],
-    "source": "functions"
-  },
+  "functions": [
+    {
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ],
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
   "hosting": {
-    "public": "build",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -44,7 +53,8 @@
     "storage": {
       "port": 9199,
       "host": "127.0.0.1"
-    }
+    },
+    "singleProjectMode": true
   },
   "storage": {
     "rules": "storage.rules"
@@ -56,7 +66,5 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "remoteconfig": {
-    "template": "remoteconfig.template.json"
-  }
+  "remoteconfig": {}
 }
