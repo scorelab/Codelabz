@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   tagsContainer: {
+    marginTop: "20px",
     [theme.breakpoints.down("sm")]: {
       maxWidth: "90vw",
       display: "flex",
@@ -33,7 +34,12 @@ const useStyles = makeStyles(theme => ({
   chip: {
     margin: "0px 10px 10px 0px",
     borderRadius: "5px",
-    cursor: "pointer"
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+    "&:hover": {
+      backgroundColor: "#03aafa",
+      color: "#ffff"
+    }
   }
 }));
 
