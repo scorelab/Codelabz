@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   tagsContainer: {
+    marginTop: "20px",
     [theme.breakpoints.down("sm")]: {
       maxWidth: "90vw",
       display: "flex",
