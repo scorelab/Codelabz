@@ -16,11 +16,19 @@ import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
+import blue from "@mui/material/colors/blue";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../store/actions";
+import { getTutorialstatus } from "../../store/actions/tutorialPageActions";
+import { updatelikestatus } from "../../store/actions/tutorialPageActions";
+import { updateupvotes } from "../../store/actions/tutorialPageActions";
+import { updatedownvotes } from "../../store/actions/tutorialPageActions";
+import { set } from "lodash";
+import { update } from "lodash";
+
 const useStyles = makeStyles(theme => ({
   root: {
     margin: "0.5rem",
@@ -68,16 +76,83 @@ const useStyles = makeStyles(theme => ({
 export default function CardWithoutPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
-  const handleIncrement = () => {
-    setCount(count + 1);
+
+  const [isLiked, setIsLiked] = useState();
+
+  useEffect(() => {
+    async function getTutorialStatus() {
+      try {
+        const tut_status = await getTutorialstatus(
+          tutorial.tutorial_id,
+          firebase.auth().currentUser.uid
+        )(firebase, firestore, dispatch);
+        let tutorial_status = tut_status[0];
+        setIsLiked(tutorial_status.like_status);
+        console.log("liked status is", isLiked);
+      } catch (e) {
+        console.log("error occurred");
+      }
+    }
+    getTutorialStatus();
+  }, [tutorial]);
+
+  useEffect(() => {
+    const upvotes = tutorial.upvotes;
+    const downvotes = tutorial.downvotes;
+    setCount(upvotes - downvotes);
+    console.log(count)
+  }, []);
+
+  const handleIncrement = async () => {
+    if (isLiked == 0) {
+      console.log("upvoting")
+      setIsLiked(1);
+      setCount(count + 1);
+      await updateupvotes(tutorial.tutorial_id, 1)(firebase, firestore, dispatch);
+      updatelikestatus(tutorial.tutorial_id, firebase.auth().currentUser.uid, 1)(firebase, firestore, dispatch);
+    }
+    else if (isLiked == -1) {
+      console.log("upvoting")
+      setIsLiked(1);
+      setCount(count + 2);
+      await updateupvotes(tutorial.tutorial_id, 1)(firebase, firestore, dispatch);
+      await updatedownvotes(tutorial.tutorial_id, -1)(firebase, firestore, dispatch);
+      updatelikestatus(tutorial.tutorial_id, firebase.auth().currentUser.uid, 1)(firebase, firestore, dispatch);
+    }
+    else if (isLiked == 1) {
+      console.log("upvoting")
+      setIsLiked(0);
+      setCount(count - 1);
+      await updateupvotes(tutorial.tutorial_id, -1)(firebase, firestore, dispatch);
+      updatelikestatus(tutorial.tutorial_id, firebase.auth().currentUser.uid, 0)(firebase, firestore, dispatch);
+    }
   };
 
-  const handleDecrement = () => {
-    setCount(count - 1);
+
+  const handleDecrement = async () => {
+    if (isLiked == 0) {
+      setIsLiked(-1);
+      setCount(count - 1);
+      await updatedownvotes(tutorial.tutorial_id, 1)(firebase, firestore, dispatch);
+      updatelikestatus(tutorial.tutorial_id, firebase.auth().currentUser.uid, -1)(firebase, firestore, dispatch);
+    }
+    else if (isLiked == -1) {
+      setIsLiked(0);
+      setCount(count + 1);
+      await updatedownvotes(tutorial.tutorial_id, -1)(firebase, firestore, dispatch);
+      updatelikestatus(tutorial.tutorial_id, firebase.auth().currentUser.uid, 0)(firebase, firestore, dispatch);
+    }
+    else if (isLiked == 1) {
+      setIsLiked(-1);
+      setCount(count - 2);
+      await updateupvotes(tutorial.tutorial_id, -1)(firebase, firestore, dispatch);
+      await updatedownvotes(tutorial.tutorial_id, 1)(firebase, firestore, dispatch);
+      updatelikestatus(tutorial.tutorial_id, firebase.auth().currentUser.uid, -1)(firebase, firestore, dispatch);
+    }
   };
 
   const handleAlignment = (event, newAlignment) => {
@@ -187,19 +262,17 @@ export default function CardWithoutPicture({ tutorial }) {
           aria-label="text alignment"
         >
           <ToggleButton
-            className={classes.small}
             onClick={handleIncrement}
-            value="left"
-            aria-label="left aligned"
+            value={1}
+            style={{ color: isLiked === 1 ? 'blue' : 'inherit' }}
           >
             <KeyboardArrowUpIcon />
             <span>{count}</span>
           </ToggleButton>
           <ToggleButton
-            className={classes.small}
             onClick={handleDecrement}
-            value="center"
-            aria-label="centered"
+            value={-1}
+            style={{ color: isLiked === -1 ? 'blue' : 'inherit' }}
           >
             <KeyboardArrowDownIcon />
           </ToggleButton>

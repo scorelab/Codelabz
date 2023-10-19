@@ -1,5 +1,134 @@
 import * as actions from "./actionTypes";
 
+// Gets all the tutorials with this user having edit access
+export const getTutorialstatus = (tutorialid, userid) => async (firebase, firestore, dispatch) => {
+
+  
+  const useref = await firestore
+    .collection("tutorial_likes")
+  const tutorialstatus = await useref
+    .where("tutorial_id", "==", tutorialid)
+    .where("user_id", "==", userid)
+    .get();
+  if (tutorialstatus.empty) {
+    const newdoc = await firestore
+      .collection("tutorial_likes").doc(tutorialid + "_" + userid)
+      .add({
+        tutorial_id: tutorialid,
+        user_id: userid,
+        like_status: 0,
+      })
+
+    return newdoc;
+  }
+  else {
+    try {
+      const tutorialLikes = [];
+      tutorialstatus.forEach((doc) => {
+        tutorialLikes.push(doc.data());
+      });
+
+      return tutorialLikes;
+    } catch (e) {
+      console.log("error in firebase");
+    }
+
+  }
+
+};
+
+export const updateupvotes = (tutid, ls) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    const tutorialRef = firestore.collection("tutorials").doc(tutid);
+    const tutorial = await tutorialRef.get();
+    let tut;
+    if(tutorial.empty){
+      console.log("tutorial not found");
+    }
+    else{
+      console.log("tutorial found");
+      tut=tutorial.data();
+    }
+    
+    try{
+      await tutorialRef.update({ upvotes: tut.upvotes + ls});
+
+    }
+    catch{
+      await tutorialRef.set({
+        ...tut,
+        upvotes:tut.upvotes+ls,
+      });
+    }
+
+    console.log("upvotes:", tut.upvotes+ls);
+  } catch (error) {
+    console.log("error in updating upvotes", error);
+  }
+};
+export const updatedownvotes = (tutid, ls) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    const tutorialRef = firestore.collection("tutorials").doc(tutid);
+    const tutorial = await tutorialRef.get();
+    let tut;
+    if(tutorial.empty){
+      console.log("tutorial not found");
+    }
+    else{
+      console.log("tutorial found");
+      tut=tutorial.data();
+    }
+    
+    try{
+      await tutorialRef.update({ downvotes: downvotes + ls});
+    }
+    catch{
+      await tutorialRef.set({
+        ...tut,
+        downvotes:tut.downvotes+ls,
+      });
+    }
+
+    console.log("downvotes:", tut.downvotes+ls);
+  } catch (error) {
+    console.log("error in updating upvotes", error);
+  }
+};
+
+export const updatelikestatus = (tutid, userid, ls) => async (
+  firebase,
+  firestore,
+  dispatch
+) => {
+  try {
+    let documentReference = await firestore
+      .collection("tutorial_likes")
+      .doc(tutid + "_" + userid);
+
+    if (documentReference.exists) {
+      await documentReference.update({ like_status: ls });
+    } else {
+      await documentReference.set({
+        tutorial_id: tutid,
+        user_id: userid,
+        like_status: ls,
+      });
+    }
+  } catch (error) {
+    console.log("error in updating like status", error);
+  }
+};
+
+
+
 export const getTutorialFeedIdArray =
   uid => async (firebase, firestore, dispatch) => {
     try {
@@ -101,7 +230,9 @@ export const getTutorialFeedData =
             owner: tutorial?.owner,
             created_by: tutorial?.created_by,
             createdAt: tutorial?.createdAt,
-            featured_image: tutorial?.featured_image
+            featured_image: tutorial?.featured_image,
+            upvotes: tutorial?.upvotes,
+            downvotes: tutorial?.downvotes,
           };
           return tutorialData;
         });
