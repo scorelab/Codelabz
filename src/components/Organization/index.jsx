@@ -95,24 +95,24 @@ const Organizations = () => {
   return (
     <Container maxWidth="xl">
       <Grid container className={classes.root} direction="column">
-        <Grid item>
-          <SwitchAccount
-            Heading="Switch Account"
-            name={currentOrgData.org_handle}
-            userOrgs={orgsOfUser}
-            avatar={{
-              value: currentOrgData.org_image
-            }}
-            buttonText={
-              currentOrgUpdate
-                ? "Loading.."
-                : currentOrgData.org_published
-                ? "Unpublish"
-                : "Publish"
-            }
-            buttonClick={unpublishOrganization}
-          />
-        </Grid>
+        {/* <Grid item> */}
+        <SwitchAccount
+          Heading="Switch Account"
+          name={currentOrgData.org_handle}
+          userOrgs={orgsOfUser}
+          avatar={{
+            value: currentOrgData.org_image
+          }}
+          buttonText={
+            currentOrgUpdate
+              ? "Loading.."
+              : currentOrgData.org_published
+              ? "Unpublish"
+              : "Publish"
+          }
+          buttonClick={unpublishOrganization}
+        />
+        {/* </Grid> */}
         <Grid item container direction="row">
           {windowSize.width <= 750 ? (
             <Grid item>
