@@ -1,7 +1,7 @@
 import * as actions from "./actionTypes";
 import Elasticlunr from "../../helpers/elasticlunr";
 import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
-import _ from "lodash";
+import _, { set } from "lodash";
 
 const tutorials_index = new Elasticlunr(
   "tutorial_id",
@@ -14,34 +14,33 @@ const tutorials_index = new Elasticlunr(
 export const searchFromTutorialsIndex = query => {
   return tutorials_index.searchFromIndex(query);
 };
-
 // Gets all the tutorials with this user having edit access
 export const getUserTutorialsBasicData =
-  user_handle => async (firestore, dispatch) => {
-    try {
-      dispatch({ type: actions.GET_USER_TUTORIALS_BASIC_START });
-      let index = [];
-      const userTutorialsQuerySnapshot = await firestore
-        .collection("tutorials")
-        .where("editors", "array-contains", user_handle)
-        .get();
-
-      if (userTutorialsQuerySnapshot.empty) {
-        index = [];
-      } else {
-        index = userTutorialsQuerySnapshot.docs.map(doc => {
-          const new_doc = {
-            owner: user_handle,
-            tutorial_id: doc.id,
-            title: doc.get("title") || "",
-            summary: doc.get("summary") || "",
-            featured_image: doc.get("featured_image") || "",
-            icon: doc.get("icon") || "",
-            isPublished: doc.get("isPublished") || false
-          };
-
-          tutorials_index.addDocToIndex(new_doc);
-          return new_doc;
+user_handle => async (firestore, dispatch) => {
+  try {
+    dispatch({ type: actions.GET_USER_TUTORIALS_BASIC_START });
+    let index = [];
+    const userTutorialsQuerySnapshot = await firestore
+    .collection("tutorials")
+    .where("editors", "array-contains", user_handle)
+    .get();
+    
+    if (userTutorialsQuerySnapshot.empty) {
+      index = [];
+    } else {
+      index = userTutorialsQuerySnapshot.docs.map(doc => {
+        const new_doc = {
+          owner: user_handle,
+          tutorial_id: doc.id,
+          title: doc.get("title") || "",
+          summary: doc.get("summary") || "",
+          featured_image: doc.get("featured_image") || "",
+          icon: doc.get("icon") || "",
+          isPublished: doc.get("isPublished") || false
+        };
+        
+        tutorials_index.addDocToIndex(new_doc);
+        return new_doc;
         });
       }
 
@@ -56,9 +55,10 @@ export const getUserTutorialsBasicData =
       });
     }
   };
-
-// Gets the basic data of all the tutorials of the organizations that the user is a part of
-export const getOrgTutorialsBasicData =
+  
+  
+  // Gets the basic data of all the tutorials of the organizations that the user is a part of
+  export const getOrgTutorialsBasicData =
   organizations => async (firestore, dispatch) => {
     try {
       dispatch({ type: actions.GET_ORG_TUTORIALS_BASIC_START });
@@ -120,9 +120,26 @@ export const clearTutorialsBasicData = () => dispatch =>
 
 export const createTutorial =
   tutorialData => async (firebase, firestore, dispatch, history) => {
+    let tid="";
     try {
       dispatch({ type: actions.CREATE_TUTORIAL_START });
       const { title, summary, owner, created_by, is_org } = tutorialData;
+
+
+      
+      const settutorial = async tutid => {
+
+
+        const document = firestore.collection("tutorial_likes").doc(tutid+"_"+firebase.auth().currentUser.uid);
+        
+
+       await document.set({
+        user_id: firebase.auth().currentUser.uid,
+        tutorial_id: tutid,
+        like_status: 0,
+       })
+      }
+
 
       const setData = async type => {
         const document = firestore.collection("tutorials").doc();
@@ -144,7 +161,9 @@ export const createTutorial =
           background_color: "#ffffff",
           text_color: "#000000",
           createdAt: firestore.FieldValue.serverTimestamp(),
-          updatedAt: firestore.FieldValue.serverTimestamp()
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+          upvotes: 0,
+          downvotes: 0,
         });
 
         // Adds first step when a tutorial is created
@@ -156,16 +175,21 @@ export const createTutorial =
           id: step_id
         })(firebase, firestore, dispatch);
 
+        tid=documentID;
+
         return documentID;
       };
 
       if (is_org) {
         const documentID = await setData("organization");
         history.push(`/tutorials/${owner}/${documentID}`);
+        
       } else {
         const documentID = await setData("user");
         history.push(`/tutorials/${owner}/${documentID}`);
+       
       }
+      const a=settutorial(tid);
       dispatch({ type: actions.CREATE_TUTORIAL_SUCCESS });
     } catch (e) {
       console.error("CREATE_TUTORIAL_FAIL", e);
