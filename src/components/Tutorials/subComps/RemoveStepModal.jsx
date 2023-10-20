@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import Grid from "@mui/material/Grid";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { removeStep } from "../../../store/actions";
@@ -64,7 +65,7 @@ const RemoveStepModal = ({
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       style={{
-        border: "2px solid #000",
+        border: "none",
         background: "whitesmoke",
         boxShadow: "2rem gray",
         display: "flex",
@@ -77,17 +78,27 @@ const RemoveStepModal = ({
         left: "40%"
       }}
     >
-      <div>
+      <Grid style={{ background: "white", padding: "2rem" }}>
         <Typography>This action is can not be undone!</Typography>
-        <form onSubmit={handleOnOk}>
-          <Button key="back" onClick={handleOnCancel}>
+        <form
+          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          onSubmit={handleOnOk}>
+          <Button
+            style={{ marginTop: "2rem", marginRight: "7px" }}
+            variant="contained"
+            color="secondary"
+            key="back" onClick={handleOnCancel}>
             <Typography>Cancel</Typography>
           </Button>
-          <Button key="remove" type="submit">
+          <Button
+            style={{ marginTop: "2rem" }}
+            variant="contained"
+            color="primary"
+            key="remove" type="submit">
             <Typography> Remove</Typography>
           </Button>
         </form>
-      </div>
+      </Grid>
     </Modal>
   );
 };
