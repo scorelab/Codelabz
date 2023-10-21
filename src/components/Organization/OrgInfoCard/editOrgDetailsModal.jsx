@@ -6,7 +6,7 @@ import { editGeneralData, clearEditGeneral } from "../../../store/actions";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import AppsIcon from "@mui/icons-material/Apps";
 import LanguageIcon from "@mui/icons-material/Language";
 import FacebookIcon from "@mui/icons-material/Facebook";

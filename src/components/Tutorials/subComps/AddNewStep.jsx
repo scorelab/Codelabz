@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Input from "@mui/material/Input";
 import Grid from "@mui/material/Grid";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useFirebase, useFirestore } from "react-redux-firebase";

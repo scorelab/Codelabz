@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
