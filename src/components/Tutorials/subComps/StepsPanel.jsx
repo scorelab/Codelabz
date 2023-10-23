@@ -59,7 +59,6 @@ const StepsPanel = ({
       <Stepper
         activeStep={currentStep}
         orientation="vertical"
-        onChange={onChange}
         data-testid={"stepsPanel"}
         nonLinear
         className={classes.stepperContainer}
@@ -72,6 +71,7 @@ const StepsPanel = ({
                   className={classes.stepButtonStyle}
                   onClick={() => {
                     setCurrentStep(index);
+                    onChange(index)
                   }}
                 >
                   {step.title}
