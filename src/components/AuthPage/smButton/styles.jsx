@@ -2,7 +2,8 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
 	button: {
-		height: "35px",
+		height: "45px",
+		width: "45px",
 		"&:hover": {
 			transform: "scale(1.2)",
 		},
