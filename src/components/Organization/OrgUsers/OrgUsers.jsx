@@ -1,201 +1,220 @@
-import {
-	Avatar,
-	Button,
-	Grid,
-	Paper,
-	Typography,
-} from "@mui/material";
+import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddAdmin from "./AddNewUser/addNewAdminModal";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		border: `1px solid ${theme.palette.divider}`,
-		borderRadius: "10px",
-	},
-	gridPadding: {
-		padding: theme.spacing(2),
-	},
-	button: {
-		boxShadow: "none",
-		borderRadius: "10px",
-	},
-	heading: {
-		fontSize: theme.typography.pxToRem(17),
-		fontWeight: theme.typography.fontWeightMedium,
-	},
-	body: {
-		fontSize: theme.typography.pxToRem(12),
-	},
-	userCard: {
-		padding: theme.spacing(1),
-		"&:hover": {
-			backgroundColor: theme.palette.background.default,
-		},
-		borderRadius: "10px",
-	},
-	userList: {
-		marginTop: theme.spacing(2),
-	},
-	userName: {
-		fontSize: theme.typography.pxToRem(14),
-		fontWeight: theme.typography.fontWeightMedium,
-	},
-	userDesignation: {
-		fontSize: theme.typography.pxToRem(14),
-		paddingLeft: theme.spacing(0.5),
-		fontWeight: theme.typography.fontWeightLight,
-	},
-	viewMore: {
-		borderTop: `1px solid ${theme.palette.divider}`,
-		padding: theme.spacing(1),
-		cursor: "pointer",
-	},
-	buttonDiv: {
-		[theme.breakpoints.down("md")]: {
-			justifyContent: "flex-start",
-			paddingTop: theme.spacing(2),
-		},
-		[theme.breakpoints.up("md")]: {
-			justifyContent: "flex-end",
-		},
-	},
+const useStyles = makeStyles(theme => ({
+  root: {
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: "10px"
+  },
+  gridPadding: {
+    padding: theme.spacing(2)
+  },
+  button: {
+    boxShadow: "none",
+    borderRadius: "10px"
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(17),
+    fontWeight: theme.typography.fontWeightMedium
+  },
+  body: {
+    fontSize: theme.typography.pxToRem(12)
+  },
+  userCard: {
+    padding: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: theme.palette.background.default
+    },
+    borderRadius: "10px"
+  },
+  userList: {
+    marginTop: theme.spacing(2)
+  },
+  userName: {
+    fontSize: theme.typography.pxToRem(14),
+    fontWeight: theme.typography.fontWeightMedium
+  },
+  userDesignation: {
+    fontSize: theme.typography.pxToRem(14),
+    paddingLeft: theme.spacing(0.5),
+    fontWeight: theme.typography.fontWeightLight
+  },
+  viewMore: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    padding: theme.spacing(1),
+    cursor: "pointer"
+  },
+  buttonDiv: {
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "flex-start",
+      paddingTop: theme.spacing(2),
+      display: "flex"
+    },
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end"
+    }
+  }
 }));
 
 function Orgusers({
-	Users,
-	title,
-	description,
-	AddUser,
-	isViewMore,
-	dataTestId,
-	buttonTitle,
-	buttonfunction,
-	modalComponent,
-	addButton
+  Users,
+  title,
+  description,
+  AddUser,
+  isViewMore,
+  dataTestId,
+  buttonTitle,
+  buttonfunction,
+  modalComponent,
+  removeModalComp,
+  addButton,
+  removeButton
 }) {
-	
-	const currentUserPermission = useSelector(
-		({
-			org: {
-				general: { permissions },
-			},
-		}) => permissions
-	);
-	const classes = useStyles();
-	return (
+  const currentUserPermission = useSelector(
+    ({
+      org: {
+        general: { permissions }
+      }
+    }) => permissions
+  );
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
+        <Grid container className={classes.gridPadding}>
+          <Grid container direction="row">
+            <Grid item container xs={8} direction="column">
+              <Grid item>
+                <Typography className={classes.heading} data-testid="org-title">
+                  {title}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant="body1"
+                  className={classes.body}
+                  data-testid="org-description"
+                >
+                  {description}
+                </Typography>
+              </Grid>
+            </Grid>
+            {currentUserPermission == 3 && (
+              <Grid
+                item
+                container
+                md={4}
+                className={classes.buttonDiv}
+                direction="row"
+              >
+                <Grid md={8}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.button}
+                    style={{
+                      display: AddUser ? "flex" : "none"
+                    }}
+                    onClick={addButton}
+                  >
+                    <AddIcon />
+                    {buttonTitle}
+                  </Button>
+                </Grid>
+                <Grid md={4}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.button}
+                    style={{ display: AddUser ? "flex" : "none" }}
+                    onClick={removeButton}
+                  >
+                    <RemoveIcon />
+                    Remove
+                  </Button>
+                </Grid>
+              </Grid>
+            )}
 
-		<React.Fragment>
-			<Paper elevation={0} className={classes.root} data-testid={dataTestId}>
-				<Grid container className={classes.gridPadding}>
-					<Grid container direction="row">
-						<Grid item container xs={10} direction="column">
-							<Grid item>
-								<Typography className={classes.heading} data-testid="org-title">
-									{title}
-								</Typography>
-							</Grid>
-							<Grid item>
-								<Typography
-									variant="body1"
-									className={classes.body}
-									data-testid="org-description">
-									{description}
-								</Typography>
-							</Grid>
-						</Grid>
-						{
-							currentUserPermission==3 && <Grid item container md={2} className={classes.buttonDiv}>
-							<Button
-								variant="outlined"
-								color="primary"
-								className={classes.button}
-								style={{
-									display: AddUser ? "flex" : "none",
-								}}	
-								onClick={addButton}
-								>
-								
-								<AddIcon />
-								{buttonTitle}
-
-							
-							</Button>
-
-						</Grid>
-						}
-						
-						{modalComponent }
-					</Grid>
-					<Grid
-						container
-						className={classes.userList}
-						data-testid="org-userlist">
-						{Users.map((user, index) => (
-							<React.Fragment key={index}>
-								<Grid
-									container
-									direction="row"
-									justifyContent="center"
-									alignItems="center"
-									className={classes.userCard}
-									data-testid="org-user-card"
-									spacing={2}>
-									<Grid
-										item
-										container
-										xs={3}
-										md={1}
-										justifyContent="center"
-										alignItems="center">
-										{user.avatar.type === "char" ? (
-											<Avatar>{user.avatar.value}</Avatar>
-										) : (
-											<Avatar src={user.avatar.value} />
-										)}
-									</Grid>
-									<Grid
-										item
-										xs={9}
-										md={11}
-										container
-										direction="row"
-										alignItems="center">
-										<Typography className={classes.userName}>
-											{user.name},
-										</Typography>
-										<Typography className={classes.userDesignation}>
-											{user.designation}
-										</Typography>
-									</Grid>
-								</Grid>
-							</React.Fragment>
-						))}
-					</Grid>
-				</Grid>
-				<Grid
-					item
-					container
-					direction="row"
-					justifyContent="center"
-					alignItems="center"
-					className={classes.viewMore}
-					style={{
-						display: isViewMore ? "flex" : "none",
-					}}>
-					<ExpandMoreIcon />
-					<Typography variant="body1" className={classes.body}>
-						View More
-					</Typography>
-				</Grid>
-			</Paper>
-		</React.Fragment>
-	);
+            {modalComponent}
+            {removeModalComp}
+          </Grid>
+          <Grid
+            container
+            className={classes.userList}
+            data-testid="org-userlist"
+          >
+            {Users.map((user, index) => (
+              <React.Fragment key={index}>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  className={classes.userCard}
+                  data-testid="org-user-card"
+                  spacing={2}
+                >
+                  <Grid
+                    item
+                    container
+                    xs={3}
+                    md={1}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {user.avatar.type === "char" ? (
+                      <Avatar>{user.avatar.value}</Avatar>
+                    ) : (
+                      <Avatar src={user.avatar.value} />
+                    )}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={9}
+                    md={11}
+                    container
+                    direction="row"
+                    alignItems="center"
+                  >
+                    <Typography className={classes.userName}>
+                      {user.name},
+                    </Typography>
+                    <Typography className={classes.userDesignation}>
+                      {user.designation}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </React.Fragment>
+            ))}
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          className={classes.viewMore}
+          style={{
+            display: isViewMore ? "flex" : "none"
+          }}
+        >
+          <ExpandMoreIcon />
+          <Typography variant="body1" className={classes.body}>
+            View More
+          </Typography>
+        </Grid>
+      </Paper>
+    </React.Fragment>
+  );
 }
 
 export default Orgusers;

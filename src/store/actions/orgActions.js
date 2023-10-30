@@ -17,10 +17,10 @@ export const getOrgUserData = org_handle => async (firestore, dispatch) => {
       .collection("org_users")
       .where("org_handle", "==", org_handle)
       .get();
-  
-    const orgUsersDocs = orgUsersSnap.docs.map((doc) => doc.data());
 
-    const orgPromises = orgUsersDocs.map(async (user) => {
+    const orgUsersDocs = orgUsersSnap.docs.map(doc => doc.data());
+
+    const orgPromises = orgUsersDocs.map(async user => {
       let userDoc = await firestore.collection("cl_user").doc(user.uid).get();
       return {
         name: userDoc.get("displayName"),
@@ -31,7 +31,6 @@ export const getOrgUserData = org_handle => async (firestore, dispatch) => {
     });
     const orgUserData = await Promise.all(orgPromises);
 
-    
     dispatch({
       type: actions.GET_ORG_USER_DATA_SUCCESS,
       payload: _.orderBy(orgUserData, ["permission_level"], ["desc"])
@@ -63,20 +62,19 @@ export const addOrgUser =
             uid: uid,
             org_handle: org_handle,
             permissions: permissions
-          })
+          });
 
-        await getOrgUserData(org_handle)(firebase,firestore, dispatch);
+        await getOrgUserData(org_handle)(firebase, firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
       } else {
         dispatch({
           type: actions.ADD_ORG_USER_FAIL,
           payload: `User [${handle}] is not registered with CodeLabz`
         });
-      console.log(`User [${handle}] is not registered with CodeLabz`);
-       
+        console.log(`User [${handle}] is not registered with CodeLabz`);
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
       dispatch({ type: actions.ADD_ORG_USER_FAIL, payload: e.message });
     }
   };
@@ -97,14 +95,16 @@ export const removeOrgUser =
           .collection("org_users")
           .doc(`${org_handle}_${uid}`)
           .delete();
-
+    
         await getOrgUserData(org_handle)(firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
+     
       } else {
         dispatch({
           type: actions.ADD_ORG_USER_FAIL,
           payload: `User [${handle}] is not registered with CodeLabz`
         });
+        console.log(`User [${handle}] is not registered with CodeLabz`);
       }
     } catch (e) {
       console.log(e);
@@ -141,7 +141,7 @@ export const getOrgBasicData = org_handle => async firebase => {
       ...orgData,
       org_image: orgData.org_image ? orgData.org_image : "",
       permissions: user_permissions
-    }
+    };
   } catch (e) {
     console.log(e);
     throw e;
@@ -175,7 +175,7 @@ export const editGeneralData =
     }
   };
 
-export const clearEditGeneral = () => (dispatch) => {
+export const clearEditGeneral = () => dispatch => {
   dispatch({ type: actions.CLEAR_EDIT_ORG_GENERAL });
 };
 
@@ -186,14 +186,14 @@ export const unPublishOrganization =
       dispatch({ type: actions.EDIT_ORG_GENERAL_START });
       await firestore.collection("cl_org_general").doc(org_handle).update({
         org_published: !published,
-        updatedAt: firestore.FieldValue.serverTimestamp(),
+        updatedAt: firestore.FieldValue.serverTimestamp()
       });
 
       const newData = await getOrgBasicData(org_handle)(firebase);
       const update = _.unionBy([newData], currentOrgData, "org_handle");
       dispatch({
         type: actions.GET_PROFILE_DATA_SUCCESS,
-        payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) },
+        payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) }
       });
 
       dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
@@ -211,14 +211,14 @@ export const uploadOrgProfileImage =
         metadataFactory: (uploadRes, firebase, metadata, downloadURL) => {
           return { org_image: downloadURL };
         },
-        documentId: org_handle,
+        documentId: org_handle
       });
 
       const newData = await getOrgBasicData(org_handle)(firebase);
       const update = _.unionBy([newData], currentOrgData, "org_handle");
       dispatch({
         type: actions.GET_PROFILE_DATA_SUCCESS,
-        payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) },
+        payload: { organizations: _.orderBy(update, ["org_handle"], ["asc"]) }
       });
 
       dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
@@ -247,7 +247,11 @@ export const getOrgData =
             type: actions.GET_ORG_DATA_SUCCESS,
             payload: {
               ...doc.data(),
-              userSubscription: await isUserSubscribed(org_handle, firebase, firestore)
+              userSubscription: await isUserSubscribed(
+                org_handle,
+                firebase,
+                firestore
+              )
             }
           });
         } else {
@@ -257,12 +261,12 @@ export const getOrgData =
         dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
       dispatch({ type: actions.GET_ORG_DATA_FAIL, payload: e.message });
     }
   };
 
-export const clearOrgData = () => (dispatch) => {
+export const clearOrgData = () => dispatch => {
   dispatch({ type: actions.CLEAR_ORG_DATA_STATE });
 };
 
@@ -274,7 +278,7 @@ export const getLaunchedOrgsData = () => async (firestore, dispatch) => {
         .collection("cl_org_general")
         .where("org_published", "==", true)
         .get()
-    ).docs.map((doc) => doc.data());
+    ).docs.map(doc => doc.data());
 
     dispatch({ type: actions.GET_LAUNCHED_ORGS_SUCCESS, payload: lauchedOrgs });
   } catch (e) {
@@ -286,15 +290,15 @@ const isUserSubscribed = async (org_handle, firebase, firestore) => {
   const auth = firebase.auth().currentUser;
 
   const subscription = await firestore
-  .collection("org_subscribers")
-  .doc(`${org_handle}_${auth.uid}`)
-  .get()
+    .collection("org_subscribers")
+    .doc(`${org_handle}_${auth.uid}`)
+    .get();
 
   return subscription.exists;
-}
+};
 
-export const subscribeOrg = 
-  (org_handle) => async (firebase, firestore, dispatch) => {
+export const subscribeOrg =
+  org_handle => async (firebase, firestore, dispatch) => {
     try {
       const auth = firebase.auth().currentUser;
 
@@ -303,43 +307,43 @@ export const subscribeOrg =
         .doc(`${org_handle}_${auth.uid}`)
         .set({
           uid: auth.uid,
-          org_handle,
-        })
-      
+          org_handle
+        });
+
       await firestore
         .collection("cl_org_general")
         .doc(org_handle)
         .update({
           followerCount: firebase.firestore.FieldValue.increment(1)
-        })
+        });
 
       getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-export const unSubscribeOrg = 
-  (org_handle) => async (firebase, firestore, dispatch) => {
+export const unSubscribeOrg =
+  org_handle => async (firebase, firestore, dispatch) => {
     try {
       const auth = firebase.auth().currentUser;
       await firestore
         .collection("org_subscribers")
         .doc(`${org_handle}_${auth.uid}`)
-        .delete()
+        .delete();
 
       await firestore
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .update({
-        followerCount: firebase.firestore.FieldValue.increment(-1)
-      })
+        .collection("cl_org_general")
+        .doc(org_handle)
+        .update({
+          followerCount: firebase.firestore.FieldValue.increment(-1)
+        });
 
       getOrgData(org_handle, [org_handle])(firebase, firestore, dispatch);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 export const removeFollower =
   (val, people, handle, orgFollowed, profileId) => (firestore, dispatch) => {
     console.log("test");
@@ -348,13 +352,13 @@ export const removeFollower =
         return value !== val;
       });
       firestore.collection("cl_org_general").doc(handle).update({
-        followers: filteredFollowers,
+        followers: filteredFollowers
       });
       var Orgfiltered = orgFollowed.filter(function (value, index, arr) {
         return handle !== value;
       });
       firestore.collection("cl_user").doc(profileId).update({
-        orgFollowed: Orgfiltered,
+        orgFollowed: Orgfiltered
       });
     } catch (e) {
       console.log(e);
@@ -370,27 +374,27 @@ export const addFollower =
         const arr = [...people];
         arr.push(value);
         firestore.collection("cl_org_general").doc(handle).update({
-          followers: arr,
+          followers: arr
         });
         var arr2 = [];
         if (orgFollowed) arr2 = [...orgFollowed];
 
         arr2.push(handle);
         firestore.collection("cl_user").doc(profileId).update({
-          orgFollowed: arr2,
+          orgFollowed: arr2
         });
       } else {
         firestore
           .collection("cl_user")
           .doc(profileId)
           .update({
-            orgFollowed: [handle],
+            orgFollowed: [handle]
           });
         firestore
           .collection("cl_org_general")
           .doc(handle)
           .update({
-            followers: [value],
+            followers: [value]
           });
       }
     } catch (e) {
@@ -398,19 +402,29 @@ export const addFollower =
     }
   };
 
-export const deleteOrganization = (org_handle) => async (firebase = useFirebase(), dispatch) => {
-  try {
-    const auth = firebase.auth().currentUser;
-    // remove org from the organization collection
-    await firebase.firestore().collection("cl_org_general").doc(org_handle).delete();
+export const deleteOrganization =
+  org_handle =>
+  async (firebase = useFirebase(), dispatch) => {
+    try {
+      const auth = firebase.auth().currentUser;
+      // remove org from the organization collection
+      await firebase
+        .firestore()
+        .collection("cl_org_general")
+        .doc(org_handle)
+        .delete();
 
-    // remove org from the user's orgs
-    await firebase.firestore().collection('cl_user').doc(auth.uid).update({
-      organizations: firebase.firestore.FieldValue.arrayRemove(org_handle)
-    });
-    dispatch({ type: actions.CLEAR_ORG_GENERAL_STATE });
-    dispatch({ type: actions.CLEAR_ORG_USER_STATE });
-  } catch (e) {
-    console.log(e);
-  }
-}
+      // remove org from the user's orgs
+      await firebase
+        .firestore()
+        .collection("cl_user")
+        .doc(auth.uid)
+        .update({
+          organizations: firebase.firestore.FieldValue.arrayRemove(org_handle)
+        });
+      dispatch({ type: actions.CLEAR_ORG_GENERAL_STATE });
+      dispatch({ type: actions.CLEAR_ORG_USER_STATE });
+    } catch (e) {
+      console.log(e);
+    }
+  };
