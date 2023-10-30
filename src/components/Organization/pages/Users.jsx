@@ -2,6 +2,9 @@ import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import Orgusers from "../OrgUsers/OrgUsers";
+import AddContributor from "../OrgUsers/AddNewUser/addNewContributorModal";
+import AddAdmin from "../OrgUsers/AddNewUser/addNewAdminModal";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -13,9 +16,31 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+
 function Users() {
 	const classes = useStyles();
+	const [modalOpenAdmin, setModalOpenAdmin] = useState(false);
+	const[modalOpenContr, setModalOpenContr]=useState(false);
 
+	const closeContriModal=()=>{
+		setModalOpenContr(false);
+	}
+  const handleAddContri=()=>{
+	setModalOpenContr(false);
+	
+  }
+	const closeModal = () => {
+	  setModalOpenAdmin(false);
+	};
+  
+	const handleAddAdmin = (userName) => {
+	
+
+	 
+	  console.log("Adding admin with username:", userName);
+	  setModalOpenAdmin(false)
+	};
+	
 	const AdminUsers = [
 		{
 			name: "Shahaab Manzar",
@@ -87,7 +112,11 @@ function Users() {
 						title="Admin"
 						description="Admins can manage submissions, content, and settings"
 						AddUser={true}
-						dataTestId="org-admin-list"
+						dataTestId="org-admin-list"	
+						buttonTitle="Add Admin"
+						addButton={()=>{setModalOpenAdmin(true)}}
+						modalComponent={  <AddAdmin open={modalOpenAdmin} onClose={closeModal} onSubmit={handleAddAdmin} />}
+						
 					/>
 				</Grid>
 				<Grid item>
@@ -97,7 +126,12 @@ function Users() {
 						description="Contributers can contribute to the project"
 						AddUser={true}
 						isViewMore={true}
-						dataTestId="org-contributor-list"
+						dataTestId="org-contributor-list"	
+						buttonTitle="Add Contributor"
+						addButton={()=>{setModalOpenContr(true)}}
+					
+					   modalComponent={<AddContributor modalopen={modalOpenContr} onClose={closeContriModal} onSubmit={handleAddContri}/>}
+						
 					/>
 				</Grid>
 			</Grid>

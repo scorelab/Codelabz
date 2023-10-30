@@ -65,13 +65,15 @@ export const addOrgUser =
             permissions: permissions
           })
 
-        await getOrgUserData(org_handle)(firestore, dispatch);
+        await getOrgUserData(org_handle)(firebase,firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
       } else {
         dispatch({
           type: actions.ADD_ORG_USER_FAIL,
           payload: `User [${handle}] is not registered with CodeLabz`
         });
+      console.log(`User [${handle}] is not registered with CodeLabz`);
+       
       }
     } catch (e) {
       console.log(e)

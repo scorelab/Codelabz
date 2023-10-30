@@ -6,9 +6,12 @@ import {
 	Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddAdmin from "./AddNewUser/addNewAdminModal";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -71,9 +74,22 @@ function Orgusers({
 	AddUser,
 	isViewMore,
 	dataTestId,
+	buttonTitle,
+	buttonfunction,
+	modalComponent,
+	addButton
 }) {
+	
+	const currentUserPermission = useSelector(
+		({
+			org: {
+				general: { permissions },
+			},
+		}) => permissions
+	);
 	const classes = useStyles();
 	return (
+
 		<React.Fragment>
 			<Paper elevation={0} className={classes.root} data-testid={dataTestId}>
 				<Grid container className={classes.gridPadding}>
@@ -93,18 +109,28 @@ function Orgusers({
 								</Typography>
 							</Grid>
 						</Grid>
-						<Grid item container md={2} className={classes.buttonDiv}>
+						{
+							currentUserPermission==3 && <Grid item container md={2} className={classes.buttonDiv}>
 							<Button
 								variant="outlined"
 								color="primary"
 								className={classes.button}
 								style={{
 									display: AddUser ? "flex" : "none",
-								}}>
+								}}	
+								onClick={addButton}
+								>
+								
 								<AddIcon />
-								Add New
+								{buttonTitle}
+
+							
 							</Button>
+
 						</Grid>
+						}
+						
+						{modalComponent }
 					</Grid>
 					<Grid
 						container
