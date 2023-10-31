@@ -98,7 +98,7 @@ export default function AddContributor({ modalopen, onClose, onSubmit }) {
           org_handle,
           handle,
           permissions
-        })( firestore, dispatch);
+        })(firestore, dispatch);
       
        
         onSubmit();

@@ -48,6 +48,7 @@ export const addOrgUser =
   ({ org_handle, handle, permissions }) =>
   async (firestore, dispatch) => {
     try {
+      
       dispatch({ type: actions.ADD_ORG_USER_START });
       const userDoc = await firestore
         .collection("cl_user")
@@ -64,7 +65,7 @@ export const addOrgUser =
             permissions: permissions
           });
 
-        await getOrgUserData(org_handle)(firebase, firestore, dispatch);
+        await getOrgUserData(org_handle)(firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
       } else {
         dispatch({
