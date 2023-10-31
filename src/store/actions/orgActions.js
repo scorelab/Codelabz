@@ -65,7 +65,7 @@ export const addOrgUser =
             permissions: permissions
           })
 
-        await getOrgUserData(org_handle)(firebase,firestore, dispatch);
+        await getOrgUserData(org_handle)(firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
       } else {
         dispatch({
