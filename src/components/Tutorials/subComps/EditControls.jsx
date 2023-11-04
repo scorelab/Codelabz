@@ -6,11 +6,15 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ListIcon from "@mui/icons-material/List";
+import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
+import { useHistory } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AddIcon from "@mui/icons-material/Add";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
@@ -40,10 +44,13 @@ const EditControls = ({
 }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [publishLoad, setPublishLoad] = useState(false);
+  const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
   const DropdownMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -54,7 +61,48 @@ const EditControls = ({
     const handleClose = () => {
       setAnchorEl(null);
     };
+    const handleDeleteConfirmation = () => {
+      setDeleteConfirmationModal(true);
+    };
+    const handleDeleteConfirm = () => {
+      // Perform deletion logic here, e.g., show a confirmation dialog, and navigate back if confirmed
+      // You can use history.goBack() to go back to the previous page
+      // ...
+      setDeleteConfirmationModal(false);
+      history.goBack(); // Go back to the previous page
+    };
+    const handleDeleteCancel = () => {
+      setDeleteConfirmationModal(false);
+    };
+    const tooltipStyles = `
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+  
+    }
 
+    .tooltip-container .tooltip-text {
+      visibility: hidden;
+      width: 180px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  `;
     return (
       <>
         <Button
@@ -92,13 +140,60 @@ const EditControls = ({
           >
             <FormatPaintIcon /> Edit CodeLabz Theme
           </MenuItem>
-          <MenuItem
-            key="delete_tutorial"
-            onClick={() => null}
-            style={{ color: "red" }}
-          >
-            <DeleteIcon /> Move to Trash
-          </MenuItem>
+          <MenuItem key="delete_tutorial" onClick={!isPublished?handleDeleteConfirmation:""} style={{ color: isPublished ? "black" : "red", cursor: isPublished ? "not-allowed" : "pointer" }}>
+  <DeleteIcon />
+  {!isPublished ? (
+  
+    "Move to Trash"
+  ) : (
+    <div>
+      <style>{tooltipStyles}</style>
+      <div className="tooltip-container">
+        Move to Trash
+        <div className="tooltip-text">Unpublish to enable</div>
+      </div>
+    </div>
+  )}
+</MenuItem>
+<Modal
+  open={deleteConfirmationModal}
+  onClose={handleDeleteCancel}
+  aria-labelledby="delete-confirmation-modal-title"
+  aria-describedby="delete-confirmation-modal-description"
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.9)", // Background color with opacity
+  }}
+>
+  <Box
+    sx={{
+      width: 400,
+      bgcolor: "background.paper",
+      p: 2,
+      textAlign: "center", // Center-align the buttons
+    }}
+  >
+    <Typography id="delete-confirmation-modal-title" variant="h6" component="div">
+      Delete Confirmation
+    </Typography>
+    <Typography id="delete-confirmation-modal-description" sx={{ mt: 2 }}>
+      Are you sure you want to delete this tutorial?
+    </Typography>
+    <Button
+      variant="contained"
+      color="error"
+      onClick={handleDeleteConfirm}
+      sx={{ mt: 2 }} // Add some margin top
+    >
+      Yes
+    </Button>
+    <Button variant="contained" color="primary" onClick={handleDeleteCancel} sx={{ mt: 2, mx:2}}>No</Button>
+  </Box>
+</Modal>
+
+
         </Menu>
       </>
     );
