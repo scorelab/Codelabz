@@ -10,6 +10,13 @@ const useStyles = makeStyles((theme) => ({
 			boxShadow: "none",
 		},
 	},
+	forgotPassword: {
+		color: "blue",
+		textDecoration: "none", 
+		"&:hover": {
+		  textDecoration: "underline", 
+		},
+	},
 }));
 
 export default useStyles;
