@@ -188,8 +188,8 @@ const Login = ({
               )
             }}
           />
-          <Grid container alignItems="center" justify="space-between">
-            <Grid>
+          <Grid container alignItems="center">
+            <Grid item xs={6}>
               <FormGroup row>
                 <FormControlLabel
                   control={<Checkbox name="remember" color="primary" />}
@@ -197,12 +197,11 @@ const Login = ({
                 />
               </FormGroup>
             </Grid>
-            <Grid>
+            <Grid item xs={6} container justifyContent="flex-end">
               <Link
                 data-testId="forgotPassoword"
                 to="/forgotpassword"
-                className="login-form-forgot"
-                style={{ float: "right" }}
+                className={`${classes.forgotPassword} login-form-forgot`}
               >
                 Forgot password
               </Link>
