@@ -20,6 +20,10 @@ const NotificationBox = ({ notification }) => {
     notification.isRead = true;
     handleClose();
   };
+  const handleUnread = () => {
+    notification.isRead = false;
+    handleClose();
+  };
   const handleDelete = id => {
     notifications.filter(notification => id != notification.id);
   };
@@ -39,7 +43,9 @@ const NotificationBox = ({ notification }) => {
             height: "60px"
           }}
         >
-          S
+          {
+          notification.username[0] //First Letter of Username
+          }
         </Avatar>
         <Box>
           <Typography>
@@ -66,7 +72,13 @@ const NotificationBox = ({ notification }) => {
             <MoreHorizOutlinedIcon />
           </IconButton>
           <Menu anchorEl={anchorRef.current} open={open} onClose={handleClose}>
-            <MenuItem onClick={handleRead}>Mark as read</MenuItem>
+            <MenuItem 
+              onClick={
+                !notification.isRead ? handleRead : handleUnread 
+              }
+            >
+              {!notification.isRead ? 'Mark as read' : 'Mark as Unread' } 
+            </MenuItem>
             <MenuItem onClick={() => handleDelete(notification.id)}>
               Delete
             </MenuItem>
