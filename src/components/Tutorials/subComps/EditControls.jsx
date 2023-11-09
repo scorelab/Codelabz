@@ -5,6 +5,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import DoneIcon from "@mui/icons-material/Done";
 import ListIcon from "@mui/icons-material/List";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -296,6 +297,9 @@ const EditControls = ({
               >
                 <FileCopyIcon /> {isPublished ? "Unpublish" : "Publish"}
               </Button>
+              <Button disabled={!isPublished} onClick={() => history.push("/")} >
+             {isPublished && <DoneIcon />} {isPublished ? "Finish" : ""}
+             </Button>  
               <DropdownMenu key="more" />
             </>
           )}
