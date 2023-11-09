@@ -33,6 +33,7 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
       type: "popup",
     });
     dispatch({ type: actions.SIGN_IN_SUCCESS });
+    window.location.href = '/dashboard';
   } catch (e) {
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
@@ -40,6 +41,7 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
 
 export const signInWithProviderID =
   (providerID) => async (firebase, dispatch) => {
+
     try {
       if (!["github", "twitter", "facebook"].includes(providerID)) {
         return;
@@ -50,6 +52,7 @@ export const signInWithProviderID =
         type: "popup",
       });
       dispatch({ type: actions.SIGN_IN_SUCCESS });
+      window.location.href = '/dashboard';
     } catch (e) {
       if (e.code === "auth/account-exists-with-different-credential") {
         const methods = await firebase
@@ -63,6 +66,7 @@ export const signInWithProviderID =
         });
       } else {
         dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
+     
       }
     }
   };
@@ -176,26 +180,26 @@ export const resendVerifyEmail = (email) => async (dispatch) => {
  * @param userHandle
  * @returns {function(...[*]=):boolean}
  */
-export const checkUserHandleExists = (userHandle) => async (firestore) => {
+export const checkUserHandleExists = (userHandle) => async (firebase) => {
   try {
-    const handle = await firestore
-      .collection("cl_user")
-      .where("handle", "==", userHandle)
-      .get();
-    return handle.docs.length > 0;
+    const handle = await firebase
+      .ref(`/cl_user_handle/${userHandle}`)
+      .once("value");
+    return handle.exists();
   } catch (e) {
     throw e.message;
   }
 };
 
-export const checkOrgHandleExists = (orgHandle) => async (firestore) => {
+export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
   try {
-    const organizationHandle = await firestore
+    const organizationHandle = await firebase
+      .firestore()
       .collection("cl_org_general")
       .doc(orgHandle)
       .get();
 
-    // console.log(organizationHandle);
+    console.log(organizationHandle);
     return organizationHandle.exists;
   } catch (e) {
     throw e.message;
@@ -218,7 +222,7 @@ export const setUpInitialData =
         org_country,
       } = data;
 
-      const isUserHandleExists = await checkUserHandleExists(handle)(firestore);
+      const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
 
       if (isUserHandleExists) {
         dispatch({
@@ -248,10 +252,6 @@ export const setUpInitialData =
             org_handle,
             org_website,
             org_country,
-            followerCount: 0,
-            contributorsCount: 0,
-            feedCount: 0,
-            org_published: false,
             org_email: userData.email,
             org_created_date: firestore.FieldValue.serverTimestamp(),
             createdAt: firestore.FieldValue.serverTimestamp(),
