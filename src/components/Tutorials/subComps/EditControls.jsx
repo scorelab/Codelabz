@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ListIcon from "@mui/icons-material/List";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DoneIcon from "@mui/icons-material/Done";
 import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -21,7 +22,9 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import RemoveStepModal from "./RemoveStepModal";
 import ColorPickerModal from "./ColorPickerModal";
+import { useHistory } from 'react-router-dom';
 import { Box, Stack } from "@mui/system";
+
 
 const EditControls = ({
   isPublished,
@@ -50,11 +53,11 @@ const EditControls = ({
     const handleClick = event => {
       setAnchorEl(event.currentTarget);
     };
-
+    
     const handleClose = () => {
       setAnchorEl(null);
     };
-
+    
     return (
       <>
         <Button
@@ -113,7 +116,7 @@ const EditControls = ({
     );
     setPublishLoad(false);
   };
-
+  const historyRouter = useHistory();
   return (
     <>
       <Stack
@@ -201,6 +204,9 @@ const EditControls = ({
               >
                 <FileCopyIcon /> {isPublished ? "Unpublish" : "Publish"}
               </Button>
+              <Button disabled={!isPublished} onClick={()=> historyRouter.push("/")}>
+  {isPublished && <DoneIcon />} {isPublished ? "Finish" : ""}
+</Button>
               <DropdownMenu key="more" />
             </>
           )}
