@@ -224,7 +224,7 @@ const Login = ({
               padding: "10px"
             }}
           >
-            {loading ? "Logging in..." : "Log in"}
+            {loading ? "Logging in..." : "Log in"}z
           </Button>
         </div>
         <Divider>or</Divider>

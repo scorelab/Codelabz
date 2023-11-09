@@ -21,7 +21,7 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENTID
 };
 
-//console.log("firebaseConfig", firebaseConfig);
+console.log("firebaseConfig", firebaseConfig);
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
@@ -36,6 +36,7 @@ if (import.meta.env.VITE_APP_USE_EMULATOR) {
   firebase.functions().useEmulator("localhost", 5001);
   db.settings({
     experimentalForceLongPolling: true,
+    experimentalAutoDetectLongPolling:false,
     merge: true
   });
 }

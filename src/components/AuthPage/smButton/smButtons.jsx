@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect , useState } from "react";
 import { Grid, IconButton, Icon } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
@@ -8,11 +8,16 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { signInWithGoogle, signInWithProviderID } from "../../../store/actions";
 import useStyles from "./styles";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { red } from "@mui/material/colors";
 
 const SmButtons = () => {
 	const dispatch = useDispatch();
 	const firebase = useFirebase();
 	const classes = useStyles();
+
+	
+
 	return (
 		<Grid
 			container
@@ -53,7 +58,7 @@ const SmButtons = () => {
 			</Grid>
 			<Grid item>
 				<IconButton
-					onClick={() => signInWithProviderID("github")(firebase, dispatch)}
+					onClick={()=>signInWithProviderID("github")(firebase, dispatch)}
 					className={classes.button}>
 					<GitHubIcon className={classes.git}>
 						<span className="sm-text">Github</span>

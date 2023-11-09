@@ -44,7 +44,11 @@
     "storage": {
       "port": 9199,
       "host": "127.0.0.1"
-    }
+    },
+    "eventarc": {
+      "port": 9299
+    },
+    "singleProjectMode": true
   },
   "storage": {
     "rules": "storage.rules"
