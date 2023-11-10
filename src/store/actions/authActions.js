@@ -3,6 +3,7 @@ import _ from "lodash";
 import { functions } from "../../config";
 
 export const signIn = (credentials) => async (firebase, dispatch) => {
+  
   try {
     dispatch({ type: actions.SIGN_IN_START });
     dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
@@ -21,6 +22,7 @@ export const signIn = (credentials) => async (firebase, dispatch) => {
       });
     }
   } catch (e) {
+   
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
 };
@@ -41,7 +43,7 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
 
 export const signInWithProviderID =
   (providerID) => async (firebase, dispatch) => {
-
+    
     try {
       if (!["github", "twitter", "facebook"].includes(providerID)) {
         return;
