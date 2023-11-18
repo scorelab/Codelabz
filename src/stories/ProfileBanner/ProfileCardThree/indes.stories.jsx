@@ -5,10 +5,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "ProfileBanner/ProfileCardThree",
-  component: ProfileCardThree,
+  component: ProfileCardThree
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <ProfileCardThree {...args} />
   </ProviderWrapper>
@@ -23,5 +23,5 @@ ProfileCard.args = {
     "Lorem ipsum dolor sit amet, consectur aipcing elit. Intristique pharetra mi eu tesque. In tique pharetra mi eupellentesque adipiscing elit.elit. In tristique pharetra mi eutesque.",
   work: "IIT Roorkee, India",
   location: "India",
-  joiningDate: "May 20, 2022",
+  joiningDate: "May 20, 2022"
 };
