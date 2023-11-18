@@ -59,6 +59,11 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       display: "none"
     }
+  },
+  disapperButton: {
+    [theme.breakpoints.down("md")]: {
+      display: "none"
+    }
   }
 }));
 
@@ -117,7 +122,7 @@ function MiniNavbar() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Grid item xs={12} md={3} container alignItems="center">
+          <Grid item xs={12} md={1.4} container alignItems="center">
             <Grid
               item
               style={{
@@ -142,7 +147,7 @@ function MiniNavbar() {
             </Grid>
           </Grid>
           {!excludedRoutes.includes(routeName) && 
-            <Grid style={{ display: "inline-block" }} item xs={12} md={4}>
+            <Grid style={{ display: "inline-block" }} item xs={12} sm={12} md={7.6} lg={5}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
@@ -176,7 +181,7 @@ function MiniNavbar() {
                 color: "white"
               }}
               data-test-id="login"
-              className={classes.button}
+              className={[classes.button, classes.disapperButton].join(' ')}
               onClick={() => history.push("/login")}
             >
               Login
@@ -187,7 +192,7 @@ function MiniNavbar() {
               style={{
                 boxShadow: "none"
               }}
-              className={classes.button}
+              className={[classes.button, classes.disapperButton].join(' ')}
               onClick={() => history.push("/signup")}
             >
               Sign Up
@@ -213,7 +218,7 @@ function MiniNavbar() {
             <Grid
               item
               style={{
-                padding: 10
+                padding: 10,
               }}
             >
               <Button
@@ -221,7 +226,7 @@ function MiniNavbar() {
                 color="primary"
                 style={{
                   boxShadow: "none",
-                  color: "white"
+                  color: "white",
                 }}
                 className={classes.button}
                 onClick={() => {
@@ -242,7 +247,7 @@ function MiniNavbar() {
                 variant="outlined"
                 color="primary"
                 style={{
-                  boxShadow: "none"
+                  boxShadow: "none",
                 }}
                 className={classes.button}
                 onClick={() => {
@@ -256,13 +261,13 @@ function MiniNavbar() {
           </Grid>
         </Drawer>
       )}
-      {windowSize.width <= 960 && (
+      {windowSize.width <= 900 && (
         <SideBar
           open={openMenu}
           toggleSlider={toggleSlider}
           notification={notification}
         >
-          {window.innerWidth <= 960 && (
+          {window.innerWidth <= 900 && (
             <>
               <Grid
                 item

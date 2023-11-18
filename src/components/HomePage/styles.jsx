@@ -21,10 +21,12 @@ const useStyles = makeStyles((theme) => ({
 		alignContent: "center",
 		justifyContent: "center",
 		width: "fit-content",
-		margin: "1rem 1rem 2rem 1rem",
+		[theme.breakpoints.up(1000)]: {
+			margin: "1rem 1rem 2rem 1rem"
+		},
 		height: "100%",
 		flexDirection: "column",
-		[theme.breakpoints.down(960)]: {
+		[theme.breakpoints.down(900)]: {
 			display: "none",
 		},
 		maxWidth: "300px",

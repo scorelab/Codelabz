@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: 250,
     flexShrink: 0,
-    display: theme.breakpoints.down("md") ? null : "none"
+    display: theme.breakpoints.down(900) ? null : "none"
   },
   drawerPaper: {
     width: 250
@@ -115,7 +115,7 @@ const SideBar = ({
   const classes = useStyles();
   return (
     <>
-      {windowSize.width <= (drawWidth || 960) ? (
+      {windowSize.width <= (drawWidth || 900) ? (
         <Drawer
           closable="true"
           open={open}
