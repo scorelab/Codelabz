@@ -77,7 +77,7 @@ function MainNavbar() {
 					direction="row"
 					justifyContent="space-between"
 					alignItems="center">
-					<Grid item container xs={12} md={0.8} alignItems="center">
+					<Grid item container xs={12} md={1.3} alignItems="center">
 						<Grid
 							style={{
 								flexGrow: "1",
@@ -99,7 +99,7 @@ function MainNavbar() {
 							</IconButton>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={10} md={6.2} lg={5}>
+					<Grid item xs={12} sm={10} md={6.5} lg={5}>
 						<Paper component={"form"} className={classes.root} elevation={0}>
 							<IconButton
 								type="submit"

@@ -18,7 +18,11 @@ const useStyles = makeStyles({
     padding: "8px 16px",
     borderRadius: 20,
     backgroundColor: grey[100]
-  }
+  },
+  btnContainer: {
+    paddingTop: "24px",
+    paddingBottom: "24px",
+  },
 });
 
 const StepsPanel = ({
@@ -34,7 +38,7 @@ const StepsPanel = ({
   return (
     <Box className="tutorial-steps-sider" sx={theme => ({ p: 1 })}>
       <Grid>
-        <Grid xs={24} sm={24} md={24} className="col-pad-24-s">
+        <Grid xs={24} sm={24} md={24} className={classes.btnContainer}>
           <ControlButtons
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
