@@ -3,7 +3,7 @@ import * as actions from "../../actions/actionTypes";
 const initialState = {
   isLoaded: true,
   isEmpty: true,
-  error: null,
+  error: null
 };
 
 const ProfileDataReducer = (state = initialState, { type, payload }) => {
@@ -16,7 +16,7 @@ const ProfileDataReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: false,
         isEmpty: true,
-        error: null,
+        error: null
       };
 
     case actions.GET_PROFILE_DATA_SUCCESS:
@@ -25,7 +25,7 @@ const ProfileDataReducer = (state = initialState, { type, payload }) => {
         ...payload,
         isLoaded: true,
         isEmpty: false,
-        error: false,
+        error: false
       };
 
     case actions.GET_PROFILE_DATA_FAIL:
@@ -33,14 +33,14 @@ const ProfileDataReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoaded: true,
         isEmpty: true,
-        error: payload,
+        error: payload
       };
 
     case actions.GET_PROFILE_DATA_END:
       return {
         ...state,
         isLoaded: true,
-        isEmpty: true,
+        isEmpty: true
       };
 
     default:

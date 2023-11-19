@@ -13,49 +13,49 @@ import CloseIcon from "@mui/icons-material/Close";
 import SideBar from "../../../SideBar/index";
 import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 
-const useStyles = makeStyles((theme) => ({
-	input: {
-		marginLeft: theme.spacing(1),
-		color: "#3e5060",
-		letterSpacing: "0.5px",
-		flex: 1,
-		width: "92%",
-		[theme.breakpoints.down("md")]: {
-			width: "80%",
-		},
-	},
-	root: {
-		backgroundColor: theme.palette.grey[50],
-		padding: "2px",
-		border: "1px solid #ced4da",
-		borderRadius: "0.8rem",
-	},
-	icon: {
-		padding: "2px",
-		color: theme.palette.primary.main,
-	},
-	grid: {
-		width: "auto",
-		"& > *": {},
-		[theme.breakpoints.down("sm")]: {
-			display: "none",
-		},
-	},
-	button: {
-		borderRadius: "10px",
-	},
-	hamburger: {
-		[theme.breakpoints.up("md")]: {
-			display: "none",
-		},
-	},
-	drawer: {
-		width: 257,
-	},
+const useStyles = makeStyles(theme => ({
+  input: {
+    marginLeft: theme.spacing(1),
+    color: "#3e5060",
+    letterSpacing: "0.5px",
+    flex: 1,
+    width: "92%",
+    [theme.breakpoints.down("md")]: {
+      width: "80%"
+    }
+  },
+  root: {
+    backgroundColor: theme.palette.grey[50],
+    padding: "2px",
+    border: "1px solid #ced4da",
+    borderRadius: "0.8rem"
+  },
+  icon: {
+    padding: "2px",
+    color: theme.palette.primary.main
+  },
+  grid: {
+    width: "auto",
+    "& > *": {},
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  },
+  button: {
+    borderRadius: "10px"
+  },
+  hamburger: {
+    [theme.breakpoints.up("md")]: {
+      display: "none"
+    }
+  },
+  drawer: {
+    width: 257
+  }
 }));
 
 function MainNavbar() {
-	const classes = useStyles();
+  const classes = useStyles();
 
 	const history = useHistory();
 	const windowSize = useWindowSize();

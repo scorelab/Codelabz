@@ -72,31 +72,31 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: ".5px 2px 5px gray",
 	},
 
-	leftSideCard: {
-		display: "flex",
-		alignItems: "left",
-		justifyContent: "center",
-		flexDirection: "column",
-		maxHeight: "35rem",
-		margin: "0 0 2rem 0",
-		background: "white",
-		boxShadow: ".5px 2px 5px gray",
-	},
+  leftSideCard: {
+    display: "flex",
+    alignItems: "left",
+    justifyContent: "center",
+    flexDirection: "column",
+    maxHeight: "35rem",
+    margin: "0 0 2rem 0",
+    background: "white",
+    boxShadow: ".5px 2px 5px gray"
+  },
 
-	outerSideBar: {
-		minWidth: "100%",
-	},
-	contentPart: {
-		height: "100%",
-		display: "flex",
-		flexDirection: "row",
-		justifyContent: "center",
-		maxWidth: "1400px",
-	},
-	card: {
-		padding: "6px",
-		margin: "0 0.5rem 0 0.5rem",
-	},
+  outerSideBar: {
+    minWidth: "100%"
+  },
+  contentPart: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    maxWidth: "1400px"
+  },
+  card: {
+    padding: "6px",
+    margin: "0 0.5rem 0 0.5rem"
+  }
 }));
 
 export default useStyles;

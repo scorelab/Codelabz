@@ -86,7 +86,7 @@ exports.createOrganizationHandler = async (snapshot, context) => {
         uid: user_uid,
         org_handle,
         permissions: [3]
-      })
+      });
 
     await Promise.all([registerOrgHandle, setOrgMetrics, setOrgUsers]);
     return console.log(
