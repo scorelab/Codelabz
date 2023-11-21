@@ -15,14 +15,14 @@
 
 ## Prerequisites
 
-- Node.js version 14.
+- Node.js version 16.
 - Java JDK version 11 or higher. (For running emulators)
 - make command line tool. ( optional )
   > 📝**NOTE** : `make` is optional here. You can open `Makefile` and type the associated command manually also, but it is recommended to use `make` so you don't need to run multiple commands.
 
 ## Project Setup
 
-> 📝**NOTE**: Make sure that you are using version 14 of node.
+> 📝**NOTE**: Make sure that you are using version 16 of node.
 
 > ⚡**Tip**: You can use nvm (node version manager) tool to install multiple node versions and can switch between them easily.
 
@@ -37,7 +37,8 @@
 9. Run `npm run dev`.
 10. Visit [http://127.0.0.1:5173/](http://127.0.0.1:5173/) in your preferred browser.
 
-> 📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.For setup husky follow [Husky Setup](#husky-setup)
+> 📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
+
 
 ### Using Docker-Compose
 
@@ -75,15 +76,18 @@ This will setup your project along with firebase emulator in a docker environmen
      3. Securely store the JSON file containing the key and rename it to `cl-dev-pk.json`
      4. Move the `cl-dev-pk.json` to `Codelabz/functions/private`
 7. Paste the configuration `.env` file. **(this will be found in the project settings section of firebase cloud)**
-8. You can find your `<FIREBASE_DATABASE_URL>` in the Realtime Database section of the Firebase console. Depending on the location of the database, the database URL will be in one of the following forms:
+8. Also setup your `Cloud Firestore`, `Storage`, and `Functions`, from **Firebase Dashboard -> Build**.
+9. You can find your `<FIREBASE_DATABASE_URL>` in the Realtime Database section of the Firebase console. Depending on the location of the database, the database URL will be in one of the following forms:
    - `https://DATABASE_NAME.firebaseio.com` **(for databases in us-central1)**
    - `https://DATABASE_NAME.REGION.firebasedatabase.app`**(for databases in all other locations)**
-9. You can get your `<FIREBASE_VAPID_KEY>` from Cloud-Messaging tab
-   - navigate to the setting of your project Open the Cloud Messaging tab.
-   - scroll to the Web configuration section.
-   - In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
-10. As you're using emulator, set `<USE_EMULATOR>` to "true"
-11. You can get your `<CYPRESS_PROJECT_ID>` as cypress project id from [cypress cloud](https://cloud.cypress.io)
+10. You can get your `<FIREBASE_VAPID_KEY>` from Cloud-Messaging tab
+
+- navigate to the setting of your project Open the Cloud Messaging tab.
+- scroll to the Web configuration section.
+- In the Web Push certificates tab, click Generate Key Pair. The console displays a notice that the key pair was generated. You get your Vapid key form there.
+
+11. As you're using emulator, set `<USE_EMULATOR>` to "true"
+12. You can get your `<CYPRESS_PROJECT_ID>` as cypress project id from [cypress cloud](https://cloud.cypress.io)
 
 You should fill in these values in their relevant fields in the `.env` file.
 
@@ -92,34 +96,43 @@ You should fill in these values in their relevant fields in the `.env` file.
 1. Refer this site [https://firebase.google.com/docs/emulator-suite/install_and_configure]
 2. Make sure you have the correct jdk version installed
 3. Make sure you are in the parent directory
-4. Now lets connect your local firebase to cloub by running command (`firebase login`)
+4. Now lets connect your local firebase to cloud by running command (`firebase login`)
 5. Then authenticate your firebase using browser and set the selected web app for codelabz
 6. Then run the command (`firebase init`)
-7. Select all the emulator necessitites by pressing a or selecting them manually and pressing space
-8. Answer the commands
-9. Lets set up your credentials of test data
-10. Run your firebase emulator by running the following command.
+   - The command will prompt to ask some questions.
+   - Select the following firebase features -
+     * Realtime Database, Firestore, Functions, Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys, Hosting: Set up GitHub Action deploys, Storage, Emulators, Remote Config
+   - Choose the default name of files, and don't overwrite the files, and by default select **(N)** for all the questions.
+   - Select **Overwrite** the existing codebase option, and **JavaScript** as the language to write Cloud Functions.
+   - Choose the following emulators -
+     * Authentication Emulator, Functions Emulator, Firestore Emulator, Database Emulator, Hosting Emulator, Pub/Sub Emulator, Storage Emulator
+   - Download the dependencies and the emulators.
+   - Replace the contents of `database.rules.json`, `firestore.indexes.json`, `firestore.rules`, `storage.rules`, `remoteconfig.template.json` with the one in the files in this repository.
+   - Also replace the contents of rules of **Realtime Database**, **Firestore Database**, **Storage** under **Rules** tab with the contents of the files - `database.rules.json`, `firestore.rules`, `storage.rules` to avoid conflicts.
+   - Select all the emulator necessities by pressing **a** or selecting them manually and pressing space
+   - Answer the commands
+7. Lets set up your credentials of test data
+8. Run your firebase emulator by running the following command.
 
 ```shell
 make emulator
 
 ```
 
-11. If make command isn't installed then run command
+9. If make command isn't installed then run command
 
 ```shell
 firebase emulators:start --import=testdata
 
 ```
 
-12. If you want to start without any testdata , use the following command
+10. If you want to start without any testdata , use the following command
 
 ```shell
 make emulator
 
 ```
-
-14.If make command isn't installed then run
+11. If make command isn't installed then run
 
 ```shell
  firebase emulator:start
