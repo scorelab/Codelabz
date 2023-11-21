@@ -8,6 +8,7 @@ import "firebase/compat/analytics";
 import "firebase/compat/performance";
 import "firebase/compat/messaging";
 import { initializeApp } from "firebase/app";
+import { onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,

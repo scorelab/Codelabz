@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       borderWidth: "2px"
     },
-    minWidth: "fit-content",
+    minWidth: "fit-content"
   },
   completeButton: {
     minWidth: "fit-content"

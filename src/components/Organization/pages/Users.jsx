@@ -6,18 +6,19 @@ import AddContributor from "../OrgUsers/AddNewUser/addNewContributorModal";
 import AddAdmin from "../OrgUsers/AddNewUser/addNewAdminModal";
 import { useState } from "react";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		padding: 20,
-	},
-	heading: {
-		fontWeight: 100,
-		fontSize: "1.6rem",
-	},
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: 20
+  },
+  heading: {
+    fontWeight: 100,
+    fontSize: "1.6rem"
+  }
 }));
 
 
 function Users() {
+
 	const classes = useStyles();
 	const [modalOpenAdmin, setModalOpenAdmin] = useState(false);
 	const[modalOpenContr, setModalOpenContr]=useState(false);
@@ -60,41 +61,41 @@ function Users() {
 		},
 	];
 
-	const ContributersUsers = [
-		{
-			name: "Sarfraz Alam",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-		{
-			name: "Jhanvi Thakkar",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-		{
-			name: "Saksham Sharma",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-		{
-			name: "Mehender boi",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-	];
 
+  const ContributersUsers = [
+    {
+      name: "Sarfraz Alam",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Jhanvi Thakkar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Mehender boi",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    }
+  ];
 	return (
 		<React.Fragment>
 			<Grid
@@ -137,6 +138,7 @@ function Users() {
 			</Grid>
 		</React.Fragment>
 	);
+
 }
 
 export default Users;

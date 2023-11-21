@@ -1,85 +1,84 @@
 import * as actions from "./actionTypes";
 
-export const getTutorialFeedIdArray =
-  uid => async (firebase, firestore, dispatch) => {
-    try {
-      let followings = [];
-      if (uid) {
-        followings = await firestore
-          .collection("user_followers")
-          .where("followerId", "==", uid)
-          .where("isPublished", "==", true)
-          .get()
-          .then(async docs => {
-            const result = [];
-            for (const doc of docs.docs) {
-              const handle = await firestore
-                .collection("cl_user")
-                .doc(doc.data().followingId)
-                .get()
-                .then(doc => doc.data().handle);
+export const getTutorialFeedIdArray = uid => async (_, firestore) => {
+  try {
+    let followings = [];
+    if (uid) {
+      followings = await firestore
+        .collection("user_followers")
+        .where("followerId", "==", uid)
+        .where("isPublished", "==", true)
+        .get()
+        .then(async docs => {
+          const result = [];
+          for (const doc of docs.docs) {
+            const handle = await firestore
+              .collection("cl_user")
+              .doc(doc.data().followingId)
+              .get()
+              .then(doc => doc.data().handle);
 
-              result.push(handle);
-            }
-            return result;
-          });
-      }
-      let followingUsersTutorials = [];
-      if (followings.length > 0) {
-        followingUsersTutorials = await firestore
-          .collection("tutorials")
-          .where("created_by", "in", followings)
-          .where("isPublished", "==", true)
-          .limit(50)
-          .get()
-          .then(docs => {
-            const tutorialsArray = [];
-            docs.docs.map(doc => {
-              const tutorialId = doc.id;
-              tutorialsArray.push(tutorialId);
-            });
-            return tutorialsArray;
-          });
-      }
-      let newTutorials = [];
-      if (followings.length > 0) {
-        newTutorials = await firestore
-          .collection("tutorials")
-          .where("created_by", "not-in", followings)
-          .where("isPublished", "==", true)
-          .limit(50)
-          .get()
-          .then(docs => {
-            const tutorialsArray = [];
-            docs.docs.map(doc => {
-              const tutorialId = doc.id;
-              tutorialsArray.push(tutorialId);
-            });
-            return tutorialsArray;
-          });
-      } else {
-        newTutorials = await firestore
-          .collection("tutorials")
-          .where("isPublished", "==", true)
-          .limit(50)
-          .get()
-          .then(docs => {
-            const tutorialsArray = [];
-            docs.docs.map(doc => {
-              const tutorialId = doc.id;
-              tutorialsArray.push(tutorialId);
-            });
-            return tutorialsArray;
-          });
-      }
-
-      const tutorials = followingUsersTutorials.concat(newTutorials);
-
-      return tutorials;
-    } catch (e) {
-      console.log(e);
+            result.push(handle);
+          }
+          return result;
+        });
     }
-  };
+    let followingUsersTutorials = [];
+    if (followings.length > 0) {
+      followingUsersTutorials = await firestore
+        .collection("tutorials")
+        .where("created_by", "in", followings)
+        .where("isPublished", "==", true)
+        .limit(50)
+        .get()
+        .then(docs => {
+          const tutorialsArray = [];
+          docs.docs.map(doc => {
+            const tutorialId = doc.id;
+            tutorialsArray.push(tutorialId);
+          });
+          return tutorialsArray;
+        });
+    }
+    let newTutorials = [];
+    if (followings.length > 0) {
+      newTutorials = await firestore
+        .collection("tutorials")
+        .where("created_by", "not-in", followings)
+        .where("isPublished", "==", true)
+        .limit(50)
+        .get()
+        .then(docs => {
+          const tutorialsArray = [];
+          docs.docs.map(doc => {
+            const tutorialId = doc.id;
+            tutorialsArray.push(tutorialId);
+          });
+          return tutorialsArray;
+        });
+    } else {
+      newTutorials = await firestore
+        .collection("tutorials")
+        .where("isPublished", "==", true)
+        .limit(50)
+        .get()
+        .then(docs => {
+          const tutorialsArray = [];
+          docs.docs.map(doc => {
+            const tutorialId = doc.id;
+            tutorialsArray.push(tutorialId);
+          });
+          return tutorialsArray;
+        });
+    }
+
+    const tutorials = followingUsersTutorials.concat(newTutorials);
+
+    return tutorials;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export const getTutorialFeedData =
   tutorialIdArray => async (firebase, firestore, dispatch) => {

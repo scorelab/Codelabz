@@ -245,7 +245,8 @@ const RightMenu = ({ mode, onClick }) => {
               ? "#fffff"
               : "#3AAFA9",
           marginLeft: "1rem",
-          marginBottom: ".2rem"
+          marginBottom: ".2rem",
+          cursor: "pointer"
         }}
         size={mode === "inline" ? "default" : "medium"}
         src={profile.photoURL}
@@ -268,7 +269,7 @@ const RightMenu = ({ mode, onClick }) => {
         open={open}
         onClose={handleClose}
         style={{
-          marginTop: "3rem",
+          marginTop: "1rem",
           zIndex: 999999
         }}
         className={classes.menu}

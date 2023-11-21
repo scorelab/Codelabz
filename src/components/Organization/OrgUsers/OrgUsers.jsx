@@ -1,10 +1,4 @@
-import {
-	Avatar,
-	Button,
-	Grid,
-	Paper,
-	Typography,
-} from "@mui/material";
+import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -13,61 +7,62 @@ import AddAdmin from "./AddNewUser/addNewAdminModal";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		border: `1px solid ${theme.palette.divider}`,
-		borderRadius: "10px",
-	},
-	gridPadding: {
-		padding: theme.spacing(2),
-	},
-	button: {
-		boxShadow: "none",
-		borderRadius: "10px",
-	},
-	heading: {
-		fontSize: theme.typography.pxToRem(17),
-		fontWeight: theme.typography.fontWeightMedium,
-	},
-	body: {
-		fontSize: theme.typography.pxToRem(12),
-	},
-	userCard: {
-		padding: theme.spacing(1),
-		"&:hover": {
-			backgroundColor: theme.palette.background.default,
-		},
-		borderRadius: "10px",
-	},
-	userList: {
-		marginTop: theme.spacing(2),
-	},
-	userName: {
-		fontSize: theme.typography.pxToRem(14),
-		fontWeight: theme.typography.fontWeightMedium,
-	},
-	userDesignation: {
-		fontSize: theme.typography.pxToRem(14),
-		paddingLeft: theme.spacing(0.5),
-		fontWeight: theme.typography.fontWeightLight,
-	},
-	viewMore: {
-		borderTop: `1px solid ${theme.palette.divider}`,
-		padding: theme.spacing(1),
-		cursor: "pointer",
-	},
-	buttonDiv: {
-		[theme.breakpoints.down("md")]: {
-			justifyContent: "flex-start",
-			paddingTop: theme.spacing(2),
-		},
-		[theme.breakpoints.up("md")]: {
-			justifyContent: "flex-end",
-		},
-	},
+const useStyles = makeStyles(theme => ({
+  root: {
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: "10px"
+  },
+  gridPadding: {
+    padding: theme.spacing(2)
+  },
+  button: {
+    boxShadow: "none",
+    borderRadius: "10px"
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(17),
+    fontWeight: theme.typography.fontWeightMedium
+  },
+  body: {
+    fontSize: theme.typography.pxToRem(12)
+  },
+  userCard: {
+    padding: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: theme.palette.background.default
+    },
+    borderRadius: "10px"
+  },
+  userList: {
+    marginTop: theme.spacing(2)
+  },
+  userName: {
+    fontSize: theme.typography.pxToRem(14),
+    fontWeight: theme.typography.fontWeightMedium
+  },
+  userDesignation: {
+    fontSize: theme.typography.pxToRem(14),
+    paddingLeft: theme.spacing(0.5),
+    fontWeight: theme.typography.fontWeightLight
+  },
+  viewMore: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    padding: theme.spacing(1),
+    cursor: "pointer"
+  },
+  buttonDiv: {
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "flex-start",
+      paddingTop: theme.spacing(2)
+    },
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end"
+    }
+  }
 }));
 
 function Orgusers({
+
 	Users,
 	title,
 	description,
@@ -196,6 +191,7 @@ function Orgusers({
 			</Paper>
 		</React.Fragment>
 	);
+
 }
 
 export default Orgusers;

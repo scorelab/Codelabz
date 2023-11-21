@@ -20,7 +20,7 @@ export default function Banner({
   handle = "apple",
   isOrgBelongsToUser = false,
   isUserSubscribed = false,
-  handleOrgSubscription,
+  handleOrgSubscription
 }) {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
@@ -136,15 +136,14 @@ export default function Banner({
                     sx={{
                       boxShadow: "none",
                       px: 2,
-                      borderRadius: 5,
+                      borderRadius: 5
                     }}
                     data-testId="orgbannersubscribeButton"
                     onClick={async () => {
-                        setLoading(true);
-                        await handleOrgSubscription()
-                        setLoading(false);
-                      }
-                    }
+                      setLoading(true);
+                      await handleOrgSubscription();
+                      setLoading(false);
+                    }}
                     disabled={loading}
                   >
                     {!isUserSubscribed ? "Subscribe" : "Unsubscribe"}
