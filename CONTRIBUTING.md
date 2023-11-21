@@ -39,6 +39,7 @@
 
 > 📝**NOTE** : Above steps are enough for you to get started with the Codelabz app. If you want to access the database you need to start the emulators.
 
+
 ### Using Docker-Compose
 
 You can also use docker-compose to setup your project. Simply create your `.env` file and run
@@ -131,7 +132,6 @@ firebase emulators:start --import=testdata
 make emulator
 
 ```
-
 11. If make command isn't installed then run
 
 ```shell

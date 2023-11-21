@@ -8,15 +8,15 @@ export default {
   component: CodeFeed,
   argTypes: {
     backgroundcolor: {
-      control: "color",
+      control: "color"
     },
     textcolor: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <CodeFeed {...args} />
@@ -29,5 +29,5 @@ export const Default = Template.bind({});
 Default.args = {
   heading: "Explore Organization",
   title:
-    "Explore top rated Organizations and find the Codelabz you are looking for",
+    "Explore top rated Organizations and find the Codelabz you are looking for"
 };

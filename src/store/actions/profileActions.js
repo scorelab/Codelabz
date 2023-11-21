@@ -27,7 +27,11 @@ export const setCurrentOrgUserPermissions =
 export const getProfileData = () => async (firebase, firestore, dispatch) => {
   try {
     dispatch({ type: actions.GET_PROFILE_DATA_START });
-    const userOrgs = await getAllOrgsOfCurrentUser()(firebase, firestore, dispatch);
+    const userOrgs = await getAllOrgsOfCurrentUser()(
+      firebase,
+      firestore,
+      dispatch
+    );
     const organizations = userOrgs?.map(org => org.org_handle);
     // console.log(organizations);
     if (organizations && organizations.length > 0) {
@@ -197,8 +201,7 @@ export const isUserFollower = async (followerId, followingId, firestore) => {
 export const addUserFollower = async (
   currentProfileData,
   profileData,
-  firestore,
-  dispatch
+  firestore
 ) => {
   try {
     const followStatus = await isUserFollower(
@@ -241,8 +244,7 @@ export const addUserFollower = async (
 export const removeUserFollower = async (
   currentProfileData,
   profileData,
-  firestore,
-  dispatch
+  firestore
 ) => {
   try {
     const followStatus = await isUserFollower(
@@ -279,21 +281,19 @@ export const removeUserFollower = async (
   }
 };
 
-const getAllOrgsOfCurrentUser = (uid) => async (firebase, firestore, dispatch) => {
+const getAllOrgsOfCurrentUser = () => async (firebase, firestore) => {
   try {
     const auth = firebase.auth().currentUser;
     if (auth === null) return [];
     const orgUsersDocs = await firestore
-    .collection("org_users")
-    .where("uid", "==", auth.uid)
-    .get()
-  
-  const userOrgs = orgUsersDocs.docs.map(
-    orgUserDoc => orgUserDoc.data()
-  );
-  
-  return userOrgs;
+      .collection("org_users")
+      .where("uid", "==", auth.uid)
+      .get();
+
+    const userOrgs = orgUsersDocs.docs.map(orgUserDoc => orgUserDoc.data());
+
+    return userOrgs;
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
+};
