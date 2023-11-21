@@ -7,12 +7,12 @@ export default {
   component: SignUp,
   argTypes: {
     background: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <SignUp {...args} />{" "}

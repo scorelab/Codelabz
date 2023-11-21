@@ -1,1 +1,4 @@
-{"cl_org_handle":{"github":true,"google":true,"youtube":true},"cl_user_handle":{"mahendar":true,"sarfaraz":true,"shivananda":true}}
+{
+  "cl_org_handle": { "github": true, "google": true, "youtube": true },
+  "cl_user_handle": { "mahendar": true, "sarfaraz": true, "shivananda": true }
+}

@@ -6,23 +6,23 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 const story = {
   title: "Topbar/AboutFeed",
-  component: Activity,
+  component: Activity
 };
 
 export default story;
 
-const Template = (args) => {
+const Template = args => {
   const [List, setList] = useState(1);
 
   const acitvitylist = [
     {
       id: 1,
-      text: "About",
+      text: "About"
     },
     {
       id: 2,
-      text: "Feeds",
-    },
+      text: "Feeds"
+    }
   ];
 
   return (
@@ -31,7 +31,7 @@ const Template = (args) => {
         <ActivityList
           {...args}
           value={List}
-          toggle={(item) => {
+          toggle={item => {
             setList(item.id);
           }}
           acitvitylist={acitvitylist}

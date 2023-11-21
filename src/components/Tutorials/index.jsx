@@ -152,10 +152,10 @@ const ViewTutorial = () => {
   useEffect(() => {
     if (stepsData) {
       setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
-      getCurrentStepContentFromFirestore(tutorial_id, stepsData[currentStep].id)(
-        firestore,
-        dispatch
-      );
+      getCurrentStepContentFromFirestore(
+        tutorial_id,
+        stepsData[currentStep].id
+      )(firestore, dispatch);
     }
   }, [tutorial_id, firebase, stepsData, currentStep, dispatch]);
 

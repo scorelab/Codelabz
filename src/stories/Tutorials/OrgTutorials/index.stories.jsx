@@ -5,10 +5,10 @@ import OrgTutorialsComponent from "../../../components/Tutorials/MyTutorials/Org
 
 export default {
   title: "Tutorials/OrgTutorial",
-  component: OrgTutorialsComponent,
+  component: OrgTutorialsComponent
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <OrgTutorialsComponent {...args} />
@@ -31,11 +31,11 @@ Default.args = {
       org_name: "Org name",
       org_published: true,
       org_website: "https://org.com",
-      tutorials_count: 7,
-    },
+      tutorials_count: 7
+    }
   ],
   user: {
     displayName: "OrgDisplayName",
-    userHandle: "OrgDisplayName",
-  },
+    userHandle: "OrgDisplayName"
+  }
 };
