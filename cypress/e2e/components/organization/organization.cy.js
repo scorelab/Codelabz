@@ -15,7 +15,7 @@ describe("Organization Page | CodeLabz", () => {
 
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-  })
+  });
 
   it("Check Organization Page is not accessable by non-loggedin user", function () {
     cy.visit(`${this.base_url}org/settings/codelabzorg`);
@@ -29,9 +29,8 @@ describe("Organization Page | CodeLabz", () => {
 
   it("Login With Your Account If Not Logged In", function () {
     cy.visit(`${this.base_url}org/settings/codelabzorg`);
-    cy.wait(4000)
+    cy.wait(4000);
     cy.location().then(loc => {
-
       if (loc.href === `${this.base_url}login`) {
         cy.wait(3000);
         cy.get(".email").type(this.credentials.email);
@@ -72,7 +71,7 @@ describe("Organization Page | CodeLabz", () => {
     cy.get('[data-testid="Users"]').should("exist").click();
     cy.wait(4000);
     cy.get('[data-testid="organization-users-page"]').should("exist");
-  })
+  });
 
   it("Checking Passwords Tab", function () {
     cy.visit(`${this.base_url}org/settings/codelabzorg`);
@@ -80,7 +79,7 @@ describe("Organization Page | CodeLabz", () => {
     cy.get('[data-testid="Passwords"]').should("exist").click();
     cy.wait(4000);
     cy.get('[data-testid="organization-passwords-page"]').should("exist");
-  })
+  });
 
   it("Checking Social Media Tabs", function () {
     cy.visit(`${this.base_url}org/settings/codelabzorg`);
@@ -92,5 +91,5 @@ describe("Organization Page | CodeLabz", () => {
     cy.get("[data-testId=githubButton]").should("exist");
     cy.get("[data-testId=googleButton]").should("exist");
     cy.get("[data-testId=twitterButton]").should("exist");
-  })
+  });
 });

@@ -54,8 +54,10 @@ const useStyles = makeStyles(theme => ({
   buttonDiv: {
     [theme.breakpoints.down("md")]: {
       justifyContent: "flex-start",
+
       paddingTop: theme.spacing(2),
       display: "flex"
+
     },
     [theme.breakpoints.up("md")]: {
       justifyContent: "flex-end"
@@ -69,6 +71,7 @@ function Orgusers({
   description,
   AddUser,
   isViewMore,
+
   dataTestId,
   buttonTitle,
   buttonfunction,
@@ -84,13 +87,16 @@ function Orgusers({
       }
     }) => permissions
   );
+
   const classes = useStyles();
   return (
     <React.Fragment>
       <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
         <Grid container className={classes.gridPadding}>
           <Grid container direction="row">
+
             <Grid item container xs={8} direction="column">
+
               <Grid item>
                 <Typography className={classes.heading} data-testid="org-title">
                   {title}
@@ -106,6 +112,7 @@ function Orgusers({
                 </Typography>
               </Grid>
             </Grid>
+
             {currentUserPermission == 3 && (
               <Grid
                 item
@@ -145,6 +152,7 @@ function Orgusers({
 
             {modalComponent}
             {removeModalComp}
+
           </Grid>
           <Grid
             container

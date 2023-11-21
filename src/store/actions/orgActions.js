@@ -346,16 +346,16 @@ export const unSubscribeOrg =
     }
   };
 export const removeFollower =
-  (val, people, handle, orgFollowed, profileId) => (firestore, dispatch) => {
+  (val, people, handle, orgFollowed, profileId) => firestore => {
     console.log("test");
     try {
-      var filteredFollowers = people.filter(function (value, index, arr) {
+      var filteredFollowers = people.filter(function (value) {
         return value !== val;
       });
       firestore.collection("cl_org_general").doc(handle).update({
         followers: filteredFollowers
       });
-      var Orgfiltered = orgFollowed.filter(function (value, index, arr) {
+      var Orgfiltered = orgFollowed.filter(function (value) {
         return handle !== value;
       });
       firestore.collection("cl_user").doc(profileId).update({
@@ -367,7 +367,7 @@ export const removeFollower =
   };
 
 export const addFollower =
-  (value, people, handle, orgFollowed, profileId) => (firestore, dispatch) => {
+  (value, people, handle, orgFollowed, profileId) => firestore => {
     try {
       if (people && people.includes(value)) {
         console.log("already followed");

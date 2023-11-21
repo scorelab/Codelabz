@@ -110,26 +110,21 @@ const ProfileView = () => {
 
   const addFollower = async e => {
     e.preventDefault();
-	setFollowDisable(true);
-    await addUserFollower(
-      currentProfileData,
-      profileData,
-      firestore,
-      dispatch
-    );
-	setFollowDisable(false);
+    setFollowDisable(true);
+    await addUserFollower(currentProfileData, profileData, firestore, dispatch);
+    setFollowDisable(false);
   };
 
   const removeFollower = async e => {
     e.preventDefault();
-	setFollowDisable(true);
+    setFollowDisable(true);
     await removeUserFollower(
       currentProfileData,
       profileData,
       firestore,
       dispatch
     );
-	setFollowDisable(false);
+    setFollowDisable(false);
   };
 
   return (
@@ -180,7 +175,7 @@ const ProfileView = () => {
                         <div
                           style={{
                             display: "flex",
-                            gap: "10px",
+                            gap: "10px"
                           }}
                         >
                           <Box mr={1}>
@@ -325,10 +320,17 @@ const ProfileView = () => {
                     variant="body2"
                     style={{ margin: ".5rem 0 .5rem 0" }}
                   >
-                    Followers : <span>{profileData.followerCount ? profileData.followerCount : 0}</span>{" "}
+                    Followers :{" "}
+                    <span>
+                      {profileData.followerCount
+                        ? profileData.followerCount
+                        : 0}
+                    </span>{" "}
                     Following :{" "}
                     <span>
-                      {profileData.followingCount ? profileData.followingCount : 0}
+                      {profileData.followingCount
+                        ? profileData.followingCount
+                        : 0}
                     </span>
                   </Typography>
                   {!profileData.isFollowing ? (
@@ -336,7 +338,7 @@ const ProfileView = () => {
                       variant="contained"
                       onClick={e => addFollower(e)}
                       style={{ marginTop: "1rem" }}
-					  disabled={followDisable}
+                      disabled={followDisable}
                     >
                       follow
                     </Button>

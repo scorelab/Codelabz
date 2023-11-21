@@ -6,7 +6,9 @@ import AddContributor from "../OrgUsers/AddNewUser/addNewContributorModal";
 import AddAdmin from "../OrgUsers/AddNewUser/addNewAdminModal";
 import { useState } from "react";
 
+
 import RemoveUser from "../OrgUsers/RemoveUser";
+
 const useStyles = makeStyles(theme => ({
   root: {
     padding: 20
@@ -115,6 +117,7 @@ function Users() {
             description="Admins can manage submissions, content, and settings"
             AddUser={true}
             dataTestId="org-admin-list"
+
             buttonTitle="Add Admin"
             addButton={() => {
               setModalOpenAdmin(true);
@@ -136,6 +139,7 @@ function Users() {
                 onSubmit={handleRemoveUser}
               />
             }
+
           />
         </Grid>
         <Grid item>
@@ -167,6 +171,7 @@ function Users() {
                 onSubmit={handleRemoveUser}
               />
             }
+
           />
         </Grid>
       </Grid>
