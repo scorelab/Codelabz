@@ -4,7 +4,7 @@ import Footer from "../../components/Footer/index";
 
 export default {
   title: "Home/Footer",
-  component: Footer,
+  component: Footer
 };
 
 export const footer = () => (

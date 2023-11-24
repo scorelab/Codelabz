@@ -13,20 +13,16 @@ describe("Error Page Test | CodeLabz", () => {
 
   it("login", function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-    cy.visit(`${this.base_url}login`)
+    cy.visit(`${this.base_url}login`);
     cy.get(".email").type(this.credentials.email);
     cy.get(".password").type(this.credentials.password);
     cy.get(".loginButton").click();
     cy.wait(5000);
-  })
+  });
 
   it("wrong url", function () {
     cy.visit(`${this.base_url}test1`);
-    cy.get("[data-testId=errorPage]").should("exist")
-    cy.contains("We can't seem to find the page you are looking for")
-  })
-
-
-
-
+    cy.get("[data-testId=errorPage]").should("exist");
+    cy.contains("We can't seem to find the page you are looking for");
+  });
 });

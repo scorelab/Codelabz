@@ -1,7 +1,7 @@
 export const rearrangeUser = (userList, currentUser) => {
   let mainUsers = [];
 
-  userList.forEach((user) => {
+  userList.forEach(user => {
     if (user.handle === currentUser) {
       mainUsers.unshift(user);
     } else {

@@ -8,10 +8,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "Tutorials/MyTutorials",
-  component: MyTutorials,
+  component: MyTutorials
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <MyTutorials {...args} />

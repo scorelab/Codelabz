@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 describe("Social Icons | CodeLabz", () => {
-
   before(function () {
     cy.fixture("login").then(function (credentials) {
       this.credentials = credentials;
