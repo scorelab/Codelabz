@@ -8,12 +8,12 @@ export default {
   component: ExploreOrg,
   argTypes: {
     cardColor: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <ExploreOrg {...args} />
@@ -28,5 +28,5 @@ Default.args = {
   cardWidth: 345,
   mediaHeight: 320,
   mediaWidth: 320,
-  cardColor: "white",
+  cardColor: "white"
 };

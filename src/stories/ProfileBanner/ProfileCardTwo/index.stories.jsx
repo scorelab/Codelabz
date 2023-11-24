@@ -5,10 +5,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "ProfileBanner/ProfileCardTwo",
-  component: ProfileCardTwo,
+  component: ProfileCardTwo
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <ProfileCardTwo {...args} />
   </ProviderWrapper>
@@ -20,5 +20,5 @@ ProfileCard.args = {
   profileImage: "https://i.pravatar.cc/300",
   name: "Salvick",
   followers: 402,
-  contributors: 40,
+  contributors: 40
 };

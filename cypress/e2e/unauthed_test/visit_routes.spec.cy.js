@@ -9,7 +9,7 @@ describe("Unauthenticated Routes Access Test | CodeLabz", () => {
 
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-  })
+  });
 
   it("Visit Login Page - Passing", function () {
     cy.visit(`${this.base_url}login`);

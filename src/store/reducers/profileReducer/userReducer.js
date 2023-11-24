@@ -3,7 +3,7 @@ import * as actions from "../../actions/actionTypes";
 const initialState = {
   loading: false,
   error: null,
-  data: null,
+  data: null
 };
 
 const ProfileUserReducer = (state = initialState, { type, payload }) => {
@@ -15,7 +15,7 @@ const ProfileUserReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.GET_USER_DATA_SUCCESS:
@@ -23,14 +23,14 @@ const ProfileUserReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
-        data: payload,
+        data: payload
       };
 
     case actions.GET_USER_DATA_FAIL:
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     default:

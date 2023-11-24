@@ -124,7 +124,7 @@ export const createTutorial =
       dispatch({ type: actions.CREATE_TUTORIAL_START });
       const { title, summary, owner, created_by, is_org } = tutorialData;
 
-      const setData = async type => {
+      const setData = async () => {
         const document = firestore.collection("tutorials").doc();
 
         const documentID = document.id;
@@ -307,7 +307,8 @@ export const hideUnHideStep =
   (owner, tutorial_id, step_id, visibility) =>
   async (firebase, firestore, dispatch) => {
     try {
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+      /* not being used */
+      // const type = await checkUserOrOrgHandle(owner)(firebase);
       await firestore
         .collection("tutorials")
         .doc(tutorial_id)
@@ -359,12 +360,12 @@ export const removeStep =
           updatedAt: firestore.FieldValue.serverTimestamp()
         });
 
-      const data = await firestore
-        .collection("tutorials")
-        .doc(tutorial_id)
-        .collection("steps")
-        .doc(step_id)
-        .get();
+      // const data = await firestore
+      //   .collection("tutorials")
+      //   .doc(tutorial_id)
+      //   .collection("steps")
+      //   .doc(step_id)
+      //   .get();
 
       await setCurrentStepNo(
         current_step_no > 0 ? current_step_no - 1 : current_step_no
