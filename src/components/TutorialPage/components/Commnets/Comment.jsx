@@ -27,8 +27,11 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
   getCommentData,
   getCommentReply,
-  addComment
+  addComment,
+  addCommentLike,
 } from "../../../../store/actions/tutorialPageActions";
+import { get, set } from "lodash";
+
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -56,23 +59,45 @@ const Comment = ({ id }) => {
   const classes = useStyles();
   const [showReplyfield, setShowReplyfield] = useState(false);
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const [isLiked, setIsLiked] = useState(0);
   useState(() => {
     getCommentData(id)(firebase, firestore, dispatch);
   }, [id]);
 
+  
+  
+  
   const commentsArray = useSelector(
     ({
       tutorialPage: {
         comment: { data }
       }
     }) => data
-  );
+    );
+
+
+    useEffect(() => {
+      const loadingissue = async () => {
+        let data = get(commentsArray);
+        [data] = commentsArray.filter(comment => comment.comment_id == id);
+        console.log("data is here na ", data);
+        setCount(data?.upvotes - data?.downvotes);
+       
+      };
+      loadingissue().then(() => setLoading(false));
+    }, []);
+    
+
+
+    console.log("commentsarray",commentsArray);
 
   const [data] = commentsArray.filter(comment => comment.comment_id == id);
+
 
   const repliesArray = useSelector(
     ({
@@ -84,12 +109,40 @@ const Comment = ({ id }) => {
 
   const [replies] = repliesArray.filter(replies => replies.comment_id == id);
 
-  const handleIncrement = () => {
-    setCount(count + 1);
+  const handleIncrement = async () => {
+    if(isLiked==0){
+      setIsLiked(n=>n+1);
+      setCount(count=>count + 1);
+      await addCommentLike(id,1,0)(firebase, firestore, dispatch);
+    }
+    else if(isLiked==-1){
+      setIsLiked(n=>n+2);
+      setCount(count=>count + 2);
+      await addCommentLike(id,1,-1)(firebase, firestore, dispatch);
+    }
+    else{
+      setIsLiked(n=>n-1);
+      setCount(count=>count - 1);
+      await addCommentLike(id,-1,0)(firebase, firestore, dispatch);
+    }
   };
 
-  const handleDecrement = () => {
-    setCount(count - 1);
+  const handleDecrement = async () => {
+    if(isLiked==0){
+      setIsLiked(n=>n-1);
+      setCount(count=>count - 1);
+      await addCommentLike(id,0,1)(firebase, firestore, dispatch);
+    }
+    else if(isLiked==1){
+      setIsLiked(n=>n-2);
+      setCount(count=>count - 2);
+      await addCommentLike(id,-1,1)(firebase, firestore, dispatch);
+    }
+    else{
+      setIsLiked(n=>n+1);
+      setCount(count=>count +1);
+      await addCommentLike(id,0,-1)(firebase, firestore, dispatch);
+    }
   };
 
   const handleAlignment = (event, newAlignment) => {
@@ -102,7 +155,9 @@ const Comment = ({ id }) => {
       replyTo: data.comment_id,
       tutorial_id: data.tutorial_id,
       createdAt: firestore.FieldValue.serverTimestamp(),
-      userId: "codelabzuser"
+      userId: "codelabzuser",
+      upvotes:0,
+      downvotes:0
     };
     addComment(commentData)(firebase, firestore, dispatch);
   };

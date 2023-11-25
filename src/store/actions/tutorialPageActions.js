@@ -160,12 +160,14 @@ export const getCommentData =
         .doc(commentId)
         .get();
       const comment = data.data();
+      
       dispatch({ type: actions.GET_COMMENT_DATA_SUCCESS, payload: comment });
     } catch (e) {
       dispatch({ type: actions.GET_COMMENT_DATA_FAIL });
       console.log(e);
     }
   };
+
 
 export const getCommentReply =
   commentId => async (firebase, firestore, dispatch) => {
@@ -219,3 +221,21 @@ export const addComment = comment => async (firebase, firestore, dispatch) => {
     dispatch({ type: actions.ADD_COMMENT_FAILED, payload: e.message });
   }
 };
+
+export const addCommentLike = (id,upvote,downvote) => async (firebase, firestore, dispatch) => {
+  try {
+    dispatch({ type: actions.ADD_COMMENT_LIKE_START });
+    const ref=await firestore
+      .collection("cl_comments")
+      .doc(id)
+      .update({
+        upvotes: firebase.firestore.FieldValue.increment(upvote),
+        downvotes: firebase.firestore.FieldValue.increment(downvote)
+      })
+      .then(() => {
+        dispatch({ type: actions.ADD_COMMENT_LIKE_SUCCESS });
+      });
+  } catch (e) {
+    dispatch({ type: actions.ADD_COMMENT_LIKE_FAILED, payload: e.message });
+  }
+}
