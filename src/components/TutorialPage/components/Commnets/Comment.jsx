@@ -89,6 +89,7 @@ const Comment = ({ id }) => {
   };
 
   const handleDecrement = () => {
+    if(count<1) return;
     setCount(count - 1);
   };
 
