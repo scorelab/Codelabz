@@ -9,14 +9,23 @@ import {
 import EmojiPicker from "emoji-picker-react";
 import { InsertEmoticon, Send } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-
 const Textbox = ({ type, handleSubmit }) => {
   const [commentText, setCommentText] = useState("");
+  const [checkempty, setCheckEmpty] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const addEmoji = emoji => {
     setCommentText(prev => prev + emoji.emoji);
     setShowEmojiPicker(false);
   };
+  const submitHandler=(txt)=>{
+    if(txt.length==0){
+      setCheckEmpty(true);
+      return ;
+    }
+    setCheckEmpty(false);
+    handleSubmit(txt);
+    setCommentText("");
+};
   return (
     <Box
       sx={{
@@ -37,6 +46,7 @@ const Textbox = ({ type, handleSubmit }) => {
       <TextField
         label={type === "reply" ? "Reply" : "Write a comment"}
         variant="standard"
+        error={checkempty}
         fullWidth
         value={commentText}
         onChange={e => setCommentText(e.target.value)}
@@ -70,7 +80,7 @@ const Textbox = ({ type, handleSubmit }) => {
       <Button
         variant="contained"
         disableElevation
-        onClick={() => handleSubmit(commentText)}
+        onClick={() => submitHandler(commentText)}
       >
         <Send />
       </Button>
