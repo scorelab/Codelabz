@@ -13,7 +13,7 @@ describe("Login Test | CodeLabz", () => {
 
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-  })
+  });
 
   it("Login Test - Passing", function () {
     // cy.visit(`${this.base_url}login`);
@@ -21,7 +21,7 @@ describe("Login Test | CodeLabz", () => {
     cy.get(".password").type(this.credentials.password);
     cy.get(".loginButton").click();
     cy.wait(5000);
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });

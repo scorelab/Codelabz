@@ -1,10 +1,10 @@
 import * as actions from "../../actions/actionTypes";
 
 const initialState = {
-  user: null,
+  user: [],
   org: [],
   loading: false,
-  error: null,
+  error: null
 };
 
 const TutorialsDataReducer = (state = initialState, { type, payload }) => {
@@ -17,15 +17,15 @@ const TutorialsDataReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.GET_USER_TUTORIALS_BASIC_SUCCESS:
       return {
         ...state,
-        user: payload,
+        user: [payload],
         loading: false,
-        error: false,
+        error: false
       };
 
     case actions.GET_ORG_TUTORIALS_BASIC_SUCCESS:
@@ -33,7 +33,7 @@ const TutorialsDataReducer = (state = initialState, { type, payload }) => {
         ...state,
         org: payload,
         loading: false,
-        error: false,
+        error: false
       };
 
     case actions.GET_USER_TUTORIALS_BASIC_FAIL:
@@ -41,7 +41,7 @@ const TutorialsDataReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     default:

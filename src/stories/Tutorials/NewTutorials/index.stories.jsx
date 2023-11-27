@@ -5,10 +5,10 @@ import NewTutorials from "../../../components/Tutorials/NewTutorial/index";
 
 export default {
   title: "Tutorials/NewTutorials",
-  component: NewTutorials,
+  component: NewTutorials
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <NewTutorials {...args} />
@@ -18,5 +18,5 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  viewModal: true,
+  viewModal: true
 };

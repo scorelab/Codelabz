@@ -2,7 +2,7 @@ import * as actions from "../../actions/actionTypes";
 
 const initialState = {
   loading: false,
-  error: null,
+  error: null
 };
 
 const ProfileEditReducer = (state = initialState, { type, payload }) => {
@@ -14,21 +14,21 @@ const ProfileEditReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.PROFILE_EDIT_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false,
+        error: false
       };
 
     case actions.PROFILE_EDIT_FAIL:
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     default:
