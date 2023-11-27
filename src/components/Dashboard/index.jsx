@@ -62,9 +62,10 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 	const [orgNameValidateErrorMessage, setOrgNameValidateErrorMessage] =
 		useState("");
 	const [handle, setHandle] = useState("");
+	
 	const [handleValidateError, setHandleValidateError] = useState(false);
-	const [handleValidateErrorMessage, setHandleValidateErrorMessage] =
-		useState("");
+	const [handleValidateErrorMessage, setHandleValidateErrorMessage] =useState("");
+	
 	const [orgHandle, setOrgHandle] = useState("");
 	const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
 	const [orgHandleValidateErrorMessage, setOrgHandleValidateErrorMessage] =

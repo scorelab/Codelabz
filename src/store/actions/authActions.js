@@ -182,16 +182,31 @@ export const resendVerifyEmail = (email) => async (dispatch) => {
  * @param userHandle
  * @returns {function(...[*]=):boolean}
  */
-export const checkUserHandleExists = (userHandle) => async (firebase) => {
-  try {
-    const handle = await firebase
-      .ref(`/cl_user_handle/${userHandle}`)
-      .once("value");
-    return handle.exists();
-  } catch (e) {
-    throw e.message;
-  }
-};
+  export const checkUserHandleExists = (userHandle) => async (firebase) => {
+    try {
+      
+
+
+      const handle = await firebase
+      .firestore()
+      .collection("cl_user")
+      .get();
+      
+      const records = handle.docs.map(doc => doc.data())
+
+      let handleExists=false
+
+      records.forEach(function(record){
+        if (userHandle == record.handle){
+          handleExists=true
+        }
+      })
+      return handleExists
+        
+    } catch (e) {
+      throw e.message;
+    }
+  };
 
 export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
   try {

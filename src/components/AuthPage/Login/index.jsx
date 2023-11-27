@@ -51,7 +51,7 @@ const Login = ({
 
   useEffect(() => {
     if (errorProp){
-    setError('Login Cancelled');
+    setError('Login Cancelled !');
     }
   }, [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);

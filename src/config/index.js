@@ -21,7 +21,7 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENTID
 };
 
-console.log("firebaseConfig", firebaseConfig);
+// console.log(localStorage.getItem('key1'),localStorage.getItem('key2'),localStorage.getItem('key3'))
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
