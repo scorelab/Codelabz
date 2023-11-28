@@ -29,6 +29,8 @@ import {
   getCommentReply,
   addComment,
   addCommentLike,
+  addcommentlikestatus,
+  ftechlikestatus
 } from "../../../../store/actions/tutorialPageActions";
 import { get, set } from "lodash";
 
@@ -83,6 +85,10 @@ const Comment = ({ id }) => {
 
     useEffect(() => {
       const loadingissue = async () => {
+        let isli=await ftechlikestatus(id,firebase.auth().currentUser.uid)(firebase, firestore, dispatch);
+        console.log("isli",isli);
+        // setIsLiked(isli);
+
         let data = get(commentsArray);
         [data] = commentsArray.filter(comment => comment.comment_id == id);
         console.log("data is here na ", data);
@@ -113,16 +119,19 @@ const Comment = ({ id }) => {
     if(isLiked==0){
       setIsLiked(n=>n+1);
       setCount(count=>count + 1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,1)(firebase, firestore, dispatch);
       await addCommentLike(id,1,0)(firebase, firestore, dispatch);
     }
     else if(isLiked==-1){
       setIsLiked(n=>n+2);
       setCount(count=>count + 2);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,1)(firebase, firestore, dispatch);
       await addCommentLike(id,1,-1)(firebase, firestore, dispatch);
     }
     else{
       setIsLiked(n=>n-1);
       setCount(count=>count - 1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,0)(firebase, firestore, dispatch);
       await addCommentLike(id,-1,0)(firebase, firestore, dispatch);
     }
   };
@@ -131,16 +140,19 @@ const Comment = ({ id }) => {
     if(isLiked==0){
       setIsLiked(n=>n-1);
       setCount(count=>count - 1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,-1)(firebase, firestore, dispatch);
       await addCommentLike(id,0,1)(firebase, firestore, dispatch);
     }
     else if(isLiked==1){
       setIsLiked(n=>n-2);
       setCount(count=>count - 2);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,-1)(firebase, firestore, dispatch);
       await addCommentLike(id,-1,1)(firebase, firestore, dispatch);
     }
     else{
       setIsLiked(n=>n+1);
       setCount(count=>count +1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,0)(firebase, firestore, dispatch);
       await addCommentLike(id,0,-1)(firebase, firestore, dispatch);
     }
   };

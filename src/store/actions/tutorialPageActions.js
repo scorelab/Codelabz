@@ -239,3 +239,32 @@ export const addCommentLike = (id,upvote,downvote) => async (firebase, firestore
     dispatch({ type: actions.ADD_COMMENT_LIKE_FAILED, payload: e.message });
   }
 }
+
+export const addcommentlikestatus=(id,uid,likestatus)=>async(firebase,firestore,dispatch)=>{
+  try{
+    const ref=await firestore.collection("comment_likes").doc(id+"_"+uid).set({
+      comment_id:id,
+      user_id:uid,
+      likestatus:likestatus,
+      timestamp:firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
+export const ftechlikestatus=(id,uid)=>async(firebase,firestore,dispatch)=>{
+  try{
+    const ref=await firestore.collection("comment_likes").doc(id+"_"+uid).get()
+    if(ref.exists){
+      return ref.data().likestatus
+    }
+    else{
+      return false
+    }
+  }
+  catch(e){
+    console.log(e)
+  }
+}
