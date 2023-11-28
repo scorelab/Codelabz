@@ -35,11 +35,7 @@ exports.deleteTutorialStepsHandler = async () => {
         .child(step.step_id)
         .remove();
 
-      await rtdb
-        .ref()
-        .child("delete_steps")
-        .child(step.id)
-        .remove();
+      await rtdb.ref().child("delete_steps").child(step.id).remove();
     });
     await Promise.all(promises);
     console.log("completed of deleting tutorial steps");
