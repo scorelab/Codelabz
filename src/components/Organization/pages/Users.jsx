@@ -1,7 +1,10 @@
 import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Orgusers from "../OrgUsers/OrgUsers";
+import { fetchAdmins } from "../../../store/actions";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -13,27 +16,23 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Users() {
+function Users({orghandle}) {
 	const classes = useStyles();
-
-	const AdminUsers = [
-		{
-			name: "Shahaab Manzar",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "char",
-				value: "A",
-			},
-		},
-		{
-			name: "Sarfraz Alam",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-	];
+	const dispatch = useDispatch();
+	const firebase=useFirebase();
+	const [adminUsers, setAdminUsers] = useState([]);
+	useEffect(() => {
+		const fetchData = async () => {
+		  try {
+			const admins = await fetchAdmins(orghandle)(firebase, dispatch);
+			setAdminUsers(admins);
+		  } catch (error) {
+			console.error("Error fetching admins:", error);
+		  }
+		};
+	
+		fetchData();
+	  }, [firebase, dispatch, orghandle]);
 
 	const ContributersUsers = [
 		{
@@ -82,13 +81,16 @@ function Users() {
 					<Typography className={classes.heading}>Users</Typography>
 				</Grid>
 				<Grid item>
+				{adminUsers.length > 0 &&(
 					<Orgusers
-						Users={AdminUsers}
+						Users={adminUsers}
 						title="Admin"
 						description="Admins can manage submissions, content, and settings"
 						AddUser={true}
 						dataTestId="org-admin-list"
+						org_handle={orghandle}
 					/>
+				)}	
 				</Grid>
 				<Grid item>
 					<Orgusers
@@ -98,6 +100,7 @@ function Users() {
 						AddUser={true}
 						isViewMore={true}
 						dataTestId="org-contributor-list"
+						org_handle={orghandle}
 					/>
 				</Grid>
 			</Grid>

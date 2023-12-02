@@ -1,4 +1,6 @@
 export {
+  checkAdminExists,
+  checkAdminEmail,
   checkOrgHandleExists,
   checkUserHandleExists,
   clearAuthError,
@@ -16,6 +18,7 @@ export {
   verifyPasswordResetCode,
 } from "./authActions";
 export {
+  fetchAdmins,
   addOrgUser,
   clearEditGeneral,
   clearOrgData,
@@ -29,6 +32,7 @@ export {
   uploadOrgProfileImage,
   addFollower,
   removeFollower,
+  addOrgAdmins,
 } from "./orgActions";
 export {
   clearProfileEditError,

@@ -198,7 +198,7 @@ const Organizations = () => {
 
           <Grid item xs={windowSize.width <= 750 ? 12 : 10}>
             {SettingsMenu === 1 && <General />}
-            {SettingsMenu === 2 && <Users />}
+            {SettingsMenu === 2 && <Users orghandle={currentOrgData.org_handle}/>}
             {SettingsMenu === 3 && <Passwords />}
             {SettingsMenu === 4 && <Socialmedia />}
           </Grid>
