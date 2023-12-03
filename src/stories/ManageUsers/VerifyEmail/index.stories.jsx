@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "ManageUsers/VerifyEmail",
-  component: VerifyEmail,
+  component: VerifyEmail
 };
 
 const Template = () => (

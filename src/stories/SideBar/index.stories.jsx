@@ -6,8 +6,8 @@ import ProviderWrapper from "../../helpers/providerWrapper.jsx";
 import Grid from "@mui/material/Grid";
 import Home from "./../../assets/images/home.svg";
 import Notification from "../../assets/images/notification.svg";
-import UserSettings from "../../assets/images/user-settings.svg"
-import OrganizationSettings from "../../assets/images/organization-settings.svg"
+import UserSettings from "../../assets/images/user-settings.svg";
+import OrganizationSettings from "../../assets/images/organization-settings.svg";
 import Org from "../../assets/images/org.svg";
 import Profile from "../../assets/images/profile.svg";
 import Bookmark from "../../assets/images/bookmark.svg";
@@ -18,15 +18,15 @@ export default {
   argType: {
     open: { type: "boolean" },
     toggleSlider: {
-      type: function () { },
+      type: function () {}
     },
     notification: {
-      type: function () { },
-    },
-  },
+      type: function () {}
+    }
+  }
 };
 
-export const sidebar = (args) => (
+export const sidebar = args => (
   <ProviderWrapper>
     <MemoryRouter>
       {window.innerWidth > 750 && (
@@ -49,8 +49,9 @@ export const sidebar = (args) => (
             maxHeight: "25rem",
             backgroundColor: "transparent",
             border: "none",
-            boxShadow: "none",
-          }}>
+            boxShadow: "none"
+          }}
+        >
           <Grid item style={{ minWidth: "100%" }}>
             <SideBar {...args} />
           </Grid>
@@ -68,41 +69,41 @@ Default.args = {
   toogleSlider: function () {
     // open = !open;
   },
-  notification: function () { },
+  notification: function () {},
   menuItems: [
     {
       name: "Home",
       img: Home,
-      link: "/",
+      link: "/"
     },
     {
       name: "Notifications",
-      img: Notification,
+      img: Notification
     },
     {
       name: "User Settings",
       img: UserSettings,
-      link: "/user-settings",
+      link: "/user-settings"
     },
     {
       name: "Organization Settings",
       img: OrganizationSettings,
-      link: "/organization-settings",
+      link: "/organization-settings"
     },
     {
       name: "Organizations",
       img: Org,
-      link: "/organizations",
+      link: "/organizations"
     },
     {
       name: "Profile",
       img: Profile,
-      link: "/profile",
+      link: "/profile"
     },
     {
       name: "Bookmarks",
       img: Bookmark,
-      link: "/bookmarks",
-    },
-  ],
+      link: "/bookmarks"
+    }
+  ]
 };

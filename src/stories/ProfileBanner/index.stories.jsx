@@ -5,10 +5,10 @@ import ProviderWrapper from "../../helpers/providerWrapper";
 
 export default {
   title: "ProfileBanner/Banner",
-  component: Banner,
+  component: Banner
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <Banner {...args} />
   </ProviderWrapper>
@@ -23,5 +23,5 @@ ProfileBanner.args = {
   story: "Think Different",
   followers: 402,
   contributors: 402,
-  feed: 40,
+  feed: 40
 };

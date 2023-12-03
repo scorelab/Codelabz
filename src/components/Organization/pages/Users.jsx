@@ -6,15 +6,16 @@ import { fetchAdmins } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		padding: 20,
-	},
-	heading: {
-		fontWeight: 100,
-		fontSize: "1.6rem",
-	},
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: 20
+  },
+  heading: {
+    fontWeight: 100,
+    fontSize: "1.6rem"
+  }
 }));
+
 
 function Users({orghandle}) {
 	const classes = useStyles();
@@ -34,40 +35,42 @@ function Users({orghandle}) {
 		fetchData();
 	  }, [firebase, dispatch, orghandle]);
 
-	const ContributersUsers = [
-		{
-			name: "Sarfraz Alam",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-		{
-			name: "Jhanvi Thakkar",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-		{
-			name: "Saksham Sharma",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-		{
-			name: "Mehender boi",
-			designation: "GSoC 22'",
-			avatar: {
-				type: "image",
-				value: "https://i.pravatar.cc/300",
-			},
-		},
-	];
+
+  const ContributersUsers = [
+    {
+      name: "Sarfraz Alam",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Jhanvi Thakkar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Mehender boi",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    }
+  ];
+
 
 	return (
 		<React.Fragment>
@@ -106,6 +109,7 @@ function Users({orghandle}) {
 			</Grid>
 		</React.Fragment>
 	);
+
 }
 
 export default Users;

@@ -3,7 +3,7 @@ import * as actions from "../../actions/actionTypes";
 const initialState = {
   loading: false,
   error: null,
-  data: null,
+  data: null
 };
 
 const launchedReducer = (state = initialState, { type, payload }) => {
@@ -14,7 +14,7 @@ const launchedReducer = (state = initialState, { type, payload }) => {
     case actions.GET_LAUNCHED_ORGS_START:
       return {
         ...state,
-        loading: true,
+        loading: true
       };
 
     case actions.GET_LAUNCHED_ORGS_SUCCESS:
@@ -22,14 +22,14 @@ const launchedReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
-        data: payload,
+        data: payload
       };
 
     case actions.GET_LAUNCHED_ORGS_FAIL:
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     default:

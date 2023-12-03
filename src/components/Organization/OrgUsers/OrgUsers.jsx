@@ -1,10 +1,4 @@
-import {
-	Avatar,
-	Button,
-	Grid,
-	Paper,
-	Typography,
-} from "@mui/material";
+import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,6 +10,7 @@ import { checkUserHandleExists, checkAdminExists, checkAdminEmail } from "../../
 import { addOrgAdmins } from "../../../store/actions";
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { fetchAdmins } from "../../../store/actions";
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {

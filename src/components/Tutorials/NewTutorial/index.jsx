@@ -18,6 +18,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import DescriptionIcon from "@mui/icons-material/Description";
 import MovieIcon from "@mui/icons-material/Movie";
 import Select from "react-select";
+import { common } from "@mui/material/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -121,7 +122,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     const tutorialData = {
       ...formValue,
       created_by: userHandle,
-      is_org: userHandle !== formValue.owner
+      is_org: userHandle !== formValue.owner,
+      completed: false
     };
     console.log(tutorialData);
     createTutorial(tutorialData)(firebase, firestore, dispatch, history);
@@ -252,7 +254,14 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 loading={loading}
                 onClick={e => onSubmit(e)}
                 data-testid="newTutorialSubmit"
-                style={{ backgroundColor: "#03AAFA", borderRadius: "30px" }}
+                sx={{
+                  bgcolor: "#03AAFA",
+                  borderRadius: "30px",
+                  color: common.white,
+                  "&:hover": {
+                    bgcolor: "#03AAFA"
+                  }
+                }}
                 disabled={
                   formValue.title === "" ||
                   formValue.summary === "" ||
