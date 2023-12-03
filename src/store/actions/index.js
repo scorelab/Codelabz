@@ -33,6 +33,8 @@ export {
   addFollower,
   removeFollower,
   addOrgAdmins,
+  subscribeOrg,
+  unSubscribeOrg
 } from "./orgActions";
 export {
   clearProfileEditError,

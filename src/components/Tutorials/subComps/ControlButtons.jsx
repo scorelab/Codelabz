@@ -25,7 +25,7 @@ const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
 							variant="contained"
 							color="primary"
 							type="primary"
-							data-testid="nextStepButton"
+							data-testId="nextStepButton"
 							onClick={() => {
 								setCurrentStep(currentStep + 1);
 								window.scrollTo(0, 0);
