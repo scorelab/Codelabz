@@ -27,6 +27,8 @@ const firebaseConfig = {
 
 export const onlineFirebaseApp = initializeApp(firebaseConfig, "secondary");
 
+export const onlineFirebaseApp = initializeApp(firebaseConfig, "secondary");
+
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(); // <- needed if using firestor

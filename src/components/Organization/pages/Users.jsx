@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+
 function Users({orghandle}) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
@@ -63,6 +64,7 @@ function Users({orghandle}) {
     },
     {
       name: "Mehender boi",
+
       designation: "GSoC 22'",
       avatar: {
         type: "image",
@@ -70,7 +72,6 @@ function Users({orghandle}) {
       }
     }
   ];
-
 
 	return (
 		<React.Fragment>

@@ -3,6 +3,7 @@ import _ from "lodash";
 import { functions } from "../../config";
 
 
+
 export const signIn = credentials => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SIGN_IN_START });
@@ -43,7 +44,9 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
 
 export const signInWithProviderID =
 
+
   providerID => async (firebase, dispatch) => {
+
 
     try {
       if (!["github", "twitter", "facebook"].includes(providerID)) {
@@ -183,7 +186,9 @@ export const resendVerifyEmail = email => async dispatch => {
  * @param userHandle
  * @returns {function(...[*]=):boolean}
  */
+
 export const checkUserHandleExists = (userHandle) => async (firebase, dispatch) => {
+
 
   try {
     dispatch({ type: actions.VERIFY_USER_HANDLE_EXISTS_START });
@@ -209,6 +214,7 @@ export const checkUserHandleExists = (userHandle) => async (firebase, dispatch) 
     throw e.message;
   }
 };
+
 
 
 export const checkAdminExists = (adminHandle, org_handle) => async (firebase, dispatch) => {
@@ -265,6 +271,7 @@ export const checkAdminEmail = (adminHandle,adminEmail) => async (firebase, disp
 
 
 export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
+
 
   try {
     const organizationHandle = await firebase

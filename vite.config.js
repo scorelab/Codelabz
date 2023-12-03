@@ -15,7 +15,6 @@ export default defineConfig({
           "@border-radius-base": "5px"
         }
       }
-
     }
   },
   resolve: {
@@ -30,5 +29,6 @@ export default defineConfig({
     }
   },
   plugins: [react()],
+
 })
 

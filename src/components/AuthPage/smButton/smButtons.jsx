@@ -12,6 +12,7 @@ import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { red } from "@mui/material/colors";
 
 const SmButtons = () => {
+
 	const dispatch = useDispatch();
 	const firebase = useFirebase();
 	const classes = useStyles();

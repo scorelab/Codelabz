@@ -32,9 +32,8 @@ export {
   uploadOrgProfileImage,
   addFollower,
   removeFollower,
++
   addOrgAdmins,
-  subscribeOrg,
-  unSubscribeOrg
   subscribeOrg,
   unSubscribeOrg
 

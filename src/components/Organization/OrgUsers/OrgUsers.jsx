@@ -11,7 +11,6 @@ import { addOrgAdmins } from "../../../store/actions";
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { fetchAdmins } from "../../../store/actions";
 
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		border: `1px solid ${theme.palette.divider}`,
