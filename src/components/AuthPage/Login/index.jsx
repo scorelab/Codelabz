@@ -226,7 +226,7 @@ const Login = ({
             fullWidth
             onClick={onSubmit}
             disabled={loading}
-            data-testId="loginButton"
+            data-testid="loginButton"
             className="loginButton"
             style={{
               color: "white",
