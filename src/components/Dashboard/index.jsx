@@ -482,7 +482,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       error={orgNameValidateError}
                       label="Organization Name"
                       variant="outlined"
-                      placeholder="Organiztion Name"
+                      placeholder="Organization Name"
                       value={orgName}
                       onChange={event => onChangeOrgName(event.target.value)}
                       helperText={
@@ -509,7 +509,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       error={orgHandleValidateError}
                       label="Organization Handle"
                       variant="outlined"
-                      placeholder="Organiztion Handle"
+                      placeholder="Organization Handle"
                       value={orgHandle}
                       onChange={event => onChangeOrgHandle(event.target.value)}
                       helperText={
