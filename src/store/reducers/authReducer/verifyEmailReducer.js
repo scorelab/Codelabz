@@ -3,7 +3,7 @@ import * as actions from "../../actions/actionTypes";
 const initialState = {
   loading: false,
   error: null,
-  email: null,
+  email: null
 };
 
 const VerifyEmailReducer = (state = initialState, { type, payload }) => {
@@ -14,7 +14,7 @@ const VerifyEmailReducer = (state = initialState, { type, payload }) => {
     case actions.SET_VERIFY_EMAIL_FAIL:
       return {
         ...state,
-        email: payload,
+        email: payload
       };
 
     case actions.RESEND_VERIFY_EMAIL_START:
@@ -22,7 +22,7 @@ const VerifyEmailReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.RESEND_VERIFY_EMAIL_SUCCESS:
@@ -30,7 +30,7 @@ const VerifyEmailReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: false,
+        error: false
       };
 
     case actions.RESEND_VERIFY_EMAIL_FAIL:
@@ -38,7 +38,7 @@ const VerifyEmailReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     default:

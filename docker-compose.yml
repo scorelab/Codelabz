@@ -1,0 +1,30 @@
+version: "3.3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - .:/app
+    networks:
+      - main
+  emulator:
+    image: spine3/firebase-emulator
+    environment:
+      ENABLE_UI: true
+      GCP_PROJECT: demo-sampark
+    ports:
+      - 5001:5001
+      - 9000:9000
+      - 8080:8080
+      - 8085:8085
+      - 5000:5000
+      - 4000:4000
+    networks:
+      - main
+
+networks:
+  main: {}

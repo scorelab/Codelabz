@@ -8,15 +8,15 @@ export default {
   component: Organization,
   argTypes: {
     backgroundcolor: {
-      control: "color",
+      control: "color"
     },
     textcolor: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>under construction</MemoryRouter>
   </ProviderWrapper>
