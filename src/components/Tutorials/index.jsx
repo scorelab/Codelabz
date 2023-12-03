@@ -13,75 +13,13 @@ import StepsTitle from "./subComps/StepsTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-  getCurrentStepContentFromFirestore,
+  getCurrentStepContentFromRTDB,
   getCurrentTutorialData,
   setCurrentStepNo
 } from "../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import Spinner from "../../helpers/spinner";
 import AddNewStepModal from "./subComps/AddNewStep";
-import QuillEditor from "../Editor/QuillEditor";
-import HtmlTextRenderer from "./subComps/HtmlTextRenderer";
-import { Collapse, Button } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles(theme => ({
-  flexRow: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  collapseContainer: {
-    minWidth: "100%",
-    "& > div > div": {
-      minWidth: "100%"
-    },
-    overflow: "hidden",
-    transition: theme.transitions.create(["width"])
-  },
-  widthTransition: {
-    overflow: "hidden",
-    transition: theme.transitions.create(["width"])
-  },
-  expandButton: {
-    display: "flex",
-    alignItems: "start",
-    paddingTop: "15px"
-  },
-  rotateChildren: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  ExpandIcon: {
-    fontSize: 50
-  },
-  editorContainer: {
-    width: "100%",
-    padding: "0 10px 10px 10px",
-    overflow: "hidden",
-    background: "white"
-  }
-}));
-
-const ExpandMore = props => {
-  const { expand, children, ...other } = props;
-  const classes = useStyles({ expand });
-
-  return (
-    <Button {...other} className={classes.expandButton}>
-      <div
-        className={classes.rotateChildren}
-        style={{ transform: !expand ? "rotate(270deg)" : "rotate(90deg)" }}
-      >
-        {children}
-      </div>
-    </Button>
-  );
-};
 
 const ViewTutorial = () => {
   const firebase = useFirebase();
@@ -97,12 +35,10 @@ const ViewTutorial = () => {
   const [currentStepContent, setCurrentStepContent] = useState(null);
   const [stepsData, setStepData] = useState(null);
   const [tutorialData, setTutorialData] = useState(null);
-  const [expand, setExpand] = useState(true);
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)"
   });
   const { owner, tutorial_id } = useParams();
-  const classes = useStyles();
 
   useEffect(() => {
     getCurrentTutorialData(owner, tutorial_id)(firebase, firestore, dispatch);
@@ -152,10 +88,10 @@ const ViewTutorial = () => {
   useEffect(() => {
     if (stepsData) {
       setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
-      getCurrentStepContentFromFirestore(
-        tutorial_id,
-        stepsData[currentStep].id
-      )(firestore, dispatch);
+      getCurrentStepContentFromRTDB(tutorial_id, stepsData[currentStep].id)(
+        firebase,
+        dispatch
+      );
     }
   }, [tutorial_id, firebase, stepsData, currentStep, dispatch]);
 
@@ -179,7 +115,6 @@ const ViewTutorial = () => {
           <Grid>
             <Grid xs={24} sm={24} md={24}>
               <EditControls
-                isPublished={tutorialData.isPublished}
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
                 noteID={stepsData[currentStep].id}
@@ -210,46 +145,22 @@ const ViewTutorial = () => {
             />
           </Grid>
         </Grid>
-        <Grid className={classes.flexRow}>
-          <ExpandMore
-            data-testid="tutorial-collapse-button"
-            expand={expand}
-            onClick={() => {
-              setExpand(prev => !prev);
-              setStepPanelVisible(prev => !prev);
-            }}
-            aria-expanded={expand}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon className={classes.ExpandIcon} />
-          </ExpandMore>
-
+        <Grid style={{ display: "flex", flexDirection: "row" }}>
           <Grid
             width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : "0"}
-            padding={stepPanelVisible ? "0 2rem" : "0"}
-            className={classes.widthTransition}
+            style={{ backgroundColor: "white", padding: "2rem" }}
           >
-            <Collapse
-              data-testid="tutorial-steps-list"
-              in={expand}
-              timeout="auto"
-              unmountOnExit
-              orientation="horizontal"
-              className={classes.collapseContainer}
-            >
-              <StepsPanel
-                currentStep={currentStep}
-                onChange={onChange}
-                stepsData={stepsData}
-                onClick={() => setStepPanelVisible(false)}
-                hideButton={isDesktop}
-                setCurrentStep={setCurrentStep}
-                setStepData={setStepData}
-              />
-            </Collapse>
+            <StepsPanel
+              currentStep={currentStep}
+              onChange={onChange}
+              stepsData={stepsData}
+              onClick={() => setStepPanelVisible(false)}
+              hideButton={isDesktop}
+              setCurrentStep={setCurrentStep}
+            />
           </Grid>
 
-          <Grid className={classes.editorContainer}>
+          <Grid style={{ width: "90%", background: "#f0f0f0" }}>
             <Grid className="tutorial-content" justify="center" container>
               <Grid
                 xs={24}
@@ -257,17 +168,12 @@ const ViewTutorial = () => {
                 md={20}
                 lg={18}
                 className="col-pad-24-s mt-24-od tutorial-paper"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px"
-                }}
               >
                 {!isDesktop && stepPanelVisible ? null : (
                   <>
                     {mode === "view" && (
                       <div data-testId="tutorial-content">
-                        <HtmlTextRenderer html={currentStepContent} />
+                        <ReactMarkdown children={currentStepContent} />
                       </div>
                     )}
                     {mode === "edit" && (
@@ -280,8 +186,7 @@ const ViewTutorial = () => {
                           step_title={stepsData[currentStep].title}
                           step_time={stepsData[currentStep].time}
                         />
-
-                        <QuillEditor
+                        <Editor
                           data={stepsData[currentStep].content}
                           tutorial_id={tutorialData.tutorial_id}
                           id={stepsData[currentStep].id}
@@ -314,6 +219,16 @@ const ViewTutorial = () => {
                 steps_length={stepsData.length}
                 owner={tutorialData.owner}
               />
+            </Grid>
+            <Grid>
+              <Grid xs={24} sm={24} md={24} className="col-pad-24-s">
+                <ControlButtons
+                  currentStep={currentStep}
+                  setCurrentStep={setCurrentStep}
+                  stepsData={stepsData}
+                  hide={!isDesktop && stepPanelVisible}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
