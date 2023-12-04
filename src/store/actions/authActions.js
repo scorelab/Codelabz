@@ -232,6 +232,68 @@ export const checkAdminExists = (adminHandle, org_handle) => async (firebase, di
     throw e.message;
   }
 }
+
+export const areRolesMutuallyExclusive = (roleToCheck,orgUserHandle,org_handle) => async(firebase,dispatch)=>{
+  try{
+    dispatch({ type: actions.VERIFY_ROLES_ARE_MUTUALLY_EXCLUSIVE_START });
+
+    const handle = await firebase
+    .firestore()
+    .collection("cl_org_general")
+    .doc(org_handle)
+    .collection(roleToCheck)
+    .get()
+
+    const records = handle.docs.map(doc => doc.data())
+
+    let roleExists = false
+    records.forEach(function (record) {
+      if(roleToCheck == "admins"){
+        if (orgUserHandle == record.adminHandle) {
+          roleExists = true
+        }
+      }else{
+        if (orgUserHandle == record.contributorHandle) {
+          roleExists = true
+        }
+      }
+    })
+    dispatch({ type: actions.VERIFY_ROLES_ARE_MUTUALLY_EXCLUSIVE_SUCCESS });
+    return roleExists
+  }
+  catch (e){
+    dispatch({ type: actions.VERIFY_ROLES_ARE_MUTUALLY_EXCLUSIVE_FAIL });
+    throw e.message;
+  }
+}
+
+
+export const checkContributorExists = (contributorHandle, org_handle) => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.VERIFY_CONTRIBUTOR_HANDLE_EXISTS_START });
+    const handle = await firebase
+      .firestore()
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("contributors")
+      .get()
+
+    const records = handle.docs.map(doc => doc.data())
+    let contributorHandleExists = false
+    records.forEach(function (record) {
+      if (contributorHandle == record.contributorHandle) {
+        contributorHandleExists = true
+      }
+    })
+    dispatch({ type: actions.VERIFY_CONTRIBUTOR_HANDLE_EXISTS_SUCCESS });
+    return contributorHandleExists
+  } catch (e) {
+    dispatch({ type: actions.VERIFY_CONTRIBUTOR_HANDLE_EXISTS_FAIL });
+    throw e.message;
+  }
+}
+
+
 export const checkAdminEmail = (adminHandle,adminEmail) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.CHECK_ADMIN_EMAIL_START });
@@ -255,6 +317,34 @@ export const checkAdminEmail = (adminHandle,adminEmail) => async (firebase, disp
     return email_registered
   } catch (e) {
     dispatch({ type: actions.CHECK_ADMIN_EMAIL_FAIL });
+    throw e.message;
+  }
+}
+
+
+export const checkContributorEmail = (contributorHandle,contributorEmail) => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.CHECK_CONTRIBUTOR_EMAIL_START });
+    const email = await firebase
+      .firestore()
+      .collection("cl_user")
+      .where("handle", "==", contributorHandle)
+      .get()
+    let email_registered = false
+    if (!email.empty) {
+
+      const firstDocument = email.docs[0];
+      const emailData = firstDocument.data();
+      const emailId = emailData.email;
+
+      if(emailId == contributorEmail){
+        email_registered=true
+      }
+    }
+    dispatch({ type: actions.CHECK_CONTRIBUTOR_EMAIL_SUCCESS });
+    return email_registered
+  } catch (e) {
+    dispatch({ type: actions.CHECK_CONTRIBUTOR_EMAIL_FAIL });
     throw e.message;
   }
 }
