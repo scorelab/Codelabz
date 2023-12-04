@@ -2,6 +2,9 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Grid from "@mui/material/Grid";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/material";
+
 
 const ControlButtons = ({ currentStep, setCurrentStep, stepsData, hide }) => {
 	if (!hide && stepsData) {

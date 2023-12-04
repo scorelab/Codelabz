@@ -56,6 +56,7 @@ const Editor = ({ id, data, tutorial_id }) => {
         });
 
         firepad.on("synced", function (isSynced) {
+          // firepad.getText() gives updated content of editor
           setCurrentStep(firepad.getText())(dispatch);
           isSynced && firepadRef.child("text").set(firepad.getText());
         });

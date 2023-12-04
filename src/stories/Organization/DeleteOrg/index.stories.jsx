@@ -5,10 +5,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "Organization/Delete Organisation",
-  component: OrgDelete,
+  component: OrgDelete
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <OrgDelete {...args} />
@@ -16,9 +16,6 @@ const Template = (args) => (
   </ProviderWrapper>
 );
 
-
 export const Default = Template.bind({});
 
-Default.args = {
-  
-}
+Default.args = {};

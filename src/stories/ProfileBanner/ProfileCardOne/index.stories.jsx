@@ -5,10 +5,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "ProfileBanner/ProfileCardOne",
-  component: ProfileCardOne,
+  component: ProfileCardOne
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <ProfileCardOne {...args} />
   </ProviderWrapper>
@@ -21,5 +21,5 @@ ProfileCard.args = {
   name: "Apple",
   story: "Think Different",
   followers: 402,
-  following: 40,
+  following: 40
 };

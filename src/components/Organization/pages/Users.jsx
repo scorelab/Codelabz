@@ -6,14 +6,14 @@ import { fetchAdmins, fetchContributors } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		padding: 20,
-	},
-	heading: {
-		fontWeight: 100,
-		fontSize: "1.6rem",
-	},
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: 20
+  },
+  heading: {
+    fontWeight: 100,
+    fontSize: "1.6rem"
+  }
 }));
 
 function Users({orghandle}) {

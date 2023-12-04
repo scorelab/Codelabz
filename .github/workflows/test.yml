@@ -58,6 +58,7 @@ jobs:
           name: Cypress screenshots
           path: /home/runner/work/Codelabz/Codelabz/cypress/screenshots
       - uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: Cypress Videos
           path: /home/runner/work/Codelabz/Codelabz/cypress/videos/

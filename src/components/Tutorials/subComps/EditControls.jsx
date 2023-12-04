@@ -16,7 +16,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import UserList from "../../Editor/UserList";
-import { hideUnHideStep } from "../../../store/actions";
+import { publishUnpublishTutorial } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import RemoveStepModal from "./RemoveStepModal";
@@ -24,6 +24,7 @@ import ColorPickerModal from "./ColorPickerModal";
 import { Box, Stack } from "@mui/system";
 
 const EditControls = ({
+  isPublished,
   stepPanelVisible,
   isDesktop,
   setMode,
@@ -42,16 +43,17 @@ const EditControls = ({
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
+  const [publishLoad, setPublishLoad] = useState(false);
   const DropdownMenu = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleClick = event => {
+      setAnchorEl(event.currentTarget);
+    };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     return (
       <>
@@ -101,6 +103,15 @@ const EditControls = ({
       </>
     );
   };
+  const handlePublishTutorial = async () => {
+    setPublishLoad(true);
+    await publishUnpublishTutorial(owner, tutorial_id, isPublished)(
+      firebase,
+      firestore,
+      dispatch
+    );
+    setPublishLoad(false);
+  };
 
   return (
     <>
@@ -116,7 +127,7 @@ const EditControls = ({
           variant="contained"
           sx={{
             boxShadow: "none",
-            borderRadius: 25
+            borderRadius: 1
           }}
           onClick={() => toggleAddNewStep()}
         >
@@ -132,45 +143,6 @@ const EditControls = ({
           Add images
         </Button>
 
-        {/* <Button
-          onClick={() => {
-            <Snackbar
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              open={true}
-              autoHideDuration={6000}
-              message="updating step visibility...."
-            />;
-            hideUnHideStep(
-              owner,
-              tutorial_id,
-              noteID,
-              visibility
-            )(firebase, firestore, dispatch).then(() => {
-              <Snackbar
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left"
-                }}
-                open={true}
-                autoHideDuration={6000}
-                message="updated...."
-              />;
-            });
-          }}
-        >
-          {!visibility ? (
-            <>
-              <VisibilityOffIcon /> Show step
-            </>
-          ) : (
-            <>
-              <VisibilityIcon /> Hide step
-            </>
-          )}
-        </Button> */}
         <Button
           danger
           onClick={() => {
@@ -220,8 +192,13 @@ const EditControls = ({
                   <FileCopyIcon /> Preview mode
                 </Button>
               )}
-              <Button data-testid={"publishTutorial"} type="dashed">
-                <FileCopyIcon /> Publish
+              <Button
+                data-testid="publishTutorial"
+                onClick={handlePublishTutorial}
+                type="dashed"
+                disabled={publishLoad}
+              >
+                <FileCopyIcon /> {isPublished ? "Unpublish" : "Publish"}
               </Button>
               <DropdownMenu key="more" />
             </>

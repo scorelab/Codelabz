@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -18,6 +18,10 @@ import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { getUserProfileData } from "../../store/actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,10 +71,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CardWithPicture(props) {
+export default function CardWithPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
+  const firebase = useFirebase();
+  const firestore = useFirestore();
   const handleIncrement = () => {
     setCount(count + 1);
   };
@@ -83,22 +90,40 @@ export default function CardWithPicture(props) {
     setAlignment(newAlignment);
   };
 
+  useEffect(() => {
+    getUserProfileData(tutorial?.created_by)(firebase, firestore, dispatch);
+  }, [tutorial]);
+
+  const user = useSelector(
+    ({
+      profile: {
+        user: { data }
+      }
+    }) => data
+  );
+
+  const getTime = timestamp => {
+    return timestamp.toDate().toDateString();
+  };
+
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image={cardImage}
-        title="code"
-        data-testId="Image"
-      />
+      <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
+        <CardMedia
+          className={classes.media}
+          image={tutorial?.featured_image}
+          title="code"
+          data-testId="Image"
+        />
+      </Link>
       <CardHeader
         avatar={
-          <Avatar
-            aria-label="recipe"
-            className={classes.avatar}
-            data-testId="UserAvatar"
-          >
-            S
+          <Avatar className={classes.avatar}>
+            {user?.photoURL && user?.photoURL.length > 0 ? (
+              <img src={user?.photoURL} />
+            ) : (
+              user?.displayName[0]
+            )}
           </Avatar>
         }
         title={
@@ -110,9 +135,9 @@ export default function CardWithPicture(props) {
               color="textPrimary"
               data-testId="UserName"
             >
-              {props.name}
+              {user?.displayName}
             </Typography>
-            {props.organizationName && (
+            {tutorial?.owner && (
               <>
                 {" for "}
                 <Typography
@@ -122,28 +147,30 @@ export default function CardWithPicture(props) {
                   color="textPrimary"
                   data-testId="UserOrgName"
                 >
-                  {props.organizationName}
+                  {tutorial?.owner}
                 </Typography>
               </>
             )}
           </React.Fragment>
         }
-        subheader={props.date}
+        subheader={tutorial?.createdAt ? getTime(tutorial?.createdAt) : ""}
       />
-      <CardContent className={classes.contentPadding}>
-        <Typography variant="h5" color="text.primary" data-testId="Title">
-          {props.title}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          component="p"
-          paragraph
-          data-testId="Description"
-        >
-          {props.contentDescription}
-        </Typography>
-      </CardContent>
+      <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
+        <CardContent className={classes.contentPadding}>
+          <Typography variant="h5" color="text.primary" data-testId="Title">
+            {tutorial?.title}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            paragraph
+            data-testId="Description"
+          >
+            {tutorial?.summary}
+          </Typography>
+        </CardContent>
+      </Link>
       <CardActions className={classes.settings} disableSpacing>
         <Chip
           label="HTML"
@@ -159,7 +186,7 @@ export default function CardWithPicture(props) {
           className={classes.time}
           data-testId="Time"
         >
-          {props.time}
+          {"10 min"}
         </Typography>
         <div className={classes.grow} />
         <ToggleButtonGroup
