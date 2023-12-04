@@ -383,7 +383,8 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       )
                     }}
                   />
-                  <div width="100%">
+                 
+                  <div style={{ position: 'relative', width: '100%' }}>
                     <TextField
                       error={countryValidateError}
                       label="User Country"
@@ -401,37 +402,44 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       fullWidth
                       autoComplete="country"
                       required
-                      style={{ marginBottom: "15px" }}
+                      style={{ marginBottom: '15px' }}
                       InputProps={{
-                        "data-testid": "userCountry",
+                        'data-testid': 'userCountry',
                         startAdornment: (
                           <InputAdornment position="start">
-                            <PersonOutlineIcon
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
+                            <PersonOutlineIcon style={{ color: 'rgba(0,0,0,.25)' }} />
                           </InputAdornment>
-                        )
+                        ),
                       }}
                     />
-                    <div>
-                      {filteredData.length !== 0 && (
-                        <div className="dataOutput">
-                          {filteredData.map(item => {
-                            return (
-                              <div
-                                onClick={e => {
-                                  setCountry(item.name);
-                                  setCountrySearch("");
-                                }}
-                                style={{ color: textColor }}
-                              >
-                                <span>{item.name}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
+                    {filteredData.length !== 0 && (
+                      <div
+                        className="dataOutput"
+                        style={{
+                          position: 'absolute',
+                          top: '100%',
+                          left: 0,
+                          width: '100%',
+                          zIndex: 999,
+                          backgroundColor: 'white',
+                          maxHeight: '100px', // Set a maximum height for the dropdown
+                          overflowY: 'auto', // Enable scrolling if content exceeds maxHeight
+                        }}
+                      >
+                        {filteredData.map(item => (
+                          <div
+                            key={item.name} // Remember to add a unique key when mapping
+                            onClick={() => {
+                              setCountry(item.name);
+                              setCountrySearch('');
+                            }}
+                            style={{ color: textColor, cursor: 'pointer' }}
+                          >
+                            <span>{item.name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </Box>
                 <Divider></Divider>
