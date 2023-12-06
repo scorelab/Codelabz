@@ -542,7 +542,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                         )
                       }}
                     />
-                    <div width="100%">
+                    <div style={{ position: "relative", width: "100%" }}>
                       <TextField
                         error={orgCountryValidateError}
                         label="Organization Country"
@@ -573,7 +573,18 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       />
                       <div>
                         {orgFilteredData.length !== 0 && (
-                          <div className="dataOutput">
+                          <div className="dataOutput" 
+                            style={{
+                              position: "absolute",
+                              top: "100%",
+                              left: 0,
+                              width: "100%",
+                              zIndex: 999,
+                              backgroundColor: "white",
+                              maxHeight: "100px", // Set a maximum height for the dropdown
+                              overflowY: "auto" // Enable scrolling if content exceeds maxHeight
+                            }}
+                          >
                             {orgFilteredData.map(item => {
                               return (
                                 <div
