@@ -111,6 +111,68 @@ export const removeOrgUser =
     }
   };
 
+
+  export const removeOrgUsers = (role,orgUserHandle,org_handle) => async(firebase,dispatch)=>{
+    try{
+      if (role == "admin"){
+        dispatch({ type: actions.REMOVE_ORG_USER_START });
+        const adminCollection = firebase
+          .firestore()
+          .collection("cl_org_general")
+          .doc(org_handle)
+          .collection("admins")
+
+        
+          const querySnapShot = await adminCollection.where("adminHandle","==",orgUserHandle).get()
+          querySnapShot.forEach(async (doc) =>{
+            await adminCollection.doc(doc.id).delete();
+
+          })
+          const querySnapshotAfter = await adminCollection.get();
+          const records = querySnapshotAfter.docs.map(doc => doc.data())
+          const modifiedRecords = records.map((obj) => {
+            return {
+              ...obj,
+              avatar: {
+                type: "image",
+                value: "https://i.pravatar.cc/300",
+              },
+            };
+          });
+          dispatch({ type: actions.REMOVE_ORG_USER_SUCCESS });
+          return modifiedRecords;
+      }else{
+        const contributorCollection = firebase
+        .firestore()
+        .collection("cl_org_general")
+        .doc(org_handle)
+        .collection("contributors");
+
+        const querySnapShot = await contributorCollection.where("contributorHandle","==",orgUserHandle).get()
+
+        querySnapShot.forEach(async (doc) =>{
+          await contributorCollection.doc(doc.id).delete();
+        })
+        const querySnapshotAfter = await contributorCollection.get();
+        const records = querySnapshotAfter.docs.map(doc => doc.data())
+        const modifiedRecords = records.map((obj) => {
+          return {
+            ...obj,
+            avatar: {
+              type: "image",
+              value: "https://i.pravatar.cc/300",
+            },
+          };
+        });
+        dispatch({ type: actions.REMOVE_ORG_USER_SUCCESS });
+        return modifiedRecords;
+      }
+    }catch(e){
+      dispatch({ type: actions.REMOVE_ORG_USER_FAIL });
+      throw e.message;
+    }
+  }
+
 export const getOrgBasicData = org_handle => async firebase => {
   try {
     const firestore = firebase.firestore();

@@ -39,7 +39,8 @@ export {
   addOrgAdmins,
   addOrgContributors,
   subscribeOrg,
-  unSubscribeOrg
+  unSubscribeOrg,
+  removeOrgUsers
 } from "./orgActions";
 export {
   clearProfileEditError,
