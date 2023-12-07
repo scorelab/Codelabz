@@ -8,30 +8,30 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 
 const story = {
   title: "Topbar/ActivityList",
-  component: ActivityList,
+  component: ActivityList
 };
 
 export default story;
 
-const Template = (args) => {
+const Template = args => {
   const [List, setList] = useState(1);
 
   const acitvitylist = [
     {
       id: 1,
       icon: LocalOfferIcon,
-      text: "Featured",
+      text: "Featured"
     },
     {
       id: 2,
       icon: StarBorderIcon,
-      text: "New",
+      text: "New"
     },
     {
       id: 3,
       icon: EmojiEventsIcon,
-      text: "Top",
-    },
+      text: "Top"
+    }
   ];
 
   return (
@@ -40,7 +40,7 @@ const Template = (args) => {
         <ActivityList
           {...args}
           value={List}
-          toggle={(item) => {
+          toggle={item => {
             setList(item.id);
           }}
           acitvitylist={acitvitylist}

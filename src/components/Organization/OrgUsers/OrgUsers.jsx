@@ -562,6 +562,7 @@ function Orgusers({
 
       <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
         <Grid container className={classes.gridPadding} onClick={closePopUp}>
+
           <Grid container direction="row">
             <Grid item container xs={10} direction="column">
               <Grid item>
@@ -585,6 +586,7 @@ function Orgusers({
                 color="primary"
                 className={classes.button}
                 onClick={AddUserPopUp}
+
                 style={{
                   display: AddUser ? "flex" : "none"
                 }}
@@ -604,6 +606,7 @@ function Orgusers({
                 <RemoveOutlinedIcon />
                 Remove
               </Button>
+
             </Grid>
           </Grid>
           <Grid
@@ -612,6 +615,7 @@ function Orgusers({
             data-testid="org-userlist"
           >
             {orgUsers.map((user, index) => (
+
               <React.Fragment key={index}>
                 <Grid
                   container
@@ -653,6 +657,7 @@ function Orgusers({
                       {Users[0].hasOwnProperty("adminHandle")
                         ? user.adminDesignation
                         : user.contributorDesignation}
+
                     </Typography>
                   </Grid>
                 </Grid>

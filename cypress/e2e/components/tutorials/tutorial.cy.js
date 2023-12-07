@@ -12,11 +12,11 @@ describe("Tutorial Test | CodeLabz", () => {
 
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-  })
+  });
 
   it("tutorial page is not accessable from outside", function () {
     cy.visit(`${this.base_url}tutorials`);
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.not.eq(`${this.base_url}tutorials`);
     });
   });
@@ -30,7 +30,7 @@ describe("Tutorial Test | CodeLabz", () => {
 
   it("logged in user can access tutorial page", function () {
     cy.visit(`${this.base_url}tutorials`);
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}tutorials`);
     });
   });
