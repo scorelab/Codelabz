@@ -573,7 +573,8 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       />
                       <div>
                         {orgFilteredData.length !== 0 && (
-                          <div className="dataOutput" 
+                          <div
+                            className="dataOutput"
                             style={{
                               position: "absolute",
                               top: "100%",
