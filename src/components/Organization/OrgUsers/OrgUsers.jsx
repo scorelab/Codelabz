@@ -140,6 +140,7 @@ const useStyles = makeStyles(theme => ({
   },
   removepopup_overlay: {
 
+
     // width: "100%",
     // height: "5%",
     display: "flex",
@@ -200,6 +201,7 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     "&:hover": {
       backgroundColor: "#666666" 
+
     }
   }
 }));
@@ -210,6 +212,7 @@ function Orgusers({
   description,
   AddUser,
   isViewMore,
+
   dataTestId,
   org_handle
 }) {
@@ -565,6 +568,7 @@ function Orgusers({
 
       <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
         <Grid container className={classes.gridPadding} onClick={closePopUp}>
+
           <Grid container direction="row">
             <Grid item container xs={10} direction="column">
               <Grid item>
@@ -587,7 +591,9 @@ function Orgusers({
                 variant="outlined"
                 color="primary"
                 className={classes.button}
+
                 onClick={AddUserPopUp}
+
                 style={{
                   display: AddUser ? "flex" : "none"
                 }}
@@ -595,6 +601,7 @@ function Orgusers({
                 <AddIcon />
                 Add New
               </Button>
+
               <Button
                 variant="outlined"
                 color="primary"
@@ -607,6 +614,7 @@ function Orgusers({
                 <RemoveOutlinedIcon />
                 Remove
               </Button>
+
             </Grid>
           </Grid>
           <Grid
@@ -614,7 +622,9 @@ function Orgusers({
             className={classes.userList}
             data-testid="org-userlist"
           >
+
             {orgUsers.map((user, index) => (
+
               <React.Fragment key={index}>
                 <Grid
                   container
@@ -648,6 +658,7 @@ function Orgusers({
                     alignItems="center"
                   >
                     <Typography className={classes.userName}>
+
                       {Users[0].hasOwnProperty("adminHandle")
                         ? user.adminHandle
                         : user.contributorHandle}
@@ -656,6 +667,7 @@ function Orgusers({
                       {Users[0].hasOwnProperty("adminHandle")
                         ? user.adminDesignation
                         : user.contributorDesignation}
+
                     </Typography>
                   </Grid>
                 </Grid>

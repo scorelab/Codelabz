@@ -15,7 +15,7 @@ describe("Codefeed Page | CodeLabz", () => {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
     cy.visit(`${this.base_url}dashboard`);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.not.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
@@ -32,7 +32,7 @@ describe("Codefeed Page | CodeLabz", () => {
   it("Check Codefeed Page Url accessable by logged in user", function () {
     cy.visit(`${this.base_url}dashboard/my_feed`);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });

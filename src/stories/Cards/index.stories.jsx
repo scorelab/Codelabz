@@ -15,11 +15,11 @@ export default {
     tags: { type: "array" },
     users: { type: "array" },
     events: { type: "array" },
-    title: { type: "string" },
-  },
+    title: { type: "string" }
+  }
 };
 
-export const Default = (args) => (
+export const Default = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <Grid
@@ -35,7 +35,7 @@ export const Default = (args) => (
           overflow: "auto",
           backgroundColor: "transparent",
           border: "none",
-          boxShadow: "none",
+          boxShadow: "none"
         }}
         direction="column"
       >
@@ -63,7 +63,7 @@ export const Default = (args) => (
               "JavaScript",
               "Css",
               "Python",
-              "React",
+              "React"
             ]}
           />
         </Grid>
@@ -81,7 +81,7 @@ export const Default = (args) => (
           overflow: "auto",
           backgroundColor: "transparent",
           border: "none",
-          boxShadow: "none",
+          boxShadow: "none"
         }}
         direction="column"
       >
@@ -93,26 +93,26 @@ export const Default = (args) => (
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
+                onClick: {}
               },
               {
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
+                onClick: {}
               },
               {
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
+                onClick: {}
               },
               {
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
-              },
+                onClick: {}
+              }
             ]}
           />
         </Grid>
@@ -131,7 +131,7 @@ export const Default = (args) => (
           overflow: "auto",
           backgroundColor: "transparent",
           border: "none",
-          boxShadow: "none",
+          boxShadow: "none"
         }}
         direction="column"
       >
@@ -143,26 +143,26 @@ export const Default = (args) => (
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
+                onClick: {}
               },
               {
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
+                onClick: {}
               },
               {
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
+                onClick: {}
               },
               {
                 name: "Janvi Thakkar",
                 img: [OrgUser],
                 desg: "Software Engineer",
-                onClick: {},
-              },
+                onClick: {}
+              }
             ]}
           />
         </Grid>
@@ -181,7 +181,7 @@ export const Default = (args) => (
           overflow: "auto",
           backgroundColor: "transparent",
           border: "none",
-          boxShadow: "none",
+          boxShadow: "none"
         }}
         direction="column"
       >
@@ -192,23 +192,23 @@ export const Default = (args) => (
               {
                 name: "Google Summer of Code",
                 img: [OrgUser],
-                date: "25 March, 2022",
+                date: "25 March, 2022"
               },
               {
                 name: "Google Summer of Code",
                 img: [OrgUser],
-                date: "25 March, 2022",
+                date: "25 March, 2022"
               },
               {
                 name: "Google Summer of Code",
                 img: [OrgUser],
-                date: "25 March, 2022",
+                date: "25 March, 2022"
               },
               {
                 name: "Google Summer of Code",
                 img: [OrgUser],
-                date: "25 March, 2022",
-              },
+                date: "25 March, 2022"
+              }
             ]}
           />
         </Grid>
