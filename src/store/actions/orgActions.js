@@ -115,7 +115,6 @@ export const removeOrgUser =
   export const removeOrgUsers = (role,orgUserHandle,org_handle) => async(firebase,dispatch)=>{
     try{
       if (role == "admin"){
-        dispatch({ type: actions.REMOVE_ORG_USER_START });
         const adminCollection = firebase
           .firestore()
           .collection("cl_org_general")
@@ -139,7 +138,7 @@ export const removeOrgUser =
               },
             };
           });
-          dispatch({ type: actions.REMOVE_ORG_USER_SUCCESS });
+          console.log(modifiedRecords)
           return modifiedRecords;
       }else{
         const contributorCollection = firebase
@@ -164,11 +163,9 @@ export const removeOrgUser =
             },
           };
         });
-        dispatch({ type: actions.REMOVE_ORG_USER_SUCCESS });
         return modifiedRecords;
       }
     }catch(e){
-      dispatch({ type: actions.REMOVE_ORG_USER_FAIL });
       throw e.message;
     }
   }
