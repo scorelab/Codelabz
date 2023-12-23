@@ -3,7 +3,7 @@
  * @param payload
  * @returns error message or the payload (in email unverified case)
  */
-export const modifyAuthErrorMsg = (payload) => {
+export const modifyAuthErrorMsg = payload => {
   switch (payload.code) {
     case "auth/wrong-password":
     case "auth/user-not-found":
@@ -16,7 +16,7 @@ export const modifyAuthErrorMsg = (payload) => {
       return "Logging in has been disabled temperorily due to too many unsuccessful attempts. Please check back in a few minutes.";
 
     case "auth/missing-email":
-       return "The email address is badly formatted."
+      return "The email address is badly formatted.";
 
     default:
       return payload.message || payload;

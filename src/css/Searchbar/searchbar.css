@@ -1,31 +1,30 @@
 .dataOutput {
-    position: sticky;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    max-height: 150px;
-    z-index: 100;
-    color:#101729;
-    background-color: #fff;
+  position: sticky;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  max-height: 150px;
+  z-index: 100;
+  color: #101729;
+  background-color: #fff;
 }
 
 .dataOutput div {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
 }
 
 .dataOutput div:hover {
-    background: #cccdd1;
-    color: #fff;
+  background: #cccdd1;
+  color: #fff;
 }
 
 .dataOutput div span {
-    line-height: 140%;
+  line-height: 140%;
 }
 
 .dataOutput div span:last-child {
-    font-size: 14px;
+  font-size: 14px;
 }
-

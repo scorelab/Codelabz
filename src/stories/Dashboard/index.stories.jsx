@@ -6,15 +6,15 @@ export default {
   component: Dashboard,
   argTypes: {
     background: {
-      control: "color",
+      control: "color"
     },
     textColor: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <Dashboard {...args} />
   </ProviderWrapper>
@@ -24,5 +24,5 @@ export const Default = Template.bind({});
 
 Default.args = {
   background: "white",
-  textColor: "black",
+  textColor: "black"
 };

@@ -2,7 +2,7 @@ import * as actions from "../../actions/actionTypes";
 
 const initialState = {
   loading: false,
-  error: null,
+  error: null
 };
 
 const TutorialsCreateReducer = (state = initialState, { type, payload }) => {
@@ -15,7 +15,7 @@ const TutorialsCreateReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.CREATE_TUTORIAL_SUCCESS:
@@ -23,7 +23,7 @@ const TutorialsCreateReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: false,
+        error: false
       };
 
     case actions.CREATE_TUTORIAL_FAIL:
@@ -31,7 +31,7 @@ const TutorialsCreateReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     default:

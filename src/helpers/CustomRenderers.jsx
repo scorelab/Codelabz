@@ -10,7 +10,7 @@ export const CodeBlock = ({ language, value }) => {
   );
 };
 
-export const ImageRenderer = (props) => {
+export const ImageRenderer = props => {
   let a = props.alt;
   let src = props.src;
   let imageScale = 100;

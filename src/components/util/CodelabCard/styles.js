@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   card: {
     margin: ".5rem",
     width: "50vw",
@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     flexDirection: "column",
     [theme.breakpoints.down(750)]: {
-      width: "90vw",
-    },
+      width: "90vw"
+    }
   },
   heading: {
     fontWeight: 700,
     marginTop: "-.5rem",
     [theme.breakpoints.down(750)]: {
-      fontSize: "1rem",
-    },
+      fontSize: "1rem"
+    }
   },
   body: {
     padding: "0rem 2rem 0rem 3.5rem",
@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(750)]: {
       padding: "0rem 1rem 0rem 1rem",
       justify: "center",
-      textAlign: "left",
-    },
+      textAlign: "left"
+    }
   },
   tags: {
     fontWeight: "500",
-    color: "#455A64",
+    color: "#455A64"
   },
   avatar: {
     height: "2rem",
@@ -41,16 +41,16 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     left: "1rem",
     border: "1.5px solid black",
-    borderRadius: "500px",
+    borderRadius: "500px"
   },
   cardContent: {
-    paddingTop: "1rem",
+    paddingTop: "1rem"
   },
   cardAction: {
     padding: "0rem 0rem 0rem 3.8rem",
     [theme.breakpoints.down(750)]: {
-      padding: "0",
-    },
+      padding: "0"
+    }
   },
   button: {
     background: "#BCBCBC",
@@ -58,14 +58,14 @@ const useStyles = makeStyles((theme) => ({
     height: "2rem",
     marginBottom: ".5rem",
     [theme.breakpoints.down(750)]: {
-      height: "1.4rem",
-    },
+      height: "1.4rem"
+    }
   },
   logo: {
     width: "2.5rem",
     height: "2rem",
     marginTop: "0rem",
-    zIndex: "1",
+    zIndex: "1"
   },
   organizationLogo: {
     display: "flex",
@@ -73,23 +73,23 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     flexDirecton: "column",
     paddingRight: "10px",
-    width: "auto",
+    width: "auto"
   },
   cardHeader: {
-    padding: "1rem 1rem 0rem 1rem",
+    padding: "1rem 1rem 0rem 1rem"
   },
   readTime: {
     [theme.breakpoints.down(750)]: {
       fontSize: ".5rem",
       background: "red",
-      display: "none",
-    },
+      display: "none"
+    }
   },
   headerGrid: {
     width: "2rem",
     height: ".5rem",
     marginTop: "-1.5rem",
-    border: "0.1px solid #f4f4f4",
+    border: "0.1px solid #f4f4f4"
   },
   personImg: {
     zIndex: 2,
@@ -97,11 +97,11 @@ const useStyles = makeStyles((theme) => ({
     left: "1.5rem",
     top: "-.6rem",
     border: "1px solid black",
-    borderRadius: "500px",
+    borderRadius: "500px"
   },
   logoImg: {
-    height: "1rem",
-  },
+    height: "1rem"
+  }
 }));
 
 export default useStyles;

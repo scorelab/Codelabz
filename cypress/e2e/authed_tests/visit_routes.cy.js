@@ -25,7 +25,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}login`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
@@ -34,7 +34,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}signup`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
@@ -43,7 +43,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}forgotpassword`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
@@ -52,7 +52,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}manageusers`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}`);
     });
   });
@@ -61,7 +61,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}dashboard`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
@@ -70,7 +70,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}dashboard/my_feed`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
     });
   });
@@ -79,7 +79,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}profile`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}profile`);
     });
   });
@@ -88,7 +88,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}org/codelabzorg`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}org/codelabzorg`);
     });
   });
@@ -97,7 +97,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
     cy.visit(`${this.base_url}tutorials`);
     cy.wait(5000);
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}tutorials`);
     });
   });
@@ -105,7 +105,7 @@ describe("Authenticated Route Access Test | CodeLabz", () => {
   it("Visit Home Page - Passing", function () {
     cy.visit(`${this.base_url}`);
     cy.wait(5000);
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}`);
     });
   });

@@ -28,7 +28,7 @@ const StepsPanel = ({
   onClick,
   hideButton,
   setCurrentStep,
-  setStepData,
+  setStepData
 }) => {
   const classes = useStyles();
   return (

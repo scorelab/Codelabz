@@ -111,7 +111,7 @@ const ViewOrganization = () => {
       .where("org_handle", "==", handle)
       .get()
       .then(querySnapshot => {
-        setPeople(querySnapshot.forEach(doc => doc.data()))
+        setPeople(querySnapshot.forEach(doc => doc.data()));
       });
   }, [db, handle]);
 
@@ -120,16 +120,15 @@ const ViewOrganization = () => {
       .where("uid", "==", profileData.uid)
       .get()
       .then(querySnapshot => {
-        setOrgFollowed(querySnapshot.forEach(doc => doc.data()))
+        setOrgFollowed(querySnapshot.forEach(doc => doc.data()));
       });
   }, [db, profileData.uid]);
 
   const handleOrgSubscription = async () => {
     if (!currentOrgData.userSubscription)
       await subscribeOrg(handle)(firebase, firestore, dispatch);
-    else 
-      await unSubscribeOrg(handle)(firebase, firestore, dispatch);
-  }
+    else await unSubscribeOrg(handle)(firebase, firestore, dispatch);
+  };
 
   const loading = useSelector(
     ({
