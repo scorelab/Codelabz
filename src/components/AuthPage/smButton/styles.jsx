@@ -4,6 +4,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     height: "50px",
     width: "50px",
+    
     "&:hover": {
       transform: "scale(1.2)"
     }
