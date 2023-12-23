@@ -17,7 +17,7 @@ const CardComponent = ({
   tags = "#css #webdev #beginners #html",
   profilePic = "demoperson4.jpeg",
   org = false,
-  background = "white",
+  background = "white"
 }) => {
   const classes = useStyles();
   const [logoPath, setLogoPath] = React.useState("");
@@ -27,7 +27,12 @@ const CardComponent = ({
 
   return (
     <>
-      <Card maxWidth="sm" className={classes.card} style={{ background: background }} data-testId="codelabzCard">
+      <Card
+        maxWidth="sm"
+        className={classes.card}
+        style={{ background: background }}
+        data-testId="codelabzCard"
+      >
         <CardHeader
           data-testId="codelabzCardHeader"
           className={classes.cardHeader}
@@ -42,9 +47,15 @@ const CardComponent = ({
               {logoPath ? (
                 <Grid container>
                   <Grid item className={classes.headerGrid}>
-                    <img src="/logo.jpeg" alt="logo" className={classes.logoImg} />
                     <img
-                      src={require(`../../../assets/images/${profilePic}`).default}
+                      src="/logo.jpeg"
+                      alt="logo"
+                      className={classes.logoImg}
+                    />
+                    <img
+                      src={
+                        require(`../../../assets/images/${profilePic}`).default
+                      }
                       alt=""
                       height="20rem"
                       width="20rem"
@@ -53,14 +64,19 @@ const CardComponent = ({
                   </Grid>
                 </Grid>
               ) : (
-                <img src={require(`../../../assets/images/${profilePic}`).default} alt="" className={classes.avatar} />
+                <img
+                  src={require(`../../../assets/images/${profilePic}`).default}
+                  alt=""
+                  className={classes.avatar}
+                />
               )}
             </Grid>
           }
           title={
             org ? (
               <Typography variant="body">
-                Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>} ScoreLabz
+                Demo Name {<span style={{ color: "#7D7C7D" }}>for</span>}{" "}
+                ScoreLabz
               </Typography>
             ) : (
               <Typography variant="body">Demo Name</Typography>
@@ -75,21 +91,42 @@ const CardComponent = ({
           className={classes.cardContent}
           style={{ paddingBottom: "0rem" }}
         >
-          <Grid container alignItems="left" justify="flex-start" direction="column" className={classes.body}>
+          <Grid
+            container
+            alignItems="left"
+            justify="flex-start"
+            direction="column"
+            className={classes.body}
+          >
             <Grid item>
               <Typography variant="h5" gutterBottom className={classes.heading}>
                 {title}
               </Typography>
             </Grid>
-            <Grid container direction="row" justify="flex-start" alignItems="left">
-              <Typography variant="body2" color="textPrimary" className={"mr-8 " + classes.tags}>
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="left"
+            >
+              <Typography
+                variant="body2"
+                color="textPrimary"
+                className={"mr-8 " + classes.tags}
+              >
                 {tags}
               </Typography>
             </Grid>
           </Grid>
         </CardContent>
         <CardActions disableSpacing className={classes.cardAction}>
-          <Grid container xs={6} justify="left" direction="row" data-testId="codelabzCardButtonGroup">
+          <Grid
+            container
+            xs={6}
+            justify="left"
+            direction="row"
+            data-testId="codelabzCardButtonGroup"
+          >
             <Grid item direction="row">
               {!org ? (
                 <Grid item style={{ height: "2rem" }}>
@@ -119,14 +156,29 @@ const CardComponent = ({
               )}
             </Grid>
           </Grid>
-          <Grid xs={6} container direction="row" justify="flex-end" alignItems="center">
+          <Grid
+            xs={6}
+            container
+            direction="row"
+            justify="flex-end"
+            alignItems="center"
+          >
             <Grid item xs={3}>
-              <Typography variant="body2" color="textSecondary" alignItems="flex-end" className={classes.readTime}>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                alignItems="flex-end"
+                className={classes.readTime}
+              >
                 10 min read
               </Typography>
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" style={{ backgroundColor: "royalblue", margin: "16px" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ backgroundColor: "royalblue", margin: "16px" }}
+              >
                 Save
               </Button>
             </Grid>
@@ -142,6 +194,6 @@ CardComponent.propTypes = {
   tags: PropTypes.string,
   profilePic: PropTypes.string,
   org: PropTypes.bool,
-  background: PropTypes.string,
+  background: PropTypes.string
 };
 export default CardComponent;

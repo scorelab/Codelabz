@@ -25,7 +25,7 @@ const UserIsAuthenticated = connectedRouterRedirect({
   allowRedirectBack: false,
   redirectPath: (state, ownProps) =>
     locationHelper.getRedirectQueryParam(ownProps) || "/login",
-  authenticatingSelector: ({ firebase: { auth, profile, isInitializing } }) => {
+  authenticatingSelector: ({ firebase: { auth, isInitializing } }) => {
     return !isLoaded(auth) || isInitializing === true;
   },
   authenticatedSelector: ({ firebase: { auth } }) =>

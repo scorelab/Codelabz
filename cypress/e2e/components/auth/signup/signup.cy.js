@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
-import { faker } from "@faker-js/faker"
+import { faker } from "@faker-js/faker";
 
 describe("SignUp Page | CodeLabz", () => {
   beforeEach(function () {
-    indexedDB.deleteDatabase('firebaseLocalStorageDb');
+    indexedDB.deleteDatabase("firebaseLocalStorageDb");
 
     cy.fixture("login").then(function (credentials) {
       this.credentials = credentials;

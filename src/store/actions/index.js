@@ -13,7 +13,7 @@ export {
   signOut,
   signUp,
   verifyEmail,
-  verifyPasswordResetCode,
+  verifyPasswordResetCode
 } from "./authActions";
 export {
   addOrgUser,
@@ -41,7 +41,7 @@ export {
   updateUserProfile,
   uploadProfileImage,
   addUserFollower,
-  removeUserFollower,
+  removeUserFollower
 } from "./profileActions";
 export {
   addNewTutorialStep,
@@ -64,5 +64,5 @@ export {
   setTutorialTheme,
   updateStepTime,
   updateStepTitle,
-  uploadTutorialImages,
+  uploadTutorialImages
 } from "./tutorialsActions";

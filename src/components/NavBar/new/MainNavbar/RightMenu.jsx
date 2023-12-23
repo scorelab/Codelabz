@@ -246,7 +246,7 @@ const RightMenu = ({ mode, onClick }) => {
               : "#3AAFA9",
           marginLeft: "1rem",
           marginBottom: ".2rem",
-          cursor:"pointer",
+          cursor: "pointer"
         }}
         size={mode === "inline" ? "default" : "medium"}
         src={profile.photoURL}
@@ -261,7 +261,7 @@ const RightMenu = ({ mode, onClick }) => {
         data-testId="nav-user"
       >
         {acronym}
-      </Avatar>  
+      </Avatar>
       <Menu
         id="fade-menu"
         anchorEl={anchorEl}

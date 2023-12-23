@@ -214,7 +214,9 @@ const Login = ({
                 />
               </FormGroup>
             </Grid>
-            <Grid>
+            <Grid
+              style={{ fontFamily: "Arial, sans-serif", fontSize: "1.5vh" }}
+            >
               <Link
                 data-testId="forgotPassoword"
                 to="/forgotpassword"
