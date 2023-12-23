@@ -3,11 +3,10 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
 	button: {
 		height: "35px",
-		width:"auto",
-		transition:"all 0.2s",
+		borderRadius: "45% / 50%",
+		transition:"all 0.2s ease-in",
 		"&:hover": {
-			transform: "scale(1.2)",
-			backgroundColor:"transparent"
+			transform: "scale(1.15)",
 		},
 	},
 	root: {
