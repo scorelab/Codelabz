@@ -106,7 +106,7 @@ const EditControls = ({
     );
   };
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  const [successMessage, setSuccessMessage] = useState("");
   const handlePublishTutorial = async () => {
     setPublishLoad(true);
     await publishUnpublishTutorial(owner, tutorial_id, isPublished)(
@@ -116,6 +116,7 @@ const EditControls = ({
     );
     setPublishLoad(false);
     setShowSuccessModal(true);
+    setSuccessMessage(isPublished ? "Tutorial unpublished successfully!" : "Tutorial published successfully!");
   };
 
   return (
@@ -219,7 +220,7 @@ const EditControls = ({
       <SuccessModal
         visible={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
-        message="tutorial published succesfully "
+        message={successMessage}
       />
     </>
   );
