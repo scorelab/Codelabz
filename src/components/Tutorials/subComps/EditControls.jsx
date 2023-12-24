@@ -216,7 +216,11 @@ const EditControls = ({
         tutorial_id={tutorial_id}
         owner={owner}
       />
-    
+      <SuccessModal
+        visible={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        message="tutorial published succesfully "
+      />
     </>
   );
 };
