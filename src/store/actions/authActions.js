@@ -20,9 +20,11 @@ export const signIn = credentials => async (firebase, dispatch) => {
         type: actions.SIGN_IN_FAIL,
         payload: "email-unverified"
       });
-
     }
-  };
+  } catch (e) {
+    dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
+  }
+};
 
 export const signInWithGoogle = () => async (firebase, dispatch) => {
   try {
