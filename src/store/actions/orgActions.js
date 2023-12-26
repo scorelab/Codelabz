@@ -125,7 +125,7 @@ export const getOrgBasicData = org_handle => async firebase => {
     if (!orgDoc.exists) return null;
 
     const org_name = orgDoc.get("org_name");
-    const org_image = orgDoc.get("org_image");
+    const org_image = orgDoc.get("org_logo");
     const org_link_facebook = orgDoc.get("org_link_facebook");
     const org_link_github = orgDoc.get("org_link_github");
     const org_link_linkedin = orgDoc.get("org_link_linkedin");

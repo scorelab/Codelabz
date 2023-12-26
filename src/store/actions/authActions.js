@@ -2,28 +2,31 @@ import * as actions from "./actionTypes";
 import _ from "lodash";
 import { functions } from "../../config";
 
-export const signIn = (credentials) => async (firebase, dispatch) => {
-  try {
-    dispatch({ type: actions.SIGN_IN_START });
-    dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
-    const userData = await firebase.login(credentials);
-    if (_.get(userData, "user.user.emailVerified", false)) {
-      dispatch({ type: actions.SIGN_IN_SUCCESS });
-    } else {
-      await firebase.logout();
-      dispatch({
-        type: actions.SET_VERIFY_EMAIL_FAIL,
-        payload: credentials.email,
-      });
-      dispatch({
-        type: actions.SIGN_IN_FAIL,
-        payload: "email-unverified",
-      });
+
+  export const signIn = (credentials) => async (firebase, dispatch) => {
+    try {
+      dispatch({ type: actions.SIGN_IN_START });
+      dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
+
+      const userData = await firebase.login(credentials);
+      console.log(userData,credentials)
+      if (_.get(userData, "user.user.emailVerified", false)) {
+        dispatch({ type: actions.SIGN_IN_SUCCESS });
+      } else {
+        await firebase.logout();
+        dispatch({
+          type: actions.SET_VERIFY_EMAIL_FAIL,
+          payload: credentials.email,
+        });
+        dispatch({
+          type: actions.SIGN_IN_FAIL,
+          payload: "email-unverified",
+        });
+      }
+    } catch (e) {
+      dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
     }
-  } catch (e) {
-    dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
-  }
-};
+  };
 
 export const signInWithGoogle = () => async (firebase, dispatch) => {
   try {
@@ -89,6 +92,7 @@ export const signUp = (userData) => async (firebase, dispatch) => {
     dispatch({ type: actions.SIGN_UP_START });
     const { email, password } = userData;
     await firebase.createUser({ email, password }, { email });
+    
     await firebase.logout();
     dispatch({ type: actions.SIGN_UP_SUCCESS });
   } catch (e) {
@@ -202,6 +206,18 @@ export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
   }
 };
 
+const convertImageToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      resolve(reader.result);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
+
+
 export const setUpInitialData =
   (data) => async (firebase, firestore, dispatch) => {
     try {
@@ -216,8 +232,10 @@ export const setUpInitialData =
         org_name,
         org_website,
         org_country,
+        org_logo
       } = data;
-
+      console.log("called",org_logo)
+    
       const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
 
       if (isUserHandleExists) {
@@ -240,6 +258,7 @@ export const setUpInitialData =
           });
           return;
         }
+        const base64Image = await convertImageToBase64(org_logo);
 
         await firestore.set(
           { collection: "cl_org_general", doc: org_handle },
@@ -249,6 +268,7 @@ export const setUpInitialData =
             org_website,
             org_country,
             org_email: userData.email,
+            org_logo:base64Image,
             org_created_date: firestore.FieldValue.serverTimestamp(),
             createdAt: firestore.FieldValue.serverTimestamp(),
             updatedAt: firestore.FieldValue.serverTimestamp(),

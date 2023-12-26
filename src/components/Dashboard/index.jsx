@@ -85,6 +85,8 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 	const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] =
 		useState("");
 
+	const [orgLogo, setOrgLogo] = useState(null);
+
 	const displayName = useSelector(
 		({
 			firebase: {
@@ -248,6 +250,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 							org_name: orgName,
 							org_website: orgWebsite,
 							org_country: orgCountry,
+							org_logo:orgLogo,
 						})(firebase, firestore, dispatch);
 					}
 				});
@@ -286,6 +289,11 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 		setHandleValidateErrorMessage("");
 	};
 	console.log(country);
+
+	const handleOrgLogoChange = (event) => {
+		const selectedFile = event.target.files[0];
+		setOrgLogo(selectedFile);
+	  };
 
 	return (
 		<div className="home-row" style={{ background: background }}>
@@ -371,7 +379,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 										onFocus={onFocusHandle}
 										style={{ marginBottom: "15px" }}
 										InputProps={{
-											"data-testid":"userHandle",
+											"data-testid": "userHandle",
 											startAdornment: (
 												<InputAdornment position="start">
 													<PersonOutlineIcon
@@ -401,7 +409,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
-												"data-testid":"userCountry",
+												"data-testid": "userCountry",
 												startAdornment: (
 													<InputAdornment position="start">
 														<PersonOutlineIcon
@@ -444,8 +452,8 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 										{showOrgForm === false
 											? "I want to create an organization"
 											: showOrgForm === true
-											? "I don't want to create an organization"
-											: "I want to create an organization"}
+												? "I don't want to create an organization"
+												: "I want to create an organization"}
 									</Button>
 								</Box>
 							</Card>
@@ -490,7 +498,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
-												"data-testid":"orgName",
+												"data-testid": "orgName",
 												startAdornment: (
 													<InputAdornment position="start">
 														<LocationCityIcon
@@ -519,7 +527,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
-												"data-testid":"orgHandle",
+												"data-testid": "orgHandle",
 												startAdornment: (
 													<InputAdornment position="start">
 														<BusinessIcon
@@ -548,7 +556,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 												autoComplete="orgCountry"
 												required
 												InputProps={{
-													"data-testid":"orgCountry",
+													"data-testid": "orgCountry",
 													startAdornment: (
 														<InputAdornment position="start">
 															<PersonOutlineIcon
@@ -599,7 +607,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											required
 											style={{ marginBottom: "15px" }}
 											InputProps={{
-												"data-testid":"orgWebsite",
+												"data-testid": "orgWebsite",
 												startAdornment: (
 													<InputAdornment position="start">
 														<PublicIcon style={{ color: "rgba(0,0,0,.25)" }} />
@@ -608,6 +616,28 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											}}
 										/>
 									</Box>
+									<Box m={3}>
+										<TextField
+											label="Organization Logo"
+											type="file"
+											variant="outlined"
+											fullWidth
+											autoComplete="orgLogo"
+											required
+											style={{ marginBottom: "15px" }}
+											InputProps={{
+												"data-testid": "orgLogo",
+												startAdornment: (
+													<InputAdornment position="start">
+														<BusinessIcon style={{ color: "rgba(0,0,0,.25)" }} />
+													</InputAdornment>
+												),
+											}}
+											onChange={handleOrgLogoChange} 
+										/>
+									</Box>
+
+
 								</Card>
 							)}
 						</Grid>

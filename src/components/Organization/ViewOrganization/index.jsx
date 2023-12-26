@@ -107,6 +107,7 @@ const ViewOrganization = () => {
   ];
 
   useEffect(() => {
+
     const unsubscribe = db
       .collection("cl_org_general")
       .doc(handle)
@@ -119,6 +120,7 @@ const ViewOrganization = () => {
   }, [db, handle]);
 
   useEffect(() => {
+    console.log(CurrentOrg  )
     const unsubscribe = db
       .collection("cl_user")
       .doc(profileData.uid)
