@@ -1,13 +1,13 @@
 import React from "react";
-import Socials from "../../../components/Organization/OrganizationSocials"
+import Socials from "../../../components/Organization/OrganizationSocials";
 import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "Organization/Organization Socials",
-  component: Socials,
+  component: Socials
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <Socials />
   </ProviderWrapper>

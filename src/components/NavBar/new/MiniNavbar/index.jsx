@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Headroom from "react-headroom";
 import BrandName from "../../../../helpers/brandName";
 import SearchIcon from "@mui/icons-material/Search";
@@ -74,6 +75,11 @@ function MiniNavbar() {
 
   const windowSize = useWindowSize();
 
+  const location = useLocation();
+  const routeName = location.pathname;
+
+  const excludedRoutes = ["/login", "/signup"];
+
   const toggleDrawer = useCallback(state => {
     setOpenDrawer(state);
   }, []);
@@ -135,31 +141,33 @@ function MiniNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid style={{ display: "inline-block" }} item xs={12} md={4}>
-            <Paper component={"form"} className={classes.root} elevation={0}>
-              <IconButton
-                type="submit"
-                aria-label="search"
-                disableRipple
-                className={classes.icon}
-                data-testid="navbarSearch"
-              >
-                <SearchIcon />
-              </IconButton>
-              <InputBase
-                style={{
-                  display: "inline-block",
-                  width:
-                    screenSize.dynamicWidth < "959" &&
-                    screenSize.dynamicWidth > "575"
-                      ? "93.5%"
-                      : "88.5%"
-                }}
-                className={classes.input}
-                placeholder="Search..."
-              />
-            </Paper>
-          </Grid>
+          {!excludedRoutes.includes(routeName) && (
+            <Grid style={{ display: "inline-block" }} item xs={12} md={4}>
+              <Paper component={"form"} className={classes.root} elevation={0}>
+                <IconButton
+                  type="submit"
+                  aria-label="search"
+                  disableRipple
+                  className={classes.icon}
+                  data-testid="navbarSearch"
+                >
+                  <SearchIcon />
+                </IconButton>
+                <InputBase
+                  style={{
+                    display: "inline-block",
+                    width:
+                      screenSize.dynamicWidth < "959" &&
+                      screenSize.dynamicWidth > "575"
+                        ? "93.5%"
+                        : "88.5%"
+                  }}
+                  className={classes.input}
+                  placeholder="Search..."
+                />
+              </Paper>
+            </Grid>
+          )}
           <Grid item className={classes.gridButton}>
             <Button
               variant="contained"

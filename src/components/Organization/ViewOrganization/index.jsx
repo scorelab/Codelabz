@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 import {
   clearOrgData,
   getOrgData,
-  addFollower,
-  removeFollower
+  subscribeOrg,
+  unSubscribeOrg
 } from "../../../store/actions";
 import Banner from "../../ProfileBanner/Organization";
 import { Container } from "@mui/material";
@@ -108,49 +108,29 @@ const ViewOrganization = () => {
 
   useEffect(() => {
 
-    const unsubscribe = db
-      .collection("cl_org_general")
-      .doc(handle)
-      .onSnapshot(snap => {
-        const data = snap.data();
-        setPeople(data.followers);
+    db.collection("org_subscribers")
+      .where("org_handle", "==", handle)
+      .get()
+      .then(querySnapshot => {
+        setPeople(querySnapshot.forEach(doc => doc.data()));
       });
-
-    return () => unsubscribe();
   }, [db, handle]);
 
   useEffect(() => {
-    console.log(CurrentOrg  )
-    const unsubscribe = db
-      .collection("cl_user")
-      .doc(profileData.uid)
-      .onSnapshot(snap => {
-        const data = snap.data();
-        setOrgFollowed(data.orgFollowed);
-      });
 
-    return () => unsubscribe();
+    db.collection("org_subscribers")
+      .where("uid", "==", profileData.uid)
+      .get()
+      .then(querySnapshot => {
+        setOrgFollowed(querySnapshot.forEach(doc => doc.data()));
+
+      });
   }, [db, profileData.uid]);
 
-  const addfollower = (e, people, handle, orgFollowed) => {
-    e.preventDefault();
-    addFollower(
-      profileData.handle,
-      people,
-      handle,
-      orgFollowed,
-      profileData.uid
-    )(firestore, dispatch);
-  };
-  const removefollower = (e, val, people, handle, orgFollowed) => {
-    e.preventDefault();
-    removeFollower(
-      val,
-      people,
-      handle,
-      orgFollowed,
-      profileData.uid
-    )(firestore, dispatch);
+  const handleOrgSubscription = async () => {
+    if (!currentOrgData.userSubscription)
+      await subscribeOrg(handle)(firebase, firestore, dispatch);
+    else await unSubscribeOrg(handle)(firebase, firestore, dispatch);
   };
 
   const loading = useSelector(
@@ -207,16 +187,18 @@ const ViewOrganization = () => {
             <React.Fragment>
               <Banner
                 bannerImage="https://i.postimg.cc/zXvv1vwL/Org-Banner-Demo.png"
-                contributors={402}
-                feed={40}
-                followers={402}
-                name={CurrentOrg.org_name}
+                contributors={currentOrgData.contributorsCount}
+                feed={currentOrgData.feedCount}
+                followers={currentOrgData.followerCount}
+                name={currentOrgData.org_name}
                 profileImage={
-                  CurrentOrg.org_image ? CurrentOrg.org_image : NoImage
+                  currentOrgData.org_image ? currentOrgData.org_image : NoImage
                 }
                 story="Think Different"
                 handle={handle}
                 isOrgBelongsToUser={organizations.includes(handle)}
+                isUserSubscribed={currentOrgData.userSubscription}
+                handleOrgSubscription={handleOrgSubscription}
               />
               <Container
                 maxWidth="xl"
@@ -275,13 +257,13 @@ const ViewOrganization = () => {
                       <Grid item>
                         <Description
                           Heading={"Description"}
-                          Content={CurrentOrg.org_description}
+                          Content={currentOrgData.org_description}
                         />
                       </Grid>
                       <Grid item>
                         <Description
                           Heading={"CodeLabz you may like"}
-                          Content={CurrentOrg.org_description}
+                          Content={currentOrgData.org_description}
                         />
                       </Grid>
                       <Grid item>
