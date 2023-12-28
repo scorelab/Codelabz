@@ -5,10 +5,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "Organization/Add Organization",
-  component: AddOrganization,
+  component: AddOrganization
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <AddOrganization {...args} />

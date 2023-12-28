@@ -4,10 +4,10 @@ import ProviderWrapper from "../../helpers/providerWrapper";
 import ViewTutorial from "../../components/Tutorials/index";
 export default {
   title: "Tutorials/Tutorial",
-  component: ViewTutorial,
+  component: ViewTutorial
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <ViewTutorial {...args} />
