@@ -241,14 +241,14 @@ const RightMenu = ({ mode, onClick }) => {
       <Avatar
         style={{
           backgroundColor:
-            profile.photoURL && profile.photoURL.length > 0
+            profile.profileImage && profile.profileImage.length > 0
               ? "#fffff"
               : "#3AAFA9",
           marginLeft: "1rem",
           marginBottom: ".2rem"
         }}
         size={mode === "inline" ? "default" : "medium"}
-        src={profile.photoURL}
+        src={profile.profileImage}
         icon={
           acronym ? null : (
             <PersonOutlineOutlinedIcon
