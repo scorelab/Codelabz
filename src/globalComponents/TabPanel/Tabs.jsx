@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const Tabs = ({ children, onSelect }) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
-  const onSelectedTab = (index) => {
+  const onSelectedTab = index => {
     setSelectedTab(index);
     onSelect(index);
   };
@@ -14,7 +14,7 @@ const Tabs = ({ children, onSelect }) => {
         return (
           <div
             onClick={() => onSelectedTab(index)}
-            className={selectedTab === index ? 'tab active' : 'tab'}
+            className={selectedTab === index ? "tab active" : "tab"}
           >
             {element}
           </div>

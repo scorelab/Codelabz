@@ -39,9 +39,7 @@ exports.addOrgUserHandler = async (change, context) => {
           )
         });
       return console.log(
-        `user [${addedUser[0]}] successfully updated. Added [${
-          context.params.org_handle
-        }] to organizations.`
+        `user [${addedUser[0]}] successfully updated. Added [${context.params.org_handle}] to organizations.`
       );
     } else if (removedUser.length > 0) {
       await db
@@ -53,9 +51,7 @@ exports.addOrgUserHandler = async (change, context) => {
           )
         });
       return console.log(
-        `user [${removedUser[0]}] successfully updated. Removed [${
-          context.params.org_handle
-        }] from organizations.`
+        `user [${removedUser[0]}] successfully updated. Removed [${context.params.org_handle}] from organizations.`
       );
     } else {
       return console.log(`No new added users or removed users`);

@@ -13,7 +13,7 @@ export {
   signOut,
   signUp,
   verifyEmail,
-  verifyPasswordResetCode,
+  verifyPasswordResetCode
 } from "./authActions";
 export {
   addOrgUser,
@@ -29,6 +29,8 @@ export {
   uploadOrgProfileImage,
   addFollower,
   removeFollower,
+  subscribeOrg,
+  unSubscribeOrg
 } from "./orgActions";
 export {
   clearProfileEditError,
@@ -39,7 +41,7 @@ export {
   updateUserProfile,
   uploadProfileImage,
   addUserFollower,
-  removeUserFollower,
+  removeUserFollower
 } from "./profileActions";
 export {
   addNewTutorialStep,
@@ -47,18 +49,20 @@ export {
   clearTutorialImagesReducer,
   clearTutorialsBasicData,
   createTutorial,
-  getCurrentStepContentFromRTDB,
+  getCurrentStepContentFromFirestore,
   getCurrentTutorialData,
   getOrgTutorialsBasicData,
   getUserTutorialsBasicData,
   hideUnHideStep,
+  publishUnpublishTutorial,
   remoteTutorialImages,
   removeStep,
   searchFromTutorialsIndex,
   setCurrentStep,
   setCurrentStepNo,
+  setCurrentStepContent,
   setTutorialTheme,
   updateStepTime,
   updateStepTitle,
-  uploadTutorialImages,
+  uploadTutorialImages
 } from "./tutorialsActions";

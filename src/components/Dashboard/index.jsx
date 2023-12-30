@@ -23,10 +23,10 @@ import BusinessIcon from "@mui/icons-material/Business";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	checkOrgHandleExists,
-	checkUserHandleExists,
-	clearProfileEditError,
-	setUpInitialData,
+  checkOrgHandleExists,
+  checkUserHandleExists,
+  clearProfileEditError,
+  setUpInitialData
 } from "../../store/actions";
 import { makeStyles } from "@mui/styles";
 import countryList from "../../helpers/countryList";
@@ -36,54 +36,55 @@ import Fade from "react-reveal/Fade";
 import "../../css/Searchbar/searchbar.css";
 
 import {
-	validateName,
-	validateHandle,
-	validateCountry,
-	validateOrgWebsite,
+  validateName,
+  validateHandle,
+  validateCountry,
+  validateOrgWebsite
 } from "../../helpers/validations";
 import PropTypes from "prop-types";
 
 const Dashboard = ({ background = "white", textColor = "black" }) => {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState("");
-	const [showOrgForm, setShowOrgForm] = useState(null);
-	const [focusLeft, setFocusLeft] = useState(true);
-	const [showImage, setShowImage] = useState(false);
-	const firebase = useFirebase();
-	const firestore = useFirestore();
-	const dispatch = useDispatch();
-	const errorProp = useSelector(({ auth }) => auth.profile.error);
-	const loadingProp = useSelector(({ auth }) => auth.profile.loading);
-	const [name, setName] = useState("");
-	const [nameValidateError, setNameValidateError] = useState(false);
-	const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
-	const [orgName, setOrgName] = useState("");
-	const [orgNameValidateError, setOrgNameValidateError] = useState(false);
-	const [orgNameValidateErrorMessage, setOrgNameValidateErrorMessage] =
-		useState("");
-	const [handle, setHandle] = useState("");
-	const [handleValidateError, setHandleValidateError] = useState(false);
-	const [handleValidateErrorMessage, setHandleValidateErrorMessage] =
-		useState("");
-	const [orgHandle, setOrgHandle] = useState("");
-	const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
-	const [orgHandleValidateErrorMessage, setOrgHandleValidateErrorMessage] =
-		useState("");
-	const [country, setCountry] = useState("");
-	const [countryValidateError, setCountryValidateError] = useState(false);
-	const [orgCountry, setOrgCountry] = useState("");
-	const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
-	const [orgWebsite, setOrgWebsite] = useState("");
-	const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [showOrgForm, setShowOrgForm] = useState(null);
+  const [focusLeft, setFocusLeft] = useState(true);
+  const [showImage, setShowImage] = useState(false);
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
+  const errorProp = useSelector(({ auth }) => auth.profile.error);
+  const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+  const [name, setName] = useState("");
+  const [nameValidateError, setNameValidateError] = useState(false);
+  const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [orgNameValidateError, setOrgNameValidateError] = useState(false);
+  const [orgNameValidateErrorMessage, setOrgNameValidateErrorMessage] =
+    useState("");
+  const [handle, setHandle] = useState("");
+  const [handleValidateError, setHandleValidateError] = useState(false);
+  const [handleValidateErrorMessage, setHandleValidateErrorMessage] =
+    useState("");
+  const [orgHandle, setOrgHandle] = useState("");
+  const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
+  const [orgHandleValidateErrorMessage, setOrgHandleValidateErrorMessage] =
+    useState("");
+  const [country, setCountry] = useState("");
+  const [countryValidateError, setCountryValidateError] = useState(false);
+  const [orgCountry, setOrgCountry] = useState("");
+  const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
+  const [orgWebsite, setOrgWebsite] = useState("");
+  const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
 
-	const [filteredData, setFilteredData] = useState([]);
-	const [countrySearch, setCountrySearch] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [countrySearch, setCountrySearch] = useState("");
 
-	const [orgFilteredData, setOrgFilteredData] = useState([]);
-	const [orgCountrySearch, setOrgCountrySearch] = useState("");
+  const [orgFilteredData, setOrgFilteredData] = useState([]);
+  const [orgCountrySearch, setOrgCountrySearch] = useState("");
 
-	const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] =
-		useState("");
+  const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] =
+    useState("");
+
 
 	const [orgLogo, setOrgLogo] = useState(null);
 
@@ -96,122 +97,124 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 	);
 	const children = [];
 
-	for (let i = 0; i < countryList.length; i++) {
-		children.push(
-			<MenuItem key={countryList[i].code} value={countryList[i].name}>
-				{countryList[i].name}
-			</MenuItem>
-		);
-	}
 
-	useEffect(() => {
-		setShowImage(false);
-		setTimeout(() => {
-			setShowImage(focusLeft ? "user" : "org");
-		}, 200);
-	}, [focusLeft]);
+  for (let i = 0; i < countryList.length; i++) {
+    children.push(
+      <MenuItem key={countryList[i].code} value={countryList[i].name}>
+        {countryList[i].name}
+      </MenuItem>
+    );
+  }
 
-	useEffect(() => setError(errorProp), [errorProp]);
-	useEffect(() => setLoading(loadingProp), [loadingProp]);
+  useEffect(() => {
+    setShowImage(false);
+    setTimeout(() => {
+      setShowImage(focusLeft ? "user" : "org");
+    }, 200);
+  }, [focusLeft]);
 
-	useEffect(
-		() => () => {
-			clearProfileEditError()(dispatch);
-		},
-		[dispatch]
-	);
+  useEffect(() => setError(errorProp), [errorProp]);
+  useEffect(() => setLoading(loadingProp), [loadingProp]);
 
-	const validated = () => {
-		if (showOrgForm) {
-			const nameValid = validateName(
-				name,
-				setNameValidateError,
-				setNameValidateErrorMessage,
-				"Please enter your name",
-				"Please enter a real name"
-			);
-			const orgNameValid = validateName(
-				orgName,
-				setOrgNameValidateError,
-				setOrgNameValidateErrorMessage,
-				"Please enter organization name",
-				"Please enter a real name"
-			);
-			const countryValid = validateCountry(country, setCountryValidateError);
-			const orgCountryValid = validateCountry(
-				orgCountry,
-				setOrgCountryValidateError
-			);
-			const orgWebsiteValid = validateOrgWebsite(
-				orgWebsite,
-				setOrgWebsiteValidateError,
-				setOrgWebsiteValidateErrorMessage
-			);
-			if (
-				nameValid &&
-				orgNameValid &&
-				countryValid &&
-				orgCountryValid &&
-				orgWebsiteValid
-			) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			const nameValid = validateName(
-				name,
-				setNameValidateError,
-				setNameValidateErrorMessage,
-				"Please enter your name",
-				"Please enter a real name"
-			);
-			const countryValid = validateCountry(country, setCountryValidateError);
-			if (nameValid && countryValid) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	};
+  useEffect(
+    () => () => {
+      clearProfileEditError()(dispatch);
+    },
+    [dispatch]
+  );
 
-	useEffect(() => {
-		const handleSearch = () => {
-			const searchInput = countrySearch;
-			const newFilteredData = countryList.filter(
-				(value) =>
-					value.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1 ||
-					value.code.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
-			);
-			if (searchInput === "") {
-				setFilteredData([]);
-			} else {
-				setFilteredData(newFilteredData);
-			}
-		};
-		handleSearch();
-	}, [countrySearch]);
+  const validated = () => {
+    if (showOrgForm) {
+      const nameValid = validateName(
+        name,
+        setNameValidateError,
+        setNameValidateErrorMessage,
+        "Please enter your name",
+        "Please enter a real name"
+      );
+      const orgNameValid = validateName(
+        orgName,
+        setOrgNameValidateError,
+        setOrgNameValidateErrorMessage,
+        "Please enter organization name",
+        "Please enter a real name"
+      );
+      const countryValid = validateCountry(country, setCountryValidateError);
+      const orgCountryValid = validateCountry(
+        orgCountry,
+        setOrgCountryValidateError
+      );
+      const orgWebsiteValid = validateOrgWebsite(
+        orgWebsite,
+        setOrgWebsiteValidateError,
+        setOrgWebsiteValidateErrorMessage
+      );
+      if (
+        nameValid &&
+        orgNameValid &&
+        countryValid &&
+        orgCountryValid &&
+        orgWebsiteValid
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      const nameValid = validateName(
+        name,
+        setNameValidateError,
+        setNameValidateErrorMessage,
+        "Please enter your name",
+        "Please enter a real name"
+      );
+      const countryValid = validateCountry(country, setCountryValidateError);
+      if (nameValid && countryValid) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
 
-	useEffect(() => {
-		const handleOrgCountrySearch = () => {
-			const searchOrgCountryInput = orgCountrySearch;
-			const newFilteredData = countryList.filter(
-				(value) =>
-					value.name
-						.toLowerCase()
-						.indexOf(searchOrgCountryInput.toLowerCase()) > -1 ||
-					value.code
-						.toLowerCase()
-						.indexOf(searchOrgCountryInput.toLowerCase()) > -1
-			);
-			if (searchOrgCountryInput === "") {
-				setOrgFilteredData([]);
-			} else {
-				setOrgFilteredData(newFilteredData);
-			}
-		};
-		handleOrgCountrySearch();
-	}, [orgCountrySearch]);
+  useEffect(() => {
+    const handleSearch = () => {
+      const searchInput = countrySearch;
+      const newFilteredData = countryList.filter(
+        value =>
+          value.name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1 ||
+          value.code.toLowerCase().indexOf(searchInput.toLowerCase()) > -1
+      );
+      if (searchInput === "") {
+        setFilteredData([]);
+      } else {
+        setFilteredData(newFilteredData);
+      }
+    };
+    handleSearch();
+  }, [countrySearch]);
+
+  useEffect(() => {
+    const handleOrgCountrySearch = () => {
+      const searchOrgCountryInput = orgCountrySearch;
+      const newFilteredData = countryList.filter(
+        value =>
+          value.name
+            .toLowerCase()
+            .indexOf(searchOrgCountryInput.toLowerCase()) > -1 ||
+          value.code
+            .toLowerCase()
+            .indexOf(searchOrgCountryInput.toLowerCase()) > -1
+      );
+      if (searchOrgCountryInput === "") {
+        setOrgFilteredData([]);
+      } else {
+        setOrgFilteredData(newFilteredData);
+      }
+    };
+    handleOrgCountrySearch();
+  }, [orgCountrySearch]);
+
 
 
 	const [profileImage,setProfileImage]=useState(null)
@@ -281,27 +284,28 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 		});
 	};
 
-	//If display Name is present then show that as value inside user name input
-	useEffect(() => {
-		if (displayName) {
-			setName(displayName);
-		}
-	}, [displayName]);
+  //If display Name is present then show that as value inside user name input
+  useEffect(() => {
+    if (displayName) {
+      setName(displayName);
+    }
+  }, [displayName]);
 
-	//OnChange
-	const onChangeName = (name) => setName(name);
-	const onChangeOrgName = (orgName) => setOrgName(orgName);
-	const onChangeHandle = (handle) => setHandle(handle);
-	const onChangeOrgHandle = (orgHandle) => setOrgHandle(orgHandle);
-	const onChangeCountry = (country) => setCountry(country);
-	const onChangeOrgCountry = (orgCountry) => setOrgCountry(orgCountry);
-	const onChangeOrgWebsite = (orgWebsite) => setOrgWebsite(orgWebsite);
+  //OnChange
+  const onChangeName = name => setName(name);
+  const onChangeOrgName = orgName => setOrgName(orgName);
+  const onChangeHandle = handle => setHandle(handle);
+  const onChangeOrgHandle = orgHandle => setOrgHandle(orgHandle);
+  const onChangeCountry = country => setCountry(country);
+  const onChangeOrgCountry = orgCountry => setOrgCountry(orgCountry);
+  const onChangeOrgWebsite = orgWebsite => setOrgWebsite(orgWebsite);
 
-	const onFocusHandle = () => {
-		setHandleValidateError(false);
-		setHandleValidateErrorMessage("");
-	};
-	console.log(country);
+  const onFocusHandle = () => {
+    setHandleValidateError(false);
+    setHandleValidateErrorMessage("");
+  };
+  console.log(country);
+
 
 	const handleOrgLogoChange = (event) => {
 		const selectedFile = event.target.files[0];
@@ -320,37 +324,41 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 					</h3>
 				</Grid>
 
-				<Grid xs={12} sm={12} md={showOrgForm ? 12 : 6} item={true}>
-					{error && (
-						<Grid container>
-							<Grid xs={12} className="col-pad-24 pr-12 pb-0">
-								<Alert variant="outlined" severity="error">
-									{error}
-								</Alert>
-							</Grid>
-						</Grid>
-					)}
 
-					<Grid container>
-						<Grid
-							xs={12}
-							sm={12}
-							md={showOrgForm ? 6 : 12}
-							className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
-							onFocus={() => setFocusLeft(true)}
-							item={true}>
-							<Card className="auth-form-col" style={{ margin: "0 auto" }}>
-								<Box mt={2} mb={2} m={3}>
-									<Box
-										fontSize={16}
-										fontWeight="fontWeightBold"
-										m={1}
-										style={{ color: textColor }}>
-										Your Details
-									</Box>
-								</Box>
+        <Grid xs={12} sm={12} md={showOrgForm ? 12 : 6} item={true}>
+          {error && (
+            <Grid container>
+              <Grid xs={12} className="col-pad-24 pr-12 pb-0">
+                <Alert variant="outlined" severity="error">
+                  {error}
+                </Alert>
+              </Grid>
+            </Grid>
+          )}
 
-								<Divider />
+          <Grid container>
+            <Grid
+              xs={12}
+              sm={12}
+              md={showOrgForm ? 6 : 12}
+              className="col-pad-24 pr-12 pt-8 pb-24 div-transition"
+              onFocus={() => setFocusLeft(true)}
+              item={true}
+            >
+              <Card className="auth-form-col" style={{ margin: "0 auto" }}>
+                <Box mt={2} mb={2} m={3}>
+                  <Box
+                    fontSize={16}
+                    fontWeight="fontWeightBold"
+                    m={1}
+                    style={{ color: textColor }}
+                  >
+                    Your Details
+                  </Box>
+                </Box>
+
+                <Divider />
+
 
 								<Box m={3}>
 									<TextField
@@ -509,7 +517,9 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 										</Typography>
 									</Box>
 
-									<Divider />
+
+                  <Divider />
+
 
 									<Box m={3}>
 										<TextField
@@ -673,47 +683,50 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 							)}
 						</Grid>
 
-						<Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8" item={true}>
-							<Button
-								data-testid="submit-button"
-								size="small"
-								fullWidth
-								variant="contained"
-								color="primary"
-								disableElevation
-								className="auth-form-col"
-								onClick={onSubmit}
-								disabled={loading}>
-								{loading ? "Saving..." : "Save"}
-							</Button>
-						</Grid>
-					</Grid>
-				</Grid>
-				{!showOrgForm && (
-					<Grid
-						xs={12}
-						sm={12}
-						md={showOrgForm ? 4 : 6}
-						className="col-pad-24 sm-hidden 
+
+            <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8" item={true}>
+              <Button
+                data-testid="submit-button"
+                size="small"
+                fullWidth
+                variant="contained"
+                color="primary"
+                disableElevation
+                className="auth-form-col"
+                onClick={onSubmit}
+                disabled={loading}
+              >
+                {loading ? "Saving..." : "Save"}
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+        {!showOrgForm && (
+          <Grid
+            xs={12}
+            sm={12}
+            md={showOrgForm ? 4 : 6}
+            className="col-pad-24 sm-hidden 
           pl-12 pt-8" /* sm-hidden css code is writen on codelabz.css*/
-						item={true}>
-						<Fade right={true} when={showImage}>
-							<img
-								src={showImage === "user" ? profileUser : orgUser}
-								alt="Background for auth"
-								width="100%"
-								className="dash-image"
-							/>
-						</Fade>
-					</Grid>
-				)}
-			</Grid>
-		</div>
-	);
+            item={true}
+          >
+            <Fade right={true} when={showImage}>
+              <img
+                src={showImage === "user" ? profileUser : orgUser}
+                alt="Background for auth"
+                width="100%"
+                className="dash-image"
+              />
+            </Fade>
+          </Grid>
+        )}
+      </Grid>
+    </div>
+  );
 };
 
 Dashboard.prototype = {
-	background: PropTypes.string,
-	textColor: PropTypes.string,
+  background: PropTypes.string,
+  textColor: PropTypes.string
 };
 export default Dashboard;

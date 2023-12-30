@@ -76,18 +76,16 @@ exports.createOrganizationHandler = async (snapshot, context) => {
       });
 
     /**
-     * create org_users sub-collection => set user uid and respective permissions
+     * create org_users collection => set user uid and respective permissions
      * @type {Promise<FirebaseFirestore.WriteResult>}
      */
     const setOrgUsers = db
-      .collection("cl_org_general")
-      .doc(org_handle)
-      .collection("cl_org_users")
-      .doc("users")
+      .collection("org_users")
+      .doc(`${org_handle}_${user_uid}`)
       .set({
-        [user_uid]: [3],
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        uid: user_uid,
+        org_handle,
+        permissions: [3]
       });
 
     await Promise.all([registerOrgHandle, setOrgMetrics, setOrgUsers]);
