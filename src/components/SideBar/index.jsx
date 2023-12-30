@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     margin: "0.1rem",
-    padding: "0.5rem 1.5rem 0.5rem 0.5rem"
+    padding: "0.5rem"
   }
 }));
 
@@ -111,6 +111,58 @@ const SideBar = ({
       onClick: () => signOut()(firebase, dispatch)
     }
   ];
+  const compactDefaultMenu = [
+    {
+      name: "",
+      img: Home,
+      link: "/"
+    },
+    {
+      name: "",
+      img: Notification,
+      link: "/notification"
+    },
+    {
+      name: "",
+      img: UserSettings,
+      link: "/user-dashboard/user-settings"
+    },
+    {
+      name: "",
+      img: OrganizationSettings,
+      link: "/user-dashboard/organization-settings"
+    },
+    {
+      name: "",
+      img: Org,
+      link: `/org/settings/${currentOrg}`
+    },
+    {
+      name: "",
+      img: MyFeed,
+      link: "/dashboard/my_feed"
+    },
+    {
+      name: "",
+      img: Profile,
+      link: "/profile"
+    },
+    {
+      name: "",
+      img: Bookmark,
+      link: "/bookmarks"
+    },
+    {
+      name: "",
+      img: Tutorials,
+      link: "/tutorials"
+    },
+    allowDashboard && {
+      name: "",
+      img: Logout,
+      onClick: () => signOut()(firebase, dispatch)
+    }
+  ];
 
   const classes = useStyles();
   return (
@@ -146,7 +198,11 @@ const SideBar = ({
         <Card className={classes.card}>
           <div data-testId="sidebar_desktop">
             <SideList
-              menuItems={menuItems || defaultMenu}
+              menuItems={
+                windowSize.width <= 1270
+                  ? menuItems || compactDefaultMenu
+                  : menuItems || defaultMenu
+              }
               value={value}
               onStateChange={onStateChange}
             >
