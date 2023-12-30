@@ -206,16 +206,16 @@ export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
   }
 };
 
-const convertImageToBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      resolve(reader.result);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-};
+  const convertImageToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
 
 
 export const setUpInitialData =
@@ -228,13 +228,14 @@ export const setUpInitialData =
         name: displayName,
         handle,
         country,
+        profileImage,
         org_handle,
         org_name,
         org_website,
         org_country,
         org_logo
       } = data;
-      console.log("called",org_logo)
+      console.log("called",profileImage)
     
       const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
 
@@ -258,8 +259,9 @@ export const setUpInitialData =
           });
           return;
         }
-        const base64Image = await convertImageToBase64(org_logo);
-
+          const OrgLogoBase64Image = await convertImageToBase64(org_logo);
+          const ProfileImageBase64Image = await convertImageToBase64(profileImage);
+          
         await firestore.set(
           { collection: "cl_org_general", doc: org_handle },
           {
@@ -268,7 +270,7 @@ export const setUpInitialData =
             org_website,
             org_country,
             org_email: userData.email,
-            org_logo:base64Image,
+            org_logo:OrgLogoBase64Image,
             org_created_date: firestore.FieldValue.serverTimestamp(),
             createdAt: firestore.FieldValue.serverTimestamp(),
             updatedAt: firestore.FieldValue.serverTimestamp(),
@@ -282,6 +284,7 @@ export const setUpInitialData =
                 displayName,
                 handle,
                 country,
+                profileImage:ProfileImageBase64Image,
                 organizations: [org_handle],
                 updatedAt: firestore.FieldValue.serverTimestamp(),
               },
@@ -294,11 +297,13 @@ export const setUpInitialData =
             });
         }, 7000);
       } else {
+        const ProfileImageBase64Image = await convertImageToBase64(profileImage);
         await firebase.updateProfile(
           {
             displayName,
             handle,
             country,
+            profileImage:ProfileImageBase64Image,
             organizations: [],
             updatedAt: firestore.FieldValue.serverTimestamp(),
           },

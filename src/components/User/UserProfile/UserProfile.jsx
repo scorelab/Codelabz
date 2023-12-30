@@ -50,7 +50,9 @@ const useStyles = makeStyles((theme) => ({
 
 function UserProfile(props) {
 	const classes = useStyles();
-
+	useEffect(()=>{
+		console.log(props.profileData)
+	})
 	const [organizations, setUpOrganizations] = useState([
 		{
 			name: "Google Summer of Code",
@@ -78,8 +80,8 @@ function UserProfile(props) {
 						<Card>
 							<ProfileCardOne
 								profileImage={
-									props.profileData.photoURL
-										? props.profileData.photoURL
+									props.profileData.profileImage
+										? props.profileData.profileImage
 										: "https://i.pravatar.cc/300"
 								}
 								name={props.profileData.displayName}

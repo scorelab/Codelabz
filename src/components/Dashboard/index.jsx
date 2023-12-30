@@ -213,7 +213,17 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 		handleOrgCountrySearch();
 	}, [orgCountrySearch]);
 
+
+	const [profileImage,setProfileImage]=useState(null)
+	const handleProfileImageChange = (event) => {
+		  const selectedFile = event.target.files[0];
+	  // console.log(selectedFile)
+		  setProfileImage(selectedFile);
+	  
+	};
+
 	const onSubmit = async () => {
+		console.log(profileImage);
 		validateHandle(
 			checkUserHandleExists,
 			firebase,
@@ -241,16 +251,18 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 				).then(async (validateOrgHandle) => {
 					if (validated() && validateOrgHandle && validateUserHandle) {
 						setError("");
+						console.log(profileImage);
 						await setUpInitialData({
 							orgData: showOrgForm,
 							name,
 							handle,
 							country,
+							profileImage,
 							org_handle: orgHandle,
 							org_name: orgName,
 							org_website: orgWebsite,
 							org_country: orgCountry,
-							org_logo:orgLogo,
+							org_logo: orgLogo,
 						})(firebase, firestore, dispatch);
 					}
 				});
@@ -262,6 +274,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 						name,
 						handle,
 						country,
+						profileImage,
 					})(firebase, firestore, dispatch);
 				}
 			}
@@ -293,7 +306,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 	const handleOrgLogoChange = (event) => {
 		const selectedFile = event.target.files[0];
 		setOrgLogo(selectedFile);
-	  };
+	};
 
 	return (
 		<div className="home-row" style={{ background: background }}>
@@ -438,6 +451,24 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 											)}
 										</div>
 									</div>
+									<TextField
+										type="file"
+										label="Profile Image"
+										variant="outlined"
+										fullWidth
+										InputProps={{
+											"data-testid": "userImage",
+											startAdornment: (
+												<InputAdornment position="start">
+													{/* You can use an image or icon here */}
+													<PersonOutlineIcon
+														style={{ color: "rgba(0,0,0,.25)" }}
+													/>
+												</InputAdornment>
+											),
+										}}
+										onChange={handleProfileImageChange}
+									/>
 								</Box>
 								<Divider></Divider>
 								<Box m={3}>
@@ -633,7 +664,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 													</InputAdornment>
 												),
 											}}
-											onChange={handleOrgLogoChange} 
+											onChange={handleOrgLogoChange}
 										/>
 									</Box>
 
