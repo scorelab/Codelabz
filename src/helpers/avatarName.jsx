@@ -1,4 +1,4 @@
-export const avatarName = (fullname) => {
+export const avatarName = fullname => {
   if (fullname) {
     return fullname
       .split(/\s/)

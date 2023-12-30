@@ -65,10 +65,7 @@ const UserList = ({ noteID, tutorial_id }) => {
       }
     });
 
-    ref
-      .child(currentUserHandle)
-      .onDisconnect()
-      .remove();
+    ref.child(currentUserHandle).onDisconnect().remove();
 
     return () => {
       ref.off("value");

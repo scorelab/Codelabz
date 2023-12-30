@@ -3,7 +3,7 @@ import * as actions from "../../actions/actionTypes";
 const initialState = {
   data: null,
   loading: false,
-  error: null,
+  error: null
 };
 
 const TutorialsCurrentReducer = (state = initialState, { type, payload }) => {
@@ -15,7 +15,7 @@ const TutorialsCurrentReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.GET_CURRENT_TUTORIAL_SUCCESS:
@@ -23,14 +23,14 @@ const TutorialsCurrentReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
-        data: payload,
+        data: payload
       };
 
     case actions.GET_CURRENT_TUTORIAL_FAIL:
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     default:
