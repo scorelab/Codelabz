@@ -19,87 +19,77 @@ const useStyles = makeStyles(theme => ({
       padding: "15px 5px"
     }
   },
-  row: {
+  column: {
     display: "flex",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "stretch",
+    flexDirection: "column",
+    margin: "0 5em 0 5em"
   },
+
   link: {
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
     padding: "3px 0",
-    width: 245,
     "&:hover": {
       cursor: "pointer"
-    }
+    },
+    borderBottom: "0.1px solid #dfdfdf"
   },
   isLinked: {
-    opacity: "0.8",
-    cursor: "not-allowed"
+    opacity: 0.7,
+    "&:hover": {
+      cursor: "not-allowed"
+    }
   },
   isLinkedImg: {
     height: 18,
     width: 18,
     margin: "9px 0 0 5px",
+    marginLeft: "auto",
     color: "green"
   },
   button: {
-    height: 26,
+    height: 40,
     "&:hover": {
       transform: "scale(1.2)"
     },
-    marginLeft: 2,
-    marginRight: 23,
-    "@media (max-width: 500px)": {
-      marginLeft: 2,
-      marginRight: 10,
-      height: 20
-    }
+    transition: "200ms ease-in-out"
   },
   fb: {
-    fontSize: 31,
+    fontSize: 40,
     color: "#1877F2",
-    marginRight: 19,
     "&:hover": {
       transform: "scale(1.2)"
     },
-    "@media (max-width: 500px)": {
-      marginRight: 7,
-      fontSize: 24
-    }
+    transition: "200ms ease-in-out"
   },
   tw: {
     color: "#03A9F4",
-    fontSize: 30,
-    marginLeft: -3,
-    marginRight: 18,
+    fontSize: 40,
     "&:hover": {
       transform: "scale(1.2)"
     },
-    "@media (max-width: 500px)": {
-      marginRight: 6,
-      fontSize: 23
-    }
+    transition: "200ms ease-in-out"
   },
   git: {
-    fontSize: 26,
-    marginRight: 19,
+    fontSize: 40,
     "&:hover": {
       transform: "scale(1.2)"
     },
-    "@media (max-width: 500px)": {
-      marginRight: 7,
-      fontSize: 19
-    }
+    transition: "200ms ease-in-out"
   },
   text: {
-    fontFamily: "Poppins",
-    color: "#000",
+    fontFamily: "sans-serif",
+    fontSize: 15,
+    color: "black",
+
     "@media (max-width: 500px)": {
       fontSize: 12
-    }
+    },
+    flexGrow: 1,
+    marginLeft: 10
   }
 }));
 
