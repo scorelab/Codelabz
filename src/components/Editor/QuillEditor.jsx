@@ -73,9 +73,16 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         modules: {
           cursors: true,
           toolbar: [
-            [{ header: [1, 2, false] }],
-            ["bold", "italic", "underline"],
-            ["image", "code-block"]
+            [{ header: [1, 2,3,4,5,6,7, false] }],
+            ['bold', 'italic', 'underline', 'strike'],  
+            ['blockquote'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }], 
+            [{ 'color': [] }, { 'background': [] }],          
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+            ["image", "code-block",'link'],
+            ['clean']   
           ],
           history: {
             userOnly: true
