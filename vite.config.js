@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    global: {}
+  },
   css: {
     preprocessorOptions: {
       less: {
@@ -15,18 +18,17 @@ export default defineConfig({
           '@border-radius-base': '5px',
         },
       }
-
     }
   },
   resolve: {
     alias: {
       './runtimeConfig': './runtimeConfig.browser',
-      'jss-plugin-ven  dor-prefixer': 'jss-plugin-global' 
+      'jss-plugin-{}': 'jss-plugin-global' // Add the actual path to the module in your project here
     },
   },
   build: {
     rollupOptions: {
-      external: ['jss-plugin-ven  dor-prefixer']
+      external: ['jss-plugin-{}','jss-plugin-ven  dor-prefixer'] // Add the module here
     }
   },
   plugins: [react()],

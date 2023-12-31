@@ -5,10 +5,10 @@ import BaseTutorial from "../../../components/Tutorials/MyTutorials/BaseTutorial
 
 export default {
   title: "Tutorials/BaseTutorial",
-  component: BaseTutorial,
+  component: BaseTutorial
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <BaseTutorial {...args} />
@@ -26,7 +26,7 @@ Default.args = {
       icon: "",
       owner: "SCoRe Lab owner",
       summary: "SCoRe Lab summary",
-      title: "CodeLabz/ SCoRe Lab",
-    },
-  ],
+      title: "CodeLabz/ SCoRe Lab"
+    }
+  ]
 };

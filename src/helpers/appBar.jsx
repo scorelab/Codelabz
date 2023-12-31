@@ -109,13 +109,13 @@ const CodeLabzAppBar = () => {
 
 	if (authed) {
 		return (
-			<div className={classes.grow} data-testId="navbarloggedIn">
+			<div className={classes.grow} data-testid="navbarloggedIn">
 				<MainNavbar />
 			</div>
 		);
 	} else {
 		return (
-			<div className={classes.grow} data-testId="navbarNonloggedIn">
+			<div className={classes.grow} data-testid="navbarNonloggedIn">
 				<MiniNavbar />
 			</div>
 		);

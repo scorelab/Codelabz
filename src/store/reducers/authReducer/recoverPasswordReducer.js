@@ -5,7 +5,7 @@ const initialState = {
   error: null,
   resetError: null,
   resetLoading: false,
-  user: null,
+  user: null
 };
 
 const RecoverPasswordReducer = (state = initialState, { type, payload }) => {
@@ -18,14 +18,14 @@ const RecoverPasswordReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       };
 
     case actions.RESEND_VERIFY_EMAIL_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false,
+        error: false
       };
 
     case actions.VERIFY_RESET_CODE_SUCCESS:
@@ -33,7 +33,7 @@ const RecoverPasswordReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
-        user: payload,
+        user: payload
       };
 
     case actions.RESEND_VERIFY_EMAIL_FAIL:
@@ -41,28 +41,28 @@ const RecoverPasswordReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: payload
       };
 
     case actions.PASSWORD_RECOVERY_START:
       return {
         ...state,
         loading: false,
-        resetError: null,
+        resetError: null
       };
 
     case actions.PASSWORD_RECOVERY_SUCCESS:
       return {
         ...state,
         loading: false,
-        resetError: false,
+        resetError: false
       };
 
     case actions.PASSWORD_RECOVERY_FAIL:
       return {
         ...state,
         loading: false,
-        resetError: payload,
+        resetError: payload
       };
 
     default:

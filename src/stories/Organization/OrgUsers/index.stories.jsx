@@ -6,10 +6,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "Organization/Organization Users",
-  component: OrgUsersCard,
+  component: OrgUsersCard
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <Orgusers {...args} />
@@ -23,17 +23,17 @@ const AdminUsers = [
     designation: "GSoC 22'",
     avatar: {
       type: "char",
-      value: "A",
-    },
+      value: "A"
+    }
   },
   {
     name: "Sarfraz Alam",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
-  },
+      value: "https://i.pravatar.cc/300"
+    }
+  }
 ];
 
 export const Admin = Template.bind({});
@@ -43,7 +43,7 @@ Admin.args = {
   title: "Admin",
   description: "Admins can manage submissions, content, and settings",
   AddUser: false,
-  DataTestId: 'org-admin-list'
+  DataTestId: "org-admin-list"
 };
 
 const ContributersUsers = [
@@ -52,25 +52,25 @@ const ContributersUsers = [
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Jhanvi Thakkar",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Saksham Sharma",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
-  },
+      value: "https://i.pravatar.cc/300"
+    }
+  }
 ];
 
 export const Contributers = Template.bind({});
@@ -80,7 +80,7 @@ Contributers.args = {
   title: "Contributers",
   description: "Contributers can contribute to the project",
   AddUser: true,
-  DataTestId: 'org-contributor-list'
+  DataTestId: "org-contributor-list"
 };
 
 const SubscribeUsers = [
@@ -89,33 +89,33 @@ const SubscribeUsers = [
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Jhanvi Thakkar",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Saksham Sharma",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
+      value: "https://i.pravatar.cc/300"
+    }
   },
   {
     name: "Ayush Bansal",
     designation: "GSoC 22'",
     avatar: {
       type: "image",
-      value: "https://i.pravatar.cc/300",
-    },
-  },
+      value: "https://i.pravatar.cc/300"
+    }
+  }
 ];
 
 export const Subscribers = Template.bind({});
@@ -126,5 +126,5 @@ Subscribers.args = {
   description: "Subscribers can view the project",
   AddUser: true,
   isViewMore: true,
-  DataTestId: 'org-subscriber-list'
+  DataTestId: "org-subscriber-list"
 };
