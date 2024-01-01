@@ -117,7 +117,7 @@ export const getOrgTutorialsBasicData =
 
 export const clearTutorialsBasicData = () => dispatch =>
   dispatch({ type: actions.CLEAR_TUTORIALS_BASIC_STATE });
-
+  
 export const createTutorial =
   tutorialData => async (firebase, firestore, dispatch, history) => {
     try {
@@ -172,6 +172,36 @@ export const createTutorial =
       dispatch({ type: actions.CREATE_TUTORIAL_FAIL, payload: e.message });
     }
   };
+
+  export const deleteTutorial = (tutorialId) => async (
+    firestore,
+    dispatch,
+    history
+  ) => {
+    try {
+      dispatch({ type: actions.DELETE_TUTORIAL_START });
+  
+      const tutorialRef = firestore.collection("tutorials").doc(tutorialId);
+  
+      // Check if the tutorial exists
+      const tutorialSnapshot = await tutorialRef.get();
+      if (!tutorialSnapshot.exists) {
+        throw new Error("Tutorial not found");
+      }
+  
+      // Delete the tutorial
+      await tutorialRef.delete();
+  
+      dispatch({ type: actions.DELETE_TUTORIAL_SUCCESS });
+
+      history.push(`/tutorials`); // Adjust the route accordingly
+    } catch (e) {
+      console.error("DELETE_TUTORIAL_FAIL", e);
+      dispatch({ type: actions.DELETE_TUTORIAL_FAIL, payload: e.message });
+    }
+  };
+  
+
 
 const checkUserOrOrgHandle = handle => async firestore => {
   const userHandleExists = await checkUserHandleExists(handle)(firestore);
