@@ -25,7 +25,7 @@ import User from "../UserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
-  getCommentData,
+  // getCommentData,
   getCommentReply,
   addComment
 } from "../../../../store/actions/tutorialPageActions";
@@ -52,7 +52,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Comment = ({ id }) => {
+const Comment = ({ comment }) => {
   const classes = useStyles();
   const [showReplyfield, setShowReplyfield] = useState(false);
   const [alignment, setAlignment] = React.useState("left");
@@ -60,19 +60,6 @@ const Comment = ({ id }) => {
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
-  useState(() => {
-    getCommentData(id)(firebase, firestore, dispatch);
-  }, [id]);
-
-  const commentsArray = useSelector(
-    ({
-      tutorialPage: {
-        comment: { data }
-      }
-    }) => data
-  );
-
-  const [data] = commentsArray.filter(comment => comment.comment_id == id);
 
   const repliesArray = useSelector(
     ({
@@ -82,7 +69,9 @@ const Comment = ({ id }) => {
     }) => replies
   );
 
-  const [replies] = repliesArray.filter(replies => replies.comment_id == id);
+  const [replies] = repliesArray.filter(
+    replies => replies.comment_id == comment.comment_id
+  );
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -96,32 +85,41 @@ const Comment = ({ id }) => {
     setAlignment(newAlignment);
   };
 
-  const handleSubmit = comment => {
+  const handleSubmit = content => {
     const commentData = {
-      content: comment,
-      replyTo: data.comment_id,
-      tutorial_id: data.tutorial_id,
+      content: content,
+      replyTo: comment?.comment_id,
+      tutorial_id: comment?.tutorial_id,
       createdAt: firestore.FieldValue.serverTimestamp(),
       userId: "codelabzuser"
     };
+
     addComment(commentData)(firebase, firestore, dispatch);
   };
 
   return (
-    data && (
+    comment && (
       <>
         <Paper variant="outlined" className={classes.comments}>
           <Typography mb={1} sx={{ fontSize: "18px" }}>
-            {data?.content}
+            {comment?.content}
           </Typography>
           <Grid container justifyContent="space-between">
-            <User id={data?.userId} timestamp={data?.createdAt} size={"sm"} />
+            <User
+              id={comment?.userId}
+              timestamp={comment?.createdAt}
+              size={"sm"}
+            />
             <CardActions className={classes.settings} disableSpacing>
               {!showReplyfield && (
                 <Button
                   onClick={() => {
                     setShowReplyfield(true);
-                    getCommentReply(id)(firebase, firestore, dispatch);
+                    getCommentReply(comment.comment_id)(
+                      firebase,
+                      firestore,
+                      dispatch
+                    );
                   }}
                   sx={{ textTransform: "none", fontSize: "12px" }}
                 >
@@ -165,7 +163,7 @@ const Comment = ({ id }) => {
           <div style={{ margin: "10px 0 0 10px" }}>
             <Textbox type="reply" handleSubmit={handleSubmit} />
             {replies?.replies.map((id, index) => {
-              return <Comment id={id} />;
+              // return <Comment comment={} />;
             })}
           </div>
         )}

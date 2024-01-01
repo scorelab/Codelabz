@@ -150,16 +150,41 @@ export const getTutorialSteps =
     }
   };
 
-export const getCommentData =
-  commentId => async (firebase, firestore, dispatch) => {
+export const getTutorialCommentsIdArray =
+  tutorialID => async (firebase, firestore) => {
+    try {
+      const tutorialCommentIdArray = await firestore
+        .collection("tutorials")
+        .doc(tutorialID)
+        .get()
+        .then(snapshot => {
+          return snapshot.data().comments;
+        });
+
+      return tutorialCommentIdArray;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const getTutorialCommentData =
+  commentIdArray => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.GET_COMMENT_DATA_START });
-      const data = await firestore
+
+      let comments = await firestore
         .collection("cl_comments")
-        .doc(commentId)
+        .where("comment_id", "in", commentIdArray)
         .get();
-      const comment = data.data();
-      dispatch({ type: actions.GET_COMMENT_DATA_SUCCESS, payload: comment });
+
+      if (comments.empty) {
+        dispatch({ type: actions.GET_COMMENT_DATA_SUCCESS, payload: [] });
+      } else {
+        comments = comments.docs.map(doc => {
+          return doc.data();
+        });
+        dispatch({ type: actions.GET_COMMENT_DATA_SUCCESS, payload: comments });
+      }
     } catch (e) {
       dispatch({ type: actions.GET_COMMENT_DATA_FAIL });
       console.log(e);
@@ -210,9 +235,13 @@ export const addComment = comment => async (firebase, firestore, dispatch) => {
               comments: firebase.firestore.FieldValue.arrayUnion(docref.id)
             });
         }
+        return docref.get();
       })
-      .then(() => {
-        dispatch({ type: actions.ADD_COMMENT_SUCCESS });
+      .then(comment => {
+        dispatch({
+          type: actions.ADD_COMMENT_SUCCESS,
+          payload: comment.data()
+        });
       });
   } catch (e) {
     dispatch({ type: actions.ADD_COMMENT_FAILED, payload: e.message });

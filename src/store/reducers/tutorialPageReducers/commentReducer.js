@@ -20,7 +20,7 @@ const CommentReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: false,
-        data: [...state.data, payload]
+        data: [...payload]
       };
 
     case actions.GET_COMMENT_DATA_FAIL:
@@ -52,6 +52,7 @@ const CommentReducer = (state = initialState, { type, payload }) => {
     case actions.ADD_COMMENT_SUCCESS:
       return {
         ...state,
+        data: [payload, ...state.data],
         loading: false
       };
 

@@ -3,7 +3,11 @@ import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 import Textbox from "./Textbox";
 import Comment from "./Comment";
-import { addComment } from "../../../../store/actions/tutorialPageActions";
+import {
+  addComment,
+  getTutorialCommentsIdArray,
+  getTutorialCommentData
+} from "../../../../store/actions/tutorialPageActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 const useStyles = makeStyles(() => ({
@@ -28,22 +32,65 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const CommentBox = ({ commentsArray, tutorialId }) => {
+const CommentBox = ({ tutorialId }) => {
   const classes = useStyles();
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const [comments, setComments] = useState([]);
   const [currCommentCount, setCurrCommentCount] = useState(3);
-  const handleSubmit = comment => {
+
+  const addCommentLoading = useSelector(
+    ({
+      tutorialPage: {
+        comment: { loading }
+      }
+    }) => loading
+  );
+
+  const addCommentError = useSelector(
+    ({
+      tutorialPage: {
+        comment: { error }
+      }
+    }) => error
+  );
+
+  const commentsArray = useSelector(
+    ({
+      tutorialPage: {
+        comment: { data }
+      }
+    }) => data
+  );
+
+  useEffect(() => {
+    const getTutorialComments = async () => {
+      const tutorialCommentsIdArray = await getTutorialCommentsIdArray(
+        tutorialId
+      )(firebase, firestore);
+
+      getTutorialCommentData(tutorialCommentsIdArray)(
+        firebase,
+        firestore,
+        dispatch
+      );
+    };
+
+    getTutorialComments();
+    return () => {};
+  }, [firestore, dispatch]);
+
+  const handleSubmit = async commentText => {
     const commentData = {
-      content: comment,
+      content: commentText,
       replyTo: tutorialId,
       tutorial_id: tutorialId,
       createdAt: firestore.FieldValue.serverTimestamp(),
       userId: "codelabzuser"
     };
-    addComment(commentData)(firebase, firestore, dispatch);
+
+    await addComment(commentData)(firebase, firestore, dispatch);
   };
 
   useEffect(() => {
@@ -67,10 +114,10 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
       </Typography>
       <Textbox handleSubmit={handleSubmit} />
       <Grid container rowSpacing={2}>
-        {comments?.map((id, index) => {
+        {comments?.map(comment => {
           return (
-            <Grid item xs={12}>
-              <Comment id={id} key={index} />
+            <Grid item xs={12} key={comment.comment_id}>
+              <Comment comment={comment} />
             </Grid>
           );
         })}
