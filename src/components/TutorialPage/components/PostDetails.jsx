@@ -70,7 +70,7 @@ const PostDetails = ({ details }) => {
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    if (count != 0) setCount(count - 1);
   };
 
   const handleAlignment = (event, newAlignment) => {
