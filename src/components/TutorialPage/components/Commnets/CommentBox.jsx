@@ -1,4 +1,5 @@
-import { Card, Grid, Typography, Button } from "@mui/material";
+import { Card, Grid, Typography, Button, Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 import Textbox from "./Textbox";
@@ -32,21 +33,18 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const CommentBox = ({ tutorialId }) => {
   const classes = useStyles();
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [currCommentCount, setCurrCommentCount] = useState(3);
-
-  const addCommentLoading = useSelector(
-    ({
-      tutorialPage: {
-        comment: { loading }
-      }
-    }) => loading
-  );
 
   const addCommentError = useSelector(
     ({
@@ -81,7 +79,7 @@ const CommentBox = ({ tutorialId }) => {
     return () => {};
   }, [firestore, dispatch]);
 
-  const handleSubmit = async commentText => {
+  const handleSubmit = async (commentText, setCommentText) => {
     const commentData = {
       content: commentText,
       replyTo: tutorialId,
@@ -91,6 +89,12 @@ const CommentBox = ({ tutorialId }) => {
     };
 
     await addComment(commentData)(firebase, firestore, dispatch);
+    setCommentText("");
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -132,6 +136,17 @@ const CommentBox = ({ tutorialId }) => {
           )}
         </Grid>
       </Grid>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        {!addCommentError ? (
+          <Alert severity="success" sx={{ width: "100%" }}>
+            Comment Added Sucessfully
+          </Alert>
+        ) : (
+          <Alert severity="error" sx={{ width: "100%" }}>
+            Comment could not be added. Please try again later.
+          </Alert>
+        )}
+      </Snackbar>
     </Card>
   );
 };
