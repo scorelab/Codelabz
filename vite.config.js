@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    global: {}
+  },
   css: {
     preprocessorOptions: {
       less: {
@@ -25,7 +28,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['jss-plugin-{}'] // Add the module here
+      external: ['jss-plugin-{}','jss-plugin-ven  dor-prefixer'] // Add the module here
     }
   },
   plugins: [react()],
