@@ -30,7 +30,7 @@ import {
   addComment,
   addCommentLike,
   addcommentlikestatus,
-  ftechlikestatus
+  fetchLikeStatus
 } from "../../../../store/actions/tutorialPageActions";
 import { get, set } from "lodash";
 
@@ -65,7 +65,7 @@ const Comment = ({ id }) => {
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); 
   const [isLiked, setIsLiked] = useState(0);
   useState(() => {
     getCommentData(id)(firebase, firestore, dispatch);
@@ -89,6 +89,28 @@ const Comment = ({ id }) => {
       
     }
   }, [d, id]);
+
+  useEffect(() => {
+    const getLikeStatus = async () => {
+      try {
+       
+        setIsLoading(true);
+
+        const status = await fetchLikeStatus(id, firebase.auth().currentUser.uid)(firebase, firestore);
+        console.log("status", status);
+        setIsLiked(status);
+      } catch (error) {
+        console.error('Failed to fetch like status:', error);
+      } finally {
+        
+        setIsLoading(false);
+      }
+    };
+
+    if (firebase.auth().currentUser) {
+      getLikeStatus();
+    }
+  }, [id, firebase, firestore]);
 
   
   
@@ -174,10 +196,14 @@ const Comment = ({ id }) => {
     };
     addComment(commentData)(firebase, firestore, dispatch);
   };
+  if (isLoading) {
+    return <div>Loading...</div>; 
+  }
 
   return (
-    data && (
+    data  && (
       <>
+      {console.log("status",isLiked)}
         <Paper variant="outlined" className={classes.comments}>
           <Typography mb={1} sx={{ fontSize: "18px" }}>
             {data?.content}
