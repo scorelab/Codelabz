@@ -1,10 +1,10 @@
 import React from "react";
 import Select from "@mui/material/Select";
-import { GlobalOutlined } from "@ant-design/icons";
+import { InputLabel, FormControl, MenuItem, InputAdornment } from "@mui/material";
+import PublicIcon from "@mui/icons-material/Public";
 import countryList from "./countryList";
-import MenuItem from "@mui/material/MenuItem";
 
-const CountryDropdown = props => {
+const CountryDropdown = (props) => {
   const children = [];
 
   for (let i = 0; i < countryList.length; i++) {
@@ -16,29 +16,22 @@ const CountryDropdown = props => {
   }
 
   return (
-    <form
-      name="org_country"
-      rules={[
-        {
-          required: true,
-          message: "Please select the country"
-        }
-      ]}
-    >
+    <FormControl fullWidth>
+      <InputLabel style={{display:'flex', alignItems:'center', color:'rgba(0,0,0,.35)'}}>
+        <PublicIcon style={{ marginRight: '8px' }}/> {props.label}
+      </InputLabel>
       <Select
-        style={{ width: "100%" }}
-        placeholder={
-          <div style={{ textAlign: "left" }}>
-            <GlobalOutlined style={{ color: "rgba(0,0,0,.4)" }} /> Country
-          </div>
-        }
-        onChange={e => props.handleChange(e)}
+        labelId="country-select"
+        label= {<> <PublicIcon/> {props.label} </>}
+        placeholder="Country"
+        onChange={props.onChange}
         showSearch={true}
+        value={props.value}
         defaultValue={props.defaultValue}
       >
         {children}
       </Select>
-    </form>
+    </FormControl>
   );
 };
 
