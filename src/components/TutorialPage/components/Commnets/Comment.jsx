@@ -71,6 +71,25 @@ const Comment = ({ id }) => {
     getCommentData(id)(firebase, firestore, dispatch);
   }, [id]);
 
+  let d=useSelector(
+    (state)=>{
+      return state.tutorialPage.comment.data;
+    }
+  );
+  console.log("d",d);
+  useEffect(() => {
+    
+    let [da] = d.filter((item) => item.comment_id === id);
+    console.log("d after", da);
+  
+    if (da) {
+      setCount(da.upvotes - da.downvotes);
+    } else {
+      console.log("No matching data found for comment_id:", id);
+      
+    }
+  }, [d, id]);
+
   
   
   
@@ -83,24 +102,6 @@ const Comment = ({ id }) => {
     );
 
 
-    useEffect(() => {
-      const loadingissue = async () => {
-        let isli=await ftechlikestatus(id,firebase.auth().currentUser.uid)(firebase, firestore, dispatch);
-        console.log("isli",isli);
-        // setIsLiked(isli);
-
-        let data = get(commentsArray);
-        [data] = commentsArray.filter(comment => comment.comment_id == id);
-        console.log("data is here na ", data);
-        setCount(data?.upvotes - data?.downvotes);
-       
-      };
-      loadingissue().then(() => setLoading(false));
-    }, []);
-    
-
-
-    console.log("commentsarray",commentsArray);
 
   const [data] = commentsArray.filter(comment => comment.comment_id == id);
 
