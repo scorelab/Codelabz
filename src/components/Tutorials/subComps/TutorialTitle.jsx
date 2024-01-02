@@ -28,6 +28,10 @@ const TutorialHeading = ({
     }
   };
 
+  document.addEventListener("fullscreenchange", () => {
+    setFullscreen(document.fullscreenElement !== null);
+  });
+
   let styleProps = {
     backgroundColor: tutorialData.background_color || "#ffffff",
     color: tutorialData.text_color || "#000000"
