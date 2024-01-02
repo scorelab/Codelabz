@@ -25,9 +25,9 @@ import User from "../UserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
-  // getCommentData,
   getCommentReply,
-  addComment
+  addComment,
+  addReply
 } from "../../../../store/actions/tutorialPageActions";
 const useStyles = makeStyles(() => ({
   container: {
@@ -69,9 +69,11 @@ const Comment = ({ comment }) => {
     }) => replies
   );
 
-  const [replies] = repliesArray.filter(
-    replies => replies.comment_id == comment.comment_id
-  );
+  const [replies] = repliesArray.filter(replies => {
+    if (replies?.comment_id === comment?.comment_id) {
+      return replies;
+    }
+  });
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -85,6 +87,11 @@ const Comment = ({ comment }) => {
     setAlignment(newAlignment);
   };
 
+  const handleClick = async () => {
+    setShowReplyfield(true);
+    await getCommentReply(comment?.comment_id)(firebase, firestore, dispatch);
+  };
+
   const handleSubmit = content => {
     const commentData = {
       content: content,
@@ -94,7 +101,12 @@ const Comment = ({ comment }) => {
       userId: "codelabzuser"
     };
 
-    addComment(commentData)(firebase, firestore, dispatch);
+    if (commentData.tutorial_id === commentData.replyTo) {
+      addComment(commentData)(firebase, firestore, dispatch);
+    } else {
+      console.log(commentData);
+      addReply(commentData)(firebase, firestore, dispatch);
+    }
   };
 
   return (
@@ -113,14 +125,7 @@ const Comment = ({ comment }) => {
             <CardActions className={classes.settings} disableSpacing>
               {!showReplyfield && (
                 <Button
-                  onClick={() => {
-                    setShowReplyfield(true);
-                    getCommentReply(comment.comment_id)(
-                      firebase,
-                      firestore,
-                      dispatch
-                    );
-                  }}
+                  onClick={handleClick}
                   sx={{ textTransform: "none", fontSize: "12px" }}
                 >
                   {replies?.replies?.length > 0 && replies?.replies?.length}{" "}
@@ -162,8 +167,8 @@ const Comment = ({ comment }) => {
         {showReplyfield && (
           <div style={{ margin: "10px 0 0 10px" }}>
             <Textbox type="reply" handleSubmit={handleSubmit} />
-            {replies?.replies.map((id, index) => {
-              // return <Comment comment={} />;
+            {replies?.replies.map(reply => {
+              return <Comment comment={reply} key={reply.comment_id} />;
             })}
           </div>
         )}

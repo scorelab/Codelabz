@@ -204,7 +204,7 @@ export const getCommentReply =
         .then(querySnapshot => {
           let data = [];
           querySnapshot.forEach(doc => {
-            data.push(doc.data().comment_id);
+            data.push(doc.data());
           });
           return data;
         });
@@ -220,14 +220,14 @@ export const getCommentReply =
 export const addComment = comment => async (firebase, firestore, dispatch) => {
   try {
     dispatch({ type: actions.ADD_COMMENT_START });
-    await firestore
+    const newCommentRef = await firestore
       .collection("cl_comments")
       .add(comment)
       .then(docref => {
         firestore.collection("cl_comments").doc(docref.id).update({
           comment_id: docref.id
         });
-        if (comment.replyTo == comment.tutorial_id) {
+        if (comment.replyTo === comment.tutorial_id) {
           firestore
             .collection("tutorials")
             .doc(comment.tutorial_id)
@@ -235,15 +235,43 @@ export const addComment = comment => async (firebase, firestore, dispatch) => {
               comments: firebase.firestore.FieldValue.arrayUnion(docref.id)
             });
         }
-        return docref.get();
-      })
-      .then(comment => {
-        dispatch({
-          type: actions.ADD_COMMENT_SUCCESS,
-          payload: comment.data()
-        });
+        return docref;
       });
+
+    let newComment = await newCommentRef.get();
+    newComment = await newComment.data();
+
+    dispatch({
+      type: actions.ADD_COMMENT_SUCCESS,
+      payload: { ...newComment, comment_id: newCommentRef.id }
+    });
   } catch (e) {
     dispatch({ type: actions.ADD_COMMENT_FAILED, payload: e.message });
+  }
+};
+
+export const addReply = reply => async (firebase, firestore, dispatch) => {
+  try {
+    dispatch({ type: actions.ADD_REPLY_SUCCESS });
+    const newReplyRef = await firestore
+      .collection("cl_comments")
+      .add(reply)
+      .then(docref => {
+        firestore.collection("cl_comments").doc(docref.id).update({
+          comment_id: docref.id
+        });
+        return docref;
+      });
+
+    let newReply = await newReplyRef.get();
+    newReply = await newReply.data();
+
+    dispatch({
+      type: actions.ADD_REPLY_SUCCESS,
+      payload: { ...newReply, comment_id: newReplyRef.id }
+    });
+  } catch (e) {
+    console.log(e.message);
+    dispatch({ type: actions.ADD_REPLY_FAILED, payload: e.message });
   }
 };
