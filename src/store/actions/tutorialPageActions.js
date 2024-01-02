@@ -194,9 +194,8 @@ export const getTutorialCommentData =
 export const getCommentReply =
   commentId => async (firebase, firestore, dispatch) => {
     try {
-      console.log("commentId", commentId);
       dispatch({ type: actions.GET_REPLIES_START });
-      console.log("Get replies");
+
       const replies = await firestore
         .collection("cl_comments")
         .where("replyTo", "==", commentId)
@@ -208,6 +207,7 @@ export const getCommentReply =
           });
           return data;
         });
+
       dispatch({
         type: actions.GET_REPLIES_SUCCESS,
         payload: { replies, comment_id: commentId }

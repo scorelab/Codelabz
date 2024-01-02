@@ -1,5 +1,4 @@
-import { Card, Grid, Typography, Button, Snackbar } from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
+import { Card, Grid, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 import Textbox from "./Textbox";
@@ -11,6 +10,8 @@ import {
 } from "../../../../store/actions/tutorialPageActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
+import AddCommentFeedback from "./AddCommentFeedback";
+
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -33,10 +34,6 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 const CommentBox = ({ tutorialId }) => {
   const classes = useStyles();
   const firestore = useFirestore();
@@ -45,14 +42,6 @@ const CommentBox = ({ tutorialId }) => {
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [currCommentCount, setCurrCommentCount] = useState(3);
-
-  const addCommentError = useSelector(
-    ({
-      tutorialPage: {
-        comment: { error }
-      }
-    }) => error
-  );
 
   const commentsArray = useSelector(
     ({
@@ -91,10 +80,6 @@ const CommentBox = ({ tutorialId }) => {
     await addComment(commentData)(firebase, firestore, dispatch);
     setCommentText("");
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   useEffect(() => {
@@ -136,17 +121,7 @@ const CommentBox = ({ tutorialId }) => {
           )}
         </Grid>
       </Grid>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        {!addCommentError ? (
-          <Alert severity="success" sx={{ width: "100%" }}>
-            Comment Added Sucessfully
-          </Alert>
-        ) : (
-          <Alert severity="error" sx={{ width: "100%" }}>
-            Comment could not be added. Please try again later.
-          </Alert>
-        )}
-      </Snackbar>
+      <AddCommentFeedback open={open} setOpen={setOpen} />
     </Card>
   );
 };

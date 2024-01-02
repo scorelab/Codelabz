@@ -1,11 +1,4 @@
-import {
-  Grid,
-  Typography,
-  Avatar,
-  Button,
-  IconButton,
-  Paper
-} from "@mui/material";
+import { Grid, Typography, Button, IconButton, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import CardActions from "@mui/material/CardActions";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
@@ -13,13 +6,7 @@ import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef
-} from "react";
+import React, { useState } from "react";
 import Textbox from "./Textbox";
 import User from "../UserDetails";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +16,8 @@ import {
   addComment,
   addReply
 } from "../../../../store/actions/tutorialPageActions";
+import AddCommentFeedback from "./AddCommentFeedback";
+
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -57,6 +46,7 @@ const Comment = ({ comment }) => {
   const [showReplyfield, setShowReplyfield] = useState(false);
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
+  const [open, setOpen] = useState(false);
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -92,9 +82,9 @@ const Comment = ({ comment }) => {
     await getCommentReply(comment?.comment_id)(firebase, firestore, dispatch);
   };
 
-  const handleSubmit = content => {
+  const handleSubmit = async (commentText, setCommentText) => {
     const commentData = {
-      content: content,
+      content: commentText,
       replyTo: comment?.comment_id,
       tutorial_id: comment?.tutorial_id,
       createdAt: firestore.FieldValue.serverTimestamp(),
@@ -102,11 +92,12 @@ const Comment = ({ comment }) => {
     };
 
     if (commentData.tutorial_id === commentData.replyTo) {
-      addComment(commentData)(firebase, firestore, dispatch);
+      await addComment(commentData)(firebase, firestore, dispatch);
     } else {
-      console.log(commentData);
-      addReply(commentData)(firebase, firestore, dispatch);
+      await addReply(commentData)(firebase, firestore, dispatch);
     }
+    setCommentText("");
+    setOpen(true);
   };
 
   return (
@@ -172,6 +163,7 @@ const Comment = ({ comment }) => {
             })}
           </div>
         )}
+        <AddCommentFeedback open={open} setOpen={setOpen} />
       </>
     )
   );
