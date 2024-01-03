@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CardWithoutPicture({ tutorial, name, organizationName ,date,time,contentDescription,title,tags}) {
+export default function CardWithoutPicture({ tutorial, name, organizationName, date, time, contentDescription, title, tags }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const firebase = useFirebase();
@@ -95,9 +95,14 @@ export default function CardWithoutPicture({ tutorial, name, organizationName ,d
       }
     }) => data
   );
-  useEffect(()=>{
-    console.log(tutorial)
-  })
+  const [tagsArray, setTagsArray] = useState([]);
+
+  useEffect(() => {
+    if (tags) {
+      const newTagsArray = tags.split(' ').map(tag => tag.replace('#', ''));
+      setTagsArray(newTagsArray);
+    }
+  }, [tags]);
 
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();
@@ -153,7 +158,7 @@ export default function CardWithoutPicture({ tutorial, name, organizationName ,d
                   {organizationName}
                 </Typography>
               </>
-            ):<></>}
+            ) : <></>}
           </React.Fragment>
         }
         subheader={tutorial ? tutorial?.createdAt ? getTime(tutorial?.createdAt) : "" : date}
@@ -178,14 +183,27 @@ export default function CardWithoutPicture({ tutorial, name, organizationName ,d
         </CardContent>
       </Link>
       <CardActions className={classes.settings} disableSpacing>
-        <Chip
-          label="HTML"
-          component="a"
-          href="#chip"
-          clickable
-          variant="outlined"
-          className={classes.margin}
-        />
+
+        {tags ? tagsArray.map((tag, index) => (
+          <Chip
+            key={index}
+            label={tag}
+            component="a"
+            href={`#${tag}`} // Replace with the actual link or action for each tag
+            clickable
+            variant="outlined"
+            className={classes.margin}
+          />
+        )) :
+          <Chip
+            label="HTML"
+            component="a"
+            href="#chip"
+            clickable
+            variant="outlined"
+            className={classes.margin}
+          />
+        }
         <Typography
           variant="overline"
           display="block"
