@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CardWithoutPicture({ tutorial }) {
+export default function CardWithoutPicture({ tutorial, name, organizationName ,date,time,contentDescription,title,tags}) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const firebase = useFirebase();
@@ -95,6 +95,9 @@ export default function CardWithoutPicture({ tutorial }) {
       }
     }) => data
   );
+  useEffect(()=>{
+    console.log(tutorial)
+  })
 
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();
@@ -121,7 +124,7 @@ export default function CardWithoutPicture({ tutorial }) {
               color="textPrimary"
               data-testId="UserName"
             >
-              {user?.displayName}
+              {user ? user?.displayName : name}
             </Typography>
             {tutorial?.owner && (
               <>
@@ -137,9 +140,23 @@ export default function CardWithoutPicture({ tutorial }) {
                 </Typography>
               </>
             )}
+            {organizationName ? (
+              <>
+                {" for "}
+                <Typography
+                  component="span"
+                  variant="h7"
+                  className={classes.inline}
+                  color="textPrimary"
+                  data-testId="UserOrgName"
+                >
+                  {organizationName}
+                </Typography>
+              </>
+            ):<></>}
           </React.Fragment>
         }
-        subheader={tutorial?.createdAt ? getTime(tutorial?.createdAt) : ""}
+        subheader={tutorial ? tutorial?.createdAt ? getTime(tutorial?.createdAt) : "" : date}
       />
       <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
         <CardContent
@@ -147,7 +164,7 @@ export default function CardWithoutPicture({ tutorial }) {
           data-testId="codelabzDetails"
         >
           <Typography variant="h5" color="text.primary" data-testId="Title">
-            {tutorial?.title}
+            {tutorial ? tutorial?.title : title}
           </Typography>
           <Typography
             variant="body2"
@@ -156,7 +173,7 @@ export default function CardWithoutPicture({ tutorial }) {
             paragraph
             data-testId="Description"
           >
-            {tutorial?.summary}
+            {tutorial ? tutorial?.summary : contentDescription}
           </Typography>
         </CardContent>
       </Link>
@@ -175,7 +192,7 @@ export default function CardWithoutPicture({ tutorial }) {
           className={classes.time}
           data-testId="Time"
         >
-          {"10 min"}
+          {time ? time : "10 min"}
         </Typography>
         <div className={classes.grow} />
         <ToggleButtonGroup
