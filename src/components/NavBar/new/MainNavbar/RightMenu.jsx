@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 const RightMenu = ({ mode, onClick }) => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -113,42 +113,72 @@ const RightMenu = ({ mode, onClick }) => {
 
   const classes = useStyles();
 
-  if (matches) {
+  if (!matches) {
     return (
-      <React.Fragment>
-        <List>
+      <Grid
+        container
+        style={{
+          marginRight: "2rem"
+        }}
+      >
+        <Avatar
+          style={{
+            backgroundColor:
+              profile.photoURL && profile.photoURL.length > 0
+                ? "#fffff"
+                : "#3AAFA9",
+            marginLeft: "1rem",
+            marginBottom: ".2rem",
+            cursor: "pointer"
+          }}
+          size={mode === "inline" ? "default" : "medium"}
+          src={profile.photoURL}
+          icon={
+            acronym ? null : (
+              <PersonOutlineOutlinedIcon
+                style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
+              />
+            )
+          }
+          onClick={handleClick}
+          data-testId="nav-user"
+        >
+          {acronym}
+        </Avatar>
+        <Menu
+          id="fade-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          style={{
+            marginTop: "1rem",
+            zIndex: 999999
+          }}
+          className={classes.menu}
+          elevation={1}
+        >
           {allowDashboard && (
-            <ListItem key="setting:2">
-              <Link to={"/tutorials"} onClick={onClick}>
-                <Grid container spacing={1}>
+            <MenuItem key="setting:2">
+              <Link to={"/tutorials"}>
+                <Grid container>
                   <Grid item>
-                    <CodeOutlinedIcon
-                      style={{
-                        width: "1rem",
-                        height: "1rem"
-                      }}
-                    />
+                    <CodeOutlinedIcon />
                   </Grid>
-                  <Grid item>
-                    <Typography variant="body2">My Tutorials</Typography>
-                  </Grid>
+                  <Grid item>My Tutorials</Grid>
                 </Grid>
               </Link>
-            </ListItem>
+            </MenuItem>
           )}
-
           {allowDashboard && allowOrgs && (
-            <Accordion
-              style={{
-                width: "98%"
-              }}
-              elevation={0}
-            >
+            <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="body2">My Organizations</Typography>
+                <BlockOutlinedIcon />
+                <Typography>My Organizations</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
+                  {/* Issue490: We will be connecting organizations to their settings page here*/}
                   {isOrgPresent && (
                     <Grid item>
                       <Link to={`/org/settings/${currentOrg}`}>
@@ -161,6 +191,7 @@ const RightMenu = ({ mode, onClick }) => {
                       </Link>
                     </Grid>
                   )}
+
                   <Divider
                     style={{
                       marginTop: "4px",
@@ -168,8 +199,8 @@ const RightMenu = ({ mode, onClick }) => {
                     }}
                   />
                   {allowOrgs > 0
-                    ? organizations.map((org, i) => (
-                        <Grid item>
+                    ? organizations.map((org, index) => (
+                        <Grid key={index} item>
                           <Link to={`/org/${org.org_handle}`}>
                             <Grid
                               container
@@ -197,21 +228,21 @@ const RightMenu = ({ mode, onClick }) => {
           )}
 
           {profile.displayName && profile.displayName.length > 0 && (
-            <ListItem style={{ color: "gray" }} disableRipple>
+            <MenuItem style={{ color: "gray" }} disableRipple>
               {profile.displayName}
-            </ListItem>
+            </MenuItem>
           )}
           {allowDashboard && (
-            <ListItem key="setting:1">
+            <MenuItem key="setting:1">
               <Link to={"/profile"}>
                 <div className={classes.secondaryColor}>
-                  <PersonOutlineOutlinedIcon /> My Profile
+                  <PersonOutlineOutlinedIcon />
+                  <span>My Profile</span>
                 </div>
               </Link>
-            </ListItem>
+            </MenuItem>
           )}
-
-          <ListItem
+          <MenuItem
             key="setting:4"
             onClick={() => signOut()(firebase, dispatch)}
             id={"log-out"}
@@ -225,158 +256,11 @@ const RightMenu = ({ mode, onClick }) => {
             >
               Log Out
             </Typography>
-          </ListItem>
-        </List>
-      </React.Fragment>
+          </MenuItem>
+        </Menu>
+      </Grid>
     );
   }
-
-  return (
-    <Grid
-      container
-      style={{
-        marginRight: "2rem"
-      }}
-    >
-      <Avatar
-        style={{
-          backgroundColor:
-            profile.photoURL && profile.photoURL.length > 0
-              ? "#fffff"
-              : "#3AAFA9",
-          marginLeft: "1rem",
-          marginBottom: ".2rem",
-          cursor: "pointer"
-        }}
-        size={mode === "inline" ? "default" : "medium"}
-        src={profile.photoURL}
-        icon={
-          acronym ? null : (
-            <PersonOutlineOutlinedIcon
-              style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
-            />
-          )
-        }
-        onClick={handleClick}
-        data-testId="nav-user"
-      >
-        {acronym}
-      </Avatar>
-      <Menu
-        id="fade-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        style={{
-          marginTop: "1rem",
-          zIndex: 999999
-        }}
-        className={classes.menu}
-        elevation={1}
-      >
-        {allowDashboard && (
-          <MenuItem key="setting:2">
-            <Link to={"/tutorials"}>
-              <Grid container>
-                <Grid item>
-                  <CodeOutlinedIcon />
-                </Grid>
-                <Grid item>My Tutorials</Grid>
-              </Grid>
-            </Link>
-          </MenuItem>
-        )}
-        {allowDashboard && allowOrgs && (
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <BlockOutlinedIcon />
-              <Typography>My Organizations</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Grid container direction="column" spacing={1}>
-                {/* Issue490: We will be connecting organizations to their settings page here*/}
-                {isOrgPresent && (
-                  <Grid item>
-                    <Link to={`/org/settings/${currentOrg}`}>
-                      <Grid container spacing={3}>
-                        <Grid item>
-                          <SettingsOutlinedIcon className={classes.orgicon} />
-                        </Grid>
-                        <Grid item>Manage All</Grid>
-                      </Grid>
-                    </Link>
-                  </Grid>
-                )}
-
-                <Divider
-                  style={{
-                    marginTop: "4px",
-                    marginBottom: "4px"
-                  }}
-                />
-                {allowOrgs > 0
-                  ? organizations.map((org, i) => (
-                      <Grid item>
-                        <Link to={`/org/${org.org_handle}`}>
-                          <Grid
-                            container
-                            spacing={3}
-                            direction="row"
-                            alignItems="center"
-                          >
-                            <Grid item>
-                              <Avatar
-                                src={org.org_image}
-                                className={classes.orgicon}
-                              >
-                                {avatarName(org.org_name)}
-                              </Avatar>
-                            </Grid>
-                            <Grid item>{org.org_name}</Grid>
-                          </Grid>
-                        </Link>
-                      </Grid>
-                    ))
-                  : null}
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
-        )}
-
-        {profile.displayName && profile.displayName.length > 0 && (
-          <MenuItem style={{ color: "gray" }} disableRipple>
-            {profile.displayName}
-          </MenuItem>
-        )}
-        {allowDashboard && (
-          <MenuItem key="setting:1">
-            <Link to={"/profile"}>
-              <div className={classes.secondaryColor}>
-                <PersonOutlineOutlinedIcon />
-                <span>My Profile</span>
-              </div>
-            </Link>
-          </MenuItem>
-        )}
-        <MenuItem
-          key="setting:4"
-          onClick={() => signOut()(firebase, dispatch)}
-          id={"log-out"}
-        >
-          <ExitToAppOutlinedIcon />
-          <Typography
-            variant="p"
-            style={{
-              paddingLeft: "0.5rem"
-            }}
-          >
-            Log Out
-          </Typography>
-        </MenuItem>
-      </Menu>
-    </Grid>
-  );
 };
 
 export default RightMenu;
