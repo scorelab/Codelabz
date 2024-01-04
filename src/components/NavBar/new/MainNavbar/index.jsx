@@ -1,4 +1,4 @@
-import { Grid, IconButton, InputBase, Paper, Typography } from "@mui/material";
+import { Grid, IconButton, InputBase, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
 import Headroom from "react-headroom";
@@ -8,8 +8,6 @@ import RightMenu from "./RightMenu";
 import LeftMenu from "./LeftMenu";
 import { useHistory } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-
 import SideBar from "../../../SideBar/index";
 import useWindowSize from "../../../../helpers/customHooks/useWindowSize";
 
@@ -104,7 +102,7 @@ function MainNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6}>
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
