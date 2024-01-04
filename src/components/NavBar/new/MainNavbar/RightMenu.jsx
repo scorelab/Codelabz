@@ -20,8 +20,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  List,
-  ListItem,
   Typography
 } from "@mui/material";
 import { useTheme } from "@mui/styles";
