@@ -176,6 +176,8 @@ export const clearEditGeneral = () => dispatch => {
   dispatch({ type: actions.CLEAR_EDIT_ORG_GENERAL });
 };
 
+
+
 export const unPublishOrganization =
   (org_handle, published, currentOrgData) =>
   async (firebase, firestore, dispatch) => {
@@ -262,6 +264,14 @@ export const getOrgData =
       dispatch({ type: actions.GET_ORG_DATA_FAIL, payload: e.message });
     }
   };
+
+export const updateOrgBanner=(org_handle,banner)=>async(firebase,firestore,dispatch)=>{
+  try{
+    
+  }catch(e){
+
+  }
+}
 
 export const clearOrgData = () => dispatch => {
   dispatch({ type: actions.CLEAR_ORG_DATA_STATE });

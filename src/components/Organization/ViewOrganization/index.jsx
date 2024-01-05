@@ -20,6 +20,8 @@ import Description from "../../UserDetails/Description";
 import Spinner from "../../../helpers/spinner";
 import ActivityList from "../../Topbar/Activity/ActivityList";
 import { BasicImage, NoImage } from "../../../helpers/images";
+
+
 const useStyles = makeStyles(theme => ({
   acitvitylist: {
     padding: theme.spacing(1),
@@ -196,7 +198,9 @@ const ViewOrganization = () => {
                 isOrgBelongsToUser={organizations.includes(handle)}
                 isUserSubscribed={currentOrgData.userSubscription}
                 handleOrgSubscription={handleOrgSubscription}
-              />
+              >
+
+              </Banner>
               <Container
                 maxWidth="xl"
                 style={{

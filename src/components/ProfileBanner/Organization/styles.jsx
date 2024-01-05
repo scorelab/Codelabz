@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "transparent"
   },
   profileCover: {
-    height: "100%"
+    height: "100%",
   },
 
   profileCoverImg: {
@@ -14,6 +14,13 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     height: "280px",
     objectFit: "cover"
+  },
+  editIcon: {
+    zIndex:1,
+    position: 'absolute',
+    top: theme.spacing(10),
+    right: theme.spacing(2),
+    backgroundColor: theme.palette.common.white,
   },
 
   profileUserImg: {
@@ -23,13 +30,15 @@ const useStyles = makeStyles(theme => ({
     objectFit: "cover",
     border: "3px solid white"
   },
-
+  fileInput: {
+    display: 'none',
+  },
   profileInfo: {
     position: "relative",
     marginLeft: "3%",
     marginTop: "-10%",
     width: "95%",
-    padding: 0,
+    padding: 0, 
     display: "flex",
     flexDirection: "column",
     alignItems: "left",
