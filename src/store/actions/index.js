@@ -30,7 +30,8 @@ export {
   addFollower,
   removeFollower,
   subscribeOrg,
-  unSubscribeOrg
+  unSubscribeOrg,
+  newUpdateOrgProfileImage
 } from "./orgActions";
 export {
   clearProfileEditError,
