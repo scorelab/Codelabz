@@ -265,11 +265,33 @@ export const getOrgData =
     }
   };
 
-export const updateOrgBanner=(org_handle,banner)=>async(firebase,firestore,dispatch)=>{
-  try{
-    
-  }catch(e){
+  const convertImageToBase64 = (imageFile) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+  
+      reader.onerror = (error) => {
+        reject(error);
+      };
+  
+      reader.readAsDataURL(imageFile);
+    });
+  };
 
+export const updateOrgBanner=(org_handle,banner)=>async(firestore,dispatch)=>{
+  try{
+    dispatch({ type: actions.EDIT_ORG_GENERAL_START });
+    const orgRef = firestore.collection("cl_org_general").doc(org_handle);
+    const base64Banner = await convertImageToBase64(banner);
+    orgRef.update({
+      org_banner: base64Banner,
+    });
+    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
+  }catch(e){
+    dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
   }
 }
 

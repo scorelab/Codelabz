@@ -9,17 +9,19 @@ import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
 import { Button, IconButton, Paper } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditIcon from '@mui/icons-material/Edit';
-// import IconButton from '@mui/material/IconButton';
+import { updateOrgBanner } from "../../../store/actions";
+import { useDispatch } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
 
 export default function Banner({
   bannerImage = "https://postimg.cc/6ystr9mw",
   profileImage = "https://i.pravatar.cc/300",
   name = "Apple",
+  handle = "apple",
   story = "Think Different",
   followers = 402,
   contributors = 402,
   feed = 40,
-  handle = "apple",
   isOrgBelongsToUser = false,
   isUserSubscribed = false,
   handleOrgSubscription
@@ -29,10 +31,14 @@ export default function Banner({
   const [customBannerImage,setCustomBannerImage]=useState(null)
 
   // const [selectedFile, setSelectedFile] = useState(null);
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
+  const firestore = useFirestore();
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     setCustomBannerImage(file)
+    await updateOrgBanner(handle,file)(firestore,dispatch)
   };
 
   return (
@@ -53,7 +59,6 @@ export default function Banner({
           <IconButton
             className={classes.editIcon}
             onClick={() => document.getElementById('fileInput').click()}
-            // onClick={handleBannerChange}
             data-testId="editIcon"
           >
             <EditIcon />

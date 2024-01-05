@@ -154,7 +154,7 @@ const ViewOrganization = () => {
         profile: { organizations }
       }
     }) => organizations
-  );
+  )
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -185,16 +185,16 @@ const ViewOrganization = () => {
           {currentOrgData && (
             <React.Fragment>
               <Banner
-                bannerImage="https://i.postimg.cc/zXvv1vwL/Org-Banner-Demo.png"
+                bannerImage={currentOrgData.org_banner ? currentOrgData.org_banner : "https://i.postimg.cc/zXvv1vwL/Org-Banner-Demo.png"}
                 contributors={currentOrgData.contributorsCount}
                 feed={currentOrgData.feedCount}
                 followers={currentOrgData.followerCount}
                 name={currentOrgData.org_name}
+                handle={currentOrgData.org_handle}
                 profileImage={
                   currentOrgData.org_image ? currentOrgData.org_image : NoImage
                 }
                 story="Think Different"
-                handle={handle}
                 isOrgBelongsToUser={organizations.includes(handle)}
                 isUserSubscribed={currentOrgData.userSubscription}
                 handleOrgSubscription={handleOrgSubscription}
