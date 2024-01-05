@@ -317,7 +317,7 @@ function General() {
               <Grid container direction="column">
                 <Grid item container alignItems="center">
                   <Grid item xs={2} className={classes.ProfileContainer}>
-                    {CurrentOrg.org_image ? (
+                    {CurrentOrg.org_image || profileImage? (
                       <Avatar
                         src={profileImage ? profileImage : CurrentOrg.org_image}
                         className={classes.ProfilePhotoImage}
