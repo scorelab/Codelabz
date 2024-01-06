@@ -42,6 +42,7 @@ import {
   validateOrgWebsite
 } from "../../helpers/validations";
 import PropTypes from "prop-types";
+import CountryDropdown from "../../helpers/countryDropdown";
 
 const Dashboard = ({ background = "white", textColor = "black" }) => {
   const [loading, setLoading] = useState(false);
@@ -285,7 +286,6 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     setHandleValidateError(false);
     setHandleValidateErrorMessage("");
   };
-  console.log(country);
 
   return (
     <div className="home-row" style={{ background: background }}>
@@ -384,12 +384,17 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     }}
                   />
                   <div width="100%">
-                    <TextField
+                    <CountryDropdown label="User Country" value={country} onChange={e => {
+                      setCountry(e.target.value);
+                      setCountrySearch(e.target.value);
+                    }}
+                    />
+                    {/* <TextField
                       error={countryValidateError}
                       label="User Country"
                       variant="outlined"
                       placeholder="User Country"
-                      value={country}
+                      value={country} --
                       onChange={e => {
                         setCountry(e.target.value);
                         setCountrySearch(e.target.value);
@@ -412,8 +417,9 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                           </InputAdornment>
                         )
                       }}
-                    />
-                    <div>
+                    /> */}
+
+                    {/* <div>
                       {filteredData.length !== 0 && (
                         <div className="dataOutput">
                           {filteredData.map(item => {
@@ -431,7 +437,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                           })}
                         </div>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </Box>
                 <Divider></Divider>
@@ -448,8 +454,8 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     {showOrgForm === false
                       ? "I want to create an organization"
                       : showOrgForm === true
-                      ? "I don't want to create an organization"
-                      : "I want to create an organization"}
+                        ? "I don't want to create an organization"
+                        : "I want to create an organization"}
                   </Button>
                 </Box>
               </Card>
@@ -623,6 +629,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                 color="primary"
                 disableElevation
                 className="auth-form-col"
+                //Test
                 onClick={onSubmit}
                 disabled={loading}
               >
