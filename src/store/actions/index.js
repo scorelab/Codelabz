@@ -57,6 +57,7 @@ export {
   publishUnpublishTutorial,
   remoteTutorialImages,
   removeStep,
+  removetut,
   searchFromTutorialsIndex,
   setCurrentStep,
   setCurrentStepNo,
