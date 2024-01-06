@@ -7,15 +7,15 @@ export default {
   component: Login,
   argTypes: {
     loginButton: {
-      control: "color",
+      control: "color"
     },
     background: {
-      control: "color",
-    },
-  },
+      control: "color"
+    }
+  }
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <Login {...args} />{" "}
@@ -28,5 +28,5 @@ export const Default = Template.bind({});
 Default.args = {
   loginButton: "blue",
   background: "white",
-  loginText: "Welcome Back!",
+  loginText: "Welcome Back!"
 };

@@ -1,3 +1,3 @@
 {
-    "expectedRichTextHTML": "<div><p><strong>bold</strong><br><em>italic</em><br><u>underlined</u></p></div>"
+  "expectedRichTextHTML": "<div><p><strong>bold</strong><br><em>italic</em><br><u>underlined</u></p></div>"
 }

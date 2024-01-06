@@ -5,10 +5,10 @@ import ProviderWrapper from "../../../helpers/providerWrapper";
 
 export default {
   title: "Organization/Edit Organization",
-  component: EditOrganization,
+  component: EditOrganization
 };
 
-const Template = (args) => (
+const Template = args => (
   <ProviderWrapper>
     <MemoryRouter>
       <EditOrganization {...args} />
@@ -24,6 +24,6 @@ Default.args = {
     org_handle: "Test",
     org_name: "Test",
     org_published: true,
-    org_website: "https://org.org",
-  },
+    org_website: "https://org.org"
+  }
 };

@@ -199,7 +199,6 @@ const EditControls = ({
       </>
     );
   };
-
   const handlePublishTutorial = async () => {
     setPublishLoad(true);
     await publishUnpublishTutorial(owner, tutorial_id, isPublished)(
@@ -239,7 +238,7 @@ const EditControls = ({
         >
           Add images
         </Button>
-        
+
         <Button
           danger
           onClick={() => {

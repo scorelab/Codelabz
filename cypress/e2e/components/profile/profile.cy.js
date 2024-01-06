@@ -12,7 +12,7 @@ describe("Profile Page | CodeLabz", () => {
 
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-  })
+  });
 
   it("Login With Your Account", function () {
     cy.visit(`${this.base_url}login`);
@@ -35,7 +35,7 @@ describe("Profile Page | CodeLabz", () => {
     cy.get("[data-testId=HighlightsLanguages]").should("exist");
     cy.get("[data-testId=HighlightsJoinedDate]").should("exist");
 
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.eq(`${this.base_url}profile`);
     });
   });
@@ -61,5 +61,4 @@ describe("Profile Page | CodeLabz", () => {
   //   // cy.get("#editModalBox").should("have.length");
   //   expect("#editModalBox").to.have.length.at.least(4);
   // });
-
 });

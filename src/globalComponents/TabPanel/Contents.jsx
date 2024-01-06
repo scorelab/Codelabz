@@ -5,7 +5,7 @@ const Contents = ({ children, active }) => {
     <div className="contents">
       {children.map((element, index) => {
         return (
-          <div className={active === index ? 'content active' : 'content'}>
+          <div className={active === index ? "content active" : "content"}>
             {element}
           </div>
         );

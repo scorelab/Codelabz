@@ -4,6 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write .",
+    "format:fix": "prettier --write . --fix",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -12,7 +16,11 @@
     "prettier:write": "npx prettier --write .",
     "cy:run": "cypress run --headless --browser chrome",
     "cy:open": "cypress open --browser chrome",
-    "test": "start-server-and-test dev http://localhost:5173 cy:run"
+    "test": "start-server-and-test dev http://localhost:5173 cy:run",
+    "emulator-import": "firebase emulators:start --import=testdata",
+    "emulator": "firebase emulators:start",
+    "emulator-export": "firebase emulators:export",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -88,8 +96,17 @@
     "@vitejs/plugin-react-swc": "^3.0.0",
     "common-tags": "^1.8.2",
     "cypress": "^12.3.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
+    "husky": "^8.0.0",
     "less": "^4.1.3",
+    "lint-staged": "^14.0.0",
     "vite": "^4.0.0",
     "webpack": "^4.46.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
