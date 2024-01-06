@@ -80,7 +80,10 @@ function Users() {
         data-testid="organization-users-page"
       >
         <Grid item>
-          <Typography className={classes.heading}>Users</Typography>
+          <Typography className={classes.heading}>
+            <b>Users</b>
+          </Typography>
+
         </Grid>
         <Grid item>
           <Orgusers

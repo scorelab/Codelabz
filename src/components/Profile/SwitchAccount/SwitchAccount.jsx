@@ -18,7 +18,7 @@ import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "80%",
+    width: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(7)
   },
   details: {
+    width: "50%",
     display: "flex",
     flexDirection: "row",
     [theme.breakpoints.down("xs")]: {
@@ -54,18 +55,21 @@ const useStyles = makeStyles(theme => ({
     }
   },
   name: {
+    width: "60%",
     [theme.breakpoints.down("xs")]: {
       textAlign: "center"
     }
   },
   margin: {
-    marginLeft: "15px",
+    display: "flex",
+    width: "100%",
+    marginLeft: "2rem",
     [theme.breakpoints.down("xs")]: {
       marginLeft: "0px"
     }
   },
   marginR: {
-    marginRight: "20px",
+    marginRight: "0px",
     [theme.breakpoints.down("xs")]: {
       marginRight: "0px"
     }
@@ -110,39 +114,50 @@ export default function SwitchAccount({
     >
       <CardContent className={classes.details}>
         <ThemeProvider theme={theme}>
-          <Grid item container xs={1} justifyContent="center">
-            {avatar.type === "char" ? (
-              <Avatar className={classes.large}>{avatar.value}</Avatar>
-            ) : (
-              <Avatar className={classes.large} src={avatar.value} />
-            )}
-          </Grid>
           <div className={classes.margin}>
-            <Typography className={classes.name} variant="h5">
-              {name}
-            </Typography>
-            <div className={classes.divDetails}>
-              <Typography variant="subtitle2">Personal account</Typography>
-              <IconButton aria-label="share">
-                <SwapHorizIcon />
-              </IconButton>
+            <div
+              style={{
+                marginLeft: "30px",
+                marginTop: "10px",
+                marginBottom: "5px"
+              }}
+            >
+              <Grid item container xs={3} justifyContent="center">
+                {avatar.type === "char" ? (
+                  <Avatar className={classes.large}>{avatar.value}</Avatar>
+                ) : (
+                  <Avatar className={classes.large} src={avatar.value} />
+                )}
+              </Grid>
+            </div>
 
-              <div>
-                <FormControl className={classes.formControl}>
-                  <NativeSelect
-                    className={classes.selectEmpty}
-                    value={organisation}
-                    name="organisation"
-                    onChange={handleChange}
-                    inputProps={{ "aria-label": "Organizations" }}
-                  >
-                    {/* dropdown options for switching organisations */}
-                    <option value="">Organisations</option>
-                    {userOrgs.map(org => (
-                      <option value={org}>{org}</option>
-                    ))}
-                  </NativeSelect>
-                </FormControl>
+            <div style={{ width: "60%" }}>
+              <Typography className={classes.name} variant="h5">
+                <b>{name}</b>
+              </Typography>
+              <div className={classes.divDetails}>
+                <Typography variant="subtitle2">Personal account</Typography>
+                <IconButton aria-label="share">
+                  <SwapHorizIcon />
+                </IconButton>
+
+                <div>
+                  <FormControl className={classes.formControl}>
+                    <NativeSelect
+                      className={classes.selectEmpty}
+                      value={organisation}
+                      name="organisation"
+                      onChange={handleChange}
+                      inputProps={{ "aria-label": "Organizations" }}
+                    >
+                      {/* dropdown options for switching organisations */}
+                      <option value="">Organisations</option>
+                      {userOrgs.map(org => (
+                        <option value={org}>{org}</option>
+                      ))}
+                    </NativeSelect>
+                  </FormControl>
+                </div>
               </div>
             </div>
           </div>
@@ -153,6 +168,7 @@ export default function SwitchAccount({
           className={classes.marginR}
           variant="outlined"
           onClick={buttonClick || (() => {})}
+          style={{ marginRight: "10px" }}
         >
           {buttonText}
         </Button>

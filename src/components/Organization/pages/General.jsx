@@ -78,6 +78,7 @@ const useStyles = makeStyles(theme => ({
   hashbutton: {
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: "10px",
+
     padding: 5,
     [theme.breakpoints.down("md")]: {
       width: "80%"
@@ -90,6 +91,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "none",
     borderRadius: "25px",
     border: 0,
+    marginRight: "10px",
     direction: "column",
     backgroundColor: theme.palette.grey[200],
     padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`
@@ -223,7 +225,9 @@ function General() {
       <div data-testid="organization-general-page">
         <Grid item container spacing={6} alignItems="center">
           <Grid item>
-            <Typography className={classes.heading}>General</Typography>
+            <Typography className={classes.heading}>
+              <b>General</b>
+            </Typography>
           </Grid>
           <Grid item container xs={4} spacing={2}>
             {isUpdating ? (
@@ -360,7 +364,9 @@ function General() {
         <div className={classes.root}>
           <Grid item xs={windowSize.width <= 500 ? 12 : 6}>
             <CardContent>
-              <Typography>Brief description</Typography>
+              <Typography style={{ marginBottom: "0.5rem" }}>
+                Brief description
+              </Typography>
               <div>
                 <TextField
                   id="outlined-multiline-flexible"
@@ -372,18 +378,25 @@ function General() {
                   onChange={handleChange("org_description")}
                 />
               </div>
-              <Typography>Select tags</Typography>
-              <Grid item xs={16} className={classes.hashbutton}>
-                <Button className={classes.hashtag} disableRipple>
-                  #python
-                </Button>
-                <Button className={classes.hashtag} disableRipple>
-                  #javascript
-                </Button>
-                <Fab size="small" color="primary" aria-label="add">
-                  <AddIcon />
-                </Fab>
-              </Grid>
+              <div style={{ marginTop: "5px", marginBottom: "5px" }}>
+                <Typography>Select tags</Typography>
+                <Grid item xs={16} className={classes.hashbutton}>
+                  <Button className={classes.hashtag} disableRipple>
+                    #python
+                  </Button>
+                  <Button className={classes.hashtag} disableRipple>
+                    #javascript
+                  </Button>
+                  <Fab
+                    size="small"
+                    color="primary"
+                    aria-label="add"
+                    style={{ marginLeft: "10px" }}
+                  >
+                    <AddIcon />
+                  </Fab>
+                </Grid>
+              </div>
             </CardContent>
           </Grid>
         </div>

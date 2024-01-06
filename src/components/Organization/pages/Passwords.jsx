@@ -65,7 +65,9 @@ function Passwords() {
         data-testid="organization-passwords-page"
       >
         <Grid item xs={12}>
-          <Typography className={classes.heading}>Passwords</Typography>
+          <Typography className={classes.heading}>
+            <b>Passwords</b>
+          </Typography>
         </Grid>
         <Grid className={classes.inputContainer} item xs={12}>
           <Typography>Old Password</Typography>

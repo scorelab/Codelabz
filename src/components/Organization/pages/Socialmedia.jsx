@@ -17,7 +17,9 @@ function Socialmedia() {
   return (
     <React.Fragment>
       <Grid item spacing={3} data-testid="organization-socialmedia-page">
-        <Typography className={classes.heading}>Social Media</Typography>
+        <Typography className={classes.heading}>
+          <b>Social Media</b>
+        </Typography>
         <Orgsocial />
       </Grid>
     </React.Fragment>
