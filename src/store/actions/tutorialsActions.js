@@ -378,6 +378,22 @@ export const removeStep =
       }
     };
 
+    export const removetut =
+    (owner,tutorial_id) =>
+      async (firebase, firestore, dispatch) => {
+        try {
+          await firestore
+            .collection("tutorials")
+            .doc(tutorial_id)
+            .delete()
+             console.log("suraj")
+           
+        } catch (e) {
+          console.log(e.message);
+         
+        }
+      };
+
 export const setCurrentStep = data => async dispatch =>
   dispatch({ type: actions.SET_EDITOR_DATA, payload: data });
 

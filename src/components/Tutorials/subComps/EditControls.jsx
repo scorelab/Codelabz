@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ListIcon from "@mui/icons-material/List";
+import { useHistory } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
@@ -17,6 +18,7 @@ import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import UserList from "../../Editor/UserList";
 import { publishUnpublishTutorial } from "../../../store/actions";
+import { removetut } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import RemoveStepModal from "./RemoveStepModal";
@@ -39,6 +41,7 @@ const EditControls = ({
   step_length
 }) => {
   const firebase = useFirebase();
+  const history = useHistory();
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
@@ -54,7 +57,43 @@ const EditControls = ({
     const handleClose = () => {
       setAnchorEl(null);
     };
-
+   
+    const handleDeleteTutorial = async () => {
+      await removetut(owner,tutorial_id)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      history.push("/")
+    };
+    console.log(tutorial_id); 
+    const tooltipStyles = `
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+  
+    }
+    .tooltip-container .tooltip-text {
+      visibility: hidden;
+      width: 180px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  `;
     return (
       <>
         <Button
@@ -92,13 +131,22 @@ const EditControls = ({
           >
             <FormatPaintIcon /> Edit CodeLabz Theme
           </MenuItem>
-          <MenuItem
-            key="delete_tutorial"
-            onClick={() => null}
-            style={{ color: "red" }}
-          >
-            <DeleteIcon /> Move to Trash
-          </MenuItem>
+         
+          <MenuItem key="delete_tutorial" onClick={!isPublished?handleDeleteTutorial:""} style={{ color: isPublished ? "black" : "red", cursor: isPublished ? "not-allowed" : "pointer" }}>
+  <DeleteIcon />
+  {!isPublished ? (
+
+    "Move to Trash"
+  ) : (
+    <div>
+      <style>{tooltipStyles}</style>
+      <div className="tooltip-container">
+        Move to Trash
+        <div className="tooltip-text">Unpublish to enable</div>
+      </div>
+    </div>
+  )}
+</MenuItem>
         </Menu>
       </>
     );
