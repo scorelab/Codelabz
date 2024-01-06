@@ -57,16 +57,12 @@ const EditControls = ({
     const handleClose = () => {
       setAnchorEl(null);
     };
-   
+
     const handleDeleteTutorial = async () => {
-      await removetut(owner,tutorial_id)(
-        firebase,
-        firestore,
-        dispatch
-      );
-      history.push("/")
+      await removetut(owner, tutorial_id)(firebase, firestore, dispatch);
+      history.push("/");
     };
-    console.log(tutorial_id); 
+    console.log(tutorial_id);
     const tooltipStyles = `
     .tooltip-container {
       position: relative;
@@ -131,22 +127,28 @@ const EditControls = ({
           >
             <FormatPaintIcon /> Edit CodeLabz Theme
           </MenuItem>
-         
-          <MenuItem key="delete_tutorial" onClick={!isPublished?handleDeleteTutorial:""} style={{ color: isPublished ? "black" : "red", cursor: isPublished ? "not-allowed" : "pointer" }}>
-  <DeleteIcon />
-  {!isPublished ? (
 
-    "Move to Trash"
-  ) : (
-    <div>
-      <style>{tooltipStyles}</style>
-      <div className="tooltip-container">
-        Move to Trash
-        <div className="tooltip-text">Unpublish to enable</div>
-      </div>
-    </div>
-  )}
-</MenuItem>
+          <MenuItem
+            key="delete_tutorial"
+            onClick={!isPublished ? handleDeleteTutorial : ""}
+            style={{
+              color: isPublished ? "black" : "red",
+              cursor: isPublished ? "not-allowed" : "pointer"
+            }}
+          >
+            <DeleteIcon />
+            {!isPublished ? (
+              "Move to Trash"
+            ) : (
+              <div>
+                <style>{tooltipStyles}</style>
+                <div className="tooltip-container">
+                  Move to Trash
+                  <div className="tooltip-text">Unpublish to enable</div>
+                </div>
+              </div>
+            )}
+          </MenuItem>
         </Menu>
       </>
     );
