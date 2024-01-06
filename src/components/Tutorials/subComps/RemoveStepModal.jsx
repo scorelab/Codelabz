@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import Snackbar from "@mui/material/Snackbar";
+import Typography from "@mui/material/Typography";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { removeStep } from "../../../store/actions";
-import Snackbar from "@mui/material/Snackbar";
-import Typography from "@mui/material/Typography";
 
 const RemoveStepModal = ({
   owner,
@@ -24,37 +24,20 @@ const RemoveStepModal = ({
     setVisible(viewModal);
   }, [viewModal]);
 
-  const handleOnOk = event => {
-    <Snackbar
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left"
-      }}
-      open={true}
-      autoHideDuration={6000}
-      message="Updating...."
-    />;
+  const handleOnOk = (event) => {
+    event.preventDefault();
     if (step_length > 1) {
-      event.preventDefault();
-      removeStep(
-        owner,
-        tutorial_id,
-        step_id,
-        currentStep
-      )(firebase, firestore, dispatch).then(() => {
+      removeStep(owner, tutorial_id, step_id, currentStep)(
+        firebase,
+        firestore,
+        dispatch
+      ).then(() => {
         setVisible(false);
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          open={true}
-          autoHideDuration={6000}
-          message="removed...."
-        />;
+        // Show success message or dispatch another action if needed
       });
     }
   };
+
   const handleOnCancel = () => setVisible(false);
 
   return (
@@ -64,27 +47,37 @@ const RemoveStepModal = ({
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       style={{
-        border: "2px solid #000",
-        background: "whitesmoke",
-        boxShadow: "2rem gray",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "10rem",
-        width: "20rem",
-        position: "absolute",
-        top: "40%",
-        left: "40%"
+        textAlign:"center"
       }}
     >
-      <div>
-        <Typography>This action is can not be undone!</Typography>
+      <div
+        style={{
+          background: "#fff",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: "0px 4px 30px rgba(0, 0, 0, 0.1)",
+          maxWidth: "400px",
+          width: "100%"
+        }}
+      >
+        <Typography variant="h6" gutterBottom>
+          This action cannot be undone!
+        </Typography>
         <form onSubmit={handleOnOk}>
-          <Button key="back" onClick={handleOnCancel}>
-            <Typography>Cancel</Typography>
+          <Button
+            variant="outlined"
+            style={{ marginRight: "10px" }}
+            onClick={handleOnCancel}
+            color="success"
+            
+          >
+            Cancel
           </Button>
-          <Button key="remove" type="submit">
-            <Typography> Remove</Typography>
+          <Button variant="outlined" type="submit" color="error">
+            Remove
           </Button>
         </form>
       </div>

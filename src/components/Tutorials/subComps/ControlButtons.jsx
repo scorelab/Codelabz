@@ -93,7 +93,10 @@ const ControlButtons = ({
               }}
               className={classes.completeButton}
             >
-              {stepsData[currentStep].completed
+              {currentStep < 0 || currentStep >= (stepsData?.length || 0)
+                  ? (console.log(currentStep), stepsData?.[0]?.completed)
+                  : stepsData?.[currentStep]?.completed
+                
                 ? "Reset Step"
                 : "Complete Step"}
             </Button>

@@ -148,13 +148,24 @@ const ViewTutorial = () => {
     setAllowEdit(true); // remove this later
     setStepPanelVisible(isDesktop);
   }, [isDesktop]);
-
   useEffect(() => {
     if (stepsData) {
-      setTimeRemaining(TutorialTimeRemaining(stepsData, currentStep));
+    const ind = Math.min(stepsData.length - 1, currentStep);
+    if (ind !== currentStep) {
+    setCurrentStep(ind);
+    }
+    }
+    }, [currentStep, stepsData]);
+    
+    const isValidStep = currentStep >= 0 && currentStep < (stepsData?.length || 0);
+    const validStepId = isValidStep ? (stepsData && stepsData[currentStep]?.id) : null;
+    
+  useEffect(() => {
+    if (stepsData) {
+      setTimeRemaining(TutorialTimeRemaining(stepsData, validStepId));
       getCurrentStepContentFromFirestore(
         tutorial_id,
-        stepsData[currentStep].id
+        validStepId
       )(firestore, dispatch);
     }
   }, [tutorial_id, firebase, stepsData, currentStep, dispatch]);
@@ -182,7 +193,7 @@ const ViewTutorial = () => {
                 isPublished={tutorialData.isPublished}
                 stepPanelVisible={stepPanelVisible}
                 isDesktop={isDesktop}
-                noteID={stepsData[currentStep].id}
+                noteID={validStepId}
                 setMode={mode => setMode(mode)}
                 mode={mode}
                 toggleImageDrawer={() => setImageDrawerVisible(true)}
@@ -190,7 +201,7 @@ const ViewTutorial = () => {
                 toggleAddNewStep={() =>
                   setAddNewStepModalVisible(!addNewStepModalVisible)
                 }
-                visibility={stepsData[currentStep].visibility}
+                visibility={validStepId}
                 owner={owner}
                 currentStep={currentStep}
                 step_length={stepsData.length}
