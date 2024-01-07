@@ -7,8 +7,10 @@ import Button from "@mui/material/Button";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ListIcon from "@mui/icons-material/List";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DoneIcon from "@mui/icons-material/Done";
 import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
+import { useHistory } from 'react-router-dom';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AddIcon from "@mui/icons-material/Add";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -112,7 +114,7 @@ const EditControls = ({
     );
     setPublishLoad(false);
   };
-
+  const historyRouter = useHistory();
   return (
     <>
       <Stack
@@ -200,6 +202,9 @@ const EditControls = ({
               >
                 <FileCopyIcon /> {isPublished ? "Unpublish" : "Publish"}
               </Button>
+              <Button disabled={!isPublished} onClick={()=> historyRouter.push("/")}>
+  {isPublished && <DoneIcon />} {isPublished ? "Finish" : ""}
+</Button>
               <DropdownMenu key="more" />
             </>
           )}

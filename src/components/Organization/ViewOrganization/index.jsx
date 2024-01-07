@@ -13,6 +13,7 @@ import {
 import Banner from "../../ProfileBanner/Organization";
 import { Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import Tag from "../../UserDetails/Tag";
 import About from "./About";
 import Feeds from "./Feeds";
 import Orgusers from "../OrgUsers/OrgUsers";
@@ -123,7 +124,7 @@ const ViewOrganization = () => {
         setOrgFollowed(querySnapshot.forEach(doc => doc.data()));
       });
   }, [db, profileData.uid]);
-
+  const [currentOrgData, setCurrentOrgData] = useState(CurrentOrg);
   const handleOrgSubscription = async () => {
     if (!currentOrgData.userSubscription)
       await subscribeOrg(handle)(firebase, firestore, dispatch);
@@ -138,13 +139,7 @@ const ViewOrganization = () => {
     }) => loading
   );
 
-  const currentOrgData = useSelector(
-    ({
-      org: {
-        data: { data }
-      }
-    }) => data
-  );
+ 
 
   const organizations = useSelector(
     ({
@@ -255,6 +250,14 @@ const ViewOrganization = () => {
                         <Description
                           Heading={"Description"}
                           Content={currentOrgData.org_description}
+                        />
+                      </Grid>
+                      <Grid  item>
+                        <Tag
+
+                          Heading={"Tags"}
+                          Content={currentOrgData.org_tags}
+
                         />
                       </Grid>
                       <Grid item>

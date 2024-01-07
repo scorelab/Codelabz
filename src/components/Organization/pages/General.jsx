@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState,useEffect,useRef } from "react";
 import {
   Grid,
   Typography,
@@ -12,6 +12,8 @@ import { makeStyles } from "@mui/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
+import UndoIcon from '@mui/icons-material/Undo';
+import "./Tags.css";
 import LinearProgress from "@mui/material/LinearProgress";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
@@ -171,8 +173,84 @@ function General() {
   const handleChange = name => event => {
     setOrgData({ ...OrgData, [name]: event.target.value });
   };
+  const [itemList, setItemList] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [filterText, setFilterText] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const itemsToShow = 8; // Number of items to show at a time
+  const maxDropdownHeight = 150;
+  const dummyItems = [
+    'C', 'C++', 'Java', 'JavaScript', 'Python', 'Ruby', 'Swift', 'TypeScript',
+    'C#', 'PHP', 'Go', 'Kotlin', 'Rust', 'Scala', 'Julia', 'D', 'Haskell', 'Elixir',
+    'Clojure', 'Lua', 'Perl', 'Assembly', 'Fortran', 'HTML', 'CSS', 'Matlab', 'R',
+    'SAS', 'VBA', 'SwiftUI', 'Flutter', 'React Native', 'Qt', 'wxWidgets', 'Gtk+',
+    'Tkinter', 'Android', 'iOS', 'WebAssembly', 'React', 'Vue.js', 'Angular', 'Svelte',
+    'Ember.js', 'Django', 'Flask', 'Rails', 'Laravel', 'ASP.NET Core', 'Spring Boot',
+    'Express.js', 'Koa.js', 'Nest.js', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas',
+    'NumPy', 'Matplotlib', 'Seaborn', 'Bokeh', 'Plotly', 'Docker', 'Kubernetes',
+    'Apache Spark', 'Apache Hadoop', 'Cassandra', 'Kafka', 'MongoDB', 'MySQL',
+    'PostgreSQL', 'Elasticsearch', 'Prometheus', 'Grafana', 'Kibana', 'Logstash',
+    'Terraform', 'Ansible', 'Puppet', 'Chef', 'Docker Compose', 'Kubernetes Helm',
+    'Istio', 'ServiceMesh', 'gRPC', 'Protobuf', 'Thrift', 'Apache Camel',
+    'Apache Mule ESB', 'Apache Kafka Streams', 'Spring Integration',
+    'Oracle Fusion Middleware', 'IBM Integration Bus', 'TIBCO ActiveMatrix BusinessWorks Plus',
+    'Azure Logic Apps', 'AWS Step Functions', 'Google Cloud Functions'
+];
 
-  console.log(OrgData);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Close the dropdown when clicking outside the input and list
+    const handleOutsideClick = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+  const showItems = () => {
+    setShowDropdown(true);
+  };
+
+  const addItem = (item) => {
+    setSelectedItems([...selectedItems, item]);
+    setFilterText('');
+    setShowDropdown(false);
+    const updatedTags = OrgData.org_tags ? `${OrgData.org_tags},${item}` : item;
+
+    setOrgData({ ...OrgData, org_tags: updatedTags });
+  };
+
+  const resetItems = () => {
+    setSelectedItems([]);
+    // Create a new object to trigger a re-render
+    setOrgData((prevOrgData) => ({ ...prevOrgData, org_tags: ' ' }));
+  };
+
+  const handleFilterChange = (event) => {
+    const text = event.target.value;
+    setFilterText(text);
+
+    // If the filter text is empty, show all items
+    if (!text.trim()) {
+      setItemList([]);
+      setShowDropdown(true);
+      return;
+    }
+
+    // Filter the items based on the input text and show only a certain number
+    const filteredItems = dummyItems
+      .filter((item) => item.toLowerCase().includes(text.toLowerCase()))
+      .slice(0, itemsToShow);
+    setItemList(filteredItems);
+    setShowDropdown(true);
+  };
 
   const saveImage = (canvas, crop) => {
     if (!crop || !canvas) {
@@ -372,17 +450,58 @@ function General() {
                   onChange={handleChange("org_description")}
                 />
               </div>
-              <Typography>Select tags</Typography>
-              <Grid item xs={16} className={classes.hashbutton}>
-                <Button className={classes.hashtag} disableRipple>
-                  #python
-                </Button>
-                <Button className={classes.hashtag} disableRipple>
-                  #javascript
-                </Button>
-                <Fab size="small" color="primary" aria-label="add">
-                  <AddIcon />
-                </Fab>
+              {console.log(OrgData)}
+              <Typography style={{marginTop:"10px"}}>Select tags</Typography>
+              <div className="tags-input" onClick={showItems} ref={inputRef} style={{ position: 'relative' }}>
+        <input
+          type="text"
+          placeholder="Type to filter"
+          id="input-tag"
+          value={filterText}
+          onChange={handleFilterChange}
+        />
+        {showDropdown && (
+          <ul id="tags"
+            style={{
+              background:"white",
+              maxHeight: maxDropdownHeight + 'px',
+              overflowY: 'auto',
+              marginTop:'5px',
+              cursor:"pointer",
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              zIndex: 1,
+            }}
+          >
+            {itemList.map((item, index) => (
+              <li key={`item-${index}`} onClick={() => addItem(item)}>
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+
+              <Grid style={{marginTop:"10px"}} item xs={16} className={classes.hashbutton}>
+
+                <div >
+
+      <Typography>Selected Tags</Typography>
+      <div>
+        {selectedItems.map((item, index) => (
+          <Button style={{margin:"2px"}} className={classes.hashtag} disableRipple key={index}>{item}</Button>
+        ))}
+      </div>
+
+
+      <Button  variant="outlined"
+                color="primary"
+               startIcon={<UndoIcon />} 
+               style={{margin:"5px"}} onClick={resetItems}>Reset</Button>
+    </div>
               </Grid>
             </CardContent>
           </Grid>
