@@ -56,10 +56,10 @@ function Feeds() {
               className={classes.postCard}
               name={person.name}
               title={person.title}
-              contentDescription={person.description}
-              tags={person.tags}
-              profilePic={person.profilePic}
-              organizationName={person.org}
+              contentDescription={person.contentDescription}
+              tags={person.tags ? person.tags : ''}
+              // profilePic={person.profilePic}
+              organizationName={person.organizationName}
               date={person.date}
               time={person.time}
             />
