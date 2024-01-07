@@ -23,9 +23,11 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENTID
 };
 
-//console.log("firebaseConfig", firebaseConfig);
+// console.log(localStorage.getItem('key1'),localStorage.getItem('key2'),localStorage.getItem('key3'))
 
 export const onlineFirebaseApp = initializeApp(firebaseConfig, "secondary");
+
+
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
@@ -39,7 +41,9 @@ if (import.meta.env.VITE_APP_USE_EMULATOR) {
   firebase.database().useEmulator("localhost", 9000);
   firebase.functions().useEmulator("localhost", 5001);
   db.settings({
+
     // experimentalForceLongPolling: true, !! Not necessary.
+
     merge: true
   });
 }

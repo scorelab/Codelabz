@@ -44,37 +44,40 @@ import {
 import PropTypes from "prop-types";
 
 const Dashboard = ({ background = "white", textColor = "black" }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [showOrgForm, setShowOrgForm] = useState(null);
-  const [focusLeft, setFocusLeft] = useState(true);
-  const [showImage, setShowImage] = useState(false);
-  const firebase = useFirebase();
-  const firestore = useFirestore();
-  const dispatch = useDispatch();
-  const errorProp = useSelector(({ auth }) => auth.profile.error);
-  const loadingProp = useSelector(({ auth }) => auth.profile.loading);
-  const [name, setName] = useState("");
-  const [nameValidateError, setNameValidateError] = useState(false);
-  const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
-  const [orgName, setOrgName] = useState("");
-  const [orgNameValidateError, setOrgNameValidateError] = useState(false);
-  const [orgNameValidateErrorMessage, setOrgNameValidateErrorMessage] =
-    useState("");
-  const [handle, setHandle] = useState("");
-  const [handleValidateError, setHandleValidateError] = useState(false);
-  const [handleValidateErrorMessage, setHandleValidateErrorMessage] =
-    useState("");
-  const [orgHandle, setOrgHandle] = useState("");
-  const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
-  const [orgHandleValidateErrorMessage, setOrgHandleValidateErrorMessage] =
-    useState("");
-  const [country, setCountry] = useState("");
-  const [countryValidateError, setCountryValidateError] = useState(false);
-  const [orgCountry, setOrgCountry] = useState("");
-  const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
-  const [orgWebsite, setOrgWebsite] = useState("");
-  const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
+
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
+	const [showOrgForm, setShowOrgForm] = useState(null);
+	const [focusLeft, setFocusLeft] = useState(true);
+	const [showImage, setShowImage] = useState(false);
+	const firebase = useFirebase();
+	const firestore = useFirestore();
+	const dispatch = useDispatch();
+	const errorProp = useSelector(({ auth }) => auth.profile.error);
+	const loadingProp = useSelector(({ auth }) => auth.profile.loading);
+	const [name, setName] = useState("");
+	const [nameValidateError, setNameValidateError] = useState(false);
+	const [nameValidateErrorMessage, setNameValidateErrorMessage] = useState("");
+	const [orgName, setOrgName] = useState("");
+	const [orgNameValidateError, setOrgNameValidateError] = useState(false);
+	const [orgNameValidateErrorMessage, setOrgNameValidateErrorMessage] =
+		useState("");
+	const [handle, setHandle] = useState("");
+	
+	const [handleValidateError, setHandleValidateError] = useState(false);
+	const [handleValidateErrorMessage, setHandleValidateErrorMessage] =useState("");
+	
+	const [orgHandle, setOrgHandle] = useState("");
+	const [orgHandleValidateError, setOrgHandleValidateError] = useState(false);
+	const [orgHandleValidateErrorMessage, setOrgHandleValidateErrorMessage] =
+		useState("");
+	const [country, setCountry] = useState("");
+	const [countryValidateError, setCountryValidateError] = useState(false);
+	const [orgCountry, setOrgCountry] = useState("");
+	const [orgCountryValidateError, setOrgCountryValidateError] = useState(false);
+	const [orgWebsite, setOrgWebsite] = useState("");
+	const [orgWebsiteValidateError, setOrgWebsiteValidateError] = useState(false);
+
 
   const [filteredData, setFilteredData] = useState([]);
   const [countrySearch, setCountrySearch] = useState("");

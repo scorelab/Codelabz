@@ -107,6 +107,7 @@ const CodeLabzAppBar = () => {
   const authed = useAuthStatus();
   const classes = useStyles();
 
+
   if (authed) {
     return (
       <div className={classes.grow} data-testId="navbarloggedIn">
@@ -120,6 +121,7 @@ const CodeLabzAppBar = () => {
       </div>
     );
   }
+
 };
 
 export default CodeLabzAppBar;

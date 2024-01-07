@@ -199,6 +199,52 @@ export const unPublishOrganization =
     }
   };
 
+
+export const addOrgAdmins = (org_handle,adminHandle,adminEmail,adminDesignation)=> async(firestore,dispatch)=>{
+    try{
+      dispatch({ type: actions.EDIT_ORG_GENERAL_START });
+      await firestore.collection("cl_org_general").doc(org_handle).collection("admins").add({
+        adminHandle,
+        adminEmail,
+        adminDesignation
+      })
+      dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
+    }
+    
+    catch(e){
+      dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
+      throw e.message;
+    }
+  }
+
+export const fetchAdmins = (org_handle) => async(firebase,dispatch) => {
+  try{
+    dispatch({ type: actions.FETCH_ADMIN_DETAILS_START });
+    const handle = await firebase
+      .firestore()
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("admins")
+      .get()
+
+    const records = handle.docs.map(doc => doc.data())
+    const modifiedRecords = records.map((obj) => {
+      return {
+        ...obj,
+        avatar: {
+          type: "image",
+          value: "https://i.pravatar.cc/300",
+        },
+      };
+    });
+    dispatch({ type: actions.FETCH_ADMIN_DETAILS_SUCCESS });
+    return modifiedRecords;
+  }catch(e){
+    dispatch({ type: actions.FETCH_ADMIN_DETAILS_FAIL });
+    throw e.message;
+  }
+}
+
 export const uploadOrgProfileImage =
   (file, org_handle, currentOrgData) => async (firebase, dispatch) => {
     try {
