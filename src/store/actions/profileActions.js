@@ -1,5 +1,5 @@
 import * as actions from "./actionTypes";
-import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
+import { checkOrgHandleExists, checkUserHandleExists ,signOut} from "./authActions";
 import { getOrgBasicData } from "./orgActions";
 import _ from "lodash";
 
@@ -240,6 +240,22 @@ export const addUserFollower = async (
     console.log(e);
   }
 };
+
+export const deleteUserProfile = (handle) => async (firebase,firestore,dispatch) =>{
+  const query = firestore.collection("cl_user").where('handle', '==', handle);
+  query.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      firestore.collection("cl_user").doc(doc.id).delete().then(() => {
+        console.log(`Document with handle "${handle}" deleted successfully.`);
+        signOut()(firebase,dispatch)
+      }).catch((error) => {
+        console.error('Error deleting document:', error);
+      });
+    });
+  }).catch((error) => {
+    console.error('Error getting documents:', error);
+  });
+}
 
 export const removeUserFollower = async (
   currentProfileData,

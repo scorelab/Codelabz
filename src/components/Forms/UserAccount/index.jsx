@@ -2,9 +2,48 @@ import React, { useEffect } from "react";
 import { Box, Card, Typography } from "@mui/material";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteUserProfile } from "../../../store/actions";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import Swal from 'sweetalert2'
 
 const UserAccount = () => {
   const classes = useStyles();
+  const currentUserHandle = useSelector(
+    ({
+      firebase: {
+        profile: { handle }
+      }
+    }) => handle
+  );
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
+  const firebase = useFirebase()
+  useEffect(()=>{
+    console.log(currentUserHandle)
+  },[])
+
+  const deleteUserHandle = () =>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your user has been deleted.",
+            icon: "success"
+          });
+        await deleteUserProfile(currentUserHandle)(firebase,firestore,dispatch)
+        
+      }
+    })
+    
+  }
 
   return (
     <Card className={classes.card} data-testId="userSettingsPage">
@@ -52,6 +91,7 @@ const UserAccount = () => {
           className={classes.text}
           style={{ color: "#FF5959" }}
           data-testId="deleteAccount"
+          onClick={deleteUserHandle}
         >
           Delete account
         </Typography>
