@@ -19,6 +19,7 @@ import UserList from "../../Editor/UserList";
 import { publishUnpublishTutorial } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
+import VoiceToText from "./voicetotext";
 import RemoveStepModal from "./RemoveStepModal";
 import ColorPickerModal from "./ColorPickerModal";
 import { Box, Stack } from "@mui/system";
@@ -133,6 +134,9 @@ const EditControls = ({
         >
           <AddIcon /> Add New Step
         </Button>
+        <div>
+          <VoiceToText/>
+        </div>
         <Button
           className="ml-24"
           color="warning"
