@@ -21,6 +21,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import RemoveStepModal from "./RemoveStepModal";
 import ColorPickerModal from "./ColorPickerModal";
+import SuccessModal from "./SuccessModal.jsx";
 import { Box, Stack } from "@mui/system";
 
 const EditControls = ({
@@ -44,6 +45,7 @@ const EditControls = ({
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
   const [publishLoad, setPublishLoad] = useState(false);
+
   const DropdownMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -103,6 +105,8 @@ const EditControls = ({
       </>
     );
   };
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const handlePublishTutorial = async () => {
     setPublishLoad(true);
     await publishUnpublishTutorial(owner, tutorial_id, isPublished)(
@@ -111,6 +115,8 @@ const EditControls = ({
       dispatch
     );
     setPublishLoad(false);
+    setShowSuccessModal(true);
+    setSuccessMessage(isPublished ? "Tutorial unpublished successfully!" : "Tutorial published successfully!");
   };
 
   return (
@@ -210,6 +216,11 @@ const EditControls = ({
         visibleCallback={e => setViewColorPickerModal(e)}
         tutorial_id={tutorial_id}
         owner={owner}
+      />
+      <SuccessModal
+        visible={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        message={successMessage}
       />
     </>
   );
