@@ -238,30 +238,22 @@ const RightMenu = ({ mode, onClick }) => {
         marginRight: "2rem"
       }}
     >
-      <Avatar
+      <img
         style={{
-          backgroundColor:
-            profile.photoURL && profile.photoURL.length > 0
-              ? "#fffff"
-              : "#3AAFA9",
           marginLeft: "1rem",
           marginBottom: ".2rem",
-          cursor: "pointer"
+          cursor: "pointer",
+          borderRadius: "100%", 
         }}
         size={mode === "inline" ? "default" : "medium"}
-        src={profile.photoURL}
-        icon={
-          acronym ? null : (
-            <PersonOutlineOutlinedIcon
-              style={{ fontSize: mode === "inline" ? "1rem" : "1.4rem" }}
-            />
-          )
+        src={
+          profile.photoURL
+            ? profile.photoURL
+            : `https://api.dicebear.com/5.x/initials/svg?seed=${acronym}`
         }
         onClick={handleClick}
         data-testId="nav-user"
-      >
-        {acronym}
-      </Avatar>
+      />
       <Menu
         id="fade-menu"
         anchorEl={anchorEl}

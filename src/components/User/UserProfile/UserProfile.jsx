@@ -9,6 +9,7 @@ import OrgUser from "../../../assets/images/org-user.svg";
 import { userList } from "../../HomePage/userList";
 import Card from "@mui/material/Card";
 import UserHighlights from "./UserHighlights";
+import { avatarName } from "../../../helpers/avatarName";
 
 const useStyles = makeStyles(theme => ({
   parentBody: {
@@ -49,6 +50,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function UserProfile(props) {
+  const acronym = avatarName(props.profileData.displayName);
   const classes = useStyles();
 
   const [organizations, setUpOrganizations] = useState([
@@ -80,7 +82,7 @@ function UserProfile(props) {
                 profileImage={
                   props.profileData.photoURL
                     ? props.profileData.photoURL
-                    : "https://i.pravatar.cc/300"
+                    : `https://api.dicebear.com/5.x/initials/svg?seed=${acronym}`
                 }
                 name={props.profileData.displayName}
                 story={
