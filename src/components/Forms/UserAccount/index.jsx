@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Card, Typography } from "@mui/material";
 import useStyles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserAccount = () => {
   const classes = useStyles();
