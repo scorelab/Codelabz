@@ -67,7 +67,6 @@ const ViewOrganization = () => {
       }
     }) => (organizations ? organizations[0] : undefined)
   );
-
   const aboutfeedlist = [
     {
       id: 1,
@@ -124,6 +123,10 @@ const ViewOrganization = () => {
       });
   }, [db, profileData.uid]);
 
+  const [currentOrgData,setCurrentOrgData]=useState(CurrentOrg)
+  
+  // console.log({ profileData })
+
   const handleOrgSubscription = async () => {
     if (!currentOrgData.userSubscription)
       await subscribeOrg(handle)(firebase, firestore, dispatch);
@@ -138,14 +141,7 @@ const ViewOrganization = () => {
     }) => loading
   );
 
-  const currentOrgData = useSelector(
-    ({
-      org: {
-        data: { data }
-      }
-    }) => data
-  );
-
+  
   const organizations = useSelector(
     ({
       firebase: {
