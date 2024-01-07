@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import GoogleImg from "../../../assets/orgs/google.png";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -14,7 +15,6 @@ import { useFirebase } from "react-redux-firebase";
 import { Grid } from "@mui/material";
 
 const Orgsocial = props => {
-  console.log(props.toOpen);
   const classes = useStyles();
 
   const CurrentOrg = useSelector(
@@ -29,7 +29,9 @@ const Orgsocial = props => {
   );
 
   const [OrgData, setOrgData] = useState(CurrentOrg);
-
+  useEffect(() => {
+    console.log(OrgData)
+  })
   const dispatch = useDispatch();
   const firebase = useFirebase();
 
@@ -48,8 +50,8 @@ const Orgsocial = props => {
             // onClick={() => signInWithProviderID("facebook")(firebase, dispatch)}
             onClick={() =>
               props.toOpen
-                ? openSocialMedialLink(OrgData.org_link_facebook)
-                : console.log("clicked")
+                ?openSocialMedialLink(OrgData.org_link_facebook)
+                : OrgData.org_link_facebook ? openSocialMedialLink(OrgData.org_link_facebook) : console.log("clicked")
             }
             data-testId="facebookButton"
           >
@@ -57,7 +59,7 @@ const Orgsocial = props => {
               <span className="sm-text">Facebook</span>
             </FacebookIcon>
             <Typography className={classes.text}>
-              Organization's Facebook Page
+              {OrgData ? OrgData.org_name + "'s Facebook" : "Organization's Facebook Account"}
             </Typography>
           </Grid>
 
@@ -67,7 +69,7 @@ const Orgsocial = props => {
             onClick={() =>
               props.toOpen
                 ? openSocialMedialLink(OrgData.org_link_github)
-                : console.log("clicked")
+                : OrgData.org_link_github ? openSocialMedialLink(OrgData.org_link_github) : console.log("clicked")
             }
             data-testId="githubButton"
           >
@@ -75,7 +77,7 @@ const Orgsocial = props => {
               <span className="sm-text">Github</span>
             </GitHubIcon>
             <Typography className={classes.text}>
-              Organization's Github Account
+              {OrgData ? OrgData.org_name + "'s GitHub" : "Organization's Github Account"}
             </Typography>
           </Grid>
         </Box>
@@ -86,13 +88,14 @@ const Orgsocial = props => {
             onClick={() =>
               props.toOpen
                 ? openSocialMedialLink(OrgData.org_link_linkedin)
-                : console.log("clicked")
+                :  OrgData.org_link_linkedin ? openSocialMedialLink(OrgData.org_link_linkedin) : console.log("clicked")
             }
             data-testId="googleButton"
           >
-            <img src={GoogleImg} alt="google" className={classes.button} />
+            {/* <img src={GoogleImg} alt="google" className={classes.button} /> */}
+            <LinkedInIcon className={classes.fb}/>
             <Typography className={classes.text}>
-              Organization's Google Account
+              {OrgData ? OrgData.org_name + "'s Linkedin" : "Organization's Linkedin Account"}
             </Typography>
           </Grid>
           <Grid
@@ -101,7 +104,7 @@ const Orgsocial = props => {
             onClick={() =>
               props.toOpen
                 ? openSocialMedialLink(OrgData.org_link_twitter)
-                : console.log("clicked")
+                : OrgData.org_link_twitter ? openSocialMedialLink(OrgData.org_link_twitter) : console.log("clicked")
             }
             data-testId="twitterButton"
           >
@@ -109,7 +112,7 @@ const Orgsocial = props => {
               <span className="sm-text">Twitter</span>
             </TwitterIcon>
             <Typography className={classes.text}>
-              Organization's Twitter Account
+              {OrgData ? OrgData.org_name + "'s Twitter" : "Organization's Twitter Account"}
             </Typography>
           </Grid>
         </Box>
