@@ -273,7 +273,7 @@ const ViewTutorial = () => {
                     {mode === "edit" && (
                       <>
                         <StepsTitle
-                          currentStepNo={currentStepNo}
+                          currentStepNo={currentStep}
                           owner={tutorialData.owner}
                           tutorial_id={tutorialData.tutorial_id}
                           step_id={stepsData[currentStep].id}

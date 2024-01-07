@@ -6,7 +6,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepTime, updateStepTitle } from "../../../store/actions";
 
-const StepsTitle = ({ owner, tutorial_id }) => {
+const StepsTitle = ({ owner, tutorial_id, currentStepNo }) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   useEffect(() => {
     if (current_data) {
       const { steps } = current_data;
-      const current_step_data = steps[current_step_no];
+      const current_step_data = steps[currentStepNo];
       set_step_id(current_step_data.id);
       set_step_title(current_step_data.title);
       setNewStepTitle(current_step_data.title);
@@ -50,7 +50,8 @@ const StepsTitle = ({ owner, tutorial_id }) => {
     set_step_id,
     set_step_title,
     set_step_time,
-    current_step_no
+    current_step_no,
+    currentStepNo
   ]);
 
   const setStepTitle = () => {
