@@ -122,6 +122,7 @@ export const updateUserProfile =
       await firebase.updateProfile(
         {
           displayName,
+          description,
           website,
           link_facebook,
           link_github,
