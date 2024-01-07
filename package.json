@@ -42,6 +42,7 @@
     "emoji-picker-react": "^4.4.9",
     "firebase": "^9.17.2",
     "history": "^4.10.1",
+    "jss-plugin-vendor-prefixer": "^10.10.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "query-string": "^6.13.1",

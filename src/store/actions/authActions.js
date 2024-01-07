@@ -2,7 +2,10 @@ import * as actions from "./actionTypes";
 import _ from "lodash";
 import { functions } from "../../config";
 
-export const signIn = credentials => async (firebase, dispatch) => {
+
+export const signIn = (credentials) => async (firebase, dispatch) => {
+
+
   try {
     dispatch({ type: actions.SIGN_IN_START });
     dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
@@ -21,6 +24,7 @@ export const signIn = credentials => async (firebase, dispatch) => {
       });
     }
   } catch (e) {
+
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
 };
@@ -33,13 +37,17 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
       type: "popup"
     });
     dispatch({ type: actions.SIGN_IN_SUCCESS });
+    window.location.href = '/dashboard';
   } catch (e) {
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
 };
 
 export const signInWithProviderID =
-  providerID => async (firebase, dispatch) => {
+
+  (providerID) => async (firebase, dispatch) => {
+
+
     try {
       if (!["github", "twitter", "facebook"].includes(providerID)) {
         return;
@@ -50,6 +58,7 @@ export const signInWithProviderID =
         type: "popup"
       });
       dispatch({ type: actions.SIGN_IN_SUCCESS });
+      window.location.href = '/dashboard';
     } catch (e) {
       if (e.code === "auth/account-exists-with-different-credential") {
         const methods = await firebase
@@ -63,6 +72,7 @@ export const signInWithProviderID =
         });
       } else {
         dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
+
       }
     }
   };
@@ -135,15 +145,15 @@ export const verifyPasswordResetCode =
 
 export const confirmPasswordReset =
   ({ actionCode, password }) =>
-  async (firebase, dispatch) => {
-    try {
-      dispatch({ type: actions.PASSWORD_RECOVERY_START });
-      await firebase.confirmPasswordReset(actionCode, password);
-      dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
-    } catch (e) {
-      dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
-    }
-  };
+    async (firebase, dispatch) => {
+      try {
+        dispatch({ type: actions.PASSWORD_RECOVERY_START });
+        await firebase.confirmPasswordReset(actionCode, password);
+        dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
+      } catch (e) {
+        dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
+      }
+    };
 
 export const verifyEmail = actionCode => async (firebase, dispatch) => {
   try {
@@ -176,18 +186,174 @@ export const resendVerifyEmail = email => async dispatch => {
  * @param userHandle
  * @returns {function(...[*]=):boolean}
  */
-export const checkUserHandleExists = userHandle => async firebase => {
+export const checkUserHandleExists = (userHandle) => async (firebase, dispatch) => {
+
   try {
     const handle = await firebase
-      .ref(`/cl_user_handle/${userHandle}`)
-      .once("value");
-    return handle.exists();
+      .firestore()
+      .collection("cl_user")
+      .get();
+
+    const records = handle.docs.map(doc => doc.data())
+
+    let handleExists = false
+
+    records.forEach(function (record) {
+      if (userHandle == record.handle) {
+        handleExists = true
+      }
+    })
+
+    return handleExists
+
   } catch (e) {
+
     throw e.message;
   }
 };
 
-export const checkOrgHandleExists = orgHandle => async firebase => {
+
+export const checkAdminExists = (adminHandle, org_handle) => async (firebase, dispatch) => {
+  try {
+    const handle = await firebase
+      .firestore()
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("admins")
+      .get()
+
+    const records = handle.docs.map(doc => doc.data())
+    let adminHandleExists = false
+    records.forEach(function (record) {
+      if (adminHandle == record.adminHandle) {
+        adminHandleExists = true
+      }
+    })
+    return adminHandleExists
+  } catch (e) {
+    throw e.message;
+  }
+}
+
+export const areRolesMutuallyExclusive = (roleToCheck,orgUserHandle,org_handle) => async(firebase,dispatch)=>{
+  try{
+
+    const handle = await firebase
+    .firestore()
+    .collection("cl_org_general")
+    .doc(org_handle)
+    .collection(roleToCheck)
+    .get()
+
+    const records = handle.docs.map(doc => doc.data())
+
+    let roleExists = false
+    records.forEach(function (record) {
+      if(roleToCheck == "admins"){
+        if (orgUserHandle == record.adminHandle) {
+          roleExists = true
+        }
+      }else{
+        if (orgUserHandle == record.contributorHandle) {
+          roleExists = true
+        }
+      }
+    })
+
+    return roleExists
+  }
+  catch (e){
+
+    throw e.message;
+  }
+}
+
+
+export const checkContributorExists = (contributorHandle, org_handle) => async (firebase, dispatch) => {
+  try {
+
+    const handle = await firebase
+      .firestore()
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("contributors")
+      .get()
+
+    const records = handle.docs.map(doc => doc.data())
+    let contributorHandleExists = false
+    records.forEach(function (record) {
+      if (contributorHandle == record.contributorHandle) {
+        contributorHandleExists = true
+      }
+    })
+
+    return contributorHandleExists
+  } catch (e) {
+
+    throw e.message;
+  }
+}
+
+
+export const checkAdminEmail = (adminHandle,adminEmail) => async (firebase, dispatch) => {
+  try {
+
+    const email = await firebase
+      .firestore()
+      .collection("cl_user")
+      .where("handle", "==", adminHandle)
+      .get()
+    let email_registered = false
+    if (!email.empty) {
+
+      const firstDocument = email.docs[0];
+      const emailData = firstDocument.data();
+      const emailId = emailData.email;
+
+      if(emailId == adminEmail){
+        email_registered=true
+      }
+    }
+
+    return email_registered
+  } catch (e) {
+
+    throw e.message;
+  }
+}
+
+
+export const checkContributorEmail = (contributorHandle,contributorEmail) => async (firebase, dispatch) => {
+  try {
+
+    const email = await firebase
+      .firestore()
+      .collection("cl_user")
+      .where("handle", "==", contributorHandle)
+      .get()
+    let email_registered = false
+    if (!email.empty) {
+
+      const firstDocument = email.docs[0];
+      const emailData = firstDocument.data();
+      const emailId = emailData.email;
+
+      if(emailId == contributorEmail){
+        email_registered=true
+      }
+    }
+
+    return email_registered
+  } catch (e) {
+
+    throw e.message;
+  }
+}
+
+
+
+export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
+
   try {
     const organizationHandle = await firebase
       .firestore()
@@ -218,7 +384,7 @@ export const setUpInitialData =
         org_country
       } = data;
 
-      const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
+      const isUserHandleExists = await checkUserHandleExists(handle)(firebase,dispatch);
 
       if (isUserHandleExists) {
         dispatch({

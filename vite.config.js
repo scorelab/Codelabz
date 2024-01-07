@@ -17,6 +17,17 @@ export default defineConfig({
       }
     }
   },
+  resolve: {
+    alias: {
+      './runtimeConfig': './runtimeConfig.browser',
+      'jss-plugin-ven  dor-prefixer': 'jss-plugin-global' 
+    },
+  },
+  build: {
+    rollupOptions: {
+      external: ['jss-plugin-ven  dor-prefixer']
+    }
+  },
   plugins: [react()],
   server: {
     host: true
