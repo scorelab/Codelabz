@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => ({
 
   profileShareButton: {
     width: "fit-content",
-    marginLeft: "10px",
+    // marginLeft: "10px",
     height: "38px",
     minHeight: "2rem",
     background: "#FFFFFF",
@@ -105,10 +105,12 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: "500",
-    fontSize: "22px",
+    fontSize: "120%",
     lineHeight: "28px",
     color: "#000",
     border: "none",
+    display:"flex",
+    // border:"1px solid black",
     [theme.breakpoints.down(400)]: {
       width: "80px",
       fontSize: "18px"
@@ -125,10 +127,12 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: "500",
-    fontSize: "22px",
+    fontSize: "120%",
     lineHeight: "28px",
     color: "#000",
     border: "none",
+    display:"flex",
+    // border:"1px solid black",
     [theme.breakpoints.down(400)]: {
       width: "90px",
       fontSize: "18px"
@@ -137,7 +141,7 @@ const useStyles = makeStyles(theme => ({
 
   profileIconButton: {
     width: "fit-content",
-    marginLeft: "10px",
+    marginLeft: "5%",
     height: "38px",
     minHeight: "2rem",
     background: "#FFFFFF",
@@ -149,7 +153,85 @@ const useStyles = makeStyles(theme => ({
     lineHeight: "28px",
     color: "#000",
     border: "none"
+  },
+  shareContainer:{
+    width:"40%",
+    height:"50%",
+    top:"40%",
+    left:"30%",
+    // zIndex:"5",
+    background:"white",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    // box-shadow: ;
+    borderRadius:"25px",
+    position:"absolute",
+    display:"flex",
+    flexDirection:"column",
+  },
+  cancelButton:{
+    position:"relative",
+    width:"13%",
+    height:"13%",
+    marginLeft:"auto",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    borderTopRightRadius:"25px",
+    // border:"1px solid black"
+  },
+  socialIconsDiv:{
+    position:"relative",
+    marginTop:"2%",
+    width:"100%",
+    height:"50%",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    // border:"1px solid black",
+  },
+  socialIcon:{
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    // border:"1px solid black",
+    width:"40px",
+    height:"40px",
+    margin:"0 15px 0 15px",
+    borderRadius:"50px",
+    '&:hover': {
+      width:"50px",
+      height:"50px"
+    }
+  },
+  shareLinkContainer:{
+    width:"100%",
+    display:"flex",
+    height:"15%",
+    // border:"1px solid black",
+    position:"relative",
+    justifyContent:"center",
+
+    // padding:"0 2% 0 2%"
+  },
+  shareLinkContainerInput:{
+    width:"60%",
+    height:"80%",
+    marginRight:"1%",
+    textAlign:"center",
+    // border:"none",
+    position:"relative",
+  },
+  shareLinkContainerCopyButton:{
+    width:"10%",
+    height:"100%",
+    position:"relative",
+    fontSize:"70%",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    // color:"white"
   }
+
 }));
 
 export default useStyles;
