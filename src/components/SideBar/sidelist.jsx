@@ -20,8 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   listIcon: {
-    minWidth: "20px",
-    marginRight: "10px"
+    minWidth: "0px"
   },
 
   paper: {
@@ -124,7 +123,8 @@ const SideList = ({
                         fontWeight:
                           item?.id && value === item?.id ? "bold" : "normal",
                         color:
-                          item?.link == location.pathname ? "#0293d9" : "black"
+                          item?.link == location.pathname ? "#0293d9" : "black",
+                        marginLeft: item.name ? 10 : 0
                       }}
                       disableTypography
                     >

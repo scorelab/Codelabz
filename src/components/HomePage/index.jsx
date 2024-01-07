@@ -201,7 +201,7 @@ function HomePage({ background = "white", textColor = "black" }) {
       data-testId="homepage"
     >
       <Grid container justifyContent="center" className={classes.contentPart}>
-        <Grid item xs={2} className={classes.sideBody}>
+        <Grid item className={classes.sideBody}>
           {windowSize.width > 750 && (
             <Grid
               item
@@ -217,7 +217,11 @@ function HomePage({ background = "white", textColor = "black" }) {
               }}
             >
               <Grid item className={classes.outerSideBar}>
-                <SideBar open={openMenu} toggleSlider={toggleSlider} />
+                <SideBar
+                  className="sidebar"
+                  open={openMenu}
+                  toggleSlider={toggleSlider}
+                />
               </Grid>
             </Grid>
           )}
