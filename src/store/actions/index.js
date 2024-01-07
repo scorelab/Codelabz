@@ -1,4 +1,9 @@
 export {
+  areRolesMutuallyExclusive,
+  checkContributorExists,
+  checkContributorEmail,
+  checkAdminExists,
+  checkAdminEmail,
   checkOrgHandleExists,
   checkUserHandleExists,
   clearAuthError,
@@ -16,6 +21,8 @@ export {
   verifyPasswordResetCode
 } from "./authActions";
 export {
+  fetchAdmins,
+  fetchContributors,
   addOrgUser,
   clearEditGeneral,
   clearOrgData,
@@ -29,6 +36,9 @@ export {
   uploadOrgProfileImage,
   addFollower,
   removeFollower,
+  addOrgAdmins,
+  addOrgContributors,
+
   subscribeOrg,
   unSubscribeOrg
 } from "./orgActions";

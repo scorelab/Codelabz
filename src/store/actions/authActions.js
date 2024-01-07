@@ -2,7 +2,8 @@ import * as actions from "./actionTypes";
 import _ from "lodash";
 import { functions } from "../../config";
 
-export const signIn = credentials => async (firebase, dispatch) => {
+export const signIn = (credentials) => async (firebase, dispatch) => {
+
   try {
     dispatch({ type: actions.SIGN_IN_START });
     dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
@@ -13,14 +14,15 @@ export const signIn = credentials => async (firebase, dispatch) => {
       await firebase.logout();
       dispatch({
         type: actions.SET_VERIFY_EMAIL_FAIL,
-        payload: credentials.email
+        payload: credentials.email,
       });
       dispatch({
         type: actions.SIGN_IN_FAIL,
-        payload: "email-unverified"
+        payload: "email-unverified",
       });
     }
   } catch (e) {
+
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
 };
@@ -30,16 +32,18 @@ export const signInWithGoogle = () => async (firebase, dispatch) => {
     dispatch({ type: actions.SIGN_IN_START });
     await firebase.login({
       provider: "google",
-      type: "popup"
+      type: "popup",
     });
     dispatch({ type: actions.SIGN_IN_SUCCESS });
+    window.location.href = '/dashboard';
   } catch (e) {
     dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
   }
 };
 
 export const signInWithProviderID =
-  providerID => async (firebase, dispatch) => {
+  (providerID) => async (firebase, dispatch) => {
+
     try {
       if (!["github", "twitter", "facebook"].includes(providerID)) {
         return;
@@ -47,9 +51,10 @@ export const signInWithProviderID =
       dispatch({ type: actions.SIGN_IN_START });
       await firebase.login({
         provider: providerID,
-        type: "popup"
+        type: "popup",
       });
       dispatch({ type: actions.SIGN_IN_SUCCESS });
+      window.location.href = '/dashboard';
     } catch (e) {
       if (e.code === "auth/account-exists-with-different-credential") {
         const methods = await firebase
@@ -59,10 +64,11 @@ export const signInWithProviderID =
           type: actions.SIGN_IN_FAIL,
           payload: `You already have an account created using ${methods.join(
             ", "
-          )}. Log in with ${methods.join(", ")} to continue.`
+          )}. Log in with ${methods.join(", ")} to continue.`,
         });
       } else {
         dispatch({ type: actions.SIGN_IN_FAIL, payload: e });
+
       }
     }
   };
@@ -84,7 +90,7 @@ export const signOut = () => async (firebase, dispatch) => {
   }
 };
 
-export const signUp = userData => async (firebase, dispatch) => {
+export const signUp = (userData) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SIGN_UP_START });
     const { email, password } = userData;
@@ -96,12 +102,12 @@ export const signUp = userData => async (firebase, dispatch) => {
   }
 };
 
-export const clearAuthError = () => async dispatch => {
+export const clearAuthError = () => async (dispatch) => {
   dispatch({ type: actions.CLEAR_AUTH_PROFILE_STATE });
   dispatch({ type: actions.CLEAR_AUTH_VERIFY_EMAIL_STATE });
 };
 
-export const clearRecoverPasswordError = () => async dispatch => {
+export const clearRecoverPasswordError = () => async (dispatch) => {
   dispatch({ type: actions.CLEAR_AUTH_RECOVER_PASSWORD_STATE });
 };
 
@@ -112,7 +118,7 @@ export const clearRecoverPasswordError = () => async dispatch => {
  * 3. call confirmPasswordReset with actionCode and new password
  */
 
-export const sendPasswordResetEmail = email => async (firebase, dispatch) => {
+export const sendPasswordResetEmail = (email) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.SEND_RESET_EMAIL_START });
     await firebase.resetPassword(email);
@@ -123,7 +129,7 @@ export const sendPasswordResetEmail = email => async (firebase, dispatch) => {
 };
 
 export const verifyPasswordResetCode =
-  actionCode => async (firebase, dispatch) => {
+  (actionCode) => async (firebase, dispatch) => {
     try {
       dispatch({ type: actions.VERIFY_RESET_CODE_START });
       const email = await firebase.verifyPasswordResetCode(actionCode);
@@ -135,17 +141,17 @@ export const verifyPasswordResetCode =
 
 export const confirmPasswordReset =
   ({ actionCode, password }) =>
-  async (firebase, dispatch) => {
-    try {
-      dispatch({ type: actions.PASSWORD_RECOVERY_START });
-      await firebase.confirmPasswordReset(actionCode, password);
-      dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
-    } catch (e) {
-      dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
-    }
-  };
+    async (firebase, dispatch) => {
+      try {
+        dispatch({ type: actions.PASSWORD_RECOVERY_START });
+        await firebase.confirmPasswordReset(actionCode, password);
+        dispatch({ type: actions.PASSWORD_RECOVERY_SUCCESS });
+      } catch (e) {
+        dispatch({ type: actions.PASSWORD_RECOVERY_FAIL, payload: e.message });
+      }
+    };
 
-export const verifyEmail = actionCode => async (firebase, dispatch) => {
+export const verifyEmail = (actionCode) => async (firebase, dispatch) => {
   try {
     dispatch({ type: actions.EMAIL_VERIFY_START });
     await firebase.auth().applyActionCode(actionCode);
@@ -155,7 +161,7 @@ export const verifyEmail = actionCode => async (firebase, dispatch) => {
   }
 };
 
-export const resendVerifyEmail = email => async dispatch => {
+export const resendVerifyEmail = (email) => async (dispatch) => {
   try {
     dispatch({ type: actions.RESEND_VERIFY_EMAIL_START });
     dispatch({ type: actions.CLEAR_AUTH_PROFILE_STATE });
@@ -163,7 +169,7 @@ export const resendVerifyEmail = email => async dispatch => {
       "resendVerificationEmail"
     );
     await resendVerificationEmail({
-      email
+      email,
     });
     dispatch({ type: actions.RESEND_VERIFY_EMAIL_SUCCESS });
   } catch (e) {
@@ -176,18 +182,176 @@ export const resendVerifyEmail = email => async dispatch => {
  * @param userHandle
  * @returns {function(...[*]=):boolean}
  */
-export const checkUserHandleExists = userHandle => async firebase => {
+export const checkUserHandleExists = (userHandle) => async (firebase, dispatch) => {
   try {
+    dispatch({ type: actions.VERIFY_USER_HANDLE_EXISTS_START });
     const handle = await firebase
-      .ref(`/cl_user_handle/${userHandle}`)
-      .once("value");
-    return handle.exists();
+      .firestore()
+      .collection("cl_user")
+      .get();
+
+    const records = handle.docs.map(doc => doc.data())
+
+    let handleExists = false
+
+    records.forEach(function (record) {
+      if (userHandle == record.handle) {
+        handleExists = true
+      }
+    })
+    dispatch({ type: actions.VERIFY_USER_HANDLE_EXISTS_SUCCESS });
+    return handleExists
+
   } catch (e) {
+    dispatch({ type: actions.VERIFY_USER_HANDLE_EXISTS_FAIL });
     throw e.message;
   }
 };
 
-export const checkOrgHandleExists = orgHandle => async firebase => {
+export const checkAdminExists = (adminHandle, org_handle) => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.VERIFY_ADMIN_HANDLE_EXISTS_START });
+    const handle = await firebase
+      .firestore()
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("admins")
+      .get()
+
+    const records = handle.docs.map(doc => doc.data())
+    let adminHandleExists = false
+    records.forEach(function (record) {
+      if (adminHandle == record.adminHandle) {
+        adminHandleExists = true
+      }
+    })
+    dispatch({ type: actions.VERIFY_ADMIN_HANDLE_EXISTS_SUCCESS });
+    return adminHandleExists
+  } catch (e) {
+    dispatch({ type: actions.VERIFY_ADMIN_HANDLE_EXISTS_FAIL });
+    throw e.message;
+  }
+}
+
+export const areRolesMutuallyExclusive = (roleToCheck,orgUserHandle,org_handle) => async(firebase,dispatch)=>{
+  try{
+    dispatch({ type: actions.VERIFY_ROLES_ARE_MUTUALLY_EXCLUSIVE_START });
+
+    const handle = await firebase
+    .firestore()
+    .collection("cl_org_general")
+    .doc(org_handle)
+    .collection(roleToCheck)
+    .get()
+
+    const records = handle.docs.map(doc => doc.data())
+
+    let roleExists = false
+    records.forEach(function (record) {
+      if(roleToCheck == "admins"){
+        if (orgUserHandle == record.adminHandle) {
+          roleExists = true
+        }
+      }else{
+        if (orgUserHandle == record.contributorHandle) {
+          roleExists = true
+        }
+      }
+    })
+    dispatch({ type: actions.VERIFY_ROLES_ARE_MUTUALLY_EXCLUSIVE_SUCCESS });
+    return roleExists
+  }
+  catch (e){
+    dispatch({ type: actions.VERIFY_ROLES_ARE_MUTUALLY_EXCLUSIVE_FAIL });
+    throw e.message;
+  }
+}
+
+
+export const checkContributorExists = (contributorHandle, org_handle) => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.VERIFY_CONTRIBUTOR_HANDLE_EXISTS_START });
+    const handle = await firebase
+      .firestore()
+      .collection("cl_org_general")
+      .doc(org_handle)
+      .collection("contributors")
+      .get()
+
+    const records = handle.docs.map(doc => doc.data())
+    let contributorHandleExists = false
+    records.forEach(function (record) {
+      if (contributorHandle == record.contributorHandle) {
+        contributorHandleExists = true
+      }
+    })
+    dispatch({ type: actions.VERIFY_CONTRIBUTOR_HANDLE_EXISTS_SUCCESS });
+    return contributorHandleExists
+  } catch (e) {
+    dispatch({ type: actions.VERIFY_CONTRIBUTOR_HANDLE_EXISTS_FAIL });
+    throw e.message;
+  }
+}
+
+
+export const checkAdminEmail = (adminHandle,adminEmail) => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.CHECK_ADMIN_EMAIL_START });
+    const email = await firebase
+      .firestore()
+      .collection("cl_user")
+      .where("handle", "==", adminHandle)
+      .get()
+    let email_registered = false
+    if (!email.empty) {
+
+      const firstDocument = email.docs[0];
+      const emailData = firstDocument.data();
+      const emailId = emailData.email;
+
+      if(emailId == adminEmail){
+        email_registered=true
+      }
+    }
+    dispatch({ type: actions.CHECK_ADMIN_EMAIL_SUCCESS });
+    return email_registered
+  } catch (e) {
+    dispatch({ type: actions.CHECK_ADMIN_EMAIL_FAIL });
+    throw e.message;
+  }
+}
+
+
+export const checkContributorEmail = (contributorHandle,contributorEmail) => async (firebase, dispatch) => {
+  try {
+    dispatch({ type: actions.CHECK_CONTRIBUTOR_EMAIL_START });
+    const email = await firebase
+      .firestore()
+      .collection("cl_user")
+      .where("handle", "==", contributorHandle)
+      .get()
+    let email_registered = false
+    if (!email.empty) {
+
+      const firstDocument = email.docs[0];
+      const emailData = firstDocument.data();
+      const emailId = emailData.email;
+
+      if(emailId == contributorEmail){
+        email_registered=true
+      }
+    }
+    dispatch({ type: actions.CHECK_CONTRIBUTOR_EMAIL_SUCCESS });
+    return email_registered
+  } catch (e) {
+    dispatch({ type: actions.CHECK_CONTRIBUTOR_EMAIL_FAIL });
+    throw e.message;
+  }
+}
+
+
+
+export const checkOrgHandleExists = (orgHandle) => async (firebase) => {
   try {
     const organizationHandle = await firebase
       .firestore()
@@ -203,7 +367,7 @@ export const checkOrgHandleExists = orgHandle => async firebase => {
 };
 
 export const setUpInitialData =
-  data => async (firebase, firestore, dispatch) => {
+  (data) => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.INITIAL_SETUP_START });
       const userData = firebase.auth().currentUser;
@@ -215,20 +379,20 @@ export const setUpInitialData =
         org_handle,
         org_name,
         org_website,
-        org_country
+        org_country,
       } = data;
 
-      const isUserHandleExists = await checkUserHandleExists(handle)(firebase);
+      const isUserHandleExists = await checkUserHandleExists(handle)(firebase,dispatch);
 
       if (isUserHandleExists) {
         dispatch({
           type: actions.INITIAL_SETUP_FAIL,
-          payload: { message: `Handle [${handle}] is already taken` }
+          payload: { message: `Handle [${handle}] is already taken` },
         });
         return;
       }
 
-      if (orgData) {
+      if (Boolean(orgData)) {
         const isOrgHandleExists = await checkOrgHandleExists(org_handle)(
           firebase
         );
@@ -236,7 +400,7 @@ export const setUpInitialData =
         if (isOrgHandleExists) {
           dispatch({
             type: actions.INITIAL_SETUP_FAIL,
-            payload: { message: `Handle [${org_handle}] is already taken` }
+            payload: { message: `Handle [${org_handle}] is already taken` },
           });
           return;
         }
@@ -251,7 +415,7 @@ export const setUpInitialData =
             org_email: userData.email,
             org_created_date: firestore.FieldValue.serverTimestamp(),
             createdAt: firestore.FieldValue.serverTimestamp(),
-            updatedAt: firestore.FieldValue.serverTimestamp()
+            updatedAt: firestore.FieldValue.serverTimestamp(),
           }
         );
 
@@ -263,7 +427,7 @@ export const setUpInitialData =
                 handle,
                 country,
                 organizations: [org_handle],
-                updatedAt: firestore.FieldValue.serverTimestamp()
+                updatedAt: firestore.FieldValue.serverTimestamp(),
               },
               { useSet: false, merge: true }
             )
@@ -280,7 +444,7 @@ export const setUpInitialData =
             handle,
             country,
             organizations: [],
-            updatedAt: firestore.FieldValue.serverTimestamp()
+            updatedAt: firestore.FieldValue.serverTimestamp(),
           },
           { useSet: false, merge: true }
         );
