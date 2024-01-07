@@ -1,11 +1,4 @@
-import {
-  Grid,
-  Typography,
-  Avatar,
-  Button,
-  IconButton,
-  Paper
-} from "@mui/material";
+import { Grid, Typography, Button, IconButton, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import CardActions from "@mui/material/CardActions";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
@@ -13,22 +6,18 @@ import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef
-} from "react";
+import React, { useState } from "react";
 import Textbox from "./Textbox";
 import User from "../UserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
-  getCommentData,
   getCommentReply,
-  addComment
+  addComment,
+  addReply
 } from "../../../../store/actions/tutorialPageActions";
+import AddCommentFeedback from "./AddCommentFeedback";
+
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -52,27 +41,15 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Comment = ({ id }) => {
+const Comment = ({ comment }) => {
   const classes = useStyles();
   const [showReplyfield, setShowReplyfield] = useState(false);
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
+  const [open, setOpen] = useState(false);
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
-  useState(() => {
-    getCommentData(id)(firebase, firestore, dispatch);
-  }, [id]);
-
-  const commentsArray = useSelector(
-    ({
-      tutorialPage: {
-        comment: { data }
-      }
-    }) => data
-  );
-
-  const [data] = commentsArray.filter(comment => comment.comment_id == id);
 
   const repliesArray = useSelector(
     ({
@@ -82,7 +59,11 @@ const Comment = ({ id }) => {
     }) => replies
   );
 
-  const [replies] = repliesArray.filter(replies => replies.comment_id == id);
+  const [replies] = repliesArray.filter(replies => {
+    if (replies?.comment_id === comment?.comment_id) {
+      return replies;
+    }
+  });
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -96,33 +77,46 @@ const Comment = ({ id }) => {
     setAlignment(newAlignment);
   };
 
-  const handleSubmit = comment => {
+  const handleClick = async () => {
+    setShowReplyfield(true);
+    await getCommentReply(comment?.comment_id)(firebase, firestore, dispatch);
+  };
+
+  const handleSubmit = async (commentText, setCommentText) => {
     const commentData = {
-      content: comment,
-      replyTo: data.comment_id,
-      tutorial_id: data.tutorial_id,
+      content: commentText,
+      replyTo: comment?.comment_id,
+      tutorial_id: comment?.tutorial_id,
       createdAt: firestore.FieldValue.serverTimestamp(),
       userId: "codelabzuser"
     };
-    addComment(commentData)(firebase, firestore, dispatch);
+
+    if (commentData.tutorial_id === commentData.replyTo) {
+      await addComment(commentData)(firebase, firestore, dispatch);
+    } else {
+      await addReply(commentData)(firebase, firestore, dispatch);
+    }
+    setCommentText("");
+    setOpen(true);
   };
 
   return (
-    data && (
+    comment && (
       <>
         <Paper variant="outlined" className={classes.comments}>
           <Typography mb={1} sx={{ fontSize: "18px" }}>
-            {data?.content}
+            {comment?.content}
           </Typography>
           <Grid container justifyContent="space-between">
-            <User id={data?.userId} timestamp={data?.createdAt} size={"sm"} />
+            <User
+              id={comment?.userId}
+              timestamp={comment?.createdAt}
+              size={"sm"}
+            />
             <CardActions className={classes.settings} disableSpacing>
               {!showReplyfield && (
                 <Button
-                  onClick={() => {
-                    setShowReplyfield(true);
-                    getCommentReply(id)(firebase, firestore, dispatch);
-                  }}
+                  onClick={handleClick}
                   sx={{ textTransform: "none", fontSize: "12px" }}
                 >
                   {replies?.replies?.length > 0 && replies?.replies?.length}{" "}
@@ -164,11 +158,12 @@ const Comment = ({ id }) => {
         {showReplyfield && (
           <div style={{ margin: "10px 0 0 10px" }}>
             <Textbox type="reply" handleSubmit={handleSubmit} />
-            {replies?.replies.map((id, index) => {
-              return <Comment id={id} />;
+            {replies?.replies.map(reply => {
+              return <Comment comment={reply} key={reply.comment_id} />;
             })}
           </div>
         )}
+        <AddCommentFeedback open={open} setOpen={setOpen} />
       </>
     )
   );

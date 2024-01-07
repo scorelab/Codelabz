@@ -3,9 +3,15 @@ import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 import Textbox from "./Textbox";
 import Comment from "./Comment";
-import { addComment } from "../../../../store/actions/tutorialPageActions";
+import {
+  addComment,
+  getTutorialCommentsIdArray,
+  getTutorialCommentData
+} from "../../../../store/actions/tutorialPageActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
+import AddCommentFeedback from "./AddCommentFeedback";
+
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -28,22 +34,52 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const CommentBox = ({ commentsArray, tutorialId }) => {
+const CommentBox = ({ tutorialId }) => {
   const classes = useStyles();
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [currCommentCount, setCurrCommentCount] = useState(3);
-  const handleSubmit = comment => {
+
+  const commentsArray = useSelector(
+    ({
+      tutorialPage: {
+        comment: { data }
+      }
+    }) => data
+  );
+
+  useEffect(() => {
+    const getTutorialComments = async () => {
+      const tutorialCommentsIdArray = await getTutorialCommentsIdArray(
+        tutorialId
+      )(firebase, firestore);
+
+      getTutorialCommentData(tutorialCommentsIdArray)(
+        firebase,
+        firestore,
+        dispatch
+      );
+    };
+
+    getTutorialComments();
+    return () => {};
+  }, [firestore, dispatch]);
+
+  const handleSubmit = async (commentText, setCommentText) => {
     const commentData = {
-      content: comment,
+      content: commentText,
       replyTo: tutorialId,
       tutorial_id: tutorialId,
       createdAt: firestore.FieldValue.serverTimestamp(),
       userId: "codelabzuser"
     };
-    addComment(commentData)(firebase, firestore, dispatch);
+
+    await addComment(commentData)(firebase, firestore, dispatch);
+    setCommentText("");
+    setOpen(true);
   };
 
   useEffect(() => {
@@ -67,10 +103,10 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
       </Typography>
       <Textbox handleSubmit={handleSubmit} />
       <Grid container rowSpacing={2}>
-        {comments?.map((id, index) => {
+        {comments?.map(comment => {
           return (
-            <Grid item xs={12}>
-              <Comment id={id} key={index} />
+            <Grid item xs={12} key={comment.comment_id}>
+              <Comment comment={comment} />
             </Grid>
           );
         })}
@@ -85,6 +121,7 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
           )}
         </Grid>
       </Grid>
+      <AddCommentFeedback open={open} setOpen={setOpen} />
     </Card>
   );
 };

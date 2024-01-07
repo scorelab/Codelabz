@@ -112,7 +112,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
         >
           <PostDetails details={postDetails} />
           <Tutorial steps={steps} />
-          <CommentBox commentsArray={tutorial?.comments} tutorialId={id} />
+          <CommentBox tutorialId={id} />
         </Grid>
 
         <Grid
