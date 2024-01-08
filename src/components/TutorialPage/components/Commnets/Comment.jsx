@@ -56,7 +56,9 @@ const Comment = ({ id }) => {
   const classes = useStyles();
   const [showReplyfield, setShowReplyfield] = useState(false);
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
+  const [canIncrement, setCanIncrement] = useState(true);
+  const [canDecrement, setCanDecrement] = useState(true);
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -85,13 +87,20 @@ const Comment = ({ id }) => {
   const [replies] = repliesArray.filter(replies => replies.comment_id == id);
 
   const handleIncrement = () => {
-    setCount(count + 1);
+    if (canIncrement) {
+      setCount(count + 1);
+      setCanIncrement(false);
+      setCanDecrement(true);
+    }
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    if (canDecrement) {
+      setCount(count - 1);
+      setCanIncrement(true);
+      setCanDecrement(false);
+    }
   };
-
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
@@ -138,22 +147,24 @@ const Comment = ({ id }) => {
                 aria-label="text alignment"
               >
                 <ToggleButton
-                  className={classes.small}
-                  onClick={handleIncrement}
-                  value="left"
-                  aria-label="left aligned"
-                >
-                  <KeyboardArrowUpIcon />
-                  <span>{count}</span>
-                </ToggleButton>
-                <ToggleButton
-                  className={classes.small}
-                  onClick={handleDecrement}
-                  value="center"
-                  aria-label="centered"
-                >
-                  <KeyboardArrowDownIcon />
-                </ToggleButton>
+            className={classes.small}
+            disabled={!canIncrement}
+            onClick={handleIncrement}
+            value="left"
+            aria-label="left aligned"
+          >
+            <KeyboardArrowUpIcon />
+            <span>{count}</span>
+          </ToggleButton>
+          <ToggleButton
+            className={classes.small}
+            disabled={!canDecrement}
+            onClick={handleDecrement}
+            value="center"
+            aria-label="centered"
+          >
+            <KeyboardArrowDownIcon />
+          </ToggleButton>
               </ToggleButtonGroup>
               <IconButton aria-label="share" data-testId="MoreIcon">
                 <MoreVertOutlinedIcon />

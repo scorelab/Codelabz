@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
+import TurnedInOutlinedIcon from "@mui/icons-material/TurnedInOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
@@ -38,8 +39,63 @@ const useStyles = makeStyles(() => ({
   },
   bold: {
     fontWeight: "600"
-  }
+  },
+  chatoutlined:{
+    color: "#6e6e6e"
+  },
+  modal: {
+    opacity: 0.7,
+    display: "none", // initial display state
+    position: "absolute",
+    top: "14vh",
+    left: "62vw",
+    transform: "translate(-50%, -50%)",
+    padding: "2px",
+    backgroundColor: "white",
+    border: "1px solid #ccc",
+    borderRadius: "15px",
+    minWidth: "70px",
+    textAlign: "center",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    zIndex: 1000,
+    },
+    modal1: {
+      opacity: 0.7,
+      left: "64vw",
+      display: "none", // initial display state
+      position: "absolute",
+      top: "14vh",
+      transform: "translate(-50%, -50%)",
+      padding: "2px",
+      backgroundColor: "white",
+      border: "1px solid #ccc",
+      borderRadius: "15px",
+      minWidth: "70px",
+      textAlign: "center",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      zIndex: 1000,
+  
+    },
+    modal2: {
+      opacity: 0.7,
+      left: "67vw",
+      display: "none", // initial display state
+      position: "absolute",
+      top: "14vh",
+      transform: "translate(-50%, -50%)",
+      padding: "2px",
+      backgroundColor: "white",
+      border: "1px solid #ccc",
+      borderRadius: "15px",
+      minWidth: "70px",
+      textAlign: "center",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      zIndex: 1000,
+  
+    }
 }));
+
+
 
 const PostDetails = ({ details }) => {
   const dispatch = useDispatch();
@@ -47,8 +103,51 @@ const PostDetails = ({ details }) => {
   const firestore = useFirestore();
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(details.upVote - details.downVote || 0);
+  const [canIncrement, setCanIncrement] = useState(true);
+  const [canDecrement, setCanDecrement] = useState(true);
+
   const { id } = useParams();
 
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [turnedIn, setTurnedIn] = useState(false);
+
+  const handleTurnedIn = () => {
+    setTurnedIn(!turnedIn);
+  }
+
+  const handleMouseEnter = buttonType => {
+    switch (buttonType) {
+      case "Chat":
+        setIsChatModalOpen(true);
+        break;
+      case "Save":
+        setIsSaveModalOpen(true);
+        break;
+      case "Share":
+        setIsShareModalOpen(true);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleMouseLeave = buttonType => {
+    switch (buttonType) {
+      case "Chat":
+        setIsChatModalOpen(false);
+        break;
+      case "Save":
+        setIsSaveModalOpen(false);
+        break;
+      case "Share":
+        setIsShareModalOpen(false);
+        break;
+      default:
+        break;
+    }
+  }; 
   useEffect(() => {
     getUserProfileData(details.user)(firebase, firestore, dispatch);
   }, [details]);
@@ -134,20 +233,46 @@ const PostDetails = ({ details }) => {
                         <KeyboardArrowDownIcon />
                       </ToggleButton>
                     </ToggleButtonGroup>
+                    <div className={classes.modal} style={{ display: isChatModalOpen ? "block" : "none" }}>
+        <p>Comments</p>
+      </div>
+
+      <div className={classes.modal1} style={{ display: isSaveModalOpen ? "block" : "none" }}>
+        <p>Share</p>
+      </div>
+
+      <div className={classes.modal2} style={{ display: isShareModalOpen ? "block" : "none" }}>
+        <p>Save</p>
+      </div>
                     <HashLink to={`/tutorial/${id}#comments`}>
-                      <IconButton aria-label="share" data-testId="CommentIcon">
-                        <ChatOutlinedIcon />
-                      </IconButton>
+                    <IconButton
+          aria-label="share"
+          data-testId="CommentIcon"
+          className={classes.chatoutlined}
+          onMouseEnter={() => handleMouseEnter("Chat")}
+          onMouseLeave={() => handleMouseLeave("Chat")}
+        >
+          <ChatOutlinedIcon />
+        </IconButton>
                     </HashLink>
                     <IconButton
-                      aria-label="add to favorites"
-                      data-testId="ShareIcon"
-                    >
-                      <ShareOutlinedIcon />
-                    </IconButton>
-                    <IconButton aria-label="share" data-testId="NotifIcon">
-                      <TurnedInNotOutlinedIcon />
-                    </IconButton>
+          aria-label="add to favorites"
+          data-testId="ShareIcon"
+          onMouseEnter={() => handleMouseEnter("Save")}
+          onMouseLeave={() => handleMouseLeave("Save")}
+        >
+          <ShareOutlinedIcon />
+        </IconButton>
+
+        <IconButton
+          aria-label="share"
+          data-testId="NotifIcon"
+          onMouseEnter={() => handleMouseEnter("Share")}
+          onMouseLeave={() => handleMouseLeave("Share")}
+          onClick={handleTurnedIn}
+        >
+          {turnedIn ? <TurnedInOutlinedIcon /> : <TurnedInNotOutlinedIcon />}
+        </IconButton>
                     <IconButton aria-label="share" data-testId="MoreIcon">
                       <MoreVertOutlinedIcon />
                     </IconButton>

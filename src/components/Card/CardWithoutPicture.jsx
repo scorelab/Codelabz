@@ -13,6 +13,7 @@ import Chip from "@mui/material/Chip";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
+import TurnedInOutlinedIcon from "@mui/icons-material/TurnedInOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
@@ -62,22 +63,124 @@ const useStyles = makeStyles(theme => ({
   },
   settings: {
     flexWrap: "wrap"
-  }
-}));
+  },
+  modal: {
+    opacity: 0.7,
+    display: "none", // initial display state
+    position: "absolute",
+    top: "50vh",
+    left: "62vw",
+    transform: "translate(-50%, -50%)",
+    padding: "2px",
+    backgroundColor: "white",
+    border: "1px solid #ccc",
+    borderRadius: "15px",
+    minWidth: "70px",
+    textAlign: "center",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    zIndex: 1000,
+    },
+    modal1: {
+      ...modal,
+      
+      top: "50vh",
+      transform: "translate(-50%, -50%)",
+      padding: "2px",
+      backgroundColor: "white",
+      border: "1px solid #ccc",
+      borderRadius: "15px",
+      minWidth: "70px",
+      textAlign: "center",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      zIndex: 1000,
+  
+    },
+    modal2: {
+      opacity: 0.7,
+      left: "67vw",
+      display: "none", // initial display state
+      position: "absolute",
+      top: "50vh",
+      transform: "translate(-50%, -50%)",
+      padding: "2px",
+      backgroundColor: "white",
+      border: "1px solid #ccc",
+      borderRadius: "15px",
+      minWidth: "70px",
+      textAlign: "center",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      zIndex: 1000,
+  
+    },
+  }));
 
 export default function CardWithoutPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
+  const [canIncrement, setCanIncrement] = useState(true);
+  const [canDecrement, setCanDecrement] = useState(true);
+  const [turnedIn, setTurnedIn] = useState(false);
+
+
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
+
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const handleMouseEnter = buttonType => {
+    switch (buttonType) {
+      case "Chat":
+        setIsChatModalOpen(true);
+        break;
+      case "Save":
+        setIsSaveModalOpen(true);
+        break;
+      case "Share":
+        setIsShareModalOpen(true);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleMouseLeave = buttonType => {
+    switch (buttonType) {
+      case "Chat":
+        setIsChatModalOpen(false);
+        break;
+      case "Save":
+        setIsSaveModalOpen(false);
+        break;
+      case "Share":
+        setIsShareModalOpen(false);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleTurnedIn = () => {
+    setTurnedIn(!turnedIn);
+  }
+
   const handleIncrement = () => {
-    setCount(count + 1);
+    if (canIncrement) {
+      setCount(count + 1);
+      setCanIncrement(false);
+      setCanDecrement(true);
+    }
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    if (canDecrement) {
+      setCount(count -1);
+      setCanIncrement(true);
+      setCanDecrement(false);
+    }
   };
 
   const handleAlignment = (event, newAlignment) => {
@@ -160,6 +263,17 @@ export default function CardWithoutPicture({ tutorial }) {
           </Typography>
         </CardContent>
       </Link>
+      <div className={classes.modal} style={{ display: isChatModalOpen ? "block" : "none" }}>
+        <p>Comments</p>
+      </div>
+
+      <div className={classes.modal1} style={{ display: isSaveModalOpen ? "block" : "none" }}>
+        <p>Share</p>
+      </div>
+
+      <div className={classes.modal2} style={{ display: isShareModalOpen ? "block" : "none" }}>
+        <p>Save</p>
+      </div>
       <CardActions className={classes.settings} disableSpacing>
         <Chip
           label="HTML"
@@ -188,6 +302,7 @@ export default function CardWithoutPicture({ tutorial }) {
         >
           <ToggleButton
             className={classes.small}
+            disabled={!canIncrement}
             onClick={handleIncrement}
             value="left"
             aria-label="left aligned"
@@ -197,6 +312,7 @@ export default function CardWithoutPicture({ tutorial }) {
           </ToggleButton>
           <ToggleButton
             className={classes.small}
+            disabled={!canDecrement}
             onClick={handleDecrement}
             value="center"
             aria-label="centered"
@@ -204,14 +320,34 @@ export default function CardWithoutPicture({ tutorial }) {
             <KeyboardArrowDownIcon />
           </ToggleButton>
         </ToggleButtonGroup>
-        <IconButton aria-label="share" data-testId="CommentIcon">
+        
+        <IconButton
+          aria-label="share"
+          data-testId="CommentIcon"
+          className={classes.chatoutlined}
+          onMouseEnter={() => handleMouseEnter("Chat")}
+          onMouseLeave={() => handleMouseLeave("Chat")}
+        >
           <ChatOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="add to favorites" data-testId="ShareIcon">
+
+        <IconButton
+          aria-label="add to favorites"
+          data-testId="ShareIcon"
+          onMouseEnter={() => handleMouseEnter("Save")}
+          onMouseLeave={() => handleMouseLeave("Save")}
+        >
           <ShareOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="share" data-testId="NotifIcon">
-          <TurnedInNotOutlinedIcon />
+
+        <IconButton
+          aria-label="share"
+          data-testId="NotifIcon"
+          onMouseEnter={() => handleMouseEnter("Share")}
+          onMouseLeave={() => handleMouseLeave("Share")}
+          onClick={handleTurnedIn}
+        >
+          {turnedIn ? <TurnedInOutlinedIcon /> : <TurnedInNotOutlinedIcon />}
         </IconButton>
         <IconButton aria-label="share" data-testId="MoreIcon">
           <MoreVertOutlinedIcon />
