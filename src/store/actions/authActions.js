@@ -162,9 +162,11 @@ export const resendVerifyEmail = email => async dispatch => {
     const resendVerificationEmail = functions.httpsCallable(
       "resendVerificationEmail"
     );
-    await resendVerificationEmail({
+    
+    const res = await resendVerificationEmail({
       email
     });
+    console.log(resendVerificationEmail,res)
     dispatch({ type: actions.RESEND_VERIFY_EMAIL_SUCCESS });
   } catch (e) {
     dispatch({ type: actions.RESEND_VERIFY_EMAIL_FAIL, payload: e.message });
