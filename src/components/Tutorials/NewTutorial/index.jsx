@@ -46,7 +46,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const [formValue, setformValue] = useState({
     title: "",
     summary: "",
-    owner: ""
+    owner: "",
+    featured_image: null
   });
 
   const loadingProp = useSelector(
@@ -125,7 +126,6 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       is_org: userHandle !== formValue.owner,
       completed: false
     };
-    console.log(tutorialData);
     createTutorial(tutorialData)(firebase, firestore, dispatch, history);
   };
 
@@ -142,6 +142,15 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     setformValue(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handleImageChange = e => {
+    const imageFile = e.target.files[0];
+
+    setformValue(prev => ({
+      ...prev,
+      featured_image: imageFile
     }));
   };
 
@@ -226,7 +235,15 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             style={{ marginBottom: "2rem" }}
           />
 
-          <IconButton>
+          <IconButton component="label" htmlFor="fileInput">
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              onChange={e => handleImageChange(e)}
+              disableUnderline
+              style={{ display: "none" }}
+            />
             <ImageIcon />
           </IconButton>
           <IconButton>

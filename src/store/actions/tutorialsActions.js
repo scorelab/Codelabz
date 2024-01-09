@@ -122,13 +122,26 @@ export const createTutorial =
   tutorialData => async (firebase, firestore, dispatch, history) => {
     try {
       dispatch({ type: actions.CREATE_TUTORIAL_START });
-      const { title, summary, owner, created_by, is_org } = tutorialData;
+      const { title, summary, owner, created_by, is_org, featured_image } =
+        tutorialData;
 
       const setData = async () => {
         const document = firestore.collection("tutorials").doc();
 
         const documentID = document.id;
         const step_id = `${documentID}_${new Date().getTime()}`;
+
+        let imageUrl = "";
+        if (featured_image) {
+          try {
+            const storageRef = firebase.storage().ref();
+            const imageRef = storageRef.child(`tutorial_images/${documentID}_${featured_image.name}`);
+            await imageRef.put(featured_image);
+            imageUrl = await imageRef.getDownloadURL();
+          } catch (error) {
+            console.error('Error uploading image to Firebase Storage:', error);
+          }
+        }
 
         await document.set({
           created_by,
@@ -138,7 +151,7 @@ export const createTutorial =
           summary,
           title,
           tutorial_id: documentID,
-          featured_image: "",
+          featured_image: imageUrl,
           icon: "",
           url: "",
           background_color: "#ffffff",
@@ -230,36 +243,36 @@ export const getCurrentTutorialData =
 
 export const addNewTutorialStep =
   ({ owner, tutorial_id, title, time, id }) =>
-    async (firebase, firestore, dispatch) => {
-      try {
-        dispatch({ type: actions.CREATE_TUTORIAL_STEP_START });
+  async (firebase, firestore, dispatch) => {
+    try {
+      dispatch({ type: actions.CREATE_TUTORIAL_STEP_START });
 
-        await firestore
-          .collection("tutorials")
-          .doc(tutorial_id)
-          .collection("steps")
-          .doc(id)
-          .set({
-            content: `Switch to editor mode to begin <b>${title}</b> step`,
-            id,
-            time,
-            title,
-            visibility: true,
-            deleted: false
-          });
+      await firestore
+        .collection("tutorials")
+        .doc(tutorial_id)
+        .collection("steps")
+        .doc(id)
+        .set({
+          content: `Switch to editor mode to begin <b>${title}</b> step`,
+          id,
+          time,
+          title,
+          visibility: true,
+          deleted: false
+        });
 
-        await getCurrentTutorialData(owner, tutorial_id)(
-          firebase,
-          firestore,
-          dispatch
-        );
+      await getCurrentTutorialData(owner, tutorial_id)(
+        firebase,
+        firestore,
+        dispatch
+      );
 
-        dispatch({ type: actions.CREATE_TUTORIAL_STEP_SUCCESS });
-      } catch (e) {
-        console.log("CREATE_TUTORIAL_STEP_FAIL", e.message);
-        dispatch({ type: actions.CREATE_TUTORIAL_STEP_FAIL, payload: e.message });
-      }
-    };
+      dispatch({ type: actions.CREATE_TUTORIAL_STEP_SUCCESS });
+    } catch (e) {
+      console.log("CREATE_TUTORIAL_STEP_FAIL", e.message);
+      dispatch({ type: actions.CREATE_TUTORIAL_STEP_FAIL, payload: e.message });
+    }
+  };
 
 export const clearCreateTutorials = () => dispatch =>
   dispatch({ type: actions.CLEAR_CREATE_TUTORIALS_STATE });
@@ -305,78 +318,78 @@ export const setCurrentStepContent =
 
 export const hideUnHideStep =
   (owner, tutorial_id, step_id, visibility) =>
-    async (firebase, firestore, dispatch) => {
-      try {
-        /* not being used */
-        // const type = await checkUserOrOrgHandle(owner)(firebase);
-        await firestore
-          .collection("tutorials")
-          .doc(tutorial_id)
-          .collection("steps")
-          .doc(step_id)
-          .update({
-            [`visibility`]: !visibility,
-            updatedAt: firestore.FieldValue.serverTimestamp()
-          });
+  async (firebase, firestore, dispatch) => {
+    try {
+      /* not being used */
+      // const type = await checkUserOrOrgHandle(owner)(firebase);
+      await firestore
+        .collection("tutorials")
+        .doc(tutorial_id)
+        .collection("steps")
+        .doc(step_id)
+        .update({
+          [`visibility`]: !visibility,
+          updatedAt: firestore.FieldValue.serverTimestamp()
+        });
 
-        await getCurrentTutorialData(owner, tutorial_id)(
-          firebase,
-          firestore,
-          dispatch
-        );
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+      await getCurrentTutorialData(owner, tutorial_id)(
+        firebase,
+        firestore,
+        dispatch
+      );
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
 export const publishUnpublishTutorial =
   (owner, tutorial_id, isPublished) =>
-    async (firebase, firestore, dispatch) => {
-      try {
-        await firestore
-          .collection("tutorials")
-          .doc(tutorial_id)
-          .update({
-            ["isPublished"]: !isPublished
-          });
+  async (firebase, firestore, dispatch) => {
+    try {
+      await firestore
+        .collection("tutorials")
+        .doc(tutorial_id)
+        .update({
+          ["isPublished"]: !isPublished
+        });
 
-        getCurrentTutorialData(owner, tutorial_id)(firebase, firestore, dispatch);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+      getCurrentTutorialData(owner, tutorial_id)(firebase, firestore, dispatch);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
 export const removeStep =
   (owner, tutorial_id, step_id, current_step_no) =>
-    async (firebase, firestore, dispatch) => {
-      try {
-        await firestore
-          .collection("tutorials")
-          .doc(tutorial_id)
-          .collection("steps")
-          .doc(step_id)
-          .delete()
+  async (firebase, firestore, dispatch) => {
+    try {
+      await firestore
+        .collection("tutorials")
+        .doc(tutorial_id)
+        .collection("steps")
+        .doc(step_id)
+        .delete();
 
-        // const data = await firestore
-        //   .collection("tutorials")
-        //   .doc(tutorial_id)
-        //   .collection("steps")
-        //   .doc(step_id)
-        //   .get();
+      // const data = await firestore
+      //   .collection("tutorials")
+      //   .doc(tutorial_id)
+      //   .collection("steps")
+      //   .doc(step_id)
+      //   .get();
 
-        await setCurrentStepNo(
-          current_step_no > 0 ? current_step_no - 1 : current_step_no
-        )(dispatch);
+      await setCurrentStepNo(
+        current_step_no > 0 ? current_step_no - 1 : current_step_no
+      )(dispatch);
 
-        await getCurrentTutorialData(owner, tutorial_id)(
-          firebase,
-          firestore,
-          dispatch
-        );
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+      await getCurrentTutorialData(owner, tutorial_id)(
+        firebase,
+        firestore,
+        dispatch
+      );
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
 export const setCurrentStep = data => async dispatch =>
   dispatch({ type: actions.SET_EDITOR_DATA, payload: data });
@@ -465,69 +478,69 @@ export const remoteTutorialImages =
 
 export const updateStepTitle =
   (owner, tutorial_id, step_id, step_title) =>
-    async (firebase, firestore, dispatch) => {
-      try {
-        const dbPath = `tutorials/${tutorial_id}/steps`;
-        await firestore
-          .collection(dbPath)
-          .doc(step_id)
-          .update({
-            [`title`]: step_title,
-            updatedAt: firestore.FieldValue.serverTimestamp()
-          });
-
-        await getCurrentTutorialData(owner, tutorial_id)(
-          firebase,
-          firestore,
-          dispatch
-        );
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-export const updateStepTime =
-  (owner, tutorial_id, step_id, step_time) =>
-    async (firebase, firestore, dispatch) => {
-      try {
-        const dbPath = `tutorials/${tutorial_id}/steps`;
-
-        await firestore
-          .collection(dbPath)
-          .doc(step_id)
-          .update({
-            [`time`]: step_time,
-            updatedAt: firestore.FieldValue.serverTimestamp()
-          });
-
-        await getCurrentTutorialData(owner, tutorial_id)(
-          firebase,
-          firestore,
-          dispatch
-        );
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-
-export const setTutorialTheme =
-  ({ tutorial_id, owner, bgColor, textColor }) =>
-    async (firebase, firestore, dispatch) => {
-      try {
-        const dbPath = `tutorials`;
-
-        await firestore.collection(dbPath).doc(tutorial_id).update({
-          text_color: textColor,
-          background_color: bgColor,
+  async (firebase, firestore, dispatch) => {
+    try {
+      const dbPath = `tutorials/${tutorial_id}/steps`;
+      await firestore
+        .collection(dbPath)
+        .doc(step_id)
+        .update({
+          [`title`]: step_title,
           updatedAt: firestore.FieldValue.serverTimestamp()
         });
 
-        await getCurrentTutorialData(owner, tutorial_id)(
-          firebase,
-          firestore,
-          dispatch
-        );
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+      await getCurrentTutorialData(owner, tutorial_id)(
+        firebase,
+        firestore,
+        dispatch
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const updateStepTime =
+  (owner, tutorial_id, step_id, step_time) =>
+  async (firebase, firestore, dispatch) => {
+    try {
+      const dbPath = `tutorials/${tutorial_id}/steps`;
+
+      await firestore
+        .collection(dbPath)
+        .doc(step_id)
+        .update({
+          [`time`]: step_time,
+          updatedAt: firestore.FieldValue.serverTimestamp()
+        });
+
+      await getCurrentTutorialData(owner, tutorial_id)(
+        firebase,
+        firestore,
+        dispatch
+      );
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+export const setTutorialTheme =
+  ({ tutorial_id, owner, bgColor, textColor }) =>
+  async (firebase, firestore, dispatch) => {
+    try {
+      const dbPath = `tutorials`;
+
+      await firestore.collection(dbPath).doc(tutorial_id).update({
+        text_color: textColor,
+        background_color: bgColor,
+        updatedAt: firestore.FieldValue.serverTimestamp()
+      });
+
+      await getCurrentTutorialData(owner, tutorial_id)(
+        firebase,
+        firestore,
+        dispatch
+      );
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
