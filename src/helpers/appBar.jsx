@@ -107,19 +107,20 @@ const CodeLabzAppBar = () => {
   const authed = useAuthStatus();
   const classes = useStyles();
 
-  if (authed) {
-    return (
-      <div className={classes.grow} data-testId="navbarloggedIn">
-        <MainNavbar />
-      </div>
-    );
-  } else {
-    return (
-      <div className={classes.grow} data-testId="navbarNonloggedIn">
-        <MiniNavbar />
-      </div>
-    );
-  }
+
+	if (authed) {
+		return (
+			<div className={classes.grow} data-testid="navbarloggedIn">
+				<MainNavbar />
+			</div>
+		);
+	} else {
+		return (
+			<div className={classes.grow} data-testid="navbarNonloggedIn">
+				<MiniNavbar />
+			</div>
+		);
+	}
 };
 
 export default CodeLabzAppBar;

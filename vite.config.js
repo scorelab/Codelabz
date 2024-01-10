@@ -15,14 +15,19 @@ export default defineConfig({
           "@border-radius-base": "5px"
         }
       }
+
+    }
+  },
+  resolve: {
+    alias: {
+      './runtimeConfig': './runtimeConfig.browser',
+      'jss-plugin-ven  dor-prefixer': 'jss-plugin-global' // Add the actual path to the module in your project here
+    },
+  },
+  build: {
+    rollupOptions: {
+      external: ['jss-plugin-ven  dor-prefixer'] // Add the module here
     }
   },
   plugins: [react()],
-  server: {
-    host: true
-  },
-  define: {
-    // Some libraries use the global object, even though it doesn't exist in the browser.
-    global: {}
-  }
-});
+})

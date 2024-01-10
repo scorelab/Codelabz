@@ -172,7 +172,7 @@ function General() {
     setOrgData({ ...OrgData, [name]: event.target.value });
   };
 
-  console.log(OrgData);
+  // console.log(OrgData);
 
   const saveImage = (canvas, crop) => {
     if (!crop || !canvas) {
@@ -217,7 +217,7 @@ function General() {
     CurrentOrg
   ]);
 
-  console.log(OrgData);
+  // console.log(OrgData);
   return (
     <React.Fragment>
       <div data-testid="organization-general-page">

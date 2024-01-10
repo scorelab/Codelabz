@@ -49,7 +49,11 @@ const Login = ({
   const loadingProp = useSelector(({ auth }) => auth.profile.loading);
   const dispatch = useDispatch();
 
-  useEffect(() => setError(errorProp), [errorProp]);
+  useEffect(() => {
+    if (errorProp){
+    setError('Login Cancelled !');
+    }
+  }, [errorProp]);
   useEffect(() => setLoading(loadingProp), [loadingProp]);
 
   useEffect(
@@ -119,7 +123,7 @@ const Login = ({
       raised
       className={`${classes.card}   `}
       style={{ background: background }}
-      data-testId="login"
+      data-testid="login"
     >
       <CardContent>
         <Typography
@@ -129,6 +133,11 @@ const Login = ({
           {loginText}
         </Typography>
         <ViewAlerts error={error} email={email} />
+        {/* {error ? ( 
+          <ViewAlerts error={error} email={email} /> 
+        ):(
+          <ViewAlerts error={''} email={email} /> 
+        )} */}
         <div>
           <TextField
             error={emailValidateError}

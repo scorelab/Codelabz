@@ -123,7 +123,7 @@ const EditControls = ({
       >
         <Button
           color="info"
-          data-testid="addNewStep"
+          data-testId="addNewStep"
           variant="contained"
           sx={{
             boxShadow: "none",
