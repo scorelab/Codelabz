@@ -62,6 +62,26 @@ const CommentReducer = (state = initialState, { type, payload }) => {
         error: payload
       };
 
+      case actions.ADD_COMMENT_LIKE_START:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case actions.ADD_COMMENT_LIKE_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
+
+    case actions.ADD_COMMENT_LIKE_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: payload
+      };
+      
+
     default:
       return state;
   }

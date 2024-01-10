@@ -27,8 +27,13 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
   getCommentData,
   getCommentReply,
-  addComment
+  addComment,
+  addCommentLike,
+  addcommentlikestatus,
+  fetchLikeStatus
 } from "../../../../store/actions/tutorialPageActions";
+import { get, set } from "lodash";
+
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -56,23 +61,72 @@ const Comment = ({ id }) => {
   const classes = useStyles();
   const [showReplyfield, setShowReplyfield] = useState(false);
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true); 
+  const [isLiked, setIsLiked] = useState(0);
   useState(() => {
     getCommentData(id)(firebase, firestore, dispatch);
   }, [id]);
 
+  let d=useSelector(
+    (state)=>{
+      return state.tutorialPage.comment.data;
+    }
+  );
+  console.log("d",d);
+  useEffect(() => {
+    
+    let [da] = d.filter((item) => item.comment_id === id);
+    console.log("d after", da);
+  
+    if (da) {
+      setCount(da.upvotes - da.downvotes);
+    } else {
+      console.log("No matching data found for comment_id:", id);
+      
+    }
+  }, [d, id]);
+
+  useEffect(() => {
+    const getLikeStatus = async () => {
+      try {
+       
+        setIsLoading(true);
+
+        const status = await fetchLikeStatus(id, firebase.auth().currentUser.uid)(firebase, firestore);
+        console.log("status", status);
+        setIsLiked(status);
+      } catch (error) {
+        console.error('Failed to fetch like status:', error);
+      } finally {
+        
+        setIsLoading(false);
+      }
+    };
+
+    if (firebase.auth().currentUser) {
+      getLikeStatus();
+    }
+  }, [id, firebase, firestore]);
+
+  
+  
+  
   const commentsArray = useSelector(
     ({
       tutorialPage: {
         comment: { data }
       }
     }) => data
-  );
+    );
+
+
 
   const [data] = commentsArray.filter(comment => comment.comment_id == id);
+
 
   const repliesArray = useSelector(
     ({
@@ -84,12 +138,46 @@ const Comment = ({ id }) => {
 
   const [replies] = repliesArray.filter(replies => replies.comment_id == id);
 
-  const handleIncrement = () => {
-    setCount(count + 1);
+  const handleIncrement = async () => {
+    if(isLiked==0){
+      setIsLiked(n=>n+1);
+      setCount(count=>count + 1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,1)(firebase, firestore, dispatch);
+      await addCommentLike(id,1,0)(firebase, firestore, dispatch);
+    }
+    else if(isLiked==-1){
+      setIsLiked(n=>n+2);
+      setCount(count=>count + 2);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,1)(firebase, firestore, dispatch);
+      await addCommentLike(id,1,-1)(firebase, firestore, dispatch);
+    }
+    else{
+      setIsLiked(n=>n-1);
+      setCount(count=>count - 1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,0)(firebase, firestore, dispatch);
+      await addCommentLike(id,-1,0)(firebase, firestore, dispatch);
+    }
   };
 
-  const handleDecrement = () => {
-    setCount(count - 1);
+  const handleDecrement = async () => {
+    if(isLiked==0){
+      setIsLiked(n=>n-1);
+      setCount(count=>count - 1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,-1)(firebase, firestore, dispatch);
+      await addCommentLike(id,0,1)(firebase, firestore, dispatch);
+    }
+    else if(isLiked==1){
+      setIsLiked(n=>n-2);
+      setCount(count=>count - 2);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,-1)(firebase, firestore, dispatch);
+      await addCommentLike(id,-1,1)(firebase, firestore, dispatch);
+    }
+    else{
+      setIsLiked(n=>n+1);
+      setCount(count=>count +1);
+      await addcommentlikestatus(id,firebase.auth().currentUser.uid,0)(firebase, firestore, dispatch);
+      await addCommentLike(id,0,-1)(firebase, firestore, dispatch);
+    }
   };
 
   const handleAlignment = (event, newAlignment) => {
@@ -102,14 +190,20 @@ const Comment = ({ id }) => {
       replyTo: data.comment_id,
       tutorial_id: data.tutorial_id,
       createdAt: firestore.FieldValue.serverTimestamp(),
-      userId: "codelabzuser"
+      userId: "codelabzuser",
+      upvotes:0,
+      downvotes:0
     };
     addComment(commentData)(firebase, firestore, dispatch);
   };
+  if (isLoading) {
+    return <div>Loading...</div>; 
+  }
 
   return (
-    data && (
+    data  && (
       <>
+      {console.log("status",isLiked)}
         <Paper variant="outlined" className={classes.comments}>
           <Typography mb={1} sx={{ fontSize: "18px" }}>
             {data?.content}

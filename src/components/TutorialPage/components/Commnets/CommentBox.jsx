@@ -41,7 +41,9 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
       replyTo: tutorialId,
       tutorial_id: tutorialId,
       createdAt: firestore.FieldValue.serverTimestamp(),
-      userId: "codelabzuser"
+      userId: "codelabzuser",
+      upvotes: 0,
+      downvotes: 0
     };
     addComment(commentData)(firebase, firestore, dispatch);
   };

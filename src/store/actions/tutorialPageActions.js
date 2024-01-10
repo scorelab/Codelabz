@@ -159,12 +159,14 @@ export const getCommentData =
         .doc(commentId)
         .get();
       const comment = data.data();
+      
       dispatch({ type: actions.GET_COMMENT_DATA_SUCCESS, payload: comment });
     } catch (e) {
       dispatch({ type: actions.GET_COMMENT_DATA_FAIL });
       console.log(e);
     }
   };
+
 
 export const getCommentReply =
   commentId => async (firebase, firestore, dispatch) => {
@@ -216,5 +218,75 @@ export const addComment = comment => async (firebase, firestore, dispatch) => {
       });
   } catch (e) {
     dispatch({ type: actions.ADD_COMMENT_FAILED, payload: e.message });
+  }
+};
+
+export const addCommentLike = (id,upvote,downvote) => async (firebase, firestore, dispatch) => {
+  try {
+    dispatch({ type: actions.ADD_COMMENT_LIKE_START });
+    const ref=await firestore
+      .collection("cl_comments")
+      .doc(id)
+      .update({
+        upvotes: firebase.firestore.FieldValue.increment(upvote),
+        downvotes: firebase.firestore.FieldValue.increment(downvote)
+      })
+      .then(() => {
+        dispatch({ type: actions.ADD_COMMENT_LIKE_SUCCESS });
+      });
+  } catch (e) {
+    dispatch({ type: actions.ADD_COMMENT_LIKE_FAILED, payload: e.message });
+  }
+}
+
+export const addcommentlikestatus=(id,uid,likestatus)=>async(firebase,firestore,dispatch)=>{
+  try{
+    const ref=await firestore.collection("comment_likes").doc(`${id}_${uid}`).set({
+      comment_id:id,
+      user_id:uid,
+      likestatus:likestatus,
+      timestamp:firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
+// export const ftechlikestatus=(id,uid)=>async(firebase,firestore,dispatch)=>{
+//   try{
+//     const ref=await firestore.collection("comment_likes").doc(id+"_"+uid).get()
+//     if(ref.exists){
+//       return ref.data().likestatus
+//     }
+//     else{
+//       return false
+//     }
+//   }
+//   catch(e){
+//     console.log(e)
+//   }
+// }
+
+export const fetchLikeStatus = async (commentId, userId, firestore) => {
+  const docId = `${commentId}_${userId}`;
+  console.log(`Fetching like status for document ID: ${docId}`); 
+
+  try {
+    const docRef = firestore.collection("comment_likes").doc(docId);
+    const docSnapshot = await docRef.get();
+
+    console.log(`Document exists: ${docSnapshot.exists}`, docSnapshot.data());
+
+    if (docSnapshot.exists && docSnapshot.data().hasOwnProperty('likestatus')) {
+      
+      return docSnapshot.data().likestatus;
+    } else {
+      
+      return 0;
+    }
+  } catch (error) {
+    console.error('Error fetching like status:', error);
+    return 0;
   }
 };
