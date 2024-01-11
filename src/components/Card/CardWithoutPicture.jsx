@@ -99,7 +99,6 @@ export default function CardWithoutPicture({ tutorial }) {
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();
   };
-
   return (
     <Card className={classes.root} data-testId="codelabz">
       <CardHeader
@@ -208,7 +207,7 @@ export default function CardWithoutPicture({ tutorial }) {
           <ChatOutlinedIcon />
         </IconButton>
         <IconButton aria-label="add to favorites" data-testId="ShareIcon">
-          <ShareOutlinedIcon />
+          <ShareOutlinedIcon/>
         </IconButton>
         <IconButton aria-label="share" data-testId="NotifIcon">
           <TurnedInNotOutlinedIcon />
