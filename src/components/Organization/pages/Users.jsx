@@ -2,6 +2,12 @@ import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import Orgusers from "../OrgUsers/OrgUsers";
+import AddContributor from "../OrgUsers/AddNewUser/addNewContributorModal";
+import AddAdmin from "../OrgUsers/AddNewUser/addNewAdminModal";
+import { useState } from "react";
+
+
+import RemoveUser from "../OrgUsers/RemoveUser";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +21,28 @@ const useStyles = makeStyles(theme => ({
 
 function Users() {
   const classes = useStyles();
+  const [modalOpenAdmin, setModalOpenAdmin] = useState(false);
+  const [modalOpenContr, setModalOpenContr] = useState(false);
+  const [removeModal, setRemoveModal] = useState(false);
+  const closeContriModal = () => {
+    setModalOpenContr(false);
+  };
+  const handleAddContri = () => {
+    setModalOpenContr(false);
+  };
+  const closeModal = () => {
+    setModalOpenAdmin(false);
+    setRemoveModal(false);
+  };
+
+  const handleAddAdmin = userName => {
+    console.log("Adding admin with username:", userName);
+    setModalOpenAdmin(false);
+  };
+  const handleRemoveUser = userName => {
+    console.log("User Removed with username:", userName);
+    setRemoveModal(false);
+  };
 
   const AdminUsers = [
     {
@@ -89,6 +117,29 @@ function Users() {
             description="Admins can manage submissions, content, and settings"
             AddUser={true}
             dataTestId="org-admin-list"
+
+            buttonTitle="Add Admin"
+            addButton={() => {
+              setModalOpenAdmin(true);
+            }}
+            removeButton={() => {
+              setRemoveModal(true);
+            }}
+            modalComponent={
+              <AddAdmin
+                open={modalOpenAdmin}
+                onClose={closeModal}
+                onSubmit={handleAddAdmin}
+              />
+            }
+            removeModalComp={
+              <RemoveUser
+                open={removeModal}
+                onClose={closeModal}
+                onSubmit={handleRemoveUser}
+              />
+            }
+
           />
         </Grid>
         <Grid item>
@@ -99,6 +150,28 @@ function Users() {
             AddUser={true}
             isViewMore={true}
             dataTestId="org-contributor-list"
+            buttonTitle="Add Contributor"
+            addButton={() => {
+              setModalOpenContr(true);
+            }}
+            removeButton={() => {
+              setRemoveModal(true);
+            }}
+            modalComponent={
+              <AddContributor
+                modalopen={modalOpenContr}
+                onClose={closeContriModal}
+                onSubmit={handleAddContri}
+              />
+            }
+            removeModalComp={
+              <RemoveUser
+                open={removeModal}
+                onClose={closeModal}
+                onSubmit={handleRemoveUser}
+              />
+            }
+
           />
         </Grid>
       </Grid>

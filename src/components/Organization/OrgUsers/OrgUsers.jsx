@@ -1,8 +1,12 @@
 import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddAdmin from "./AddNewUser/addNewAdminModal";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,7 +54,10 @@ const useStyles = makeStyles(theme => ({
   buttonDiv: {
     [theme.breakpoints.down("md")]: {
       justifyContent: "flex-start",
-      paddingTop: theme.spacing(2)
+
+      paddingTop: theme.spacing(2),
+      display: "flex"
+
     },
     [theme.breakpoints.up("md")]: {
       justifyContent: "flex-end"
@@ -64,15 +71,32 @@ function Orgusers({
   description,
   AddUser,
   isViewMore,
-  dataTestId
+
+  dataTestId,
+  buttonTitle,
+  buttonfunction,
+  modalComponent,
+  removeModalComp,
+  addButton,
+  removeButton
 }) {
+  const currentUserPermission = useSelector(
+    ({
+      org: {
+        general: { permissions }
+      }
+    }) => permissions
+  );
+
   const classes = useStyles();
   return (
     <React.Fragment>
       <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
         <Grid container className={classes.gridPadding}>
           <Grid container direction="row">
-            <Grid item container xs={10} direction="column">
+
+            <Grid item container xs={8} direction="column">
+
               <Grid item>
                 <Typography className={classes.heading} data-testid="org-title">
                   {title}
@@ -88,19 +112,47 @@ function Orgusers({
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container md={2} className={classes.buttonDiv}>
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-                style={{
-                  display: AddUser ? "flex" : "none"
-                }}
+
+            {currentUserPermission == 3 && (
+              <Grid
+                item
+                container
+                md={4}
+                className={classes.buttonDiv}
+                direction="row"
               >
-                <AddIcon />
-                Add New
-              </Button>
-            </Grid>
+                <Grid md={8}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.button}
+                    style={{
+                      display: AddUser ? "flex" : "none"
+                    }}
+                    onClick={addButton}
+                  >
+                    <AddIcon />
+                    {buttonTitle}
+                  </Button>
+                </Grid>
+                <Grid md={4}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.button}
+                    style={{ display: AddUser ? "flex" : "none" }}
+                    onClick={removeButton}
+                  >
+                    <RemoveIcon />
+                    Remove
+                  </Button>
+                </Grid>
+              </Grid>
+            )}
+
+            {modalComponent}
+            {removeModalComp}
+
           </Grid>
           <Grid
             container

@@ -4,40 +4,43 @@ import { useState } from "react";
 import OrgDeleteModal from "./OrgDeleteModal";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: "10px"
-  },
-  gridPadding: {
-    padding: theme.spacing(2)
-  },
-  buttonDiv: {
-    [theme.breakpoints.down("md")]: {
-      justifyContent: "flex-start",
-      paddingTop: theme.spacing(2)
-    },
-    [theme.breakpoints.up("md")]: {
-      justifyContent: "flex-end"
-    }
-  },
-  button: {
-    boxShadow: "none",
-    borderRadius: "10px",
-    border: 0,
-    backgroundColor: theme.palette.grey[100],
-    padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`
-  },
-  heading: {
-    [theme.breakpoints.down("md")]: {
-      fontSize: theme.typography.subtitle1.fontSize
-    }
-  },
-  body: {
-    [theme.breakpoints.down("md")]: {
-      fontSize: theme.typography.subtitle2.fontSize
-    }
-  }
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		border: `1px solid ${theme.palette.divider}`,
+		borderRadius: "10px",
+	},
+	gridPadding: {
+		padding: theme.spacing(2),
+	},
+	buttonDiv: {
+		[theme.breakpoints.down("md")]: {
+			justifyContent: "flex-start",
+			paddingTop: theme.spacing(2),
+			
+		},
+		[theme.breakpoints.up("md")]: {
+			justifyContent: "flex-end",
+		},
+	},
+	button: {
+		boxShadow: "none",
+		borderRadius: "10px",
+		border: 0,
+		backgroundColor: theme.palette.grey[100],
+		padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
+	},
+	heading: {
+		[theme.breakpoints.down("md")]: {
+			fontSize: theme.typography.subtitle1.fontSize,
+		},
+	},
+	body: {
+		[theme.breakpoints.down("md")]: {
+			fontSize: theme.typography.subtitle2.fontSize,
+		},
+	},
+
 }));
 
 /**

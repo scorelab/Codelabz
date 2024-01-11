@@ -48,6 +48,7 @@ export const addOrgUser =
   ({ org_handle, handle, permissions }) =>
   async (firestore, dispatch) => {
     try {
+      
       dispatch({ type: actions.ADD_ORG_USER_START });
       const userDoc = await firestore
         .collection("cl_user")
@@ -71,6 +72,7 @@ export const addOrgUser =
           type: actions.ADD_ORG_USER_FAIL,
           payload: `User [${handle}] is not registered with CodeLabz`
         });
+        console.log(`User [${handle}] is not registered with CodeLabz`);
       }
     } catch (e) {
       console.log(e);
@@ -94,14 +96,16 @@ export const removeOrgUser =
           .collection("org_users")
           .doc(`${org_handle}_${uid}`)
           .delete();
-
+    
         await getOrgUserData(org_handle)(firestore, dispatch);
         dispatch({ type: actions.ADD_ORG_USER_SUCCESS });
+     
       } else {
         dispatch({
           type: actions.ADD_ORG_USER_FAIL,
           payload: `User [${handle}] is not registered with CodeLabz`
         });
+        console.log(`User [${handle}] is not registered with CodeLabz`);
       }
     } catch (e) {
       console.log(e);
