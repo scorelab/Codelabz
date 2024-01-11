@@ -2,16 +2,16 @@ import React from "react";
 // import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import { useDispatch } from "react-redux";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import { updateTutorialTitle } from "../../../store/actions";
-import { useFirebase,useFirestore } from "react-redux-firebase";
+import { useFirebase, useFirestore } from "react-redux-firebase";
 // import Modal from 'react-modal';
 import { useState } from "react";
-import { Typography, Modal, Box, TextField, Button } from '@mui/material';
+import { Typography, Modal, Box, TextField, Button } from "@mui/material";
 import { set } from "lodash";
 
 const TutorialHeading = ({
@@ -19,10 +19,9 @@ const TutorialHeading = ({
   isDesktop,
   setStepPanelVisible,
   tutorialData,
-  timeRemaining,  
-  
+  timeRemaining
 }) => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
   const [isHovered, setHovered] = useState(false);
@@ -56,14 +55,15 @@ const TutorialHeading = ({
   };
   const handleUpdateTitle = async () => {
     try {
-      await updateTutorialTitle(tutorialData.owner,tutorialData.tutorial_id, newTitle)(
-        firebase,
-        firestore,
-        dispatch
-      );
+      await updateTutorialTitle(
+        tutorialData.owner,
+        tutorialData.tutorial_id,
+        newTitle
+      )(firebase, firestore, dispatch);
       setModalOpen(false);
     } catch (error) {
-      console.error("Error updating title:", error);    }
+      console.error("Error updating title:", error);
+    }
   };
   let styleProps = {
     backgroundColor: tutorialData.background_color || "#ffffff",
@@ -79,32 +79,32 @@ const TutorialHeading = ({
         alignItems: "center"
       }}
     >
-       <Typography
-      data-testid="tutorialTitle"
-      variant="h5"
-      sx={{
-        pt: 2,
-        pb: 2,
-        position: 'relative',
-        display: 'inline-block',
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {tutorialData.title}
-     <span style={{marginLeft:"10px"}}>
-        <EditIcon
-          style={{
-            position: '',
-            transform: 'translateY(+10%)',
-            cursor: 'pointer',
-          }}
-          onClick={handleEditClick}
-        />
-    </span>
-    </Typography>
-   
-    <Modal
+      <Typography
+        data-testid="tutorialTitle"
+        variant="h5"
+        sx={{
+          pt: 2,
+          pb: 2,
+          position: "relative",
+          display: "inline-block"
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {tutorialData.title}
+        <span style={{ marginLeft: "10px" }}>
+          <EditIcon
+            style={{
+              position: "",
+              transform: "translateY(+10%)",
+              cursor: "pointer"
+            }}
+            onClick={handleEditClick}
+          />
+        </span>
+      </Typography>
+
+      <Modal
         open={isModalOpen}
         onClose={() => setModalOpen(false)}
         aria-labelledby="modal-title"
@@ -112,15 +112,15 @@ const TutorialHeading = ({
       >
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             width: 300,
-            bgcolor: 'background.paper',
-            border: '2px solid #000',
+            bgcolor: "background.paper",
+            border: "2px solid #000",
             boxShadow: 24,
-            p: 2,
+            p: 2
           }}
         >
           <Typography id="modal-title" variant="h6" component="h2">
@@ -129,19 +129,28 @@ const TutorialHeading = ({
           <TextField
             label="Enter new title"
             value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
+            onChange={e => setNewTitle(e.target.value)}
             fullWidth
             margin="normal"
           />
-          <Button onClick={handleCancelClick} variant="contained" color="error" sx={{ mr: 2 }}>
+          <Button
+            onClick={handleCancelClick}
+            variant="contained"
+            color="error"
+            sx={{ mr: 2 }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleUpdateTitle} variant="contained" color="primary">
+          <Button
+            onClick={handleUpdateTitle}
+            variant="contained"
+            color="primary"
+          >
             Update
           </Button>
         </Box>
       </Modal>
-      
+
       {!isDesktop && stepPanelVisible ? null : (
         <>
           <Grid>

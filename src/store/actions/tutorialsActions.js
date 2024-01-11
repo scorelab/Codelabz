@@ -172,7 +172,6 @@ export const createTutorial =
       dispatch({ type: actions.CREATE_TUTORIAL_FAIL, payload: e.message });
     }
   };
-  
 
 const checkUserOrOrgHandle = handle => async firestore => {
   const userHandleExists = await checkUserHandleExists(handle)(firestore);
@@ -187,16 +186,14 @@ const checkUserOrOrgHandle = handle => async firestore => {
   }
 };
 export const updateTutorialTitle =
-  (owner,tutorial_id, newTitle) => async (firebase, firestore, dispatch) => {
+  (owner, tutorial_id, newTitle) => async (firebase, firestore, dispatch) => {
     try {
-     
       const tutorialDoc = await firestore
         .collection("tutorials")
         .doc(tutorial_id)
         .get();
 
       if (tutorialDoc.exists) {
-       
         await tutorialDoc.ref.update({
           title: newTitle,
           updatedAt: firestore.FieldValue.serverTimestamp()
@@ -218,7 +215,10 @@ export const updateTutorialTitle =
       }
     } catch (e) {
       console.error("UPDATE_TUTORIAL_TITLE_FAIL", e);
-      dispatch({ type: actions.UPDATE_TUTORIAL_TITLE_FAIL, payload: e.message });
+      dispatch({
+        type: actions.UPDATE_TUTORIAL_TITLE_FAIL,
+        payload: e.message
+      });
     }
   };
 
