@@ -71,6 +71,8 @@ export const addOrgUser =
           type: actions.ADD_ORG_USER_FAIL,
           payload: `User [${handle}] is not registered with CodeLabz`
         });
+      console.log(`User [${handle}] is not registered with CodeLabz`);
+       
       }
     } catch (e) {
       console.log(e);

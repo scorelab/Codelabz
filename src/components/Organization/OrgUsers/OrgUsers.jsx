@@ -1,8 +1,11 @@
 import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddAdmin from "./AddNewUser/addNewAdminModal";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,118 +62,136 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Orgusers({
-  Users,
-  title,
-  description,
-  AddUser,
-  isViewMore,
-  dataTestId
+
+	Users,
+	title,
+	description,
+	AddUser,
+	isViewMore,
+	dataTestId,
+	buttonTitle,
+	buttonfunction,
+	modalComponent,
+	addButton
 }) {
-  const classes = useStyles();
-  return (
-    <React.Fragment>
-      <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
-        <Grid container className={classes.gridPadding}>
-          <Grid container direction="row">
-            <Grid item container xs={10} direction="column">
-              <Grid item>
-                <Typography className={classes.heading} data-testid="org-title">
-                  {title}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography
-                  variant="body1"
-                  className={classes.body}
-                  data-testid="org-description"
-                >
-                  {description}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item container md={2} className={classes.buttonDiv}>
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-                style={{
-                  display: AddUser ? "flex" : "none"
-                }}
-              >
-                <AddIcon />
-                Add New
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            className={classes.userList}
-            data-testid="org-userlist"
-          >
-            {Users.map((user, index) => (
-              <React.Fragment key={index}>
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                  className={classes.userCard}
-                  data-testid="org-user-card"
-                  spacing={2}
-                >
-                  <Grid
-                    item
-                    container
-                    xs={3}
-                    md={1}
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    {user.avatar.type === "char" ? (
-                      <Avatar>{user.avatar.value}</Avatar>
-                    ) : (
-                      <Avatar src={user.avatar.value} />
-                    )}
-                  </Grid>
-                  <Grid
-                    item
-                    xs={9}
-                    md={11}
-                    container
-                    direction="row"
-                    alignItems="center"
-                  >
-                    <Typography className={classes.userName}>
-                      {user.name},
-                    </Typography>
-                    <Typography className={classes.userDesignation}>
-                      {user.designation}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          className={classes.viewMore}
-          style={{
-            display: isViewMore ? "flex" : "none"
-          }}
-        >
-          <ExpandMoreIcon />
-          <Typography variant="body1" className={classes.body}>
-            View More
-          </Typography>
-        </Grid>
-      </Paper>
-    </React.Fragment>
-  );
+	
+	const currentUserPermission = useSelector(
+		({
+			org: {
+				general: { permissions },
+			},
+		}) => permissions
+	);
+	const classes = useStyles();
+	return (
+
+		<React.Fragment>
+			<Paper elevation={0} className={classes.root} data-testid={dataTestId}>
+				<Grid container className={classes.gridPadding}>
+					<Grid container direction="row">
+						<Grid item container xs={10} direction="column">
+							<Grid item>
+								<Typography className={classes.heading} data-testid="org-title">
+									{title}
+								</Typography>
+							</Grid>
+							<Grid item>
+								<Typography
+									variant="body1"
+									className={classes.body}
+									data-testid="org-description">
+									{description}
+								</Typography>
+							</Grid>
+						</Grid>
+						{
+							currentUserPermission==3 && <Grid item container md={2} className={classes.buttonDiv}>
+							<Button
+								variant="outlined"
+								color="primary"
+								className={classes.button}
+								style={{
+									display: AddUser ? "flex" : "none",
+								}}	
+								onClick={addButton}
+								>
+								
+								<AddIcon />
+								{buttonTitle}
+
+							
+							</Button>
+
+						</Grid>
+						}
+						
+						{modalComponent }
+					</Grid>
+					<Grid
+						container
+						className={classes.userList}
+						data-testid="org-userlist">
+						{Users.map((user, index) => (
+							<React.Fragment key={index}>
+								<Grid
+									container
+									direction="row"
+									justifyContent="center"
+									alignItems="center"
+									className={classes.userCard}
+									data-testid="org-user-card"
+									spacing={2}>
+									<Grid
+										item
+										container
+										xs={3}
+										md={1}
+										justifyContent="center"
+										alignItems="center">
+										{user.avatar.type === "char" ? (
+											<Avatar>{user.avatar.value}</Avatar>
+										) : (
+											<Avatar src={user.avatar.value} />
+										)}
+									</Grid>
+									<Grid
+										item
+										xs={9}
+										md={11}
+										container
+										direction="row"
+										alignItems="center">
+										<Typography className={classes.userName}>
+											{user.name},
+										</Typography>
+										<Typography className={classes.userDesignation}>
+											{user.designation}
+										</Typography>
+									</Grid>
+								</Grid>
+							</React.Fragment>
+						))}
+					</Grid>
+				</Grid>
+				<Grid
+					item
+					container
+					direction="row"
+					justifyContent="center"
+					alignItems="center"
+					className={classes.viewMore}
+					style={{
+						display: isViewMore ? "flex" : "none",
+					}}>
+					<ExpandMoreIcon />
+					<Typography variant="body1" className={classes.body}>
+						View More
+					</Typography>
+				</Grid>
+			</Paper>
+		</React.Fragment>
+	);
+
 }
 
 export default Orgusers;
