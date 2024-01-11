@@ -100,6 +100,10 @@ export default function CardWithoutPicture({ tutorial }) {
     return timestamp.toDate().toDateString();
   };
 
+  const handleShare = () =>{
+    
+  }
+
   return (
     <Card className={classes.root} data-testId="codelabz">
       <CardHeader
@@ -208,7 +212,7 @@ export default function CardWithoutPicture({ tutorial }) {
           <ChatOutlinedIcon />
         </IconButton>
         <IconButton aria-label="add to favorites" data-testId="ShareIcon">
-          <ShareOutlinedIcon />
+          <ShareOutlinedIcon onClick={handleShare}/>
         </IconButton>
         <IconButton aria-label="share" data-testId="NotifIcon">
           <TurnedInNotOutlinedIcon />
