@@ -16,9 +16,9 @@ You can see the app live at [https://dev.codelabz.io/](https://dev.codelabz.io/)
 
 # Community
 
-Join and communicate with other members on our community. We communicate on gitter.
+Join and communicate with other members on our community. We communicate on Slack.
 
-[![Gitter](https://badges.gitter.im/scorelab/CodeLabz.svg)](https://gitter.im/scorelab/CodeLabz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Slack](https://img.shields.io/badge/Chat-On_Slack-4A154B?style=&logo=slack)](https://app.slack.com/client/T06C3R6HVNG/C06C18MFMT5)
 
 # Contribute
 
@@ -101,7 +101,7 @@ Follow this link to fix this issue.
 
 1. First of all try to make yourself comfortable with the app and explore its functionalities.
 2. Have a look into issues that are already raised and are not assigned to anyone and ask the mentors to get it assigned it to you.
-3. If you want to work on a new issue, first try to discuss it in the gitter channel with the mentors and then raise the issue.
+3. If you want to work on a new issue, first try to discuss it in the Slack channel with the mentors and then raise the issue.
 <hr/>
 
-### ❓ Got more questions, ask it in our [gitter channel](https://matrix.to/#/#scorelab_CodeLabz:gitter.im) and we will love ❤ to answer them.
+### ❓ Got more questions, ask it in our [Slack channel](https://app.slack.com/client/T06C3R6HVNG/C06C18MFMT5) and we will love ❤ to answer them.
