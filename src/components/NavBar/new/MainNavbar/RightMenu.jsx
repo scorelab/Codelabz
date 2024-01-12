@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFirebase } from "react-redux-firebase";
 import { signOut } from "../../../../store/actions";
 import Avatar from "@mui/material/Avatar";
@@ -80,8 +80,8 @@ const RightMenu = ({ mode, onClick }) => {
     }) => current
   );
 
-  //Check if this current user is attached to some organization
-  const isOrgPresent = currentOrg == null ? false : true;
+
+ 
 
   const organizations = useSelector(
     ({
@@ -137,7 +137,7 @@ const RightMenu = ({ mode, onClick }) => {
             </ListItem>
           )}
 
-          {allowDashboard && allowOrgs && (
+          {allowDashboard && currentOrg && allowOrgs && (
             <Accordion
               style={{
                 width: "98%"
@@ -149,7 +149,7 @@ const RightMenu = ({ mode, onClick }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container direction="column" spacing={1}>
-                  {isOrgPresent && (
+                  {currentOrg && (
                     <Grid item>
                       <Link to={`/org/settings/${currentOrg}`}>
                         <Grid container spacing={3}>
@@ -287,7 +287,7 @@ const RightMenu = ({ mode, onClick }) => {
             </Link>
           </MenuItem>
         )}
-        {allowDashboard && allowOrgs && (
+        {allowDashboard && currentOrg &&  allowOrgs && (
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <BlockOutlinedIcon />
@@ -296,7 +296,7 @@ const RightMenu = ({ mode, onClick }) => {
             <AccordionDetails>
               <Grid container direction="column" spacing={1}>
                 {/* Issue490: We will be connecting organizations to their settings page here*/}
-                {isOrgPresent && (
+                {currentOrg && (
                   <Grid item>
                     <Link to={`/org/settings/${currentOrg}`}>
                       <Grid container spacing={3}>
