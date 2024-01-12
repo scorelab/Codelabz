@@ -41,6 +41,7 @@ const Login = ({
 
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordHovered, setIsPasswordHovered] = useState(false);
   const [passwordValidateError, setPasswordValidateError] = useState(false);
   const [passwordValidateErrorMessage, setPasswordValidateErrorMessage] =
     useState("");
@@ -113,6 +114,13 @@ const Login = ({
   const handleMouseLeave = e => {
     e.target.style.color = "#03AAFA";
   };
+  const handlePasswordMouseEnter = () => {
+    setIsPasswordHovered(true);
+  };
+
+  const handlePasswordMouseLeave = () => {
+    setIsPasswordHovered(false);
+  };
 
   return (
     <Card
@@ -181,12 +189,21 @@ const Login = ({
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
+                    style={{
+                      opacity: isPasswordHovered ? 1 : 0,
+                      transform: isPasswordHovered
+                        ? 'translateY(-0%)'
+                        : 'translateY(2%)',
+                      transition: 'opacity 0.2s ease-in-out, transform 0.15s ease-in-out',
+                    }}
                   >
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               )
             }}
+            onMouseEnter={handlePasswordMouseEnter}
+            onMouseLeave={handlePasswordMouseLeave}
           />
           <Grid container alignItems="center" justify="space-between">
             <Grid>
