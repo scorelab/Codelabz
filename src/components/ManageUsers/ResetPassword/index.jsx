@@ -5,7 +5,7 @@ import {
   clearRecoverPasswordError,
   verifyPasswordResetCode
 } from "../../../store/actions";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";

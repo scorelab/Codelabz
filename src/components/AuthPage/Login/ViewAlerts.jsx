@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resendVerifyEmail } from "../../../store/actions";

@@ -27,7 +27,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import PersonIcon from "@mui/icons-material/Person";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/lab/Alert";
+import MuiAlert from "@mui/material/Alert";
 import SearchIcon from "@mui/icons-material/Search";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";

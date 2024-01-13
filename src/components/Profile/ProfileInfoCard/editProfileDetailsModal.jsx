@@ -23,7 +23,7 @@ import Select from "@mui/material/Select";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import PersonIcon from "@mui/icons-material/Person";
 import PublicIcon from "@mui/icons-material/Public";
 import DescriptionIcon from "@mui/icons-material/Description";

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";

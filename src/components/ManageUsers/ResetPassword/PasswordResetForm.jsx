@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
