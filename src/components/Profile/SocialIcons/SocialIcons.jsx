@@ -55,9 +55,18 @@ export default function SocialIcons({profileData}) {
   const classes = useStyles();
 
   const redirectToUserSocials=(url)=>{
-    console.log("called")
     window.location.href=url
   }
+  const copyToClipboard = () => {
+    const textarea = document.createElement('textarea');
+    textarea.value = 'https://codelabz/user-handle.com';
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); 
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  };
+
 
   return (
     <Card className={classes.root}>
@@ -87,7 +96,7 @@ export default function SocialIcons({profileData}) {
           <TwitterIcon className={classes.twitterIcon} onClick={()=>redirectToUserSocials(`https://twitter.com/${profileData.link_github}`)}/>
         </IconButton>
         <IconButton aria-label="share" data-testId="LinkIcon">
-          <LinkIcon className={classes.blackIcon} />
+          <LinkIcon className={classes.blackIcon} onClick={copyToClipboard}/>
         </IconButton>
       </CardActions>
     </Card>
