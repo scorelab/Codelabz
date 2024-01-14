@@ -76,14 +76,14 @@ export default function SocialIcons({profileData}) {
           aria-label="share"
           data-testId="FacebookIcon"
         >
-          <FacebookIcon className={classes.facebookIcon} onClick={()=>redirectToUserSocials(`https://www.facebook.com/${profileData.link_github}`)}/>
+          <FacebookIcon className={classes.facebookIcon} onClick={()=>redirectToUserSocials(`https://www.facebook.com/${profileData.link_facebook}`)}/>
         </IconButton>
         <IconButton
           color="primary"
           aria-label="share"
           data-testId="LinkedInIcon"
         >
-          <LinkedInIcon className={classes.linkedInIcon} onClick={()=>redirectToUserSocials(`https://linkedin.com/${profileData.link_github}`)}/>
+          <LinkedInIcon className={classes.linkedInIcon} onClick={()=>redirectToUserSocials(`https://linkedin.com/in/${profileData.link_linkedin}`)}/>
         </IconButton>
         <IconButton aria-label="share" data-testId="GithubIcon">
           <GitHubIcon className={classes.blackIcon} onClick={()=>redirectToUserSocials(`https://github.com/${profileData.link_github}`)} />
@@ -93,7 +93,7 @@ export default function SocialIcons({profileData}) {
           aria-label="add to favorites"
           data-testId="TwitterIcon"
         >
-          <TwitterIcon className={classes.twitterIcon} onClick={()=>redirectToUserSocials(`https://twitter.com/${profileData.link_github}`)}/>
+          <TwitterIcon className={classes.twitterIcon} onClick={()=>redirectToUserSocials(`https://twitter.com/${profileData.link_twitter}`)}/>
         </IconButton>
         <IconButton aria-label="share" data-testId="LinkIcon">
           <LinkIcon className={classes.blackIcon} onClick={copyToClipboard}/>
