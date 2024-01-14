@@ -94,7 +94,7 @@ function UserProfile(props) {
 
           {/* Display this card on screen size below 760px */}
           <Grid className={classes.rightSmallBody}>
-            <UserHighlights organizations={organizations} />
+            <UserHighlights profileData={props.profileData} organizations={organizations} />
           </Grid>
 
           <Grid className={classes.marginActivity}>
@@ -116,7 +116,7 @@ function UserProfile(props) {
 
         {/* Credentials and Highlights Card.Display it on screen size above 760px */}
         <Grid className={classes.rightBody}>
-          <UserHighlights organizations={organizations} />
+          <UserHighlights profileData={props.profileData} organizations={organizations} />
         </Grid>
       </div>
     </>

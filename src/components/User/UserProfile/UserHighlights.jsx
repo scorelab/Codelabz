@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Highlights from "../../UserDetails/Highlights";
@@ -11,9 +11,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserHighlights = ({ organizations }) => {
+const UserHighlights = ({profileData, organizations }) => {
   const classes = useStyles();
-
   return (
     <div>
       <Grid className={classes.bottomMargin}>
@@ -26,7 +25,7 @@ const UserHighlights = ({ organizations }) => {
         />
       </Grid>
       <Grid className={classes.bottomMargin}>
-        <SocialIcons />
+        <SocialIcons profileData={profileData} />
       </Grid>
       <Grid
         container
