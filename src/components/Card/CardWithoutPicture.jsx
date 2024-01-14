@@ -175,7 +175,7 @@ export default function CardWithoutPicture({ tutorial }) {
           className={classes.time}
           data-testId="Time"
         >
-          {"10 min"}
+          {`${tutorial?.total_time} min`}
         </Typography>
         <div className={classes.grow} />
         <ToggleButtonGroup
