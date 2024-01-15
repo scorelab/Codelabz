@@ -4,6 +4,7 @@ import Elasticlunr from "../../helpers/elasticlunr";
 import * as actions from "./actionTypes";
 import { checkOrgHandleExists } from "./authActions";
 
+
 const elasticlunr = new Elasticlunr("handle", "handle", "name");
 
 export const searchFromIndex = query => {
@@ -122,6 +123,17 @@ export const getOrgBasicData = org_handle => async firebase => {
 
     if (!orgDoc.exists) return null;
 
+    const org_name = orgDoc.get("org_name");
+    const org_image = orgDoc.get("org_logo");
+    const org_link_facebook = orgDoc.get("org_link_facebook");
+    const org_link_github = orgDoc.get("org_link_github");
+    const org_link_linkedin = orgDoc.get("org_link_linkedin");
+    const org_link_twitter = orgDoc.get("org_link_twitter");
+    const org_website = orgDoc.get("org_website");
+    const org_published = orgDoc.get("org_published");
+    const org_description = orgDoc.get("org_description");
+    const org_country = orgDoc.get("org_country");
+
     const orgPermissionDoc = await firestore
       .collection("org_users")
       .doc(`${org_handle}_${uid}`)
@@ -228,14 +240,15 @@ export const getOrgData =
   (org_handle, organizations) => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.GET_ORG_DATA_START });
-
-      const isOrgExists = await checkOrgHandleExists(org_handle)(firestore);
-
+      const isOrgExists = await checkOrgHandleExists(org_handle)(firebase);
+      console.log("before if")
       if (isOrgExists) {
+        console.log("entered if")
         const doc = await firestore
           .collection("cl_org_general")
           .doc(org_handle)
           .get();
+           console.log(org_handle,organizations)
         const isPublished =
           organizations.includes(org_handle) || doc.get("org_published");
 
@@ -251,6 +264,7 @@ export const getOrgData =
               )
             }
           });
+         
         } else {
           dispatch({ type: actions.GET_ORG_DATA_SUCCESS, payload: false });
         }

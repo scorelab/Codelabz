@@ -85,14 +85,16 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   const [orgWebsiteValidateErrorMessage, setOrgWebsiteValidateErrorMessage] =
     useState("");
 
-  const displayName = useSelector(
-    ({
-      firebase: {
-        profile: { displayName }
-      }
-    }) => displayName
-  );
-  const children = [];
+	const [orgLogo, setOrgLogo] = useState(null);
+
+	const displayName = useSelector(
+		({
+			firebase: {
+				profile: { displayName },
+			},
+		}) => displayName
+	);
+	const children = [];
 
   for (let i = 0; i < countryList.length; i++) {
     children.push(
@@ -211,59 +213,75 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
     handleOrgCountrySearch();
   }, [orgCountrySearch]);
 
-  const onSubmit = async () => {
-    validateHandle(
-      checkUserHandleExists,
-      firebase,
-      dispatch,
-      handle,
-      setHandleValidateError,
-      setHandleValidateErrorMessage,
-      "Please enter a handle",
-      "User handle can only contain lowercase alphanumeric characters",
-      "User handle cannot be less than 6 characters",
-      `The handle ${handle} is already taken`
-    ).then(async validateUserHandle => {
-      if (showOrgForm) {
-        validateHandle(
-          checkOrgHandleExists,
-          firebase,
-          dispatch,
-          orgHandle,
-          setOrgHandleValidateError,
-          setOrgHandleValidateErrorMessage,
-          "Please enter a handle",
-          "Organization handle can only contain lowercase alphanumeric characters",
-          "Organization handle cannot be less than 6 characters",
-          `The handle ${orgHandle} is already taken`
-        ).then(async validateOrgHandle => {
-          if (validated() && validateOrgHandle && validateUserHandle) {
-            setError("");
-            await setUpInitialData({
-              orgData: showOrgForm,
-              name,
-              handle,
-              country,
-              org_handle: orgHandle,
-              org_name: orgName,
-              org_website: orgWebsite,
-              org_country: orgCountry
-            })(firebase, firestore, dispatch);
-          }
-        });
-      } else {
-        if (validated() && validateUserHandle) {
-          setError("");
-          await setUpInitialData({
-            orgData: showOrgForm,
-            name,
-            handle,
-            country
-          })(firebase, firestore, dispatch);
-        }
-      }
-    });
-  };
+
+	const [profileImage,setProfileImage]=useState(null)
+	const handleProfileImageChange = (event) => {
+		  const selectedFile = event.target.files[0];
+	  // console.log(selectedFile)
+		  setProfileImage(selectedFile);
+	  
+	};
+
+	const onSubmit = async () => {
+		
+		validateHandle(
+			checkUserHandleExists,
+			firebase,
+			dispatch,
+			handle,
+			setHandleValidateError,
+			setHandleValidateErrorMessage,
+			"Please enter a handle",
+			"User handle can only contain lowercase alphanumeric characters",
+			"User handle cannot be less than 6 characters",
+			`The handle ${handle} is already taken`
+		).then(async (validateUserHandle) => {
+			console.log(validateUserHandle)
+			if (showOrgForm) {
+				validateHandle(
+					checkOrgHandleExists,
+					firebase,
+					dispatch,
+					orgHandle,
+					setOrgHandleValidateError,
+					setOrgHandleValidateErrorMessage,
+					"Please enter a handle",
+					"Organization handle can only contain lowercase alphanumeric characters",
+					"Organization handle cannot be less than 6 characters",
+					`The handle ${orgHandle} is already taken`
+				).then(async (validateOrgHandle) => {
+					console.log(validateOrgHandle)
+					if (validated() && validateOrgHandle && validateUserHandle) {
+						setError("");
+						console.log(3);
+						await setUpInitialData({
+							orgData: showOrgForm,
+							name,
+							handle,
+							country,
+							profileImage,
+							org_handle: orgHandle,
+							org_name: orgName,
+							org_website: orgWebsite,
+							org_country: orgCountry,
+							org_logo: orgLogo,
+						})(firebase, firestore, dispatch);
+					}
+				});
+			} else {
+				if (validated() && validateUserHandle) {
+					setError("");
+					await setUpInitialData({
+						orgData: showOrgForm,
+						name,
+						handle,
+						country,
+						profileImage,
+					})(firebase, firestore, dispatch);
+				}
+			}
+		});
+	};
 
   //If display Name is present then show that as value inside user name input
   useEffect(() => {
@@ -281,11 +299,16 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
   const onChangeOrgCountry = orgCountry => setOrgCountry(orgCountry);
   const onChangeOrgWebsite = orgWebsite => setOrgWebsite(orgWebsite);
 
-  const onFocusHandle = () => {
-    setHandleValidateError(false);
-    setHandleValidateErrorMessage("");
-  };
-  console.log(country);
+	const onFocusHandle = () => {
+		setHandleValidateError(false);
+		setHandleValidateErrorMessage("");
+	};
+	console.log(country);
+
+	const handleOrgLogoChange = (event) => {
+		const selectedFile = event.target.files[0];
+		setOrgLogo(selectedFile);
+	};
 
   return (
     <div className="home-row" style={{ background: background }}>
@@ -333,286 +356,326 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
 
                 <Divider />
 
-                <Box m={3}>
-                  <TextField
-                    error={nameValidateError}
-                    label="User Name"
-                    variant="outlined"
-                    placeholder={displayName || "User Name"}
-                    value={name}
-                    onChange={event => onChangeName(event.target.value)}
-                    helperText={
-                      nameValidateError ? nameValidateErrorMessage : null
-                    }
-                    fullWidth
-                    autoComplete="handle"
-                    required
-                    style={{ marginBottom: "15px" }}
-                    InputProps={{
-                      "data-testid": "userName",
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                  <TextField
-                    error={handleValidateError}
-                    label="User Handle"
-                    variant="outlined"
-                    placeholder="User Handle"
-                    value={handle}
-                    onChange={event => onChangeHandle(event.target.value)}
-                    helperText={
-                      handleValidateError ? handleValidateErrorMessage : null
-                    }
-                    fullWidth
-                    autoComplete="handle"
-                    required
-                    onFocus={onFocusHandle}
-                    style={{ marginBottom: "15px" }}
-                    InputProps={{
-                      "data-testid": "userHandle",
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PersonOutlineIcon
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                  <div width="100%">
-                    <TextField
-                      error={countryValidateError}
-                      label="User Country"
-                      variant="outlined"
-                      placeholder="User Country"
-                      value={country}
-                      onChange={e => {
-                        setCountry(e.target.value);
-                        setCountrySearch(e.target.value);
-                      }}
-                      onFocus={() => {
-                        setCountrySearch(country);
-                        onFocusHandle();
-                      }}
-                      fullWidth
-                      autoComplete="country"
-                      required
-                      style={{ marginBottom: "15px" }}
-                      InputProps={{
-                        "data-testid": "userCountry",
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <PersonOutlineIcon
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <div>
-                      {filteredData.length !== 0 && (
-                        <div className="dataOutput">
-                          {filteredData.map(item => {
-                            return (
-                              <div
-                                onClick={e => {
-                                  setCountry(item.name);
-                                  setCountrySearch("");
-                                }}
-                                style={{ color: textColor }}
-                              >
-                                <span>{item.name}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </Box>
-                <Divider></Divider>
-                <Box m={3}>
-                  <Button
-                    data-testid="createOrgBtn"
-                    size="small"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    onClick={() => setShowOrgForm(!showOrgForm)}
-                  >
-                    {showOrgForm === false
-                      ? "I want to create an organization"
-                      : showOrgForm === true
-                      ? "I don't want to create an organization"
-                      : "I want to create an organization"}
-                  </Button>
-                </Box>
-              </Card>
-            </Grid>
-            {/* col-pad-24 pr-12 pt-8 pb-24 div-transition */}
-            <Grid
-              xs={showOrgForm ? 12 : null}
-              md={showOrgForm ? 6 : null}
-              style={{ paddingLeft: "24px" }}
-              className="pr-12 pr-12 pt-8 div-transition"
-              onFocus={() => setFocusLeft(false)}
-              item={true}
-            >
-              {showOrgForm && (
-                <Card className="auth-form-col" style={{ margin: "0 auto" }}>
-                  <Box mt={2} mb={2} m={3}>
-                    <Typography>
-                      <Box fontSize={16} fontWeight="fontWeightBold" m={1}>
-                        <p className="mb-0 " style={{ color: textColor }}>
-                          Organization Details
-                        </p>
-                      </Box>
-                    </Typography>
-                  </Box>
+								<Box m={3}>
+									<TextField
+										error={nameValidateError}
+										label="User Name"
+										variant="outlined"
+										placeholder={displayName || "User Name"}
+										value={name}
+										onChange={(event) => onChangeName(event.target.value)}
+										helperText={
+											nameValidateError ? nameValidateErrorMessage : null
+										}
+										fullWidth
+										autoComplete="handle"
+										required
+										style={{ marginBottom: "15px" }}
+										InputProps={{
+											"data-testid": "userName",
+											startAdornment: (
+												<InputAdornment position="start">
+													<PersonIcon style={{ color: "rgba(0,0,0,.25)" }} />
+												</InputAdornment>
+											),
+										}}
+									/>
+									<TextField
+										error={handleValidateError}
+										label="User Handle"
+										variant="outlined"
+										placeholder="User Handle"
+										value={handle}
+										onChange={(event) => onChangeHandle(event.target.value)}
+										helperText={
+											handleValidateError ? handleValidateErrorMessage : null
+										}
+										fullWidth
+										autoComplete="handle"
+										required
+										onFocus={onFocusHandle}
+										style={{ marginBottom: "15px" }}
+										InputProps={{
+											"data-testid": "userHandle",
+											startAdornment: (
+												<InputAdornment position="start">
+													<PersonOutlineIcon
+														style={{ color: "rgba(0,0,0,.25)" }}
+													/>
+												</InputAdornment>
+											),
+										}}
+									/>
+									<div width="100%">
+										<TextField
+											error={countryValidateError}
+											label="User Country"
+											variant="outlined"
+											placeholder="User Country"
+											value={country}
+											onChange={(e) => {
+												setCountry(e.target.value);
+												setCountrySearch(e.target.value);
+											}}
+											onFocus={() => {
+												setCountrySearch(country);
+												onFocusHandle();
+											}}
+											fullWidth
+											autoComplete="country"
+											required
+											style={{ marginBottom: "15px" }}
+											InputProps={{
+												"data-testid": "userCountry",
+												startAdornment: (
+													<InputAdornment position="start">
+														<PersonOutlineIcon
+															style={{ color: "rgba(0,0,0,.25)" }}
+														/>
+													</InputAdornment>
+												),
+											}}
+										/>
+										<div>
+											{filteredData.length !== 0 && (
+												<div className="dataOutput">
+													{filteredData.map((item) => {
+														return (
+															<div
+																onClick={(e) => {
+																	setCountry(item.name);
+																	setCountrySearch("");
+																}}
+																style={{ color: textColor }}>
+																<span>{item.name}</span>
+															</div>
+														);
+													})}
+												</div>
+											)}
+										</div>
+									</div>
+									<TextField
+										type="file"
+										label="Profile Image"
+										variant="outlined"
+										fullWidth
+										InputProps={{
+											"data-testid": "userImage",
+											startAdornment: (
+												<InputAdornment position="start">
+													{/* You can use an image or icon here */}
+													<PersonOutlineIcon
+														style={{ color: "rgba(0,0,0,.25)" }}
+													/>
+												</InputAdornment>
+											),
+										}}
+										onChange={handleProfileImageChange}
+									/>
+								</Box>
+								<Divider></Divider>
+								<Box m={3}>
+									<Button
+										data-testid="createOrgBtn"
+										size="small"
+										fullWidth
+										variant="contained"
+										color="primary"
+										disableElevation
+										onClick={() => setShowOrgForm(!showOrgForm)}>
+										{showOrgForm === false
+											? "I want to create an organization"
+											: showOrgForm === true
+												? "I don't want to create an organization"
+												: "I want to create an organization"}
+									</Button>
+								</Box>
+							</Card>
+						</Grid>
+						{/* col-pad-24 pr-12 pt-8 pb-24 div-transition */}
+						<Grid
+							xs={showOrgForm ? 12 : null}
+							md={showOrgForm ? 6 : null}
+							style={{ paddingLeft: "24px" }}
+							className="col-pad-24 pr-12 pr-12 pt-8 div-transition"
+							onFocus={() => setFocusLeft(false)}
+							item={true}>
+							{showOrgForm && (
+								<Card className="auth-form-col" style={{ margin: "0 auto" }}>
+									<Box mt={2} mb={2} m={3}>
+										<Typography>
+											<Box fontSize={16} fontWeight="fontWeightBold" m={1}>
+												<p className="mb-0 " style={{ color: textColor }}>
+													Organization Details
+												</p>
+											</Box>
+										</Typography>
+									</Box>
 
                   <Divider />
 
-                  <Box m={3}>
-                    <TextField
-                      error={orgNameValidateError}
-                      label="Organization Name"
-                      variant="outlined"
-                      placeholder="Organiztion Name"
-                      value={orgName}
-                      onChange={event => onChangeOrgName(event.target.value)}
-                      helperText={
-                        orgNameValidateError
-                          ? orgNameValidateErrorMessage
-                          : null
-                      }
-                      fullWidth
-                      autoComplete="handle"
-                      required
-                      style={{ marginBottom: "15px" }}
-                      InputProps={{
-                        "data-testid": "orgName",
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LocationCityIcon
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <TextField
-                      error={orgHandleValidateError}
-                      label="Organization Handle"
-                      variant="outlined"
-                      placeholder="Organiztion Handle"
-                      value={orgHandle}
-                      onChange={event => onChangeOrgHandle(event.target.value)}
-                      helperText={
-                        orgHandleValidateError
-                          ? orgHandleValidateErrorMessage
-                          : null
-                      }
-                      fullWidth
-                      autoComplete="orgHandle"
-                      required
-                      style={{ marginBottom: "15px" }}
-                      InputProps={{
-                        "data-testid": "orgHandle",
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <BusinessIcon
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <div width="100%">
-                      <TextField
-                        error={orgCountryValidateError}
-                        label="Organization Country"
-                        variant="outlined"
-                        placeholder="Organization Country"
-                        value={orgCountry}
-                        onChange={e => {
-                          setOrgCountry(e.target.value);
-                          setOrgCountrySearch(e.target.value);
-                        }}
-                        onFocus={() => {
-                          setOrgCountrySearch(orgCountry);
-                          onFocusHandle();
-                        }}
-                        fullWidth
-                        autoComplete="orgCountry"
-                        required
-                        InputProps={{
-                          "data-testid": "orgCountry",
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <PersonOutlineIcon
-                                style={{ color: "rgba(0,0,0,.25)" }}
-                              />
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                      <div>
-                        {orgFilteredData.length !== 0 && (
-                          <div className="dataOutput">
-                            {orgFilteredData.map(item => {
-                              return (
-                                <div
-                                  onClick={e => {
-                                    setOrgCountry(item.name);
-                                    setOrgCountrySearch("");
-                                  }}
-                                  style={{ color: textColor }}
-                                >
-                                  <span>{item.name}</span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </Box>
+									<Box m={3}>
+										<TextField
+											error={orgNameValidateError}
+											label="Organization Name"
+											variant="outlined"
+											placeholder="Organiztion Name"
+											value={orgName}
+											onChange={(event) => onChangeOrgName(event.target.value)}
+											helperText={
+												orgNameValidateError
+													? orgNameValidateErrorMessage
+													: null
+											}
+											fullWidth
+											autoComplete="handle"
+											required
+											style={{ marginBottom: "15px" }}
+											InputProps={{
+												"data-testid": "orgName",
+												startAdornment: (
+													<InputAdornment position="start">
+														<LocationCityIcon
+															style={{ color: "rgba(0,0,0,.25)" }}
+														/>
+													</InputAdornment>
+												),
+											}}
+										/>
+										<TextField
+											error={orgHandleValidateError}
+											label="Organization Handle"
+											variant="outlined"
+											placeholder="Organiztion Handle"
+											value={orgHandle}
+											onChange={(event) =>
+												onChangeOrgHandle(event.target.value)
+											}
+											helperText={
+												orgHandleValidateError
+													? orgHandleValidateErrorMessage
+													: null
+											}
+											fullWidth
+											autoComplete="orgHandle"
+											required
+											style={{ marginBottom: "15px" }}
+											InputProps={{
+												"data-testid": "orgHandle",
+												startAdornment: (
+													<InputAdornment position="start">
+														<BusinessIcon
+															style={{ color: "rgba(0,0,0,.25)" }}
+														/>
+													</InputAdornment>
+												),
+											}}
+										/>
+										<div width="100%">
+											<TextField
+												error={orgCountryValidateError}
+												label="Organization Country"
+												variant="outlined"
+												placeholder="Organization Country"
+												value={orgCountry}
+												onChange={(e) => {
+													setOrgCountry(e.target.value);
+													setOrgCountrySearch(e.target.value);
+												}}
+												onFocus={() => {
+													setOrgCountrySearch(orgCountry);
+													onFocusHandle();
+												}}
+												fullWidth
+												autoComplete="orgCountry"
+												required
+												InputProps={{
+													"data-testid": "orgCountry",
+													startAdornment: (
+														<InputAdornment position="start">
+															<PersonOutlineIcon
+																style={{ color: "rgba(0,0,0,.25)" }}
+															/>
+														</InputAdornment>
+													),
+												}}
+											/>
+											<div>
+												{orgFilteredData.length !== 0 && (
+													<div className="dataOutput">
+														{orgFilteredData.map((item) => {
+															return (
+																<div
+																	onClick={(e) => {
+																		setOrgCountry(item.name);
+																		setOrgCountrySearch("");
+																	}}
+																	style={{ color: textColor }}>
+																	<span>{item.name}</span>
+																</div>
+															);
+														})}
+													</div>
+												)}
+											</div>
+										</div>
+									</Box>
 
-                  <Box m={3}>
-                    <TextField
-                      error={orgWebsiteValidateError}
-                      label="Organization Website"
-                      variant="outlined"
-                      placeholder="Organization Website"
-                      value={orgWebsite}
-                      onChange={event => onChangeOrgWebsite(event.target.value)}
-                      helperText={
-                        orgWebsiteValidateError
-                          ? orgWebsiteValidateErrorMessage
-                          : null
-                      }
-                      fullWidth
-                      autoComplete="orgWebsite"
-                      required
-                      style={{ marginBottom: "15px" }}
-                      InputProps={{
-                        "data-testid": "orgWebsite",
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <PublicIcon style={{ color: "rgba(0,0,0,.25)" }} />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                  </Box>
-                </Card>
-              )}
-            </Grid>
+									<Box m={3}>
+										<TextField
+											error={orgWebsiteValidateError}
+											label="Organization Website"
+											variant="outlined"
+											placeholder="Organization Website"
+											value={orgWebsite}
+											onChange={(event) =>
+												onChangeOrgWebsite(event.target.value)
+											}
+											helperText={
+												orgWebsiteValidateError
+													? orgWebsiteValidateErrorMessage
+													: null
+											}
+											fullWidth
+											autoComplete="orgWebsite"
+											required
+											style={{ marginBottom: "15px" }}
+											InputProps={{
+												"data-testid": "orgWebsite",
+												startAdornment: (
+													<InputAdornment position="start">
+														<PublicIcon style={{ color: "rgba(0,0,0,.25)" }} />
+													</InputAdornment>
+												),
+											}}
+										/>
+									</Box>
+									<Box m={3}>
+										<TextField
+											label="Organization Logo"
+											type="file"
+											variant="outlined"
+											fullWidth
+											autoComplete="orgLogo"
+											required
+											style={{ marginBottom: "15px" }}
+											InputProps={{
+												"data-testid": "orgLogo",
+												startAdornment: (
+													<InputAdornment position="start">
+														<BusinessIcon style={{ color: "rgba(0,0,0,.25)" }} />
+													</InputAdornment>
+												),
+											}}
+											onChange={handleOrgLogoChange}
+										/>
+									</Box>
+
+
+								</Card>
+							)}
+						</Grid>
 
             <Grid xs={12} className="center pl-24 pr-12 pb-32 pt-8" item={true}>
               <Button

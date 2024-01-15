@@ -107,20 +107,24 @@ const ViewOrganization = () => {
   ];
 
   useEffect(() => {
-    db.collection("org_subscribers")
-      .where("org_handle", "==", handle)
-      .get()
-      .then(querySnapshot => {
-        setPeople(querySnapshot.forEach(doc => doc.data()));
+
+    const unsubscribe = db
+      .collection("cl_org_general")
+      .doc(handle)
+      .onSnapshot(snap => {
+        const data = snap.data();
+        setPeople(data.followers);
       });
   }, [db, handle]);
 
   useEffect(() => {
-    db.collection("org_subscribers")
-      .where("uid", "==", profileData.uid)
-      .get()
-      .then(querySnapshot => {
-        setOrgFollowed(querySnapshot.forEach(doc => doc.data()));
+    // console.log(CurrentOrg  )
+    const unsubscribe = db
+      .collection("cl_user")
+      .doc(profileData.uid)
+      .onSnapshot(snap => {
+        const data = snap.data();
+        setOrgFollowed(data.orgFollowed);
       });
   }, [db, profileData.uid]);
 
@@ -189,7 +193,7 @@ const ViewOrganization = () => {
                 followers={currentOrgData.followerCount}
                 name={currentOrgData.org_name}
                 profileImage={
-                  currentOrgData.org_image ? currentOrgData.org_image : NoImage
+                  currentOrgData.org_logo ? currentOrgData.org_logo : NoImage
                 }
                 story="Think Different"
                 handle={handle}

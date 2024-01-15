@@ -49,48 +49,50 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function UserProfile(props) {
-  const classes = useStyles();
+	const classes = useStyles();
+	useEffect(()=>{
+		console.log(props.profileData)
+	})
+	const [organizations, setUpOrganizations] = useState([
+		{
+			name: "Google Summer of Code",
+			img: [OrgUser],
+		},
+		{
+			name: "Google Summer of Code",
+			img: [OrgUser],
+		},
+		{
+			name: "Google Summer of Code",
+			img: [OrgUser],
+		},
+		{
+			name: "Google Summer of Code",
+			img: [OrgUser],
+		},
+	]);
 
-  const [organizations, setUpOrganizations] = useState([
-    {
-      name: "Google Summer of Code",
-      img: [OrgUser]
-    },
-    {
-      name: "Google Summer of Code",
-      img: [OrgUser]
-    },
-    {
-      name: "Google Summer of Code",
-      img: [OrgUser]
-    },
-    {
-      name: "Google Summer of Code",
-      img: [OrgUser]
-    }
-  ]);
-
-  return (
-    <>
-      <div className={classes.parentBody}>
-        <div className={classes.leftBody}>
-          <Grid>
-            <Card>
-              <ProfileCardOne
-                profileImage={
-                  props.profileData.photoURL
-                    ? props.profileData.photoURL
-                    : "https://i.pravatar.cc/300"
-                }
-                name={props.profileData.displayName}
-                story={
-                  "Lorem ipsum dolor sit amet, consectetuer adipiscing elit"
-                }
-                followers={402}
-                following={40}
-              />
-            </Card>
-          </Grid>
+	return (
+		<>
+			<div className={classes.parentBody}>
+				<div className={classes.leftBody}>
+					<Grid>
+						<Card>
+							<ProfileCardOne
+								profileImage={
+									props.profileData.profileImage
+										? props.profileData.profileImage
+										: "https://i.pravatar.cc/300"
+								}
+								name={props.profileData.displayName}
+								story={
+									"Lorem ipsum dolor sit amet, consectetuer adipiscing elit"
+								}
+								followers={402}
+								following={40}
+							/>
+						</Card>
+					</Grid>
 
           {/* Display this card on screen size below 760px */}
           <Grid className={classes.rightSmallBody}>

@@ -39,13 +39,13 @@ if (import.meta.env.VITE_APP_USE_EMULATOR) {
   firebase.database().useEmulator("localhost", 9000);
   firebase.functions().useEmulator("localhost", 5001);
   db.settings({
-    // experimentalForceLongPolling: true, !! Not necessary.
+    experimentalForceLongPolling: false,
     merge: true
   });
 }
 
 // Initialize other services on firebase instance
-firebase.firestore(); // <- needed if using firestore
+// export const firestore = firebase.firestore(); // <- needed if using firestore
 
 let firebase_messaging;
 export const functions = firebase.functions();
@@ -87,3 +87,5 @@ export const onMessageListener = () =>
 export const messaging = firebase_messaging;
 
 export default firebase;
+
+
