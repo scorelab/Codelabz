@@ -18,6 +18,7 @@ import { notifications } from "./notifications";
 const Notification = ({ background = "white", textColor = "black" }) => {
   const classes = useStyles();
   const [openMenu, setOpen] = useState(false);
+  const [notificationList , setNotificationList] = useState(notifications);
   const toggleSlider = () => {
     setOpen(!openMenu);
   };
@@ -117,9 +118,14 @@ const Notification = ({ background = "white", textColor = "black" }) => {
               Notifications
             </Typography>
             <div className={classes.container}>
-              {notifications.map((notification, key) => {
+              {notificationList.map((notification, key) => {
                 return (
-                  <NotificationBox key={key} notification={notification} />
+                  <NotificationBox  
+                      key={key} 
+                      notification={notification}
+                      notificationList={notificationList} 
+                      setNotificationList={setNotificationList}
+                  />
                 );
               })}
             </div>

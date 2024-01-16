@@ -5,11 +5,10 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import useStyles from "./styles";
-import { notifications } from "./notifications";
 import { useState, useRef } from "react";
 import { blue } from "@mui/material/colors";
 
-const NotificationBox = ({ notification }) => {
+const NotificationBox = ({ notification, notificationList, setNotificationList }) => {
   const classes = useStyles();
   const anchorRef = useRef();
   const [open, setOpen] = useState(false);
@@ -21,7 +20,8 @@ const NotificationBox = ({ notification }) => {
     handleClose();
   };
   const handleDelete = id => {
-    notifications.filter(notification => id != notification.id);
+    const updatedList = notificationList.filter(notification => id != notification.id);
+    setNotificationList(updatedList);
   };
   return (
     <>
