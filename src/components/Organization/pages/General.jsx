@@ -19,7 +19,6 @@ import OrgDelete from "../OrgUsers/OrgDelete";
 import { useDispatch, useSelector } from "react-redux";
 import { NoImage } from "../../../helpers/images";
 import {
-  uploadOrgProfileImage,
   clearEditGeneral,
   editGeneralData
 } from "../../../store/actions";
@@ -27,6 +26,8 @@ import { useFirebase, useFirestore } from "react-redux-firebase";
 import ChangeProfile from "../../Profile/ChangeProfile/ChangeProfile";
 import { useDebouncedEffect } from "../../../helpers/customHooks/useDebounce";
 import useWindowSize from "../../../helpers/customHooks/useWindowSize";
+import { newUpdateOrgProfileImage } from "../../../store/actions";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -110,18 +111,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const base64StringToFile = (base64String, filename) => {
-  let arr = base64String.split(","),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new File([u8arr], filename, { type: mime });
-};
-
 /**
  * @description - This component is used to edit the general details of the organization.
  * @returns {React.Component}
@@ -132,7 +121,7 @@ function General() {
   // Image Uploading And Cropping Hooks
   const [imageUploading, setImageUploading] = useState(false);
   const [showImageDialog, setShowImageDialog] = useState(false);
-
+  const [profileImage ,setProfileImage]=useState(null)
   // Firebase Hooks
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -179,20 +168,25 @@ function General() {
       return;
     }
     setShowImageDialog(false);
-    uploadImage(base64StringToFile(canvas.toDataURL(), "newfile"));
+    uploadImage(canvas.toDataURL())
   };
 
   const uploadImage = file => {
     setIsUpdating(true);
-    uploadOrgProfileImage(
-      file,
-      CurrentOrg.org_handle,
-      CurrentOrg
-    )(firebase, dispatch).then(() => {
-      setIsUpdating(false);
-      setImageUploading(false);
-      clearEditGeneral()(dispatch);
-    });
+    setProfileImage(file)
+    newUpdateOrgProfileImage(CurrentOrg.org_handle, file)(firestore, dispatch)
+      .then(() => {
+        dispatch(getOrgData(CurrentOrg.org_handle, profileOrganizations)(firebase, firestore));
+        setIsUpdating(false);
+        setImageUploading(false);
+        clearEditGeneral()(dispatch);
+      })
+      .catch(error => {
+        console.error(error);
+        setIsUpdating(false);
+        setImageUploading(false);
+        clearEditGeneral()(dispatch);
+      });
     return false;
   };
 
@@ -323,9 +317,9 @@ function General() {
               <Grid container direction="column">
                 <Grid item container alignItems="center">
                   <Grid item xs={2} className={classes.ProfileContainer}>
-                    {CurrentOrg.org_image ? (
+                    {CurrentOrg.org_image || profileImage? (
                       <Avatar
-                        src={CurrentOrg.org_image}
+                        src={profileImage ? profileImage : CurrentOrg.org_image}
                         className={classes.ProfilePhotoImage}
                       />
                     ) : (
