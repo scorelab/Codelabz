@@ -116,29 +116,29 @@ export const updateUserProfile =
     description,
     country
   }) =>
-  async (firebase, firestore, dispatch) => {
-    try {
-      dispatch({ type: actions.PROFILE_EDIT_START });
-      await firebase.updateProfile(
-        {
-          displayName,
-          website,
-          link_facebook,
-          link_github,
-          link_linkedin,
-          link_twitter,
-          description,
-          country,
-          updatedAt: firestore.FieldValue.serverTimestamp()
-        },
-        { useSet: false, merge: true }
-      );
-      dispatch({ type: actions.PROFILE_EDIT_SUCCESS });
-      dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
-    } catch (e) {
-      dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
-    }
-  };
+    async (firebase, firestore, dispatch) => {
+      try {
+        dispatch({ type: actions.PROFILE_EDIT_START });
+        await firebase.updateProfile(
+          {
+            displayName,
+            website,
+            link_facebook,
+            link_github,
+            link_linkedin,
+            link_twitter,
+            description,
+            country,
+            updatedAt: firestore.FieldValue.serverTimestamp()
+          },
+          { useSet: false, merge: true }
+        );
+        dispatch({ type: actions.PROFILE_EDIT_SUCCESS });
+        dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
+      } catch (e) {
+        dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
+      }
+    };
 
 export const uploadProfileImage =
   (file, user_handle) => async (firebase, dispatch) => {
@@ -297,3 +297,60 @@ const getAllOrgsOfCurrentUser = () => async (firebase, firestore) => {
     console.log(e);
   }
 };
+
+export const changeUserEmail = (email, emailType, userHandle) => async (firebase, firestore, dispatch) => {
+  dispatch({type:actions.PROFILE_EDIT_START})
+  if (emailType == "primary") {
+    const user = firebase.auth().currentUser;
+    user.updateEmail(email)
+      .then(() => {
+        const usersCollection = firestore.collection('cl_user');
+        const query = usersCollection.where('handle', '==', userHandle);
+        query.get()
+          .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+              const docRef = querySnapshot.docs[0].ref;
+              return docRef.set({
+                email: email
+              }, { merge: true });
+              
+            } else {
+              dispatch({type:actions.PROFILE_EDIT_FAIL,payload:"User handle not found"})
+              return
+            }
+          })
+          .then(() => {
+            dispatch({type:actions.PROFILE_EDIT_SUCCESS})
+          })
+          .catch((error) => {
+            dispatch({type:actions.PROFILE_EDIT_FAIL,payload:error.message})
+          });
+      })
+      .catch((error) => {
+        dispatch({type:actions.PROFILE_EDIT_FAIL,payload:error.message})
+      });
+    
+  } else if (emailType == "backup") {
+    const usersCollection = firestore.collection('cl_user');
+    const query = usersCollection.where('handle', '==', userHandle);
+    query.get()
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          return docRef.set({
+            backupEmail: email
+          }, { merge: true });
+          
+        } else {
+          dispatch({type:actions.PROFILE_EDIT_FAIL,payload:"User handle not found"})
+          return
+        }
+      })
+      .then(() => {
+        dispatch({type:actions.PROFILE_EDIT_SUCCESS})
+      })
+      .catch((error) => {
+        dispatch({type:actions.PROFILE_EDIT_FAIL,payload:error.message})
+      });
+  }
+} 
