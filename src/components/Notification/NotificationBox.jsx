@@ -5,23 +5,24 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import useStyles from "./styles";
-import { notifications } from "./notifications";
+import  {notifications}  from "./notifications";
 import { useState, useRef } from "react";
 import { blue } from "@mui/material/colors";
 
-const NotificationBox = ({ notification }) => {
-  const classes = useStyles();
-  const anchorRef = useRef();
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
+const NotificationBox = ({ notification, onDelete}) => {
+  const classes =  useStyles();
+  const anchorRef =  useRef();
+  const [open, setOpen] =  useState(false);
+  const handleClose = () =>  {
     setOpen(false);
   };
   const handleRead = () => {
     notification.isRead = true;
     handleClose();
   };
-  const handleDelete = id => {
-    notifications.filter(notification => id != notification.id);
+  const handleDelete = () => {
+    onDelete(notification.id);
+    handleClose();
   };
   return (
     <>
@@ -70,7 +71,7 @@ const NotificationBox = ({ notification }) => {
           </IconButton>
           <Menu anchorEl={anchorRef.current} open={open} onClose={handleClose}>
             <MenuItem onClick={handleRead}>Mark as read</MenuItem>
-            <MenuItem onClick={() => handleDelete(notification.id)}>
+            <MenuItem onClick={handleDelete}>
               Delete
             </MenuItem>
             <MenuItem onClick={handleClose}>
