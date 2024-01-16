@@ -72,15 +72,15 @@ const Header = () => {
     }
     if (result.length > 0) {
       let tempArray = [];
-      const sliceData=indexData[1].tutorials
-      console.log(sliceData)
+      const sliceData = indexData[1].tutorials;
+      console.log(sliceData);
       result.forEach(item => {
         tempArray = [
           ...tempArray,
           ..._.filter(sliceData, ref => ref.tutorial_id === item.ref)
         ];
       });
-      console.log(sliceData,result,tempArray)
+      console.log(sliceData, result, tempArray);
       setViewResults(true);
       return setResults(tempArray);
     }
