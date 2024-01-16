@@ -55,10 +55,39 @@ export default function SocialIcons(props) {
       clearUserProfile()(dispatch);
     };
   }, [firebase, firestore, dispatch, handle]);
+
+  useEffect(() => {
+    if (!facebook.startsWith("http")) {
+      setFacebook(`https://facebook.com/${facebook}`);
+    }
+  }, [facebook]);
+
+  useEffect(() => {
+    if (!github.startsWith("http")) {
+      setGithub(`https://github.com/${github}`);
+    }
+  }, [github]);
+
+  useEffect(() => {
+    if (!linkedin.startsWith("http")) {
+      setLinkedin(`https://linkedin.com/in/${linkedin}`);
+    }
+  }, [linkedin]);
+
+  useEffect(() => {
+    if (!twitter.startsWith("http")) {
+      setTwitter(`https://twitter.com/${twitter}`);
+    }
+  }, [twitter]);
   return (
     <Card className={classes.root}>
       <CardActions className={classes.icon} disableSpacing>
-        <Link to={facebook} target="_blank" rel="noopener noreferrer">
+        <a
+          href={facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none" }}
+        >
           <IconButton
             color="primary"
             aria-label="share"
@@ -66,8 +95,13 @@ export default function SocialIcons(props) {
           >
             <FacebookIcon className={classes.facebookIcon} />
           </IconButton>
-        </Link>
-        <Link to={linkedin} target="_blank" rel="noopener noreferrer">
+        </a>
+        <a
+          href={linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none" }}
+        >
           <IconButton
             color="primary"
             aria-label="share"
@@ -75,13 +109,23 @@ export default function SocialIcons(props) {
           >
             <LinkedInIcon className={classes.linkedInIcon} />
           </IconButton>
-        </Link>
-        <Link to={github} target="_blank" rel="noopener noreferrer">
+        </a>
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none" }}
+        >
           <IconButton aria-label="share" data-testId="GithubIcon">
             <GitHubIcon className={classes.blackIcon} />
           </IconButton>
-        </Link>
-        <Link to={twitter} target="_blank" rel="noopener noreferrer">
+        </a>
+        <a
+          href={twitter}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none" }}
+        >
           <IconButton
             color="primary"
             aria-label="add to favorites"
@@ -89,7 +133,7 @@ export default function SocialIcons(props) {
           >
             <TwitterIcon className={classes.twitterIcon} />
           </IconButton>
-        </Link>
+        </a>
         <Link to="/" target="_blank" rel="noopener noreferrer">
           <IconButton aria-label="share" data-testId="LinkIcon">
             <LinkIcon className={classes.blackIcon} />
