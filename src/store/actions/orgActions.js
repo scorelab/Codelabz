@@ -176,6 +176,8 @@ export const clearEditGeneral = () => dispatch => {
   dispatch({ type: actions.CLEAR_EDIT_ORG_GENERAL });
 };
 
+
+
 export const unPublishOrganization =
   (org_handle, published, currentOrgData) =>
   async (firebase, firestore, dispatch) => {
@@ -229,7 +231,7 @@ export const getOrgData =
     try {
       dispatch({ type: actions.GET_ORG_DATA_START });
 
-      const isOrgExists = await checkOrgHandleExists(org_handle)(firestore);
+      const isOrgExists = await checkOrgHandleExists(org_handle)(firebase);
 
       if (isOrgExists) {
         const doc = await firestore
@@ -262,6 +264,36 @@ export const getOrgData =
       dispatch({ type: actions.GET_ORG_DATA_FAIL, payload: e.message });
     }
   };
+
+  const convertImageToBase64 = (imageFile) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+  
+      reader.onerror = (error) => {
+        reject(error);
+      };
+  
+      reader.readAsDataURL(imageFile);
+    });
+  };
+
+export const updateOrgBanner=(org_handle,banner)=>async(firestore,dispatch)=>{
+  try{
+    dispatch({ type: actions.EDIT_ORG_GENERAL_START });
+    const orgRef = firestore.collection("cl_org_general").doc(org_handle);
+    const base64Banner = await convertImageToBase64(banner);
+    orgRef.update({
+      org_banner: base64Banner,
+    });
+    dispatch({ type: actions.EDIT_ORG_GENERAL_SUCCESS });
+  }catch(e){
+    dispatch({ type: actions.EDIT_ORG_GENERAL_FAIL, payload: e.message });
+  }
+}
 
 export const clearOrgData = () => dispatch => {
   dispatch({ type: actions.CLEAR_ORG_DATA_STATE });
