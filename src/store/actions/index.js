@@ -41,7 +41,8 @@ export {
   updateUserProfile,
   uploadProfileImage,
   addUserFollower,
-  removeUserFollower
+  removeUserFollower,
+  deleteUserProfile
 } from "./profileActions";
 export {
   addNewTutorialStep,
