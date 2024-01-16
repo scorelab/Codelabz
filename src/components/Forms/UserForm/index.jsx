@@ -160,6 +160,7 @@ const UserForm = () => {
     if (validated()) {
       updateUserProfile({
         displayName: name,
+        description,
         website,
         link_facebook: facebook,
         link_github: github,
