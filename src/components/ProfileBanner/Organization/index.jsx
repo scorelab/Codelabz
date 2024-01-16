@@ -8,22 +8,39 @@ import dp from "../../../assets/images/demoperson1.jpeg";
 import iconbuttonImage from "../../../assets/images/unfilled3holes.svg";
 import { Button, IconButton, Paper } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import EditIcon from '@mui/icons-material/Edit';
+import { updateOrgBanner } from "../../../store/actions";
+import { useDispatch } from "react-redux";
+import { useFirebase, useFirestore } from "react-redux-firebase";
 
 export default function Banner({
   bannerImage = "https://postimg.cc/6ystr9mw",
   profileImage = "https://i.pravatar.cc/300",
   name = "Apple",
+  handle = "apple",
   story = "Think Different",
   followers = 402,
   contributors = 402,
   feed = 40,
-  handle = "apple",
   isOrgBelongsToUser = false,
   isUserSubscribed = false,
   handleOrgSubscription
 }) {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
+  const [customBannerImage,setCustomBannerImage]=useState(null)
+
+  // const [selectedFile, setSelectedFile] = useState(null);
+  const firebase = useFirebase();
+  const dispatch = useDispatch();
+  const firestore = useFirestore();
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    setCustomBannerImage(file)
+    await updateOrgBanner(handle,file)(firestore,dispatch)
+  };
+
   return (
     <>
       <Paper
@@ -32,11 +49,26 @@ export default function Banner({
         data-testId="orgprofilebanner"
       >
         <div className={classes.profileCover}>
+
           <img
             className={classes.profileCoverImg}
-            src={bannerImage}
+            src={customBannerImage ? URL.createObjectURL(customBannerImage) : bannerImage}
             alt="Profile Banner"
             data-testId="orgbannerimg"
+          />
+          <IconButton
+            className={classes.editIcon}
+            onClick={() => document.getElementById('fileInput').click()}
+            data-testId="editIcon"
+          >
+            <EditIcon />
+          </IconButton>
+          <input
+            type="file"
+            id="fileInput"
+            className={classes.fileInput}
+            accept="image/*"
+            onChange={handleFileChange}
           />
           <div className={classes.profileInfo}>
             <img
@@ -45,6 +77,7 @@ export default function Banner({
               alt="Avatar"
               data-testId="orgbanneravatar"
             />
+
             <Typography
               className={classes.profileInfoName}
               data-testId="orgbannername"
