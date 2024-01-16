@@ -39,6 +39,28 @@ const Header = () => {
     }
   }, [user, org]);
 
+  // const handleOnSearch = ({ target: { value } }) => {
+  //   if (value === "") {
+  //     return setViewResults(false);
+  //   }
+  //   const result = searchFromTutorialsIndex(value);
+  //   if (result.length === 0) {
+  //     setViewResults(true);
+  //     return setResults([]);
+  //   }
+  //   if (result.length > 0) {
+  //     let tempArray = [];
+  //     result.forEach(item => {
+  //       tempArray = [
+  //         ...tempArray,
+  //         ..._.filter(indexData, ref => ref.tutorial_id === item.ref)
+  //       ];
+  //     });
+  //     setViewResults(true);
+  //     return setResults(tempArray);
+  //   }
+  // };
+
   const handleOnSearch = ({ target: { value } }) => {
     if (value === "") {
       return setViewResults(false);
@@ -50,12 +72,15 @@ const Header = () => {
     }
     if (result.length > 0) {
       let tempArray = [];
+      const sliceData = indexData[1].tutorials;
+      console.log(sliceData);
       result.forEach(item => {
         tempArray = [
           ...tempArray,
-          ..._.filter(indexData, ref => ref.tutorial_id === item.ref)
+          ..._.filter(sliceData, ref => ref.tutorial_id === item.ref)
         ];
       });
+      console.log(sliceData, result, tempArray);
       setViewResults(true);
       return setResults(tempArray);
     }
