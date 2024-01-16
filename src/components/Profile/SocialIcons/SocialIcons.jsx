@@ -50,7 +50,14 @@ export default function SocialIcons() {
           color="primary"
           aria-label="share"
           data-testId="FacebookIcon"
-          onClick={() => openLink(appendUsernameToUrl(profileData.link_facebook, 'https://www.facebook.com'))}
+          onClick={() =>
+            openLink(
+              appendUsernameToUrl(
+                profileData.link_facebook,
+                "https://www.facebook.com"
+              )
+            )
+          }
         >
           <FacebookIcon className={classes.facebookIcon} />
         </IconButton>
@@ -58,14 +65,28 @@ export default function SocialIcons() {
           color="primary"
           aria-label="share"
           data-testId="LinkedInIcon"
-          onClick={() => openLink(appendUsernameToUrl(profileData.link_linkedin, 'https://www.linkedin.com'))}
+          onClick={() =>
+            openLink(
+              appendUsernameToUrl(
+                profileData.link_linkedin,
+                "https://www.linkedin.com"
+              )
+            )
+          }
         >
           <LinkedInIcon className={classes.linkedInIcon} />
         </IconButton>
         <IconButton
           aria-label="share"
           data-testId="GithubIcon"
-          onClick={() => openLink(appendUsernameToUrl(profileData.link_github, 'https://www.github.com'))}
+          onClick={() =>
+            openLink(
+              appendUsernameToUrl(
+                profileData.link_github,
+                "https://www.github.com"
+              )
+            )
+          }
         >
           <GitHubIcon className={classes.blackIcon} />
         </IconButton>
@@ -73,7 +94,14 @@ export default function SocialIcons() {
           color="primary"
           aria-label="add to favorites"
           data-testId="TwitterIcon"
-          onClick={() => openLink(appendUsernameToUrl(profileData.link_twitter, 'https://twitter.com'))}
+          onClick={() =>
+            openLink(
+              appendUsernameToUrl(
+                profileData.link_twitter,
+                "https://twitter.com"
+              )
+            )
+          }
         >
           <TwitterIcon className={classes.twitterIcon} />
         </IconButton>
