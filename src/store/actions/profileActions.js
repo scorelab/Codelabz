@@ -297,3 +297,19 @@ const getAllOrgsOfCurrentUser = () => async (firebase, firestore) => {
     console.log(e);
   }
 };
+
+
+export const updateUserPassword = (oldPassword,newPassword) => async (firebase,dispatch)=>{
+  const currentUser = firebase.auth().currentUser;
+  const passwordRegex = /^.{8,}$/;
+  if (currentUser === null){
+    return;
+  }else if(newPassword === oldPassword ){
+    return "New and the old password should not be same";
+  }else if(!passwordRegex.test(newPassword)){
+    return "Password should contain minimum 8 characters long" 
+  }
+  await currentUser.updatePassword(newPassword);
+  return true
+  
+}
