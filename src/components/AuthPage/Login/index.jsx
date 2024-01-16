@@ -204,7 +204,7 @@ const Login = ({
                 data-testId="forgotPassoword"
                 to="/forgotpassword"
                 className="login-form-forgot"
-                style={{ float: "right" }}
+                style={{position:"relative",left:"19.2rem",color:"blue" }}
               >
                 Forgot password
               </Link>
