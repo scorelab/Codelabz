@@ -68,6 +68,11 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
       ) {
         container.removeChild(container.firstChild);
       }
+      var FontAttributor = Quill.import('attributors/class/font');
+      FontAttributor.whitelist = [
+        'sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu','arial', 'verdana', 'calibri', 'helvetica', 'courier', 'impact', 'palatino', 'garamond', 'tahoma', 'cambria', 'comic-sans', 'georgia', 'trebuchet', 'franklin-gothic', 'rockwell', 'copperplate', 'baskerville', 'myriad-pro', 'didot', 'futura'
+      ];
+      Quill.register(FontAttributor, true);
 
       const editor = new Quill(editorRef.current, {
         modules: {
@@ -86,7 +91,10 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
             [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-            [{ font: [] }],
+            [{
+              font: ['Sans Serif', 'monospace', 'serif', 'sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu', 'arial', 'verdana', 'calibri', 'helvetica', 'courier', 'impact', 'palatino', 'garamond', 'tahoma', 'cambria', 'comic-sans', 'georgia', 'trebuchet', 'franklin-gothic', 'rockwell', 'copperplate', 'baskerville', 'myriad-pro', 'didot', 'futura'
+              ]
+            }],
             [{ align: [] }],
             ["clean"], // remove formatting button
             ["link", "image"]
