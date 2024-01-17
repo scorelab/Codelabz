@@ -12,14 +12,14 @@ import {
   OutlinedInput
 } from "@mui/material";
 import { Input } from "../../ui-helpers/Inputs/PrimaryInput";
-import {addEmail} from "../../../store/actions"
+import { addEmail } from "../../../store/actions";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 const UserEmail = () => {
   const firebase = useFirebase();
   const firestore = useFirestore();
-  const dispatch = useDispatch() ;
-  
+  const dispatch = useDispatch();
+
   const classes = useStyles();
 
   const [primaryEmail, setPrimaryEmail] = useState(data.primaryEmail);
@@ -35,19 +35,18 @@ const UserEmail = () => {
     setBackupEmail(event.target.value);
   };
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const handleemailinput = event => setEmail(event.target.value);
 
   const handleAddEmail = () => {
-    if (email.trim() !== '') {
+    if (email.trim() !== "") {
       console.log(email);
       addEmail({
-        additionalEmail : email 
-      })(firebase,firestore,dispatch) ; 
-      console.log(email) ;
-    }
-    else{
-      console.error("not valid email")
+        additionalEmail: email
+      })(firebase, firestore, dispatch);
+      console.log(email);
+    } else {
+      console.error("not valid email");
     }
   };
   return (
@@ -78,7 +77,9 @@ const UserEmail = () => {
               value={email}
               onChange={handleemailinput}
             />
-            <Typography data-testId="addEmail" onClick={handleAddEmail}>Add</Typography>
+            <Typography data-testId="addEmail" onClick={handleAddEmail}>
+              Add
+            </Typography>
           </Box>
         </Box>
         <Box className={classes.email}>

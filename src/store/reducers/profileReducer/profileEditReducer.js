@@ -30,26 +30,25 @@ const ProfileEditReducer = (state = initialState, { type, payload }) => {
         loading: false,
         error: payload
       };
-    
-    case actions.ADD_EMAIL_START:
-      return{
-        ...state,
-        loading:true,
-        error:null
-      }
-    case actions.ADD_EMAIL_SUCCESS:
-      return{
-        ...state,
-        loading:false,
-        error:null
-      }
-    case actions.ADD_EMAIL_FAIL:
-      return{
-        ...state,
-        loading:false,
-        error:payload
-      }
 
+    case actions.ADD_EMAIL_START:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    case actions.ADD_EMAIL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      };
+    case actions.ADD_EMAIL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload
+      };
 
     default:
       return state;
