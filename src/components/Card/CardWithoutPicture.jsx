@@ -72,16 +72,16 @@ export default function CardWithoutPicture({ tutorial }) {
   const firestore = useFirestore();
 
   const [count, setCount] = useState(1);
-  const [alignment, setAlignment] = useState('right');
+  const [alignment, setAlignment] = useState("right");
 
   const handleIncrement = () => {
     setCount(count + 1);
-    setAlignment('left');
+    setAlignment("left");
   };
 
   const handleDecrement = () => {
     setCount(count - 1);
-    setAlignment('right');
+    setAlignment("right");
   };
 
   useEffect(() => {
@@ -186,7 +186,7 @@ export default function CardWithoutPicture({ tutorial }) {
         >
           <ToggleButton
             onClick={handleIncrement}
-            disabled={alignment === 'left'}
+            disabled={alignment === "left"}
             value="left"
             aria-label="left aligned"
           >
@@ -195,7 +195,7 @@ export default function CardWithoutPicture({ tutorial }) {
           </ToggleButton>
           <ToggleButton
             onClick={handleDecrement}
-            disabled={alignment === 'right'}
+            disabled={alignment === "right"}
             value="right"
             aria-label="right aligned"
           >
