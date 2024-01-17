@@ -2,7 +2,6 @@ import * as actions from "./actionTypes";
 import { checkOrgHandleExists, checkUserHandleExists } from "./authActions";
 import { getOrgBasicData } from "./orgActions";
 import _ from "lodash";
-
 export const clearProfileEditError = () => async dispatch => {
   dispatch({ type: actions.CLEAR_PROFILE_EDIT_STATE });
 };
@@ -102,6 +101,45 @@ export const createOrganization =
       }, 7000);
     } catch (e) {
       dispatch({ type: actions.PROFILE_EDIT_FAIL, payload: e.message });
+    }
+  };
+
+export const addEmail =
+  ({ additionalEmail }) =>
+  async (firebase, firestore, dispatch) => {
+    console.log("Additonal emial recieved ", additionalEmail);
+    try {
+      dispatch({ type: actions.ADD_EMAIL_START });
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const uid = user.uid;
+        const userRef = firestore.collection("cl_user").doc(uid);
+        const userDoc = await userRef.get();
+        const currentConnectedEmails = userDoc.exists
+          ? userDoc.data().connectedemails || []
+          : [];
+        const updatedEmails = [...currentConnectedEmails, additionalEmail];
+        // await userRef.set({
+        //   connectedemails: updatedEmails,
+        // }, {merge:true});
+        console.log("Before set operation");
+        await userRef.set(
+          {
+            connectedemails: updatedEmails
+          },
+          { merge: true }
+        );
+        console.log("After set operation");
+
+        dispatch({ type: actions.ADD_EMAIL_SUCCESS, payload: updatedEmails });
+      } else {
+        dispatch({
+          type: actions.ADD_EMAIL_FAIL,
+          payload: "User not signed in"
+        });
+      }
+    } catch (e) {
+      dispatch({ type: actions.ADD_EMAIL_FAIL, payload: e.message });
     }
   };
 
