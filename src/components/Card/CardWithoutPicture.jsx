@@ -67,21 +67,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function CardWithoutPicture({ tutorial }) {
   const classes = useStyles();
-  const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
+
+  const [count, setCount] = useState(1);
+  const [alignment, setAlignment] = useState("right");
+
   const handleIncrement = () => {
     setCount(count + 1);
+    setAlignment("left");
   };
 
   const handleDecrement = () => {
     setCount(count - 1);
-  };
-
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
+    setAlignment("right");
   };
 
   useEffect(() => {
@@ -180,15 +180,13 @@ export default function CardWithoutPicture({ tutorial }) {
         <div className={classes.grow} />
         <ToggleButtonGroup
           size="small"
-          className={classes.small}
           value={alignment}
           exclusive
-          onChange={handleAlignment}
           aria-label="text alignment"
         >
           <ToggleButton
-            className={classes.small}
             onClick={handleIncrement}
+            disabled={alignment === "left"}
             value="left"
             aria-label="left aligned"
           >
@@ -196,10 +194,10 @@ export default function CardWithoutPicture({ tutorial }) {
             <span>{count}</span>
           </ToggleButton>
           <ToggleButton
-            className={classes.small}
             onClick={handleDecrement}
-            value="center"
-            aria-label="centered"
+            disabled={alignment === "right"}
+            value="right"
+            aria-label="right aligned"
           >
             <KeyboardArrowDownIcon />
           </ToggleButton>
