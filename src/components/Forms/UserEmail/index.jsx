@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useStyles from "./styles";
 import data from "./emailAddressConfig.json";
+import { useSelector } from "react-redux";
 import {
   Box,
   Card,
@@ -11,9 +12,15 @@ import {
   OutlinedInput
 } from "@mui/material";
 import { Input } from "../../ui-helpers/Inputs/PrimaryInput";
-import { useSelector } from "react-redux";
-
+import { addEmail } from "../../../store/actions";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
+import { Avatar, Button } from "@mui/material";
 const UserEmail = () => {
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
+
   const classes = useStyles();
 
   const [primaryEmail, setPrimaryEmail] = useState(data.primaryEmail);
@@ -29,6 +36,21 @@ const UserEmail = () => {
     setBackupEmail(event.target.value);
   };
 
+  const [email, setEmail] = useState("");
+  const handleemailinput = event => setEmail(event.target.value);
+  const handleAddEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email.trim() !== "" && emailRegex.test(email)) {
+      console.log(email);
+      addEmail({
+        additionalEmail: email
+      })(firebase, firestore, dispatch);
+      console.log(email);
+    } else {
+      console.error("Not a valid email address");
+    }
+  };
+  
   return (
     <Card className={classes.card}>
       <Box
@@ -54,8 +76,12 @@ const UserEmail = () => {
               placeholder="email"
               className={classes.input}
               data-testId="emailInput"
+              value={email}
+              onChange={handleemailinput}
             />
-            <Typography data-testId="addEmail">Add</Typography>
+            <Typography data-testId="addEmail" onClick={handleAddEmail}>
+              <Button>Add</Button>
+            </Typography>
           </Box>
         </Box>
         <Box className={classes.email}>
