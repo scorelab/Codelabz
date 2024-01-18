@@ -531,3 +531,111 @@ export const setTutorialTheme =
         console.log(e.message);
       }
     };
+
+
+export const addBookMark = (tutorial_id) => async (firebase, firestore, dispatch) => {
+  const current_user = firebase.auth().currentUser;
+
+  if (current_user) {
+    const userId = current_user.uid;
+    const userDocRef = firestore.collection('cl_user').doc(userId);
+
+    const userDoc = await userDocRef.get();
+
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      const bookmarksArray = userData.bookmarks || [];
+      if (!bookmarksArray.includes(tutorial_id)) {
+
+        bookmarksArray.push(tutorial_id);
+
+        await userDocRef.update({ bookmarks: bookmarksArray });
+        console.log(`Tutorial ${tutorial_id} added to bookmarks for user ${userId}`);
+      } else {
+        console.log(`Tutorial ${tutorial_id} already exists in bookmarks for user ${userId}`);
+      }
+    } else {
+      console.error(`User document not found for user ${userId}`);
+    }
+  } else {
+    console.error('No user signed in');
+  }
+};
+
+
+export const removeBookMark = (tutorial_id) => async (firebase, firestore, dispatch) => {
+  const current_user = firebase.auth().currentUser;
+
+  if (current_user) {
+    const userId = current_user.uid;
+    const userDocRef = firestore.collection('cl_user').doc(userId);
+
+    // Get the user document
+    const userDoc = await userDocRef.get();
+
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      const bookmarksArray = userData.bookmarks || [];
+
+      // Check if tutorial_id exists in the bookmarks array
+      const indexOfTutorial = bookmarksArray.indexOf(tutorial_id);
+      if (indexOfTutorial !== -1) {
+        // If it exists, remove it from the array
+        bookmarksArray.splice(indexOfTutorial, 1);
+
+        // Update the user document with the updated bookmarks array
+        await userDocRef.update({ bookmarks: bookmarksArray });
+
+        console.log(`Tutorial ${tutorial_id} removed from bookmarks for user ${userId}`);
+      } else {
+        console.log(`Tutorial ${tutorial_id} not found in bookmarks for user ${userId}`);
+      }
+    } else {
+      console.error(`User document not found for user ${userId}`);
+    }
+  } else {
+    console.error('No user signed in');
+  }
+};
+
+export const getBookMarks = () => async (firebase, firestore, dispatch) => {
+  const current_user = firebase.auth().currentUser;
+
+  if (current_user) {
+    const userId = current_user.uid;
+    const userDocRef = firestore.collection('cl_user').doc(userId);
+
+    // Get the user document
+    const userDoc = await userDocRef.get();
+
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      const bookmarksArray = userData.bookmarks || [];
+
+      return bookmarksArray
+    } else {
+      console.error(`User document not found for user ${userId}`);
+    }
+  } else {
+    console.error('No user signed in');
+  }
+};
+
+
+export const isBookMarked = (tutorial_id) => async (firebase, firestore) => {
+  const current_user = firebase.auth().currentUser;
+
+  if (current_user) {
+    const userId = current_user.uid;
+    const userDocRef = firestore.collection('cl_user').doc(userId);
+
+    // Get the user document
+    const userDoc = await userDocRef.get();
+
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      const bookmarksArray = userData.bookmarks || [];
+      return bookmarksArray.includes(tutorial_id);
+    }
+  }
+}

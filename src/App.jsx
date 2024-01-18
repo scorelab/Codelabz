@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Routes from "./routes";
 import "./App.less";
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -20,6 +20,7 @@ const App = () => {
   useEffect(() => {
     getProfileData(organizations)(firebase, firestore, dispatch);
   }, [organizations, firebase, dispatch]);
+
   return <Routes />;
 };
 
