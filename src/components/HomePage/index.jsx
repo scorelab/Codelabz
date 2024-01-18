@@ -184,7 +184,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     }) => homepageFeedArray
   );
 
-  const notification = () => {};
+  const notification = () => { };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -226,7 +226,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           item
           className={classes.mainBody}
           data-testId="homepageMainBody"
-          xs={6}
+          xs={window.innerWidth >= 899 ? 6 : false}
         >
           <NewCodelabz setVisibleModal={setVisibleModal} />
           <NewTutorial
