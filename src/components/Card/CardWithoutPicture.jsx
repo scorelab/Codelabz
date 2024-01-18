@@ -102,7 +102,7 @@ export default function CardWithoutPicture({ tutorial }) {
   }, [tutorial]);
 
   const findBookMark = async () => {
-    const val = await isBookMarked(tutorial.tutorial_id)(firebase, firestore);
+    const val = await isBookMarked(tutorial?.tutorial_id)(firebase, firestore);
     if (val) {
       setIsBookMark(true);
     } else {
