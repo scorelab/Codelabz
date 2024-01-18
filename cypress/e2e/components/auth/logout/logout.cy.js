@@ -13,10 +13,10 @@ describe("Testing Logout Functionality | CodeLabz", () => {
 
   before(function () {
     indexedDB.deleteDatabase("firebaseLocalStorageDb");
-  })
+  });
 
   it("Logout using Navbar", function () {
-    cy.visit(`${this.base_url}`)
+    cy.visit(`${this.base_url}`);
     cy.wait(2000);
     if (cy.get("[data-testid=Logout]").should("not.exist")) {
       cy.get("[data-test-id=login]").click();
@@ -25,7 +25,7 @@ describe("Testing Logout Functionality | CodeLabz", () => {
       cy.get(".password").type(this.credentials.password);
       cy.get("[data-testid=loginButton]").click();
       cy.wait(5000);
-      cy.location().should((loc) => {
+      cy.location().should(loc => {
         expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
       });
     }
@@ -34,16 +34,15 @@ describe("Testing Logout Functionality | CodeLabz", () => {
     cy.get("[data-testid=Logout]").should("exist");
     cy.get("[data-testid=Logout]").click();
     cy.get("[data-testid=Logout]").should("not.exist");
-    cy.visit(`${this.base_url}profile`)
-    cy.location().should((loc) => {
+    cy.visit(`${this.base_url}profile`);
+    cy.location().should(loc => {
       expect(loc.href).to.not.eq(`${this.base_url}profile`);
-      expect(loc.href).to.eq(`${this.base_url}login`)
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
-
-  })
+  });
 
   it("Logout using Profile Dropdown", function () {
-    cy.visit(`${this.base_url}`)
+    cy.visit(`${this.base_url}`);
     cy.wait(2000);
     if (cy.get("[data-testid=nav-user]").should("not.exist")) {
       cy.get("[data-test-id=login]").click();
@@ -52,7 +51,7 @@ describe("Testing Logout Functionality | CodeLabz", () => {
       cy.get(".password").type(this.credentials.password);
       cy.get("[data-testid=loginButton]").click();
       cy.wait(5000);
-      cy.location().should((loc) => {
+      cy.location().should(loc => {
         expect(loc.href).to.eq(`${this.base_url}dashboard/my_feed`);
       });
     }
@@ -62,12 +61,11 @@ describe("Testing Logout Functionality | CodeLabz", () => {
     cy.get("[data-testid=nav-user]").click();
     cy.get("#log-out").should("exist");
     cy.get("#log-out").click();
-    cy.visit(`${this.base_url}profile`)
+    cy.visit(`${this.base_url}profile`);
     cy.wait(5000);
-    cy.location().should((loc) => {
+    cy.location().should(loc => {
       expect(loc.href).to.not.eq(`${this.base_url}profile`);
-      expect(loc.href).to.eq(`${this.base_url}login`)
+      expect(loc.href).to.eq(`${this.base_url}login`);
     });
-
-  })
+  });
 });
