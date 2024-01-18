@@ -21,10 +21,10 @@ export default function AlertDialog() {
   const handleClose = () => {
     setOpen(false);
   };
-  
-  const handleLogout = () =>{
+
+  const handleLogout = () => {
     signOut()(firebase, dispatch);
-  }
+  };
 
   return (
     <React.Fragment>

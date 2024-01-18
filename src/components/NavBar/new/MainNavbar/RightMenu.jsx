@@ -360,7 +360,11 @@ const RightMenu = ({ mode, onClick }) => {
             </Link>
           </MenuItem>
         )}
-        <MenuItem key="setting:4" onClick={() => setAnchorEl(null)} id={"log-out"}>
+        <MenuItem
+          key="setting:4"
+          onClick={() => setAnchorEl(null)}
+          id={"log-out"}
+        >
           <ExitToAppOutlinedIcon />
           <Typography
             variant="p"
