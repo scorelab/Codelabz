@@ -27,6 +27,7 @@ import {
 import { useTheme } from "@mui/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AlertDialog from "./AlertDialogue";
 
 const useStyles = makeStyles(theme => ({
   menu: {
@@ -361,7 +362,7 @@ const RightMenu = ({ mode, onClick }) => {
         )}
         <MenuItem
           key="setting:4"
-          onClick={() => signOut()(firebase, dispatch)}
+          onClick={() => setAnchorEl(null)}
           id={"log-out"}
         >
           <ExitToAppOutlinedIcon />
@@ -371,7 +372,7 @@ const RightMenu = ({ mode, onClick }) => {
               paddingLeft: "0.5rem"
             }}
           >
-            Log Out
+            <AlertDialog />
           </Typography>
         </MenuItem>
       </Menu>
