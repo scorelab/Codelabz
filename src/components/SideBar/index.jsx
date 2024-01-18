@@ -19,6 +19,11 @@ import { useFirebase } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { useAllowDashboard } from "../../helpers/customHooks";
 import Card from "@mui/material/Card";
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import { IoLogOutOutline } from "react-icons/io5";
+import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -49,6 +54,38 @@ const SideBar = ({
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const allowDashboard = useAllowDashboard();
+
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 600);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: isMobile ? 300 :350,
+    height: 340,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "20px",
+  };
 
   //Taking out the current organization handle of the user
   const currentOrg = useSelector(
@@ -108,7 +145,7 @@ const SideBar = ({
     allowDashboard && {
       name: "Logout",
       img: Logout,
-      onClick: () => signOut()(firebase, dispatch)
+      onClick: handleOpenModal
     }
   ];
 
@@ -155,6 +192,32 @@ const SideBar = ({
           </div>
         </Card>
       )}
+      <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <IoLogOutOutline style={{ fontSize: "120px", marginLeft: isMobile ? "100px" :"130px" }} />
+            <Typography id="modal-modal-title" variant="h5" component="h2" sx={{ mt: isMobile? 1:2, ml:isMobile?4:8 }}>
+              Oh no! You're leaving...
+            </Typography>
+            <Typography id="modal-modal-description" variant="h5" sx={{ mt:isMobile?0:1, ml:isMobile?9:12 }}>
+              Are you sure?
+            </Typography>
+            <Typography>
+              <Button onClick={handleCloseModal} sx={{color: "#fff", bgcolor: "#2a52be", border: "2px solid #2a52be", borderRadius: "40px", mt:isMobile?4:3 , ml:isMobile?5:8, paddingX:5, paddingY:1, '&:hover': {  bgcolor: "#2a52be",   }, }}>
+                Naah,Just Kidding
+                </Button>
+            </Typography>
+            <Typography>
+              <Button onClick={() => signOut()(firebase, dispatch)} sx={{ border: "2px solid #2a52be", borderRadius: "40px", mt:isMobile?1:1, ml:isMobile?5:8, paddingX:6, paddingY:1 }}>
+                Yes, Log Me Out
+              </Button>
+            </Typography>
+          </Box>
+        </Modal>
     </>
   );
 };

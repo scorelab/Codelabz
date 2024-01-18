@@ -16,6 +16,10 @@ import Grid from "@mui/material/Grid";
 import Menu from "@mui/material/Menu";
 import { makeStyles } from "@mui/styles";
 import Divider from "@mui/material/Divider";
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import { IoLogOutOutline } from "react-icons/io5";
 import {
   Accordion,
   AccordionDetails,
@@ -98,17 +102,17 @@ const RightMenu = ({ mode, onClick }) => {
   const orgList =
     allowOrgs > 0
       ? organizations.map((org, i) => {
-          return (
-            <Menu.Item key={`org:${i}`}>
-              <Link to={`/org/${org.org_handle}`}>
-                <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
-                  {avatarName(org.org_name)}
-                </Avatar>{" "}
-                {org.org_name}
-              </Link>
-            </Menu.Item>
-          );
-        })
+        return (
+          <Menu.Item key={`org:${i}`}>
+            <Link to={`/org/${org.org_handle}`}>
+              <Avatar src={org.org_image} size="small" className="mr-8 ml-0">
+                {avatarName(org.org_name)}
+              </Avatar>{" "}
+              {org.org_name}
+            </Link>
+          </Menu.Item>
+        );
+      })
       : null;
 
   const classes = useStyles();
@@ -169,27 +173,27 @@ const RightMenu = ({ mode, onClick }) => {
                   />
                   {allowOrgs > 0
                     ? organizations.map((org, i) => (
-                        <Grid item>
-                          <Link to={`/org/${org.org_handle}`}>
-                            <Grid
-                              container
-                              spacing={3}
-                              direction="row"
-                              alignItems="center"
-                            >
-                              <Grid item>
-                                <Avatar
-                                  src={org.org_image}
-                                  className={classes.orgicon}
-                                >
-                                  {avatarName(org.org_name)}
-                                </Avatar>
-                              </Grid>
-                              <Grid item>{org.org_name}</Grid>
+                      <Grid item>
+                        <Link to={`/org/${org.org_handle}`}>
+                          <Grid
+                            container
+                            spacing={3}
+                            direction="row"
+                            alignItems="center"
+                          >
+                            <Grid item>
+                              <Avatar
+                                src={org.org_image}
+                                className={classes.orgicon}
+                              >
+                                {avatarName(org.org_name)}
+                              </Avatar>
                             </Grid>
-                          </Link>
-                        </Grid>
-                      ))
+                            <Grid item>{org.org_name}</Grid>
+                          </Grid>
+                        </Link>
+                      </Grid>
+                    ))
                     : null}
                 </Grid>
               </AccordionDetails>
@@ -230,6 +234,23 @@ const RightMenu = ({ mode, onClick }) => {
       </React.Fragment>
     );
   }
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 350,
+    height: 340,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "20px",
+  };
 
   return (
     <Grid
@@ -317,27 +338,27 @@ const RightMenu = ({ mode, onClick }) => {
                 />
                 {allowOrgs > 0
                   ? organizations.map((org, i) => (
-                      <Grid item>
-                        <Link to={`/org/${org.org_handle}`}>
-                          <Grid
-                            container
-                            spacing={3}
-                            direction="row"
-                            alignItems="center"
-                          >
-                            <Grid item>
-                              <Avatar
-                                src={org.org_image}
-                                className={classes.orgicon}
-                              >
-                                {avatarName(org.org_name)}
-                              </Avatar>
-                            </Grid>
-                            <Grid item>{org.org_name}</Grid>
+                    <Grid item>
+                      <Link to={`/org/${org.org_handle}`}>
+                        <Grid
+                          container
+                          spacing={3}
+                          direction="row"
+                          alignItems="center"
+                        >
+                          <Grid item>
+                            <Avatar
+                              src={org.org_image}
+                              className={classes.orgicon}
+                            >
+                              {avatarName(org.org_name)}
+                            </Avatar>
                           </Grid>
-                        </Link>
-                      </Grid>
-                    ))
+                          <Grid item>{org.org_name}</Grid>
+                        </Grid>
+                      </Link>
+                    </Grid>
+                  ))
                   : null}
               </Grid>
             </AccordionDetails>
@@ -361,7 +382,7 @@ const RightMenu = ({ mode, onClick }) => {
         )}
         <MenuItem
           key="setting:4"
-          onClick={() => signOut()(firebase, dispatch)}
+          onClick={handleOpenModal}
           id={"log-out"}
         >
           <ExitToAppOutlinedIcon />
@@ -374,6 +395,32 @@ const RightMenu = ({ mode, onClick }) => {
             Log Out
           </Typography>
         </MenuItem>
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <IoLogOutOutline style={{ fontSize: "120px", marginLeft: "130px" }} />
+            <Typography id="modal-modal-title" variant="h5" component="h2" sx={{ mt: 2, ml:8 }}>
+              Oh no! You're leaving...
+            </Typography>
+            <Typography id="modal-modal-description" variant="h5" sx={{ mt: 1, ml:12 }}>
+              Are you sure?
+            </Typography>
+            <Typography>
+              <Button onClick={handleCloseModal} sx={{color: "#fff", bgcolor: "#2a52be", border: "2px solid #2a52be", borderRadius: "40px", mt:3 , ml:8, paddingX:5, paddingY:1, '&:hover': {  bgcolor: "#2a52be",   }, }}>
+                Naah,Just Kidding
+                </Button>
+            </Typography>
+            <Typography>
+              <Button onClick={() => signOut()(firebase, dispatch)} sx={{ border: "2px solid #2a52be", borderRadius: "40px", mt:1, ml:8, paddingX:6, paddingY:1 }}>
+                Yes, Log Me Out
+              </Button>
+            </Typography>
+          </Box>
+        </Modal>
       </Menu>
     </Grid>
   );
