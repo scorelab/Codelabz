@@ -27,6 +27,7 @@ import MainNavbar from "./components/NavBar/new/MainNavbar";
 import UserDashboard from "./components/UserDashboard";
 import TutorialPage from "./components/TutorialPage";
 import Notification from "./components/Notification";
+import Bookmarks from "./components/BookMarks";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -170,6 +171,11 @@ const Routes = () => {
             exact
             path={"/notification"}
             component={UserIsAllowedUserDashboard(Notification)}
+          />
+          <Route
+            exact
+            path={"/bookmarks"}
+            component={UserIsAllowedUserDashboard(Bookmarks)}
           />
           <Route exact path={"*"} component={NotFound} />
         </Switch>

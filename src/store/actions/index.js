@@ -64,5 +64,9 @@ export {
   setTutorialTheme,
   updateStepTime,
   updateStepTitle,
-  uploadTutorialImages
+  uploadTutorialImages,
+  addBookMark,
+  removeBookMark,
+  isBookMarked,
+  getBookMarks
 } from "./tutorialsActions";
