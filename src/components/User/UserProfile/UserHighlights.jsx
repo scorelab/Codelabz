@@ -14,8 +14,8 @@ const useStyles = makeStyles(theme => ({
 
 const UserHighlights = ({ organizations }) => {
   const classes = useStyles();
-  const firebase = useFirebase() ;
-  const profileData = useSelector(({firebase:{profile}}) =>profile) ;
+  const firebase = useFirebase();
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
   return (
     <div>
       <Grid className={classes.bottomMargin}>

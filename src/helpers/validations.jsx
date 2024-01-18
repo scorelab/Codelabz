@@ -76,12 +76,11 @@ export const validateEducation = (
   setEducationValidateError,
   setEducationValidateErrorMessage
 ) => {
-  if(validator.isEmpty(education)){
+  if (validator.isEmpty(education)) {
     setEducationValidateError(true);
     setEducationValidateErrorMessage("Please Enter Education Details");
     return false;
-  }
-  else{
+  } else {
     setEducationValidateError(false);
     setEducationValidateErrorMessage("");
     return true;
@@ -92,17 +91,15 @@ export const validateJob = (
   setJobValidateError,
   setJobValidateErrorMessage
 ) => {
-  if(validator.isEmpty(job)){
+  if (validator.isEmpty(job)) {
     setJobValidateError(true);
     setJobValidateErrorMessage("Please Enter Job Details");
     return false;
-  }
-  else{
+  } else {
     setJobValidateError(false);
     setJobValidateErrorMessage("");
     return true;
   }
-
 };
 export const validateOrgWebsite = (
   orgWebsite,
