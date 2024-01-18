@@ -48,7 +48,7 @@ function Bookmarks({ background = "white", textColor = "black" }) {
   const [value, setValue] = useState(2);
   const [selectedTab, setSelectedTab] = useState("1");
   const [visibleModal, setVisibleModal] = useState(false);
-  const [bookMarkedTutorials,setBookMarkedTutorials]=useState([])
+  const [bookMarkedTutorials, setBookMarkedTutorials] = useState([]);
 
   const [footerContent, setFooterContent] = useState([
     { name: "Help", link: "https://dev.codelabz.io/" },
@@ -188,16 +188,17 @@ function Bookmarks({ background = "white", textColor = "black" }) {
     }) => homepageFeedArray
   );
 
-
   const fetchBookMarks = async () => {
-    const bookMarks = await getBookMarks()(firebase, firestore, dispatch)
-    setBookMarkedTutorials(tutorials.filter((obj) =>bookMarks.includes(obj.tutorial_id)))
-  }
+    const bookMarks = await getBookMarks()(firebase, firestore, dispatch);
+    setBookMarkedTutorials(
+      tutorials.filter(obj => bookMarks.includes(obj.tutorial_id))
+    );
+  };
   useEffect(() => {
-    fetchBookMarks()
-  })
+    fetchBookMarks();
+  });
 
-  const notification = () => { };
+  const notification = () => {};
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -252,15 +253,15 @@ function Bookmarks({ background = "white", textColor = "black" }) {
           <Box item sx={{ display: { md: "none" } }}>
             <TagCard tags={tags} />
           </Box> */}
-            <Typography
-              sx={{
-                fontWeight: "600",
-                fontSize: "1.5rem",
-                marginBottom: "24px"
-              }}
-            >
-              BookMarks
-            </Typography>
+          <Typography
+            sx={{
+              fontWeight: "600",
+              fontSize: "1.5rem",
+              marginBottom: "24px"
+            }}
+          >
+            BookMarks
+          </Typography>
           {bookMarkedTutorials.map(tutorial => {
             return !tutorial?.featured_image ? (
               <CardWithoutPicture tutorial={tutorial} />

@@ -21,8 +21,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../store/actions";
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { addBookMark,removeBookMark,isBookMarked } from "../../store/actions";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { addBookMark, removeBookMark, isBookMarked } from "../../store/actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,7 +72,7 @@ export default function CardWithoutPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
-  const [isBookMark,setIsBookMark]=useState(false)
+  const [isBookMark, setIsBookMark] = useState(false);
 
   const dispatch = useDispatch();
   const firebase = useFirebase();
@@ -97,39 +97,33 @@ export default function CardWithoutPicture({ tutorial }) {
     }) => data
   );
 
-
   useEffect(() => {
-
     getUserProfileData(tutorial?.created_by)(firebase, firestore, dispatch);
   }, [tutorial]);
 
-  const findBookMark = async () =>{
-    const val= await isBookMarked(tutorial.tutorial_id)(firebase,firestore)
-    if(val){
-      setIsBookMark(true)
-    }else{
-      setIsBookMark(false)
+  const findBookMark = async () => {
+    const val = await isBookMarked(tutorial.tutorial_id)(firebase, firestore);
+    if (val) {
+      setIsBookMark(true);
+    } else {
+      setIsBookMark(false);
     }
-  }
-  useEffect(()=>{
-    findBookMark()
-  })
-
-
+  };
+  useEffect(() => {
+    findBookMark();
+  });
 
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();
   };
 
-
-
-  const handleBookMark = async () =>{
-    if(!isBookMark){
-      await addBookMark(tutorial.tutorial_id)(firebase,firestore,dispatch)
-    }else{
-      await removeBookMark(tutorial.tutorial_id)(firebase,firestore,dispatch)
+  const handleBookMark = async () => {
+    if (!isBookMark) {
+      await addBookMark(tutorial.tutorial_id)(firebase, firestore, dispatch);
+    } else {
+      await removeBookMark(tutorial.tutorial_id)(firebase, firestore, dispatch);
     }
-  }
+  };
 
   return (
     <Card className={classes.root} data-testId="codelabz">
@@ -242,7 +236,11 @@ export default function CardWithoutPicture({ tutorial }) {
           <ShareOutlinedIcon />
         </IconButton>
         <IconButton aria-label="share" data-testId="NotifIcon">
-          {!isBookMark ? <TurnedInNotOutlinedIcon onClick={handleBookMark} /> : <BookmarkIcon onClick={handleBookMark}/> }
+          {!isBookMark ? (
+            <TurnedInNotOutlinedIcon onClick={handleBookMark} />
+          ) : (
+            <BookmarkIcon onClick={handleBookMark} />
+          )}
         </IconButton>
         <IconButton aria-label="share" data-testId="MoreIcon">
           <MoreVertOutlinedIcon />
