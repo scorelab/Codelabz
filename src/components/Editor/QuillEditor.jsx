@@ -52,7 +52,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
           var converter = new QuillDeltaToHtmlConverter(deltaText, config);
 
           var html = converter.convert();
-          setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
+          setCurrentStepContent(tutorial_id, id, html, setAllSaved)(firestore, dispatch);
         });
         provider = new FirestoreProvider(onlineFirebaseApp, ydoc, basePath, {
           disableAwareness: true
@@ -98,6 +98,10 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         placeholder: "Start collaborating...",
         theme: "snow"
       });
+
+      editor.on('text-change',function(){
+        setAllSaved(false)
+      })
 
       // provider.awareness.setLocalStateField("user", {
       //   name: currentUserHandle,
