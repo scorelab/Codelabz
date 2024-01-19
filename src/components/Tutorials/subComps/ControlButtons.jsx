@@ -82,6 +82,10 @@ const ControlButtons = ({
                   autoHideDuration={6000}
                   message="tutorial complete"
                 />;
+
+                if(currentStep!=stepsData.length-1 && !stepsData[currentStep].completed )
+                setCurrentStep(currentStep+1)
+              
                 window.scrollTo(0, 0);
                 setStepData(prevSteps =>
                   prevSteps.map((step, index) =>
