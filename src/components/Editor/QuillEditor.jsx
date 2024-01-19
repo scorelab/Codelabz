@@ -14,7 +14,7 @@ import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 Quill.register("modules/cursors", QuillCursors);
 
-const QuillEditor = ({ id, data, tutorial_id }) => {
+const QuillEditor = ({ id, data, tutorial_id,isRefresh,currentStep }) => {
   const [allSaved, setAllSaved] = useState(true);
   const editorRef = useRef(null);
   const containerRef = useRef(null);
@@ -37,6 +37,53 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   useEffect(() => {
     setAllSaved(true);
   }, [id]);
+
+  // Setting the Text Content here
+  const setTextContent = text => {
+    try{
+      if (ydoc) {
+        // Set the initial text in the Yjs document
+        let ytext=ydoc.getText("quill");
+        let length=ytext.length;
+        if(length>0){
+          ytext.delete(0,length)
+        }
+        ytext.insert(0, text);
+  
+        // Update the Quill editor content
+        const deltaText = ydoc.getText("quill").toDelta();
+        const editor = editorRef.current;
+        editor?.clipboard?.dangerouslyPasteHTML(0, deltaText);
+      }else{
+        console.log('Yjs Doc not initialized');
+      }
+    }catch(e){
+      console.log(e)
+    }
+  };
+  const refresh =async () => {
+    try{
+      setAllSaved(true);
+
+    // Example: Set initial text when component mounts
+    const initialText = "Let's Start Over!!!";
+    console.log("Refreshing the Quill Editor!!!")
+     setTextContent(initialText);
+    console.log("Refreshed the Editor!!!")
+    }catch(e){
+      console.log(e)
+    }
+  };
+  // const didMountRef=useRef(false);
+  // useEffect(()=>{
+  //   if (didMountRef.current) {
+  //     // This block will run only when the component updates (not on mount)
+  //     refresh();
+  //   } else {
+  //     // This block will run only on mount
+  //     didMountRef.current = true;
+  //   }
+  // },[isRefresh])
 
   useEffect(() => {
     try {
@@ -116,9 +163,10 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         console.log(err);
       }
     };
-  }, []);
+  }, [ydoc,currentStep,id]);
 
-  return (
+  return (<>
+  <button onClick={()=>refresh()}>Refresh</button>
     <div style={{ flexGrow: 1 }}>
       <Prompt
         when={!allSaved}
@@ -130,7 +178,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
       >
         <div id="quill-editor" ref={editorRef} style={{ flexGrow: 1 }} />
       </div>
-    </div>
+    </div></>
   );
 };
 

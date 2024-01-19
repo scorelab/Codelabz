@@ -28,7 +28,9 @@ const StepsPanel = ({
   onClick,
   hideButton,
   setCurrentStep,
-  setStepData
+  setStepData,
+  tutorial_id,
+  setIsRefresh
 }) => {
   const classes = useStyles();
   return (
@@ -41,6 +43,8 @@ const StepsPanel = ({
             stepsData={stepsData}
             setStepData={setStepData}
             hide={!hideButton}
+            tutorial_id={tutorial_id}
+            setIsRefresh={setIsRefresh}
           />
         </Grid>
       </Grid>
