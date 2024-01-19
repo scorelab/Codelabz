@@ -284,7 +284,7 @@ export const getCurrentStepContentFromFirestore =
   };
 
 export const setCurrentStepContent =
-  (tutorial_id, step_id, content) => async (firestore, dispatch) => {
+  (tutorial_id, step_id, content, setAllSavedCallback) => async (firestore, dispatch) => {
     try {
       const stepDoc = firestore
         .collection("tutorials")
@@ -298,6 +298,9 @@ export const setCurrentStepContent =
       });
 
       dispatch({ type: actions.SET_EDITOR_DATA, payload: content });
+      if (setAllSavedCallback && typeof setAllSavedCallback === 'function') {
+        setAllSavedCallback(true);
+      }
     } catch (e) {
       console.log(e);
     }
