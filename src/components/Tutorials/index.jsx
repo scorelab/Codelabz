@@ -98,6 +98,7 @@ const ViewTutorial = () => {
   const [stepsData, setStepData] = useState(null);
   const [tutorialData, setTutorialData] = useState(null);
   const [expand, setExpand] = useState(true);
+  const [isRefresh, setIsRefresh] = useState(false);
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 767px)"
   });
@@ -245,6 +246,8 @@ const ViewTutorial = () => {
                 hideButton={isDesktop}
                 setCurrentStep={setCurrentStep}
                 setStepData={setStepData}
+                tutorial_id={tutorial_id}
+                setIsRefresh={setIsRefresh}
               />
             </Collapse>
           </Grid>
@@ -280,7 +283,6 @@ const ViewTutorial = () => {
                           step_title={stepsData[currentStep].title}
                           step_time={stepsData[currentStep].time}
                         />
-
                         <QuillEditor
                           data={stepsData[currentStep].content}
                           tutorial_id={tutorialData.tutorial_id}
@@ -290,6 +292,8 @@ const ViewTutorial = () => {
                             stepsData[currentStep].id
                           }
                           mode={mode}
+                          isRefresh={isRefresh}
+                          currentStep={currentStep}
                         />
                       </>
                     )}

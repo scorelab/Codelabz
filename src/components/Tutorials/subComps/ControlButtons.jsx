@@ -36,7 +36,9 @@ const ControlButtons = ({
   setCurrentStep,
   stepsData,
   hide,
-  setStepData
+  setStepData,
+  tutorial_id,
+  setIsRefresh
 }) => {
   const classes = useStyles();
   if (!hide && stepsData) {
@@ -82,6 +84,11 @@ const ControlButtons = ({
                   autoHideDuration={6000}
                   message="tutorial complete"
                 />;
+
+                if(stepsData[currentStep].completed && tutorial_id && stepsData[currentStep].id){
+                setIsRefresh(prev=>!prev);
+                }
+
                 window.scrollTo(0, 0);
                 setStepData(prevSteps =>
                   prevSteps.map((step, index) =>
