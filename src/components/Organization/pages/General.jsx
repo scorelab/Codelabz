@@ -6,7 +6,9 @@ import {
   Button,
   Fab,
   Avatar,
-  CircularProgress
+  CircularProgress,
+  Modal,
+  Paper
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -107,6 +109,14 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.5,
     fontStyle: "italic",
     fontSize: "0.8rem"
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  modalContent: {
+    padding: theme.spacing(2)
   }
 }));
 
@@ -122,12 +132,61 @@ const base64StringToFile = (base64String, filename) => {
   return new File([u8arr], filename, { type: mime });
 };
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4
+};
+
 /**
  * @description - This component is used to edit the general details of the organization.
  * @returns {React.Component}
  */
 function General() {
   const classes = useStyles();
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const availableTags = [
+    "HTML",
+    "javaScript",
+    "Css",
+    "Python",
+    "React",
+    "Java",
+    "System Design",
+    "Cyber Security",
+    "Node",
+    "Django",
+    "C",
+    "C++",
+    "GoLang",
+    "ML",
+    "AI/ML",
+    "Cloud",
+    "DevOps",
+    "Figma",
+    "Angular"
+  ]; // Add your tags here
+
+  const handleAddTag = tag => {
+    setSelectedTags([...selectedTags, tag]);
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   // Image Uploading And Cropping Hooks
   const [imageUploading, setImageUploading] = useState(false);
@@ -372,18 +431,51 @@ function General() {
                   onChange={handleChange("org_description")}
                 />
               </div>
-              <Typography>Select tags</Typography>
+              <Typography sx={{ mt: 1 }}>Select tags</Typography>
               <Grid item xs={16} className={classes.hashbutton}>
-                <Button className={classes.hashtag} disableRipple>
-                  #python
-                </Button>
-                <Button className={classes.hashtag} disableRipple>
-                  #javascript
-                </Button>
-                <Fab size="small" color="primary" aria-label="add">
-                  <AddIcon />
-                </Fab>
+                {selectedTags.map(tag => (
+                  <Button
+                    sx={{ mt: 1, ml: 1 }}
+                    key={tag}
+                    className={classes.hashtag}
+                    disableRipple
+                  >
+                    #{tag}
+                  </Button>
+                ))}
+                <Grid item xs={2}>
+                  <Fab
+                    size="small"
+                    color="primary"
+                    aria-label="add"
+                    onClick={handleOpenModal}
+                  >
+                    <AddIcon />
+                  </Fab>
+                </Grid>
               </Grid>
+              <Modal
+                open={isModalOpen}
+                onClose={handleCloseModal}
+                className={classes.modal}
+              >
+                <Paper sx={style} className={classes.modalContent}>
+                  <Typography>Choose a tag</Typography>
+                  {availableTags.map(tag => (
+                    <Button
+                      sx={{ mt: 1, ml: 1 }}
+                      key={tag}
+                      className={classes.hashtag}
+                      onClick={() => {
+                        handleAddTag(tag);
+                        handleCloseModal();
+                      }}
+                    >
+                      {tag}
+                    </Button>
+                  ))}
+                </Paper>
+              </Modal>
             </CardContent>
           </Grid>
         </div>
