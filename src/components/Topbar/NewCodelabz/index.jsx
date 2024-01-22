@@ -26,7 +26,14 @@ const useStyles = makeStyles(theme => ({
   },
   description: {
     fontSize: theme.spacing(1.5)
+  },
+  "@media (max-width: 960px)": {
+    root:{
+      minWidth: "310px",
+    }
   }
+
+
 }));
 
 function NewCodelabz({ setVisibleModal }) {

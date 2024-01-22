@@ -7,6 +7,7 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { makeStyles } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import { max, min } from "lodash";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +16,12 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
     padding: "8px",
     alignItems: "center"
+  },
+  "@media (max-width: 960px)": {
+    root: {
+      display: "flex",
+      flexDirection: "column"
+    }
   }
 }));
 
@@ -34,10 +41,10 @@ function Activity() {
       text: "New"
     },
     {
-      id: 3,
-      icon: EmojiEventsIcon,
-      text: "Top"
-    }
+    id: 3,
+    icon: EmojiEventsIcon,
+    text: "Top"
+  }
   ];
 
   return (
