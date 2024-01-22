@@ -236,7 +236,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           <Card className={classes.card}>
             <Activity />
           </Card>
-          <Box item sx={{ display: { md: "none" } }}>
+          <Box item sx={{ display: { md: "none" } }} className={classes.tags}>
             <TagCard tags={tags} />
           </Box>
           {tutorials.map(tutorial => {
@@ -258,6 +258,7 @@ function HomePage({ background = "white", textColor = "black" }) {
                 value={selectedTab}
                 onChange={handleTabChange}
                 scrollButtons="on"
+                className={classes.tabs}
                 indicatorColor="primary"
                 textColor="primary"
                 aria-label="scrollable force tabs example"
@@ -287,16 +288,16 @@ function HomePage({ background = "white", textColor = "black" }) {
                   style={{ width: "25%" }}
                 />
               </Tabs>
-              <TabPanel value="1" style={{ padding: 0 }}>
+              <TabPanel value="1" style={{ padding: 0 }} className={classes.posts}>
                 <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
               </TabPanel>
-              <TabPanel value="2" style={{ padding: 0 }}>
+              <TabPanel value="2" style={{ padding: 0 }} className={classes.posts}>
                 <EventsCard title={"Popular Events"} events={upcomingEvents} />
               </TabPanel>
-              <TabPanel value="3" style={{ padding: 0 }}>
+              <TabPanel value="3" style={{ padding: 0 }} className={classes.posts}>
                 <UserCard title={"Who to Follow"} users={usersToFollow} />
               </TabPanel>
-              <TabPanel value="4" style={{ padding: 0 }}>
+              <TabPanel value="4" style={{ padding: 0 }} className={classes.posts}>
                 <UserCard title={"Contributors"} users={contributors} />
               </TabPanel>
             </TabContext>

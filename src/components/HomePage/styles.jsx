@@ -1,4 +1,5 @@
 import { makeStyles } from "@mui/styles";
+import { max, min } from "lodash";
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -94,6 +95,23 @@ const useStyles = makeStyles(theme => ({
   card: {
     padding: "6px",
     margin: "0 0.5rem 0 0.5rem"
+  },
+  "@media (max-width: 960px)": {
+    card:{
+      minWidth: "300px",
+    },
+    tags:{
+      display:"flex",
+      flexDirection:"column",
+      flexwrap:"wrap",
+      minWidth: "325px",
+    },
+    tabs:{
+      minWidth: "325px",
+    },
+    posts:{
+      minWidth: "325px",
+    }
   }
 }));
 
