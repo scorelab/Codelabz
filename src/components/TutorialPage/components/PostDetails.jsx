@@ -70,6 +70,7 @@ const PostDetails = ({ details }) => {
   };
 
   const handleDecrement = () => {
+    if(count < 1) return;
     setCount(count - 1);
   };
 
@@ -123,7 +124,7 @@ const PostDetails = ({ details }) => {
                         aria-label="left aligned"
                       >
                         <KeyboardArrowUpIcon />
-                        <span>{count}</span>
+                        <span>{count>0 ? count : 0 }</span>
                       </ToggleButton>
                       <ToggleButton
                         className={classes.small}
