@@ -18,6 +18,9 @@ const StepsTitle = ({ owner, tutorial_id }) => {
   const [newStepTitle, setNewStepTitle] = useState(step_title);
   const [newStepTime, setNewStepTime] = useState(step_time);
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   const current_step_no = useSelector(
     ({
       tutorials: {
@@ -53,67 +56,43 @@ const StepsTitle = ({ owner, tutorial_id }) => {
     current_step_no
   ]);
 
-  const setStepTitle = () => {
+  const showSnackbar = message => {
+    setSnackbarOpen(true);
+    setSnackbarMessage(message);
+  };
+  let i=0;
+  const setStepTitle = async () => {
     if (step_title !== newStepTitle && newStepTitle.length > 0) {
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={true}
-        autoHideDuration={6000}
-        message="Updating....."
-      />;
-      updateStepTitle(
+      await updateStepTitle(
         owner,
         tutorial_id,
         step_id,
         newStepTitle
-      )(firebase, firestore, dispatch).then(() => (
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          open={true}
-          autoHideDuration={6000}
-          message="Updated...."
-        />
-      ));
+      )(firebase, firestore, dispatch).then(() => {
+        showSnackbar("Updated!");
+      });
     }
   };
 
-  const setStepTime = () => {
+  const setStepTime = async () => {
     if (step_time !== newStepTime) {
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={true}
-        autoHideDuration={6000}
-        message="Updating....."
-      />;
-      updateStepTime(
+      await updateStepTime(
         owner,
         tutorial_id,
         step_id,
         newStepTime
-      )(firebase, firestore, dispatch).then(() => (
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          open={true}
-          autoHideDuration={6000}
-          message="Updated...."
-        />
-      ));
+      )(firebase, firestore, dispatch).then(() => {
+        showSnackbar("Updated!");
+      });
     }
   };
 
-  return (
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+    setSnackbarMessage("")
+  };
+
+  return (<>
     <Grid>
       <Grid xs={24}>
         <form>
@@ -150,6 +129,16 @@ const StepsTitle = ({ owner, tutorial_id }) => {
         </form>
       </Grid>
     </Grid>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+      /></>
   );
 };
 

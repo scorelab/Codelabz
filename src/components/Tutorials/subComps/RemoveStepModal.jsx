@@ -19,21 +19,16 @@ const RemoveStepModal = ({
   const firestore = useFirestore();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
     setVisible(viewModal);
   }, [viewModal]);
 
   const handleOnOk = event => {
-    <Snackbar
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left"
-      }}
-      open={true}
-      autoHideDuration={6000}
-      message="Updating...."
-    />;
+    setSnackbarOpen(true);
+    setSnackbarMessage("Updating....");
     if (step_length > 1) {
       event.preventDefault();
       removeStep(
@@ -43,52 +38,60 @@ const RemoveStepModal = ({
         currentStep
       )(firebase, firestore, dispatch).then(() => {
         setVisible(false);
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          open={true}
-          autoHideDuration={6000}
-          message="removed...."
-        />;
+        setSnackbarOpen(true);
+        setSnackbarMessage("Removed....");
       });
     }
   };
   const handleOnCancel = () => setVisible(false);
-
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+    setSnackbarMessage("");
+  };
   return (
-    <Modal
-      open={visible}
-      onClose={handleOnCancel}
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      style={{
-        border: "2px solid #000",
-        background: "whitesmoke",
-        boxShadow: "2rem gray",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "10rem",
-        width: "20rem",
-        position: "absolute",
-        top: "40%",
-        left: "40%"
-      }}
-    >
-      <div>
-        <Typography>This action is can not be undone!</Typography>
-        <form onSubmit={handleOnOk}>
-          <Button key="back" onClick={handleOnCancel}>
-            <Typography>Cancel</Typography>
-          </Button>
-          <Button key="remove" type="submit">
-            <Typography> Remove</Typography>
-          </Button>
-        </form>
-      </div>
-    </Modal>
+    <>
+      <Modal
+        open={visible}
+        onClose={handleOnCancel}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        style={{
+          border: "2px solid #000",
+          background: "whitesmoke",
+          boxShadow: "2rem gray",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "10rem",
+          width: "20rem",
+          position: "absolute",
+          top: "40%",
+          left: "40%"
+        }}
+      >
+        <div>
+          <Typography>This action is can not be undone!</Typography>
+          <form onSubmit={handleOnOk}>
+            <Button key="back" onClick={handleOnCancel}>
+              <Typography>Cancel</Typography>
+            </Button>
+            <Button key="remove" type="submit">
+              <Typography> Remove</Typography>
+            </Button>
+          </form>
+        </div>
+      </Modal>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+      />
+    </>
   );
 };
 

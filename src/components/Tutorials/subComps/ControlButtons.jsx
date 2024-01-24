@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Grid from "@mui/material/Grid";
@@ -39,6 +39,10 @@ const ControlButtons = ({
   setStepData
 }) => {
   const classes = useStyles();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
   if (!hide && stepsData) {
     return (
       <Grid>
@@ -73,15 +77,7 @@ const ControlButtons = ({
             <Button
               type="primary"
               onClick={() => {
-                <Snackbar
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left"
-                  }}
-                  open={true}
-                  autoHideDuration={6000}
-                  message="tutorial complete"
-                />;
+                if (!stepsData[currentStep].completed) setSnackbarOpen(true);
                 window.scrollTo(0, 0);
                 setStepData(prevSteps =>
                   prevSteps.map((step, index) =>
@@ -99,6 +95,16 @@ const ControlButtons = ({
             </Button>
           </Box>
         </Box>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left"
+          }}
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+          message="Tutorial Step complete"
+        />
       </Grid>
     );
   } else return null;
