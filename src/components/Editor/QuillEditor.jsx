@@ -8,52 +8,32 @@ import * as Y from "yjs";
 import { QuillBinding } from "y-quill";
 import Quill from "quill";
 import QuillCursors from "quill-cursors";
-import { FirestoreProvider, getColor } from "@gmcfall/yjs-firestore-provider";
+import { FirestoreProvider } from "@gmcfall/yjs-firestore-provider";
 import { onlineFirebaseApp } from "../../config";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 Quill.register("modules/cursors", QuillCursors);
 
-const QuillEditor = ({ id, data, tutorial_id }) => {
+const QuillEditor = ({ id, tutorial_id }) => {
   const [allSaved, setAllSaved] = useState(true);
   const editorRef = useRef(null);
   const containerRef = useRef(null);
-  let noteID = id || "test_note";
   const firestore = useFirestore();
   const dispatch = useDispatch();
-  // This path in cloud firestore contains yjs documents storing content of a step
-  // (actual data used to render is present in "steps" collection in the same doc)
   const basePath = ["tutorials", tutorial_id, "yjsStepDocs", id];
   let provider, binding, ydoc;
 
-  const currentUserHandle = useSelector(
-    ({
-      firebase: {
-        profile: { handle }
-      }
-    }) => handle
-  );
 
   useEffect(() => {
     setAllSaved(true);
   }, [id]);
 
-  useEffect(() => {
+
+   useEffect(() => {
     try {
       if (!ydoc) {
-        // yjs document
         ydoc = new Y.Doc();
-
-        // on updating text in editor this gets triggered
-        ydoc.on("update", () => {
-          // deltaText is quill editor's data structure to store text
-          const deltaText = ydoc.getText("quill").toDelta();
-          var config = {};
-          var converter = new QuillDeltaToHtmlConverter(deltaText, config);
-
-          var html = converter.convert();
-          setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
-        });
+        
         provider = new FirestoreProvider(onlineFirebaseApp, ydoc, basePath, {
           disableAwareness: true
         });
@@ -61,7 +41,6 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
       const ytext = ydoc.getText("quill");
       const container = containerRef.current;
 
-      // Clear all extra divs except the editor
       while (
         container.firstChild &&
         container.firstChild !== editorRef.current
@@ -73,22 +52,19 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         modules: {
           cursors: true,
           toolbar: [
-            ["bold", "italic", "underline", "strike"], // toggled buttons
+            ["bold", "italic", "underline", "strike"],
             ["blockquote", "code-block"],
-
-            [{ header: 1 }, { header: 2 }], // custom button values
+            [{ header: 1 }, { header: 2 }],
             [{ list: "ordered" }, { list: "bullet" }],
-            [{ script: "sub" }, { script: "super" }], // superscript/subscript
-            [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-            [{ direction: "rtl" }], // text direction
-
-            [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+            [{ script: "sub" }, { script: "super" }],
+            [{ indent: "-1" }, { indent: "+1" }],
+            [{ direction: "rtl" }],
+            [{ size: ["small", false, "large", "huge"] }],
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-            [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+            [{ color: [] }, { background: [] }],
             [{ font: [] }],
             [{ align: [] }],
-            ["clean"], // remove formatting button
+            ["clean"],
             ["link", "image"]
           ],
           history: {
@@ -99,12 +75,12 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         theme: "snow"
       });
 
-      // provider.awareness.setLocalStateField("user", {
-      //   name: currentUserHandle,
-      //   color: getColor(currentUserHandle)
-      // });
-
       binding = new QuillBinding(ytext, editor, provider.awareness);
+
+      // Handle text change event in Quill editor
+      editor.on("text-change", () => {
+        setAllSaved(false); // Set unsaved changes flag
+      });
     } catch (err) {
       console.log(err);
     }
@@ -116,8 +92,52 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         console.log(err);
       }
     };
-  }, []);
+  }, [id]);
 
+  useEffect(() => {
+    let updateTimer;
+
+    // Set up a timer for delayed update to Firestore
+    const scheduleUpdate = () => {
+      clearTimeout(updateTimer);
+      updateTimer = setTimeout(() => {
+        const deltaText = ydoc.getText("quill").toDelta();
+        const config = {};
+        const converter = new QuillDeltaToHtmlConverter(deltaText, config);
+        const html = converter.convert();
+        setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
+        setAllSaved(true); // Reset saved changes flag after update
+      }, 15000); // 30 seconds in milliseconds
+    };
+
+    // Listen for changes in the Yjs document
+    const ytext = ydoc.getText("quill");
+    const observer = event => {
+      console.log("Yjs Update:", event);
+      scheduleUpdate(); // Trigger update on Yjs document changes
+    };
+    ytext.observe(observer);
+
+    // Clean up observers
+    return () => {
+      clearTimeout(updateTimer);
+      ytext.unobserve(observer);
+    };
+  }, [ydoc, dispatch, firestore, id, tutorial_id]);
+
+
+  
+  const handleSaveButtonClick = () => {
+    if (ydoc) {
+      const deltaText = ydoc.getText("quill").toDelta();
+      const config = {};
+      const converter = new QuillDeltaToHtmlConverter(deltaText, config);
+      const html = converter.convert();
+      console.log("Manually saving:", html);
+      setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
+      setAllSaved(true);
+    }
+  };
   return (
     <div style={{ flexGrow: 1 }}>
       <Prompt
@@ -130,6 +150,9 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
       >
         <div id="quill-editor" ref={editorRef} style={{ flexGrow: 1 }} />
       </div>
+      <button
+       onClick={handleSaveButtonClick}
+      >Save</button>
     </div>
   );
 };
