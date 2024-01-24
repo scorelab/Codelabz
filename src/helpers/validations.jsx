@@ -71,6 +71,36 @@ export const validateCountry = (country, setCountryValidateError) => {
   }
 };
 
+export const validateEducation = (
+  education,
+  setEducationValidateError,
+  setEducationValidateErrorMessage
+) => {
+  if (validator.isEmpty(education)) {
+    setEducationValidateError(true);
+    setEducationValidateErrorMessage("Please Enter Education Details");
+    return false;
+  } else {
+    setEducationValidateError(false);
+    setEducationValidateErrorMessage("");
+    return true;
+  }
+};
+export const validateJob = (
+  job,
+  setJobValidateError,
+  setJobValidateErrorMessage
+) => {
+  if (validator.isEmpty(job)) {
+    setJobValidateError(true);
+    setJobValidateErrorMessage("Please Enter Job Details");
+    return false;
+  } else {
+    setJobValidateError(false);
+    setJobValidateErrorMessage("");
+    return true;
+  }
+};
 export const validateOrgWebsite = (
   orgWebsite,
   setOrgWebsiteValidateError,

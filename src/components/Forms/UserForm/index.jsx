@@ -29,7 +29,9 @@ import {
   validateCountry,
   validateIsEmpty,
   validateName,
-  validateOrgWebsite
+  validateOrgWebsite,
+  validateJob,
+  validateEducation
 } from "../../../helpers/validations";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -89,6 +91,15 @@ const UserForm = () => {
     useState(false);
   const [descriptionValidateErrorMessage, setDescriptionValidateErrorMessage] =
     useState("");
+  const [job, setJob] = useState(getData(profileData.job));
+  const [jobValidateError, setJobValidateError] = useState(false);
+  const [jobvalidateerrormessage, setJobValidateErrorMessage] = useState("");
+
+  const [education, setEducation] = useState(getData(profileData.education));
+  const [educationValidateError, setEducationValidateError] = useState(false);
+  const [educationvalidateerrormessage, setEducationValidateErrorMessage] =
+    useState("");
+
   const [facebook, setFacebook] = useState(getData(profileData.link_facebook));
   const [facebookValidateError, setFacebookValidateError] = useState(false);
   const [facebookValidateErrorMessage, setFacebookValidateErrorMessage] =
@@ -127,6 +138,8 @@ const UserForm = () => {
   const onChangeTwitter = twitter => setTwitter(twitter);
   const onChangeLinkedin = linkedin => setLinkedin(linkedin);
   const onChangeGithub = github => setGithub(github);
+  const onChangeJob = job => setJob(job);
+  const onChangeEducation = education => setEducation(education);
 
   const validated = () => {
     const countryValid = validateCountry(country, setCountryValidateError);
@@ -148,8 +161,25 @@ const UserForm = () => {
       setDescriptionValidateErrorMessage,
       "Please enter a description"
     );
+    const educationValid = validateEducation(
+      education,
+      setEducationValidateError,
+      setEducationValidateErrorMessage
+    );
+    const jobValid = validateJob(
+      job,
+      setJobValidateError,
+      setJobValidateErrorMessage
+    );
 
-    if (nameValid && countryValid && orgWebsiteValid && descriptionValid) {
+    if (
+      nameValid &&
+      countryValid &&
+      orgWebsiteValid &&
+      descriptionValid &&
+      jobValid &&
+      educationValid
+    ) {
       return true;
     } else {
       return false;
@@ -166,7 +196,9 @@ const UserForm = () => {
         link_linkedin: linkedin,
         link_twitter: twitter,
         description,
-        country
+        country,
+        job,
+        education
       })(firebase, firestore, dispatch);
     }
   };
@@ -294,6 +326,50 @@ const UserForm = () => {
             />
             <Typography className={classes.errorMessage}>
               {descriptionValidateErrorMessage}
+            </Typography>
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl
+            variant="standard"
+            style={{ marginTop: "15px", marginRight: "25px" }}
+          >
+            <InputLabel
+              shrink
+              htmlFor="bootstrap-input"
+              style={{ color: "#000", fontSize: "20px" }}
+            >
+              Job
+            </InputLabel>
+            <Input
+              value={job}
+              id="bootstrap-input"
+              className={classes.input}
+              data-testId=""
+              job
+              onChange={event => onChangeJob(event.target.value)}
+            />
+            <Typography className={classes.errorMessage}>
+              {jobvalidateerrormessage}
+            </Typography>
+          </FormControl>
+          <FormControl variant="standard" style={{ marginTop: "13px" }}>
+            <InputLabel
+              shrink
+              htmlFor="bootstrap-input"
+              style={{ color: "#000", fontSize: "20px" }}
+            >
+              Education
+            </InputLabel>
+            <Input
+              value={education}
+              id="bootstrap-input"
+              className={classes.input}
+              data-testId="education"
+              onChange={event => onChangeEducation(event.target.value)}
+            />
+            <Typography className={classes.errorMessage}>
+              {educationvalidateerrormessage}
             </Typography>
           </FormControl>
         </Box>

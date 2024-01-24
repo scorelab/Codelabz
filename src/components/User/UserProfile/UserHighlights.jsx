@@ -4,7 +4,8 @@ import { makeStyles } from "@mui/styles";
 import Highlights from "../../UserDetails/Highlights";
 import SocialIcons from "../../Profile/SocialIcons/SocialIcons";
 import EventsCard from "../../CardTabs/Events/index";
-
+import { useSelector } from "react-redux";
+import { useFirebase } from "react-redux-firebase";
 const useStyles = makeStyles(theme => ({
   bottomMargin: {
     marginBottom: "10px"
@@ -13,16 +14,17 @@ const useStyles = makeStyles(theme => ({
 
 const UserHighlights = ({ organizations }) => {
   const classes = useStyles();
-
+  const firebase = useFirebase();
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
   return (
     <div>
       <Grid className={classes.bottomMargin}>
         <Highlights
           Heading={"Credentials & Highlights"}
-          CurrentJob={"Software Engineer at Appbeans 2021-Present"}
-          Education={"Studying at Gl bajaj Institute of Technology, Delhi"}
-          Languages={"Tamil, English, Hindi, Malayalam"}
-          JoinedDate={"Joined December 2021"}
+          CurrentJob={`${profileData.job} - present`}
+          Education={`${profileData.education}`}
+          // Languages={profileData.Languages}
+          // JoinedDate={"Joined December 2021"}
         />
       </Grid>
       <Grid className={classes.bottomMargin}>
