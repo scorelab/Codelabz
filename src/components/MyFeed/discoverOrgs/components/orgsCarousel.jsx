@@ -31,8 +31,8 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: "auto",
-    maxHeight: "180px",
-    minHeight: "200px",
+    maxHeight: "200px",
+    minHeight: "180px",
     width: "100%"
   }
 }));

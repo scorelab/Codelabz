@@ -67,17 +67,19 @@ const OrgsExplore = () => {
         <Typography variant="h5" className={classes.subHeading}>
           Explore top rated organization and find what you are looking for
         </Typography>
-        <Tabs
-          scrollButtons="auto"
-          value={selectedTab}
-          onChange={handleTabChange}
-        >
-          <Tab label="All" />
-          <Tab label="Design" />
-          <Tab label="JavaScript" />
-          <Tab label="Web Development" />
-          <Tab label="Android" />
-        </Tabs>
+          <Tabs
+          
+            variant="scrollable"
+            scrollButtons="auto"
+            value={selectedTab}
+            onChange={handleTabChange}
+          >
+            <Tab label="All" />
+            <Tab label="Design" />
+            <Tab label="JavaScript" />
+            <Tab label="Web Development" />
+            <Tab label="Android" />
+          </Tabs>
         <OrgsCarousel />
         <Grid
           container
