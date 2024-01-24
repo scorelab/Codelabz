@@ -14,7 +14,7 @@ import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 Quill.register("modules/cursors", QuillCursors);
 
-const QuillEditor = ({ id, data, tutorial_id }) => {
+const QuillEditor = ({ id, data, tutorial_id, textColor, bgColor }) => {
   const [allSaved, setAllSaved] = useState(true);
   const editorRef = useRef(null);
   const containerRef = useRef(null);
@@ -104,6 +104,13 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
       //   color: getColor(currentUserHandle)
       // });
 
+      if (textColor) {
+        editor.container.style.color = textColor;
+      }
+      if (bgColor) {
+        editor.container.style.backgroundColor = bgColor;
+      }
+
       binding = new QuillBinding(ytext, editor, provider.awareness);
     } catch (err) {
       console.log(err);
@@ -116,7 +123,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         console.log(err);
       }
     };
-  }, []);
+  }, [textColor, bgColor]);
 
   return (
     <div style={{ flexGrow: 1 }}>

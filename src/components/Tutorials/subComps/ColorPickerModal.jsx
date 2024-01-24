@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
 import { Panel as ColorPickerPanel } from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
 import { useFirebase, useFirestore } from "react-redux-firebase";
@@ -100,6 +101,24 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
             <Grid xs={24} style={{ textAlign: "center" }}>
               Change the values above to see the preview
             </Grid>
+          </Grid>
+          <Grid container justifyContent="space-between" className="mt-16">
+            <Button
+              variant="outlined"
+              onClick={handleCancel}
+              style={{ color: "white", backgroundColor: "red" }}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOk}
+              style={{ backgroundColor: "green", color: "white" }}
+            >
+              OK
+            </Button>
           </Grid>
         </Grid>
       </Modal>
