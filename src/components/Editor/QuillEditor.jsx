@@ -11,7 +11,7 @@ import QuillCursors from "quill-cursors";
 import { FirestoreProvider } from "@gmcfall/yjs-firestore-provider";
 import { onlineFirebaseApp } from "../../config";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
-
+import { Button, Typography } from "@mui/material";
 Quill.register("modules/cursors", QuillCursors);
 
 const QuillEditor = ({ id, tutorial_id }) => {
@@ -23,17 +23,15 @@ const QuillEditor = ({ id, tutorial_id }) => {
   const basePath = ["tutorials", tutorial_id, "yjsStepDocs", id];
   let provider, binding, ydoc;
 
-
   useEffect(() => {
     setAllSaved(true);
   }, [id]);
 
-
-   useEffect(() => {
+  useEffect(() => {
     try {
       if (!ydoc) {
         ydoc = new Y.Doc();
-        
+
         provider = new FirestoreProvider(onlineFirebaseApp, ydoc, basePath, {
           disableAwareness: true
         });
@@ -92,7 +90,7 @@ const QuillEditor = ({ id, tutorial_id }) => {
         console.log(err);
       }
     };
-  }, [id]);
+  });
 
   useEffect(() => {
     let updateTimer;
@@ -105,9 +103,14 @@ const QuillEditor = ({ id, tutorial_id }) => {
         const config = {};
         const converter = new QuillDeltaToHtmlConverter(deltaText, config);
         const html = converter.convert();
-        setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
+        setCurrentStepContent(
+          tutorial_id,
+          id,
+          html,
+          setAllSaved
+        )(firestore, dispatch);
         setAllSaved(true); // Reset saved changes flag after update
-      }, 15000); // 30 seconds in milliseconds
+      }, 5000); // 30 seconds in milliseconds
     };
 
     // Listen for changes in the Yjs document
@@ -125,18 +128,33 @@ const QuillEditor = ({ id, tutorial_id }) => {
     };
   }, [ydoc, dispatch, firestore, id, tutorial_id]);
 
-
-  
-  const handleSaveButtonClick = () => {
-    if (ydoc) {
-      const deltaText = ydoc.getText("quill").toDelta();
-      const config = {};
-      const converter = new QuillDeltaToHtmlConverter(deltaText, config);
-      const html = converter.convert();
-      console.log("Manually saving:", html);
-      setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
-      setAllSaved(true);
+  const handleKeyDown = event => {
+    // Check for "Ctrl + S" key combination
+    if (event.ctrlKey && event.key === "s") {
+      event.preventDefault(); // Prevent the browser's default save behavior
+      handleSaveButtonClick();
     }
+  };
+  useEffect(() => {
+    // Attach the event listener when the component mounts
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Detach the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const handleSaveButtonClick = () => {
+    // if (ydoc) {
+    const deltaText = ydoc.getText("quill").toDelta();
+    const config = {};
+    const converter = new QuillDeltaToHtmlConverter(deltaText, config);
+    const html = converter.convert();
+    console.log("Manually saving:", html);
+    setCurrentStepContent(tutorial_id, id, html)(firestore, dispatch);
+    setAllSaved(true);
+    // }
   };
   return (
     <div style={{ flexGrow: 1 }}>
@@ -144,15 +162,16 @@ const QuillEditor = ({ id, tutorial_id }) => {
         when={!allSaved}
         message="You have unsaved changes, are you sure you want to leave?"
       />
+      {!allSaved && (
+        <Typography style={{ fontSize: "12px" }}>Unsaved changes...</Typography>
+      )}
       <div
         ref={containerRef}
         style={{ minHeight: "100%", display: "flex", flexDirection: "column" }}
       >
         <div id="quill-editor" ref={editorRef} style={{ flexGrow: 1 }} />
       </div>
-      <button
-       onClick={handleSaveButtonClick}
-      >Save</button>
+      <Button onClick={handleSaveButtonClick}>Save</Button>
     </div>
   );
 };
