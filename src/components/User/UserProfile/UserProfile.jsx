@@ -9,6 +9,7 @@ import OrgUser from "../../../assets/images/org-user.svg";
 import { userList } from "../../HomePage/userList";
 import Card from "@mui/material/Card";
 import UserHighlights from "./UserHighlights";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   parentBody: {
@@ -69,6 +70,13 @@ function UserProfile(props) {
       img: [OrgUser]
     }
   ]);
+  const tutorials = useSelector(
+    ({
+      tutorialPage: {
+        feed: { homepageFeedArray }
+      }
+    }) => homepageFeedArray
+  );
 
   return (
     <>
@@ -104,13 +112,23 @@ function UserProfile(props) {
           </Grid>
 
           <Grid>
-            {userList.persons.map(person => {
+            {/* {userList.persons.map(person => {
               return person.Heading == "CardWithoutPicture" ? (
                 <CardWithoutPicture {...person} className={classes.card} />
               ) : (
                 <CardWithPicture {...person} className={classes.card} />
               );
-            })}
+            })} */}
+            {tutorials.map(tutorial => {
+            if(tutorial.uid==props.profileData.uid){
+              return !tutorial?.featured_image ? (
+                <CardWithoutPicture tutorial={tutorial} />
+              ) : (
+                <CardWithPicture tutorial={tutorial} />
+              );
+            }
+            return null;
+          })}
           </Grid>
         </div>
 
