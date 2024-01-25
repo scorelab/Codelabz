@@ -200,7 +200,7 @@ function HomePage({ background = "white", textColor = "black" }) {
       style={{ background: background }}
       data-testId="homepage"
     >
-      <Grid container justifyContent="center" className={classes.contentPart}>
+      <Grid container wrap="nowrap" justifyContent="center" className={classes.contentPart}>
         <Grid item xs={2} className={classes.sideBody}>
           {windowSize.width > 750 && (
             <Grid
@@ -226,7 +226,10 @@ function HomePage({ background = "white", textColor = "black" }) {
           item
           className={classes.mainBody}
           data-testId="homepageMainBody"
-          xs={6}
+          xs={12}
+          sm={8}
+          md={4.95}
+          lg={5.65}
         >
           <NewCodelabz setVisibleModal={setVisibleModal} />
           <NewTutorial

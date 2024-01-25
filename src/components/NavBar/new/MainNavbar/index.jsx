@@ -57,93 +57,86 @@ const useStyles = makeStyles(theme => ({
 function MainNavbar() {
   const classes = useStyles();
 
-  const history = useHistory();
-  const windowSize = useWindowSize();
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [openMenu, setOpen] = useState(false);
-  const toggleSlider = () => {
-    setOpen(!openMenu);
-  };
-  const notification = () => {};
-  return (
-    <Headroom>
-      <nav
-        style={{
-          padding: "10px",
-          background: "white"
-        }}
-      >
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Grid item container xs={12} md={2} alignItems="center">
-            <Grid
-              style={{
-                flexGrow: "1"
-              }}
-            >
-              <div
-                onClick={() => {
-                  history.push("/");
-                }}
-                data-testid="navbarBrand"
-              >
-                <BrandName />
-              </div>
-            </Grid>
-            <Grid item className={classes.hamburger}>
-              <IconButton
-                onClick={() => {
-                  toggleSlider();
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={5}>
-            <Paper component={"form"} className={classes.root} elevation={0}>
-              <IconButton
-                type="submit"
-                aria-label="search"
-                disableRipple
-                className={classes.icon}
-                data-testid="navbarSearch"
-              >
-                <SearchIcon />
-              </IconButton>
-              <InputBase className={classes.input} placeholder="Search..." />
-            </Paper>
-          </Grid>
-          <Grid
-            item
-            container
-            direction="row"
-            alignItems="center"
-            className={classes.grid}
-          >
-            <Grid item justifyContent="center">
-              <LeftMenu />
-            </Grid>
-            <Grid item>
-              <RightMenu />
-            </Grid>
-          </Grid>
-        </Grid>
-        {windowSize.width <= 960 && (
-          <SideBar
-            open={openMenu}
-            toggleSlider={toggleSlider}
-            notification={notification}
-            drawWidth={960}
-          />
-        )}
-      </nav>
-    </Headroom>
-  );
+	const history = useHistory();
+	const windowSize = useWindowSize();
+	const [openDrawer, setOpenDrawer] = useState(false);
+	const [openMenu, setOpen] = useState(false);
+	const toggleSlider = () => {
+		setOpen(!openMenu);
+	};
+	const notification = () => {};
+	return (
+		<Headroom>
+			<nav
+				style={{
+					padding: "10px",
+					background: "white",
+				}}>
+				<Grid
+					container
+					direction="row"
+					justifyContent="space-between"
+					alignItems="center">
+					<Grid item container xs={12} md={1.3} alignItems="center">
+						<Grid
+							style={{
+								flexGrow: "1",
+							}}>
+							<div
+								onClick={() => {
+									history.push("/");
+								}}
+								data-testid="navbarBrand">
+								<BrandName />
+							</div>
+						</Grid>
+						<Grid item className={classes.hamburger}>
+							<IconButton
+								onClick={() => {
+									toggleSlider();
+								}}>
+								<MenuIcon />
+							</IconButton>
+						</Grid>
+					</Grid>
+					<Grid item xs={12} sm={10} md={6.5} lg={5}>
+						<Paper component={"form"} className={classes.root} elevation={0}>
+							<IconButton
+								type="submit"
+								aria-label="search"
+								disableRipple
+								className={classes.icon}
+								data-testid="navbarSearch">
+								<SearchIcon />
+							</IconButton>
+							<InputBase className={classes.input} placeholder="Search..." />
+						</Paper>
+					</Grid>
+					<Grid
+						item
+						container
+						direction="row"
+						alignItems="center"
+						className={classes.grid}>
+						<Grid item justifyContent="center">
+							<LeftMenu />
+						</Grid>
+						<Grid item>
+							<RightMenu />
+						</Grid>
+					</Grid>
+				</Grid>
+				{windowSize.width <= 900 && (
+					<SideBar
+						open={openMenu}
+						toggleSlider={toggleSlider}
+						notification={notification}
+						drawWidth={900}
+					/>
+				)}
+			</nav>
+		</Headroom>
+	);
 }
 
 export default MainNavbar;

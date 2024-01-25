@@ -9,15 +9,13 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
     justifyContent: "space-between",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("1050")]: {
       flexDirection: "column",
       alignItems: "center",
-      gap: "30px"
+      gap: "15px",
+      width: "50%",
+      margin: "0 auto"
     }
-  },
-  rightButtonsGroup: {
-    display: "flex",
-    gap: "5px"
   },
   prevButton: {
     borderWidth: "2px",
@@ -56,7 +54,6 @@ const ControlButtons = ({
           >
             Previous
           </Button>
-          <Box className={classes.rightButtonsGroup}>
             <Button
               variant="contained"
               color="primary"
@@ -98,7 +95,6 @@ const ControlButtons = ({
                 : "Complete Step"}
             </Button>
           </Box>
-        </Box>
       </Grid>
     );
   } else return null;

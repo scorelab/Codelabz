@@ -226,7 +226,7 @@ const ViewTutorial = () => {
 
           <Grid
             width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : "0"}
-            padding={stepPanelVisible ? "0 2rem" : "0"}
+            padding={stepPanelVisible ? "0 0rem" : "0"}
             className={classes.widthTransition}
           >
             <Collapse

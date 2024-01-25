@@ -34,7 +34,7 @@ const OrgTabPanel = ({ orgList, user }) => {
   return (
     <React.Fragment>
       <Grid container direction={"row"}>
-        <Grid item xs={2}>
+        <Grid item xs={3.5}>
           <Tabs
             onChange={(event, newValue) =>
               onSelectTab({
@@ -55,7 +55,7 @@ const OrgTabPanel = ({ orgList, user }) => {
             ))}
           </Tabs>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <Grid container>
             <Grid item xs={12} justifyContent={"center"}>
               <BaseTutorialsComponent owner={selectedTab?.data?.handle} />

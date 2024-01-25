@@ -118,7 +118,12 @@ const EditControls = ({
       <Stack
         direction={"row"}
         sx={{
-          px: 2
+          px: 2,
+          '@media (max-width: 600px)': {
+          flexDirection: 'column',
+          width: '90%',
+          margin: "0 auto",
+          },
         }}
       >
         <Button
@@ -165,7 +170,12 @@ const EditControls = ({
             flexGrow: 1
           }}
         />
-        <div>
+        <div   style={{
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'space-evenly'
+            }
+        }>
           {!isDesktop && stepPanelVisible ? null : (
             <>
               {mode === "edit" && (
