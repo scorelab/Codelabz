@@ -119,37 +119,37 @@ const CodelabzCarousel = ({ sortBy }) => {
               <SwiperSlide>
                 <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
                   <Paper variant="outlined" className={classes.root}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        alt="CodeLabz"
-                        component="img"
-                        title="CodeLabz"
-                        height={350}
-                        image={
-                          tutorial?.featured_image
-                            ? tutorial?.featured_image
-                            : Default
-                        }
-                      />
-                      <CardContent
-                        style={{
-                          overflow: "hidden",
-                          padding: 10
-                        }}
-                      >
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {tutorial?.title}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          {tutorial?.summary}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
+                  <Card
+      className={classes.root}
+      style={{ marginBottom: 20, width: "100%", maxWidth: 600 }}
+    >
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          alt="CodeLabz"
+          component="img"
+          title="CodeLabz"
+          height={350}
+          style={{ height: "100%" }}
+          image={tutorial?.featured_image ? tutorial?.featured_image : Default}
+        />
+        <CardContent
+          style={{
+            overflow: "hidden",
+            padding: 10,
+          }}
+        >
+          <Typography gutterBottom variant="h5" component="h2">
+            {tutorial?.title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {tutorial?.summary}
+          </Typography>
+        </CardContent>
+        
+      </CardActionArea>
+    </Card>
+    
                   </Paper>
                 </Link>
               </SwiperSlide>

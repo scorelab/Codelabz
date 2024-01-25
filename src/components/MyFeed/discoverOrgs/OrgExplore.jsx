@@ -68,16 +68,17 @@ const OrgsExplore = () => {
           Explore top rated organization and find what you are looking for
         </Typography>
         <Tabs
-          scrollButtons="auto"
-          value={selectedTab}
-          onChange={handleTabChange}
-        >
-          <Tab label="All" />
-          <Tab label="Design" />
-          <Tab label="JavaScript" />
-          <Tab label="Web Development" />
-          <Tab label="Android" />
-        </Tabs>
+            variant="scrollable"
+            scrollButtons="auto"
+            value={selectedTab}
+            onChange={handleTabChange}
+          >
+            <Tab label="All" />
+            <Tab label="Design" />
+            <Tab label="JavaScript" />
+            <Tab label="Web Development" />
+            <Tab label="Android" />
+          </Tabs>
         <OrgsCarousel />
         <Grid
           container
