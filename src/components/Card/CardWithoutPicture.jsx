@@ -68,16 +68,30 @@ const useStyles = makeStyles(theme => ({
 export default function CardWithoutPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
+  const [canIncrement, setCanIncrement] = useState(true);
+  const [canDecrement, setCanDecrement] = useState(true);
+
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
+
+
   const handleIncrement = () => {
-    setCount(count + 1);
+    if (canIncrement) {
+      setCount(count + 1);
+      setCanIncrement(false);
+      setCanDecrement(true);
+    }
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    if (canDecrement) {
+      setCount(count -1);
+      setCanIncrement(true);
+      setCanDecrement(false);
+    }
+      
   };
 
   const handleAlignment = (event, newAlignment) => {
@@ -188,6 +202,7 @@ export default function CardWithoutPicture({ tutorial }) {
         >
           <ToggleButton
             className={classes.small}
+            disabled={!canIncrement}
             onClick={handleIncrement}
             value="left"
             aria-label="left aligned"
@@ -197,6 +212,7 @@ export default function CardWithoutPicture({ tutorial }) {
           </ToggleButton>
           <ToggleButton
             className={classes.small}
+            disabled={!canDecrement}
             onClick={handleDecrement}
             value="center"
             aria-label="centered"
