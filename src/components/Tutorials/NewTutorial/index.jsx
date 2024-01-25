@@ -96,6 +96,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }) => displayName
   );
 
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
+  
   //This name should be replaced by displayName when implementing backend
   const sampleName = "User Name Here";
   const allowOrgs = organizations && organizations.length > 0;
@@ -123,7 +125,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       ...formValue,
       created_by: userHandle,
       is_org: userHandle !== formValue.owner,
-      completed: false
+      completed: false,
+      uid:profileData.uid
     };
     console.log(tutorialData);
     createTutorial(tutorialData)(firebase, firestore, dispatch, history);
