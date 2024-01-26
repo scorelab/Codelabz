@@ -205,6 +205,9 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             name="title"
             variant="outlined"
             fullWidth
+            inputProps={{
+              maxLength: 25
+            }}
             data-testId="newTutorial_title"
             id="newTutorialTitle"
             style={{ marginBottom: "2rem" }}
@@ -221,6 +224,9 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             placeholder="Summary of the Tutorial"
             autoComplete="summary"
             id="newTutorialSummary"
+            inputProps={{
+              maxLength: 100
+            }}
             data-testId="newTutorial_summary"
             onChange={e => handleChange(e)}
             style={{ marginBottom: "2rem" }}
