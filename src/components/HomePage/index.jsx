@@ -257,7 +257,7 @@ function HomePage({ background = "white", textColor = "black" }) {
               <Tabs
                 value={selectedTab}
                 onChange={handleTabChange}
-                scrollButtons="on"
+                scrollButtons="auto"
                 indicatorColor="primary"
                 textColor="primary"
                 aria-label="scrollable force tabs example"

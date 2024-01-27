@@ -39,43 +39,46 @@ const MiniNavbar = ({ type }) => {
           </h3>
         </Grid>
         <Grid item>
-          {authed
-            ? [
-                <Button key="2" type="link">
-                  <Link to={"/dashboard"}>Dashboard</Link>
-                </Button>,
+          {authed ? (
+            <>
+              <Button key="2" type="link">
+                <Link to={"/dashboard"}>Dashboard</Link>
+              </Button>
+              ,
+              <Button
+                onClick={() => signOut()(firebase, dispatch)}
+                key="1"
+                type="dashed"
+              >
+                Log out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Grid item style={{ position: "absolute", right: "2rem" }}>
                 <Button
-                  onClick={() => signOut()(firebase, dispatch)}
-                  key="1"
-                  type="dashed"
+                  key="2"
+                  type={type && type === "/login" ? "primary" : "link"}
+                  variant="outlined"
                 >
-                  Log out
+                  <Link to={"/login"}>Log In</Link>
                 </Button>
-              ]
-            : [
-                <Grid item style={{ position: "absolute", right: "2rem" }}>
-                  <Button
-                    key="2"
-                    type={type && type === "/login" ? "primary" : "link"}
-                    variant="outlined"
-                  >
-                    <Link to={"/login"}>Log In</Link>
-                  </Button>
 
-                  <Button
-                    key="1"
-                    type={
-                      type && type === "/signup"
-                        ? "primary"
-                        : type && type === "/login"
-                        ? "link"
-                        : "dashed"
-                    }
-                  >
-                    <Link to={"/signup"}>Sign Up</Link>
-                  </Button>
-                </Grid>
-              ]}
+                <Button
+                  key="1"
+                  type={
+                    type && type === "/signup"
+                      ? "primary"
+                      : type && type === "/login"
+                      ? "link"
+                      : "dashed"
+                  }
+                >
+                  <Link to={"/signup"}>Sign Up</Link>
+                </Button>
+              </Grid>
+            </>
+          )}
         </Grid>
       </Grid>
     </Headroom>
