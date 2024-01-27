@@ -46,7 +46,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const [formValue, setformValue] = useState({
     title: "",
     summary: "",
-    owner: ""
+    owner: "",
+    featured_video: null
   });
 
   const loadingProp = useSelector(
@@ -145,6 +146,14 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }));
   };
 
+  const handleVideoChange = e => {
+    const videoFile = e.target.files[0];
+    setformValue(prev => ({
+      ...prev,
+      featured_video: videoFile
+    }));
+  };
+
   const classes = useStyles();
   return (
     <Modal
@@ -229,7 +238,15 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
           <IconButton>
             <ImageIcon />
           </IconButton>
-          <IconButton>
+          <IconButton component="label" htmlFor="fileInput">
+            <input
+              id="fileInput"
+              type="file"
+              accept="video/*"
+              onChange={e => handleVideoChange(e)}
+              disableUnderline
+              style={{ display: "none" }}
+            />
             <MovieIcon />
           </IconButton>
           <IconButton>

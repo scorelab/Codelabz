@@ -37,6 +37,7 @@ import {
   getTutorialFeedData,
   getTutorialFeedIdArray
 } from "../../store/actions/tutorialPageActions";
+import CardWithVideo from "../Card/CardWithVideo";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
@@ -240,7 +241,9 @@ function HomePage({ background = "white", textColor = "black" }) {
             <TagCard tags={tags} />
           </Box>
           {tutorials.map(tutorial => {
-            return !tutorial?.featured_image ? (
+            return tutorial?.featured_video ? (
+              <CardWithVideo tutorial={tutorial} />
+            ) : !tutorial?.featured_image ? (
               <CardWithoutPicture tutorial={tutorial} />
             ) : (
               <CardWithPicture tutorial={tutorial} />
