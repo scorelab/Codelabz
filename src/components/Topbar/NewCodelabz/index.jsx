@@ -36,6 +36,7 @@ function NewCodelabz({ setVisibleModal }) {
     <React.Fragment>
       <Paper className={classes.root} data-testId="homepageNewCodelabz">
         <Grid
+          container
           spacing={0}
           justifyContent="flex-start"
           alignItems="center"

@@ -15,7 +15,6 @@ const UserElement = ({ user, index, useStyles }) => {
         key: "user" + { index },
         mb: 1.5
       }}
-      gutterBottom
     >
       <Box
         sx={{

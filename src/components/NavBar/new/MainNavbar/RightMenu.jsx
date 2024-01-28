@@ -169,7 +169,7 @@ const RightMenu = ({ mode, onClick }) => {
                   />
                   {allowOrgs > 0
                     ? organizations.map((org, i) => (
-                        <Grid item>
+                        <Grid item key={`org:${i}`}>
                           <Link to={`/org/${org.org_handle}`}>
                             <Grid
                               container
@@ -317,7 +317,7 @@ const RightMenu = ({ mode, onClick }) => {
                 />
                 {allowOrgs > 0
                   ? organizations.map((org, i) => (
-                      <Grid item>
+                      <Grid item key={`org:${i}`}>
                         <Link to={`/org/${org.org_handle}`}>
                           <Grid
                             container
