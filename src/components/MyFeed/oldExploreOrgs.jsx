@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import noimage from "../../assets/images/no-image-available.svg";
-import Skeleton from "@mui/lab/Skeleton";
+import Skeleton from "@mui/material/Skeleton";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
