@@ -64,12 +64,17 @@ const ForgotPassword = ({
   );
 
   const onSubmit = async values => {
+    
     values.preventDefault();
     setError("");
     await sendPasswordResetEmail(email)(firebase, dispatch);
+    // await firebase.auth().sendPasswordResetEmail(email);
   };
 
+
+
   const handleChange = e => {
+    
     const enteredEmail = e.target.value;
     setEmail(enteredEmail);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+\s*$/;
@@ -139,6 +144,7 @@ const ForgotPassword = ({
           }
         />
         <Button
+          
           variant="contained"
           color="primary"
           loading={loading}
