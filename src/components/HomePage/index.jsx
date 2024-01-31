@@ -247,7 +247,7 @@ function HomePage({ background = "white", textColor = "black" }) {
               <CardWithoutPicture tutorial={tutorial} />
             ) : (
               <CardWithPicture tutorial={tutorial} />
-            );
+            )
           })}
           <Box
             sx={{
