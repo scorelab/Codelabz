@@ -46,7 +46,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const [formValue, setformValue] = useState({
     title: "",
     summary: "",
-    owner: ""
+    owner: "",
+    featured_doc: null
   });
 
   const loadingProp = useSelector(
@@ -145,6 +146,14 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }));
   };
 
+  const handleFileChange = e => {
+    const file = e.target.files[0];
+    setformValue(prev => ({
+      ...prev,
+      featured_doc: file
+    }));
+  };
+
   const classes = useStyles();
   return (
     <Modal
@@ -232,7 +241,14 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
           <IconButton>
             <MovieIcon />
           </IconButton>
-          <IconButton>
+          <IconButton component="label" htmlFor="fileInput">
+            <input
+              id="fileInput"
+              type="file"
+              accept=".docx, .pdf"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
             <DescriptionIcon />
           </IconButton>
 
