@@ -73,7 +73,7 @@ const SideBar = ({
     {
       name: "User Settings",
       img: UserSettings,
-      link: "/user-dashboard/user-settings"
+      link: "/user-dashboard/profile"
     },
     {
       name: "Organization Settings",
