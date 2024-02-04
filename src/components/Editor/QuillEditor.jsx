@@ -24,7 +24,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
   // This path in cloud firestore contains yjs documents storing content of a step
   // (actual data used to render is present in "steps" collection in the same doc)
   const basePath = ["tutorials", tutorial_id, "yjsStepDocs", id];
-  let provider, binding, ydoc;
+  let provider, binding, ydoc, quill;
 
   const currentUserHandle = useSelector(
     ({
@@ -69,7 +69,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
         container.removeChild(container.firstChild);
       }
 
-      const editor = new Quill(editorRef.current, {
+      quill = new Quill(editorRef.current, {
         modules: {
           cursors: true,
           toolbar: [
@@ -93,6 +93,32 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
           ],
           history: {
             userOnly: true
+          },
+          clipboard: {
+            matchers: [
+              // Custom matcher to handle pasted image URLs
+              [
+                Node.TEXT_NODE,
+                (node, delta) => {
+                  const regex = /\!\[.*\]\((https?:\/\/[^\s]+)\)/;
+                  const match = node.data.match(regex);
+
+                  if (match) {
+                    const imageUrl = match[1];
+                    console.log("Image URL", imageUrl);
+                    const Delta= Quill.import("delta")
+                    const imageDelta = new Delta()
+                      .retain(delta.length())
+                      .delete(node.data.length)
+                      .insert({ image: imageUrl }, { alt: "Image" });
+
+                    quill.updateContents(imageDelta, "silent");
+                    return true;
+                  }
+                  return false;
+                }
+              ]
+            ]
           }
         },
         placeholder: "Start collaborating...",
@@ -104,7 +130,7 @@ const QuillEditor = ({ id, data, tutorial_id }) => {
       //   color: getColor(currentUserHandle)
       // });
 
-      binding = new QuillBinding(ytext, editor, provider.awareness);
+      binding = new QuillBinding(ytext, quill, provider.awareness);
     } catch (err) {
       console.log(err);
     }
