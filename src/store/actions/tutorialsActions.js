@@ -430,7 +430,7 @@ export const remoteTutorialImages =
       dispatch({
         type: actions.TUTORIAL_IMAGE_DELETE_START
       });
-      const type = await checkUserOrOrgHandle(owner)(firebase);
+      const type = await checkUserOrOrgHandle(owner)( firebase);
 
       const storagePath = `tutorials/${type}/${owner}/${tutorial_id}/${name}`;
       const dbPath = `tutorials`;
