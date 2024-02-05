@@ -173,9 +173,9 @@ export const createTutorial =
     }
   };
 
-const checkUserOrOrgHandle = handle => async firestore => {
-  const userHandleExists = await checkUserHandleExists(handle)(firestore);
-  const orgHandleExists = await checkOrgHandleExists(handle)(firestore);
+const checkUserOrOrgHandle = handle => async firebase => {
+  const userHandleExists = await checkUserHandleExists(handle)(firebase);
+  const orgHandleExists = await checkOrgHandleExists(handle)(firebase);
 
   if (userHandleExists && !orgHandleExists) {
     return "user";
@@ -388,8 +388,8 @@ export const uploadTutorialImages =
   (owner, tutorial_id, files) => async (firebase, firestore, dispatch) => {
     try {
       dispatch({ type: actions.TUTORIAL_IMAGE_UPLOAD_START });
-      const type = await checkUserOrOrgHandle(owner)(firestore);
-
+      const type = await checkUserOrOrgHandle(owner)(firebase);
+      
       const storagePath = `tutorials/${type}/${owner}/${tutorial_id}`;
       const dbPath = `tutorials`;
       await firebase.uploadFiles(storagePath, files, dbPath, {

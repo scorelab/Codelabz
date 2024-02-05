@@ -50,53 +50,43 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
     }) => deleting_error
   );
 
+  const [uploadSnackbarOpen, setUploadSnackbarOpen] = React.useState(false);
+  const [uploadErrorSnackbarOpen, setUploadErrorSnackbarOpen] =
+    React.useState(false);
+  const [deleteSnackbarOpen, setDeleteSnackbarOpen] = React.useState(false);
+  const [deleteErrorSnackbarOpen, setDeleteErrorSnackbarOpen] =
+    React.useState(false);
+
   useEffect(() => {
     if (uploading === false && uploading_error === false) {
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={true}
-        autoHideDuration={6000}
-        message="Image Uploaded successfully...."
-      />;
+      setUploadSnackbarOpen(true);
     } else if (uploading === false && uploading_error) {
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={true}
-        autoHideDuration={6000}
-        message={uploading_error}
-      />;
+      setUploadErrorSnackbarOpen(true);
     }
   }, [uploading, uploading_error]);
 
   useEffect(() => {
     if (deleting === false && deleting_error === false) {
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={true}
-        autoHideDuration={6000}
-        message="Deleted Succefully...."
-      />;
+      setDeleteSnackbarOpen(true);
     } else if (deleting === false && deleting_error) {
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={true}
-        autoHideDuration={6000}
-        message={deleting_error}
-      />;
+      setDeleteErrorSnackbarOpen(true);
     }
   }, [deleting, deleting_error]);
+
+  const handleSnackbarClose = type => {
+    switch (type) {
+      case "upload":
+        setUploadSnackbarOpen(false);
+        setUploadErrorSnackbarOpen(false);
+        break;
+      case "delete":
+        setDeleteSnackbarOpen(false);
+        setDeleteErrorSnackbarOpen(false);
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     clearTutorialImagesReducer()(dispatch);
@@ -105,17 +95,15 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
     };
   }, [dispatch]);
 
-  const props = {
-    name: "file",
-    multiple: true,
-    beforeUpload(file, files) {
-      uploadTutorialImages(owner, tutorial_id, files)(
-        firebase,
-        firestore,
-        dispatch
-      );
-      return false;
-    }
+  const beforeUpload = async files => {
+    console.log("Image Upload Started!!!")
+    await uploadTutorialImages(owner, tutorial_id, files)(
+      firebase,
+      firestore,
+      dispatch
+    );
+    console.log("Uploaded the Images");
+    return false;
   };
 
   const deleteFile = (name, url) =>
@@ -127,85 +115,134 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
     )(firebase, firestore, dispatch);
 
   return (
-    <Drawer
-      title="Images"
-      data-testid="imageDrawer"
-      anchor="right"
-      closable={true}
-      onClose={onClose}
-      open={visible}
-      getContainer={true}
-      style={{ position: "absolute" }}
-      width="400px"
-      className="image-drawer"
-      destroyOnClose={true}
-      maskClosable={false}
-    >
-      <div className="col-pad-24" data-testId="tutorialImgUpload">
-        <Grid>
-          <input
-            id="file-upload"
-            fullWidth
-            accept="image/*"
-            type="file"
-            {...props}
-          />
-          {uploading ? (
-            <>
-              <LoadingOutlined /> Please wait...
-              <p className="ant-upload-hint mt-8">Uploading image(s)...</p>
-            </>
-          ) : (
-            <>
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">
-                Click or drag images to here to upload
-              </p>
-            </>
-          )}
-        </Grid>
-        {imageURLs &&
-          imageURLs.length > 0 &&
-          imageURLs.map((image, i) => (
-            <Grid className="mb-24" key={i}>
-              <Grid xs={24} md={8}>
-                <img src={image.url} alt="" />
-              </Grid>
-              <Grid xs={24} md={16} className="pl-8" style={{}}>
-                <h4 className="pb-8">{image.name}</h4>
+    <>
+      <Drawer
+        title="Images"
+        data-testid="imageDrawer"
+        anchor="right"
+        closable={true}
+        onClose={onClose}
+        open={visible}
+        getContainer={true}
+        style={{ position: "absolute" }}
+        width="400px"
+        className="image-drawer"
+        destroyOnClose={true}
+        maskClosable={false}
+      >
+        <div className="col-pad-24" data-testId="tutorialImgUpload">
+          <Grid>
+            <input
+              id="file-upload"
+              fullWidth
+              accept="image/*"
+              type="file"
+              name="file"
+              multiple
+              onChange={event => beforeUpload(event.target.files)}
+            />
+            {uploading ? (
+              <>
+                <LoadingOutlined /> Please wait...
+                <p className="ant-upload-hint mt-8">Uploading image(s)...</p>
+              </>
+            ) : (
+              <>
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  Click or drag images to here to upload
+                </p>
+              </>
+            )}
+          </Grid>
+          {imageURLs &&
+            imageURLs.length > 0 &&
+            imageURLs.map((image, i) => (
+              <Grid className="mb-24" key={i}>
+                <Grid 
+                style={{
+                  maxWidth: "240px",
+                  objectFit: "cover"
+                }}
+                xs={24} md={8}>
+                  <img src={image.url} alt="" />
+                </Grid>
+                <Grid xs={24} md={16} className="pl-8" style={{}}>
+                  <h4 className="pb-8">{image.name}</h4>
 
-                <CopyToClipboard
-                  text={`![alt=image; scale=1.0](${image.url})`}
-                  onCopy={() => (
-                    <Snackbar
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left"
-                      }}
-                      open={true}
-                      autoHideDuration={6000}
-                      message="Copied...."
-                    />
-                  )}
-                >
-                  <Button type="primary">Copy URL</Button>
-                </CopyToClipboard>
+                  <CopyToClipboard
+                    text={`![alt=image; scale=1.0](${image.url})`}
+                    onCopy={() => (
+                      <Snackbar
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left"
+                        }}
+                        open={true}
+                        autoHideDuration={6000}
+                        message="Copied...."
+                      />
+                    )}
+                  >
+                    <Button type="primary">Copy URL</Button>
+                  </CopyToClipboard>
 
-                <Button
-                  loading={deleting}
-                  onClick={() => deleteFile(image.name, image.url)}
-                  type="ghost"
-                  danger
-                >
-                  Delete
-                </Button>
+                  <Button
+                    loading={deleting}
+                    onClick={() => deleteFile(image.name, image.url)}
+                    type="ghost"
+                    danger
+                  >
+                    Delete
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
-          ))}
-      </div>
-    </Drawer>
+            ))}
+        </div>
+      </Drawer>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={uploadSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => handleSnackbarClose("upload")}
+        message="Image Uploaded successfully...."
+      />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={uploadErrorSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => handleSnackbarClose("upload")}
+        message={uploading_error}
+      />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={deleteSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => handleSnackbarClose("delete")}
+        message="Deleted Successfully...."
+      />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={deleteErrorSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => handleSnackbarClose("delete")}
+        message={deleting_error}
+      />
+    </>
   );
 };
 
