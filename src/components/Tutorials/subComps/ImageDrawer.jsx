@@ -161,7 +161,12 @@ const ImageDrawer = ({ onClose, visible, owner, tutorial_id, imageURLs }) => {
             imageURLs.length > 0 &&
             imageURLs.map((image, i) => (
               <Grid className="mb-24" key={i}>
-                <Grid xs={24} md={8}>
+                <Grid 
+                style={{
+                  maxWidth: "240px",
+                  objectFit: "cover"
+                }}
+                xs={24} md={8}>
                   <img src={image.url} alt="" />
                 </Grid>
                 <Grid xs={24} md={16} className="pl-8" style={{}}>
