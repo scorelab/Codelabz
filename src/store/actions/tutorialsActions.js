@@ -141,6 +141,7 @@ export const createTutorial =
           featured_image: "",
           icon: "",
           url: "",
+          bookmarked:false,
           background_color: "#ffffff",
           text_color: "#000000",
           createdAt: firestore.FieldValue.serverTimestamp(),
@@ -531,3 +532,21 @@ export const setTutorialTheme =
         console.log(e.message);
       }
     };
+    export const toggleTutorialBookmark = (tutorial_id) => async (firebase, firestore, dispatch) => {
+      try {
+        const tutorialRef = firestore.collection("tutorials").doc(tutorial_id);
+        const tutorialDoc = await tutorialRef.get();
+        if (tutorialDoc.exists) {
+          const currentBookmarkedValue = tutorialDoc.data().bookmarked;
+          await tutorialRef.update({
+            bookmarked: !currentBookmarkedValue,
+            updatedAt: firestore.FieldValue.serverTimestamp()
+          });
+        } else {
+          console.error("Tutorial document does not exist");
+        }
+      } catch (error) {
+        console.error("TOGGLE_TUTORIAL_BOOKMARK_FAIL", error);
+      }
+    };
+    

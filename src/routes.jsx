@@ -13,6 +13,7 @@ import Dashboard from "./components/Dashboard";
 import Editor from "./components/Editor";
 import NotFound from "./components/ErrorPages/404";
 import HomePage from "./components/HomePage/index";
+import BookmarkPage from "./components/BookmarkPage/index"
 import ManageUsers from "./components/ManageUsers";
 import MyFeed from "./components/MyFeed";
 import Organization from "./components/Organization";
@@ -115,6 +116,11 @@ const Routes = () => {
             exact
             path={"/dashboard"}
             component={UserIsNotAllowedUserDashboard(Dashboard)}
+          />
+          <Route
+            exact
+            path={"/bookmarks"}
+            component={BookmarkPage}
           />
           <Route
             exact

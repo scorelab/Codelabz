@@ -18,7 +18,7 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import { userList } from "./userList";
+import { userList } from "../HomePage/userList";
 import useStyles from "./styles";
 import SideBar from "../SideBar/index";
 import TagCard from "../CardTabs/Tags/index";
@@ -181,8 +181,9 @@ function HomePage({ background = "white", textColor = "black" }) {
       tutorialPage: {
         feed: { homepageFeedArray }
       }
-    }) => homepageFeedArray
+    }) => homepageFeedArray.filter(tutorial => tutorial.bookmarked === true)
   );
+  
 
   const notification = () => {};
   const handleChange = (event, newValue) => {
@@ -228,14 +229,6 @@ function HomePage({ background = "white", textColor = "black" }) {
           data-testId="homepageMainBody"
           xs={6}
         >
-          <NewCodelabz setVisibleModal={setVisibleModal} />
-          <NewTutorial
-            viewModal={visibleModal}
-            onSidebarClick={e => closeModal(e)}
-          />
-          <Card className={classes.card}>
-            <Activity />
-          </Card>
           <Box item sx={{ display: { md: "none" } }}>
             <TagCard tags={tags} />
           </Box>

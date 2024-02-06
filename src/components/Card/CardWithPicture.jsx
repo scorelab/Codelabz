@@ -22,6 +22,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../store/actions";
+import { toggleTutorialBookmark } from "../../store/actions/tutorialsActions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -74,6 +75,7 @@ const useStyles = makeStyles(theme => ({
 export default function CardWithPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
+  const [isBookmarked, setIsBookmarked] = React.useState(tutorial?.bookmarked);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const firebase = useFirebase();
@@ -88,6 +90,15 @@ export default function CardWithPicture({ tutorial }) {
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
+  };
+
+  const handleBookmark = event => {
+    toggleTutorialBookmark(tutorial?.tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+    setIsBookmarked(prev => !prev);
   };
 
   useEffect(() => {
@@ -221,8 +232,12 @@ export default function CardWithPicture({ tutorial }) {
         <IconButton aria-label="add to favorites" data-testId="ShareIcon">
           <ShareOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="share" data-testId="NotifIcon">
-          <TurnedInNotOutlinedIcon />
+        <IconButton
+          aria-label="share"
+          data-testId="NotifIcon"
+          onClick={handleBookmark}
+        >
+          {isBookmarked ? <TurnedInIcon /> : <TurnedInNotOutlinedIcon />}
         </IconButton>
         <IconButton aria-label="share" data-testId="MoreIcon">
           <MoreVertOutlinedIcon />

@@ -13,6 +13,7 @@ import Chip from "@mui/material/Chip";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
+import TurnedInIcon from "@mui/icons-material/TurnedIn";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import ToggleButton from "@mui/lab/ToggleButton";
 import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
@@ -21,6 +22,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../store/actions";
+import { toggleTutorialBookmark } from "../../store/actions/tutorialsActions";
 const useStyles = makeStyles(theme => ({
   root: {
     margin: "0.5rem",
@@ -68,6 +70,7 @@ const useStyles = makeStyles(theme => ({
 export default function CardWithoutPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
+  const [isBookmarked, setIsBookmarked] = React.useState(tutorial?.bookmarked);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const firebase = useFirebase();
@@ -82,6 +85,15 @@ export default function CardWithoutPicture({ tutorial }) {
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
+  };
+
+  const handleBookmark = event => {
+    toggleTutorialBookmark(tutorial?.tutorial_id)(
+      firebase,
+      firestore,
+      dispatch
+    );
+    setIsBookmarked(prev => !prev);
   };
 
   useEffect(() => {
@@ -210,8 +222,16 @@ export default function CardWithoutPicture({ tutorial }) {
         <IconButton aria-label="add to favorites" data-testId="ShareIcon">
           <ShareOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="share" data-testId="NotifIcon">
-          <TurnedInNotOutlinedIcon />
+        <IconButton
+          aria-label="share"
+          data-testId="NotifIcon"
+          onClick={handleBookmark}
+        >
+          {isBookmarked ? (
+            <TurnedInIcon />
+          ) : (
+            <TurnedInNotOutlinedIcon />
+          )}
         </IconButton>
         <IconButton aria-label="share" data-testId="MoreIcon">
           <MoreVertOutlinedIcon />
