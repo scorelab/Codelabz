@@ -16,9 +16,6 @@ import { useHistory } from "react-router-dom";
 import { deleteOrganization } from "../../../store/actions/orgActions";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%"
-  },
   input: {
     marginTop: "15px"
   },
@@ -61,7 +58,7 @@ function OrgDeleteModal() {
         Are you sure you want to delete {CurrentOrg?.org_name}?
       </DialogTitle>
 
-      <DialogContent className={classes.root}>
+      <DialogContent>
         <Typography>
           This action cannot be <strong>undone</strong>. This will delete all
           the data associated with this organization.
