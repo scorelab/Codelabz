@@ -51,6 +51,7 @@ function OrgDelete() {
   return (
     <React.Fragment>
       <Paper elevation={0} className={classes.root} data-testid="org-delete">
+        
         <Grid container className={classes.gridPadding}>
           <Grid container direction="row">
             <Grid item container xs={12} md={10} direction="column">
