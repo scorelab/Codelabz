@@ -23,10 +23,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     [theme.breakpoints.down("md")]: {
-      width: "95%"
+      width: "95%",
+      flexDirection: "column"
     },
     [theme.breakpoints.down("xs")]: {
-      width: "95%",
+      width: "80%",
       flexDirection: "column"
     }
   },
@@ -35,7 +36,10 @@ const useStyles = makeStyles(theme => ({
   },
   large: {
     width: theme.spacing(7),
-    height: theme.spacing(7)
+    height: theme.spacing(7),
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "20px"
+    }
   },
   details: {
     display: "flex",
@@ -49,8 +53,8 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column"
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "0px"
     }
   },
   name: {
@@ -59,15 +63,20 @@ const useStyles = makeStyles(theme => ({
     }
   },
   margin: {
-    marginLeft: "15px",
+    marginLeft: "40px",
     [theme.breakpoints.down("xs")]: {
       marginLeft: "0px"
     }
   },
   marginR: {
     marginRight: "20px",
-    [theme.breakpoints.down("xs")]: {
-      marginRight: "0px"
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "200px"
+    }
+  },
+  iconStyle: {
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "-40px"
     }
   }
 }));
@@ -122,9 +131,9 @@ export default function SwitchAccount({
               {name}
             </Typography>
             <div className={classes.divDetails}>
-              <Typography variant="subtitle2">Personal account</Typography>
+              <Typography variant="subtitle2" >Personal account</Typography>
               <IconButton aria-label="share">
-                <SwapHorizIcon />
+                <SwapHorizIcon className={classes.iconStyle}/>
               </IconButton>
 
               <div>

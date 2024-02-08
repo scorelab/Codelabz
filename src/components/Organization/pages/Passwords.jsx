@@ -12,8 +12,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-evenly",
     width: "98%",
     marginBottom: "20px",
+    paddingBottom: "20px",
     [theme.breakpoints.between("xs", "sm")]: {
-      marginLeft: "10px"
+      marginLeft: "10px",
+      paddingRight: "25px",
     }
   },
   input: {
@@ -73,7 +75,7 @@ function Passwords() {
         </Grid>
         <Grid className={classes.inputContainer} item xs={12}>
           <Typography>New Password</Typography>
-          <InputBase className={classes.input} placeholder="New Password" />
+          <InputBase className={classes.input} placeholder="New Password"  />
         </Grid>
         <Grid className={classes.inputContainer} item xs={12}>
           <Typography>Confirm new password</Typography>
