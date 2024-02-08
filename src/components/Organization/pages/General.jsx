@@ -37,10 +37,12 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     gap: 10,
     [theme.breakpoints.down("md")]: {
-      width: "99%"
+      width: "99%",
+      paddingRight: 0
     },
     [theme.breakpoints.down("xs")]: {
-      width: "99%"
+      width: "99%",
+      paddingRight: 0
     },
     marginTop: "20px"
   },

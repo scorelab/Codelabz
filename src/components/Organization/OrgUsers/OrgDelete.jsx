@@ -7,7 +7,10 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     border: `1px solid ${theme.palette.divider}`,
-    borderRadius: "10px"
+    borderRadius: "10px",
+    [theme.breakpoints.down("md")]: {
+      marginRight: 20,
+    },
   },
   gridPadding: {
     padding: theme.spacing(2)
