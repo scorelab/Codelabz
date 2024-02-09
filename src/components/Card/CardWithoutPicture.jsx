@@ -149,16 +149,37 @@ export default function CardWithoutPicture({ tutorial }) {
           data-testId="codelabzDetails"
         >
           <Typography variant="h5" color="text.primary" data-testId="Title">
-            {tutorial?.title.length > 200 ? toggleTitle ? tutorial?.title : tutorial?.title.slice(0, 200) : tutorial?.title}
-            {tutorial?.title.length > 200 ? toggleTitle ? "" : (<>
-              ....
-              <button onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                setToggleTitle(!toggleTitle)
-              }} style={{ backgroundColor: "white", border: "none", cursor: "pointer", marginLeft: "10px" }}>Show more</button>
-            </>) : ""}
-
+            {tutorial?.title.length > 200
+              ? toggleTitle
+                ? tutorial?.title
+                : tutorial?.title.slice(0, 200)
+              : tutorial?.title}
+            {tutorial?.title.length > 200 ? (
+              toggleTitle ? (
+                ""
+              ) : (
+                <>
+                  ....
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setToggleTitle(!toggleTitle);
+                    }}
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      cursor: "pointer",
+                      marginLeft: "10px"
+                    }}
+                  >
+                    Show more
+                  </button>
+                </>
+              )
+            ) : (
+              ""
+            )}
           </Typography>
           <Typography
             variant="body2"
@@ -167,15 +188,37 @@ export default function CardWithoutPicture({ tutorial }) {
             paragraph
             data-testId="Description"
           >
-            {tutorial?.summary.length > 600 ? toggleSummary ? tutorial?.summary : tutorial?.summary.slice(0, 600) : tutorial?.summary}
-            {tutorial?.summary.length > 600 ? toggleSummary ? "" : (<>
-              ....
-              <button onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                setToggleSummary(!toggleSummary)
-              }} style={{ backgroundColor: "white", border: "none", cursor: "pointer", marginLeft: "10px" }}>Show more</button>
-            </>) : ""}
+            {tutorial?.summary.length > 600
+              ? toggleSummary
+                ? tutorial?.summary
+                : tutorial?.summary.slice(0, 600)
+              : tutorial?.summary}
+            {tutorial?.summary.length > 600 ? (
+              toggleSummary ? (
+                ""
+              ) : (
+                <>
+                  ....
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setToggleSummary(!toggleSummary);
+                    }}
+                    style={{
+                      backgroundColor: "white",
+                      border: "none",
+                      cursor: "pointer",
+                      marginLeft: "10px"
+                    }}
+                  >
+                    Show more
+                  </button>
+                </>
+              )
+            ) : (
+              ""
+            )}
             {/* {tutorial?.summary} */}
           </Typography>
         </CardContent>

@@ -184,7 +184,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     }) => homepageFeedArray
   );
 
-  const notification = () => { };
+  const notification = () => {};
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -302,7 +302,6 @@ function HomePage({ background = "white", textColor = "black" }) {
             </TabContext>
           </Box>
         </Grid>
-        
 
         <Grid item className={classes.sideBody} xs={3}>
           <Grid

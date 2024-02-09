@@ -26,8 +26,10 @@ const TutorialCard = ({
           title="Tutorial icon"
         />
 
-        <CardContent style={{ maxHeight: "290px", maxWidth: "250px", height: "290px" }}>
-          <Typography gutterBottom variant="h5" component="h2" >
+        <CardContent
+          style={{ maxHeight: "290px", maxWidth: "250px", height: "290px" }}
+        >
+          <Typography gutterBottom variant="h5" component="h2">
             {title.length > 25 ? title.slice(0, 25) : title}
             {title.length > 25 ? "..." : ""}
           </Typography>
@@ -48,7 +50,7 @@ const TutorialCard = ({
         bgcolor="background.paper"
         sx={{ height: 70, ml: 3 }}
       >
-        <Box p={1} bgcolor="grey.300"  >
+        <Box p={1} bgcolor="grey.300">
           <CardActions style={{}}>
             <Link to={`/tutorials/${owner}/${tutorial_id}`}>
               <Button

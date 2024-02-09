@@ -1,14 +1,13 @@
 {
-    "type": "service_account",
-    "project_id": "codelabz-gsoc24",
-    "private_key_id": "f6aec9fe78ebf53b5f6086cdbd09e245f6c0cd22",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCexj7GEzOAbBBJ\nSamCs16P0+CZuzoOir3O1a4GCE2/dGwf7E6YNKzvSqJYexS0FNJwjol16vVx0jUt\n+NJS9kpkTPf3ds4p++5DAy46rom61ktMYz/YZvWTnkke+0+oR50+L8VZrtn8rW2m\n5vhX8uZcx/Mj1+sVC4xMQPPrUwFDTHEkahKkYsnhSmStwHsOGG/KaeKttnTUN0OX\nJSwCtIfHWiKc2eWskgoYeI6V4JHhgp7/G3DJjZAtTMbS8dyXlYuTGMb8upkYSZu5\n8i7sSQcOKmUXU3/ddnlwYX7nmg1NhOmBg0pUSrS4jmagqGjis9N2TrBjzDX1U2I1\ntWQBhICHAgMBAAECggEAAoVJarq3wNG9fOVCfB2aN5uqZn9J/gA4izQUzBSb49I6\nPFPzopYTf+HtOeJhdN/FFbqYPdsBEoppkiqab8JL5AykxO3fQc4K/WuWLEzEno3X\nf76DoPfhe4ix/5jOrgzN5WERN61/Z5Bs2FZftoItI2eAWZDhwTbjf1CjVdGFwWNK\n3dlMlVauDvbMKZABan8bjsLTVAox95hXVuqWrqVtheHwpT+hmXgcmdeOx9DlSPSs\nDHEYnlh6O6gxY9RiQ7LAjws68eO9GxCZDkfvM3Ok/g6SIswrgWL2yTBq8SPKDcwM\nNs2Aulb9jnYsC324u5vBS1UXw6Y0xdyn2pxwtGrqoQKBgQDbI33z0u18lA2ZPx6G\nPqHUdW62i+vbCHLWYB6fCha7t39ZhieVpuVvfcN2XmLiPmFUJqMbxuSEn7qK3DcP\n+g/wEAvbouCm2oB+LQkE4WR7j1Uam+hQYN7s2yxXcqiX4VW3wgIpYY1XNnHqZkup\n8yGSu0mfXR67uGMvdBLVIFRz1QKBgQC5e1vwWXVXSTMO7Ml3T7ea30aM+LyMA6Bi\nBlNcqRaXvcB3DalNBHzabKFB7P2UR8ZH1nBOliEVeKJhP4+itlBl0GqVq1EP88VC\nIdPNreWjdoUyFlqnLOu1xaEOJAEve4YS+V5AJzCmozQJNvmdeVkOitzv0XvV+Flp\nuUBqlNd86wKBgDmJJQ26iL4XxUZCK0qF8UluF8Z4EFHu8u/URtXs+TEKKbagoY4K\nRt0yAPr4JzBNvpIwnsyxONiVc4336cEZH8wg+mwNZLyKTAhU3LRaVV6XsHmPC7zm\n4kD//rFrGlbeQ/o+RwEEau7GDbzEZQNXIa573AWqlmIlNG2GJVet6F6NAoGBAKXv\nDDMbdPRfkgP6JcpNUM6GjNE0/UitPeA0FIPC6Wla4kIfwKQcLa4inKkj4T+0blh6\nKQLFIFfbEjm56UABpi9Pouq+1shUptYg+SD6P4RbVZGXmgYRE9YMNac24rCd6zYy\nTPVLmiSZwMW1nt4YX2m5JSqO2CB2C1ef2VcATT99AoGAT/nNCZN8C+gu1gJ6mkmq\nJDgNdLV907vKenZlOez5EB6Uns20v1YyOuK7EyMUnf9NHr/5ZyPw+yT7RCJ28YO3\nclXF4gkKuVwcxm/ccsZhmqBb2EzrF1rnbcgtEocRG3zYmPhFZdqeHLQ9/GSneC8Q\neAxgoA/wdxA/piq5GTpiFKg=\n-----END PRIVATE KEY-----\n",
-    "client_email": "firebase-adminsdk-45w7y@codelabz-gsoc24.iam.gserviceaccount.com",
-    "client_id": "112002644236744622520",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-45w7y%40codelabz-gsoc24.iam.gserviceaccount.com",
-    "universe_domain": "googleapis.com"
-  }
-  
+  "type": "service_account",
+  "project_id": "codelabz-gsoc24",
+  "private_key_id": "f6aec9fe78ebf53b5f6086cdbd09e245f6c0cd22",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCexj7GEzOAbBBJ\nSamCs16P0+CZuzoOir3O1a4GCE2/dGwf7E6YNKzvSqJYexS0FNJwjol16vVx0jUt\n+NJS9kpkTPf3ds4p++5DAy46rom61ktMYz/YZvWTnkke+0+oR50+L8VZrtn8rW2m\n5vhX8uZcx/Mj1+sVC4xMQPPrUwFDTHEkahKkYsnhSmStwHsOGG/KaeKttnTUN0OX\nJSwCtIfHWiKc2eWskgoYeI6V4JHhgp7/G3DJjZAtTMbS8dyXlYuTGMb8upkYSZu5\n8i7sSQcOKmUXU3/ddnlwYX7nmg1NhOmBg0pUSrS4jmagqGjis9N2TrBjzDX1U2I1\ntWQBhICHAgMBAAECggEAAoVJarq3wNG9fOVCfB2aN5uqZn9J/gA4izQUzBSb49I6\nPFPzopYTf+HtOeJhdN/FFbqYPdsBEoppkiqab8JL5AykxO3fQc4K/WuWLEzEno3X\nf76DoPfhe4ix/5jOrgzN5WERN61/Z5Bs2FZftoItI2eAWZDhwTbjf1CjVdGFwWNK\n3dlMlVauDvbMKZABan8bjsLTVAox95hXVuqWrqVtheHwpT+hmXgcmdeOx9DlSPSs\nDHEYnlh6O6gxY9RiQ7LAjws68eO9GxCZDkfvM3Ok/g6SIswrgWL2yTBq8SPKDcwM\nNs2Aulb9jnYsC324u5vBS1UXw6Y0xdyn2pxwtGrqoQKBgQDbI33z0u18lA2ZPx6G\nPqHUdW62i+vbCHLWYB6fCha7t39ZhieVpuVvfcN2XmLiPmFUJqMbxuSEn7qK3DcP\n+g/wEAvbouCm2oB+LQkE4WR7j1Uam+hQYN7s2yxXcqiX4VW3wgIpYY1XNnHqZkup\n8yGSu0mfXR67uGMvdBLVIFRz1QKBgQC5e1vwWXVXSTMO7Ml3T7ea30aM+LyMA6Bi\nBlNcqRaXvcB3DalNBHzabKFB7P2UR8ZH1nBOliEVeKJhP4+itlBl0GqVq1EP88VC\nIdPNreWjdoUyFlqnLOu1xaEOJAEve4YS+V5AJzCmozQJNvmdeVkOitzv0XvV+Flp\nuUBqlNd86wKBgDmJJQ26iL4XxUZCK0qF8UluF8Z4EFHu8u/URtXs+TEKKbagoY4K\nRt0yAPr4JzBNvpIwnsyxONiVc4336cEZH8wg+mwNZLyKTAhU3LRaVV6XsHmPC7zm\n4kD//rFrGlbeQ/o+RwEEau7GDbzEZQNXIa573AWqlmIlNG2GJVet6F6NAoGBAKXv\nDDMbdPRfkgP6JcpNUM6GjNE0/UitPeA0FIPC6Wla4kIfwKQcLa4inKkj4T+0blh6\nKQLFIFfbEjm56UABpi9Pouq+1shUptYg+SD6P4RbVZGXmgYRE9YMNac24rCd6zYy\nTPVLmiSZwMW1nt4YX2m5JSqO2CB2C1ef2VcATT99AoGAT/nNCZN8C+gu1gJ6mkmq\nJDgNdLV907vKenZlOez5EB6Uns20v1YyOuK7EyMUnf9NHr/5ZyPw+yT7RCJ28YO3\nclXF4gkKuVwcxm/ccsZhmqBb2EzrF1rnbcgtEocRG3zYmPhFZdqeHLQ9/GSneC8Q\neAxgoA/wdxA/piq5GTpiFKg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-45w7y@codelabz-gsoc24.iam.gserviceaccount.com",
+  "client_id": "112002644236744622520",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-45w7y%40codelabz-gsoc24.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
