@@ -1,50 +1,19 @@
-const functions = require("firebase-functions");
-const dotenv = require("dotenv");
-dotenv.config({
-  path: "../.env"
-});
-
 /**
- * +++++++++++++++++++CLOUD FUNCTIONS+++++++++++++++++++++++++++++
+ * Import function triggers from their respective submodules:
+ *
+ * const {onCall} = require("firebase-functions/v2/https");
+ * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
+ *
+ * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-/**Import functions
- */
-const onCallFunctions = require("./cloud_functions/onCallFunctions");
-const onCreateFunctions = require("./cloud_functions/onCreateFunctions");
-const onWriteFunctions = require("./cloud_functions/onWriteFunctions");
-const onUpdateFunctions = require("./cloud_functions/onUpdateFunctions");
-const pubSubFunctions = require("./cloud_functions/pubSubFunctions");
+const {onRequest} = require("firebase-functions/v2/https");
+const logger = require("firebase-functions/logger");
 
-//+++++++++++++++++++++onCall Functions+++++++++++++++++++++++++++++++++
-exports.resendVerificationEmail = functions.https.onCall(
-  onCallFunctions.resendVerificationEmailHandler
-);
+// Create and deploy your first functions
+// https://firebase.google.com/docs/functions/get-started
 
-exports.sendPasswordUpdateEmail = functions.https.onCall(
-  onCallFunctions.sendPasswordUpdateEmailHandler
-);
-
-//+++++++++++++++++++++onCreate Functions+++++++++++++++++++++++++++++++
-exports.sendVerificationEmail = functions.auth
-  .user()
-  .onCreate(onCreateFunctions.sendVerificationEmailHandler);
-
-exports.createOrganization = functions.firestore
-  .document("cl_org_general/{org_handle}")
-  .onCreate(onCreateFunctions.createOrganizationHandler);
-
-//++++++++++++++++++++onWrite Functions+++++++++++++++++++++++++++++++
-exports.registerUserHandle = functions.firestore
-  .document("cl_user/{uid}")
-  .onWrite(onWriteFunctions.registerUserHandleHandler);
-
-//++++++++++++++++++++onUpdate Functions++++++++++++++++++++++++++++++
-exports.updateOrgUser = functions.firestore
-  .document("cl_org_general/{org_handle}/cl_org_users/users")
-  .onUpdate(onUpdateFunctions.addOrgUserHandler);
-
-//++++++++++++++++++++Pub/Sub Functions++++++++++++++++++++++++++++++
-exports.deleteTutorialSteps = functions.pubsub
-  .schedule("every 7 days")
-  .onRun(pubSubFunctions.deleteTutorialStepsHandler);
+// exports.helloWorld = onRequest((request, response) => {
+//   logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
