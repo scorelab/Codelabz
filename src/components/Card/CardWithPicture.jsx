@@ -83,7 +83,7 @@ export default function CardWithPicture({ tutorial }) {
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    setCount(Math.max(count - 1, 0));
   };
 
   const handleAlignment = (event, newAlignment) => {
