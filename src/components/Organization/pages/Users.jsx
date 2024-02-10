@@ -72,8 +72,7 @@ function Users() {
         type: "char",
         value: "A"
       }
-    },
-    
+    }
   ];
 
   const ContributersUsers = [
