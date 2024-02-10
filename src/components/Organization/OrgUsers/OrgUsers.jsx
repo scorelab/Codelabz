@@ -1,8 +1,9 @@
 import { Avatar, Button, Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,6 +68,12 @@ function Orgusers({
   dataTestId
 }) {
   const classes = useStyles();
+  const [showAllUsers, setShowAllUsers] = useState(false);
+
+  const handleViewMoreClick = () => {
+    setShowAllUsers(!showAllUsers);
+  };
+
   return (
     <React.Fragment>
       <Paper elevation={0} className={classes.root} data-testid={dataTestId}>
@@ -107,49 +114,51 @@ function Orgusers({
             className={classes.userList}
             data-testid="org-userlist"
           >
-            {Users.map((user, index) => (
-              <React.Fragment key={index}>
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                  className={classes.userCard}
-                  data-testid="org-user-card"
-                  spacing={2}
-                >
+            {Users.slice(0, showAllUsers ? Users.length : 3).map(
+              (user, index) => (
+                <React.Fragment key={index}>
                   <Grid
-                    item
-                    container
-                    xs={3}
-                    md={1}
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    {user.avatar.type === "char" ? (
-                      <Avatar>{user.avatar.value}</Avatar>
-                    ) : (
-                      <Avatar src={user.avatar.value} />
-                    )}
-                  </Grid>
-                  <Grid
-                    item
-                    xs={9}
-                    md={11}
                     container
                     direction="row"
+                    justifyContent="center"
                     alignItems="center"
+                    className={classes.userCard}
+                    data-testid="org-user-card"
+                    spacing={2}
                   >
-                    <Typography className={classes.userName}>
-                      {user.name},
-                    </Typography>
-                    <Typography className={classes.userDesignation}>
-                      {user.designation}
-                    </Typography>
+                    <Grid
+                      item
+                      container
+                      xs={3}
+                      md={1}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      {user.avatar.type === "char" ? (
+                        <Avatar>{user.avatar.value}</Avatar>
+                      ) : (
+                        <Avatar src={user.avatar.value} />
+                      )}
+                    </Grid>
+                    <Grid
+                      item
+                      xs={9}
+                      md={11}
+                      container
+                      direction="row"
+                      alignItems="center"
+                    >
+                      <Typography className={classes.userName}>
+                        {user.name},
+                      </Typography>
+                      <Typography className={classes.userDesignation}>
+                        {user.designation}
+                      </Typography>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </React.Fragment>
-            ))}
+                </React.Fragment>
+              )
+            )}
           </Grid>
         </Grid>
         <Grid
@@ -160,12 +169,13 @@ function Orgusers({
           alignItems="center"
           className={classes.viewMore}
           style={{
-            display: isViewMore ? "flex" : "none"
+            display: Users.length > 3 ? "flex" : "none"
           }}
+          onClick={handleViewMoreClick}
         >
-          <ExpandMoreIcon />
+          {showAllUsers ? <ExpandLessRoundedIcon /> : <ExpandMoreIcon />}
           <Typography variant="body1" className={classes.body}>
-            View More
+            {showAllUsers ? "View Less" : "View More"}
           </Typography>
         </Grid>
       </Paper>
