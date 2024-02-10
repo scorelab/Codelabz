@@ -32,7 +32,48 @@ function Users() {
         type: "image",
         value: "https://i.pravatar.cc/300"
       }
-    }
+    },
+    {
+      name: "Shahaab Manzar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "char",
+        value: "A"
+      }
+    },
+    {
+      name: "Shahaab Manzar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "char",
+        value: "A"
+      }
+    },
+    {
+      name: "Shahaab Manzar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "char",
+        value: "A"
+      }
+    },
+    {
+      name: "Shahaab Manzar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "char",
+        value: "A"
+      }
+    },
+    {
+      name: "Shahaab Manzar",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "char",
+        value: "A"
+      }
+    },
+    
   ];
 
   const ContributersUsers = [
@@ -62,6 +103,62 @@ function Users() {
     },
     {
       name: "Mehender boi",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
+      designation: "GSoC 22'",
+      avatar: {
+        type: "image",
+        value: "https://i.pravatar.cc/300"
+      }
+    },
+    {
+      name: "Saksham Sharma",
       designation: "GSoC 22'",
       avatar: {
         type: "image",
