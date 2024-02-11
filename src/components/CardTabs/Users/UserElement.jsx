@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import AddUser from "../../../assets/images/add-user.svg";
 import CheckUser from "../../../assets/images/square-check-regular.svg";
@@ -6,6 +6,31 @@ import CheckUser from "../../../assets/images/square-check-regular.svg";
 const UserElement = ({ user, index, useStyles }) => {
   const classes = useStyles();
   const [icon, setIcon] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const isFollowing = await user.onClick.isUserFollower();
+        setIcon(!isFollowing);
+      } catch (error) {
+        console.error("Error fetching follower status:", error);
+      }
+    };
+    fetchData();
+  }, [icon]);
+  const handleUserClick = async event => {
+    event.preventDefault();
+    try {
+      let isFollowing = await user.onClick.isUserFollower();
+      if (isFollowing) {
+        await user.onClick.removeUserFollower();
+      } else {
+        await user.onClick.addUserFollower();
+      }
+      setIcon(isFollowing);
+    } catch (error) {
+      console.error("Error toggling follower status:", error);
+    }
+  };
   return (
     <Box
       sx={{
@@ -46,15 +71,9 @@ const UserElement = ({ user, index, useStyles }) => {
         </Box>
       </Box>
       <Box
-        onClick={() => {
-          setIcon(false);
-        }}
+        onClick={handleUserClick}
         data-testId={index == 0 ? "UserAdd" : ""}
-        sx={
-          icon && {
-            cursor: "pointer"
-          }
-        }
+        sx={icon && { cursor: "pointer" }}
       >
         <img src={icon ? AddUser : CheckUser} />
       </Box>

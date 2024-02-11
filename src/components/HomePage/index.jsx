@@ -37,6 +37,11 @@ import {
   getTutorialFeedData,
   getTutorialFeedIdArray
 } from "../../store/actions/tutorialPageActions";
+import { addUserFollower } from "../../store/actions";
+import {
+  isUserFollower,
+  removeUserFollower
+} from "../../store/actions/profileActions";
 
 function HomePage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
@@ -109,61 +114,11 @@ function HomePage({ background = "white", textColor = "black" }) {
     "Python",
     "React"
   ]);
-
-  const [usersToFollow, setUsersToFollow] = useState([
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    }
-  ]);
-
-  const [contributors, setContributors] = useState([
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    }
-  ]);
-
+  const profileToFollowData = {
+    // displayName: "SouGatariju"
+    // email: "sougatariju13@gmail.com"
+    uid: "850pPlsLaCg6JjmrKjOu6JqRPwhb"
+  };
   const profileData = useSelector(({ firebase: { profile } }) => profile);
   useEffect(() => {
     const getFeed = async () => {
@@ -176,6 +131,115 @@ function HomePage({ background = "white", textColor = "black" }) {
     };
     getFeed();
   }, []);
+  const [usersToFollow, setUsersToFollow] = useState([
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    }
+  ]);
+
+  const [contributors, setContributors] = useState([
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    },
+    {
+      name: "Janvi Thakkar",
+      img: [OrgUser],
+      desg: "Software Engineer",
+      onClick: {
+        addUserFollower: () =>
+          addUserFollower(profileData, profileToFollowData, firestore),
+        isUserFollower: () =>
+          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+        removeUserFollower: () =>
+          removeUserFollower(profileData, profileToFollowData, firestore)
+      }
+    }
+  ]);
   const tutorials = useSelector(
     ({
       tutorialPage: {

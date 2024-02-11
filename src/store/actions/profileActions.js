@@ -195,6 +195,7 @@ export const isUserFollower = async (followerId, followingId, firestore) => {
     .collection("user_followers")
     .doc(`${followingId}_${followerId}`)
     .get();
+    console.log("Is User follower ran!!!",followerDoc.exists)
   return followerDoc.exists;
 };
 
@@ -209,7 +210,9 @@ export const addUserFollower = async (
       profileData.uid,
       firestore
     );
+    console.log("Add User Follow ran!!!")
     if (followStatus === false) {
+      console.log("New Follower")
       await firestore
         .collection("user_followers")
         .doc(`${profileData.uid}_${currentProfileData.uid}`)
@@ -252,7 +255,9 @@ export const removeUserFollower = async (
       profileData.uid,
       firestore
     );
+    console.log("Remove User Follow ran!!!")
     if (followStatus === true) {
+      console.log("Removing the follower")
       await firestore
         .collection("user_followers")
         .doc(`${profileData.uid}_${currentProfileData.uid}`)
@@ -276,6 +281,7 @@ export const removeUserFollower = async (
             : 0
         });
     }
+    console.log("Remove User Follow ran!!!")
   } catch (e) {
     console.log(e);
   }
