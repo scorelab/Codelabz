@@ -10,9 +10,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
+      flexDirection: "",
       alignItems: "center",
-      gap: "30px"
+      gap: "30px",
     }
   },
   rightButtonsGroup: {
@@ -24,8 +24,12 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       borderWidth: "2px"
     },
-    minWidth: "fit-content"
+    minWidth: "fit-content",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "-15px"
+    }
   },
+  
   completeButton: {
     minWidth: "fit-content"
   }
@@ -39,7 +43,7 @@ const ControlButtons = ({
   setStepData
 }) => {
   const classes = useStyles();
-  if (!hide && stepsData) {
+  if (stepsData) {
     return (
       <Grid>
         <Box className={classes.container}>

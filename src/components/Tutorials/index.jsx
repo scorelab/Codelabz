@@ -26,10 +26,14 @@ import { Collapse, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@mui/styles";
 
+
 const useStyles = makeStyles(theme => ({
   flexRow: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: "column"
+    },
   },
   collapseContainer: {
     minWidth: "100%",
@@ -199,6 +203,7 @@ const ViewTutorial = () => {
           </Grid>
         )}
 
+
         <Grid>
           <Grid xs={24} sm={24} md={24}>
             <TutorialHeading
@@ -210,8 +215,9 @@ const ViewTutorial = () => {
             />
           </Grid>
         </Grid>
+
         <Grid className={classes.flexRow}>
-          <ExpandMore
+          { isDesktop && (<ExpandMore
             data-testid="tutorial-collapse-button"
             expand={expand}
             onClick={() => {
@@ -223,9 +229,11 @@ const ViewTutorial = () => {
           >
             <ExpandMoreIcon className={classes.ExpandIcon} />
           </ExpandMore>
+          )}
 
           <Grid
-            width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : "0"}
+            width={stepPanelVisible ? (isDesktop ? "55%" : "100%") : (isDesktop ? "0" : "90%")}
+            marginLeft={ isDesktop ? "" : "30px"}
             padding={stepPanelVisible ? "0 2rem" : "0"}
             className={classes.widthTransition}
           >
@@ -249,7 +257,7 @@ const ViewTutorial = () => {
             </Collapse>
           </Grid>
 
-          <Grid className={classes.editorContainer}>
+          <Grid className={classes.editorContainer} style={{ marginTop: "20px", padding: isDesktop ? "" : "10px"}}>
             <Grid className="tutorial-content" justify="center" container>
               <Grid
                 xs={24}

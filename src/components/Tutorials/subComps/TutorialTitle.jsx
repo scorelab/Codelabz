@@ -37,7 +37,7 @@ const TutorialHeading = ({
     <Grid
       style={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: isDesktop ? "row" : "column",
         justifyContent: "space-around",
         alignItems: "center"
       }}
