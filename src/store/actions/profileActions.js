@@ -195,12 +195,13 @@ export const isUserFollower = async (followerId, followingId, firestore) => {
     .collection("user_followers")
     .doc(`${followingId}_${followerId}`)
     .get();
+  console.log("Is User follower ran!!!", followerDoc.exists);
   return followerDoc.exists;
 };
 
 export const addUserFollower = async (
-  currentProfileData,
-  profileData,
+  currentProfileData, //follower
+  profileData, //following
   firestore
 ) => {
   try {
@@ -209,7 +210,9 @@ export const addUserFollower = async (
       profileData.uid,
       firestore
     );
+    console.log("Add User Follow ran!!!");
     if (followStatus === false) {
+      console.log("New Following");
       await firestore
         .collection("user_followers")
         .doc(`${profileData.uid}_${currentProfileData.uid}`)
@@ -252,7 +255,9 @@ export const removeUserFollower = async (
       profileData.uid,
       firestore
     );
+    console.log("Remove User Follow ran!!!");
     if (followStatus === true) {
+      console.log("Removing the following");
       await firestore
         .collection("user_followers")
         .doc(`${profileData.uid}_${currentProfileData.uid}`)
@@ -276,10 +281,46 @@ export const removeUserFollower = async (
             : 0
         });
     }
+    console.log("Remove User Follow ran!!!");
   } catch (e) {
     console.log(e);
   }
 };
+
+export const getUserFollowings = async (userUID, firestore) => {
+  try {
+    const querySnapshot = await firestore
+      .collection("user_followers")
+      .where("followerId", "==", userUID)
+      .get();
+
+    const followings = [];
+
+    querySnapshot.forEach(async doc => {
+      const followingId = doc.data().followingId;
+      // Fetch user details based on the following ID
+      const userDoc = await firestore
+        .collection("cl_user")
+        .doc(followingId)
+        .get();
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        // Add user details to the followings array
+        followings.push({
+          uid: followingId,
+          displayName: userData.displayName,
+          photoURL: userData.photoURL
+        });
+      }
+    });
+
+    return followings;
+  } catch (error) {
+    console.error("Error fetching user followings:", error);
+  }
+};
+
+export const getUserFollowers = async (profileData, firestore) => {};
 
 const getAllOrgsOfCurrentUser = () => async (firebase, firestore) => {
   try {
