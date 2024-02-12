@@ -28,7 +28,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.grey[50],
     padding: "2px",
     border: "1px solid #ced4da",
-    borderRadius: "0.8rem"
+    borderRadius: "0.8rem",
+    display:'flex',
+    flexDirection:'row'
   },
   icon: {
     padding: "2px",
@@ -103,21 +105,21 @@ function MainNavbar() {
                 <MenuIcon />
               </IconButton>
             </Grid>
-          </Grid>
-          <Grid item xs={12} md={5}>
-            <Paper component={"form"} className={classes.root} elevation={0}>
-              <IconButton
-                type="submit"
-                aria-label="search"
-                disableRipple
-                className={classes.icon}
-                data-testid="navbarSearch"
-              >
+          </Grid>   
+            <Grid item xs={12} md={5}>
+              <Paper component={"form"} className={classes.root} elevation={0}>
+                <IconButton
+                  type="submit"
+                  aria-label="search"
+                  disableRipple
+                  className={classes.icon}
+                  data-testid="navbarSearch"
+                >
                 <SearchIcon />
-              </IconButton>
-              <InputBase className={classes.input} placeholder="Search..." />
-            </Paper>
-          </Grid>
+                </IconButton>
+                <InputBase className={classes.input} placeholder="Search..." />
+              </Paper>
+            </Grid>
           <Grid
             item
             container
