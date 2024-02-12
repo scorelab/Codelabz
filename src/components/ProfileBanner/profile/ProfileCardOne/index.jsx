@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import useStyles from "./styles";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import { Button, Menu, MenuItem } from "@mui/material";
-
+import {
+  Modal,
+  Box,
+  Typography,
+  Grid,
+  Avatar,
+  Button,
+  Menu,
+  MenuItem
+} from "@mui/material";
 // import dp from "../../../../assets/images/demoperson1.jpeg";
 import iconbuttonImage from "../../../../assets/images/Filled3dots.svg";
 import { Link } from "react-router-dom";
@@ -13,9 +19,11 @@ export default function ProfileCardOne({
   name,
   story,
   followers,
-  following
+  following_count,
+  followings,
 }) {
   const classes = useStyles();
+  const [openModal, setOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = event => {
@@ -24,8 +32,43 @@ export default function ProfileCardOne({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleFollowingClick = () => {
+    setOpenModal(true);
+  };
   return (
     <>
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <Box
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)"
+          }}
+          sx={{ width: 400, bgcolor: "background.paper", p: 2 }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Followings
+          </Typography>
+          <Grid container spacing={2} direction="column">
+            {followings.map((following, index) => (
+              <Grid
+                item
+                xs={6}
+                key={index}
+                style={{ display: "flex", alignItems: "center", gap: 10 }}
+              >
+                <Avatar
+                  alt={following?.displayName}
+                  src={following?.photoURL}
+                />
+                <Typography>{following?.displayName}</Typography>
+              </Grid>
+            ))}
+          </Grid>
+          <Button onClick={() => setOpenModal(false)}>Close</Button>
+        </Box>
+      </Modal>
       <div
         className={classes.profileRightTop}
         data-testId="user_profile_card_one"
@@ -71,10 +114,11 @@ export default function ProfileCardOne({
                   <Grid item>
                     <span
                       className={classes.profileInfoData}
-                      style={{ marginRight: "2px" }}
+                      style={{ marginRight: "2px", cursor: "pointer" }}
                       data-testId="user_profile_card_one_followingCount"
-                    >
-                      {following} following
+                      onClick={handleFollowingClick}
+                    >   
+                      {following_count} following
                     </span>
                   </Grid>
                 </Grid>

@@ -114,11 +114,23 @@ function HomePage({ background = "white", textColor = "black" }) {
     "Python",
     "React"
   ]);
-  const profileToFollowData = {
+  const profileToFollowData1 = {
     // displayName: "SouGatariju"
     // email: "sougatariju13@gmail.com"
     uid: "850pPlsLaCg6JjmrKjOu6JqRPwhb"
   };
+  const profileToFollowData2={
+    // displayName: "Shiva Nanda"
+    uid: "FdUlui4yIE5AN2P38EZOGq2ajLm4"
+  }
+  const profileToFollowData3={
+    // displayName: "Mahendar Goud"
+    uid: "ufeINR1inzJu5SjBByaCYLXn3BG6"
+  }
+  const profileToFollowData4={
+    // diplayName: "Sarfaraz Alam"
+    uid: "wdskLNE5S604JdZI8e9lAPC8VWzw"
+  }
   const profileData = useSelector(({ firebase: { profile } }) => profile);
   useEffect(() => {
     const getFeed = async () => {
@@ -138,11 +150,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData1, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData1.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData1, firestore)
       }
     },
     {
@@ -151,11 +163,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData2, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData2.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData2, firestore)
       }
     },
     {
@@ -164,11 +176,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData3, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData3.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData3, firestore)
       }
     },
     {
@@ -177,11 +189,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData4, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData4.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData4, firestore)
       }
     }
   ]);
@@ -193,11 +205,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData1, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData1.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData1, firestore)
       }
     },
     {
@@ -206,11 +218,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData2, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData2.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData2, firestore)
       }
     },
     {
@@ -219,11 +231,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData3, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData3.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData3, firestore)
       }
     },
     {
@@ -232,11 +244,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData4, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData4.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData4, firestore)
       }
     }
   ]);
