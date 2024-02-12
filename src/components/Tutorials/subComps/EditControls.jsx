@@ -116,9 +116,10 @@ const EditControls = ({
   return (
     <>
       <Stack
-        direction={"row"}
+        direction={isDesktop ? "row" : "column"}
         sx={{
-          px: 2
+          px: 2,
+          mt: isDesktop ? 0 : 2
         }}
       >
         <Button
@@ -127,12 +128,14 @@ const EditControls = ({
           variant="contained"
           sx={{
             boxShadow: "none",
-            borderRadius: 1
+            borderRadius: 1,
+            mb: isDesktop ? 0 : 2
           }}
           onClick={() => toggleAddNewStep()}
         >
           <AddIcon /> Add New Step
         </Button>
+        <div>
         <Button
           className="ml-24"
           color="warning"
@@ -149,6 +152,9 @@ const EditControls = ({
             setViewRemoveStepModal(!viewRemoveStepModal);
           }}
           disabled={step_length === 1}
+          sx={{
+            ml: isDesktop ? 0 : 5
+          }}
         >
           <DeleteIcon /> Remove step
           <RemoveStepModal
@@ -160,6 +166,8 @@ const EditControls = ({
             step_length={step_length}
           />
         </Button>
+        </div>
+
         <Box
           sx={{
             flexGrow: 1
@@ -174,10 +182,13 @@ const EditControls = ({
               {mode === "view" && (
                 <Button
                   type="primary"
-                  className="ml-24"
+                 // className="ml-24"
                   onClick={() => setMode("edit")}
                   id="editorMode"
                   data-testId="editorMode"
+                  sx={{
+                    ml: isDesktop ? 0 : 2
+                  }}
                 >
                   <EditIcon /> Editor mode
                 </Button>
@@ -185,9 +196,12 @@ const EditControls = ({
               {mode === "edit" && (
                 <Button
                   type="primary"
-                  className="ml-24"
+                 // className="ml-24"
                   onClick={() => setMode("view")}
                   data-testId="previewMode"
+                  sx={{
+                    ml: isDesktop ? 0 : 2
+                  }}
                 >
                   <FileCopyIcon /> Preview mode
                 </Button>
@@ -197,10 +211,13 @@ const EditControls = ({
                 onClick={handlePublishTutorial}
                 type="dashed"
                 disabled={publishLoad}
+                sx={{
+                  ml: isDesktop ? 0 : 4
+                }}
               >
                 <FileCopyIcon /> {isPublished ? "Unpublish" : "Publish"}
               </Button>
-              <DropdownMenu key="more" />
+              <DropdownMenu key="more"/>
             </>
           )}
         </div>

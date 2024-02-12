@@ -45,7 +45,7 @@ const StepsPanel = ({
         </Grid>
       </Grid>
       {!hideButton &&
-        false && ( //remove false to show
+       false && ( //remove false to show
           <Button
             type="link"
             size="large"
