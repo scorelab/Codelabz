@@ -105,21 +105,21 @@ function MainNavbar() {
                 <MenuIcon />
               </IconButton>
             </Grid>
-          </Grid>   
-            <Grid item xs={12} md={5}>
-              <Paper component={"form"} className={classes.root} elevation={0}>
-                <IconButton
-                  type="submit"
-                  aria-label="search"
-                  disableRipple
-                  className={classes.icon}
-                  data-testid="navbarSearch"
-                >
-                <SearchIcon />
-                </IconButton>
-                <InputBase className={classes.input} placeholder="Search..." />
-              </Paper>
-            </Grid>
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Paper component={"form"} className={classes.root} elevation={0}>
+              <IconButton
+                type="submit"
+                aria-label="search"
+                disableRipple
+                className={classes.icon}
+                data-testid="navbarSearch"
+              >
+              <SearchIcon />
+              </IconButton>
+              <InputBase className={classes.input} placeholder="Search..." />
+            </Paper>
+          </Grid>
           <Grid
             item
             container
