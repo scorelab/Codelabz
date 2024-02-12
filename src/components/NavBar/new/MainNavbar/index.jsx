@@ -28,7 +28,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.grey[50],
     padding: "2px",
     border: "1px solid #ced4da",
-    borderRadius: "0.8rem"
+    borderRadius: "0.8rem",
+    display:'flex',
+    flexDirection:'row'
   },
   icon: {
     padding: "2px",
