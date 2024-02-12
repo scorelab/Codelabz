@@ -115,7 +115,7 @@ function MainNavbar() {
                 className={classes.icon}
                 data-testid="navbarSearch"
               >
-              <SearchIcon />
+                <SearchIcon />
               </IconButton>
               <InputBase className={classes.input} placeholder="Search..." />
             </Paper>
