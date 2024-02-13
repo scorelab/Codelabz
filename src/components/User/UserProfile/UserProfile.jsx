@@ -9,6 +9,8 @@ import OrgUser from "../../../assets/images/org-user.svg";
 import { userList } from "../../HomePage/userList";
 import Card from "@mui/material/Card";
 import UserHighlights from "./UserHighlights";
+import { getUserFollowers } from "../../../store/actions/profileActions";
+import { useFirestore } from "react-redux-firebase";
 
 const useStyles = makeStyles(theme => ({
   parentBody: {
@@ -50,7 +52,8 @@ const useStyles = makeStyles(theme => ({
 
 function UserProfile(props) {
   const classes = useStyles();
-
+  const [followers, setFollowers] = useState([]);
+  const firestore = useFirestore();
   const [organizations, setUpOrganizations] = useState([
     {
       name: "Google Summer of Code",
@@ -69,7 +72,20 @@ function UserProfile(props) {
       img: [OrgUser]
     }
   ]);
-
+  useEffect(() => {
+    const fetchFollowers = async () => {
+      try {
+        const followersData = await getUserFollowers(
+          props.profileData.uid,
+          firestore
+        );
+        setFollowers(followersData);
+      } catch (error) {
+        console.error("Error fetching user's followers:", error);
+      }
+    };
+    fetchFollowers();
+  }, []);
   return (
     <>
       <div className={classes.parentBody}>
@@ -86,7 +102,7 @@ function UserProfile(props) {
                 story={
                   "Lorem ipsum dolor sit amet, consectetuer adipiscing elit"
                 }
-                followers={402}
+                followers={followers}
                 following={40}
               />
             </Card>

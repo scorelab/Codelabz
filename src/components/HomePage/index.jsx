@@ -119,6 +119,11 @@ function HomePage({ background = "white", textColor = "black" }) {
     // email: "sougatariju13@gmail.com"
     uid: "850pPlsLaCg6JjmrKjOu6JqRPwhb"
   };
+  const profileToFollowData2={
+    // displayName: "Codelabz User"
+    // email: "codelabzuser@example.com"
+    uid: "qrEH9fQUqUe7kONHtmC0GncTKYBP"
+  }
   const profileData = useSelector(({ firebase: { profile } }) => profile);
   useEffect(() => {
     const getFeed = async () => {
@@ -138,11 +143,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData2, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData2.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData2, firestore)
       }
     },
     {
@@ -193,11 +198,11 @@ function HomePage({ background = "white", textColor = "black" }) {
       desg: "Software Engineer",
       onClick: {
         addUserFollower: () =>
-          addUserFollower(profileData, profileToFollowData, firestore),
+          addUserFollower(profileData, profileToFollowData2, firestore),
         isUserFollower: () =>
-          isUserFollower(profileData.uid, profileToFollowData.uid, firestore),
+          isUserFollower(profileData.uid, profileToFollowData2.uid, firestore),
         removeUserFollower: () =>
-          removeUserFollower(profileData, profileToFollowData, firestore)
+          removeUserFollower(profileData, profileToFollowData2, firestore)
       }
     },
     {
