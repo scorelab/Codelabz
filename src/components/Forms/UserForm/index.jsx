@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import {
   alpha,
@@ -22,7 +22,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearUserProfile,
   getUserProfileData,
-  updateUserProfile
+  updateUserProfile,
+  uploadProfileImage
 } from "../../../store/actions";
 import countryList from "../../../helpers/countryList";
 import {
@@ -35,6 +36,13 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { BasicImage, NoImage } from "../../../helpers/images";
+import LinearProgress from "@mui/material/LinearProgress";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Grid, Dialog, DialogTitle, DialogContent } from "@mui/material";
+import Divider from "@mui/material/Divider"
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 const Input = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -190,6 +198,85 @@ const UserForm = () => {
     };
   }, [firebase, firestore, dispatch, handle]);
 
+  const [upImg, setUpImg] = useState();
+  const imgRef = useRef(null);
+  const previewCanvasRef = useRef(null);
+  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 16 });
+  const [completedCrop, setCompletedCrop] = useState(null);
+  const [showImageDialog, setShowImageDialog] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const onSelectFile = e => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      console.log("File loaded successfully:", reader.result);
+      reader.addEventListener("load", () => {
+        console.log("File loaded successfully:", reader.result);
+        setUpImg(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const onLoad = useCallback(img => {
+    imgRef.current = img;
+  }, []);
+
+  const base64StringToFile = (base64String, filename) => {
+    let arr = base64String.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  };
+
+  const saveImage = (canvas, crop) => {
+    if (!crop || !canvas) {
+      return;
+    }
+    setShowImageDialog(false);
+    uploadImage(base64StringToFile(canvas.toDataURL(), "newfile"));
+  };
+  const uploadImage = file => {
+    setImageUploading(true);
+    uploadProfileImage(file, profileData.handle)(firebase, dispatch).then(
+      () => {
+        setImageUploading(false);
+      }
+    );
+    return false;
+  };
+
+  useEffect(() => {
+    if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
+      return;
+    }
+    const image = imgRef.current;
+    const canvas = previewCanvasRef.current;
+    const crop = completedCrop;
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    const ctx = canvas.getContext("2d");
+    const pixelRatio = window.devicePixelRatio;
+    canvas.width = crop.width * pixelRatio;
+    canvas.height = crop.height * pixelRatio;
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+  }, [completedCrop]);
   return (
     <Card className={classes.root} data-testId="profilePage">
       <Box
@@ -201,6 +288,133 @@ const UserForm = () => {
         }}
       >
         <Box>
+        <Grid xs={12} md={3} lg={3} item={true}>
+            <Box mt={6} mb={2} m={3}>
+              {profileData.photoURL && profileData.photoURL.length > 0
+                ? BasicImage(profileData.photoURL, profileData.displayName)
+                : BasicImage(NoImage, "Not Available")}
+              <Divider></Divider>
+              {imageUploading ? (
+                <LinearProgress />
+              ) : (
+                <Box mt={4} mb={6} m={0}>
+                  <center>
+                    <Button
+                      fullWidth
+                      size="small"
+                      variant="contained"
+                      color="primary"
+                      style={{ backgroundColor: "royalblue" }}
+                      id="changeProfile"
+                      startIcon={<CloudUploadIcon />}
+                      onClick={() => setShowImageDialog(true)}
+                    >
+                      Change Profile Picture
+                    </Button>
+                  </center>
+                </Box>
+              )}
+
+              <Dialog
+                fullWidth
+                maxWidth="sm"
+                open={showImageDialog}
+                onClose={!showImageDialog}
+              >
+                <DialogTitle id="alert-dialog-title">
+                  <span style={{ fontSize: "1.3em", fontWeight: "480" }}>
+                    {"Change Profile Picture"}
+                  </span>
+                </DialogTitle>
+                <DialogContent>
+                  <div className="App">
+                    <div>
+                      <Divider></Divider>
+                      <Box mt={2} mb={2} m={1}>
+                        <label
+                          for="file-upload"
+                          class="custom-file-upload"
+                          style={{
+                            display: "block",
+                            width: "100%",
+                            color: "white",
+                            backgroundColor: "royalblue"
+                          }}
+                        >
+                          <center>
+                            Click here to select an image from your device
+                          </center>
+                        </label>
+                        <input
+                          id="file-upload"
+                          fullWidth
+                          style={{ display: "none" }}
+                          accept="image/*"
+                          type="file"
+                          onChange={onSelectFile}
+                        />
+                      </Box>
+                      <Divider></Divider>
+                    </div>
+                    <ReactCrop
+                      src={upImg}
+                      onImageLoaded={onLoad}
+                      crop={crop}
+                      onChange={c => setCrop(c)}
+                      onComplete={c => setCompletedCrop(c)}
+                    />
+                    <div>
+                      <Grid container>
+                        <canvas
+                          ref={previewCanvasRef}
+                          style={{
+                            width: Math.round(completedCrop?.width ?? 0),
+                            height: Math.round(completedCrop?.height ?? 0),
+                            display: "none"
+                          }}
+                        />
+                      </Grid>
+                      <Grid container direction="row-reverse">
+                        <Grid xs={6} md={6} lg={6} item={true}>
+                          <Box mt={0} mb={4} m={1}>
+                            <Button
+                              fullWidth
+                              size="small"
+                              variant="contained"
+                              color="primary"
+                              style={{ backgroundColor: "royalblue" }}
+                              onClick={() =>
+                                saveImage(
+                                  previewCanvasRef.current,
+                                  completedCrop
+                                )
+                              }
+                            >
+                              Save
+                            </Button>
+                          </Box>
+                        </Grid>
+                        <Grid xs={6} md={6} lg={6} item={true}>
+                          <Box mt={0} mb={4} m={1}>
+                            <Button
+                              fullWidth
+                              size="small"
+                              variant="contained"
+                              color="secondary"
+                              style={{ backgroundColor: "royalblue" }}
+                              onClick={() => setShowImageDialog(false)}
+                            >
+                              Close
+                            </Button>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </Box>
+          </Grid>
           <FormControl
             variant="standard"
             style={{ marginRight: 25, marginBottom: 10 }}
