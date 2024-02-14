@@ -60,6 +60,7 @@ const OrgsCarousel = () => {
           spaceBetween={20}
           style={{ padding: "20px 20px" }}
         >
+          {launchedOrgs.length == 0 && <Typography>Currently there is no data to display!!</Typography>}
           {launchedOrgs.map((org, i) => {
             return org == 0 ? (
               <SwiperSlide>
