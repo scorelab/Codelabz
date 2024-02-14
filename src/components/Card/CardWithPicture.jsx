@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
 export default function CardWithPicture({ tutorial }) {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState("left");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -83,7 +83,8 @@ export default function CardWithPicture({ tutorial }) {
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    if(count>0)
+      setCount(count - 1);
   };
 
   const handleAlignment = (event, newAlignment) => {
