@@ -101,6 +101,7 @@ const CodelabzCarousel = ({ sortBy }) => {
           spaceBetween={20}
           style={{ padding: "20px 20px" }}
         >
+          {tutorials.length == 0 && <Typography>Currently there is no data to display!!</Typography>}
           {tutorials.map((tutorial, i) => {
             return tutorial == 0 ? (
               <SwiperSlide>
