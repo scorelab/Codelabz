@@ -24,6 +24,21 @@ export default function ProfileCardOne({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: document.title,
+        text: `Check out ${name}'s profile on our platform!`,
+        url: window.location.href
+      })
+      .then(() => console.log("Share successful"))
+      .catch((error) => console.error("Share failed", error));
+    } else {
+      alert("Web Share API is not supported in your browser.");
+    }
+  };
+
   return (
     <>
       <div
@@ -87,12 +102,9 @@ export default function ProfileCardOne({
                   <button
                     className={classes.profileSubscribeButton}
                     data-testId="user_profile_card_one_buttonGroup_followButton"
+                    onClick={handleShare}
                   >
-                    Follow
-                  </button>
-                  <button className={classes.profileShareButton}>Share</button>
-                  <button className={classes.profileReportButton}>
-                    Report
+                    Share
                   </button>
                   <button
                     className={classes.profileIconButton}
