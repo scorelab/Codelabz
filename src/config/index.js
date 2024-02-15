@@ -86,4 +86,6 @@ export const onMessageListener = () =>
 
 export const messaging = firebase_messaging;
 
+export const auth = firebase.auth();
+
 export default firebase;
