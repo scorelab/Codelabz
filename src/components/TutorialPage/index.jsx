@@ -59,6 +59,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
     published_on: tutorial?.createdAt,
     tag: tutorial?.tut_tags
   };
+  console.log("postDetails",postDetails)
 
   const steps = useSelector(
     ({

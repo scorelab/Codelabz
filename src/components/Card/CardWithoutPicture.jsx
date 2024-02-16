@@ -108,7 +108,7 @@ export default function CardWithoutPicture({ tutorial }) {
             {user?.photoURL && user?.photoURL.length > 0 ? (
               <img src={user?.photoURL} />
             ) : (
-              user?.displayName[0]
+             "e" // user?.displayName[0]
             )}
           </Avatar>
         }
