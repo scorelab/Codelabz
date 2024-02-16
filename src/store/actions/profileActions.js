@@ -160,11 +160,12 @@ export const uploadProfileImage =
   export const getUserProfileData =
   handle => async (firebase, firestore, dispatch) => {
     try {
+      let doc;
       dispatch({ type: actions.GET_USER_DATA_START });
       const isUserExists = await checkUserHandleExists(handle)(firebase);
       if (isUserExists) {
         const docRef = firestore.collection("cl_user").doc(handle);
-        const doc = (await docRef.get()).data();
+        doc = (await docRef.get()).data();
         if (doc) {
           const currentUserId = firebase.auth().currentUser.uid;
           const followingStatus = await isUserFollower(
@@ -176,9 +177,12 @@ export const uploadProfileImage =
             type: actions.GET_USER_DATA_SUCCESS,
             payload: { ...doc, isFollowing: followingStatus }
           });
+          console.log("Doc from profileActions",doc)
         }
+      return doc;
       } else {
         dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: false });
+        return null;
       }
     } catch (e) {
       dispatch({ type: actions.GET_USER_DATA_FAIL, payload: e.message });

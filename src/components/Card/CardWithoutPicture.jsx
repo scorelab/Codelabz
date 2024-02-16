@@ -88,13 +88,14 @@ export default function CardWithoutPicture({ tutorial }) {
     getUserProfileData(tutorial?.created_by)(firebase, firestore, dispatch);
   }, [tutorial]);
 
-  const user = useSelector(
-    ({
-      profile: {
-        user: { data }
-      }
-    }) => data
-  );
+  // const user = useSelector(
+  //   ({
+  //     profile: {
+  //       user: { data }
+  //     }
+  //   }) => data
+  // );
+  const user=null;
 
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();
@@ -108,7 +109,7 @@ export default function CardWithoutPicture({ tutorial }) {
             {user?.photoURL && user?.photoURL.length > 0 ? (
               <img src={user?.photoURL} />
             ) : (
-             "e" // user?.displayName[0]
+              user?.displayName[0]
             )}
           </Avatar>
         }

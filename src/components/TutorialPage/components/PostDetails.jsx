@@ -101,7 +101,7 @@ const PostDetails = ({ details }) => {
             <Box sx={{ width: "100%", marginTop: "10px" }}>
               <Grid container justifyContent="space-between" alignItems="end">
                 <User
-                  id={details?.user}
+                  id={details?.uid}
                   timestamp={details?.published_on}
                   showFollowButton={true}
                 />

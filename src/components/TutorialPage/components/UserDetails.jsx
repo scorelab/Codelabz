@@ -24,21 +24,25 @@ const User = ({ id, timestamp, showFollowButton, size }) => {
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
+  const [user, setUser] = useState(null);
   const [isFollowed, setIsFollowed] = useState(true);
   useEffect(() => {
-    getUserProfileData(id)(firebase, firestore, dispatch);
-    return () => {};
-  }, [id]);
+    const fetchData = async () => {
+      const data = await getUserProfileData(id)(firebase, firestore, dispatch);
+      setUser(data);
+    };
+    fetchData();
+  }, [id, firebase, firestore, dispatch]);
 
   const profileData = useSelector(({ firebase: { profile } }) => profile);
 
-  const user = useSelector(
-    ({
-      profile: {
-        user: { data }
-      }
-    }) => data
-  );
+  // const user = useSelector(
+  //   ({
+  //     profile: {
+  //       user: { data }
+  //     }
+  //   }) => data
+  // );
 
   useEffect(() => {
     const checkIsFollowed = async () => {
