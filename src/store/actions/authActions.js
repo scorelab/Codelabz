@@ -178,10 +178,12 @@ export const resendVerifyEmail = email => async dispatch => {
  */
 export const checkUserHandleExists = userHandle => async firebase => {
   try {
-    const handle = await firebase
-      .ref(`/cl_user_handle/${userHandle}`)
-      .once("value");
-    return handle.exists();
+    const userSnapshot = await firebase
+      .firestore()
+      .collection("cl_user")
+      .doc(userHandle)
+      .get();
+      return userSnapshot.exists;
   } catch (e) {
     throw e.message;
   }

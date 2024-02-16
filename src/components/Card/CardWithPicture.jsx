@@ -94,13 +94,14 @@ export default function CardWithPicture({ tutorial }) {
     getUserProfileData(tutorial?.created_by)(firebase, firestore, dispatch);
   }, [tutorial]);
 
-  const user = useSelector(
-    ({
-      profile: {
-        user: { data }
-      }
-    }) => data
-  );
+  // const user = useSelector(
+  //   ({
+  //     profile: {
+  //       user: { data }
+  //     }
+  //   }) => data
+  // );
+  const user=null;
 
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();

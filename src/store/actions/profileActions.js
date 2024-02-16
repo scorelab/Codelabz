@@ -157,29 +157,32 @@ export const uploadProfileImage =
     }
   };
 
-export const getUserProfileData =
+  export const getUserProfileData =
   handle => async (firebase, firestore, dispatch) => {
     try {
+      let doc;
       dispatch({ type: actions.GET_USER_DATA_START });
-      const isUserExists = await checkUserHandleExists(handle)(firestore);
+      const isUserExists = await checkUserHandleExists(handle)(firebase);
       if (isUserExists) {
-        const docs = await firestore
-          .collection("cl_user")
-          .where("handle", "==", handle)
-          .get();
-        const doc = docs.docs[0].data();
-        const currentUserId = firebase.auth().currentUser.uid;
-        const followingStatus = await isUserFollower(
-          currentUserId,
-          doc.uid,
-          firestore
-        );
-        dispatch({
-          type: actions.GET_USER_DATA_SUCCESS,
-          payload: { ...doc, isFollowing: followingStatus }
-        });
+        const docRef = firestore.collection("cl_user").doc(handle);
+        doc = (await docRef.get()).data();
+        if (doc) {
+          const currentUserId = firebase.auth().currentUser.uid;
+          const followingStatus = await isUserFollower(
+            currentUserId,
+            doc.uid,
+            firestore
+          );
+          dispatch({
+            type: actions.GET_USER_DATA_SUCCESS,
+            payload: { ...doc, isFollowing: followingStatus }
+          });
+          console.log("Doc from profileActions",doc)
+        }
+      return doc;
       } else {
         dispatch({ type: actions.GET_USER_DATA_SUCCESS, payload: false });
+        return null;
       }
     } catch (e) {
       dispatch({ type: actions.GET_USER_DATA_FAIL, payload: e.message });
