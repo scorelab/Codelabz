@@ -124,6 +124,8 @@ export const createTutorial =
       dispatch({ type: actions.CREATE_TUTORIAL_START });
       const { title, summary, owner, created_by, is_org } = tutorialData;
 
+      const currentUserId = firebase.auth().currentUser.uid;
+
       const setData = async () => {
         const document = firestore.collection("tutorials").doc();
 
@@ -131,6 +133,7 @@ export const createTutorial =
         const step_id = `${documentID}_${new Date().getTime()}`;
 
         await document.set({
+          user_uid:currentUserId,
           created_by,
           editors: [created_by],
           isPublished: false,

@@ -42,24 +42,24 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PostDetails = ({ details }) => {
-  const dispatch = useDispatch();
-  const firebase = useFirebase();
-  const firestore = useFirestore();
+  // const dispatch = useDispatch();
+  // const firebase = useFirebase();
+  // const firestore = useFirestore();
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(details.upVote - details.downVote || 0);
   const { id } = useParams();
 
-  useEffect(() => {
-    getUserProfileData(details.user)(firebase, firestore, dispatch);
-  }, [details]);
+  // useEffect(() => {
+  //   getUserProfileData(details.user)(firebase, firestore, dispatch);
+  // }, [details]);
 
-  const user = useSelector(
-    ({
-      profile: {
-        user: { data }
-      }
-    }) => data
-  );
+  // const user = useSelector(
+  //   ({
+  //     profile: {
+  //       user: { data }
+  //     }
+  //   }) => data
+  // );
 
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();
@@ -101,7 +101,7 @@ const PostDetails = ({ details }) => {
             <Box sx={{ width: "100%", marginTop: "10px" }}>
               <Grid container justifyContent="space-between" alignItems="end">
                 <User
-                  id={details?.user}
+                  id={details?.id}
                   timestamp={details?.published_on}
                   showFollowButton={true}
                 />
