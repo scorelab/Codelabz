@@ -94,6 +94,7 @@ export const getTutorialFeedData =
         const feed = tutorials.docs.map(doc => {
           const tutorial = doc.data();
           const tutorialData = {
+            user_uid:tutorial?.user_uid,
             tutorial_id: tutorial?.tutorial_id,
             title: tutorial?.title,
             summary: tutorial?.summary,
