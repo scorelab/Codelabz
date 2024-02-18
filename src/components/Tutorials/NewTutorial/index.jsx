@@ -19,6 +19,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import MovieIcon from "@mui/icons-material/Movie";
 import Select from "react-select";
 import { common } from "@mui/material/colors";
+import Chip from "@mui/material/Chip";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles(theme => ({
   purple: {
     color: deepPurple[700],
     backgroundColor: deepPurple[500]
+  },
+  chip: {
+    marginRight: "5px"
   }
 }));
 
@@ -46,7 +50,8 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const [formValue, setformValue] = useState({
     title: "",
     summary: "",
-    owner: ""
+    owner: "",
+    tags: []
   });
 
   const loadingProp = useSelector(
@@ -145,6 +150,23 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     }));
   };
 
+  const tagOptions = ["HTML", "Css", "JavaScript", "React", "Python", "Java"];
+  
+  const handleTagClick = tag => {
+    const isSelected = formValue.tags.includes(tag);
+    if (isSelected) {
+      setformValue(prev => ({
+        ...prev,
+        tags: prev.tags.filter(t => t !== tag)
+      }));
+    } else {
+      setformValue(prev => ({
+        ...prev,
+        tags: [...prev.tags, tag]
+      }));
+    }
+  };
+
   const classes = useStyles();
   return (
     <Modal
@@ -225,6 +247,18 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             onChange={e => handleChange(e)}
             style={{ marginBottom: "2rem" }}
           />
+          <div style={{ marginBottom: "1.25rem" }}>
+            {tagOptions.map(tag => (
+              <Chip
+                key={tag}
+                label={tag}
+                clickable
+                onClick={() => handleTagClick(tag)}
+                color={formValue.tags.includes(tag) ? "primary" : undefined}
+                className={classes.chip}
+              />
+            ))}
+          </div>
 
           <IconButton>
             <ImageIcon />

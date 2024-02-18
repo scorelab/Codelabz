@@ -98,6 +98,7 @@ export const getTutorialFeedData =
             title: tutorial?.title,
             summary: tutorial?.summary,
             owner: tutorial?.owner,
+            tags:tutorial?.tags,
             created_by: tutorial?.created_by,
             createdAt: tutorial?.createdAt,
             featured_image: tutorial?.featured_image
