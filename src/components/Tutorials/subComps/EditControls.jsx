@@ -22,6 +22,7 @@ import { useDispatch } from "react-redux";
 import RemoveStepModal from "./RemoveStepModal";
 import ColorPickerModal from "./ColorPickerModal";
 import { Box, Stack } from "@mui/system";
+import TagSelectorModal from "./TagSelectorModal";
 
 const EditControls = ({
   isPublished,
@@ -43,6 +44,7 @@ const EditControls = ({
   const dispatch = useDispatch();
   const [viewRemoveStepModal, setViewRemoveStepModal] = useState(false);
   const [viewColorPickerModal, setViewColorPickerModal] = useState(false);
+  const [viewTagSelectorModal, setViewTagSelectorModal] = useState(false);
   const [publishLoad, setPublishLoad] = useState(false);
   const DropdownMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -160,6 +162,18 @@ const EditControls = ({
             step_length={step_length}
           />
         </Button>
+        <Button
+          color="secondary"
+          variant="contained"
+          sx={{
+            boxShadow: "none",
+            borderRadius: 1,
+            marginX:"10px"
+          }}
+          onClick={() => setViewTagSelectorModal(true)}
+        >
+          Select Tags
+        </Button>
         <Box
           sx={{
             flexGrow: 1
@@ -208,6 +222,12 @@ const EditControls = ({
       <ColorPickerModal
         visible={viewColorPickerModal}
         visibleCallback={e => setViewColorPickerModal(e)}
+        tutorial_id={tutorial_id}
+        owner={owner}
+      />
+      <TagSelectorModal
+        visible={viewTagSelectorModal}
+        visibleCallback={e => setViewTagSelectorModal(e)}
         tutorial_id={tutorial_id}
         owner={owner}
       />
