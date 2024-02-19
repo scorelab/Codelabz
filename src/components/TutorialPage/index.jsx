@@ -17,11 +17,13 @@ import { getUserProfileData } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useParams, useHistory } from "react-router-dom";
+import { getCurrentUserData } from "../../store/actions/profileActions";
 
 function TutorialPage({ background = "white", textColor = "black" }) {
   const classes = useStyles();
   const { id } = useParams();
   const history = useHistory();
+  const [userId, setUserId]=useState(null);
   const windowSize = useWindowSize();
   const [openMenu, setOpen] = useState(false);
   const toggleSlider = () => {
@@ -35,6 +37,13 @@ function TutorialPage({ background = "white", textColor = "black" }) {
     getTutorialSteps(id)(firebase, firestore, dispatch);
     return () => {};
   }, []);
+  useEffect(()=>{
+    const fetchUserData = async()=>{
+      const data = await getCurrentUserData()(firebase, firestore,dispatch);
+      setUserId(data.uid);
+    }
+    fetchUserData()
+  },[firebase])
   const tutorial = useSelector(
     ({
       tutorialPage: {
@@ -112,7 +121,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
         >
           <PostDetails details={postDetails} />
           <Tutorial steps={steps} />
-          <CommentBox commentsArray={tutorial?.comments} tutorialId={id} />
+          <CommentBox commentsArray={tutorial?.comments} tutorialId={id} userId={userId} />
         </Grid>
 
         <Grid

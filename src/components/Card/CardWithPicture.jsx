@@ -76,6 +76,7 @@ export default function CardWithPicture({ tutorial }) {
   const [alignment, setAlignment] = React.useState("left");
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
+  const [user,setUser]=useState(null)
   const firebase = useFirebase();
   const firestore = useFirestore();
   const handleIncrement = () => {
@@ -91,16 +92,25 @@ export default function CardWithPicture({ tutorial }) {
   };
 
   useEffect(() => {
-    getUserProfileData(tutorial?.created_by)(firebase, firestore, dispatch);
+    const fetchData = async () => {
+      const data = await getUserProfileData(tutorial?.user_uid)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      console.log("Data From CardWithPic ",data)
+      setUser(data);
+    };
+    fetchData();
   }, [tutorial]);
 
-  const user = useSelector(
-    ({
-      profile: {
-        user: { data }
-      }
-    }) => data
-  );
+  // const user = useSelector(
+  //   ({
+  //     profile: {
+  //       user: { data }
+  //     }
+  //   }) => data
+  // );
 
   const getTime = timestamp => {
     return timestamp.toDate().toDateString();
