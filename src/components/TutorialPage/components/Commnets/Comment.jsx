@@ -73,7 +73,6 @@ const Comment = ({ id }) => {
   );
 
   const [data] = commentsArray.filter(comment => comment.comment_id == id);
-
   const repliesArray = useSelector(
     ({
       tutorialPage: {
@@ -102,7 +101,7 @@ const Comment = ({ id }) => {
       replyTo: data.comment_id,
       tutorial_id: data.tutorial_id,
       createdAt: firestore.FieldValue.serverTimestamp(),
-      userId: "codelabzuser"
+      userId: data?.userId
     };
     addComment(commentData)(firebase, firestore, dispatch);
   };

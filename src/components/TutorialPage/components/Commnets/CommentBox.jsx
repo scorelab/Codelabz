@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const CommentBox = ({ commentsArray, tutorialId }) => {
+const CommentBox = ({ commentsArray, tutorialId,userId }) => {
   const classes = useStyles();
   const firestore = useFirestore();
   const firebase = useFirebase();
@@ -41,7 +41,7 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
       replyTo: tutorialId,
       tutorial_id: tutorialId,
       createdAt: firestore.FieldValue.serverTimestamp(),
-      userId: "codelabzuser"
+      userId: userId
     };
     addComment(commentData)(firebase, firestore, dispatch);
   };
@@ -70,7 +70,7 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
         {comments?.map((id, index) => {
           return (
             <Grid item xs={12}>
-              <Comment id={id} key={index} />
+              <Comment id={id} key={index}/>
             </Grid>
           );
         })}
