@@ -92,7 +92,7 @@ You should fill in these values in their relevant fields in the `.env` file.
 1. Refer this site [https://firebase.google.com/docs/emulator-suite/install_and_configure]
 2. Make sure you have the correct jdk version installed
 3. Make sure you are in the parent directory
-4. Now lets connect your local firebase to cloub by running command (`firebase login`)
+4. Now lets connect your local firebase to cloud by running command (`firebase login`)
 5. Then authenticate your firebase using browser and set the selected web app for codelabz
 6. Then run the command (`firebase init`)
 7. Select all the emulator necessitites by pressing a or selecting them manually and pressing space
