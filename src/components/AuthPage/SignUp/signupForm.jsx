@@ -77,7 +77,9 @@ const SignupForm = () => {
   const onChangeConfirmPassword = event => {
     setConfirmPassword(event.target.value);
   };
-
+const handlepaste=(event)=>{
+event.preventDefault();
+}
   const validateEmail = () => {
     if (validator.isEmpty(email)) {
       setEmailValidateError(true);
@@ -279,6 +281,7 @@ const SignupForm = () => {
           required
           data-testId="signUpConfirmPassword"
           value={confirmPassword}
+          onPaste={handlepaste}
           onFocus={onFocusConfirmPassword}
           onChange={onChangeConfirmPassword}
           type={showConfirmPassword ? "text" : "password"}
