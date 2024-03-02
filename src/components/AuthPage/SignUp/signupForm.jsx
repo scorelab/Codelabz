@@ -158,6 +158,8 @@ const SignupForm = () => {
     setConfirmPasswordValidateErrorMessage("");
   };
 
+  const handlePasteConfirmPassword = event => event.preventDefault();
+
   return (
     <>
       {error && (
@@ -281,6 +283,7 @@ const SignupForm = () => {
           value={confirmPassword}
           onFocus={onFocusConfirmPassword}
           onChange={onChangeConfirmPassword}
+          onPaste={handlePasteConfirmPassword}
           type={showConfirmPassword ? "text" : "password"}
           style={{ marginBottom: "15px" }}
           InputProps={{
