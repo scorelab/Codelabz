@@ -21,9 +21,8 @@ const SocialButton = ({ Icon, isLinked, ...props }) => {
       className={`${classes.link} ${isLinked && classes.isLinked}`}
     >
       {Icon}
-      <Typography className={classes.text}>
-        {isLinked ? <CheckCircleIcon className={classes.isLinkedImg} /> : null}
-      </Typography>
+
+      {isLinked ? <CheckCircleIcon className={classes.isLinkedImg} /> : null}
     </Box>
   );
 };
@@ -57,7 +56,7 @@ const ConnectSocials = () => {
   return (
     <Card className={classes.root} data-testId="socialMediaPage">
       <CardContent className={classes.content}>
-        <Box className={classes.row} sx={{ marginBottom: 15 }}>
+        <Box className={classes.column}>
           <SocialButton
             isLinked={isProviderLinked("facebook")}
             onClick={() =>
@@ -85,8 +84,6 @@ const ConnectSocials = () => {
             }
             data-testId="githubButton"
           />
-        </Box>
-        <Box className={classes.row}>
           <SocialButton
             isLinked={isProviderLinked("google")}
             onClick={() =>
