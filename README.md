@@ -104,4 +104,12 @@ Follow this link to fix this issue.
 3. If you want to work on a new issue, first try to discuss it in the gitter channel with the mentors and then raise the issue.
 <hr/>
 
+### 8. Error encountered while setting up firebase. (Error: Cloud resource location is not set for this project but the operation you are attempting to perform in Cloud Storage requires it. Please see this documentation for more details: https://firebase.google.com/docs/projects/locations)
+
+### Answer :-
+
+1. When setting up the firebase project, sometimes the location of the Cloud resource location is not setup.
+2. Go to project settings **Project Overview -> Gear-icon -> Project settings -> Default GCP resource location -> Edit -> Done**.
+3. It will set the Cloud resource location.
+
 ### ❓ Got more questions, ask it in our [gitter channel](https://matrix.to/#/#scorelab_CodeLabz:gitter.im) and we will love ❤ to answer them.
