@@ -51,6 +51,9 @@ const useStyles = makeStyles(theme => ({
   },
   drawer: {
     width: 257
+  },
+  SearchBar:{
+    marginRight:"12vw",
   }
 }));
 
@@ -104,7 +107,7 @@ function MainNavbar() {
               </IconButton>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid className={classes.SearchBar} item xs={12} md={5} >
             <Paper component={"form"} className={classes.root} elevation={0}>
               <IconButton
                 type="submit"
