@@ -3,12 +3,13 @@
 1. [CodeLabz](#codelabz)
 2. [Deployment](#deployment)
 3. [Community](#community)
-4. [Contribute](#contribute)
-5. [FAQs (Frequently Asked Questions)](#faqs)
+4. [Getting Started for First-Time Contributors](#getting-started-for-first-time-contributors)
+5. [Contribute](#contribute)
+6. [FAQs (Frequently Asked Questions)](#faqs)
 
 # CodeLabz
 
-**CodeLabz** is a platform where the users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
+**CodeLabz** is a platform where users can engage with online tutorials and the organizations can create tutorials for the users. The platform will be developed using ReactJS frontend library and the backend will be developed using the Google Cloud Firestore and Google Firebase Real-Time database.
 
 # Deployment
 
@@ -19,6 +20,15 @@ You can see the app live at [https://dev.codelabz.io/](https://dev.codelabz.io/)
 Join and communicate with other members on our community. We communicate on gitter.
 
 [![Gitter](https://badges.gitter.im/scorelab/CodeLabz.svg)](https://gitter.im/scorelab/CodeLabz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+# Getting Started for First-Time Contributors
+
+This section is intended for contributors who are new to open source.
+
+1. Start by reading the entire README to understand the project and its purpose.
+2. Follow the setup instructions carefully to run the project locally.
+3. If you face any issues, check existing issues to see if they have already been discussed.
+4. If something is unclear, feel free to open a new issue and ask for guidance.
 
 # Contribute
 
@@ -104,4 +114,4 @@ Follow this link to fix this issue.
 3. If you want to work on a new issue, first try to discuss it in the gitter channel with the mentors and then raise the issue.
 <hr/>
 
-### ❓ Got more questions, ask it in our [gitter channel](https://matrix.to/#/#scorelab_CodeLabz:gitter.im) and we will love ❤ to answer them.
+### ❓ Got more questions, ask it in our [gitter channel](https://matrix.to/#/#scorelab_CodeLabz:gitter.im) and we will be happy to help.
